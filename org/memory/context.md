@@ -9,24 +9,23 @@ intent/recipe-photos/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: spec
+- turn: 2
+- phase: plan
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/recipe-photos/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/recipe-photos/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/recipe-photos/plan.md)
 
 ## Open messages
 
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
-- orchestrator-0008 orchestrator -> architect handoff: Design reliable source recipe photos
 
 ## Recent decisions
 
@@ -43,10 +42,11 @@ intent/recipe-photos/intent.md
 ## Artifacts
 
 - intent/recipe-photos/intent.md (13e8bcf4e172810ff9acf6354f8fbccdc82d7a5c0ec198da0e891281c34c7765)
+- intent/recipe-photos/spec.md (7bd902ca65c737a884f1c4fee32a9c2c3b9c3266d2f796c5dd1d24d4bc0db554)
 
 ## Next action
 
-product-manager:review_intent
+architect:draft_spec
 
 ## Last digest source
 
