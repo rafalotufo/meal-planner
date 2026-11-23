@@ -1,2 +1,3 @@
 
 {"actor": "product-manager", "id": "mem-0001", "kind": "question", "source": "org/reviews/intent-intake-001.md", "tags": [], "text": "First feature scope required before intent can enter Design.", "ts": "2026-11-23T13:59:00Z"}
+{"actor": "product-manager", "id": "mem-0002", "kind": "decision", "source": "org/reviews/intent-home-page-001.md", "tags": [], "text": "Accepted home-page scope: latest stable Next.js, Tailwind v4, Drizzle tooling, title-only page with no DB dependency.", "ts": "2026-11-23T14:04:40Z"}

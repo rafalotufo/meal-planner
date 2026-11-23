@@ -4,7 +4,7 @@
 version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
-  product-manager: { status: idle, assignment: null, last_report: Intent returned to source; awaiting first feature scope from CEO. }
+  product-manager: { status: idle, assignment: null, last_report: Accepted title-only home-page intent; database decisions deferred. }
   architect: { status: idle, assignment: null, last_report: null }
   senior-developer: { status: idle, assignment: null, last_report: null }
   security-researcher: { status: idle, assignment: null, last_report: null }
