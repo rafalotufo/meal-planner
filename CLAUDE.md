@@ -13,26 +13,38 @@ report actual evidence. Run `pnpm run test:auth` after build for real HTTP auth
 regressions using Node's built-in test runner and test-only Google network stubs.
 Never introduce a production authentication bypass. Google configuration and
 the callback URI are documented in README; credentials remain server-only.
-New pages/endpoints/actions must authenticate before effects. The server-code
-`lib/allowed-google-emails.json` list restricts verified Gmail membership at
-issuance and every shared session read. Empty denies all. Edit/rebuild/restart
-to activate changes; never expose the list in client code, HTML, errors or logs. Sessions expire
-after one hour without refresh; logout only clears the browser's current session.
+Run `pnpm run test:family` after build. New pages/endpoints/actions authenticate
+before effects and use current `requireFamilyContext` for all family-owned reads
+and writes. Never trust a caller's family ID. Membership uses verified Google
+subject, with exactly one non-null family per application member. Only users
+without invitations auto-provision through guarded POST; existing members cannot
+accept another invitation. Pending invitees get onboarding only; acceptance
+atomically creates membership and an independent durable grant.
 
-Next.js App Router and Tailwind CSS v4 render only the `Meal Planner` heading
-for authenticated users, with minimal public Google sign-in and protected logout.
-Better Auth's Bun SQLite declaration is loaded narrowly through dev-only
-`bun-types/sqlite`; do not load conflicting Bun globals or relax TypeScript.
-Drizzle ORM/Kit are installed; database configuration and migrations are deferred.
-Do not suppress checks or remove failing tests. Preserve independent reviews,
-org audit records, and human merge/release approvals. Record repeated mistakes
-and their corrections here when evidence warrants it.
+The server-only `lib/allowed-google-emails.json` list controls allowlist-only
+users at issuance and every shared read. Empty denies those users, but valid
+pending invitations and accepted grants retain their intended admission.
+Malformed configuration fails closed. Edit/rebuild/restart for list changes;
+never expose the list in client code, HTML, errors or logs. Membership alone
+must not create an eligibility bypass. One-hour sessions do not refresh; logout
+clears cookies even after admission loss and cannot revoke copied cookies.
+
+Keep the home heading only; family controls live at `/family`. Private SQLite
+storage requires one durable local host and absolute `DATABASE_PATH` outside
+public/.next/legacy static and aliases. Run `pnpm run db:migrate` explicitly;
+ordinary reads/build/imports never create or migrate storage. Reviewed SQL is the
+schema source of truth, with public Drizzle migration-file loading and typed
+native parameterized statements/immediate transactions. The reviewed compatibility
+amendment forbids importing the broken full ORM declaration graph or suppressing
+strict checks. Retain the narrow Better Auth dev-only `bun-types/sqlite` types.
+Never remove tests, add a production fixture bypass, or relax compiler checks.
+Preserve org audit records, independent reviews and human merge/release gates.
 
 ## Feature artifacts
 
 Use `intent/<feature-slug>/` for every intent and all of its specifications,
 including `intent.md`, `spec.md`, `plan.md`, and any feature-specific design
-notes. Use lowercase kebab-case slugs. Current feature: `intent/authenticated-access/`.
+notes. Use lowercase kebab-case slugs. Current feature: `intent/family-membership/`.
 Before dispatch, read the active work item from `org/loop/state.yaml` and its
 sibling spec/plan; keep graph artifact paths aligned. See `intent/README.md`.
 

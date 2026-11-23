@@ -23,3 +23,24 @@ test('two real families cannot enumerate or revoke each other or switch through 
     assert.equal((await first.request(server.origin, '/family')).status, 200);
   } finally { await server.stop(); }
 });
+
+test('a matching recipient already in a one-person family cannot accept a new pending invitation', async () => {
+  const { randomBytes, createHash } = await import('node:crypto'); const { openDatabase } = await import('../../lib/db/connection.ts'); const { post } = await import('./http.ts');
+  const server = await startServer({}, true);
+  try {
+    const owner = new CookieJar(); await signInWithGoogle(server.origin, owner); await provision(server.origin, owner);
+    const db = openDatabase(server.databasePath);
+    try {
+      const row = db.prepare<[], { id: string; family_id: string; verified_email: string }>('SELECT id,family_id,verified_email FROM app_users').get()!;
+      const token = randomBytes(32).toString('base64url');
+      // Adversarial preexisting state: acceptance must enforce membership even
+      // when the token and verified recipient both match.
+      db.prepare("INSERT INTO family_invitations (id,family_id,created_by_user_id,recipient_email,token_hash,created_at,expires_at,status) VALUES (?,?,?,?,?,?,?,'pending')").run('existing-recipient', row.family_id, row.id, row.verified_email, createHash('sha256').update(token).digest('hex'), Date.now(), Date.now() + 60000);
+      owner.values.set('meal.invitation', token);
+      assert.equal((await post(server.origin, owner, '/api/invitations/accept')).status, 409);
+      assert.equal(db.prepare<[], { status: string }>("SELECT status FROM family_invitations WHERE id='existing-recipient'").get()?.status, 'pending');
+      assert.equal(db.prepare<[], { n: number }>('SELECT count(*) AS n FROM app_users').get()?.n, 1);
+      assert.equal(db.prepare<[], { n: number }>('SELECT count(*) AS n FROM families').get()?.n, 1);
+    } finally { db.close(); }
+  } finally { await server.stop(); }
+});

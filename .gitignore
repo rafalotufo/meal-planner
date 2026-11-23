@@ -14,3 +14,11 @@ out/
 
 # The example contains placeholders only.
 !.env.example
+
+# Private SQLite data and consistent backups.
+.data/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.backup

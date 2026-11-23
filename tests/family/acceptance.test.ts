@@ -122,3 +122,20 @@ test('two application processes accept one invitation exactly once', async () =>
     assert.equal(fixture.db.prepare<[string], { status: string }>('SELECT status FROM family_invitations WHERE id=?').get(fixture.invitation.id)?.status, 'accepted');
   } finally { await second.stop(); await fixture.close(); }
 });
+
+test('a consistent backup restores invitation grants across complete server restart', async () => {
+  const { testDatabase } = await import('./database.ts'); const { post } = await import('./http.ts'); const { copyFile } = await import('node:fs/promises');
+  const fixture = await testDatabase(); let server = await startServer({ DATABASE_PATH: fixture.path }, true);
+  try {
+    const owner = new CookieJar(); await signInWithGoogle(server.origin, owner); await provision(server.origin, owner);
+    const response = await post(server.origin, owner, '/api/family/invitations', { recipientEmail: 'invitee@example.test' }); assert.equal(response.status, 201);
+    const invitation = await response.json(); const invitee = new CookieJar(); invitee.values.set('meal.invitation', new URL(invitation.url).hash.slice(1));
+    await signInWithGoogle(server.origin, invitee, 'invitee'); assert.equal((await post(server.origin, invitee, '/api/invitations/accept')).status, 200);
+    const db = fixture.open(); try { await db.backup(`${fixture.path}.backup`); } finally { db.close(); }
+    await server.stop(); await copyFile(`${fixture.path}.backup`, `${fixture.path}.restored.sqlite`);
+    server = await startServer({ DATABASE_PATH: `${fixture.path}.restored.sqlite` }, true);
+    const returning = new CookieJar(); await signInWithGoogle(server.origin, returning, 'invitee');
+    assert.equal((await returning.request(server.origin, '/api/session')).status, 200);
+    const summary = await (await returning.request(server.origin, '/api/family')).json(); assert.equal(summary.members.length, 2);
+  } finally { await server.stop(); await fixture.cleanup(); }
+});

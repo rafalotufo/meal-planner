@@ -195,14 +195,14 @@ Verify: built-server two-family HTTP isolation and foreign-ID/forged-field tests
 ### 13. Verify the actual interfaces and operating instructions
 
 Dependency: 12. Files: tests/family/browser.ts, tests/auth/browser.ts, README.md, .env.example, .gitignore (medium).
-- [ ] Exercise actual copied-link capture, invited Google callback/acceptance, automatic setup, family form/revoke and logout in isolated real Chrome at 320/1440. Reuse test-only provider transport; verify keyboard/focus, no overflow, heading-only home and no application console/network errors; visually inspect saved screenshots.
-- [ ] Document durable-host `DATABASE_PATH`, explicit migrations, `/family`, new eligibility policy and legacy re-login, supported consistent backup/restore with 30-day retention, and the future family-owned DAL contract. Ignore DB/WAL/SHM/backup files; no secrets or fixture bypass.
+- [x] Exercise actual copied-link capture, invited Google callback/acceptance, automatic setup, family form/revoke and logout in isolated real Chrome at 320/1440. Reuse test-only provider transport; verify keyboard/focus, no overflow, heading-only home and no application console/network errors; visually inspect saved screenshots.
+- [x] Document durable-host `DATABASE_PATH`, explicit migrations, `/family`, new eligibility policy and legacy re-login, supported consistent backup/restore with 30-day retention, and the future family-owned DAL contract. Ignore DB/WAL/SHM/backup files; no secrets or fixture bypass.
 Verify: `node --import tsx tests/family/browser.ts` and the adapted auth browser helper; save evidence under `org/reviews/`. Perform backup/restore only on a test-owned temporary database; live Google proof remains explicitly external unless actually performed.
 
 ### 14. Close verification and independent review
 
 Dependency: 13. Files: AGENTS.md, CLAUDE.md, org/loop/config.yaml (small); evidence/review records are process artifacts.
-- [ ] Update current repository guidance and append family regression to loop acceptance after build/auth; keep TypeScript/strict/no-bypass rules, family context before effects, exact public exceptions and Python regression coverage. Do not rewrite historical auth records.
+- [x] Update current repository guidance and append family regression to loop acceptance after build/auth; keep TypeScript/strict/no-bypass rules, family context before effects, exact public exceptions and Python regression coverage. Do not rewrite historical auth records.
 - [ ] Run the full commands below, independent code/security review, fix findings and rerun affected checks. Orchestrator records normal bounded turns, current plan gate and artifact, then requests human merge/release; never self-approve, extend the loop budget or apply production migrations.
 
 ## Final verification and recovery

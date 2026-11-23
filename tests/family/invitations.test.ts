@@ -38,3 +38,13 @@ test('creation limits, JSON bounds and mutation origins cannot be overridden', a
     assert.equal((await post(fixture.server.origin, fixture.owner, '/api/family/invitations', { recipientEmail: 'twenty-first@example.test' })).status, 429);
   } finally { await fixture.close(); }
 });
+
+test('separate processes cannot create duplicate active invitations for one recipient', async () => {
+  const { invitationScenario, post } = await import('./http.ts'); const fixture = await invitationScenario(); const second = await startServer({ DATABASE_PATH: fixture.server.databasePath }, true);
+  try {
+    const otherOwner = new CookieJar(); await signInWithGoogle(second.origin, otherOwner);
+    const responses = await Promise.all([post(fixture.server.origin, fixture.owner, '/api/family/invitations', { recipientEmail: 'racing@example.test' }), post(second.origin, otherOwner, '/api/family/invitations', { recipientEmail: 'racing@example.test' })]);
+    assert.deepEqual(responses.map((r) => r.status).sort(), [201, 409]);
+    assert.equal(fixture.db.prepare<[string], { n: number }>('SELECT count(*) AS n FROM family_invitations WHERE recipient_email=?').get('racing@example.test')?.n, 1);
+  } finally { await second.stop(); await fixture.close(); }
+});

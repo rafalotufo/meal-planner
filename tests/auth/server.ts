@@ -5,7 +5,7 @@ import { testDatabase } from '../family/database.ts';
 
 type EnvironmentOverrides = Record<string, string> | ((origin: string) => Record<string, string>);
 
-export async function startServer(overrides: EnvironmentOverrides = {}, preload = false) {
+export async function startServer(overrides: EnvironmentOverrides = {}, preload = false, development = false) {
   const port = await new Promise<number>((resolve, reject) => {
     const listener = createServer();
     listener.once('error', reject);
@@ -23,11 +23,11 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
   const secret = randomBytes(48).toString('base64url');
   const config = typeof overrides === 'function' ? overrides(origin) : overrides;
   const database = config.DATABASE_PATH === undefined ? await testDatabase() : undefined;
-  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_PATH: database?.path, ...config };
+  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_PATH: database?.path, ...config };
   if (preload) env.NODE_OPTIONS = `--import=tsx --import=${new URL('./google-network.ts', import.meta.url).pathname}`;
   else delete env.NODE_OPTIONS;
   let output = '';
-  const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'start', '-H', '127.0.0.1', '-p', String(port)], { env, stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', ...(development ? ['dev', '--webpack'] : ['start']), '-H', '127.0.0.1', '-p', String(port)], { env, stdio: ['ignore', 'pipe', 'pipe'] });
   child.stdout.on('data', (data: Buffer) => { output += data; });
   child.stderr.on('data', (data: Buffer) => { output += data; });
   async function stop() {

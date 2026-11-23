@@ -18,3 +18,15 @@ test('invitation access is independent of membership and an empty allowlist', as
     assert.equal(verifiedIdentity({ id: 'ephemeral', email: identity.email, emailVerified: true }), null);
   } finally { db.close(); await fixture.cleanup(); }
 });
+
+test('a pending verified recipient is admitted to onboarding even with an empty allowlist', async () => {
+  const fixture = await testDatabase(); const db = fixture.open();
+  try {
+    db.prepare('INSERT INTO families VALUES (?,?)').run('family', Date.now());
+    db.prepare('INSERT INTO app_users VALUES (?,?,?,?,?,?)').run('owner', 'owner-subject', 'owner@gmail.com', 'family', Date.now(), null);
+    db.prepare("INSERT INTO family_invitations (id,family_id,created_by_user_id,recipient_email,token_hash,created_at,expires_at,status) VALUES (?,?,?,?,?,?,?,'pending')").run('invitation', 'family', 'owner', 'invitee@example.test', 'hash', Date.now(), Date.now() + 60000);
+    const identity = verifiedIdentity({ googleSubject: 'new-subject', email: 'invitee@example.test', emailVerified: true }); assert.ok(identity);
+    assert.equal(classifyAccess(db, identity, [])?.kind, 'invited');
+    assert.equal(db.prepare<[], { n: number }>('SELECT count(*) AS n FROM app_users').get()?.n, 1);
+  } finally { db.close(); await fixture.cleanup(); }
+});

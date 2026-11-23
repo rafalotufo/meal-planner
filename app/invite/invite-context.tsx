@@ -1,12 +1,16 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 export function InviteContext() {
+  const capturedToken = useRef<string | null>(null);
   const router = useRouter(); const [failed, setFailed] = useState(false);
   useEffect(() => {
-    const token = window.location.hash.slice(1);
-    window.history.replaceState(null, '', window.location.pathname);
+    // React development replay must reuse the initial fragment after cleanup.
+    if (capturedToken.current === null) capturedToken.current = window.location.hash.slice(1);
+    const token = capturedToken.current;
+    // Strip only the fragment without starting a framework route restoration.
+    History.prototype.replaceState.call(window.history, window.history.state, '', window.location.pathname);
     let active = true;
     fetch('/api/invitation-context', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token }) })
       .then((response) => { if (!active) return; if (response.ok) router.replace('/sign-in'); else setFailed(true); })

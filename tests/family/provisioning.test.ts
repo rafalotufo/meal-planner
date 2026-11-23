@@ -60,3 +60,31 @@ test('provisioning rejects cross-origin and presented invalid invitations and ro
     } finally { db.close(); }
   } finally { await server.stop(); }
 });
+
+test('SQLite busy timeout returns 503 without leaving a partial family', async () => {
+  const server = await startServer({}, true);
+  try {
+    const jar = new CookieJar(); await signInWithGoogle(server.origin, jar);
+    const db = openDatabase(server.databasePath);
+    try {
+      db.exec('BEGIN IMMEDIATE');
+      assert.equal((await provision(server.origin, jar)).status, 503);
+      db.exec('ROLLBACK');
+      assert.equal(db.prepare<[], { n: number }>('SELECT count(*) AS n FROM families').get()?.n, 0);
+      assert.equal((await provision(server.origin, jar)).status, 200);
+    } finally { if (db.inTransaction) db.exec('ROLLBACK'); db.close(); }
+  } finally { await server.stop(); }
+});
+
+test('invitation creation racing provisioning has exactly one serialized outcome', async () => {
+  const { readFileSync } = await import('node:fs'); const { testDatabase } = await import('./database.ts'); const { post } = await import('./http.ts');
+  const allowed: unknown = JSON.parse(readFileSync(new URL('../../lib/allowed-google-emails.json', import.meta.url), 'utf8')); assert.ok(Array.isArray(allowed) && typeof allowed[1] === 'string');
+  const fixture = await testDatabase(); const first = await startServer({ DATABASE_PATH: fixture.path }, true); const second = await startServer({ DATABASE_PATH: fixture.path }, true);
+  try {
+    const owner = new CookieJar(); await signInWithGoogle(first.origin, owner); await provision(first.origin, owner);
+    const recipient = new CookieJar(); await signInWithGoogle(second.origin, recipient, 'second-member');
+    const [invitation, provisioning] = await Promise.all([post(first.origin, owner, '/api/family/invitations', { recipientEmail: allowed[1] }), provision(second.origin, recipient)]);
+    assert.ok(invitation.status === 201 && provisioning.status === 409 || invitation.status === 409 && provisioning.status === 200);
+    const db = fixture.open(); try { const expected = provisioning.status === 200 ? 2 : 1; assert.equal(db.prepare<[], { n: number }>('SELECT count(*) AS n FROM families').get()?.n, expected); assert.equal(db.prepare<[], { n: number }>('SELECT count(*) AS n FROM app_users').get()?.n, expected); } finally { db.close(); }
+  } finally { await first.stop(); await second.stop(); await fixture.cleanup(); }
+});
