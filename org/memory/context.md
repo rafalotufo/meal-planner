@@ -40,11 +40,11 @@ intent/authenticated-access/intent.md
 
 ## Recent decisions
 
-- mem-0009 architect: Designed pnpm migration around official stable 10.33.0, compatible with Node.js 22/24; preserve direct versions, import lockfile, and explicitly review dependency scripts. (intent/pnpm-migration/spec.md)
 - mem-0010 orchestrator: PnPM migration completed six-turn loop as solved: pinned pnpm 10.33.0, preserved direct dependencies and imported integrity data, clean/repeat frozen install and app/browser checks passed, independent security/code reviews approved. Graph awaits new human CEO merge approval; prior home-page approval is not reused. Known development esbuild advisory and legacy plan-checker attribution limitation remain documented in review evidence. (org/reviews/code-pnpm-migration-001.md)
 - mem-0012 product-manager: Accepted authenticated-access intent after owner selected Google sign-in; any verified Google account proposed as eligible; no invitation system. Prior pnpm loop/graph preserved in archive/pnpm-migration-001 before selecting new work item. (org/reviews/intent-authenticated-access-001.md)
 - mem-0014 architect: Independent reviewer approved Google authentication spec using exact stable Better Auth 1.7.27 with one-hour nonrefreshing stateless encrypted sessions, default server protection, exact auth exceptions and no database. Runtime cookie and provider-flow checks required; live Google consent check requires external credentials. (org/reviews/spec-authenticated-access-001.md)
 - mem-0015 reviewer: Independent plan review approved the five-slice authenticated-access build plan: failing HTTP baseline, stable auth dependency, default server boundary, real mocked-provider OAuth/session/logout tests, and browser evidence. Human merge/release remain separate. (org/reviews/plan-authenticated-access-001.md)
+- mem-0016 reviewer: Approved narrow spec/plan amendment for Better Auth unconditional bun:sqlite type import: exact dev @types/bun1.4.5 and conditional explicit ambient discovery, retaining strict full checking and no Bun runtime or DB. (org/reviews/authenticated-access-types-amendment-001.md)
 
 ## Constraints
 
@@ -62,7 +62,7 @@ senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0015 from org/reviews/plan-authenticated-access-001.md
+- mem-0016 from org/reviews/authenticated-access-types-amendment-001.md
 
 <!-- machine:end -->
 

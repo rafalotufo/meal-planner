@@ -23,6 +23,25 @@ Use Better Auth's database-free Google flow and encrypted cookie sessions;
 do not implement OAuth, JWT verification, signing, or encryption primitives.
 No Drizzle schema, database engine, migration, or external session store.
 
+### Build compatibility amendment — independently approved
+
+Review: `org/reviews/authenticated-access-types-amendment-001.md`.
+
+Allow exact development-only `@types/bun@1.4.5` (registry dependency
+`bun-types@1.4.5`). Better Auth 1.7.27's published core declaration imports
+`Database` from `bun:sqlite` unconditionally, although this application uses
+Node and no database. With existing `skipLibCheck: false`, `pnpm run typecheck`
+reproduced TS2307 at `@better-auth/core/dist/types/init-options.d.mts:17`.
+The published Bun type definitions supply that missing module; this does not
+install a Bun runtime or authorize any SQLite database usage. Keep all strict
+checks; no local ambient shim, ignored diagnostic, patched dependency, or
+`skipLibCheck` change is permitted. If TypeScript 6 requires explicit ambient
+type inclusion, add `bun` to an explicit compiler `types` list that also
+preserves the existing Node/React ambient types, and verify the complete
+application typecheck/build rather than copying Bun's compiler configuration.
+Registry verification returned stable 1.4.5 on 2026-11-23; installation and
+successful strict typechecking remain Build evidence, not assumed success.
+
 Use `lib/auth.ts` for server-only configuration and the library instance,
 `lib/auth-client.ts` for the minimal browser client, and a small server auth
 helper for shared session checks. Mount the library through
@@ -189,6 +208,10 @@ reviews precede human merge/release. No merge, deployment, or release here.
   origin/CSRF and OAuth protections.
 - [Better Auth options](https://better-auth.com/docs/reference/options):
   trusted origins, fixed baseURL, account state, disabled paths, and expiry.
+- [Bun TypeScript definitions](https://bun.sh/docs/typescript):
+  `@types/bun` supplies Bun built-in API declarations; TypeScript 6 may require
+  explicit ambient type inclusion. Only the missing declaration dependency is
+  adopted; retain this repository's Node runtime and strict compiler settings.
 - [Next.js authentication guide](https://nextjs.org/docs/app/guides/authentication):
   library selection and checks near protected data/action execution.
 - npm registry queries `pnpm view better-auth version peerDependencies engines --json`
