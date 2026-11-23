@@ -152,7 +152,7 @@ or initial page rendering. No public Recipe/API shape or UI change.
   (>150×150 for Love and Lemons), Inspired Taste/King Arthur loaded photos where
   accessible, legible/stable cards and broken-image fallback. Save screenshots
   and separate simulated-provider evidence from real publisher/photo evidence.
-- [ ] Run all required checks, plan-sync, org consistency, diff and staged zero-
+- [x] Run all required checks, plan-sync, org consistency, diff and staged zero-
   finding secret scan. Record red/green output, source-access limitations and
   independent security/code verdicts before human merge/release handoff.
 

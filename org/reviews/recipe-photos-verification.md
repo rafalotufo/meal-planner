@@ -142,7 +142,18 @@ card with `Photo unavailable` and unchanged recipe details; evidence is
 The temporary viewport override was reset. This verifies image rendering and
 fallback, not fresh LLM discovery or a screen reader execution.
 
-Independent final code/security review, staged checks and human merge/release
-approval remain required. Source blocking, ambiguous metadata, unsafe DNS/URLs
-and browser image failure still retain the prior image or designed fallback;
-these observed improvements do not promise universal photo coverage.
+Independent final code review `code-recipe-photos-002.md` is approved and security
+review `security-recipe-photos-002.md` is clear. Both metadata edge cases have
+failing-then-passing regressions; the independent reviewers passed all 57 tests
+and additional mutation/control/association probes. After the final correction,
+the three cached publisher pages selected exactly the same image URLs. The UI,
+transport and enrichment lifecycle were unchanged by those parser-only fixes.
+
+Final staged plan-sync and diff checks exited 0; the staged secret scan reported
+zero findings. The bounded org loop completed all six turns with `solved`; the
+workflow graph holds implementation at `in_review` for human merge approval.
+No merge, release or deployment was performed. Source blocking, ambiguous
+metadata, unsafe DNS/URLs and browser image failure still
+retain the prior image or designed fallback; these observed improvements do not
+promise universal photo coverage. No extra paid model call was used for this
+investigation, implementation or verification.
