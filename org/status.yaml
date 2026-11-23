@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Native PostgreSQL migration verified; Node114/Python7 and fixture Chrome pass, peer design/code/security approved; human merge and hosted production gates remain closed." }
+  orchestrator: { status: busy, assignment: postgresql-hosted-setup, last_report: Authorized isolated Neon Preview/Production setup complete; initial schemas migrated and restricted sensitive Vercel DB vars configured; independent hosted review clear. Current deployment/list unchanged; stopped before deployment. Existing user next-env dev change preserved. }
   product-manager: { status: idle, assignment: null, last_report: "PostgreSQL intent independently accepted under org protocol, scoped to native local setup and Vercel-compatible code; production and human merge gates remain separate." }
   architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
   senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
-  security-researcher: { status: idle, assignment: null, last_report: PostgreSQL security peer review approved after TLS duplicate and private-file safety fixes. }
-  reviewer: { status: idle, assignment: null, last_report: PostgreSQL design/code peer reviews approved after documented fixes; no human merge/release authority granted. }
+  security-researcher: { status: idle, assignment: null, last_report: Independent hosted PostgreSQL catalog/hash/roles/grants/empty-data checks approved on both Neon targets; no deployment/merge/release authority granted. }
+  reviewer: { status: idle, assignment: null, last_report: "Hosted PostgreSQL operational plan/helper/final handoff approved; separate migrated Neon environments and scoped Vercel variable evidence verified, no deployment/merge/release allowed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -39,3 +39,6 @@ review_queue:
   - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: code-vercel-deployment-002, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: code-postgresql-001, artifact: postgresql-persistence-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-postgresql-hosted-001, artifact: intent/postgresql-persistence/hosted-setup.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: helper-postgresql-hosted-001, artifact: scripts/postgres-hosted.ts, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: final-postgresql-hosted-001, artifact: postgresql-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

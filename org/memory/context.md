@@ -17,7 +17,7 @@ intent/postgresql-persistence/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (postgresql-hosted-setup)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -74,11 +74,11 @@ intent/postgresql-persistence/intent.md
 
 ## Recent decisions
 
-- mem-0059 reviewer: Imported feature event mem-0032 from source commit5eaff43 (original source org/reviews/family-membership-storage-amendment-001.md): Peer-approved narrow storage compatibility amendment after independent reproduction of70Drizzle declaration errors. Native typed bound SQL retains stable driver/engine/schema/API, publicDrizzle migrationloader/SQL/journal artifacts, atomic hash/version verification, and all strict checks. Original human approvals preserved; no prerelease/suppression. Resume implementation; full code/security/runtime verification remains. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:32)
 - mem-0061 security-researcher: Imported feature event mem-0034 from source commit5eaff43 (original source org/reviews/security-family-membership-001.md): Independent family security review clear for implementation1de139d. Focused HTTP10 and native/policy7 pass; full branch secret scan0; initial served-path issue fixed and independently verified. No high/critical audit issue; inherited unreachable esbuild serve advisory remains due2026-12-07. Code review also approved with independent auth11/family26. Human merge/release and live Google remain separate. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:34)
 - mem-0062 reviewer: Imported feature event mem-0035 from source commit5eaff43 (original source org/reviews/code-family-membership-001.md): Final family code review approved implementation1de139d after independent auth11/family26/native7, meaningful mutation proof, full manifest coverage and UI evidence. Security also clear. Security turn5 reran all six acceptance commands exit0; no blocking findings remain. Normal final review turn6 remains before workflow closure; no human merge or production authorization inferred. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:35)
 - mem-0063 orchestrator: Imported feature event mem-0036 from source commit5eaff43 (original source org/reviews/code-family-membership-001.md): Family membership implementation1de139d complete and six-turn loop solved: final implementation/security/review checkpoints all six acceptance commands exit0. Independent code/security approved; auth11/family26/Python7 and real Chrome320/1440+devStrictMode pass,11 screenshots visually inspected, secret scans0. Graph implementation in_review awaits fresh human merge approval; release not started. SQLite DATABASE_PATH and explicit migration required for runtime; live Google round trip remains external, inherited moderate advisory due2026-12-07. No push/merge/production migration/release performed. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:36)
 - mem-0065 orchestrator: PostgreSQL is sole local/future hosted family store. Rafael chose native Homebrew on-demand setup over Docker for memory use; strict Drizzle pg probe failed70 declarations, native pg/public loader approved. Historical completed family loop copied byte-exact to org/archives/postgresql-predecessor. Hosted provisioning/production migration/deploy and merge remain unauthorized. (org/reviews/postgresql-design-001.md)
+- mem-0067 orchestrator: Rafael authorized Neon setup/restricted roles/initial migrations/Vercel DB envs, separate Preview/Production, stop before deployment. Two independent Free pg17 projects in aws-us-east-1 are migrated with restricted own credentials, sensitive per-env runtime DATABASE_URL only. Migration/bootstrap creds remain private outside Vercel; no deployment/merge/paid feature or local-data import. Exact targets and limits are in hosted setup/resources/verification artifacts. (intent/postgresql-persistence/hosted-setup.md)
 
 ## Constraints
 
@@ -98,7 +98,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0066 from org/reviews/postgresql-verification.md
+- mem-0067 from intent/postgresql-persistence/hosted-setup.md
 
 <!-- machine:end -->
 

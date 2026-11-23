@@ -5,9 +5,10 @@ web recipes from a description. Results show source links, cooking summaries,
 available photos and source-supported cooking times, styled with Tailwind CSS v4.
 
 > This branch uses PostgreSQL for local development and Vercel-compatible family
-> persistence. Native Mac setup is below. No hosted database, production variables,
-> production migrations or deployment have been configured. Human merge/release
-> authorization remains required; prior release approvals do not apply.
+> persistence. Native Mac setup is below. Separate Neon Preview/Production
+> databases are migrated and their Vercel connection variables are configured.
+> No deployment was made. Human merge/release authorization remains required;
+> prior release approvals do not apply.
 
 ## Local development
 
@@ -326,24 +327,50 @@ limited discovery, not a claim that no SQLite data exists elsewhere. Nothing was
 deleted or imported. If an existing SQLite DB is identified, preserve it and a
 consistent backup; review transfer/identity/grant/count validation before cutover.
 
-### Future Neon / Vercel configuration (not executed)
+### Hosted Neon / Vercel database configuration
 
-Use PostgreSQL 17 in Neon. A future authorized setup should provision separate
-schema-owner and restricted runtime roles, revoke PUBLIC database/schema access,
-and apply the same domain-table DML/read-only-ledger grants. Set **server-only**
-`DATABASE_URL` to the pooled endpoint with `sslmode=verify-full`; use the direct
-endpoint and owner credentials as `MIGRATION_DATABASE_URL` for explicit migrations.
-Only those two variables name database connections; no `NEXT_PUBLIC_` database
-configuration. URL options other than a single sslmode are rejected; do not use
-SSL verification bypasses. Small lazy pools use four connections per instance;
-plan provider capacity against Vercel concurrency. No filesystem persistence is used.
+Rafael authorized hosted setup on 2026-11-23, with an explicit stop before deployment.
+Both independent PostgreSQL17 projects are provisioned in AWS N. Virginia, matching
+Vercel iad1, on the Neon Free plan with fixed0.25CU and plan-default auto-suspend:
 
-Keep Preview and Production isolated, retain current Node24 duration/cancellation
-and manual deployment gates, and verify an authorized candidate with a real hosted
-connection before release. Build traces include SQL/journal/catalog assets, but no
-live Neon connection or deployment is claimed. Hosted provisioning, environment
-changes, production migrations and deployment each require fresh authorization.
-Follow [the deployment runbook](intent/vercel-deployment/deployment-runbook.md).
+| Vercel environment | Neon project | Database |
+| --- | --- | --- |
+| Production | [meal-planner-production](https://console.neon.tech/app/projects/plain-pond-82425009) | meal_planner |
+| Preview | [meal-planner-preview](https://console.neon.tech/app/projects/withered-night-50194672) | meal_planner |
+
+Each has distinct endpoints and passwords. The SQL-created mp_migrator owns the
+four migration/domain tables and has public-schema USAGE/CREATE, without database
+creation, role creation, superuser, replication or RLS-bypass privileges. mp_runtime
+has only CONNECT, schema USAGE, migration-ledger SELECT and domain-table DML;
+neither role inherits privileged roles. PUBLIC database/schema privileges are revoked.
+
+The reviewed initial migration passed exact catalog/history validation on both.
+Vercel meal-planner has a separate sensitive DATABASE_URL per Preview/Production,
+using the corresponding mp_runtime pooled endpoint with sslmode=verify-full.
+MIGRATION_DATABASE_URL and bootstrap credentials remain only in owner-private,
+ignored .data/neon files; no migration-owner credential is stored in Vercel.
+Local .env.local continues to target native Mac PostgreSQL.
+
+There was no deployment/promotion, no local-data import and no fixture data left in
+either hosted database. The existing production deployment is unchanged; new database
+variables apply to a future deployment. Preview currently has only its database
+variable: before deploying that app, configure its own auth origin/secret and Google
+OAuth credentials/callback. Do not silently reuse Production auth/provider secrets.
+
+Resource mapping and sanitized Vercel metadata are in
+intent/postgresql-persistence/hosted-resources.json and hosted-vercel-metadata.json.
+The explicit scripts/postgres-hosted.ts helper reads only these recorded targets
+and mode0600 .data/neon credentials. Its initial-setup verify action makes read-only
+remote checks and expects empty domain tables; provision is an operator action requiring fresh scope verification, never a
+startup/build hook. It cannot reset/delete a database or rotate existing passwords.
+
+Keep Preview and Production isolated. Future deployments/migrations need their
+applicable fresh authorization and backup/recovery review. Free platform history is
+six hours; no offsite backup scheduler has been deployed. Before release, review
+pool lifecycle integration recommended for Vercel Fluid (attachDatabasePool) and
+complete real hosted app verification. No app deployment was used to verify this setup.
+See [hosted evidence](org/reviews/postgresql-hosted-verification.md) and the
+[deployment runbook](intent/vercel-deployment/deployment-runbook.md).
 
 ## Agent workflow
 

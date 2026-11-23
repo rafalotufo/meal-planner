@@ -60,15 +60,20 @@ text rendering, grounding/URL checks, paid-usage bounds, and photo SSRF protecti
 (all-address validation, pinned HTTPS, no redirects/proxy/credentials, strict byte/
 time/encoding limits and two-job bounds). Never swallow parent abort.
 
-Local PostgreSQL setup and local migrations/testing are authorized in this dedicated
-worktree. Never remove/import existing SQLite data automatically. No hosted provider
-provisioning, production variables/migrations, deployment or paid calls are authorized.
-Neon pooled runtime/direct migration URLs are prepared only. Preserve main’s
-vercel.json, manual deployment gates and environment isolation. Follow
-intent/vercel-deployment/deployment-runbook.md for production operations; existing
-release approvals do not authorize this branch. Keep private cluster/config files
-owner-only; test databases use a distinct restricted CREATEDB role and owned random
-names, never the development or a remote database. Test servers force empty paid keys.
+Native local PostgreSQL remains the development database. Hosted Neon Preview and
+Production were separately authorized and configured on 2026-11-23; see
+intent/postgresql-persistence/hosted-setup.md and hosted-resources.json for the exact
+scope/targets. Both initial schemas are migrated, with sensitive restricted pooled
+DATABASE_URL variables separately in Vercel. Migration/bootstrap credentials stay
+private outside Vercel. This authority does not authorize a deployment, promotion,
+merge, future migration, paid feature/plan, or local-data import. Never remove/import
+SQLite data automatically. Preserve main’s vercel.json, environment isolation and
+manual deployment gates; old release approvals do not authorize this branch.
+Follow intent/vercel-deployment/deployment-runbook.md for future production actions.
+Keep private cluster/config files owner-only. Local test databases use the distinct
+restricted CREATEDB role and owned random names, never development/hosted data;
+test servers force empty paid keys. Hosted checks use recorded targets, verified
+TLS and read-only or explicit rollback-only verification, with no persistent fake data.
 
 ## Verification and workflow
 
