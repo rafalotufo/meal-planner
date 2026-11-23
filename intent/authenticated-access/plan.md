@@ -4,6 +4,7 @@
 - Author: senior-developer
 - Status: Approved by independent reviewer (`org/reviews/plan-authenticated-access-001.md`)
 - Compatibility amendment: approved (`org/reviews/authenticated-access-types-amendment-002.md`)
+- Gmail allowlist amendment: approved (`org/reviews/authenticated-access-allowlist-amendment-001.md`)
 - Date: 2026-11-23
 
 ## Files that change
@@ -16,10 +17,13 @@
 - .env.example
 - lib/auth.ts
 - lib/auth-client.ts
+- lib/allowed-google-emails.json
+- lib/google-access.mjs
 - lib/session.ts
 - lib/auth-policy.ts
 - proxy.ts
 - app/page.tsx
+- app/layout.tsx
 - app/api/auth/[...all]/route.ts
 - app/api/session/route.ts
 - app/sign-in/page.tsx
@@ -55,6 +59,12 @@ if meaningful TypeScript-level tests need it. Inspect the pinned package's
 stateless JWE, state/account-cookie, expiry and logout implementations before
 coding. One-hour sessions do not refresh; browser logout cannot revoke a
 previously copied cookie before expiry. Do not hand-roll session/OAuth crypto.
+The administrator maintains the four owner-approved Gmail addresses in the
+server-only imported JSON list. A pure JSDoc matcher normalizes trim/lowercase
+only, denies empty/malformed lists, requires verified `@gmail.com` membership,
+and is called before session creation and on every protected session read.
+Removing an address and rebuilding/redeploying blocks its existing sessions;
+never expose the list to client props, bundles, logs or auth error messages.
 
 Dependency order: regression harness → config/session boundary → OAuth flow
 and authenticated content → logout → documentation/full evidence → reviews.
@@ -89,6 +99,9 @@ Dependency: task 1. Files: `lib/auth.ts`, `lib/session.ts`,
   missing/invalid configuration fails closed at request time, while build can
   run without secrets. Configure Google-only stateless JWE, one-hour expiry,
   disabled refresh, cookie state/account storage and secure transport policy.
+  Configure the four owner-approved addresses in `lib/allowed-google-emails.json`
+  and use `lib/google-access.mjs` before issuing a session and on every
+  `readSession`; require verified Google email plus exact normalized Gmail match.
 - [ ] Implement exact public path/method policy and default full server session
   verification. Return page redirects, API/non-navigation 401s, and generic
   503 configuration/verification failures with private/no-store responses.
@@ -115,7 +128,12 @@ Dependency: task 2. Files: auth catch-all, `app/api/session/route.ts`,
   boundary in a test-only Node preloader. Exercise real initiation/callback,
   library-issued valid sessions, malformed/forged/wrong-secret/expired cookie
   denials, state failures, cross-origin requests and disallowed methods/routes.
-  No production bypass or alternate verifier is allowed.
+  Read the first real configured member only inside the test network fixture;
+  do not add a fake member, environment override, or alternate verifier.
+  Add pure matcher tests (`tests/auth/access-policy.test.mjs`) for empty/malformed
+  lists, trim/case behavior, unverified claims, wrong domain and nonmembership,
+  with no dot/plus aliases. Exercise denied provider identities and valid
+  cryptographic sessions carrying now-unlisted email claims through real HTTP.
 
 Acceptance: a completed mocked Google flow grants both `/` and `/api/session`;
 invalid sessions never do. Tests verify actual cookie attributes, absolute
@@ -142,7 +160,8 @@ Dependency: task 4. Files: `.env.example`, `.gitignore`, README, AGENTS,
 CLAUDE, `org/loop/config.yaml`; auth tests and verification/screenshots as needed.
 
 - [ ] Document environment variable placeholders, random-secret generation,
-  canonical HTTPS origin/local loopback exception, exact Google Web OAuth
+  administrator code-list maintenance/deny-all empty policy, canonical HTTPS
+  origin/local loopback exception, exact Google Web OAuth
   callback URI, `test:auth`, session expiry and copied-cookie revocation limit.
   Unignore only `.env.example`; append auth regression after production build
   in workflow acceptance. The standalone command starts its own built server.
@@ -152,7 +171,7 @@ CLAUDE, `org/loop/config.yaml`; auth tests and verification/screenshots as neede
 - [ ] Verify sign-in and authenticated heading-only screens in an isolated
   real Chrome/browser (CDP via Node WebSocket or parent CUA) at 320 and 1440
   CSS-pixel widths using the test-network
-  provider flow or a library-issued test session. Check document title/lang,
+  provider flow or a library-issued allowed-member test session. Check document title/lang,
   keyboard controls, no overflow, console/network errors; save screenshots.
 - [ ] Record evidence in `org/reviews/authenticated-access-verification.md`;
   run diff, plan-sync, message/memory/loop, ledger and staged secret checks.

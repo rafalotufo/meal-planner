@@ -35,17 +35,18 @@ intent/authenticated-access/intent.md
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
 - reviewer-0004 reviewer -> orchestrator review: Authenticated access specification approved
 - reviewer-0005 reviewer -> orchestrator review: Authenticated access build plan approved
+- reviewer-0006 reviewer -> orchestrator review: Server-code Gmail allowlist specification and plan approved
 - security-researcher-0001 security-researcher -> orchestrator status: pnpm migration security clear
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 
 ## Recent decisions
 
-- mem-0014 architect: Independent reviewer approved Google authentication spec using exact stable Better Auth 1.7.27 with one-hour nonrefreshing stateless encrypted sessions, default server protection, exact auth exceptions and no database. Runtime cookie and provider-flow checks required; live Google consent check requires external credentials. (org/reviews/spec-authenticated-access-001.md)
 - mem-0015 reviewer: Independent plan review approved the five-slice authenticated-access build plan: failing HTTP baseline, stable auth dependency, default server boundary, real mocked-provider OAuth/session/logout tests, and browser evidence. Human merge/release remain separate. (org/reviews/plan-authenticated-access-001.md)
 - mem-0016 reviewer: Approved narrow spec/plan amendment for Better Auth unconditional bun:sqlite type import: exact dev @types/bun1.4.5 and conditional explicit ambient discovery, retaining strict full checking and no Bun runtime or DB. (org/reviews/authenticated-access-types-amendment-001.md)
 - mem-0017 reviewer: Superseding amendment: full @types/bun globals conflict with Next; approved exact direct dev bun-types1.4.5 and explicit node/react/react-dom/bun-types/sqlite types only. Official narrow declaration strict compiler prototype passed; full typecheck/build still required. Prior amendment001 retained as history, superseded by002. (org/reviews/authenticated-access-types-amendment-002.md)
 - mem-0018 product-manager: User replaced any-Google eligibility with server-code Gmail allowlist of four confirmed accounts. PM accepted same-feature intent amendment; require verified Gmail, exact trim/lower matching, empty denyall, pre-issuance and per-request enforcement, no signup/admin UI/roles. (org/reviews/intent-authenticated-access-allowlist-001.md)
+- mem-0019 reviewer: Approved same-feature Gmail allowlist spec and plan amendments, replacing unrestricted Google eligibility. Configure four owner-confirmed accounts in server-only code; verify email at issuance and every protected read; no alias collapsing, no signup/admin UI. Tests use configured member only in network fixture. Inline blank favicon metadata fixes observed automatic404. (org/reviews/authenticated-access-allowlist-amendment-001.md)
 
 ## Constraints
 
@@ -63,7 +64,7 @@ senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0018 from org/reviews/intent-authenticated-access-allowlist-001.md
+- mem-0019 from org/reviews/authenticated-access-allowlist-amendment-001.md
 
 <!-- machine:end -->
 

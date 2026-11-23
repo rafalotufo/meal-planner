@@ -2,14 +2,17 @@
 
 - Derived from: accepted `intent/authenticated-access/intent.md`
 - Author: architect
-- Status: Approved by independent reviewer (`org/reviews/spec-authenticated-access-001.md`)
+- Status: Approved, including Gmail eligibility amendment (`org/reviews/authenticated-access-allowlist-amendment-001.md`)
+- Baseline review: `org/reviews/spec-authenticated-access-001.md`
+- Scope amendment: `org/reviews/intent-authenticated-access-allowlist-001.md`
 - Date: 2026-11-23
 
 ## Objective and scope
 
 Only users holding a valid application session established through Google
 sign-in may retrieve application content or execute application endpoints.
-Any verified Google account is eligible under the explicit intent assumption.
+Only the four Gmail accounts explicitly listed in the accepted intent are
+eligible. This supersedes the previous unrestricted-Google assumption.
 Preserve the authenticated home page's sole `Meal Planner` heading. Add only
 a sign-in screen and a separate sign-out screen; no home-page controls,
 profiles, account database, password flow, or meal-planning features.
@@ -65,6 +68,63 @@ Use `.mjs` for a network-level harness where TypeScript loading is unnecessary.
 Both new dependency pins and pnpm-generated lockfile changes require Build
 review, including lifecycle-script policy and native audit results.
 
+## Server-code Gmail eligibility amendment
+
+`lib/allowed-google-emails.json` is the server-code configuration. Seed it
+with exactly `thomasnlotufo@gmail.com`, `erikafn@gmail.com`,
+`aclotufo4@gmail.com`, and `rafalotufo@gmail.com`, as confirmed in the intent.
+Only server-only authentication/session modules import the list; never import
+it into client components, embed it in HTML, expose a list endpoint, or log it.
+No administration UI, roles, invitation database, or additional dependency.
+Changing eligibility requires editing this file, rebuilding, and activating
+the new code through restart/redeployment; edits are not a live admin feature.
+
+Place pure eligibility matching in JSDoc-typed `lib/google-access.mjs` with
+`isAllowedGoogleUser(user, allowedEmails)`. This module contains no account
+list or environment access, so Node's built-in tests can import the production
+matcher without importing server-only framework modules. Accept only an
+object with string `email` and strict boolean `emailVerified === true`.
+Normalize both verified email and configuration strings only by trimming
+whitespace and lowercasing, then compare exact complete addresses. Do not
+collapse dots, remove plus suffixes, accept `googlemail.com` aliases, compare
+substrings, match only a domain, or trust a request-supplied email claim.
+
+Validate configuration before using it: it must be an array containing only
+syntactically valid Gmail address strings. Empty array intentionally denies
+everyone. Malformed configuration must fail closed through the existing generic
+authentication-unavailable contract; it must not be filtered into a broader
+policy or treated as unrestricted access.
+
+Enforce eligibility twice. During Google user-info processing, use the pinned
+library's `verifyGoogleIdToken` verifier for signature, issuer, audience, and
+expiry, require its trusted `email_verified === true`, and check its verified
+email against the configured list before returning provider user information
+for session issuance. Returning no user must deny sign-in without issuing a
+session. Do not weaken library state/PKCE/CSRF protections or accept unsigned
+JWT payloads. The existing provider `getUserInfo` override is the issuance
+boundary; inspect both authorization-code and direct-ID-token paths so neither
+can bypass the check.
+
+After `auth.api.getSession` verifies each request, the shared `readSession`
+helper rechecks current session `emailVerified === true` and exact email
+membership before returning an authorized session. Proxy, page, endpoint, and
+action protection must all use that helper; direct raw library-session reads
+are insufficient. A valid cryptographic cookie for a now-removed member is
+therefore denied on its next protected request after the updated configuration
+is activated, even before cookie expiry. Denied eligibility uses the same
+generic page redirect/API unauthorized response as other denied sessions;
+messages must reveal neither list contents nor why a particular account failed.
+
+The Google network fixture reads the first configured account for its success
+identity; do not add a fake production member to make tests pass. Extend
+`tests/auth/access-policy.test.mjs` with allowed/unlisted/unverified inputs,
+trim/case matching, no dot/plus/domain-alias normalization, empty-list denial,
+malformed configuration, and removal from the supplied list. Real HTTP tests
+must additionally prove unlisted and unverified signed Google callbacks issue
+no session and validly encrypted/signed but unlisted, removed, or unverified
+session cookies cannot retrieve protected pages or `/api/session`. Keep fixtures
+and library-cookie creation test-process-only, without a production bypass.
+
 ## Request policy and public surface
 
 The proxy covers every application request by default, including unknown
@@ -90,7 +150,7 @@ code must not perform an unnecessary public session lookup. Provider errors
 return to `/sign-in` with a generic message; do not expose provider details,
 codes, state, credentials, or user profile fields in UI or logs.
 
-For missing, malformed, forged, or expired sessions:
+For missing, malformed, forged, expired, or currently ineligible sessions:
 
 - Page GET/HEAD navigation redirects to the canonical `/sign-in` URL without
   returning protected page content. Use a fixed return destination `/`.
@@ -101,8 +161,9 @@ For missing, malformed, forged, or expired sessions:
   for unavailable authentication. Public sign-in may show unavailable state;
   it must never grant an anonymous session or expose exception details.
 
-Use full `auth.api.getSession({ headers: request.headers })` verification in
-Node-runtime proxy, not `getSessionCookie` presence checks. Re-check at each
+Use the shared eligibility-aware session helper in Node-runtime proxy; it
+performs full `auth.api.getSession({ headers: request.headers })` verification,
+not `getSessionCookie` presence checks. Re-check at each
 implemented page/endpoint/action boundary before protected reads or effects;
 future route handlers and server actions must use the shared server helper.
 Layouts alone are insufficient. Do not cache session decisions across users;
@@ -143,8 +204,10 @@ persist Google refresh tokens for this identity-only application.
 library browser client. Successful logout expires every auth cookie and
 navigates to `/sign-in`; subsequent requests using that browser's current
 cookie jar are denied. Stateless logout does not revoke a previously copied
-cookie before its fixed one-hour expiry. This limit is explicit: there is
-no per-user revocation store or global Google logout. An emergency server
+cookie for a still-eligible account before its fixed one-hour expiry.
+Removing an account from the activated configuration denies its copied cookies
+on subsequent protected requests. There is no per-session revocation store
+or global Google logout. An emergency server
 secret rotation invalidates existing sessions, requiring everyone to sign in.
 
 ## UI and contributor instructions
@@ -158,7 +221,8 @@ Keep client code limited to interactive authentication controls.
 
 Update current README/agent guidance with the active feature and environment
 setup, canonical URLs, secret generation, Google callback configuration,
-expiry/revocation limits, and verification command. Commit `.env.example`
+expiry/revocation limits, server-code allowlist maintenance/activation, and
+verification command. Commit `.env.example`
 with placeholders and explicitly unignore that file only; real `.env*` stay
 ignored. Preserve audit history and the existing dependency-script allowlist.
 
@@ -172,11 +236,14 @@ exercise the production build through real HTTP requests:
 
 - Anonymous `/`, dotted/unknown pages, nested endpoints, and `/api/session`
   deny access correctly, including RSC/prefetch/bypass-header variants.
-- Arbitrary, tampered, expired, and wrong-secret cookies cannot retrieve
-  protected HTML or endpoint success. A valid library-issued session can.
+- Arbitrary, tampered, expired, wrong-secret, unlisted, removed-member, and
+  unverified-email cookies cannot retrieve protected HTML or endpoint success.
+  A valid library-issued session for a currently listed verified account can.
 - Exercise real sign-in initiation and callback state checks; reject missing
   or mismatched state, unsupported providers, malicious callback URLs,
   cross-origin sign-in/sign-out, and inappropriate request methods.
+- Verify only configured, Google-verified Gmail accounts can obtain sessions;
+  test empty-list denial and current eligibility checks after removal.
 - Exercise successful OAuth callback and session creation with provider
   HTTP responses stubbed only at the network boundary in a test process.
   Never add a production auth bypass, test provider, session-minting route,
