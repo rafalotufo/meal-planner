@@ -5,10 +5,10 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: Human-approved recipe search notebook merged into local main from reviewed source6b94405 and approval68a28ef. Application content matches verified feature. Production release remains gated. }
   product-manager: { status: idle, assignment: null, last_report: "Accepted Word Snack completion amendment; review intent-recipe-waiting-game-002.md. Preserve playable state/focus after success, announce results ready, explicit dismissal; Design details remain." }
-  architect: { status: busy, assignment: intent/recipe-waiting-game/spec.md, last_report: Word Snack specification drafted from approved amended intent; local authored vocabulary and continued-play lifecycle specified; independent and human spec approval pending. No code changed. }
+  architect: { status: busy, assignment: intent/recipe-waiting-game/spec.md, last_report: Revised Word Snack draft to 128 distinct letter-multiset puzzles and 64 KiB data design budget at Rafael request. Rules and provenance preserved; no code/data creation or blanket spec approval. Diff check passed. }
   senior-developer: { status: idle, assignment: null, last_report: "Recipe notebook implementation8fbbaf8 passed63 application/12 auth/7 workflow tests, build/lint/types and five-width real Chrome. Independent code/security approved; human merge/release pending." }
   security-researcher: { status: idle, assignment: null, last_report: "Recipe notebook security review clear: page-local history, React text and original source/photo/auth boundaries preserved. No new provider requests or persistence." }
-  reviewer: { status: idle, assignment: null, last_report: Word Snack specification independently approved for human review; no required findings. Evidence spec-recipe-waiting-game-001.md; no code/runtime verification claimed. }
+  reviewer: { status: idle, assignment: null, last_report: Word Snack 128-puzzle amendment independently approved; spec-recipe-waiting-game-002.md. No required findings; human specification approval pending. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -40,3 +40,4 @@ review_queue:
   - { id: design-recipe-search-notebook-001, artifact: intent/recipe-search-notebook/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-recipe-search-notebook-001, artifact: recipe-search-notebook-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-waiting-game-002, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

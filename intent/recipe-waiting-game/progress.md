@@ -83,3 +83,19 @@ document-stage evidence, not runtime/game verification.
 Independent reviewer approved spec-recipe-waiting-game-001 with no required
 findings; evidence org/reviews/spec-recipe-waiting-game-001.md and reviewer-0010.
 This is peer review only; specification approval from Rafael remains pending.
+
+## Catalogue size amendment
+
+Rafael requested 128 puzzles instead of the proposed 12 (ceo-0020). Twelve was
+a conservative design default, not a technical limit. Revise the catalogue
+count, cycle and validation matrix consistently, require genuinely distinct
+letter multisets, and allow a 64 KiB serialized-data budget. This is a proposed
+bound, not measured output; no puzzle data or application code is authored in
+this document-stage amendment. Preserve prior design review as historical
+evidence and obtain focused independent review of the amended specification.
+
+Architect handoff architect-0004 records the revision. Independent review
+spec-recipe-waiting-game-002 approved the amendment with no required findings;
+reviewer-0011 records the result. Seven workflow tests passed again. Full-spec
+human approval is still pending; no plan, puzzle data or application code was
+created. The existing spec gate remains in_review.

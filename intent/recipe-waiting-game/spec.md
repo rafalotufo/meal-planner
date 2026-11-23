@@ -17,22 +17,26 @@
 2. A round has six letter tiles, a labeled draft-word text input, Submit word,
    Delete letter, Clear word, a found-word count/list, and Close game. No timer,
    score multiplier, losing state, audio, animations or mandatory completion.
-3. Author 12 fixed puzzle records locally, each with an ID, exactly six lowercase
+3. Author 128 fixed puzzle records locally, each with an ID, exactly six lowercase
    ASCII letters and at least 10 distinct supported English words of length
    3–6. Include repeated-letter racks. Every accepted word must fit the rack's
    letter multiplicities. At least one supported word uses all six letters.
+   All 128 IDs and letter multisets must be distinct: reordering a rack's
+   letters or assigning another ID does not create a different puzzle.
    Choose familiar neutral words; omit proper names, abbreviations, slurs and
    hyphenated/apostrophized words. Inflections are accepted only when explicitly
    listed. Records are a curated game vocabulary, not a complete dictionary.
 4. Create this data by hand for this repository; do not copy or scrape a word
    collection, call a dictionary service, or add a package. Record its authored
    origin, selection rules and limited coverage in a feature-local vocabulary
-   note and source comment. Keep serialized puzzle data <=12 KiB UTF-8 before
-   bundler compression. Test the bound and every record's validity. This avoids
+   note and source comment. Keep serialized puzzle data <=64 KiB UTF-8 before
+   bundler compression, a design budget averaging 512 bytes per puzzle rather
+   than a measurement of data that already exists. Test the bound and every
+   record's validity. This avoids
    an external redistribution dependency; any later imported dataset needs a
    separate provenance/license decision.
 5. Select racks in deterministic catalogue order per valid search, beginning
-   with the first on page load and cycling after 12. Every actual new request
+   with the first on page load and cycling after 128. Every actual new request
    gets a fresh round, even for identical queries. Validation failures and
    rejected duplicate submissions must not advance the catalogue. No daily
    seed, clock, persistent storage or randomness is necessary.
@@ -174,7 +178,7 @@ test framework, production fixture endpoint or fake-user bypass is permitted.
 
 | Area | Required evidence |
 | --- | --- |
-| Catalogue | Exactly six letters per rack; 12 IDs unique; >=10 unique 3–6-letter answers each; ASCII/neutral manual review; full-rack answer; multiplicities; <=12 KiB serialized data; authored provenance note. |
+| Catalogue | Exactly 128 records with unique IDs and unique letter multisets (compare sorted letters, not tile order); exactly six letters per rack; >=10 unique 3–6-letter answers each; ASCII/neutral manual review; full-rack answer; multiplicities; <=64 KiB serialized UTF-8 data design budget; authored provenance note; cycle only after 128 valid searches. |
 | Word rules | Case/trim normalization; min/max length; unsupported characters; repeated-letter exhaustion; typing vs tiles; delete/clear; duplicate rejection; accepted/rejected draft behavior; immutable state; all-answers-found state. |
 | Lifecycle | Pending open/close/reopen retains round; success preserves open state and draft/found words; closed/never-opened success stays closed; zero results stays playable; new valid search resets/cycles; invalid query preserves round; stale ID success/error ignored; abort/error cleanup. |
 | Browser success | Open by touch/keyboard, enter partial word, complete intercepted request, assert same focus/draft/letters/found words; notification and results are available; submit another word; explicit dismissal opens/focuses the associated group even after browsing another group. |
@@ -200,3 +204,12 @@ package.json (pinned tools and tests); prior notebook spec/plan; active intent;
 org architect role and REVIEW.md. Apply frontend-ui-engineering skill's native
 controls, local state, existing style and responsive/focus guidance. This is a
 repo-grounded design proposal, not a claim of rendered UI verification.
+
+## Change notes
+
+- 2026-11-23: Rafael requested “Why only 12 puzzels? Lets use 128”. Increased
+  the proposed catalogue and cycle to 128 genuinely distinct letter multisets;
+  expanded the serialized-data design budget from 12 KiB to 64 KiB UTF-8.
+  The minimum 10 supported words and six-letter answer per puzzle, authored
+  provenance, local-only delivery and all other behavior remain unchanged.
+  This amendment does not constitute approval of the full specification.
