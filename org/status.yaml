@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: intent/single-call-recipe-search/intent.md, last_report: Human-approved recipe search notebook merged into local main from reviewed source6b94405 and approval68a28ef. Application content matches verified feature. Production release remains gated. }
+  orchestrator: { status: idle, assignment: null, last_report: "Single-call recipe search org loop solved in6 turns. Intent/spec/plan gates, tested implementation and independent code/security approvals recorded. Ready for human merge; release not started." }
   product-manager: { status: idle, assignment: null, last_report: Single-call recipe search intent accepted; local implementation selected by Rafael; no latency guarantee and merge/release remain gated. }
   architect: { status: idle, assignment: null, last_report: Single-call flattened source/card response specified and independently approved; optional metadata excerpt checks and bounds retained. }
-  senior-developer: { status: busy, assignment: single-call-recipe-search implementation and verification, last_report: Implementation plan independently approved; ready for code gate. }
+  senior-developer: { status: idle, assignment: null, last_report: Single-call implementation3bdc763 fully verified and independently code/security approved.66 app/12 auth/7 workflow/12 deployment and five-width Chrome passed; final live1call each19.774/26.652/17.739s. Human merge/release pending. }
   security-researcher: { status: idle, assignment: null, last_report: "Final single-call security approved: native citations/local exact excerpts/bounds/abort intact, final live metadata retention verified; no required findings." }
-  reviewer: { status: busy, assignment: single-call-recipe-search-implementation, last_report: "review plan-single-call-recipe-search-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review code-single-call-recipe-search-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -41,4 +41,4 @@ review_queue:
   - { id: code-recipe-search-notebook-001, artifact: recipe-search-notebook-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-single-call-recipe-search-001, artifact: intent/single-call-recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-single-call-recipe-search-001, artifact: intent/single-call-recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: code-single-call-recipe-search-001, artifact: single-call-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: code-single-call-recipe-search-001, artifact: single-call-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

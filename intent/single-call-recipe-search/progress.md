@@ -1,5 +1,13 @@
 # Single-call recipe search — progress
 
+## Local completion
+
+The six-turn org loop completed as solved after all configured acceptance
+commands passed and independent security/code reviews approved without required
+findings. Implementation commit: 3bdc763 on codex/single-call-recipe-search.
+Staged secret scan found zero findings and approved-plan synchronization passed.
+The implementation is ready for human merge review; release remains not started.
+
 ## Implementation and TDD
 
 - Scope: approved spec/plan on local branch codex/single-call-recipe-search.
