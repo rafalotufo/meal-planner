@@ -9,8 +9,8 @@ intent/single-call-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: spec
+- turn: 2
+- phase: plan
 - stop_reason: None
 
 ## Agents
@@ -21,7 +21,7 @@ intent/single-call-recipe-search/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/single-call-recipe-search/plan.md)
 
 ## Open messages
 
@@ -56,6 +56,7 @@ intent/single-call-recipe-search/intent.md
 - reviewer-0007 reviewer -> orchestrator review: Authenticated access implementation approved
 - reviewer-0008 reviewer -> orchestrator review: Vercel deployment local implementation approved
 - reviewer-0009 reviewer -> orchestrator review: Independent recipe notebook code review approved
+- reviewer-0010 reviewer -> orchestrator review: Approved single-call recipe search specification
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
@@ -79,10 +80,11 @@ intent/single-call-recipe-search/intent.md
 ## Artifacts
 
 - intent/single-call-recipe-search/intent.md (6ad1a4bb8aff249c1490d9825685f2f4fc4de0d36fd008b5623022ff764bbad2)
+- intent/single-call-recipe-search/spec.md (ff32bbdb7363d2793be23b9b627a02e243dd8b48b5f23e2b5b7517ae67d3050a)
 
 ## Next action
 
-product-manager:review_intent
+architect:draft_spec
 
 ## Last digest source
 
