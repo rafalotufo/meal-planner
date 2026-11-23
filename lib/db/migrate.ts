@@ -1,9 +1,10 @@
-import { checkHistory, checkSchema, connectDatabase, repositoryMigrations } from './connection';
+import { repositoryMigrations } from './repository-migrations';
+import { checkHistory, checkSchema, connectDatabase } from './connection';
 export async function migrateDatabase(url: string) {
+  const migrations = repositoryMigrations();
   const db = connectDatabase(url);
   try {
     await db.transaction(async (transaction) => {
-      const migrations = repositoryMigrations();
       await transaction.execute('CREATE TABLE IF NOT EXISTS __drizzle_migrations (id integer PRIMARY KEY, hash text NOT NULL, created_at bigint NOT NULL)');
       const applied = await checkHistory(transaction, migrations, false);
       for (const [index, migration] of migrations.entries()) {

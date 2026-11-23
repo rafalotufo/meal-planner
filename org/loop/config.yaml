@@ -5,10 +5,10 @@ max_turns: 1
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: single-call-main-integration
+review_artifact: single-call-main-refresh-integration
 human_gates: [code_owner_approve, release_authorization]
 acceptance:
-  commands: ["python3 -m unittest discover -s tests", "pnpm test", "node --import tsx --test tests/deployment/smoke.test.ts", "pnpm run lint", "pnpm run typecheck", "pnpm run build", "pnpm run test:auth", "pnpm run test:family"]
+  commands: ["python3 -m unittest discover -s tests", "pnpm test", "pnpm run lint", "pnpm run typecheck", "pnpm run build", "node --import tsx --test tests/deployment/*.test.ts", "pnpm run test:auth", "pnpm run test:family"]
 phases:
-  intent: { role: reviewer, action: verify_integration, next: done }
+  intent: { role: reviewer, action: verify_current_integration, next: done }
   done: { role: null, action: null, next: null }

@@ -1,10 +1,8 @@
 import { Pool, types, type PoolClient } from 'pg';
 import { attachDatabasePool } from '@vercel/functions/db-connections';
-import { resolve } from 'node:path';
-import { readFileSync } from 'node:fs';
-import { readMigrationFiles } from 'drizzle-orm/migrator';
+import expectedCatalog from '../../drizzle/postgresql/catalog.json';
+import { runtimeMigrations, type MigrationMetadata } from './runtime-metadata';
 
-export const migrationsFolder = () => resolve(process.cwd(), 'drizzle/postgresql');
 export function validateDatabaseUrl(value: string | undefined): URL {
   try {
     if (!value || value.trim() !== value) throw new Error();
@@ -66,13 +64,7 @@ export class FamilyDatabase {
   }
   async close() { await this.pool.end(); }
 }
-export type Migration = ReturnType<typeof readMigrationFiles>[number];
-export function repositoryMigrations() {
-  const migrations = readMigrationFiles({ migrationsFolder: migrationsFolder() });
-  if (!migrations.length || migrations.some((m, i) => i > 0 && m.folderMillis <= migrations[i - 1].folderMillis)) throw new Error('Storage unavailable');
-  return migrations;
-}
-export async function checkHistory(db: FamilyDatabase, expected: Migration[], complete: boolean) {
+export async function checkHistory(db: FamilyDatabase, expected: readonly MigrationMetadata[], complete: boolean) {
   const rows = await db.all<{ hash: string; created_at: number }>('SELECT hash, created_at FROM __drizzle_migrations ORDER BY id');
   if (rows.length > expected.length || complete && rows.length !== expected.length || rows.some((row, i) => row.hash !== expected[i].hash || row.created_at !== expected[i].folderMillis)) throw new Error('Storage unavailable');
   return rows.length;
@@ -100,11 +92,11 @@ export async function catalogSignature(db: FamilyDatabase) {
     ORDER BY kind, name`);
 }
 export async function checkSchema(db: FamilyDatabase) {
-  const expected: unknown = JSON.parse(readFileSync(resolve(migrationsFolder(), 'catalog.json'), 'utf8'));
+  const expected: unknown = expectedCatalog;
   if (JSON.stringify(await catalogSignature(db)) !== JSON.stringify(expected)) throw new Error('Storage unavailable');
 }
 export async function openDatabase(url: string) {
   const db = connectDatabase(url);
-  try { await checkHistory(db, repositoryMigrations(), true); await checkSchema(db); return db; }
+  try { await checkHistory(db, runtimeMigrations, true); await checkSchema(db); return db; }
   catch { await db.close(); throw new Error('Storage unavailable'); }
 }

@@ -4,7 +4,7 @@
 
 ## Goal
 
-intent/single-call-recipe-search/merge.md
+intent/single-call-recipe-search/merge-refresh.md
 
 ## Loop
 
@@ -17,7 +17,7 @@ intent/single-call-recipe-search/merge.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (postgresql-production-release)
+- orchestrator: busy (single-call-main-refresh-integration)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -53,11 +53,13 @@ intent/single-call-recipe-search/merge.md
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0021 orchestrator -> reviewer handoff: PostgreSQL release candidate preparation
 - orchestrator-0022 orchestrator -> ceo handoff: Reviewed PostgreSQL Production candidate ready for final gates
+- orchestrator-0023 orchestrator -> ceo handoff: Reviewed PostgreSQL recovery candidate; Production paused
 - orchestrator-0025 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0026 orchestrator -> senior-developer handoff: Implement approved single-call recipe search plan
 - orchestrator-0027 orchestrator -> senior-developer decision: Record one bounded metadata diagnostic after observed null results
 - orchestrator-0028 orchestrator -> senior-developer decision: Apply peer-approved literal metadata evidence prompt clarification
 - orchestrator-0029 orchestrator -> ceo status: Single-call recipe search implemented and reviewed locally
+- orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -80,6 +82,7 @@ intent/single-call-recipe-search/merge.md
 - reviewer-0015 reviewer -> orchestrator review: Approved single-call recipe search implementation plan
 - reviewer-0016 reviewer -> orchestrator review: Independent single-call implementation code review approved
 - reviewer-0017 reviewer -> orchestrator review: Single-call main integration independently approved
+- reviewer-0018 reviewer -> orchestrator review: Current-main single-call integration approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator status: pnpm migration security clear
@@ -99,11 +102,11 @@ intent/single-call-recipe-search/merge.md
 
 ## Recent decisions
 
-- mem-0071 orchestrator: Imported prior feature event mem-0050: Rafael selected Everyday grid plus Search notebook history with per-search local pill filtering. Implemented and independently reviewed on codex/recipe-search-notebook; history is page-local, title-only ingredient evidence and conservative total-time filtering. Local verification passed; human merge/release remain pending. Original source: intent/recipe-search-notebook/intent.md (org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl)
-- mem-0072 orchestrator: Imported prior feature event mem-0051: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. Original source: org/messages/ceo-0018.md (org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl)
-- mem-0073 orchestrator: Imported prior feature event mem-0052: Rafael selected combined single-call research and curation after live comparisons; PM accepted intent. Existing citation, source evidence, model, usage, photo/auth/UI boundaries remain; no latency guarantee; human merge/release remain pending. Archived completed notebook loop before initializing this feature. Original source: intent/single-call-recipe-search/intent.md (org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl)
-- mem-0074 architect: Imported prior feature event mem-0053: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. Original source: intent/single-call-recipe-search/spec.md (org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl)
-- mem-0075 orchestrator: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md (org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl)
+- mem-0072 orchestrator: Imported prior feature event mem-0071: Imported prior feature event mem-0050: Rafael selected Everyday grid plus Search notebook history with per-search local pill filtering. Implemented and independently reviewed on codex/recipe-search-notebook; history is page-local, title-only ingredient evidence and conservative total-time filtering. Local verification passed; human merge/release remain pending. Original source: intent/recipe-search-notebook/intent.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl)
+- mem-0073 orchestrator: Imported prior feature event mem-0072: Imported prior feature event mem-0051: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. Original source: org/messages/ceo-0018.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl)
+- mem-0074 orchestrator: Imported prior feature event mem-0073: Imported prior feature event mem-0052: Rafael selected combined single-call research and curation after live comparisons; PM accepted intent. Existing citation, source evidence, model, usage, photo/auth/UI boundaries remain; no latency guarantee; human merge/release remain pending. Archived completed notebook loop before initializing this feature. Original source: intent/single-call-recipe-search/intent.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl)
+- mem-0075 architect: Imported prior feature event mem-0074: Imported prior feature event mem-0053: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. Original source: intent/single-call-recipe-search/spec.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl)
+- mem-0076 orchestrator: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl)
 
 ## Constraints
 
@@ -111,15 +114,15 @@ intent/single-call-recipe-search/merge.md
 
 ## Artifacts
 
-- org/reviews/single-call-main-integration-review.md (98d77b094149d443a50d6a12e64daba3144cc8548a10c1b5ce032fdbc41af8a5)
+- org/reviews/single-call-main-integration-refresh-review.md (1f331517be9ce27bb327a2ec868029894e8d5f9140d64600618b636541f2e742)
 
 ## Next action
 
-reviewer:verify_integration
+reviewer:verify_current_integration
 
 ## Last digest source
 
-- mem-0075 from org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl
+- mem-0076 from org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl
 
 <!-- machine:end -->
 

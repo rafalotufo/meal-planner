@@ -10,7 +10,7 @@
 - Family regression: `pnpm run test:family` after build (owns temporary migrated databases).
 - Local explicit migration: `pnpm run db:migrate` after `pnpm run db:setup` (separate owner/runtime URLs).
 - Recipe/photo regressions: `pnpm test` (compiled TypeScript and native Node runner).
-- Deployment helper regression: `node --import tsx --test tests/deployment/smoke.test.ts`.
+- Deployment regression after build: `node --import tsx --test tests/deployment/*.test.ts` (includes isolated compiled proxy/page/API operation without migration/source files).
 - Authentication regression: `pnpm run test:auth` after build (owns isolated servers).
 - Workflow regression tests: `python3 -m unittest discover -s tests`.
 - Production preview: `pnpm run start` after build.

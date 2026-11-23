@@ -18,3 +18,5 @@ closed_evidence: org/reviews/code-recipe-search-notebook-001.md
 Independent code/security reports have no required findings. Native tests pass63/63. Real Chrome exercised all notebook interactions at320/390/768/1024/1440; final pass follows mobile spacing refinement and exact accounting for five intentional HTTP429 fixture responses. No live LLM requests.
 
 <!-- Merge provenance: original orchestrator-0016 from 7144a0f; exact bytes: org/merge/single-call-main-2026-11-23/feature/org/messages/orchestrator-0016.md. -->
+
+<!-- Merge provenance: original orchestrator-0024 from 9aadd83; exact bytes: org/merge/single-call-main-refresh-2026-11-23/feature/org/messages/orchestrator-0024.md. -->

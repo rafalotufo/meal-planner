@@ -5,7 +5,7 @@ import { testDatabase } from '../family/database.ts';
 
 type EnvironmentOverrides = Record<string, string> | ((origin: string) => Record<string, string>);
 
-export async function startServer(overrides: EnvironmentOverrides = {}, preload = false, development = false) {
+export async function startServer(overrides: EnvironmentOverrides = {}, preload = false, development = false, workingDirectory?: string) {
   const port = await new Promise<number>((resolve, reject) => {
     const listener = createServer();
     listener.once('error', reject);
@@ -28,7 +28,7 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
   if (preload) env.NODE_OPTIONS = `--import=tsx --import=${new URL('./google-network.ts', import.meta.url).pathname}`;
   else delete env.NODE_OPTIONS;
   let output = '';
-  const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', ...(development ? ['dev', '--webpack'] : ['start']), '-H', '127.0.0.1', '-p', String(port)], { env, stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', ...(development ? ['dev', '--webpack'] : ['start']), '-H', '127.0.0.1', '-p', String(port)], { cwd: workingDirectory, env, stdio: ['ignore', 'pipe', 'pipe'] });
   child.stdout.on('data', (data: Buffer) => { output += data; });
   child.stderr.on('data', (data: Buffer) => { output += data; });
   async function stop() {

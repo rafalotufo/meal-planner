@@ -10,6 +10,15 @@
 
 ## Files that change
 
+- drizzle/postgresql/runtime-migrations.json
+- lib/db/repository-migrations.ts
+- lib/db/runtime-metadata.ts
+- lib/db/verify-runtime-metadata.ts
+- tests/deployment/postgres-metadata.test.ts
+- tests/deployment/postgres-packaging.test.ts
+- org/merge/single-call-main-refresh-2026-11-23/**
+- org/merge/single-call-main-final-2026-11-23/**
+- intent/single-call-recipe-search/merge-refresh.md
 - .env.example
 - .gitignore
 - .vercelignore
@@ -239,6 +248,12 @@ The org loop's required acceptance invocations remain authoritative governance
 evidence. Report real failures and fix their cause without exclusions or skips.
 
 ## Authorized local main integration
+
+The pre-merge expected-tip check found concurrent main a38740c. Intermediate
+verified integration9aadd83 is preserved without updating main. Refresh with
+that current reviewed runtime-packaging/navigation correction, retaining exact
+main source and all post-build deployment tests. Snapshot the completed prior
+verification run separately; use one fresh bounded current-input review turn.
 
 Rafael subsequently requested merging this reviewed feature into main. Main now
 includes independently reviewed family admission and native PostgreSQL changes.

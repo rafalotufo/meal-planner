@@ -171,7 +171,7 @@ try {
     await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     assert.equal(await evaluate('document.activeElement.tagName'), 'BUTTON');
     let screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
-    if (width === 320 || width === 1440) await writeFile(`org/reviews/postgresql-release-sign-in-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+    if (width === 320 || width === 1440) await writeFile(`org/reviews/postgresql-recovery-sign-in-${width}.png`, Buffer.from(screenshot.data, 'base64'));
     await send('Network.setCookies', { cookies: [...jar.values].map(([name, value]) => ({ name, value, url: app.origin, httpOnly: true, sameSite: 'Lax' })) });
     await navigate(`${app.origin}/`);
     assert.equal(await evaluate('document.querySelector("h1").textContent'), 'Meal Planner');
@@ -190,7 +190,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("h1").length'), 1);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
     screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
-    if (width === 320 || width === 1440) await writeFile(`org/reviews/postgresql-release-results-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+    if (width === 320 || width === 1440) await writeFile(`org/reviews/postgresql-recovery-results-${width}.png`, Buffer.from(screenshot.data, 'base64'));
     const initialRequests = searchRequests;
     fixtureRecipes = dinnerRecipes;
     await submitQuery('Easy vegetarian dinners');
@@ -200,7 +200,7 @@ try {
     assert.equal(gridColumns, width < 640 ? 1 : width < 1024 ? 2 : 3);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
     assert.ok(await evaluate('[...document.querySelectorAll("button,select,article a")].filter(x => x.getBoundingClientRect().width).every(x => x.getBoundingClientRect().height >= 44)'));
-    await capture(`org/reviews/postgresql-release-notebook-${width}.png`);
+    await capture(`org/reviews/postgresql-recovery-notebook-${width}.png`);
     await evaluate('[...document.querySelectorAll("button[aria-pressed]")].find(x => x.textContent.includes("Chickpeas")).click()');
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 1);
     assert.equal(await evaluate('document.querySelector("article h4").textContent'), 'Lemony chickpea bowls');
@@ -229,7 +229,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 1, 'earlier recipes survive loading');
     assert.equal(await evaluate('document.querySelectorAll("button[aria-expanded]").length'), 2);
     await waitFor('document.querySelector("p[role=status]").textContent.includes("Searching")');
-    await capture(`org/reviews/postgresql-release-notebook-loading-${width}.png`);
+    await capture(`org/reviews/postgresql-recovery-notebook-loading-${width}.png`);
     fixtureStatus = 429;
     assert.ok(heldRequest);
     await fulfillSearch(heldRequest);
@@ -240,7 +240,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("button[aria-expanded]").length'), 2, 'errors do not create history');
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 1, 'earlier recipes survive error');
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
-    await capture(`org/reviews/postgresql-release-notebook-error-${width}.png`);
+    await capture(`org/reviews/postgresql-recovery-notebook-error-${width}.png`);
     fixtureStatus = 200;
     fixtureRecipes = [];
     await submitQuery('No matching dinners');
