@@ -39,3 +39,21 @@ helper/auth commands preserve coverage and run authentication after build.
 Independent repeat ran ten non-HTTP tests; the author ran all eleven with
 approved server permission. No remote exists in this checkout, so PR creation
 cannot proceed; human local merge remains gated.
+
+## Live verification helper delta — 4197f6e
+
+Read-only review of4ed41ea..4197f6e: zero findings, READY FOR HUMAN REVIEW.
+Actual Vercel root307 uses relative /sign-in. Helper now resolves that URL
+against validated origin and compares exact expected destination; status/cache
+and no-follow checks remain. Foreign/path/query cases retained. New regression
+failed before fix; all12 helper tests and lint/typecheck pass. Independent
+targeted execution passed4 tests. No deployed application code changed.
+
+## Final release evidence review
+
+Independent documentation review: zero Blocker, Major or Minor findings.
+The prior Minor is resolved: the release report enumerates remaining browser
+and transport evidence gaps and preserves their requirements. The approved
+amendment covers only the unobserved hosted timeout evidence. Production is
+paused and acceptance remains incomplete. READY FOR HUMAN REVIEW applies to
+these records; it is not release-completion approval.

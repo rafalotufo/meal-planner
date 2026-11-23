@@ -28,3 +28,10 @@ Verdict: READY FOR HUMAN REVIEW.
 Independent repeat found no regression in redirect refusal, exact validated
 origin, bounded stdin cookies or sanitized output. App source, upload exclusions
 and dependencies unchanged. Hosted acceptance and human gates remain outstanding.
+
+## Live verification helper delta — 4197f6e
+
+Independent security review: zero Blocker/Major, READY FOR HUMAN REVIEW.
+Relative redirects resolve only to the exact approved sign-in URL; redirects
+remain unfollowed, foreign/query destinations rejected. No credential or
+production security boundary changed.

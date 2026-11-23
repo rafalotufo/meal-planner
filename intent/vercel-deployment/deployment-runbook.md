@@ -180,10 +180,12 @@ remaining checks.
   observed 429 to WAF events. A helper pass is provisional until correlation;
   early throttling is inconclusive. Wait for a fresh window before separately
   authorized retest; do not loop automatically.
-- D3a also requires a naturally observed hosted 60-second deadline/504 before
-  the 90-second platform limit. If no such observation occurs in authorized
-  work, leave it unverified and pause; do not force delays, add production
-  fixture endpoints or spend repeatedly to obtain a timeout.
+- D3a deadline-evidence amendment (Rafael, ceo-0009): use deterministic local
+  deadline/abort regressions and hosted90s configuration as application/config
+  evidence. Neither proves a real hosted60s/504; label that unverified if absent.
+  Its absence alone is explicitly accepted and does not require pause. Keep
+  the live success/cancellation checks, two-search budget and all other mandatory
+  checks/pause rules. Never force delays, add fixtures or spend repeatedly.
 
 Helper stdout contains only mode/status/elapsedMs/pass. Exit 0 means its local
 assertions passed, 1 failed, 2 inconclusive. Hosted cancellation and WAF require

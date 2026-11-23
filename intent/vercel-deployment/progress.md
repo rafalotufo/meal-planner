@@ -23,14 +23,17 @@ Approved plan source: `96f3154`; approval record:
   required variables present, Production-only; required secrets are sensitive.
   Rafael confirmed the callback was added; live OAuth remains unverified.
   Project configuration complete; existing provider limits remain unchanged.
-- [ ] Step 6: Rafael authorized release (ceo-0008; ledger expires19:00UTC).
-  Approved d682c1b staged as dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB, READY and
-  unpromoted. Candidate Host checks passed; Node24.x/pnpm10.33.0/cancellation
-  metadata confirmed. Owner verifying generated search function90s limit.
-  First-live window not started; live searches used0/2.
+- [ ] Step 6: Authorized d682c1b staged/promoted as
+  dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB. Real Google login, five live recipe cards,
+  three loaded photos, logout/error UI, security headers and WAF passed.
+  Two agent live calls used (one success, one disconnect499). Independent
+  cancellation execution timing and live nonallowed Google identity remain
+  unverified. Owner approved deadline-evidence correction (ceo-0009), then
+  selected scoped pause (ceo-0010). paused:true and503 DEPLOYMENT_PAUSED verified.
+  Resume needs explicit authority and resolution/acceptance of remaining gaps.
 
 Vercel interactive login succeeded. Human-approved local main fast-forwarded
 to 2157744. Assigned production origin:
 https://meal-planner-delta-six-55.vercel.app (not deployed).
-Production candidate exists under explicit release authority; stable domain
-has not been promoted and hosted acceptance remains incomplete.
+Production domain was promoted, tested and owner-paused. Artifact retained;
+hosted acceptance remains incomplete and no automatic resume is authorized.

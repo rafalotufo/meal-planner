@@ -1,6 +1,6 @@
 # Vercel deployment — configuration and release evidence
 
-Date: 2026-11-23. **Production-target candidate staged; not promoted.**
+Date: 2026-11-23. **Deployed/promoted, verified working, then owner-paused.**
 
 ## Human authority and merge
 
@@ -121,6 +121,134 @@ Pinned CLI66.6.0 staged with --prod --skip-domain in the approved Hobby project:
 
 Public API/build-output summaries did not expose the generated function's
 effective maximum duration. Task browser requires Vercel sign-in; Rafael chose
-to verify the settings himself. Confirmation of Node24.x /90seconds is pending
-before promotion. No first-live window has started, live model calls used:0/2.
-The required hosted OAuth/provider/source/deadline/UI checks have not run.
+to verify the settings himself. Rafael subsequently confirmed Node24.x /
+90seconds for the generated search function. This is owner-attested dashboard
+evidence; cancellation remains independently confirmed by API.
+
+## Authorized promotion and first-live window
+
+Promoted the same Production artifact dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB without
+rebuild on2026-11-23 at18:10:15UTC. Live origin:
+https://meal-planner-delta-six-55.vercel.app. Required verification window ends
+18:25:15UTC (13:25:15 America/Toronto). Failed or incomplete mandatory checks
+require scoped pause. Model-search budget remains at most two, including one
+normal search and one disconnect probe. No extra searches or billing changes.
+
+### Deadline-evidence correction — approved by Rafael
+
+The approved checklist combines three mutually exclusive search outcomes:
+successful recipe results, a client disconnect after two seconds with prompt
+server cancellation, and a naturally observed sixty-second hosted timeout.
+The authorized budget permits only two searches: one normal and one disconnect.
+One successful completed request cannot also time out; a promptly cancelled
+request cannot run for sixty seconds. The current checklist therefore cannot
+fully pass within its own request budget.
+
+Proposed explicit amendment to spec D3a and the plan/runbook's natural-timeout
+release blocker: use the deterministic local deadline/abort regressions plus
+the owner-confirmed hosted90-second configuration as deadline evidence, retain
+the live disconnect/cancellation probe and single successful search, and label
+an unobserved real hosted504 as unverified without blocking release solely for
+its absence. All other mandatory checks and failure/pause policy remain. No
+automated assertion is skipped/removed, no production timeout changes and no
+extra paid query is added. Rafael explicitly approved this correction after
+the explanation. Source: org/messages/ceo-0009.md. Spec/plan/runbook updated
+consistently; separate spec/plan approval records preserve the amendment.
+All other mandatory checks and the15-minute pause policy remain unchanged.
+
+Independent proposal review: the code reviewer confirmed the contradiction and
+returned READY FOR HUMAN REVIEW — proposal only. Local deadline/abort tests
+establish application behavior; owner-attested Vercel settings establish the
+configured90-second ceiling. Neither proves hosted60-second504 behavior, which
+would remain an explicitly accepted, unverified release risk. Local evidence:
+tests/recipe-search.test.ts deadline abort/504/slot cleanup and caller abort.
+
+### Live anonymous and WAF evidence
+
+The static polyfill asset returns200 and application/javascript at the stable
+origin, confirming actual hosted existence of the path checked on the candidate.
+Root307 uses relative Location:/sign-in, resolving to the exact approved origin
+and path, with private,no-store. Initial anonymous helper failed only because
+its comparison incorrectly required an absolute Location string.
+
+Local-only helper correction4197f6e resolves Location against the validated
+origin before exact URL equality. A new regression failed false!=true before
+the correction, then all12 helper tests passed. Foreign/protocol-relative
+foreign/path/query destinations remain rejected; redirects are not followed.
+Lint/typecheck passed. Independent code/security delta reviews both returned
+READY FOR HUMAN REVIEW, zero findings. The deployed app artifact is unchanged.
+The corrected anonymous live helper passed all four checks: root307,
+sign-in200, protected session/search401, all no-store.
+
+One authorized WAF probe sent21 sequential anonymous empty-JSON POSTs in2325ms:
+twenty401 then429, helper pass. Filtered Vercel firewall events for the exact
+host/path/rule show one rate-limit event under rule_recipe_search_ip_limit_7NJiND,
+correlating the429 to WAF. No client IPs or sensitive runtime content printed.
+This probe and anonymous checks invoked no provider search. Live calls used0/2.
+
+### Authenticated live verification and recovery
+
+Rafael reported the app working in his browser and confirmed Google login,
+then instructed continuation. The task browser independently reached the
+protected home page after real Google sign-in; no test-process provider,
+fake-user bypass, token extraction or credential printing was used.
+
+Agent search1: fixed nonpersonal query “potato gnocchi”. Observed disabled
+Searching button/status, then five real recipe cards with source-specific
+summaries/times and HTTPS source links. Three visible publisher photos loaded
+at1250x833,1280x720 and1248x832. Two below-fold lazy images were not loaded at
+measurement; do not characterize them as broken or claim every photo was
+verified. All five cards remained usable. Owner's earlier independent test is
+separate from the two agent-initiated calls.
+
+Saved CUA screenshots as JPEG (native tool format) under vercel-deployment-390.jpg
+and -1440.jpg. Browser's actual CSS/screenshot widths were354 and1309 despite
+requested390/1440; both had no horizontal overflow. Record actual geometry,
+not a false exact-width claim. Image loading and cards were inspected at both
+mobile/desktop layouts. Additional error-state screenshot is preserved as
+vercel-deployment-error-mobile.jpg; no personal account data appears.
+
+Agent search2: same query, then browser navigation after the bounded disconnect
+probe (two-second explicit wait plus UI/tool overhead). Navigation cancelled
+the active client request. Vercel CDN logs show POST/search200 at18:20:35.097UTC
+and499 at18:23:35UTC. The499 confirms client disconnect; the API confirms
+supportsCancellation, and local tests confirm propagation. No independent
+function execution-duration measurement was available, so prompt server-side
+termination remains unverified. No session cookie was extracted to run the
+stdin helper; browser navigation was used instead. Two agent-initiated live
+searches used, no retries or extra paid probes.
+
+Real sign-out completed and returned the browser to /sign-in. A second already-
+loaded form submitted after logout displayed the generic error and restored
+controls; authorization failure prevents a model call. This is a real logout/
+authorization error-state check, not a fabricated provider error or offline test.
+Public sign-in headers verified no-store, nonce CSP, HSTS, no-referrer, nosniff
+and DENY framing. Exact normal OAuth-start request returned200, the configured
+Google callback matched, and state-cookie security booleans were Secure,
+HttpOnly, SameSite=Lax and host-only. No cookie values were read/logged. A
+noncanonical absolute-callback payload was correctly rejected400 by existing
+strict auth policy; it was not an application failure.
+
+Remaining release-blocking verification at the window's end includes a real
+Google identity outside the allowlist and independent cancellation execution
+timing. The owner pause question highlighted those two gaps; it was not a
+complete acceptance checklist. Exact390/1440 CSS-width checks, hosted keyboard
+checks, the planned offline-submit error check and broken-photo fallback were
+not independently exercised. Results screenshots were354/1309; the real logout
+error check is useful additional evidence, not a substitute claimed as an
+offline check. Publisher images loading also does not independently prove every
+native metadata-transport branch. These remaining checks retain their approved
+requirements. The unobserved hosted60s/504 alone is separately accepted as
+nonblocking under ceo-0009; it is not a newly claimed pass.
+
+At18:25:16UTC the agent attempted the approved scoped pause. Vercel refused
+noninteractive confirmation and required a person to type the project name.
+No API workaround or automated confirmation was used. Rafael chose “I’ll pause
+it in my terminal”; source org/messages/ceo-0010.md. Subsequent project metadata
+reported paused:true for meal-planner, and the live browser returned503 with
+DEPLOYMENT_PAUSED. The owner completed recovery; no other project or key changed.
+
+Final state: deployment dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB is retained, Production
+domain assigned, traffic paused, live acceptance incomplete. Resume requires
+explicit owner authorization and completion or explicit acceptance of remaining
+gaps. No further model call, billing change or automatic resume is authorized.

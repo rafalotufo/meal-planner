@@ -30,6 +30,8 @@ intent/vercel-deployment/intent.md
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
+- ceo-0009 ceo -> orchestrator decision: Approve correction of contradictory live deadline evidence
+- ceo-0010 ceo -> orchestrator decision: Owner will perform required Vercel pause
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -76,7 +78,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0042 from org/reviews/vercel-deployment-release-verification.md
+- mem-0043 from org/reviews/vercel-deployment-release-verification.md
 
 <!-- machine:end -->
 

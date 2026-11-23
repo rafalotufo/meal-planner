@@ -11,6 +11,7 @@ approval_level: elevated
 - Author: senior-developer (Codex)
 - Date: 2026-11-23
 - Specification approval: `org/reviews/spec-vercel-deployment-approval-001.md`
+- Deadline-evidence amendment approved by Rafael: `org/messages/ceo-0009.md`.
 
 ## Approach and decisions
 
@@ -221,9 +222,11 @@ paid searches. The owner handles
 Google credentials/consent; no production fixtures or auth bypass. Save sanitized
 screenshots and summaries. Run the one disconnect probe and anonymous WAF burst.
 Correlate invocation and firewall evidence. Existing tests prove local abort/
-deadline propagation; per D3a a real hosted 60s deadline must also be observed
-naturally. If it is not observed within authorized work, record unverified and
-pause rather than expanding spend, forcing delays or claiming release success.
+deadline propagation; owner-confirmed hosted90s settings prove configuration,
+not a real hosted60s timeout. Under ceo-0009, record an unobserved hosted60s/504
+as an explicitly accepted verification gap rather than a sole release blocker.
+Retain live successful-search/cancellation checks and two-search budget; do not
+expand spend, force delays or claim a hosted timeout was observed.
 Never treat skipped hosted checks as passed.
 
 Populate release verification with actual results and remaining blockers. On
@@ -286,7 +289,7 @@ Use the actual assigned project name in place of meal-planner if it differs.
 | D1 | Clean upload export build, frozen lock, provider build/config/runtime metadata, 90s/cancellation effective config |
 | D2 | Env scope/key-only inventory, exact Google callback, real OAuth, no values in assets/evidence, staged secret scan |
 | D3 | Full existing auth/recipe/photo regressions; real allowed/denied Google, stable-origin browser 390/1440, live source/image evidence |
-| D3a | Local abort/deadline tests, TS disconnect helper plus hosted invocation evidence, natural hosted deadline sample or release remains unverified/paused |
+| D3a | Local abort/deadline tests, hosted90s configuration, disconnect probe plus invocation evidence; unobserved real hosted60s/504 explicitly accepted as unverified under ceo-0009 |
 | D4 | Hobby plan/quotas, unchanged OpenAI controls inventory, isolated anonymous WAF burst and firewall events |
 | D5 | Committed authorization, source/deploy ID, no automatic promotion, candidate 421, stable-origin acceptance, documented pause/rollback rehearsal |
 | D6 | Walk through each runbook failure case against sanitized status/log categories and recovery; no PII/query logging |
@@ -304,7 +307,7 @@ approved spec to relax an inconvenient hosted test during implementation.
 | Host/callback mismatch | Preserve exact origin checks; candidate 421 expected; pause on stable-origin failure |
 | Hobby quotas or regional/process counters | Monitor free usage; accept downtime/no global guarantee; no paid upgrade |
 | Secret upload / evidence leakage | Clean export + exclusions, Production Secret variables, scan and redact |
-| First-live checks fail or no natural timeout occurs | Pause within 15-minute window, mark incomplete, request next bounded evidence action |
+| Other mandatory first-live checks fail or remain incomplete | Pause within15-minute window; ceo-0009 accepts only the unobserved hosted60s/504 gap |
 | Restoring old secret or membership | Never promote unsafe old build; rebuild safe code/current config |
 
 Local rollback: revert this feature's config/helper changes through reviewed Git
