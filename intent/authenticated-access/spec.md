@@ -61,10 +61,13 @@ lives under `app/sign-in/` and `app/sign-out/`. Add a minimal protected
 `GET /api/session` endpoint returning only `{ authenticated: true }` to make
 the endpoint contract executable without exposing profile information.
 
-Use the built-in Node test runner for meaningful behavior tests. If TypeScript
-module loading is needed, exact stable `tsx@4.23.15` is compatible with the
-supported runtime (registry engines >=18); do not add a separate unit framework.
-Use `.mjs` for a network-level harness where TypeScript loading is unnecessary.
+Use the built-in Node test runner with exact stable `tsx@4.23.15` to load
+meaningful TypeScript behavior tests. The loader supports the application runtime
+(registry engines >=18); do not add a separate unit framework.
+The user requires new application tests and helpers to use TypeScript. Use the
+exact approved tsx loader for the test suite and its transport/browser helpers;
+include every test in strict typechecking. An isolated tests/auth package may
+use ESM without changing the application package module mode.
 Both new dependency pins and pnpm-generated lockfile changes require Build
 review, including lifecycle-script policy and native audit results.
 
@@ -79,7 +82,7 @@ No administration UI, roles, invitation database, or additional dependency.
 Changing eligibility requires editing this file, rebuilding, and activating
 the new code through restart/redeployment; edits are not a live admin feature.
 
-Place pure eligibility matching in JSDoc-typed `lib/google-access.mjs` with
+Place pure eligibility matching in TypeScript `lib/google-access.ts` with
 `isAllowedGoogleUser(user, allowedEmails)`. This module contains no account
 list or environment access, so Node's built-in tests can import the production
 matcher without importing server-only framework modules. Accept only an
@@ -117,7 +120,7 @@ messages must reveal neither list contents nor why a particular account failed.
 
 The Google network fixture reads the first configured account for its success
 identity; do not add a fake production member to make tests pass. Extend
-`tests/auth/access-policy.test.mjs` with allowed/unlisted/unverified inputs,
+`tests/auth/access-policy.test.ts` with allowed/unlisted/unverified inputs,
 trim/case matching, no dot/plus/domain-alias normalization, empty-list denial,
 malformed configuration, and removal from the supplied list. Real HTTP tests
 must additionally prove unlisted and unverified signed Google callbacks issue

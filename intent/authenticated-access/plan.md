@@ -18,7 +18,7 @@
 - lib/auth.ts
 - lib/auth-client.ts
 - lib/allowed-google-emails.json
-- lib/google-access.mjs
+- lib/google-access.ts
 - lib/session.ts
 - lib/auth-policy.ts
 - proxy.ts
@@ -30,7 +30,8 @@
 - app/sign-in/sign-in-button.tsx
 - app/sign-out/page.tsx
 - app/sign-out/sign-out-button.tsx
-- tests/auth/*.mjs
+- tests/auth/*.ts
+- tests/auth/package.json
 - README.md
 - AGENTS.md
 - CLAUDE.md
@@ -54,13 +55,14 @@ dependency and load only its official `bun-types/sqlite` ambient module through
 `compilerOptions.types` alongside Node/React globals. Full Bun globals conflict
 with Next; do not load them. Preserve `skipLibCheck: false` and all existing
 strict checks; no runtime Bun, shim, or database is introduced.
-Prefer `.mjs` tests to avoid a new loader; exact `tsx@4.23.15` is permitted only
-if meaningful TypeScript-level tests need it. Inspect the pinned package's
+All new application tests and helpers use TypeScript and exact `tsx@4.23.15`
+with Node's built-in runner. The isolated test package is ESM; the root module
+mode is unchanged. Keep all tests in strict typechecking, with no suppressions. Inspect the pinned package's
 stateless JWE, state/account-cookie, expiry and logout implementations before
 coding. One-hour sessions do not refresh; browser logout cannot revoke a
 previously copied cookie before expiry. Do not hand-roll session/OAuth crypto.
 The administrator maintains the four owner-approved Gmail addresses in the
-server-only imported JSON list. A pure JSDoc matcher normalizes trim/lowercase
+server-only imported JSON list. A pure TypeScript matcher normalizes trim/lowercase
 only, denies empty/malformed lists, requires verified `@gmail.com` membership,
 and is called before session creation and on every protected session read.
 Removing an address and rebuilding/redeploying blocks its existing sessions;
@@ -74,17 +76,17 @@ Implementation, dependency mutations, tests and builds run sequentially.
 
 ### 1. Capture failing HTTP regression and dependency foundation
 
-Dependency: independent approval of this plan. Files: `tests/auth/*.mjs`,
+Dependency: independent approval of this plan. Files: `tests/auth/*.ts`,
 `package.json`, `pnpm-lock.yaml`, conditional `pnpm-workspace.yaml`.
 
-- [ ] Add Node test-runner harness that launches the built Next server on an
+- [x] Add Node test-runner harness that launches the built Next server on an
   isolated loopback port, owns cleanup, and asserts anonymous `/` redirects
   and `/api/session` returns 401. Run against the existing production build;
   retain concrete failing evidence before adding protection.
-- [ ] Add exact Better Auth; inspect dependency changes/install scripts before
+- [x] Add exact Better Auth; inspect dependency changes/install scripts before
   execution, retain fail-closed lifecycle policy, generate the lockfile using
-  pnpm, and verify a frozen install. Add tsx only if actually needed.
-- [ ] Inspect pinned-library options and official references; record material
+  pnpm, and verify a frozen install. Use the approved exact tsx loader for the TypeScript suite.
+- [x] Inspect pinned-library options and official references; record material
   incompatibilities for architect/spec review rather than weakening the spec.
 
 Acceptance: regression fails for the current unprotected page, dependency
@@ -95,17 +97,17 @@ installation is reproducible, no unrelated dependency upgrade or blanket trust.
 Dependency: task 1. Files: `lib/auth.ts`, `lib/session.ts`,
 `lib/auth-policy.ts`, `proxy.ts`, `app/page.tsx`.
 
-- [ ] Lazily validate canonical origin, Google credentials and a strong secret;
+- [x] Lazily validate canonical origin, Google credentials and a strong secret;
   missing/invalid configuration fails closed at request time, while build can
   run without secrets. Configure Google-only stateless JWE, one-hour expiry,
   disabled refresh, cookie state/account storage and secure transport policy.
   Configure the four owner-approved addresses in `lib/allowed-google-emails.json`
-  and use `lib/google-access.mjs` before issuing a session and on every
+  and use `lib/google-access.ts` before issuing a session and on every
   `readSession`; require verified Google email plus exact normalized Gmail match.
-- [ ] Implement exact public path/method policy and default full server session
+- [x] Implement exact public path/method policy and default full server session
   verification. Return page redirects, API/non-navigation 401s, and generic
   503 configuration/verification failures with private/no-store responses.
-- [ ] Re-check the session in the home server component. Keep its existing
+- [x] Re-check the session in the home server component. Keep its existing
   heading-only markup. Extend HTTP regression for dotted/nested/unknown paths,
   RSC/prefetch/bypass headers and missing configuration.
 
@@ -116,21 +118,21 @@ focused auth tests and retain failures for later OAuth routes as appropriate.
 ### 3. Establish Google sessions and endpoint proof
 
 Dependency: task 2. Files: auth catch-all, `app/api/session/route.ts`,
-`lib/auth-client.ts`, sign-in page/button; extend `tests/auth/*.mjs`.
+`lib/auth-client.ts`, sign-in page/button; extend `tests/auth/*.ts`.
 
-- [ ] Mount only the specified auth paths/methods, retain library handler CSRF,
+- [x] Mount only the specified auth paths/methods, retain library handler CSRF,
   state, PKCE and provider checks, and fix successful/error destinations to
   same-origin `/` and `/sign-in`. Reject unsupported providers and external
   callback destinations. Re-check the protected session endpoint server-side.
-- [ ] Add accessible minimal Google button with pending/failure states. No
+- [x] Add accessible minimal Google button with pending/failure states. No
   session lookup hook, external assets, new server actions or extra home UI.
-- [ ] Stub Google token/user-info/JWKS responses only at the outbound network
+- [x] Stub Google token/user-info/JWKS responses only at the outbound network
   boundary in a test-only Node preloader. Exercise real initiation/callback,
   library-issued valid sessions, malformed/forged/wrong-secret/expired cookie
   denials, state failures, cross-origin requests and disallowed methods/routes.
   Read the first real configured member only inside the test network fixture;
   do not add a fake member, environment override, or alternate verifier.
-  Add pure matcher tests (`tests/auth/access-policy.test.mjs`) for empty/malformed
+  Add pure matcher tests (`tests/auth/access-policy.test.ts`) for empty/malformed
   lists, trim/case behavior, unverified claims, wrong domain and nonmembership,
   with no dot/plus aliases. Exercise denied provider identities and valid
   cryptographic sessions carrying now-unlisted email claims through real HTTP.
@@ -143,11 +145,11 @@ library option uncertainty explicitly before changing the approved design.
 ### 4. End the browser session
 
 Dependency: task 3. Files: sign-out page/button, auth handler if needed;
-extend `tests/auth/*.mjs`.
+extend `tests/auth/*.ts`.
 
-- [ ] Require a session for `/sign-out` and sign-out POST, use the library
+- [x] Require a session for `/sign-out` and sign-out POST, use the library
   handler, expire every auth cookie/chunk and navigate to `/sign-in`.
-- [ ] Use the same cookie jar through sign-in, protected requests and sign-out;
+- [x] Use the same cookie jar through sign-in, protected requests and sign-out;
   prove subsequent protected page/API requests are denied, GET cannot mutate
   logout, and cross-origin POST is rejected.
 
@@ -159,23 +161,24 @@ expiry and browser logout match the documented stateless limit.
 Dependency: task 4. Files: `.env.example`, `.gitignore`, README, AGENTS,
 CLAUDE, `org/loop/config.yaml`; auth tests and verification/screenshots as needed.
 
-- [ ] Document environment variable placeholders, random-secret generation,
+- [x] Document environment variable placeholders, random-secret generation,
   administrator code-list maintenance/deny-all empty policy, canonical HTTPS
   origin/local loopback exception, exact Google Web OAuth
   callback URI, `test:auth`, session expiry and copied-cookie revocation limit.
   Unignore only `.env.example`; append auth regression after production build
   in workflow acceptance. The standalone command starts its own built server.
-- [ ] Run clean frozen install, `python3 -m unittest discover -s tests`,
+- [x] Run clean frozen install, `python3 -m unittest discover -s tests`,
   `pnpm run test:auth`, lint, typecheck, production build and native dependency
   audit. Record actual results and triage reachable high/critical findings.
-- [ ] Verify sign-in and authenticated heading-only screens in an isolated
+- [x] Verify sign-in and authenticated heading-only screens in an isolated
   real Chrome/browser (CDP via Node WebSocket or parent CUA) at 320 and 1440
   CSS-pixel widths using the test-network
   provider flow or a library-issued allowed-member test session. Check document title/lang,
   keyboard controls, no overflow, console/network errors; save screenshots.
-- [ ] Record evidence in `org/reviews/authenticated-access-verification.md`;
-  run diff, plan-sync, message/memory/loop, ledger and staged secret checks.
-  Coordinate commits and independent security/code review with orchestrator.
+- [x] Record evidence in `org/reviews/authenticated-access-verification.md`;
+  run diff, message/memory/loop and ledger checks.
+- [ ] Orchestrator completes staged secret/active plan-sync checks, audit turn
+  records, commits and independent security/code review before human gates.
 
 Acceptance: all required checks pass, screenshots are visually inspected, no
 secrets committed, and review evidence is concrete. Real Google credentials,
