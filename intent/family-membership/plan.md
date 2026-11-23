@@ -105,21 +105,21 @@ Verify: `pnpm install --frozen-lockfile`, `pnpm audit --json`, native/protocol p
 ### 2. Make the database contract executable
 
 Dependency: 1 and peer approval of the compatibility amendment. Files: lib/db/schema.ts, tests/family/storage.test.ts, tests/family/package.json; reviewed drizzle SQL/meta set (medium plus audit artifacts).
-- [ ] Preserve the three approved tables, indexes, non-null single-family membership, unique subject/email/token hash, restricted foreign keys and invitation-state checks in reviewed explicit SQL. Retain the initial generated SQL, journal and snapshot together; use interfaces-only domain row types instead of runtime ORM schema builders.
-- [ ] Test real SQLite constraints and fresh/repeat migrations against temporary files; no placeholder recipe/meal tables or Better Auth tables.
+- [x] Preserve the three approved tables, indexes, non-null single-family membership, unique subject/email/token hash, restricted foreign keys and invitation-state checks in reviewed explicit SQL. Retain the initial generated SQL, journal and snapshot together; use interfaces-only domain row types instead of runtime ORM schema builders.
+- [x] Test real SQLite constraints and fresh/repeat migrations against temporary files; no placeholder recipe/meal tables or Better Auth tables.
 Verify: inspect the SQL/journal artifact against the approved table contract; `node --import tsx --test tests/family/storage.test.ts` after task 3 wires the migrator. Keep the intentional initial red evidence with this schema/migration slice rather than committing a broken checkpoint. No generation command/config is added.
 
 ### 3. Open only explicitly migrated durable storage
 
 Dependency: 2. Files: lib/db/connection.ts, lib/db/migrate.ts, lib/db.ts, scripts/migrate-db.ts, package.json (medium).
-- [ ] Separate testable connection/migration code from the lazy server-only adapter. Require absolute `DATABASE_PATH`, existing migrated runtime file, WAL, foreign keys, 5-second busy timeout; imports/build never create or migrate it.
-- [ ] Add `db:migrate` and `test:family` scripts exactly as specified; prove missing schema/path, invalid path and lock failure close access, and reopening preserves rows.
-- [ ] Use the public migration-file loader and native immediate migration transaction: validate applied history as an exact ordered hash/timestamp prefix, execute missing trusted SQL and append history atomically, with repeat no-op and complete rollback on failure. Runtime opening verifies full history and required schema without auto-repair; changed/extra/reordered history and schema drift fail closed.
+- [x] Separate testable connection/migration code from the lazy server-only adapter. Require absolute `DATABASE_PATH`, existing migrated runtime file, WAL, foreign keys, 5-second busy timeout; imports/build never create or migrate it.
+- [x] Add `db:migrate` and `test:family` scripts exactly as specified; prove missing schema/path, invalid path and lock failure close access, and reopening preserves rows.
+- [x] Use the public migration-file loader and native immediate migration transaction: validate applied history as an exact ordered hash/timestamp prefix, execute missing trusted SQL and append history atomically, with repeat no-op and complete rollback on failure. Runtime opening verifies full history and required schema without auto-repair; changed/extra/reordered history and schema drift fail closed.
 Verify: `node --import tsx --test tests/family/storage.test.ts`; `pnpm run typecheck`; `pnpm run build` with no database/secrets. Migration tests own temporary files and clean them on failure.
 
 ### Checkpoint A — persistence proof
 
-- [ ] Tasks 1–3 are green; archive native compatibility and schema/migration evidence. No application route depends on unfinished storage behavior yet.
+- [x] Tasks 1–3 are green; archive native compatibility and schema/migration evidence. No application route depends on unfinished storage behavior yet.
 
 ### 4. Give the HTTP harness isolated persistent identities
 

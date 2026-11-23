@@ -8,13 +8,16 @@
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "next typegen && tsc --noEmit",
-    "test:auth": "node --import tsx --test tests/auth/*.test.ts"
+    "test:auth": "node --import tsx --test tests/auth/*.test.ts",
+    "db:migrate": "node --env-file=.env.local --import tsx scripts/migrate-db.ts",
+    "test:family": "node --import tsx --test tests/family/*.test.ts"
   },
   "engines": {
     "node": ">=22.0.0"
   },
   "dependencies": {
     "better-auth": "1.7.27",
+    "better-sqlite3": "13.2.0",
     "drizzle-orm": "0.45.4",
     "next": "16.4.6",
     "react": "19.3.1",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.5",
+    "@types/better-sqlite3": "9.6.0",
     "@types/node": "24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",

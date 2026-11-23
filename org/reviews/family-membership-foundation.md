@@ -58,3 +58,13 @@ Official sources: [Drizzle SQLite](https://orm.drizzle.team/docs/sqlite/get-star
 [Better Auth sessions](https://better-auth.com/docs/concepts/session-management),
 [Next cookies](https://nextjs.org/docs/app/api-reference/functions/cookies),
 and the pinned installed package declarations/metadata.
+
+## Reviewed compatibility resolution
+
+The approved `storage-compatibility.md` amendment retains exact generated SQL
+and the public migration-file loader, using typed native queries instead of
+the broken ORM declarations. Storage tests now pass 4/4, including changed
+history, partial schema refusal, and transactional DDL/ledger rollback. Full
+strict typecheck, lint and production build pass with no database/secrets.
+Runtime verifies ordered hash/timestamp history and the full actual schema
+against an isolated in-memory expectation; it never repairs persistent schema.
