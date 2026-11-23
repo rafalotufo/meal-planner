@@ -20,13 +20,13 @@ nodes:
     stage: design
     artifact: intent/vercel-deployment/spec.md
     gate: product_owner_approve
-    status: pending
+    status: approved
     done_status: approved
   plan:
     stage: build
     artifact: intent/vercel-deployment/plan.md
     gate: engineer_approve
-    status: not_started
+    status: pending
     done_status: approved
   implementation:
     stage: build

@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Vercel deployment Design complete; spec gate pending, no plan, code or release authorized." }
+  orchestrator: { status: idle, assignment: null, last_report: "Vercel plan ready for human approval; no implementation, project configuration or release authorized." }
   product-manager: { status: idle, assignment: null, last_report: Rafael approved Vercel production intent; Hobby scope and existing OpenAI limits recorded. }
-  architect: { status: idle, assignment: null, last_report: Vercel Hobby deployment spec drafted and independently reviewed; human spec approval pending. }
-  senior-developer: { status: idle, assignment: null, last_report: "Photo enrichment verified57TS+7Python/allchecks, real3source photos and CUA; code/security002 approved." }
+  architect: { status: idle, assignment: null, last_report: "Rafael approved Vercel specification; planning authorized, implementation remains gated." }
+  senior-developer: { status: idle, assignment: null, last_report: Vercel implementation plan drafted and independently reviewed; human plan approval pending. }
   security-researcher: { status: idle, assignment: null, last_report: Recipe-photo security002 clear after57tests+control/association probes. }
-  reviewer: { status: idle, assignment: null, last_report: "review spec-vercel-deployment-002: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review plan-vercel-deployment-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -34,3 +34,4 @@ review_queue:
   - { id: code-recipe-merge-001, artifact: recipe-merge-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-vercel-deployment-001, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: spec-vercel-deployment-002, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

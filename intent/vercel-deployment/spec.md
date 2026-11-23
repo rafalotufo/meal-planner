@@ -2,7 +2,8 @@
 
 - Derived from: `intent/vercel-deployment/intent.md`
 - Author: architect (Codex)
-- Status: Draft — independent review passed; awaiting human spec approval
+- Status: Approved by Rafael — implementation planning authorized
+- Approval: `org/reviews/spec-vercel-deployment-approval-001.md`
 - Date: 2026-11-23
 - Intent acceptance: `org/reviews/intent-vercel-deployment-001.md`
 
