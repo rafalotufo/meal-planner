@@ -9,7 +9,7 @@ intent/recipe-waiting-game/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
+- turn: 2
 - phase: spec
 - stop_reason: None
 
@@ -47,6 +47,7 @@ intent/recipe-waiting-game/intent.md
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
 - product-manager-0005 product-manager -> orchestrator decision: Accepted Word Snack intent for Design
+- product-manager-0006 product-manager -> orchestrator answer: Re: Review user-directed completion behavior amendment
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -66,11 +67,11 @@ intent/recipe-waiting-game/intent.md
 
 ## Recent decisions
 
-- mem-0035 ceo: Rafael approved Vercel deployment intent and Design; production Vercel URL, rafalotufos-projects Hobby new project, existing OpenAI project limits and no billing changes. Human spec/plan/merge/release gates remain. (org/reviews/intent-vercel-deployment-001.md)
 - mem-0036 ceo: Rafael approved Vercel deployment specification from 9bbc2d2. Local implementation planning authorized; plan, merge, project configuration and production release remain gated. (org/reviews/spec-vercel-deployment-approval-001.md)
 - mem-0050 orchestrator: Rafael selected Everyday grid plus Search notebook history with per-search local pill filtering. Implemented and independently reviewed on codex/recipe-search-notebook; history is page-local, title-only ingredient evidence and conservative total-time filtering. Local verification passed; human merge/release remain pending. (intent/recipe-search-notebook/intent.md)
 - mem-0051 orchestrator: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. (org/messages/ceo-0018.md)
 - mem-0052 product-manager: Accepted Word Snack recipe-search waiting-game intent for Design following Rafael selecting the six-letter word game. Dictionary, rules, responsive layout and interruption focus remain Design questions. No spec/plan, implementation, merge or release approved. Prior notebook loop and graph archived unchanged. (org/reviews/intent-recipe-waiting-game-001.md)
+- mem-0053 ceo: Rafael clarified Word Snack success must preserve the open playable game and focus, announce available recipes, and let users explicitly close to view results. PM accepted amendment for Design; supersedes automatic dismissal on success. Error/cancellation/navigation behavior unchanged. (org/reviews/intent-recipe-waiting-game-002.md)
 
 ## Constraints
 
@@ -78,15 +79,15 @@ intent/recipe-waiting-game/intent.md
 
 ## Artifacts
 
-- intent/recipe-waiting-game/intent.md (d12e3855a2f99fd6b71c8fb416c18c12fd751225fd0f7356c45e50a7e98b599b)
+- intent/recipe-waiting-game/intent.md (aa0c6468234bf4f69e411058cc0ac8f3d486cfe3da084dac1bc342dfc73bd70d)
 
 ## Next action
 
-product-manager:review_intent
+product-manager:answer_message
 
 ## Last digest source
 
-- mem-0052 from org/reviews/intent-recipe-waiting-game-001.md
+- mem-0053 from org/reviews/intent-recipe-waiting-game-002.md
 
 <!-- machine:end -->
 

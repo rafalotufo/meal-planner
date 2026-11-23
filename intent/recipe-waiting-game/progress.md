@@ -39,3 +39,23 @@ Architect drafts spec.md from the accepted intent. Spec and plan need their
 configured approvals before implementation. Merge and release remain human
 gates. Existing untracked brainstorm-notes.md and work/ are preserved outside
 this intent-stage commit.
+
+## User amendment — keep playing after success
+
+Rafael clarified that search completion must not end the game. Updated the
+intent's outcome, acceptance criteria and Design questions: successful results
+become available immediately with visible and accessible notification, while
+letters, accepted words, draft input and focus remain intact. Users may
+continue playing and explicitly close the game to view results. Error,
+cancellation and navigation behavior is unchanged.
+
+This supersedes the original automatic-success-dismissal requirement. Preserve
+the original review and ledger decision as historical evidence; record PM
+amendment review separately. No specification or application code changed.
+
+PM accepted the amendment in org/reviews/intent-recipe-waiting-game-002.md,
+answered orchestrator-0019 through product-manager-0006, and returned idle.
+Acceptance is recorded as product_owner_accept-011. Bounded turn 2 records the
+consultation without advancing past Design. Seven workflow tests passed again;
+the loop acceptance suite continues to record application-check failures with
+dependencies unavailable. No runtime verification is claimed.

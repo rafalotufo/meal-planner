@@ -2,7 +2,7 @@
 
 - Author: Rafael (source); orchestrator (capture)
 - Source: brainstorming in this Codex chat; “Lets go with work snack. Use SDLC org skill for this intent”. Interpreted as Word Snack, the six-letter word game selected from round two.
-- Status: Accepted — product-manager review, org/reviews/intent-recipe-waiting-game-001.md
+- Status: Accepted — product-manager reviews org/reviews/intent-recipe-waiting-game-001.md and org/reviews/intent-recipe-waiting-game-002.md
 - Date: 2026-11-23
 
 ## Problem
@@ -20,10 +20,14 @@ within seconds, without a separate game page or onboarding.
 
 Play is optional and works on mobile and desktop with touch, mouse, and
 keyboard. Preserve access to existing search groups and visible search status.
-Show recipes immediately when ready; finishing a word or round must never
-hold results back. End play on success, error, cancellation, or navigation,
-with no penalty for interruption. Do not steal focus when the game appears
-or leave keyboard focus stranded when it disappears.
+Make recipes available immediately when ready, announce that results are
+available, and keep the game open with its current letters, words and draft
+intact. Users may continue playing and choose when to close the game to view
+their recipes. Provide a clear close/view-results control; do not require
+finishing a word or round. Completion must not steal focus or automatically
+dismiss play. End play on error, cancellation, or navigation, with no penalty
+for interruption. Do not steal focus when the game appears or leave keyboard
+focus stranded when users close it.
 
 ## Affected users and systems
 
@@ -63,12 +67,17 @@ architect designs it, and independent reviewers assess design and code.
    timer, or losing condition competes with recipe arrival.
 4. Previous search groups remain usable. Game interactions cause no recipe
    request, change to query semantics, or persistence.
-5. Search completion and failure end the game promptly; recipes and errors
-   retain their existing behavior. Rapid/repeated searches and navigation
-   cannot leak old game state into another request.
+5. Successful search completion makes results available and gives a visible,
+   accessible results-ready notification without closing or resetting the game
+   or interrupting an in-progress word. Users can keep playing and explicitly
+   close the game to view results. The close/view-results control works with
+   touch, mouse and keyboard and moves focus to a meaningful results target.
+   Failure, cancellation and navigation end play without hiding errors.
+   Rapid/repeated searches cannot leak old game state into another request.
 6. Verify touch and keyboard flows, announcements, focus recovery and readable
    layouts at mobile and desktop widths, including short/long waits and
-   interruption mid-word. Verification must distinguish fixtures from live
+   results arriving mid-word, continued play after completion, and explicit
+   dismissal. Verification must distinguish fixtures from live
    provider evidence; no paid calls are required for this feature.
 
 ## Out of scope
@@ -83,8 +92,10 @@ new database infrastructure, production deployment, or merge authorization.
   local bundle? Define minimum word length, inflections, and excluded entries.
 - How are solvable six-letter sets chosen, and when does a new search reset
   them? Define whether repeated letters and multiple words are supported.
-- What compact layout and feedback keep previous results usable and make the
-  transition to recipes accessible, including focus inside an interrupted game?
+- What compact layout, results-ready notification and close/view-results
+  control keep previous results usable and make user-chosen dismissal
+  accessible? Successful completion must preserve play and focus; define
+  focus recovery for explicit dismissal and error interruption.
 - Should the game appear immediately or after a short loading threshold?
   Resolve without delaying requests or results.
 
@@ -93,3 +104,6 @@ new database infrastructure, production deployment, or merge authorization.
 Rafael selected Word Snack and requested the SDLC org intent workflow. This
 records the selected concept, accepted by the product manager for Design; it
 does not claim approval of an unwritten specification or implementation plan.
+Rafael subsequently clarified: “Search completion should not end the game,
+but should let the user know that results are available and allow them to close
+the game.” This supersedes automatic dismissal on successful completion.

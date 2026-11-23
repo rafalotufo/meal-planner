@@ -4,7 +4,7 @@
 version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: Human-approved recipe search notebook merged into local main from reviewed source6b94405 and approval68a28ef. Application content matches verified feature. Production release remains gated. }
-  product-manager: { status: idle, assignment: null, last_report: Accepted Word Snack waiting-game intent for Design; independent review intent-recipe-waiting-game-001.md. Dictionary and lifecycle details remain for architect; spec/plan/merge/release unapproved. }
+  product-manager: { status: idle, assignment: null, last_report: "Accepted Word Snack completion amendment; review intent-recipe-waiting-game-002.md. Preserve playable state/focus after success, announce results ready, explicit dismissal; Design details remain." }
   architect: { status: idle, assignment: null, last_report: "Rafael approved Vercel specification; planning authorized, implementation remains gated." }
   senior-developer: { status: idle, assignment: null, last_report: "Recipe notebook implementation8fbbaf8 passed63 application/12 auth/7 workflow tests, build/lint/types and five-width real Chrome. Independent code/security approved; human merge/release pending." }
   security-researcher: { status: idle, assignment: null, last_report: "Recipe notebook security review clear: page-local history, React text and original source/photo/auth boundaries preserved. No new provider requests or persistence." }
