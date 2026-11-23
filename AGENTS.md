@@ -2,11 +2,13 @@
 
 ## Commands
 
-- Install reproducibly: `npm ci` (Node.js 22+; tested with 24.15.0/npm 11.12.1).
-- Develop: `npm run dev`.
-- Verify: `npm run lint`, `npm run typecheck`, `npm run build`; all must pass.
+- Install reproducibly: `pnpm install --frozen-lockfile` (Node.js 22+; tested with 24.15.0/pnpm 10.33.0).
+- Package manager: exact `pnpm@10.33.0` in `package.json`; bootstrap missing pnpm
+  with `npm install --global pnpm@10.33.0`, then check `pnpm --version`.
+- Develop: `pnpm run dev`.
+- Verify: `pnpm run lint`, `pnpm run typecheck`, `pnpm run build`; all must pass.
 - Workflow regression tests: `python3 -m unittest discover -s tests`.
-- Production preview: `npm run start` after build.
+- Production preview: `pnpm run start` after build.
 - Secrets: `python3 scripts/scan_secrets.py --staged` (zero findings).
 
 ## Architecture and scope
@@ -29,12 +31,12 @@ checks or remove failing tests to get a passing run.
 
 Prefer small server components and static Tailwind utilities. Do not add client
 state, external assets, database infrastructure, or additional UI without scope.
-Pin exact stable dependency versions and commit npm's generated lockfile.
+Pin exact stable dependency versions and commit pnpm's generated `pnpm-lock.yaml`.
 
 ## Feature artifacts
 
 Use `intent/<feature-slug>/` for every intent and all of its specifications,
 including `intent.md`, `spec.md`, `plan.md`, and any feature-specific design
-notes. Use lowercase kebab-case slugs. Current feature: `intent/home-page/`.
+notes. Use lowercase kebab-case slugs. Current feature: `intent/pnpm-migration/`.
 Before dispatch, read the active work item from `org/loop/state.yaml` and its
 sibling spec/plan; keep graph artifact paths aligned. See `intent/README.md`.

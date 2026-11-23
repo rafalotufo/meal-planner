@@ -5,12 +5,27 @@ A Next.js App Router application. The initial home page displays only
 
 ## Local development
 
-Use Node.js 22 or newer. Verified with Node.js 24.15.0 and npm 11.12.1.
+Use Node.js 22 or newer and pnpm 10.33.0 (pinned in `package.json`).
+Verified with Node.js 24.15.0 and pnpm 10.33.0.
+
+If pnpm is not installed, bootstrap the exact version once:
 
 ```bash
-npm ci
-npm run dev
+npm install --global pnpm@10.33.0
+pnpm --version
 ```
+
+Existing pnpm/Corepack users can use the pinned version from `package.json`.
+Then install dependencies and start development:
+
+```bash
+pnpm install --frozen-lockfile
+pnpm run dev
+```
+
+Commit the generated `pnpm-lock.yaml` with dependency changes. Dependency build
+scripts are reviewed explicitly in `pnpm-workspace.yaml`; unreviewed scripts
+fail installation.
 
 Open <http://localhost:3000>. No environment variables or database are needed.
 
@@ -18,10 +33,10 @@ Open <http://localhost:3000>. No environment variables or database are needed.
 
 ```bash
 python3 -m unittest discover -s tests
-npm run lint
-npm run typecheck
-npm run build
-npm run start
+pnpm run lint
+pnpm run typecheck
+pnpm run build
+pnpm run start
 ```
 
 The production preview also runs at <http://localhost:3000>. Check the home
@@ -44,6 +59,6 @@ intentionally deferred until the first feature that requires persistence.
 The agent org contract is in `org/org-chart.yaml` and `org/protocol.md`.
 Every feature keeps its intent and specifications in `intent/<feature-slug>/`:
 `intent.md`, `spec.md`, `plan.md`, and related design notes. The current feature
-is in `intent/home-page/`. See `intent/README.md` for the convention; review and
+is in `intent/pnpm-migration/`. See `intent/README.md` for the convention; review and
 verification evidence lives in `org/reviews/`.
 Human approval remains required for merges and releases.

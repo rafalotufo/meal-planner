@@ -6,7 +6,7 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted pnpm migration scope; design may select compatible stable pnpm without app dependency upgrades. }
   architect: { status: idle, assignment: null, last_report: "Spec independently approved: org/reviews/spec-pnpm-migration-001.md" }
-  senior-developer: { status: busy, assignment: intent/pnpm-migration/plan.md, last_report: Draft pnpm migration plan ready for independent review; no implementation started. }
+  senior-developer: { status: idle, assignment: null, last_report: "pnpm migration implemented; clean/repeat frozen install, app/workflow checks and browser QA pass; ready for independent security/code review." }
   security-researcher: { status: idle, assignment: null, last_report: "Security clear for static increment; zero production audit findings, dev-only Drizzle advisories documented." }
   reviewer: { status: idle, assignment: null, last_report: "review plan-pnpm-migration-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

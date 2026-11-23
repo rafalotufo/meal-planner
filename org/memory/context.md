@@ -21,7 +21,7 @@ intent/pnpm-migration/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/pnpm-migration/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -31,6 +31,7 @@ intent/pnpm-migration/intent.md
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
+- senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 
 ## Recent decisions
 
