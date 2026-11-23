@@ -10,6 +10,82 @@
 
 ## Files that change
 
+- .env.example
+- .gitignore
+- .vercelignore
+- AGENTS.md
+- CLAUDE.md
+- app/api/auth/[[]...all[]]/route.ts
+- app/api/family/invitations/[[]id[]]/revoke/route.ts
+- app/api/family/invitations/route.ts
+- app/api/family/route.ts
+- app/api/invitation-context/route.ts
+- app/api/invitations/accept/route.ts
+- app/api/onboarding/provision/route.ts
+- app/api/recipes/search/route.ts
+- app/api/session/route.ts
+- app/family/family-controls.tsx
+- app/family/page.tsx
+- app/invite/invite-context.tsx
+- app/invite/page.tsx
+- app/onboarding/onboarding-controls.tsx
+- app/onboarding/page.tsx
+- app/page.tsx
+- app/sign-in/sign-in-button.tsx
+- app/sign-out/page.tsx
+- drizzle/0000_gifted_sharon_carter.sql
+- drizzle/meta/0000_snapshot.json
+- drizzle/meta/_journal.json
+- drizzle/postgresql/0000_family.sql
+- drizzle/postgresql/catalog.json
+- drizzle/postgresql/meta/_journal.json
+- drizzle/postgresql/rollback-initial.sql
+- lib/auth-policy.ts
+- lib/auth.ts
+- lib/db.ts
+- lib/db/connection.ts
+- lib/db/migrate.ts
+- lib/db/schema.ts
+- lib/family-store.ts
+- lib/family.ts
+- lib/http.ts
+- lib/identity-access.ts
+- lib/invitation-context.ts
+- lib/invitations.ts
+- lib/session.ts
+- next.config.ts
+- package.json
+- pnpm-lock.yaml
+- pnpm-workspace.yaml
+- proxy.ts
+- scripts/migrate-db.ts
+- scripts/postgres-hosted.ts
+- scripts/postgres-local.ts
+- tests/auth/browser.ts
+- tests/auth/chrome.ts
+- tests/auth/flow.ts
+- tests/auth/google-network.ts
+- tests/auth/oauth.test.ts
+- tests/auth/server.ts
+- tests/family/acceptance.test.ts
+- tests/family/browser.ts
+- tests/family/context.test.ts
+- tests/family/database.ts
+- tests/family/fluid.test.ts
+- tests/family/http.ts
+- tests/family/identity.test.ts
+- tests/family/invitations.test.ts
+- tests/family/isolation.test.ts
+- tests/family/main-integration.test.ts
+- tests/family/package.json
+- tests/family/postgres-backup.ts
+- tests/family/postgresql-contract.test.ts
+- tests/family/provisioning.test.ts
+- tests/family/roles.test.ts
+- tests/family/storage.test.ts
+- org/merge/single-call-main-2026-11-23/**
+- org/reviews/single-call-main-integration*.md
+- intent/single-call-recipe-search/merge.md
 - lib/recipes/openai.ts
 - tests/recipe-fixtures.ts
 - tests/recipe-openai.test.ts
@@ -161,3 +237,16 @@ Red/green tests run at their respective slice boundaries. Full checks run after
 implementation changes; do not repeat unchanged checks merely for reassurance.
 The org loop's required acceptance invocations remain authoritative governance
 evidence. Report real failures and fix their cause without exclusions or skips.
+
+## Authorized local main integration
+
+Rafael subsequently requested merging this reviewed feature into main. Main now
+includes independently reviewed family admission and native PostgreSQL changes.
+Integrate current main without altering those application/configuration files or
+the reviewed recipe source/tests. Preserve both divergent audit namespaces as
+hashed snapshots; keep main's ledger and memory prefixes, import existing branch
+decisions with provenance/fresh IDs, alias colliding feature messages, and retain
+both completed loops. Run the combined recipe/auth/family/workflow/smoke, lint,
+typecheck, build and real-browser checks; obtain independent integration review.
+Record this new human merge authorization. Only then update local main while
+checking its expected tip and clean worktree. Release remains not_started.

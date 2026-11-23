@@ -1,0 +1,300 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "62166a45-2a7b-4b0b-81b1-1e5fbd512ed3",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "app_users": {
+      "name": "app_users",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "google_subject": {
+          "name": "google_subject",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "verified_email": {
+          "name": "verified_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "family_id": {
+          "name": "family_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "invitation_granted_at": {
+          "name": "invitation_granted_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "app_users_google_subject_unique": {
+          "name": "app_users_google_subject_unique",
+          "columns": [
+            "google_subject"
+          ],
+          "isUnique": true
+        },
+        "app_users_verified_email_unique": {
+          "name": "app_users_verified_email_unique",
+          "columns": [
+            "verified_email"
+          ],
+          "isUnique": true
+        },
+        "users_family": {
+          "name": "users_family",
+          "columns": [
+            "family_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "app_users_family_id_families_id_fk": {
+          "name": "app_users_family_id_families_id_fk",
+          "tableFrom": "app_users",
+          "tableTo": "families",
+          "columnsFrom": [
+            "family_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "subject_nonempty": {
+          "name": "subject_nonempty",
+          "value": "length(trim(\"app_users\".\"google_subject\")) > 0"
+        },
+        "email_normalized": {
+          "name": "email_normalized",
+          "value": "\"app_users\".\"verified_email\" = lower(trim(\"app_users\".\"verified_email\")) AND length(\"app_users\".\"verified_email\") > 0"
+        }
+      }
+    },
+    "families": {
+      "name": "families",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "family_invitations": {
+      "name": "family_invitations",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "family_id": {
+          "name": "family_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_by_user_id": {
+          "name": "created_by_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "recipient_email": {
+          "name": "recipient_email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "token_hash": {
+          "name": "token_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "accepted_by_user_id": {
+          "name": "accepted_by_user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "accepted_at": {
+          "name": "accepted_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "revoked_at": {
+          "name": "revoked_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "family_invitations_token_hash_unique": {
+          "name": "family_invitations_token_hash_unique",
+          "columns": [
+            "token_hash"
+          ],
+          "isUnique": true
+        },
+        "invitations_recipient": {
+          "name": "invitations_recipient",
+          "columns": [
+            "recipient_email",
+            "status",
+            "expires_at"
+          ],
+          "isUnique": false
+        },
+        "invitations_family": {
+          "name": "invitations_family",
+          "columns": [
+            "family_id",
+            "created_at"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "family_invitations_family_id_families_id_fk": {
+          "name": "family_invitations_family_id_families_id_fk",
+          "tableFrom": "family_invitations",
+          "tableTo": "families",
+          "columnsFrom": [
+            "family_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "family_invitations_created_by_user_id_app_users_id_fk": {
+          "name": "family_invitations_created_by_user_id_app_users_id_fk",
+          "tableFrom": "family_invitations",
+          "tableTo": "app_users",
+          "columnsFrom": [
+            "created_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        },
+        "family_invitations_accepted_by_user_id_app_users_id_fk": {
+          "name": "family_invitations_accepted_by_user_id_app_users_id_fk",
+          "tableFrom": "family_invitations",
+          "tableTo": "app_users",
+          "columnsFrom": [
+            "accepted_by_user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {
+        "invitation_deadline": {
+          "name": "invitation_deadline",
+          "value": "\"family_invitations\".\"expires_at\" > \"family_invitations\".\"created_at\""
+        },
+        "invitation_state": {
+          "name": "invitation_state",
+          "value": "(\n    (\"family_invitations\".\"status\" = 'pending' AND \"family_invitations\".\"accepted_by_user_id\" IS NULL AND \"family_invitations\".\"accepted_at\" IS NULL AND \"family_invitations\".\"revoked_at\" IS NULL) OR\n    (\"family_invitations\".\"status\" = 'accepted' AND \"family_invitations\".\"accepted_by_user_id\" IS NOT NULL AND \"family_invitations\".\"accepted_at\" IS NOT NULL AND \"family_invitations\".\"revoked_at\" IS NULL) OR\n    (\"family_invitations\".\"status\" = 'revoked' AND \"family_invitations\".\"accepted_by_user_id\" IS NULL AND \"family_invitations\".\"accepted_at\" IS NULL AND \"family_invitations\".\"revoked_at\" IS NOT NULL)\n  )"
+        }
+      }
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

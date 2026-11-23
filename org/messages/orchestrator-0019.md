@@ -1,16 +1,20 @@
 ---
 id: orchestrator-0019
 from: orchestrator
-to: senior-developer
-kind: decision
-subject: Record one bounded metadata diagnostic after observed null results
-artifact: intent/single-call-recipe-search/plan.md
+to: reviewer
+kind: status
+subject: Recipe notebook source ready; final browser recheck underway
+artifact: intent/recipe-search-notebook/progress.md
 requires_response: false
 in_reply_to: null
-status: open
+status: closed
 severity: null
 blocking: false
-created_at: "2026-11-23T20:54:31Z"
+created_at: "2026-11-23T19:41:36Z"
+closed_by: orchestrator
+closed_evidence: org/reviews/code-recipe-search-notebook-001.md
 ---
 
-Initial3 actual-provider searches returned9 cards with null optional metadata. Peer reviewer accepted the plan addendum for exactly one additional unchanged mushroom query, original model/payload/bounds/cancellation, responseclone inspection, local ignored raw only and sanitized findings. This is necessary verification within user-authorized local implementation/testing; no model/production/billing change or implicit app fix. Record actual total4 live calls and findings.
+Independent code/security reports have no required findings. Native tests pass63/63. Real Chrome exercised all notebook interactions at320/390/768/1024/1440; final pass follows mobile spacing refinement and exact accounting for five intentional HTTP429 fixture responses. No live LLM requests.
+
+Provenance: imported from main7cbe321 orchestrator-0016.md; original exact bytes are preserved under org/merge/postgresql-notebook-2026-11-23/main/org/messages/orchestrator-0016.md.

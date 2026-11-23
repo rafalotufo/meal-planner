@@ -3,7 +3,7 @@
 - Author: product-manager, from Rafael's selected implementation request
 - Status: Accepted for Design under the org PM intent gate
 - Decision: `org/reviews/intent-single-call-recipe-search-001.md`
-- Source: `org/messages/ceo-0019.md` and the active chat
+- Source: `org/messages/ceo-0025.md` and the active chat
 - Date: 2026-11-23
 
 ## Problem

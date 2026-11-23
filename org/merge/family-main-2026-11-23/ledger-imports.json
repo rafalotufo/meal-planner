@@ -1,0 +1,27 @@
+[
+  {
+    "original_id": "intent-family-membership-001",
+    "original_hash": "2a72a0abf51636b4bb00922bea1f0d284747aa82fc17161afd4573f5fc670d3c",
+    "canonical_id": "import-family-intent-family-membership-001"
+  },
+  {
+    "original_id": "spec-family-membership-001",
+    "original_hash": "bc6271c978047819ef525369d11b4cd06d823d50dee076d73bc10179997351cc",
+    "canonical_id": "import-family-spec-family-membership-001"
+  },
+  {
+    "original_id": "plan-family-membership-001",
+    "original_hash": "94fd624a754c2fc644833dafbb5e5ae362b9a26b0d20e9aaa5ed61f92b85d128",
+    "canonical_id": "import-family-plan-family-membership-001"
+  },
+  {
+    "original_id": "spec-family-storage-amendment-001",
+    "original_hash": "000552df50dd701964f26d70011731f6da1b6af338565802a0989531dd38688f",
+    "canonical_id": "import-family-spec-family-storage-amendment-001"
+  },
+  {
+    "original_id": "plan-family-storage-amendment-001",
+    "original_hash": "819d60457a85236128377eeff653017dcc706f1128a11c0612ee354dcab96f23",
+    "canonical_id": "import-family-plan-family-storage-amendment-001"
+  }
+]

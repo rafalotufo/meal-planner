@@ -59,7 +59,7 @@ closed; no production changes have been made.
 ## Human merge approval
 
 Rafael instructed “Merge to main” on 2026-11-23. Approval is recorded in
-org/messages/ceo-0018.md and gate record merge-recipe-search-notebook-001 for
+org/messages/ceo-0023.md and gate record merge-recipe-search-notebook-001 for
 reviewed source6b94405. The implementation graph is approved for merge; its
 terminal marker is corrected to merged. Production release remains gated.
 

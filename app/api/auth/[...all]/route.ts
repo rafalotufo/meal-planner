@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authConfiguration, getAuth } from "../../../../lib/auth";
+import { contextCookie } from "../../../../lib/invitation-context";
 import { noStore } from "../../../../lib/auth-policy";
-import { readSession } from "../../../../lib/session";
+import { readCryptographicSession } from "../../../../lib/session";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,7 @@ async function handle(request: NextRequest) {
       if (request.headers.get("origin") !== origin || request.headers.get("sec-fetch-site") === "cross-site") {
         return NextResponse.json({ error: "Forbidden" }, { status: 403, headers: noStore });
       }
-      if (logout && !await readSession(request.headers)) return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: noStore });
+      if (logout && !await readCryptographicSession(request.headers)) return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: noStore });
       if (request.headers.get("content-type")?.split(";")[0] !== "application/json" || Number(request.headers.get("content-length")) > 4096) {
         return NextResponse.json({ error: "Invalid request" }, { status: 400, headers: noStore });
       }
@@ -31,7 +32,7 @@ async function handle(request: NextRequest) {
       if (social && (
         fields.provider !== "google" ||
         Object.keys(fields).some((key) => !["provider", "callbackURL", "errorCallbackURL"].includes(key)) ||
-        (fields.callbackURL !== undefined && fields.callbackURL !== "/") ||
+        (fields.callbackURL !== undefined && fields.callbackURL !== "/onboarding") ||
         (fields.errorCallbackURL !== undefined && fields.errorCallbackURL !== "/sign-in")
       ) || logout && Object.keys(fields).length !== 0) {
         return NextResponse.json({ error: "Invalid request" }, { status: 400, headers: noStore });
@@ -39,7 +40,7 @@ async function handle(request: NextRequest) {
       forwarded = new Request(request.url, {
         method: "POST",
         headers: request.headers,
-        body: JSON.stringify(social ? { provider: "google", callbackURL: `${origin}/`, errorCallbackURL: `${origin}/sign-in`, newUserCallbackURL: `${origin}/` } : {}),
+        body: JSON.stringify(social ? { provider: "google", callbackURL: `${origin}/onboarding`, errorCallbackURL: `${origin}/sign-in`, newUserCallbackURL: `${origin}/onboarding` } : {}),
       });
     }
     // Use the HTTP handler so the library also enforces its origin/CSRF/OAuth checks.
@@ -48,8 +49,9 @@ async function handle(request: NextRequest) {
     for (const [name, value] of Object.entries(noStore)) headers.set(name, value);
     if (callback && headers.has("location")) {
       const destination = new URL(headers.get("location")!, origin);
-      if (destination.origin !== origin || destination.pathname !== "/") headers.set("location", `${origin}/sign-in?error=1`);
+      if (destination.origin !== origin || destination.pathname !== "/onboarding") headers.set("location", `${origin}/sign-in?error=1`);
     }
+    if (logout) headers.append("Set-Cookie", contextCookie(origin, null));
     if (response.status >= 400) return NextResponse.json({ error: "Authentication failed" }, { status: response.status, headers });
     return new Response(response.body, { status: response.status, headers });
   } catch {

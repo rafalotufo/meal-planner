@@ -18,7 +18,7 @@ PM-authored text or implementation approval.
 
 ## Scope and evidence
 
-- `org/messages/ceo-0019.md` records the user's implementation selection and
+- `org/messages/ceo-0025.md` records the user's implementation selection and
   local authorization, with merge/push/production actions excluded.
 - `intent/single-call-recipe-search/research.md` preserves the measured tradeoff:
   the single-call prototype passed structural validation in 6/6 trials but did

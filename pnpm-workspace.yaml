@@ -4,3 +4,8 @@ allowBuilds:
   esbuild@0.25.12: true
   esbuild@0.28.2: true
   fsevents@2.3.3: false
+# PostgreSQL runtime uses only Drizzle’s public migration loader. Remove unused
+# optional SQLite peers rather than approving native build scripts.
+overrides:
+  'drizzle-orm>better-sqlite3': '-'
+  'drizzle-orm>@types/better-sqlite3': '-'

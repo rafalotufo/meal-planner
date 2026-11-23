@@ -2,15 +2,19 @@
 id: orchestrator-0018
 from: orchestrator
 to: senior-developer
-kind: handoff
-subject: Implement approved single-call recipe search plan
-artifact: intent/single-call-recipe-search/plan.md
+kind: decision
+subject: Implement approved recipe search notebook design
+artifact: intent/recipe-search-notebook/plan.md
 requires_response: false
 in_reply_to: null
-status: open
+status: closed
 severity: null
 blocking: false
-created_at: "2026-11-23T20:46:54Z"
+created_at: "2026-11-23T19:40:20Z"
+closed_by: orchestrator
+closed_evidence: org/reviews/recipe-search-notebook-verification.md
 ---
 
-Approved plan ef6642a and org turn4 authorize implementation and full verification. Use one flattened response with source-local evidence/excerpts, preserve all limits and UI/auth/photo boundaries, prove red/green regressions and3 bounded actual-provider live searches, preserve historical browser captures. Evidence goes in feature progress and org/reviews/single-call-recipe-search-verification.md. Parent serializes commits/state. Merge and release remain human gates.
+Rafael explicitly selected Everyday grid combined with Search notebook history and authorized implementation in this chat. Pills filter only the selected search. Independent design/spec/plan review approved in org/reviews/design-recipe-search-notebook-001.md. Local implementation and verification authorized; human merge/release gates remain closed.
+
+Provenance: imported from main7cbe321 orchestrator-0015.md; original exact bytes are preserved under org/merge/postgresql-notebook-2026-11-23/main/org/messages/orchestrator-0015.md.

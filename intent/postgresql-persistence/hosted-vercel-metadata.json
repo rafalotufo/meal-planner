@@ -1,0 +1,65 @@
+{
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "accountId": "team_2c0O29FMb91g7L6sUChc9v6J",
+  "name": "meal-planner",
+  "region": "iad1",
+  "resourceConfig": {
+    "fluid": true,
+    "functionDefaultRegions": [
+      "iad1"
+    ],
+    "buildMachineType": "basic",
+    "buildMachineSelection": "fixed"
+  },
+  "git": null,
+  "productionDeploymentId": "dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB",
+  "productionDeploymentUrl": "meal-planner-1igkzsbnl-rafalotufos-projects.vercel.app",
+  "deployments": [
+    {
+      "id": "dpl_EcA6U69yZuKmV1YpzbfFpUHwzGXQ",
+      "url": "meal-planner-puo05snh5-rafalotufos-projects.vercel.app",
+      "createdAt": 1795457761482,
+      "readyState": "READY",
+      "target": "production"
+    },
+    {
+      "id": "dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB",
+      "url": "meal-planner-1igkzsbnl-rafalotufos-projects.vercel.app",
+      "createdAt": 1795456885149,
+      "readyState": "READY",
+      "target": "production"
+    }
+  ],
+  "addedDatabaseVariables": [
+    {
+      "id": "pN63ajycny5Idgop",
+      "key": "DATABASE_URL",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null
+    },
+    {
+      "id": "RvnMxcTUzEgVCGZ7",
+      "key": "DATABASE_URL",
+      "type": "sensitive",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null
+    }
+  ],
+  "unchangedExistingEnvironmentVariableIds": [
+    "Empkp5vFLIs7P6Q4",
+    "LpALMbrDd9ofIpxl",
+    "ci3nVN3yayKfBTzM",
+    "RlDbETYwo2NkSJli",
+    "3LzbjDpkI1eEQFH3",
+    "Qp63CSDxLYrnxcnh",
+    "p2Z1SH7cMLFzZW2s",
+    "79q55TJ0mQpOez5D"
+  ],
+  "migrationCredentialsInVercel": false,
+  "developmentEnvironmentChanged": false
+}

@@ -12,7 +12,7 @@ version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/single-call-recipe-search/intent.md
+    artifact: intent/single-call-recipe-search/merge.md
     gate: product_owner_accept
     status: accepted
     done_status: accepted
@@ -32,7 +32,7 @@ nodes:
     stage: build
     artifact: code + tests
     gate: code_owner_approve
-    status: in_review
+    status: approved
     done_status: merged
   release:
     stage: deploy
