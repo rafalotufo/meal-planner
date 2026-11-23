@@ -2,7 +2,8 @@
 
 - Derived from: approved `intent/authenticated-access/spec.md`; accepted sibling intent
 - Author: senior-developer
-- Status: Approved by independent reviewer (`org/reviews/plan-authenticated-access-001.md`)
+- Status: Approved
+- Reviewed by: independent reviewer (`org/reviews/plan-authenticated-access-001.md`); scope/type amendments below and in org/reviews.
 - Compatibility amendment: approved (`org/reviews/authenticated-access-types-amendment-002.md`)
 - Gmail allowlist amendment: approved (`org/reviews/authenticated-access-allowlist-amendment-001.md`)
 - Date: 2026-11-23
@@ -24,7 +25,7 @@
 - proxy.ts
 - app/page.tsx
 - app/layout.tsx
-- app/api/auth/[...all]/route.ts
+- app/api/auth/[[]...all]/route.ts
 - app/api/session/route.ts
 - app/sign-in/page.tsx
 - app/sign-in/sign-in-button.tsx
@@ -38,6 +39,8 @@
 - org/loop/config.yaml
 - org/reviews/authenticated-access*
 - org/reviews/*authenticated-access*.md
+
+The auth catch-all manifest uses fnmatch `[[]` to match its literal opening bracket.
 
 Feature documents and org graph, status, memory, messages, loop and ledger
 records remain process artifacts owned by the orchestrator. The test checklist

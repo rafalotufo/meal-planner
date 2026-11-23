@@ -4,6 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Meal Planner",
+  icons: { icon: "data:," },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
