@@ -2,7 +2,7 @@
 
 - Derived from: approved `intent/pnpm-migration/spec.md`; accepted sibling intent
 - Author: senior-developer
-- Status: Draft — independent peer review required
+- Status: Approved by independent reviewer (`org/reviews/plan-pnpm-migration-001.md`)
 - Date: 2026-11-23
 
 ## Files that change
