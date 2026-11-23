@@ -20,7 +20,7 @@ nodes:
     stage: design
     artifact: intent/family-membership/spec.md
     gate: product_owner_approve
-    status: in_progress
+    status: in_review
     done_status: approved
   plan:
     stage: build

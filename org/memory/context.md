@@ -9,13 +9,13 @@ intent/family-membership/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: spec
+- turn: 2
+- phase: plan
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/family-membership/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -26,6 +26,7 @@ intent/family-membership/intent.md
 ## Open messages
 
 - architect-0001 architect -> orchestrator handoff: Draft pnpm migration specification ready for independent review
+- architect-0002 architect -> ceo question: Family membership specification ready for approval
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0002 ceo -> product-manager answer: Re: Family membership: joining and sign-in eligibility decisions
 - ceo-0003 ceo -> product-manager answer: Re: Family invitation onboarding and remaining Gmail eligibility decision
@@ -63,14 +64,15 @@ intent/family-membership/intent.md
 ## Artifacts
 
 - intent/family-membership/intent.md (a7ad8dfcaff70227042622152290935ca8b7342b65daad71c8d485d6353835f4)
+- intent/family-membership/spec.md (a9c2316907420d2f05390d3613e4bc8bf51515e1f1186adfbd61949ffbfcec0b)
 
 ## Next action
 
-product-manager:review_intent
+architect:draft_spec
 
 ## Last digest source
 
-- mem-0027 from org/reviews/intent-family-membership-acceptance-001.md
+- mem-0028 from org/reviews/spec-family-membership-002.md
 
 <!-- machine:end -->
 
