@@ -58,15 +58,15 @@ the orchestrator records them through the org tools.
 
 **Dependencies:** approved plan. **Scope:** small contract/test foundation.
 
-- [ ] Add public `Recipe`, time, and provider interface types; keep provider
+- [x] Add public `Recipe`, time, and provider interface types; keep provider
   payloads, credentials, and evidence out of client-imported modules.
-- [ ] Add `npm test`: compile isolated service TypeScript with the existing
+- [x] Add `npm test`: compile isolated service TypeScript with the existing
   compiler, including TypeScript test/fixture sources, to ignored
   `build/recipe-tests/`, then use Node's built-in test runner on compiled
   `build/recipe-tests/tests/recipe-*.test.js`. Use strict checking, `noEmitOnError`, no
   Next/React compilation, and no new test-framework dependency. Test imports
   target these compiled modules; fixture data stays under `tests/`.
-- [ ] Write failing URL/query validation tests, then add bounds and safe HTTPS
+- [x] Write failing URL/query validation tests, then add bounds and safe HTTPS
   normalization. Cover whitespace/1,000-character queries, credentials, control
   characters, IP literals/alternate IPv4 forms, ports, localhost/local suffixes,
   single-label hosts, fragment normalization, and retained query parameters.
@@ -79,14 +79,14 @@ then green evidence for the new validation behavior.
 
 **Dependencies:** task 1. **Scope:** OpenAI research boundary.
 
-- [ ] Write transport-fixture tests first for completed researched candidates,
+- [x] Write transport-fixture tests first for completed researched candidates,
   citation extraction, explicit `no_results`, absent tool use/citations,
   invalid envelopes, refusals, incomplete responses, and bounded response reads.
-- [ ] Add the fixed Responses transport, private error codes, research prompt,
+- [x] Add the fixed Responses transport, private error codes, research prompt,
   response reader, runtime envelope validation, candidate URL deduplication,
   citation membership, bounded fields, and server-assigned candidate IDs.
   Require completed web search; valid explicit no-results skips curation.
-- [ ] Preserve the approved model, `store: false`, tool/token caps, shared abort
+- [x] Preserve the approved model, `store: false`, tool/token caps, shared abort
   signal, and no retries. Reject provider failures without exposing raw bodies.
 
 **Files:** openai.ts, errors.ts, recipe-openai.test.ts, recipe-fixtures.ts.
@@ -97,14 +97,14 @@ transport tests assert externally significant tool/storage/resource settings.
 
 **Dependencies:** task 2. **Scope:** second agent and validated public output.
 
-- [ ] Write failing tests for successful source-bound cards, empty curation,
+- [x] Write failing tests for successful source-bound cards, empty curation,
   unknown IDs, source/title mismatch, unsafe/uncited links, duplicate and excess
   results, malformed schema/refusal, and stripped internal evidence fields.
-- [ ] Add the tool-free strict-schema curator call. Bind every record to the
+- [x] Add the tool-free strict-schema curator call. Bind every record to the
   server candidate map; validate method evidence against that candidate only.
   Validate optional time/image equality and evidence against the same candidate;
   unsupported optional metadata becomes null, invalid methods drop the card.
-- [ ] Include two cited candidates with deliberately swapped method/time/photo
+- [x] Include two cited candidates with deliberately swapped method/time/photo
   evidence as regressions. Cap public output at six and bound research context.
 
 **Files:** openai.ts, recipe-openai.test.ts, recipe-fixtures.ts.
@@ -115,16 +115,16 @@ accuracy as requiring live evaluation; fixture grounding is not live evidence.
 
 **Dependencies:** tasks 1–3. **Scope:** provider factory, handler, thin route.
 
-- [ ] Write failing Request/Response tests with an injected provider/clock for
+- [x] Write failing Request/Response tests with an injected provider/clock for
   invalid JSON/unknown fields/content type/body sizes, absent/unsupported
   configuration, Origin mismatch, empty/success output, safe errors, timeout,
   request abort, and concurrency/minute limits with slot cleanup on all exits.
-- [ ] Implement a testable handler factory and per-process guard: streamed 8-KiB
+- [x] Implement a testable handler factory and per-process guard: streamed 8-KiB
   request limit, no-store responses, two active/twenty accepted per rolling
   minute, and one 60-second deadline covering both calls. Propagate abort to
   transport; release slots in `finally`. Provider selection/key validation runs
   before billable work. Do not log queries or provider bodies.
-- [ ] Add a server-only composition root with the environment-reading provider
+- [x] Add a server-only composition root with the environment-reading provider
   factory and module-scoped guard. The Next route declares Node runtime and
   exports only POST via this root. Tests import pure service modules, not the
   server-only root; no test override or fixture endpoint enters production.
@@ -137,15 +137,15 @@ missing configuration, method rejection, and no-store behavior.
 
 **Dependencies:** task 4. **Scope:** page plus one focused client component.
 
-- [ ] Compose the form under the existing heading, using warm-neutral static
+- [x] Compose the form under the existing heading, using warm-neutral static
   Tailwind utilities, visible textarea label/example, useful idle/loading/error
   states, disabled duplicate submission, and polite live status text.
-- [ ] Track request generation and abort on cleanup, preserving query/retry
+- [x] Track request generation and abort on cleanup, preserving query/retry
   behavior. Render recipe strings as React text. Show one-to-three-column cards,
   fixed image areas, source hostname/link, method preview, and correctly labeled
   optional cook/total time. Use unoptimized Next Image with no-referrer/lazy load
   and missing/broken-image fallback, with no server-side image fetch.
-- [ ] Verify keyboard/focus/error association and overflow/long content at 320,
+- [x] Verify keyboard/focus/error association and overflow/long content at 320,
   768, 1024, and 1440 pixels. Real-browser tests must exercise successful cards,
   no-results, failure/retry, loading, image fallback, and stale-response cleanup;
   browser-intercepted responses are explicitly simulated and test-only.
@@ -160,12 +160,12 @@ with installed Chrome. Keep optional QA tooling outside runtime dependencies.
 
 **Dependencies:** tasks 1–5. **Scope:** docs/workflow acceptance and evidence.
 
-- [ ] Document `.env.local` setup for `OPENAI_API_KEY`, optional
+- [x] Document `.env.local` setup for `OPENAI_API_KEY`, optional
   `RECIPE_SEARCH_PROVIDER=openai` and `OPENAI_RECIPE_MODEL=gpt-6.2-sol`, supported
   provider behavior, test commands, no persistence, and live-verification limits.
   Update title-only/current-feature guidance to the approved recipe-search scope.
   Keep credentials ignored; no example secret or paid provisioning.
-- [ ] Add `npm test` to org acceptance, preserve existing commands/budgets/gates,
+- [x] Add `npm test` to org acceptance, preserve existing commands/budgets/gates,
   and use `review_artifact: recipe-search-implementation` so a historical generic
   implementation approval cannot satisfy this feature's independent code review.
 - [ ] Run Python regressions, npm test, lint, typecheck, build, org consistency,

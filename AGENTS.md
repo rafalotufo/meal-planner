@@ -6,14 +6,19 @@
 - Develop: `npm run dev`.
 - Verify: `npm run lint`, `npm run typecheck`, `npm run build`; all must pass.
 - Workflow regression tests: `python3 -m unittest discover -s tests`.
+- Application behavior tests: `npm test` (TypeScript tests and fixtures compiled
+  for Node's native runner; no runtime fixture endpoints).
 - Production preview: `npm run start` after build.
 - Secrets: `python3 scripts/scan_secrets.py --staged` (zero findings).
 
 ## Architecture and scope
 
 TypeScript, Next.js App Router, and Tailwind CSS v4. Root layout owns metadata
-and global CSS; the home page is a server component. Keep the initial home page
-blank except for its `Meal Planner` heading. Drizzle ORM/Kit are dependencies;
+and global CSS; the home page is a server component composing the recipe-search
+client form. Recipe search uses a server-only configurable provider boundary,
+with OpenAI implemented first and future providers deferred. Render model text
+as text; keep source-specific evidence, URL checks, and usage bounds intact.
+Drizzle ORM/Kit are dependencies;
 no database engine, schema, credentials, or migration is configured yet.
 
 ## Verification and workflow
@@ -21,8 +26,9 @@ no database engine, schema, credentials, or migration is configured yet.
 Use approved intent/spec/plan and `org/protocol.md`. Preserve org audit records,
 independent review, and human merge/release gates. Report actual command output
 and verify visible UI in a real browser at mobile and desktop widths. Python
-unittest covers workflow tooling. No JavaScript unit-test runner exists for the
-static title page; add meaningful tests with future behavior. Never suppress
+unittest covers workflow tooling. Application tests and fixtures must use
+TypeScript, compiled with the existing compiler for Node's native test runner.
+Live provider grounding requires separately labeled live evidence. Never suppress
 checks or remove failing tests to get a passing run.
 
 ## Conventions
@@ -35,6 +41,6 @@ Pin exact stable dependency versions and commit npm's generated lockfile.
 
 Use `intent/<feature-slug>/` for every intent and all of its specifications,
 including `intent.md`, `spec.md`, `plan.md`, and any feature-specific design
-notes. Use lowercase kebab-case slugs. Current feature: `intent/home-page/`.
+notes. Use lowercase kebab-case slugs. Current feature: `intent/recipe-search/`.
 Before dispatch, read the active work item from `org/loop/state.yaml` and its
 sibling spec/plan; keep graph artifact paths aligned. See `intent/README.md`.

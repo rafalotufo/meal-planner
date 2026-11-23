@@ -32,7 +32,7 @@ nodes:
     stage: build
     artifact: code + tests
     gate: code_owner_approve
-    status: not_started
+    status: in_progress
     done_status: merged
   release:
     stage: deploy
