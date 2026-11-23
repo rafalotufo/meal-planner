@@ -181,6 +181,6 @@ intentionally deferred until the first feature that requires persistence.
 The agent org contract is in `org/org-chart.yaml` and `org/protocol.md`.
 Every feature keeps its intent and specifications in `intent/<feature-slug>/`:
 `intent.md`, `spec.md`, `plan.md`, and related design notes. The current feature
-is in `intent/recipe-photos/`. See `intent/README.md` for the convention; review and
+is in `intent/vercel-deployment/`. See `intent/README.md` for the convention; review and
 verification evidence lives in `org/reviews/`.
 Human approval remains required for merges and releases.

@@ -12,27 +12,27 @@ version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/recipe-photos/intent.md
+    artifact: intent/vercel-deployment/intent.md
     gate: product_owner_accept
     status: accepted
     done_status: accepted
   spec:
     stage: design
-    artifact: intent/recipe-photos/spec.md
+    artifact: intent/vercel-deployment/spec.md
     gate: product_owner_approve
-    status: approved
+    status: pending
     done_status: approved
   plan:
     stage: build
-    artifact: intent/recipe-photos/plan.md
+    artifact: intent/vercel-deployment/plan.md
     gate: engineer_approve
-    status: approved
+    status: not_started
     done_status: approved
   implementation:
     stage: build
     artifact: code + tests
     gate: code_owner_approve
-    status: merged
+    status: not_started
     done_status: merged
   release:
     stage: deploy

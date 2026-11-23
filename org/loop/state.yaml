@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/recipe-photos/intent.md
-base_commit: 143340216b20252683f702554399bdfa43896820
-turn: 6
+work_item: intent/vercel-deployment/intent.md
+base_commit: 5619f28c80b22098d5e69ca0a693e2ba4507f862
+turn: 2
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 801dc341f22a207be016128be22970b6d95dc69320aedf4bfb604d1ebe84b59c
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/recipe-photos/intent.md", "sha256": "13e8bcf4e172810ff9acf6354f8fbccdc82d7a5c0ec198da0e891281c34c7765"}, {"path": "intent/recipe-photos/spec.md", "sha256": "7bd902ca65c737a884f1c4fee32a9c2c3b9c3266d2f796c5dd1d24d4bc0db554"}, {"path": "intent/recipe-photos/plan.md", "sha256": "dcc94f1c48e301b0d75760bb4771927891159c263da907b0c47d2632ad853576"}, {"path": "lib/recipes/photos.ts", "sha256": "c38e4e66a90094e2ccaeb8bcf25b17367176c01c680b3cc5a96c172abe87f13f"}, {"path": "org/reviews/security-recipe-photos-002.md", "sha256": "61fc31a331b0a4813733ef08bbd9abfa370c4b83dd3ac18d35c938faf98c3bcb"}, {"path": "org/reviews/code-recipe-photos-002.md", "sha256": "de459ae0c214dea0be7ee824b81437fe6940e0147a7e8beae3b715e21dd1825b"}]
-acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "npm test", "exit": 0, "pass": true}, {"command": "npm run lint", "exit": 0, "pass": true}, {"command": "npm run typecheck", "exit": 0, "pass": true}, {"command": "npm run build", "exit": 0, "pass": true}]
-updated_at: "2026-11-23T16:31:12Z"
+phase: plan
+status: in_progress
+last_input_hash: 3a719d229d7e8512e88b57714c5c3a47f50bce95657805debf4c78a988fe4f34
+stop_reason: null
+last_action: "architect:draft_spec"
+artifacts: [{"path": "intent/vercel-deployment/intent.md", "sha256": "28f5431620366c6c976f679005d434a2fe2362fd10dd9c88401f1372df2e4153"}, {"path": "intent/vercel-deployment/spec.md", "sha256": "4031591b1fcd427de46e5fb5db5be76833657d89e8c20162d0d0b32ffa34f3ca"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T17:12:55Z"
