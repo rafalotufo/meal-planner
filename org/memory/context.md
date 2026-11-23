@@ -44,6 +44,7 @@ intent/family-membership/intent.md
 - reviewer-0006 reviewer -> orchestrator review: Server-code Gmail allowlist specification and plan approved
 - reviewer-0007 reviewer -> orchestrator review: Authenticated access implementation approved
 - reviewer-0008 reviewer -> orchestrator review: Family membership draft needs product clarification
+- reviewer-0009 reviewer -> orchestrator decision: Approved strict SQLite storage compatibility amendment
 - security-researcher-0001 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0002 security-researcher -> orchestrator status: Authenticated access security clear
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
@@ -52,11 +53,11 @@ intent/family-membership/intent.md
 
 ## Recent decisions
 
-- mem-0025 ceo: Owner clarified that anyone already in a family cannot accept a new invitation. No empty-family exemption, switching, or data transfer. Pending: new-invitee onboarding sequencing before automatic family creation, and Gmail allowlist policy. (org/messages/ceo-0002.md)
 - mem-0026 ceo: Owner confirmed invitees join existing families; new family creation applies only to users without an invitation. Resolve invitation before automatic provisioning. Existing family members cannot accept. Gmail allowlist eligibility remains open. (org/messages/ceo-0003.md)
 - mem-0027 product-manager: Accepted family membership scope after owner confirmed invitation-based sign-in eligibility beyond allowlist. Persist recipient-bound invitation grants, preserve Google verification and removal behavior for allowlist-only users; do not let membership imply eligibility. Architect drafting specification, no implementation yet. (org/reviews/intent-family-membership-acceptance-001.md)
 - mem-0029 ceo: Rafael approved the independently reviewed family membership specification at commit4ce2cd1. Build planning authorized; implementation still requires approved plan. Senior-developer drafting feature-local plan; no production migration/merge/release approval. (org/messages/ceo-0005.md)
 - mem-0031 ceo: Rafael approved the independently reviewed family build plan at f886fa9. Implementation/local verification authorized under approved spec and plan; no production migration, push, merge or release. Current plan approval plan-family-membership-001, not a historical reused gate. (org/messages/ceo-0006.md)
+- mem-0032 reviewer: Peer-approved narrow storage compatibility amendment after independent reproduction of70Drizzle declaration errors. Native typed bound SQL retains stable driver/engine/schema/API, publicDrizzle migrationloader/SQL/journal artifacts, atomic hash/version verification, and all strict checks. Original human approvals preserved; no prerelease/suppression. Resume implementation; full code/security/runtime verification remains. (org/reviews/family-membership-storage-amendment-001.md)
 
 ## Constraints
 
@@ -74,7 +75,7 @@ senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0031 from org/messages/ceo-0006.md
+- mem-0032 from org/reviews/family-membership-storage-amendment-001.md
 
 <!-- machine:end -->
 

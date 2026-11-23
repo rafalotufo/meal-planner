@@ -4,6 +4,9 @@
 - Author: senior-developer
 - Status: Approved
 - Approval: Rafael; `org/messages/ceo-0006.md`; independent review `org/reviews/plan-family-membership-001.md`
+- Storage compatibility amendment: `storage-compatibility.md` — independently
+  approved under the org spec/plan peer gate; see
+  `org/reviews/family-membership-storage-amendment-001.md`. Original human approval is retained.
 - Date: 2026-11-23
 
 ## Files that change
@@ -13,7 +16,6 @@
 - pnpm-workspace.yaml
 - .gitignore
 - .env.example
-- drizzle.config.ts
 - drizzle/*.sql
 - drizzle/meta/*.json
 - lib/db.ts
@@ -65,8 +67,14 @@ artifacts maintained by the orchestrator, not additional application scope.
 
 ## Approach and dependency order
 
-Keep one durable-host SQLite file, Drizzle schema/migrations, and Better Auth's
-one-hour nonrefreshing encrypted sessions. Pin only the approved driver/types.
+Keep one durable-host SQLite file, reviewed SQL/Drizzle migration artifacts and
+the public `drizzle-orm/migrator` file loader, and Better Auth's one-hour
+nonrefreshing encrypted sessions. Use native typed parameterized SQL and
+`database.transaction(callback).immediate()` instead of runtime ORM/table-builder
+imports; `lib/db/schema.ts` contains domain row interfaces only. Existing
+Drizzle versions remain installed and strict checking remains unchanged. See
+the approved `storage-compatibility.md` amendment for the reproduced declaration
+failure and native/public-loader proof. Pin only the approved driver/types.
 Application membership uses verified Google subject, never Better Auth's generated
 stateless user ID. Invitation grants are durable and separate from membership;
 allowlist-only users remain subject to current eligibility on every request.
@@ -81,29 +89,32 @@ is the only checklist; do not create another `tasks/` tracker.
 For behavior changes, first add a focused failing TypeScript assertion against
 the actual boundary, retain its expected failure, then implement and reach green
 before committing the slice. Never delete/suppress tests to make a checkpoint pass.
-Generated SQL, journal and snapshot form one atomic reviewed migration artifact.
+Initial generated SQL, journal and snapshot form one atomic reviewed migration
+artifact; SQL is now the schema source of truth. Later changes use reviewed SQL
+migrations and journal updates, not a second unchecked table-builder schema.
 
 ## Ordered tasks and checkpoints
 
 ### 1. Prove the native and session foundations
 
 Dependency: plan approval. Files: package.json, pnpm-lock.yaml, conditional pnpm-workspace.yaml (small).
-- [ ] Inspect package contents/provenance/transitives before execution; add exact `better-sqlite3@13.2.0` and dev-only `@types/better-sqlite3@9.6.0`; generate pnpm's lockfile and prove frozen installation.
-- [ ] In a disposable temporary TypeScript probe, exercise native open/query/transaction/backup and Better Auth's real HTTP handler plus test-process Google transport: verified `googleSubject` survives JWE caching with input enabled and `returned: true`. No probe is imported by production.
+- [x] Inspect package contents/provenance/transitives before execution; add exact `better-sqlite3@13.2.0` and dev-only `@types/better-sqlite3@9.6.0`; generate pnpm's lockfile and prove frozen installation.
+- [x] In a disposable temporary TypeScript probe, exercise native open/query/transaction/backup and Better Auth's real HTTP handler plus test-process Google transport: verified `googleSubject` survives JWE caching with input enabled and `returned: true`. No probe is imported by production.
 Verify: `pnpm install --frozen-lockfile`, `pnpm audit --json`, native/protocol probe, `pnpm run typecheck`, `pnpm run build`. Capture actual output; a failed mapping/native assumption requires spec revision/review, not a fallback identity or unchecked cast.
 
 ### 2. Make the database contract executable
 
-Dependency: 1. Files: lib/db/schema.ts, drizzle.config.ts, tests/family/storage.test.ts, tests/family/package.json; generated drizzle SQL/meta set (medium plus generated artifacts).
-- [ ] Define the three approved tables, indexes, non-null single-family membership, unique subject/email/token hash, restricted foreign keys and invitation-state checks. Generate and inspect initial SQL, journal and snapshot together.
+Dependency: 1 and peer approval of the compatibility amendment. Files: lib/db/schema.ts, tests/family/storage.test.ts, tests/family/package.json; reviewed drizzle SQL/meta set (medium plus audit artifacts).
+- [ ] Preserve the three approved tables, indexes, non-null single-family membership, unique subject/email/token hash, restricted foreign keys and invitation-state checks in reviewed explicit SQL. Retain the initial generated SQL, journal and snapshot together; use interfaces-only domain row types instead of runtime ORM schema builders.
 - [ ] Test real SQLite constraints and fresh/repeat migrations against temporary files; no placeholder recipe/meal tables or Better Auth tables.
-Verify: `pnpm run db:generate` after its script is added; `node --import tsx --test tests/family/storage.test.ts` after task 3 wires the migrator. Keep the intentional initial red evidence with this schema/migration slice rather than committing a broken checkpoint.
+Verify: inspect the SQL/journal artifact against the approved table contract; `node --import tsx --test tests/family/storage.test.ts` after task 3 wires the migrator. Keep the intentional initial red evidence with this schema/migration slice rather than committing a broken checkpoint. No generation command/config is added.
 
 ### 3. Open only explicitly migrated durable storage
 
 Dependency: 2. Files: lib/db/connection.ts, lib/db/migrate.ts, lib/db.ts, scripts/migrate-db.ts, package.json (medium).
 - [ ] Separate testable connection/migration code from the lazy server-only adapter. Require absolute `DATABASE_PATH`, existing migrated runtime file, WAL, foreign keys, 5-second busy timeout; imports/build never create or migrate it.
-- [ ] Add `db:generate`, `db:migrate`, and `test:family` scripts exactly as specified; prove missing schema/path, invalid path and lock failure close access, and reopening preserves rows.
+- [ ] Add `db:migrate` and `test:family` scripts exactly as specified; prove missing schema/path, invalid path and lock failure close access, and reopening preserves rows.
+- [ ] Use the public migration-file loader and native immediate migration transaction: validate applied history as an exact ordered hash/timestamp prefix, execute missing trusted SQL and append history atomically, with repeat no-op and complete rollback on failure. Runtime opening verifies full history and required schema without auto-repair; changed/extra/reordered history and schema drift fail closed.
 Verify: `node --import tsx --test tests/family/storage.test.ts`; `pnpm run typecheck`; `pnpm run build` with no database/secrets. Migration tests own temporary files and clean them on failure.
 
 ### Checkpoint A — persistence proof

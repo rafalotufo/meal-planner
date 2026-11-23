@@ -3,6 +3,9 @@
 - Derived from: accepted sibling `intent.md`
 - Author: architect
 - Status: Approved — Rafael; `org/messages/ceo-0005.md`
+- Storage compatibility amendment: `storage-compatibility.md` — independently
+  approved under the org spec/plan peer gate; see
+  `org/reviews/family-membership-storage-amendment-001.md`. Original human approval is retained.
 - Date: 2026-11-23
 
 ## Objective and confirmed behavior
@@ -21,7 +24,8 @@ existing `Meal Planner` heading. Family controls live on separate pages.
 
 ## Design choices for review
 
-1. Use one local SQLite database through Drizzle, with durable storage on one
+1. Use one local SQLite database through the native typed driver and the narrow
+   Drizzle migration-file loader, with durable storage on one
    application host. This V1 requires a persistent local volume; ephemeral
    serverless filesystems and shared network-mounted database files are not
    supported. PostgreSQL is appropriate for a later multi-host deployment but
@@ -49,7 +53,7 @@ revise the storage design before Build rather than deploying ephemeral SQLite.
 
 | Component | Responsibility | Depends on |
 | --- | --- | --- |
-| persistence | Schema, connection and reviewed migrations | Existing Drizzle; SQLite driver |
+| persistence | Explicit SQL schema, connection and reviewed migrations | Native SQLite driver; public Drizzle migration-file loader |
 | identity-access | Verified Google subject and current eligibility | Persistence; existing Better Auth |
 | family-service | Transactional provisioning, invitations and membership | Identity-access; persistence |
 | family-interface | Onboarding, family pages and HTTP handlers | Family-service |
@@ -70,7 +74,13 @@ Do not blanket-enable dependency scripts. Preserve `strictDepBuilds` and the
 existing narrow script policy. Generate the lockfile with pnpm and prove a
 frozen install and native driver smoke test during Build.
 
-Use `drizzle-orm/better-sqlite3` and SQLite table definitions. Native SQLite
+Use native `better-sqlite3` parameterized statements with declared bind tuples
+and domain row interfaces. Keep the existing Drizzle dependencies; use only
+their public `drizzle-orm/migrator` loader for reviewed migration SQL/hash
+metadata. Runtime ORM/table-builder imports expose incompatible declarations
+under the unchanged strict checker; see `storage-compatibility.md` for the
+isolated reproduction and working native/loader proof. No dependency version
+or schema/storage behavior changes. Native SQLite
 requires Node runtime, not Edge. Next already lists `better-sqlite3` among its
 automatically externalized packages; verify the installed Next release and
 production build rather than adding speculative bundler configuration.
@@ -112,8 +122,10 @@ keeps the one-family constraint structural. No member-removal, reassignment or
 family-deletion handler exists in V1. Reject any verified-email collision with
 a different Google subject; never implicitly merge people by email.
 
-All family creation and acceptance use short synchronous Drizzle transactions
-with `behavior: "immediate"`. Never `await` network work inside a SQLite
+All family creation and acceptance use short synchronous native transactions
+via `database.transaction(callback).immediate()`. Bind every external value in
+prepared SQL; never interpolate user values or family identifiers into SQL.
+Never `await` network work inside a SQLite
 transaction. The write lock serializes provisioning, creation and redemption;
 unique keys provide an additional integrity boundary across connections and
 processes. Re-read membership, recipient invitations and eligibility while
@@ -358,8 +370,12 @@ Proposed source layout: `lib/db.ts`, `lib/db/schema.ts`, `lib/family.ts`,
 `lib/invitations.ts`, `lib/session.ts` and the existing auth/policy modules;
 `app/onboarding/`, `app/invite/`, `app/family/`, and matching API handlers above.
 Keep schema/migration helpers testable without importing Next server-only
-runtime; boundary adapters remain server-only. Store reviewed generated SQL and
-Drizzle journal/snapshots in `drizzle/`, with `drizzle.config.ts`. The approved
+runtime; boundary adapters remain server-only. `lib/db/schema.ts` contains only
+domain row interfaces, not executable ORM table builders. The reviewed initial
+SQL in `drizzle/` is the schema source of truth; retain its generated Drizzle
+journal/snapshot audit artifacts and the public migration-file loader. Future
+schema changes use explicitly reviewed SQL migrations and journal updates;
+there is no new generation command/config or unchecked duplicate schema. The approved
 Build plan will supply the exact file manifest. Specification approval permits
 build planning; implementation still requires an approved plan.
 
@@ -367,7 +383,6 @@ Retain commands and add these scripts during Build:
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm run db:generate    # drizzle-kit generate --config=drizzle.config.ts
 pnpm run db:migrate     # node --env-file=.env.local --import tsx scripts/migrate-db.ts
 pnpm run dev
 pnpm run lint
@@ -384,6 +399,14 @@ directly without `--env-file`; tests call the reusable migrator against their
 own temporary files. Migrations run explicitly, never on page rendering, proxy,
 server import, build or ordinary request. Existing auth tests must own temporary
 migrated databases too; no test uses a developer or production database.
+In one native immediate transaction, create/check `__drizzle_migrations`, require
+applied records to be an exact ordered prefix of the expected repository
+migrations by SHA-256 hash and migration timestamp, apply missing trusted SQL
+statements from `readMigrationFiles`, and append matching history rows. Refuse
+unknown, reordered, changed or extra applied versions. Repeat execution is a
+no-op; failure rolls back DDL and history together. Runtime opening verifies
+the complete expected migration history and required schema without applying or
+repairing it. Test migration tampering, partial failure and schema drift.
 Keep all new application tests, helpers and migration scripts in strict
 TypeScript checking using the pinned tsx loader and Node built-in test runner.
 
@@ -396,7 +419,7 @@ TypeScript checking using the pinned tsx loader and Node built-in test runner.
 | Provisioning | No invitation creates one family/user; repeated and cross-connection concurrent POSTs create no duplicates/orphans; invitation creation racing provisioning serializes correctly; application GET/HEAD/prefetch/session reads cause no writes (verified OAuth callback metadata update is the explicit exception) |
 | Acceptance | Recipient and token both required; existing members rejected even if empty/one-person; expiry/revocation/forged token/replay/double acceptance/concurrent different attempts; exact same completed retry harmless; insert/status/grant rollback together |
 | Isolation | Two real families through HTTP; foreign invitation list/revoke IDs denied indistinguishably; forged family fields/header ignored or rejected; only own members/invitations returned |
-| Persistence/failure | Fresh migration and repeat migration; unique/FK/check constraints; missing schema, busy timeout and unavailable path deny closed; reopen/restart retains membership and grants |
+| Persistence/failure | Fresh/repeat migrations; exact ordered hash/timestamp history; changed/unknown/reordered versions and schema drift deny closed; transactional migration failure rolls back schema/history; unique/FK/check constraints; busy timeout and unavailable path deny closed; reopen/restart retains membership and grants |
 | Security/UI | Origin/CSRF, size and unknown-field rejection; cookie transport attributes; expired/revoked pending invitation and removed allowlist eligibility still permit guarded sign-out GET and POST, clearing session/context cookies while other routes deny; no raw tokens in DB or server paths/logs; no allowlist/subject leaks; creation limits; browser 320/1440, keyboard, focus, no overflow or application console/network failures |
 
 Extend the existing test-process-only Google network fixture with distinct
