@@ -23,8 +23,16 @@ status/ledger changes, reviewer dispatch, and browser coordination. No code is
 written before independent plan approval. Feature tasks are tracked here,
 under the repository's feature-folder convention.
 
+CEO-authorized operational amendment: add a tracked root `.worktreeinclude`
+containing only `/.env.local`, with README guidance for future local
+Codex-managed worktrees. Preserve environment ignores and credentials outside
+Git. The rule applies to new worktrees created from a branch that contains it;
+existing worktrees and main are not modified by this tracked feature change.
+Environment copying and live verification remain the orchestrator's work.
+
 ## Files that change
 
+- .worktreeinclude
 - package.json
 - tsconfig.recipes-test.json
 - lib/recipes/types.ts

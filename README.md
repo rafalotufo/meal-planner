@@ -16,6 +16,15 @@ npm run dev
 Open <http://localhost:3000>. The page and production build work without a
 database or API credentials; live recipe search requires server configuration.
 
+## Local worktrees
+
+The tracked `.worktreeinclude` copies the ignored root `.env.local` into future
+local Codex-managed worktrees. The file must already exist at the source
+checkout's root. Existing worktrees are not backfilled, and `.env.local` remains
+ignored by Git. Create worktrees from a branch containing the committed rule;
+merge this branch before relying on the rule from main. See the
+[Codex worktree documentation](https://learn.chatgpt.com/docs/environments/git-worktrees#copy-ignored-local-files-into-managed-worktrees).
+
 ## Recipe-search configuration
 
 Set `OPENAI_API_KEY` in a local, git-ignored `.env.local`. Restart the server
