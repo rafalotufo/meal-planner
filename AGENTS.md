@@ -37,6 +37,6 @@ Pin exact stable dependency versions and commit pnpm's generated `pnpm-lock.yaml
 
 Use `intent/<feature-slug>/` for every intent and all of its specifications,
 including `intent.md`, `spec.md`, `plan.md`, and any feature-specific design
-notes. Use lowercase kebab-case slugs. Current feature: `intent/pnpm-migration/`.
+notes. Use lowercase kebab-case slugs. Current feature: `intent/authenticated-access/`.
 Before dispatch, read the active work item from `org/loop/state.yaml` and its
 sibling spec/plan; keep graph artifact paths aligned. See `intent/README.md`.
