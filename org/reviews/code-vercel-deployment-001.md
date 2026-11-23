@@ -25,3 +25,17 @@ Independent review's local HTTP bind was sandbox-restricted; implementation
 verification ran the same suite with approved local HTTP permission.
 
 Repeat code/security review is required for the fix before local readiness.
+
+## Round 2 — revision 55e9de7
+
+SDLC REVIEW: vercel-deployment
+Findings: 0 Blocker, 0 Major, 0 Minor, 0 Pre-existing — nothing to fix
+Verdict: READY FOR HUMAN REVIEW.
+
+Independent reviewer confirmed the fix holds: native candidate redirect refusal
+is inconclusive; actual incorrect application responses still fail. Assertions
+enforce the approved contract rather than weakening protection. Added workflow
+helper/auth commands preserve coverage and run authentication after build.
+Independent repeat ran ten non-HTTP tests; the author ran all eleven with
+approved server permission. No remote exists in this checkout, so PR creation
+cannot proceed; human local merge remains gated.

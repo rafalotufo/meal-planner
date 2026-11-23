@@ -12,8 +12,10 @@ Approved plan source: `96f3154`; approval record:
   without secrets, audit or test folders. Lockfile unchanged.
 - [x] Step 3: Tests failed before smoke.ts existed, then 11 helper tests passed
   including real local HTTP redirect rejection and bounded disconnect.
-- [ ] Step 4: Runbook, 12 auth tests, seven Python tests and Chrome 320/1440 QA
-  completed; independent code/security reviews pending.
+- [x] Step 4: Runbook, 12 auth tests, seven Python tests and Chrome 320/1440 QA
+  completed. Code review's candidate-reporting Minor reproduced and fixed;
+  final independent code/security reviews both READY FOR HUMAN REVIEW on
+  55e9de7, no remaining findings. Merge approval pending; no origin remote for PR.
 - [ ] Step 5: Free project configuration; separate authorization required.
 - [ ] Step 6: Production release and hosted verification; separate authorization required.
 
