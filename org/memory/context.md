@@ -9,8 +9,8 @@ intent/recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: plan
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -26,7 +26,6 @@ intent/recipe-search/intent.md
 ## Open messages
 
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
-- orchestrator-0003 orchestrator -> senior-developer handoff: Plan approved recipe-search spec
 
 ## Recent decisions
 
@@ -43,10 +42,11 @@ intent/recipe-search/intent.md
 
 - intent/recipe-search/intent.md (189b443857eb9a970f353134560158dc589132980e8e23dd85cab5340471de1e)
 - intent/recipe-search/spec.md (22bfac988b8c532d69b1ac26e54730a3c58ee152d5ba13b1a6f2984b2ea331eb)
+- intent/recipe-search/plan.md (2970c430b0bab5b18653ec89e9203cc978056ef42afe4997e97a5e4a4e69a6ac)
 
 ## Next action
 
-architect:draft_spec
+senior-developer:draft_plan
 
 ## Last digest source
 
