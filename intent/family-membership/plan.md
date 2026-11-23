@@ -163,34 +163,34 @@ Verify: `pnpm run build`, `pnpm run test:auth`, `node --import tsx --test tests/
 ### 9. Create recipient-bound invitations within a family
 
 Dependency: 8. Files: lib/invitations.ts, lib/http.ts, app/api/family/invitations/route.ts, tests/family/invitations.test.ts (medium).
-- [ ] Member context owns every query; validate bounded recipient email and exact JSON shape/Origin, generate 32 random bytes, persist only hash, return fragment link once, enforce seven-day expiry and transactional duplicate/member/self checks.
-- [ ] Enforce durable 10/hour and 20-active-per-family limits; duplicate/conflict responses reveal no other family's/account's state. Reject client-supplied family ownership and unsupported methods.
+- [x] Member context owns every query; validate bounded recipient email and exact JSON shape/Origin, generate 32 random bytes, persist only hash, return fragment link once, enforce seven-day expiry and transactional duplicate/member/self checks.
+- [x] Enforce durable 10/hour and 20-active-per-family limits; duplicate/conflict responses reveal no other family's/account's state. Reject client-supplied family ownership and unsupported methods.
 Verify: built-server HTTP creation tests, actual DB hash/plaintext inspection, count/limit boundaries and concurrent creation through separate connections; no token or personal-data logging.
 
 ### 10. Preserve secret invitation context across sign-in
 
 Dependency: 9. Files: lib/invitation-context.ts, app/invite/page.tsx, app/invite/invite-context.tsx, app/api/invitation-context/route.ts, tests/family/context.test.ts (medium).
-- [ ] Add only the specified public shell/POST policy entries; capture then remove fragment, same-origin POST a bounded token into host-only HttpOnly context cookie, return uniform `204` without invitation lookup, then navigate to sign-in.
-- [ ] Onboarding asks a verified pending recipient to reopen their link when context is absent; invalid/wrong-recipient/expired/revoked context never falls through to provisioning, and context alone grants no data/access.
+- [x] Add only the specified public shell/POST policy entries; capture then remove fragment, same-origin POST a bounded token into host-only HttpOnly context cookie, return uniform `204` without invitation lookup, then navigate to sign-in.
+- [x] Onboarding asks a verified pending recipient to reopen their link when context is absent; invalid/wrong-recipient/expired/revoked context never falls through to provisioning, and context alone grants no data/access.
 Verify: real HTTP exact public methods, CSRF/size/cookie attributes and no lookup/preview; browser proof of fragment removal and absent server-path/referrer token is completed at task 13. Policy wiring reuses task 6's file in this small slice.
 
 ### 11. Join the invited family atomically
 
 Dependency: 10. Files: lib/invitations.ts, app/api/invitations/accept/route.ts, app/onboarding/page.tsx, app/onboarding/onboarding-controls.tsx, tests/family/acceptance.test.ts (medium).
-- [ ] Accept only a verified recipient plus matching pending secret within an immediate transaction: reject any existing membership, insert user/family assignment and durable grant, consume invitation together, clear context; exact completed retry returns the same success only.
-- [ ] Prove unlisted invitee onboarding → acceptance → later login with consumed invitation works; pending/expired/revoked recipients cannot retrieve member data. Cancel signs out without consuming invite or creating family.
+- [x] Let only exact POST acceptance reach the handler with cryptographic identity (including eligibility loss for a uniform denial), then recheck current admission, verified recipient and matching pending secret within an immediate transaction: reject any existing membership, insert user/family assignment and durable grant, consume invitation together, clear context; exact completed retry returns the same success only.
+- [x] Prove unlisted invitee onboarding → acceptance → later login with consumed invitation works; pending/expired/revoked recipients cannot retrieve member data. Cancel signs out without consuming invite or creating family.
 Verify: real HTTP independent cookie jars, subject/email collisions, wrong recipient, expiry/revoke races, same/different invitation concurrency, transaction rollback, and rejection for existing one-person/empty-family members.
 
 ### 12. Manage only the current family's members and invitations
 
 Dependency: 11. Files: app/api/family/route.ts, app/api/family/invitations/[id]/revoke/route.ts, app/family/page.tsx, app/family/family-controls.tsx, tests/family/isolation.test.ts (medium).
-- [ ] Show own members and pending expiry/status, create/copy once and revoke only own pending invitations; all pages/actions repeat family guards, with accessible local form state and no home navigation additions.
-- [ ] Two real families cannot list/revoke each other's invitations, learn foreign IDs, switch membership or regain access from stale family claims. Revocation does not remove an accepted member's independent grant.
+- [x] Show own members and pending expiry/status, create/copy once and revoke only own pending invitations; all pages/actions repeat family guards, with accessible local form state and no home navigation additions.
+- [x] Two real families cannot list/revoke each other's invitations, learn foreign IDs, switch membership or regain access from stale family claims. Revocation does not remove an accepted member's independent grant.
 Verify: built-server two-family HTTP isolation and foreign-ID/forged-field tests; revoked/expired pending and removed-allowlist sessions still sign out and clear every cookie while other routes deny.
 
 ### Checkpoint C — family sharing vertical flow
 
-- [ ] Tasks 9–12 are green under `pnpm run test:family` and `pnpm run test:auth`; replay, limits, recipient binding, durable grants, outage/lock and cross-process races have concrete passing evidence.
+- [x] Tasks 9–12 are green under `pnpm run test:family` and `pnpm run test:auth`; replay, limits, recipient binding, durable grants, outage/lock and cross-process races have concrete passing evidence.
 
 ### 13. Verify the actual interfaces and operating instructions
 

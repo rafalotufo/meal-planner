@@ -1,10 +1,34 @@
 import Database from 'better-sqlite3';
-import { isAbsolute, resolve } from 'node:path';
+import { basename, dirname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { lstatSync, realpathSync } from 'node:fs';
 import { readMigrationFiles } from 'drizzle-orm/migrator';
 
 export const migrationsFolder = () => resolve(process.cwd(), 'drizzle');
+function physicalPath(path: string): string {
+  let ancestor = resolve(path); const suffix: string[] = [];
+  for (;;) {
+    try { lstatSync(ancestor); break; }
+    catch (error) {
+      if (!(error instanceof Error) || !('code' in error) || error.code !== 'ENOENT') throw error;
+      suffix.unshift(basename(ancestor));
+      const parent = dirname(ancestor);
+      if (parent === ancestor) throw new Error('Storage unavailable');
+      ancestor = parent;
+    }
+  }
+  return resolve(realpathSync(ancestor), ...suffix);
+}
+function inside(path: string, root: string) {
+  const child = relative(root, path);
+  return child === '' || child !== '..' && !child.startsWith(`..${sep}`) && !isAbsolute(child);
+}
 export function validateDatabasePath(path: string | undefined): string {
   if (!path || !isAbsolute(path) || path.trim() !== path) throw new Error('Storage unavailable');
+  const lexical = resolve(path); const physical = physicalPath(path);
+  for (const directory of ['public', '.next', 'static']) {
+    const root = resolve(process.cwd(), directory);
+    if (inside(lexical, root) || inside(physical, physicalPath(root))) throw new Error('Storage unavailable');
+  }
   return path;
 }
 export function connectDatabase(path: string, create = false) {

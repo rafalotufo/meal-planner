@@ -325,14 +325,18 @@ retain Better Auth's own OAuth/CSRF controls. All responses are private/no-store
 | `/sign-out`, `/api/auth/sign-out` | GET/HEAD page; POST API | Cryptographic-session-only guard at proxy/page/handler; no admission requirement; clear session and invitation context on POST |
 | `/onboarding` | GET/HEAD | Eligible authenticated identity; no family data except its verified invitation |
 | `/api/onboarding/provision` | POST | Eligible identity; transactional no-invitation provisioning |
-| `/api/invitations/accept` | POST | Eligible identity plus bound invitation context; transactional acceptance |
+| `/api/invitations/accept` | POST | Cryptographically verified identity; recheck current admission and bound invitation context transactionally before any effect |
 | `/family`, `/api/family` | GET/HEAD | Full family context; only current family's members/invitation summaries |
 | `/api/family/invitations` | POST | Full family context; create recipient-bound invitation |
 | `/api/family/invitations/[id]/revoke` | POST | Full family context and invitation belonging to that family |
 
 Keep auth/static exceptions exact in `lib/auth-policy.ts`; only the two new
 public entry points above are added. New onboarding routes require authenticated
-identity, even though no membership exists yet. Existing `/api/session` remains
+identity, even though no membership exists yet. Exact POST acceptance reaches
+its transaction with a cryptographic identity even after invitation eligibility
+expires, solely to return the uniform generic unavailable result; the transaction
+rechecks admission, recipient, token and membership before any mutation. It is
+not a public exception or a grant of member access. Existing `/api/session` remains
 `{ authenticated: true }` for fully provisioned members and exposes no profile,
 eligibility list, subject or token. Unsupported routes/methods cannot reach
 generic Better Auth APIs. Anonymous protected APIs return `401`; authenticated

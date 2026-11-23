@@ -19,8 +19,10 @@ export async function proxy(request: NextRequest) {
     // A canonical configured origin, never a client-supplied Host, owns all redirects.
     const publicRequest = isPublicRequest(pathname, request.method);
     const signOut = (pathname === "/sign-out" && ["GET", "HEAD"].includes(request.method)) || (pathname === "/api/auth/sign-out" && request.method === "POST");
-    const admitted = publicRequest || signOut ? null : await readSession(request.headers);
-    const session = signOut ? await readCryptographicSession(request.headers) : admitted;
+    const accepting = pathname === "/api/invitations/accept" && request.method === "POST";
+    const identityOnly = signOut || accepting;
+    const admitted = publicRequest || identityOnly ? null : await readSession(request.headers);
+    const session = identityOnly ? await readCryptographicSession(request.headers) : admitted;
     const onboarding = pathname === "/onboarding" || pathname === "/api/onboarding/provision" || pathname === "/api/invitations/accept";
     if (!publicRequest && !session) {
       response = isApiRequest(pathname) || !["GET", "HEAD"].includes(request.method)

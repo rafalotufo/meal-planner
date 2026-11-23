@@ -71,3 +71,19 @@ test('a failed explicit migration rolls back schema and ledger writes together',
   assert.deepEqual(failed.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'").all(), [{ name: 'families' }]);
   failed.close();
 });
+
+test('database configuration rejects Next-served roots and symlink aliases before creating files', async (t) => {
+  const { validateDatabasePath } = await import('../../lib/db/connection.ts');
+  const { symlink } = await import('node:fs/promises');
+  const directory = await mkdtemp(join(tmpdir(), 'family-path-'));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  assert.throws(() => validateDatabasePath(join(process.cwd(), 'public', 'family.sqlite')));
+  assert.throws(() => validateDatabasePath(join(process.cwd(), '.next', 'static', 'family.sqlite')));
+  assert.throws(() => validateDatabasePath(join(process.cwd(), 'static', 'family.sqlite')));
+  await symlink(join(process.cwd(), 'public', 'not-created.sqlite'), join(directory, 'dangling.sqlite'));
+  assert.throws(() => validateDatabasePath(join(directory, 'dangling.sqlite')));
+  await symlink(process.cwd(), join(directory, 'checkout'), 'dir');
+  assert.throws(() => validateDatabasePath(join(directory, 'checkout', 'public', 'family.sqlite')));
+  assert.throws(() => validateDatabasePath(join(directory, 'checkout', '.next', 'static', 'family.sqlite')));
+  assert.equal(validateDatabasePath(join(directory, 'private.sqlite')), join(directory, 'private.sqlite'));
+});
