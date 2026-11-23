@@ -2,7 +2,7 @@
 
 - Derived from: sibling spec.md, approved by Rafael after the 128-puzzle amendment; org/reviews/spec-recipe-waiting-game-human-approval-001.md.
 - Author: senior-developer
-- Status: Draft — awaiting independent review and human plan approval
+- Status: Approved — Rafael; org/reviews/plan-recipe-waiting-game-human-approval-001.md
 - Date: 2026-11-23
 
 ## Scope and architecture
@@ -36,6 +36,7 @@ auth, transport, dependency, lockfile or persistence change is planned.
 - org/status.yaml
 - org/loop/state.yaml
 - org/loop/history.jsonl
+- org/loop/archive/recipe-waiting-game-design-2026-11-23/*
 - org/memory/context.md
 - org/memory/events.jsonl
 - gates/ledger.jsonl
@@ -180,3 +181,9 @@ Plan approval authorizes the scoped work, not a budget extension.
 Proposed approval request: approve this plan and explicitly authorize a fresh
 bounded implementation cycle, preserving the current cycle's history first.
 Only the owner can authorize that next-cycle setup; this draft does not do so.
+
+Rafael subsequently authorized continuing the SDLC org process in response to
+the plan and fresh-cycle approval request. Preserve the design-cycle snapshot
+at the manifest path above, carry forward its approved artifact decisions into
+a new max-six-turn cycle, then implement and independently review. Do not
+raise the six-turn bound or claim that replayed approvals are new reviews.
