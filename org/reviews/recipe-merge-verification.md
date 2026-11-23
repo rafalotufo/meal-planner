@@ -71,3 +71,17 @@ recipe-search live provider evidence and three-publisher photo evidence remain
 in their original reports. Existing auth advisory deferral remains documented
 in its security review. This operation authorizes local merge only; production
 release remains not_started with no release-authorization record.
+
+
+## Concurrent main audit follow-up
+
+After integration verification, main advanced from `d5f1583` to `305b14aa6a31c35f22f2b428484362d93e12dbae`.
+The exact delta contains only five audit files: memory context/events,
+authenticated-access merge-verification, org status, and workflow graph.
+No application, configuration, dependency, or test source changed.
+The follow-up source files are preserved byte-exact with SHA-256 manifest at
+`org/merge/recipe-search-main-2026-11-23/main-followup/`. Its new auth merge decision is imported under a fresh canonical
+memory ID, preserving both originals. The authenticated-access merged graph
+is archived separately; the active recipe-photo graph remains `in_review`
+until the requested main merge actually succeeds. Existing code validation
+and independent integration review therefore cover the unchanged source.

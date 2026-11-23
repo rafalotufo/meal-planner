@@ -1,0 +1,23 @@
+# Live org state: which agents are busy/idle and what is in the review queue.
+# Agents update this file when they accept or finish work; reviewers accept
+# reviews only when idle. Commit status changes with the artifact they describe.
+version: 1
+agents:
+  orchestrator: { status: idle, assignment: null, last_report: Authenticated access merged to main under explicit human approval; all tests/build/browser checks passed on main; release not authorized. }
+  product-manager: { status: idle, assignment: null, last_report: Accepted Google sign-in intent; any verified Google account proposed; design to define session lifecycle. }
+  architect: { status: idle, assignment: null, last_report: Spec independently approved; Better Auth 1.7.27 stateless Google sessions; no DB. }
+  senior-developer: { status: idle, assignment: null, last_report: Verified Google allowlist and TypeScript tests; all checks/browser passed; independent code review approved. }
+  security-researcher: { status: idle, assignment: null, last_report: "Security clear: 11 auth tests independently pass, no client-member leak/production fixture imports; one unreachable moderate advisory retained, due2026-12-07." }
+  reviewer: { status: idle, assignment: null, last_report: "review code-authenticated-access-001: approved" }
+  memory-keeper: { status: idle, assignment: null, last_report: null }
+review_queue:
+  - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-authenticated-access-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
