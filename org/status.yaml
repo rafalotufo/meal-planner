@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted pnpm migration scope; design may select compatible stable pnpm without app dependency upgrades. }
   architect: { status: idle, assignment: null, last_report: "Spec independently approved: org/reviews/spec-pnpm-migration-001.md" }
-  senior-developer: { status: idle, assignment: null, last_report: "pnpm migration implemented; clean/repeat frozen install, app/workflow checks and browser QA pass; ready for independent security/code review." }
+  senior-developer: { status: busy, assignment: implementation, last_report: "pnpm migration implemented; clean/repeat frozen install, app/workflow checks and browser QA pass; ready for independent security/code review." }
   security-researcher: { status: idle, assignment: null, last_report: pnpm security clear; production audit zero; existing moderate dev esbuild advisory retained. }
-  reviewer: { status: idle, assignment: null, last_report: "review plan-pnpm-migration-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review code-pnpm-migration-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -17,3 +17,4 @@ review_queue:
   - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
