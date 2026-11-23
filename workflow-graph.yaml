@@ -12,19 +12,19 @@ version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/vercel-deployment/intent.md
+    artifact: intent/recipe-search-notebook/intent.md
     gate: product_owner_accept
     status: accepted
     done_status: accepted
   spec:
     stage: design
-    artifact: intent/vercel-deployment/spec.md
+    artifact: intent/recipe-search-notebook/spec.md
     gate: product_owner_approve
     status: approved
     done_status: approved
   plan:
     stage: build
-    artifact: intent/vercel-deployment/plan.md
+    artifact: intent/recipe-search-notebook/plan.md
     gate: engineer_approve
     status: approved
     done_status: approved
@@ -38,7 +38,7 @@ nodes:
     stage: deploy
     artifact: authorized release
     gate: release_authorization
-    status: done
+    status: not_started
     done_status: done
   diagnosis:
     stage: maintain

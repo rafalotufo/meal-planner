@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Production resumed with explicit owner approval after all checks and provider inventory. Exact projectpaused:false and anonymous/browser pass verified19:05UTC. Release complete; approved unobserved hosted60s504 limitation retained, no added model call or rebuild." }
+  orchestrator: { status: idle, assignment: null, last_report: Human-approved recipe search notebook merged into local main from reviewed source6b94405 and approval68a28ef. Application content matches verified feature. Production release remains gated. }
   product-manager: { status: idle, assignment: null, last_report: Rafael approved Vercel production intent; Hobby scope and existing OpenAI limits recorded. }
   architect: { status: idle, assignment: null, last_report: "Rafael approved Vercel specification; planning authorized, implementation remains gated." }
-  senior-developer: { status: idle, assignment: null, last_report: "Vercel local implementation verified and independently reviewed; login/team access succeeded, no project created." }
-  security-researcher: { status: idle, assignment: null, last_report: Vercel final security review clear on 55e9de7; hosted configuration and release remain gated. }
-  reviewer: { status: idle, assignment: null, last_report: "review code-vercel-deployment-002: approved" }
+  senior-developer: { status: idle, assignment: null, last_report: "Recipe notebook implementation8fbbaf8 passed63 application/12 auth/7 workflow tests, build/lint/types and five-width real Chrome. Independent code/security approved; human merge/release pending." }
+  security-researcher: { status: idle, assignment: null, last_report: "Recipe notebook security review clear: page-local history, React text and original source/photo/auth boundaries preserved. No new provider requests or persistence." }
+  reviewer: { status: idle, assignment: null, last_report: Recipe notebook independent code and final layout/harness recheck approved without required findings. Mutation test killed; real Chrome passed320/390/768/1024/1440; full acceptance commands passed. Human merge/release pending. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -37,3 +37,5 @@ review_queue:
   - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: code-vercel-deployment-002, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: design-recipe-search-notebook-001, artifact: intent/recipe-search-notebook/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-notebook-001, artifact: recipe-search-notebook-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
