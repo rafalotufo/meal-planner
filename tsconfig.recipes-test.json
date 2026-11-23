@@ -11,6 +11,6 @@
     "outDir": "build/recipe-tests",
     "types": ["node"]
   },
-  "include": ["lib/recipes/**/*.ts"],
+  "include": ["lib/recipes/**/*.ts", "tests/recipe-*.ts"],
   "exclude": ["lib/recipes/server.ts"]
 }

@@ -35,10 +35,10 @@ under the repository's feature-folder convention.
 - app/api/recipes/search/route.ts
 - app/recipe-search.tsx
 - app/page.tsx
-- tests/recipe-validation.test.mjs
-- tests/recipe-openai.test.mjs
-- tests/recipe-search.test.mjs
-- tests/recipe-fixtures.mjs
+- tests/recipe-validation.test.ts
+- tests/recipe-openai.test.ts
+- tests/recipe-search.test.ts
+- tests/recipe-fixtures.ts
 - README.md
 - AGENTS.md
 - CLAUDE.md
@@ -60,8 +60,9 @@ the orchestrator records them through the org tools.
 - [ ] Add public `Recipe`, time, and provider interface types; keep provider
   payloads, credentials, and evidence out of client-imported modules.
 - [ ] Add `npm test`: compile isolated service TypeScript with the existing
-  compiler to ignored `build/recipe-tests/`, then use Node's built-in test
-  runner on `tests/recipe-*.test.mjs`. Use strict checking, `noEmitOnError`, no
+  compiler, including TypeScript test/fixture sources, to ignored
+  `build/recipe-tests/`, then use Node's built-in test runner on compiled
+  `build/recipe-tests/tests/recipe-*.test.js`. Use strict checking, `noEmitOnError`, no
   Next/React compilation, and no new test-framework dependency. Test imports
   target these compiled modules; fixture data stays under `tests/`.
 - [ ] Write failing URL/query validation tests, then add bounds and safe HTTPS
@@ -70,7 +71,7 @@ the orchestrator records them through the org tools.
   single-label hosts, fragment normalization, and retained query parameters.
 
 **Files:** package.json, tsconfig.recipes-test.json, types.ts, validation.ts,
-recipe-validation.test.mjs. **Verify:** `npm test`, lint, typecheck. Capture red
+recipe-validation.test.ts. **Verify:** `npm test`, lint, typecheck. Capture red
 then green evidence for the new validation behavior.
 
 ### 2. Implement source-grounded research
@@ -87,7 +88,7 @@ then green evidence for the new validation behavior.
 - [ ] Preserve the approved model, `store: false`, tool/token caps, shared abort
   signal, and no retries. Reject provider failures without exposing raw bodies.
 
-**Files:** openai.ts, errors.ts, recipe-openai.test.mjs, recipe-fixtures.mjs.
+**Files:** openai.ts, errors.ts, recipe-openai.test.ts, recipe-fixtures.ts.
 **Verify:** focused provider tests, then npm test, lint, typecheck. Fixture
 transport tests assert externally significant tool/storage/resource settings.
 
@@ -105,7 +106,7 @@ transport tests assert externally significant tool/storage/resource settings.
 - [ ] Include two cited candidates with deliberately swapped method/time/photo
   evidence as regressions. Cap public output at six and bound research context.
 
-**Files:** openai.ts, recipe-openai.test.mjs, recipe-fixtures.mjs.
+**Files:** openai.ts, recipe-openai.test.ts, recipe-fixtures.ts.
 **Checkpoint:** npm test, lint, typecheck, production build. Report source
 accuracy as requiring live evaluation; fixture grounding is not live evidence.
 
@@ -127,7 +128,7 @@ accuracy as requiring live evaluation; fixture grounding is not live evidence.
   exports only POST via this root. Tests import pure service modules, not the
   server-only root; no test override or fixture endpoint enters production.
 
-**Files:** search.ts, server.ts, route.ts, recipe-search.test.mjs, errors.ts.
+**Files:** search.ts, server.ts, route.ts, recipe-search.test.ts, errors.ts.
 **Verify:** npm test, lint, typecheck, build; HTTP checks for invalid input,
 missing configuration, method rejection, and no-store behavior.
 

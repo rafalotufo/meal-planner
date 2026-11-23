@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { safeRecipeUrl, validateQuery } from "../build/recipe-tests/lib/recipes/validation.js";
+import { safeRecipeUrl, validateQuery } from "../lib/recipes/validation.js";
 
 test("query validation trims text and enforces the useful input boundary", () => {
   assert.equal(validateQuery("  chickpea dinner  "), "chickpea dinner");
   for (const value of [null, 4, {}, "", "   ", "x".repeat(1001)]) {
     assert.equal(validateQuery(value), null);
   }
-  assert.equal(validateQuery("x".repeat(1000)).length, 1000);
+  assert.equal(validateQuery("x".repeat(1000))?.length, 1000);
 });
 
 test("source URLs normalize fragments and hostnames without broadening their identity", () => {
