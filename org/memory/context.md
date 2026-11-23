@@ -9,13 +9,13 @@ intent/family-membership/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: spec
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/family-membership/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -28,10 +28,12 @@ intent/family-membership/intent.md
 - architect-0001 architect -> orchestrator handoff: Draft pnpm migration specification ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0002 ceo -> product-manager answer: Re: Family membership: joining and sign-in eligibility decisions
+- ceo-0003 ceo -> product-manager answer: Re: Family invitation onboarding and remaining Gmail eligibility decision
+- ceo-0004 ceo -> product-manager answer: Re: Remaining family invitation sign-in eligibility decision
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
-- product-manager-0006 product-manager -> ceo question: Family invitation onboarding and remaining Gmail eligibility decision
+- product-manager-0008 product-manager -> orchestrator decision: Accepted family membership intent
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -48,11 +50,11 @@ intent/family-membership/intent.md
 
 ## Recent decisions
 
-- mem-0020 orchestrator: Implemented owner-requested Gmail allowlist with four confirmed members, verified identity issuance/per-request guards, TypeScript policy and all new tests/helpers, and TypeScript test rules in AGENTS/CLAUDE. Mandatory implementation turn ran all five acceptance commands exit0; final independent reviews and human gates remain. (org/reviews/authenticated-access-verification.md)
-- mem-0021 orchestrator: Final independent code review approved and security clear for four-account Gmail authentication with strict TypeScript tests/helpers and instruction rules. 11 auth tests,7 Python tests,lint,typecheck,build,real Chrome320/1440 pass; secret and active manifest checks pass. Current committed plan approval separately verified because legacy checker selects first historic reused-gate record. Live Google configuration and human merge/release remain. (org/reviews/security-authenticated-access-001.md)
 - mem-0022 orchestrator: Authenticated-access six-turn loop solved with all five acceptance commands exit0 at final security/review checkpoints. Implementation a2f015d; independent code/security approved. Graph implementation in_review awaits fresh human code-owner merge approval; no prior approval reused. Four Gmail members configured, tests/helpers TypeScript and both rules updated. Live Google OAuth credentials/consent remain external; inherited moderate advisory due2026-12-07. (org/reviews/code-authenticated-access-001.md)
 - mem-0023 orchestrator: Owner explicitly approved merge to main. Fast-forwarded main b2e3266 to d5f1583 with current human gate merge-authenticated-access-001; no conflicts/source changes. On merged main, frozen install, Python7, lint, strict typecheck, build, auth11 and Chrome320/1440 passed. Implementation graph now merged; release remains not_started. Source worktree generated change/OAuth config preserved. (org/reviews/authenticated-access-merge-verification.md)
 - mem-0025 ceo: Owner clarified that anyone already in a family cannot accept a new invitation. No empty-family exemption, switching, or data transfer. Pending: new-invitee onboarding sequencing before automatic family creation, and Gmail allowlist policy. (org/messages/ceo-0002.md)
+- mem-0026 ceo: Owner confirmed invitees join existing families; new family creation applies only to users without an invitation. Resolve invitation before automatic provisioning. Existing family members cannot accept. Gmail allowlist eligibility remains open. (org/messages/ceo-0003.md)
+- mem-0027 product-manager: Accepted family membership scope after owner confirmed invitation-based sign-in eligibility beyond allowlist. Persist recipient-bound invitation grants, preserve Google verification and removal behavior for allowlist-only users; do not let membership imply eligibility. Architect drafting specification, no implementation yet. (org/reviews/intent-family-membership-acceptance-001.md)
 
 ## Constraints
 
@@ -60,15 +62,15 @@ intent/family-membership/intent.md
 
 ## Artifacts
 
-(none)
+- intent/family-membership/intent.md (a7ad8dfcaff70227042622152290935ca8b7342b65daad71c8d485d6353835f4)
 
 ## Next action
 
-(run org_loop.py next)
+product-manager:review_intent
 
 ## Last digest source
 
-- mem-0025 from org/messages/ceo-0002.md
+- mem-0027 from org/reviews/intent-family-membership-acceptance-001.md
 
 <!-- machine:end -->
 

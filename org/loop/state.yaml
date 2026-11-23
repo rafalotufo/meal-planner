@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/family-membership/intent.md
 base_commit: 305b14aa6a31c35f22f2b428484362d93e12dbae
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: spec
 status: in_progress
-last_input_hash: null
+last_input_hash: 07e6dd8c113722517e960cd4e608dc60d6eb6bdabd5e2324d61ef368e69f2c6a
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-23T16:48:44Z"
+last_action: "product-manager:review_intent"
+artifacts: [{"path": "intent/family-membership/intent.md", "sha256": "a7ad8dfcaff70227042622152290935ca8b7342b65daad71c8d485d6353835f4"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 1, "pass": false}, {"command": "pnpm run typecheck", "exit": 1, "pass": false}, {"command": "pnpm run build", "exit": 1, "pass": false}, {"command": "pnpm run test:auth", "exit": 1, "pass": false}]
+updated_at: "2026-11-23T16:54:52Z"

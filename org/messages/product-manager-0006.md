@@ -7,7 +7,7 @@ subject: Family invitation onboarding and remaining Gmail eligibility decision
 artifact: intent/family-membership/intent.md
 requires_response: true
 in_reply_to: null
-status: open
+status: answered
 severity: null
 blocking: false
 created_at: "2026-11-23T16:50:43Z"

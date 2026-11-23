@@ -3,7 +3,10 @@
 - Author: Rafael (request); product-manager (intent capture)
 - Source: `org/intake/forms/family-membership-001.md`
 - Membership clarification: owner reply recorded in `org/messages/ceo-0002.md`
-- Status: Draft — product decisions pending
+- Onboarding clarification: owner reply recorded in `org/messages/ceo-0003.md`
+- Invitation access clarification: owner reply recorded in `org/messages/ceo-0004.md`
+- Status: Accepted — product-manager under the org intent gate
+- PM decision: `org/reviews/intent-family-membership-acceptance-001.md`
 - Date: 2026-11-23
 
 ## Problem
@@ -16,9 +19,11 @@ household members, or rely on a family boundary for future application data.
 
 Introduce a family as the shared ownership and access boundary. Every user
 belongs to exactly one family. Users can invite others to their own family.
-An eligible authenticated user without a family receives a newly created family
-automatically, including existing users on their first visit after this feature
-is activated. Returning users retain their family across sessions and devices.
+An eligible authenticated user without a family joins the existing family
+through their invitation. Only users without an invitation receive a newly
+created family automatically, including existing users on their first visit
+after this feature is activated. Returning users retain their family across
+sessions and devices.
 
 Recipes, meals, and future shared entities belong to a family. Neither recipes
 nor meals currently exist, so this feature establishes their ownership contract;
@@ -32,6 +37,12 @@ it does not introduce recipe or meal functionality.
   membership. Repeated or concurrent login/request attempts cannot produce
   duplicate memberships or orphan families. Logout and later login preserve
   membership; browser cookies alone are not the membership source of truth.
+- Resolve the authenticated new user's invitation before automatic family
+  creation. Invited users join the inviting member's existing family through
+  invitation acceptance; do not create a separate family for them. Automatic
+  family creation applies only to users without an invitation. Design must
+  define invalid, expired, revoked, or declined invitation handling without
+  silently treating an outstanding invitation as absent.
 - A family can contain multiple users; accepting an invitation never gives a
   user simultaneous membership in two families.
 - A user who already belongs to any family cannot accept a new invitation,
@@ -43,9 +54,16 @@ it does not introduce recipe or meal functionality.
   explicitly accepts while authenticated; another identity cannot redeem an
   invitation intended for someone else. The specification must define invite
   delivery, recipient verification, lifetime, revocation, and repeat acceptance.
-- An invitation cannot move an existing member or transfer family data. The
-  application's sign-in eligibility policy remains subject to the pending
-  decision below.
+- An invitation cannot move an existing member or transfer family data.
+- A valid invitation grants its intended recipient sign-in access even when
+  that recipient is absent from the server-side Gmail allowlist. Require a
+  Google-verified recipient identity; a request-supplied email or possession
+  of an invitation alone is insufficient. Persist the accepted user's access
+  so later sessions do not depend on an already-consumed invitation. Design
+  must enforce this eligibility at session issuance and every protected read.
+  Users without a valid invitation or established invitation-based access
+  continue to require the existing allowlist. Never make Google sign-in open
+  to all users or let family membership alone bypass eligibility.
 - Family authorization is checked on the server before reading or changing
   family data. Client-supplied family IDs, cached session claims, and invitation
   possession alone cannot grant access to another family's resources.
@@ -82,11 +100,16 @@ transactional provisioning/membership updates, invitation delivery, and local
 setup before implementation. Production database provisioning or migration
 execution still requires the applicable human authorization.
 
-Preserve Google verification, the current Gmail allowlist until explicitly
-changed, server-only eligibility configuration, fail-closed session checks,
+Preserve Google verification, server-only eligibility configuration, fail-closed session checks,
 and the existing one-hour session policy unless a reviewed specification
 explicitly identifies a required change. Never log invitation credentials or
 expose another family's membership or content.
+
+The owner explicitly expands eligibility beyond the Gmail allowlist for valid
+invitation recipients. This supersedes the prior feature's allowlist-only
+policy for those recipients. Design must specify durable invitation-based
+eligibility and how removal from the allowlist affects existing allowlist-only
+users; it must not grant eligibility merely by provisioning a family.
 
 Keep the home page's `Meal Planner` heading. Propose the smallest separate
 family/invitation interface needed for this feature; additional home-page UI
@@ -107,20 +130,17 @@ adding a family boundary.
 - Owner: "Someone already in a family should not be able to accept a new
   invitation." This supersedes all previously proposed move/empty-family/data
   transfer options. No provisional-family deletion is needed to permit joining.
+- Owner: "Yes, invitees will join existing families, new family creation
+  happens only for users without invitation." Invitation handling precedes
+  automatic provisioning; a new family is not created for an invited user.
+  This does not authorize a new family on invitation decline.
+- Owner selected: "Let a valid invitation grant access." Invitees need not
+  already appear in the Gmail allowlist. Google identity verification and
+  recipient binding remain required.
 
 ## Open product decisions
 
-1. Automatic family creation must not make invitations impossible to accept.
-   Should a new user signing in through an invitation be offered acceptance
-   before automatic provisioning, and receive a personal family if they
-   decline? This sequencing is proposed for clarification, not yet approved.
-   Users already provisioned into a family remain ineligible regardless of
-   the invitation they use to sign in.
-2. Must invitees already be on the server-side Gmail allowlist, or does a
-   recipient's invitation authorize sign-in? The latter changes the existing
-   access policy and needs an explicit decision. Do not infer that permission
-   from the request to add invitations.
-
-Technical choices belong to Design after these product decisions. No intent
-acceptance, specification approval, implementation, merge, or release is
-recorded by this draft.
+No blocking product question remains. Storage, stable identity mapping,
+invitation transport/lifecycle, and durable eligibility are Design decisions
+within the confirmed rules above. This accepts scope only; specification,
+plan, implementation, merge, and release retain their respective gates.
