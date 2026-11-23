@@ -2,7 +2,7 @@
 
 - Derived from: accepted sibling `intent.md`
 - Author: architect
-- Status: Draft — independently reviewed; human specification approval required
+- Status: Approved — Rafael; `org/messages/ceo-0005.md`
 - Date: 2026-11-23
 
 ## Objective and confirmed behavior
@@ -360,8 +360,8 @@ Proposed source layout: `lib/db.ts`, `lib/db/schema.ts`, `lib/family.ts`,
 Keep schema/migration helpers testable without importing Next server-only
 runtime; boundary adapters remain server-only. Store reviewed generated SQL and
 Drizzle journal/snapshots in `drizzle/`, with `drizzle.config.ts`. The approved
-Build plan will supply the exact file manifest. No plan or implementation is
-authorized by this draft.
+Build plan will supply the exact file manifest. Specification approval permits
+build planning; implementation still requires an approved plan.
 
 Retain commands and add these scripts during Build:
 
@@ -446,8 +446,8 @@ interface is implicitly authorized.
 Always preserve strict checks, audit history, independent reviews, TypeScript
 tests, scoped server authorization and secret scanning. Never add a fake-user
 bypass, weaken failing tests or expose the eligibility list. Production changes,
-merge and release retain human gates. This draft requires human specification
-approval before Build planning under the applied specification workflow.
+merge and release retain human gates. Human specification approval is recorded in `org/messages/ceo-0005.md`;
+Build planning may proceed. Implementation requires an approved plan.
 
 Primary sources checked 2026-11-23 (rolling docs are cross-checked against pinned
 packages; Build must verify native/platform and mapping behavior):
