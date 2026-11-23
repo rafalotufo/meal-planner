@@ -2,6 +2,7 @@
 
 - Author: Rafael (request); product-manager (intent capture)
 - Source: `org/intake/forms/family-membership-001.md`
+- Membership clarification: owner reply recorded in `org/messages/ceo-0002.md`
 - Status: Draft — product decisions pending
 - Date: 2026-11-23
 
@@ -33,26 +34,32 @@ it does not introduce recipe or meal functionality.
   membership; browser cookies alone are not the membership source of truth.
 - A family can contain multiple users; accepting an invitation never gives a
   user simultaneous membership in two families.
+- A user who already belongs to any family cannot accept a new invitation,
+  even if their current family contains only themselves or has no data.
+  Enforce this on the server atomically with invitation acceptance; concurrent
+  provisioning or another acceptance cannot bypass the rule. Rejecting the
+  invitation leaves existing membership and family data unchanged.
 - A member can create an invitation to their own family. The invited person
   explicitly accepts while authenticated; another identity cannot redeem an
   invitation intended for someone else. The specification must define invite
   delivery, recipient verification, lifetime, revocation, and repeat acceptance.
-- An invitation cannot silently move a user, transfer family data, or change
-  the application's sign-in eligibility policy. The pending decisions below
-  must be resolved before Design approves those behaviors.
+- An invitation cannot move an existing member or transfer family data. The
+  application's sign-in eligibility policy remains subject to the pending
+  decision below.
 - Family authorization is checked on the server before reading or changing
   family data. Client-supplied family IDs, cached session claims, and invitation
   possession alone cannot grant access to another family's resources.
-- A membership change takes effect on subsequent protected requests, including
-  requests with an existing session. Previous family data cannot remain
-  accessible through stale membership information.
+- Family authorization uses current server-owned membership on every protected
+  request, including requests with an existing session; stale session claims
+  cannot grant family access.
 - Future recipes, meals, and shared entities must have a required family owner
   and enforce that same family boundary for reads and writes. Document this
   contract without creating placeholder recipe or meal tables or interfaces.
 - Persistence/provisioning failures fail closed without exposing protected data
   or partially applying membership changes.
 - TypeScript regression tests cover provisioning, persistence across sessions,
-  concurrent attempts, invitation authorization and lifecycle, single-family
+  concurrent attempts, invitation authorization and lifecycle, rejection for
+  users already in a family (including empty or one-person families), single-family
   membership, and cross-family denial through real server boundaries.
 - Preserve existing authentication and workflow regression coverage. Lint,
   strict typecheck, production build, auth tests, Python workflow tests, and
@@ -90,20 +97,25 @@ and release gates.
 ## Out of scope
 
 Recipe or meal CRUD, meal planning, multi-family membership, family switching
-without invitation, bulk data transfer, billing, public family discovery,
+(including switching through an invitation), bulk data transfer, billing, public family discovery,
 custom roles/administrator hierarchies, member removal, user-facing family deletion, and
 unrelated authentication or dependency changes. These are not implied by
 adding a family boundary.
 
+## Confirmed product decisions
+
+- Owner: "Someone already in a family should not be able to accept a new
+  invitation." This supersedes all previously proposed move/empty-family/data
+  transfer options. No provisional-family deletion is needed to permit joining.
+
 ## Open product decisions
 
-1. Since a new user automatically receives a family, how does accepting an
-   invitation work for an existing family member? Options presented: move to
-   the invited family and leave data behind; allow joining only while the
-   current family is empty; or offer a choice to move data. Decide empty-family
-   cleanup and any last-member/data implications in the approved design.
-   Automatic cleanup of an empty provisional family may be part of that
-   design; deleting a family containing shared data is not implicitly allowed.
+1. Automatic family creation must not make invitations impossible to accept.
+   Should a new user signing in through an invitation be offered acceptance
+   before automatic provisioning, and receive a personal family if they
+   decline? This sequencing is proposed for clarification, not yet approved.
+   Users already provisioned into a family remain ineligible regardless of
+   the invitation they use to sign in.
 2. Must invitees already be on the server-side Gmail allowlist, or does a
    recipient's invitation authorize sign-in? The latter changes the existing
    access policy and needs an explicit decision. Do not infer that permission
