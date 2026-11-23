@@ -25,6 +25,7 @@ intent/pnpm-migration/intent.md
 
 ## Open messages
 
+- architect-0001 architect -> orchestrator handoff: Draft pnpm migration specification ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 
@@ -33,6 +34,7 @@ intent/pnpm-migration/intent.md
 - mem-0002 product-manager: Accepted home-page scope: latest stable Next.js, Tailwind v4, Drizzle tooling, title-only page with no DB dependency. (org/reviews/intent-home-page-001.md)
 - mem-0003 orchestrator: User requested all feature specifications under intent/<feature-slug>/. Moved intent/intent.md, spec.md, plan.md to intent/home-page/intent.md, spec.md, plan.md respectively. Updated active graph/work item without resetting turn budget; historical approval paths remain as originally recorded. (intent/README.md)
 - mem-0008 product-manager: Accepted pnpm-migration intent: pinned stable pnpm, generated lockfile, consistent current setup and acceptance commands; preserve app dependency versions, UI and historical audit records. (org/reviews/intent-pnpm-migration-001.md)
+- mem-0009 architect: Designed pnpm migration around official stable 10.33.0, compatible with Node.js 22/24; preserve direct versions, import lockfile, and explicitly review dependency scripts. (intent/pnpm-migration/spec.md)
 
 ## Constraints
 
@@ -48,7 +50,7 @@ product-manager:review_intent
 
 ## Last digest source
 
-- mem-0008 from org/reviews/intent-pnpm-migration-001.md
+- mem-0009 from intent/pnpm-migration/spec.md
 
 <!-- machine:end -->
 
