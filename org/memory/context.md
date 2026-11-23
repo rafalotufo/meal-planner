@@ -32,6 +32,8 @@ intent/vercel-deployment/intent.md
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
 - ceo-0009 ceo -> orchestrator decision: Approve correction of contradictory live deadline evidence
 - ceo-0010 ceo -> orchestrator decision: Owner will perform required Vercel pause
+- ceo-0011 ceo -> orchestrator decision: Authorize bounded remaining Vercel verification
+- ceo-0012 ceo -> orchestrator decision: Confirm owner checks and completed scoped pause
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -78,7 +80,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0043 from org/reviews/vercel-deployment-release-verification.md
+- mem-0046 from org/reviews/vercel-deployment-remaining-verification.md
 
 <!-- machine:end -->
 

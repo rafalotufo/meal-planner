@@ -252,3 +252,16 @@ Final state: deployment dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB is retained, Production
 domain assigned, traffic paused, live acceptance incomplete. Resume requires
 explicit owner authorization and completion or explicit acceptance of remaining
 gaps. No further model call, billing change or automatic resume is authorized.
+
+### Subsequent authorized verification
+
+The state above describes the first window. Rafael subsequently authorized a
+bounded second verification run in ceo-0011. See
+org/reviews/vercel-deployment-remaining-verification.md for the independent
+cancellation timing, exact-width/keyboard results, three owner-attested checks,
+one additional live search and independently verified pause at18:48UTC.
+The earlier listed browser/cancellation evidence gaps are resolved; hosted60s/
+504 remains unobserved under the approved nonblocking amendment. Final review
+also identified that the existing OpenAI controls inventory required above is
+still pending owner verification. The deployment remains paused pending that
+inventory and final production-resume authorization.
