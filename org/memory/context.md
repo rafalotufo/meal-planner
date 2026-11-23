@@ -4,7 +4,7 @@
 
 ## Goal
 
-intent/intent.md
+intent/home-page/intent.md
 
 ## Loop
 
@@ -21,7 +21,7 @@ intent/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (plan.md)
+- senior-developer: busy (intent/home-page/plan.md)
 
 ## Open messages
 
@@ -30,6 +30,7 @@ intent/intent.md
 ## Recent decisions
 
 - mem-0002 product-manager: Accepted home-page scope: latest stable Next.js, Tailwind v4, Drizzle tooling, title-only page with no DB dependency. (org/reviews/intent-home-page-001.md)
+- mem-0003 orchestrator: User requested all feature specifications under intent/<feature-slug>/. Moved intent/intent.md, spec.md, plan.md to intent/home-page/intent.md, spec.md, plan.md respectively. Updated active graph/work item without resetting turn budget; historical approval paths remain as originally recorded. (intent/README.md)
 
 ## Constraints
 
@@ -38,9 +39,9 @@ intent/intent.md
 ## Artifacts
 
 - org/reviews/intent-intake-001.md (6ff4586f417adf81e144867080667f7707d770d1a41759a1e34e1d93d9d94e00)
-- intent/intent.md (c719b569c9c2d34a19688baae6708bb6710e2449e2d4cfd3cf1857ac54d83d3c)
-- spec.md (db889160a19fde99fe4c96eecffb4d1d1cc35f51bca104a79694e286bc9df5d9)
-- plan.md (889608b0410fc4dccd27762bb65e090115d236728a56746bb5f69a1a8c7d5c99)
+- intent/home-page/intent.md (c719b569c9c2d34a19688baae6708bb6710e2449e2d4cfd3cf1857ac54d83d3c)
+- intent/home-page/spec.md (f94dac5da04f1886032e11a5e2ebe0107406461eb1c6a0ff384391777ac70fe3)
+- intent/home-page/plan.md (62f209d49eea4097f2986c38d6db1d88d3d32fc6496242238cee72acf7781292)
 
 ## Next action
 
@@ -48,7 +49,7 @@ senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0002 from org/reviews/intent-home-page-001.md
+- mem-0003 from intent/README.md
 
 <!-- machine:end -->
 

@@ -1,6 +1,6 @@
 # Meal Planner — initial home page build plan
 
-- Derived from: approved `spec.md`; accepted `intent/intent.md`
+- Derived from: approved `intent/home-page/spec.md`; accepted `intent/home-page/intent.md`
 - Author: senior-developer
 - Status: Approved by independent reviewer (org/reviews/plan-home-page-001.md)
 - Date: 2026-11-23
@@ -22,8 +22,14 @@
 - AGENTS.md
 - CLAUDE.md
 - org/loop/config.yaml
+- scripts/check_plan_sync.py
+- tests/test_check_plan_sync.py
+- intent/README.md
+- org/protocol.md
+- org/loop/README.md
+- REVIEW.md
 - org/reviews/home-page-verification.md
-- org/reviews/home-page-*.png
+- org/reviews/home-page-*.jpg
 
 ## Order of work
 
@@ -40,9 +46,9 @@
    global CSS, and system font. Add a server page with only `main` and one
    `h1` reading `Meal Planner`: white background, dark text, modest padding,
    upper-left alignment. Add no database imports or client state.
-4. Supply npm scripts: `dev` (`next dev`), `build` (`next build`), `start`
+4. Supply npm scripts: `dev` (`next dev`), `build` (`next build --webpack`), `start`
    (`next start`), `lint` (`eslint . --max-warnings 0`), and `typecheck`
-   (`tsc --noEmit`). Replace scaffold org acceptance commands with lint,
+   (`next typegen && tsc --noEmit`). Replace scaffold org acceptance commands with lint,
    typecheck, and build. Keep loop budgets, phases, and gates unchanged.
    Document npm installation/start/check commands and tested runtime in README
    and concise AGENTS/CLAUDE guidance. Explain deferred database configuration.
@@ -51,6 +57,13 @@
    results/screenshots under `org/reviews/`. Request independent code/security
    reviews; address required findings before human merge/release gates.
 
+6. Apply the user-requested feature-folder convention: all specifications live
+   under `intent/<feature-slug>/`. Update the plan-sync checker to resolve the
+   active plan from the workflow graph, with an explicit `--plan` option and
+   legacy root fallback. Add focused regression coverage for nested plan
+   checks in PR and hook modes, root compatibility, and rejection of missing
+   or unapproved plans. Preserve manifest coverage and approval enforcement.
+
 ## Risks and limits
 
 Package compatibility and native build tooling are checked by installation,
@@ -58,6 +71,12 @@ lint, types, and production build. Network access may require sandbox approval.
 No fonts or images are downloaded by application code. Drizzle dependencies
 are installed only: database engine, schema, credentials, and migrations remain
 deferred. Preserve org scripts and audit history; do not alter gate authority.
+
+The local sandbox blocks Turbopack's PostCSS worker port, so use Next.js's
+supported Webpack production builder without disabling checks. Type generation
+before `tsc` makes type checking work before the first build. Pin TypeScript
+6.0.3 because the Next.js ESLint integration does not yet support TypeScript 7;
+keep full library type checking enabled.
 
 ## Proof and verification
 

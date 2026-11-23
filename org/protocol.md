@@ -55,6 +55,12 @@ extends its own budget.
 
 ## Intake
 
+Every accepted feature uses `intent/<feature-slug>/` for `intent.md`, `spec.md`,
+`plan.md`, and any further specifications or design notes. Use lowercase
+kebab-case slugs and follow `intent/README.md`. Read the loop's active work item
+and its sibling artifacts; keep workflow graph paths aligned. Intake records
+and review evidence stay in their existing org directories.
+
 - GitHub issues: `scripts/sync_issues.py pull` → `org/intake/github/<repo>-<n>.md`
 - Forms/email: `scripts/intake.py add --source form|email …` writes
   `org/intake/forms/<record>.md` / `org/intake/email/<record>.md`.

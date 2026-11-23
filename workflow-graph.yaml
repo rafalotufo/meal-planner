@@ -12,19 +12,19 @@ version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/intent.md
+    artifact: intent/home-page/intent.md
     gate: product_owner_accept
     status: accepted
     done_status: accepted
   spec:
     stage: design
-    artifact: spec.md
+    artifact: intent/home-page/spec.md
     gate: product_owner_approve
     status: approved
     done_status: approved
   plan:
     stage: build
-    artifact: plan.md
+    artifact: intent/home-page/plan.md
     gate: engineer_approve
     status: approved
     done_status: approved

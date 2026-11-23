@@ -5,7 +5,7 @@ only state mutator. Defaults: `max_turns: 6`, `max_no_progress: 2`,
 `max_review_rounds: 2`.
 
 ```bash
-python3 scripts/org_loop.py init --work-item intent/intent.md
+python3 scripts/org_loop.py init --work-item intent/home-page/intent.md
 python3 scripts/org_loop.py next --json
 python3 scripts/org_loop.py advance --role senior-developer --action implement \
   --result progress --artifact src/app.py --evidence .loop/tests.log
@@ -24,3 +24,6 @@ python3 scripts/org_loop.py run --agent-cmd "<agent command>" --max-turns 6
 ```
 
 The supplied cap cannot exceed the configured `max_turns` budget.
+
+For each new feature, use `intent/<feature-slug>/intent.md` as the work item;
+its spec and plan are siblings in that folder. See `intent/README.md`.

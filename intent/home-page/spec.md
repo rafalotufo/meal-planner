@@ -1,6 +1,6 @@
 # Meal Planner — initial home page specification
 
-- Derived from: `intent/intent.md` at `7c42bd7`
+- Derived from: `intent/home-page/intent.md` (originally `intent/intent.md` at `7c42bd7`)
 - Author: architect
 - Status: Approved by independent reviewer (org/reviews/spec-home-page-001.md)
 - Date: 2026-11-23
