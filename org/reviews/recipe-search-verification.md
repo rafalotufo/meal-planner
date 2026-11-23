@@ -229,3 +229,10 @@ clients can replay requests. Existing limits are per process (two active,
 twenty accepted searches per minute). Authentication, anonymous bot controls,
 shared quotas and global spending policy require a product/release decision;
 this feature does not claim to prove a request came from the website UI.
+
+A post-checkpoint fresh-Chrome startup smoke confirmed HTTP 200 and the visible
+labeled form. Its stricter zero-console assertion failed on Chrome's automatic
+`/favicon.ico` request (404); no favicon exists in the pre-feature foundation.
+No application asset failure or uncaught page exception was observed. This
+existing icon omission is recorded as public-release polish, without adding an
+unrequested asset or changing the reviewed application behavior.
