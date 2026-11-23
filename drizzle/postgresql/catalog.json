@@ -1,0 +1,257 @@
+[
+  {
+    "kind": "column",
+    "name": "app_users.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "app_users.family_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "app_users.google_subject",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "app_users.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "app_users.invitation_granted_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "app_users.verified_email",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "families.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "families.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.accepted_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.accepted_by_user_id",
+    "definition": "text:false:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.created_by_user_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.expires_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.family_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.recipient_email",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.revoked_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.status",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "family_invitations.token_hash",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.app_users_family_id_fkey",
+    "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.app_users_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.email_normalized",
+    "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.subject_nonempty",
+    "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+  },
+  {
+    "kind": "constraint",
+    "name": "families.families_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+    "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+    "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "family_invitations.family_invitations_family_id_fkey",
+    "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "family_invitations.family_invitations_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "family_invitations.invitation_deadline",
+    "definition": "CHECK ((expires_at > created_at))"
+  },
+  {
+    "kind": "constraint",
+    "name": "family_invitations.invitation_state",
+    "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+  },
+  {
+    "kind": "index",
+    "name": "app_users_google_subject_unique",
+    "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+  },
+  {
+    "kind": "index",
+    "name": "app_users_pkey",
+    "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+  },
+  {
+    "kind": "index",
+    "name": "app_users_verified_email_unique",
+    "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+  },
+  {
+    "kind": "index",
+    "name": "families_pkey",
+    "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+  },
+  {
+    "kind": "index",
+    "name": "family_invitations_pkey",
+    "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+  },
+  {
+    "kind": "index",
+    "name": "family_invitations_token_hash_unique",
+    "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+  },
+  {
+    "kind": "index",
+    "name": "invitations_family",
+    "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+  },
+  {
+    "kind": "index",
+    "name": "invitations_recipient",
+    "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+  },
+  {
+    "kind": "index",
+    "name": "users_family",
+    "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+  },
+  {
+    "kind": "relation",
+    "name": "app_users",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "app_users_google_subject_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "app_users_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "app_users_verified_email_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "families",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "families_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "family_invitations",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "family_invitations_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "family_invitations_token_hash_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "invitations_family",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "invitations_recipient",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "users_family",
+    "definition": "i:false:false"
+  }
+]

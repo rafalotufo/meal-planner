@@ -11,7 +11,7 @@ export default async function OnboardingPage() {
   const session = await requirePageSession();
   const context = invitationContext(await headers(), authConfiguration().origin);
   if (session.access.kind === 'member' && !context.present) redirect('/');
-  const invitation = session.access.kind !== 'member' ? invitationForRecipient(getDatabase(), session.identity, context.token) : null;
+  const invitation = session.access.kind !== 'member' ? await invitationForRecipient(await getDatabase(), session.identity, context.token) : null;
   const automatic = session.access.kind === 'provision' && !context.present;
   return <main className="mx-auto min-h-screen max-w-lg p-6">
     <h1 className="text-2xl font-semibold">{session.access.kind === 'member' ? 'You already belong to a family' : automatic ? 'Welcome to Meal Planner' : 'Your invitation'}</h1>

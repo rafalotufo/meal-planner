@@ -46,11 +46,11 @@ function createAuth() {
           if (!claims || typeof claims.sub !== "string" || !claims.sub.trim() || typeof claims.email !== "string" || !claims.email.trim()) return null;
           const identity = verifiedIdentity({ googleSubject: claims.sub, email: claims.email, emailVerified: claims.email_verified });
           if (!identity) return null;
-          const access = classifyAccess(getDatabase(), identity, allowedGoogleEmails);
+          const access = await classifyAccess(await getDatabase(), identity, allowedGoogleEmails);
           if (!access) return null;
           const info = await provider.getUserInfo(tokens);
           if (!info) return null;
-          if (access.kind === "member") updateVerifiedEmail(getDatabase(), identity, allowedGoogleEmails);
+          if (access.kind === "member") await updateVerifiedEmail(await getDatabase(), identity, allowedGoogleEmails);
           return { ...info, user: { ...info.user, googleSubject: identity.googleSubject, email: identity.email, emailVerified: true } };
         },
       },

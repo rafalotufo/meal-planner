@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Family implementation 1de139d complete; six-turn loop solved, all checks and independent reviews pass; fresh human merge/release authority pending." }
-  product-manager: { status: idle, assignment: null, last_report: "Family intent accepted with single-family membership, invitation-first onboarding and invitation-granted access beyond allowlist; all owner questions resolved." }
-  architect: { status: idle, assignment: null, last_report: Family design and native SQLite compatibility amendment complete; stable dependencies and strict checks preserved; implementation verified and independently reviewed. }
-  senior-developer: { status: idle, assignment: null, last_report: "Local main766a792 integration verified and independently approved; two-parent feature merge ready; PostgreSQL belongs to separate worktree, SQLite Vercel release blocker remains." }
-  security-researcher: { status: idle, assignment: null, last_report: "Family security clear at 1de139d; focused HTTP10 and native/policy7 pass, path issue fixed, audit no high/critical; live Google and human production gates remain." }
-  reviewer: { status: idle, assignment: null, last_report: "Family code review approved at 1de139d; independent auth11/family26/native7 pass, mutation meaningful, manifest covered; fresh human merge/release required." }
+  orchestrator: { status: idle, assignment: null, last_report: "Native PostgreSQL migration verified; Node114/Python7 and fixture Chrome pass, peer design/code/security approved; human merge and hosted production gates remain closed." }
+  product-manager: { status: idle, assignment: null, last_report: "PostgreSQL intent independently accepted under org protocol, scoped to native local setup and Vercel-compatible code; production and human merge gates remain separate." }
+  architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
+  senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
+  security-researcher: { status: idle, assignment: null, last_report: PostgreSQL security peer review approved after TLS duplicate and private-file safety fixes. }
+  reviewer: { status: idle, assignment: null, last_report: PostgreSQL design/code peer reviews approved after documented fixes; no human merge/release authority granted. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -38,3 +38,4 @@ review_queue:
   - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: code-vercel-deployment-002, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: code-postgresql-001, artifact: postgresql-persistence-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

@@ -12,6 +12,6 @@ export async function POST(request: NextRequest) {
     await requireFamilyContext(request.headers);
     const session = await requireIdentity(request.headers);
     const body = await readJson(request, ['recipientEmail']);
-    return NextResponse.json(createInvitation(getDatabase(), session.identity, allowed, body.recipientEmail, authConfiguration().origin), { status: 201, headers: noStore });
+    return NextResponse.json(await createInvitation(await getDatabase(), session.identity, allowed, body.recipientEmail, authConfiguration().origin), { status: 201, headers: noStore });
   });
 }

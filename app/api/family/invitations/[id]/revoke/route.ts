@@ -10,7 +10,7 @@ export async function POST(request: NextRequest, context: { params: Promise<{ id
     await requireFamilyContext(request.headers);
     const session = await requireIdentity(request.headers);
     await readJson(request, []);
-    revokeInvitation(getDatabase(), session.identity, allowed, (await context.params).id);
+    await revokeInvitation(await getDatabase(), session.identity, allowed, (await context.params).id);
     return { revoked: true };
   });
 }

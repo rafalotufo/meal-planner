@@ -9,6 +9,6 @@ export async function GET(request: NextRequest) {
   return apiResponse(async () => {
     await requireFamilyContext(request.headers);
     const session = await requireIdentity(request.headers);
-    return familySummary(getDatabase(), session.identity, allowed);
+    return familySummary(await getDatabase(), session.identity, allowed);
   });
 }

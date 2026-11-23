@@ -14,7 +14,7 @@ export async function readCryptographicSession(requestHeaders: Headers) {
 export async function readSession(requestHeaders: Headers) {
   const session = await readCryptographicSession(requestHeaders);
   if (!session) return null;
-  const access = classifyAccess(getDatabase(), session.identity, allowedGoogleEmails);
+  const access = await classifyAccess(await getDatabase(), session.identity, allowedGoogleEmails);
   return access ? { ...session, access } : null;
 }
 export async function requirePageSession() {

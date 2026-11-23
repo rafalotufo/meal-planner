@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     if (!session) throw new FamilyError(401, "Unauthorized");
     await readJson(request, []);
     const origin = authConfiguration().origin;
-    acceptInvitation(getDatabase(), session.identity, allowed, invitationContext(request.headers, origin).token);
+    await acceptInvitation(await getDatabase(), session.identity, allowed, invitationContext(request.headers, origin).token);
     return NextResponse.json({ ready: true }, { headers: { ...noStore, 'Set-Cookie': contextCookie(origin, null) } });
   });
 }

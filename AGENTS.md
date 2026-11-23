@@ -8,7 +8,7 @@
 - Develop: `pnpm run dev`.
 - Verify: `pnpm run lint`, `pnpm run typecheck`, `pnpm run build`; all must pass.
 - Family regression: `pnpm run test:family` after build (owns temporary migrated databases).
-- Local explicit migration: `pnpm run db:migrate` after setting private absolute `DATABASE_PATH`.
+- Local explicit migration: `pnpm run db:migrate` after `pnpm run db:setup` (separate owner/runtime URLs).
 - Recipe/photo regressions: `pnpm test` (compiled TypeScript and native Node runner).
 - Deployment helper regression: `node --import tsx --test tests/deployment/smoke.test.ts`.
 - Authentication regression: `pnpm run test:auth` after build (owns isolated servers).
@@ -21,8 +21,11 @@
 TypeScript, Next.js App Router, and Tailwind CSS v4. Root layout owns metadata
 and global CSS; the home page is a server component composing main’s approved
 recipe-search form and Meal Planner heading. Family/invitation controls live on
-separate pages. SQLite uses one durable local host/volume, typed bound native
-statements, reviewed SQL/journal in `drizzle/`, and the public migration loader.
+separate pages. PostgreSQL is the sole runtime database locally and on future Vercel
+deployments. Use typed bound native pg queries, reviewed SQL/journal/catalog in
+`drizzle/postgresql/`, and the public Drizzle migration loader. Native Mac setup
+uses Homebrew postgresql@17 and a dedicated on-demand private cluster; no Docker
+or global brew service. Preserve the original SQLite migration evidence.
 No runtime ORM/schema-builder imports: see the reviewed storage compatibility
 amendment. Never relax strict checking or patch vendor declarations.
 
@@ -41,10 +44,11 @@ access independently. Malformed lists fail closed for all admission. Match email
 by trim/lowercase only; never expose this configuration in client code, props,
 errors or logs. Family membership alone never grants sign-in eligibility.
 
-Require private absolute `DATABASE_PATH` outside public/.next/legacy static roots
-and symlink aliases. Runtime never creates/migrates files. Family provisioning,
-invitation creation/acceptance/revocation and metadata writes use immediate
-transactions; GET/HEAD/proxy/render/session reads never provision or consume.
+Require server-only DATABASE_URL; remote URLs require verified TLS. Runtime never
+creates/migrates schema. Family provisioning, invitation creation/acceptance/revocation
+and metadata writes use single-connection READ COMMITTED transactions with a common
+transaction advisory lock acquired before decision reads and bounded local timeouts.
+GET/HEAD/proxy/render/session reads never provision or consume.
 Only verified Google callback admission may update an existing subject's email.
 Keep future shared entities scoped by required family owner; no recipe/meal CRUD.
 
@@ -56,13 +60,15 @@ text rendering, grounding/URL checks, paid-usage bounds, and photo SSRF protecti
 (all-address validation, pinned HTTPS, no redirects/proxy/credentials, strict byte/
 time/encoding limits and two-job bounds). Never swallow parent abort.
 
-This family branch’s SQLite adapter is LOCAL-only and NOT Vercel-compatible.
-Do not configure DATABASE_PATH=/tmp, deploy it, or invent persistence with env vars.
-Hosted PostgreSQL migration/local setup is separate work in a new worktree; no
-DB provider provisioning or migration is authorized in this integration. Preserve
-main’s `vercel.json`, manual deployment gates and environment isolation. Follow
-`intent/vercel-deployment/deployment-runbook.md` for production operations; its
-existing release approval does not authorize deploying this family branch.
+Local PostgreSQL setup and local migrations/testing are authorized in this dedicated
+worktree. Never remove/import existing SQLite data automatically. No hosted provider
+provisioning, production variables/migrations, deployment or paid calls are authorized.
+Neon pooled runtime/direct migration URLs are prepared only. Preserve main’s
+vercel.json, manual deployment gates and environment isolation. Follow
+intent/vercel-deployment/deployment-runbook.md for production operations; existing
+release approvals do not authorize this branch. Keep private cluster/config files
+owner-only; test databases use a distinct restricted CREATEDB role and owned random
+names, never the development or a remote database. Test servers force empty paid keys.
 
 ## Verification and workflow
 
@@ -75,7 +81,11 @@ code must never import it or add a fake-user bypass. Sessions expire after one
 hour without refresh; browser logout cannot revoke copied cookies before expiry.
 The dev-only `bun-types/sqlite` ambient declaration supports Better Auth's public
 types; keep Node/React types and strict checks. Never suppress
-checks or remove failing tests to get a passing run.
+checks or remove failing tests to get a passing run. After fixture development QA has
+stopped its owned dev server, Next16.4.6 may leave duplicate global LayoutProps
+in .next/dev/types and .next/types. Move only the inactive generated dev/types
+directory to a private temporary backup, then regenerate production types/build.
+Do not exclude application/tests or weaken the compiler to handle this cache issue.
 
 ## Conventions
 
@@ -87,7 +97,7 @@ Pin exact stable dependency versions and commit pnpm's generated `pnpm-lock.yaml
 
 Use `intent/<feature-slug>/` for every intent and all of its specifications,
 including `intent.md`, `spec.md`, `plan.md`, and any feature-specific design
-notes. Use lowercase kebab-case slugs. Current feature: `intent/family-membership/`.
+notes. Use lowercase kebab-case slugs. Current feature: `intent/postgresql-persistence/`.
 Before dispatch, read the active work item from `org/loop/state.yaml` and its
 sibling spec/plan; keep graph artifact paths aligned. See `intent/README.md`.
 

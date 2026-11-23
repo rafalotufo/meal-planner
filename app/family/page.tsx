@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default async function FamilyPage() {
   await requireFamilyContext();
   const session = await requirePageSession();
-  const summary = familySummary(getDatabase(), session.identity, allowed);
+  const summary = await familySummary(await getDatabase(), session.identity, allowed);
   return <main className="mx-auto min-h-screen max-w-xl p-6">
     <h1 className="text-2xl font-semibold">Your family</h1>
     <section className="mt-8" aria-labelledby="members-heading"><h2 id="members-heading" className="text-lg font-semibold">Members</h2><ul className="mt-3 space-y-2">{summary.members.map((member) => <li key={member.id} className="break-all">{member.email}</li>)}</ul></section>

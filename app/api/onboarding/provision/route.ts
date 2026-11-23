@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
   return apiResponse(async () => {
     const session = await requireIdentity(request.headers);
     await readJson(request, []);
-    provisionFamily(getDatabase(), session.identity, allowedEmails, invitationContext(request.headers, authConfiguration().origin).present);
+    await provisionFamily(await getDatabase(), session.identity, allowedEmails, invitationContext(request.headers, authConfiguration().origin).present);
     return { ready: true };
   });
 }

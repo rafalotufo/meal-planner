@@ -14,7 +14,7 @@ try {
     assert.equal(await browser.evaluate('document.querySelectorAll("h1").length'), 1); assert.equal(await browser.evaluate('document.querySelector("button").textContent.trim()'), 'Continue with Google');
     await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 }); await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     assert.equal(await browser.evaluate('document.activeElement.tagName'), 'BUTTON'); await browser.viewport(width);
-    await browser.screenshot(`org/reviews/family-main-integration-auth-sign-in-${width}.png`);
+    await browser.screenshot(`org/reviews/postgresql-auth-sign-in-${width}.png`);
     await browser.send('Network.setCookies', { cookies: [...jar.values].map(([name, value]) => ({ name, value, url: server.origin, httpOnly: true, sameSite: 'Lax' })) });
     await browser.navigate(`${server.origin}/`); await browser.waitFor("location.pathname === '/' && document.querySelector('h1')?.textContent === 'Meal Planner' && Boolean(document.querySelector('#recipe-query'))");
     assert.equal(await browser.evaluate('document.querySelectorAll("h1").length'), 1); await browser.viewport(width);
@@ -25,7 +25,7 @@ try {
     assert.equal(await browser.evaluate('document.querySelector("article a")?.href'), 'https://www.loveandlemons.com/gnocchi-recipe/');
     assert.equal(await browser.evaluate('document.querySelector("article").innerText.includes("Cook time: 30 minutes")'), true);
     await browser.viewport(width);
-    await browser.screenshot(`org/reviews/family-main-integration-auth-home-${width}.png`);
+    await browser.screenshot(`org/reviews/postgresql-auth-home-${width}.png`);
   }
   await browser.navigate(`${server.origin}/sign-out`); await browser.click('button'); await browser.waitFor("location.pathname === '/sign-in'");
   await browser.navigate(`${server.origin}/`); await browser.waitFor("location.pathname === '/sign-in'");

@@ -4,7 +4,7 @@
 
 ## Goal
 
-intent/family-membership/intent.md
+intent/postgresql-persistence/intent.md
 
 ## Loop
 
@@ -74,11 +74,11 @@ intent/family-membership/intent.md
 
 ## Recent decisions
 
-- mem-0058 ceo: Imported feature event mem-0031 from source commit5eaff43 (original source org/messages/ceo-0006.md): Rafael approved the independently reviewed family build plan at f886fa9. Implementation/local verification authorized under approved spec and plan; no production migration, push, merge or release. Current plan approval plan-family-membership-001, not a historical reused gate. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:31)
 - mem-0059 reviewer: Imported feature event mem-0032 from source commit5eaff43 (original source org/reviews/family-membership-storage-amendment-001.md): Peer-approved narrow storage compatibility amendment after independent reproduction of70Drizzle declaration errors. Native typed bound SQL retains stable driver/engine/schema/API, publicDrizzle migrationloader/SQL/journal artifacts, atomic hash/version verification, and all strict checks. Original human approvals preserved; no prerelease/suppression. Resume implementation; full code/security/runtime verification remains. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:32)
 - mem-0061 security-researcher: Imported feature event mem-0034 from source commit5eaff43 (original source org/reviews/security-family-membership-001.md): Independent family security review clear for implementation1de139d. Focused HTTP10 and native/policy7 pass; full branch secret scan0; initial served-path issue fixed and independently verified. No high/critical audit issue; inherited unreachable esbuild serve advisory remains due2026-12-07. Code review also approved with independent auth11/family26. Human merge/release and live Google remain separate. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:34)
 - mem-0062 reviewer: Imported feature event mem-0035 from source commit5eaff43 (original source org/reviews/code-family-membership-001.md): Final family code review approved implementation1de139d after independent auth11/family26/native7, meaningful mutation proof, full manifest coverage and UI evidence. Security also clear. Security turn5 reran all six acceptance commands exit0; no blocking findings remain. Normal final review turn6 remains before workflow closure; no human merge or production authorization inferred. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:35)
 - mem-0063 orchestrator: Imported feature event mem-0036 from source commit5eaff43 (original source org/reviews/code-family-membership-001.md): Family membership implementation1de139d complete and six-turn loop solved: final implementation/security/review checkpoints all six acceptance commands exit0. Independent code/security approved; auth11/family26/Python7 and real Chrome320/1440+devStrictMode pass,11 screenshots visually inspected, secret scans0. Graph implementation in_review awaits fresh human merge approval; release not started. SQLite DATABASE_PATH and explicit migration required for runtime; live Google round trip remains external, inherited moderate advisory due2026-12-07. No push/merge/production migration/release performed. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:36)
+- mem-0065 orchestrator: PostgreSQL is sole local/future hosted family store. Rafael chose native Homebrew on-demand setup over Docker for memory use; strict Drizzle pg probe failed70 declarations, native pg/public loader approved. Historical completed family loop copied byte-exact to org/archives/postgresql-predecessor. Hosted provisioning/production migration/deploy and merge remain unauthorized. (org/reviews/postgresql-design-001.md)
 
 ## Constraints
 
@@ -86,12 +86,11 @@ intent/family-membership/intent.md
 
 ## Artifacts
 
-- intent/family-membership/intent.md (a7ad8dfcaff70227042622152290935ca8b7342b65daad71c8d485d6353835f4)
-- intent/family-membership/spec.md (a9c2316907420d2f05390d3613e4bc8bf51515e1f1186adfbd61949ffbfcec0b)
-- intent/family-membership/plan.md (1093e8ad146a9d692200053cb24e039e7a7f2b840f80e165f872e813f2dc0c7e)
-- org/reviews/family-membership-verification.md (1b98c701f09979cf9150b57e5a0ceae29190e22c565726d03a38205cc5a33490)
-- org/reviews/security-family-membership-001.md (f35fad95c6d75cf6783c3278c0e6ef12774f1038c9f98039ccf90d1ca984f2ee)
-- org/reviews/code-family-membership-001.md (0f3e2194b7c042c8a2d178c889b6bfc94116f27e3b3f774cb884b419eeb0a89f)
+- intent/postgresql-persistence/intent.md (71740e4ed089ed18b921b627564584ead597df39b9a5ffa8b8b5253dbedcca54)
+- intent/postgresql-persistence/spec.md (84280452c146913c3ac2cbd0bf2b3851e1d777e2092774d6da19d76649378b04)
+- intent/postgresql-persistence/plan.md (d71f31e1b961e6ea1757ee6df0ef768cca2159082c252eabe8be97b5c72844e8)
+- org/reviews/postgresql-security-001.md (a799bb595311791a6f41468b76acb7696467b71cfc9be9a68ab9f2ef4519ec37)
+- org/reviews/postgresql-code-001.md (3287d6563b6303851982a7f42a9fd9cfd42399ed2a1530e9fdaf81895368f5c1)
 
 ## Next action
 
@@ -99,7 +98,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0064 from org/merge/family-main-2026-11-23/README.md
+- mem-0066 from org/reviews/postgresql-verification.md
 
 <!-- machine:end -->
 

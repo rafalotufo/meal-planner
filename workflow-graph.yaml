@@ -12,19 +12,19 @@ version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/family-membership/intent.md
+    artifact: intent/postgresql-persistence/intent.md
     gate: product_owner_accept
     status: accepted
     done_status: accepted
   spec:
     stage: design
-    artifact: intent/family-membership/spec.md
+    artifact: intent/postgresql-persistence/spec.md
     gate: product_owner_approve
     status: approved
     done_status: approved
   plan:
     stage: build
-    artifact: intent/family-membership/plan.md
+    artifact: intent/postgresql-persistence/plan.md
     gate: engineer_approve
     status: approved
     done_status: approved

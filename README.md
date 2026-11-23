@@ -4,12 +4,10 @@ A Next.js App Router application protected by Google sign-in for finding existin
 web recipes from a description. Results show source links, cooking summaries,
 available photos and source-supported cooking times, styled with Tailwind CSS v4.
 
-> Integration branch: this checkout includes the already deployed Vercel recipe
-> app and the not-yet-released family feature. Family persistence still uses a
-> private local SQLite file and **cannot run durably on Vercel Functions**. Do not
-> deploy this branch by setting DATABASE_PATH or using /tmp. Hosted PostgreSQL
-> work is separate, in a new worktree; no DB provider/credentials or migration
-> have been configured here. The existing production deployment is unchanged.
+> This branch uses PostgreSQL for local development and Vercel-compatible family
+> persistence. Native Mac setup is below. No hosted database, production variables,
+> production migrations or deployment have been configured. Human merge/release
+> authorization remains required; prior release approvals do not apply.
 
 ## Local development
 
@@ -24,18 +22,19 @@ pnpm --version
 ```
 
 Existing pnpm/Corepack users can use the pinned version from `package.json`.
-Then configure authentication and private local family storage as described below,
-install dependencies, explicitly migrate the local database, and start development:
+Install native PostgreSQL and configure authentication as described below, then:
 
 ```bash
 pnpm install --frozen-lockfile
+pnpm run db:setup
 pnpm run db:migrate
 pnpm run dev
 ```
 
 Commit the generated `pnpm-lock.yaml` with dependency changes. Dependency build
 scripts are reviewed explicitly in `pnpm-workspace.yaml`; unreviewed scripts
-fail installation.
+fail installation. Scoped pnpm overrides remove Drizzle’s unused optional SQLite
+peers; no native SQLite build is needed for this PostgreSQL application.
 
 Open the configured origin, for example <http://localhost:3000>. Anonymous
 navigation redirects to `/sign-in`. Local family storage is required in this
@@ -44,7 +43,7 @@ recipient invitation; acceptance creates its independent durable grant.
 
 ## Google authentication setup
 
-1. Copy `.env.example` to `.env.local`. Keep real credentials out of Git.
+1. Copy `.env.example` to `.env.local` **before** `db:setup`, or add its authentication settings to the generated file. Do not overwrite generated database URLs. Keep real credentials out of Git.
 2. Set `BETTER_AUTH_URL` to the exact application origin (for example,
    `http://localhost:3000` locally or `https://meal-planner.example` in production).
    Use HTTPS outside localhost/loopback. No URL path, query, username or password
@@ -233,62 +232,124 @@ Recipes and meals are not implemented. Every future shared record must have a
 required family owner; reads/updates/deletes must constrain record ID and the
 server-derived family ID, and related records must share that ownership.
 
-## Private durable database
+## Native PostgreSQL development
 
-Use one persistent local host/volume with the pinned native SQLite driver.
-Ephemeral serverless filesystems and shared network files are unsupported.
-`DATABASE_PATH` is a server-only absolute path outside `public`, `.next`, and
-legacy `static`, including symlink aliases. Runtime opens only an existing file
-with the complete expected migration history/schema; it never creates or repairs
-one. Missing/unmigrated/inaccessible storage fails closed. Builds need no DB/secrets.
-
-Create a private directory (owner-only access), set its absolute file path in
-`.env.local`, then apply reviewed SQL explicitly:
+Install the versioned Homebrew formula (verified PostgreSQL 17.11 on Apple Silicon):
 
 ```bash
-umask 077
-mkdir -p .data
-chmod 700 .data
-# Set DATABASE_PATH to the absolute path of .data/meal-planner.sqlite.
+HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_CLEANUP=1 brew install postgresql@17
+pnpm install --frozen-lockfile
+pnpm run db:setup
 pnpm run db:migrate
+pnpm run dev
 ```
 
-Keep DB/WAL/SHM files and backups outside source control. `drizzle/` contains the
-reviewed SQL schema and ordered migration journal/snapshot. A public Drizzle loader
-reads SQL/hashes; typed native bound statements and immediate transactions execute
-it. The full ORM declarations are incompatible with strict checking in the pinned
-version; see [the reviewed compatibility decision](intent/family-membership/storage-compatibility.md).
-There is no unchecked schema-builder duplicate or generation command. Future schema
-changes require reviewed SQL/journal updates and fresh/upgrade tests.
+`db:setup` creates a dedicated private cluster at
+`~/Library/Application Support/MealPlanner/postgresql-17/data`, starts it on
+`127.0.0.1:5432`, and creates `meal_planner_dev`. It uses SCRAM passwords and
+separate `mp_bootstrap` (setup only), `mp_migrator` (schema owner), `mp_runtime`
+(DML only; read-only migration ledger) and `mp_test` (isolated DB creation) roles.
+Test credentials cannot connect to development data. Directories are 0700;
+credentials and `.env.local` are 0600, excluded from Git and CLI uploads.
+Generated credentials stay in the private cluster directory; ignored
+`.data/postgres/development.env` and `.env.local` hold local connection settings.
+Never paste these URLs into shell arguments, logs, issue reports or chat.
 
-Use SQLite's supported backup API for a consistent backup, not a raw copy of a
-live file while ignoring WAL. For example, with a private configured path:
+Homebrew may create its own default cluster at `/opt/homebrew/var/postgresql@17`;
+this project does not use/start that cluster or register `brew services`.
+The formula is keg-only; scripts resolve its bin directory through `brew --prefix`.
+Docker is unnecessary. Its initial evaluation created no project containers or
+volumes. Database files persist through stop/start and Mac restarts.
 
 ```bash
-node --env-file=.env.local --input-type=module <<'JS'
-import Database from 'better-sqlite3';
-const db = new Database(process.env.DATABASE_PATH, { fileMustExist: true });
-try { await db.backup(process.env.DATABASE_PATH + '.backup'); }
-finally { db.close(); }
-JS
+pnpm run db:status
+pnpm run db:stop    # only this project's cluster; preserves data
+pnpm run db:start   # start on demand, including after restarting the Mac
+pnpm run db:migrate # explicit reviewed migrations; never runs on requests/build
 ```
 
-Before production migrations obtain human authorization and verify a consistent
-backup/restore in isolation. To restore, stop all application processes, preserve
-the original DB/WAL/SHM, restore the backup to a fresh private path, configure that
-path, and verify its reviewed schema before restart. Retain encrypted backups for
-30 days according to the host's policy. Keep member identity/grant data for the
-membership lifetime. Invitation deadlines are enforced without a cleanup job;
-expired/terminal record purging and operator erasure/export require separately
-reviewed procedures. No deletion scheduler is installed. Rollback preserves the
-DB; old allowlist-only code cannot serve invited users.
+If port 5432 is occupied, stop and resolve the conflict explicitly; do not kill
+other services. Preserve the private cluster and credentials when changing
+worktrees. Running `db:setup` in another checkout reuses this project cluster and
+writes that checkout's ignored config. It rejects symlink/ownership ambiguity.
+It never deletes/reset databases or replaces an unrelated cluster. Use a separate
+reviewed setup if another development project already owns these role/database names.
 
+Runtime requires server-only `DATABASE_URL`; migrations use the schema-owner
+`MIGRATION_DATABASE_URL`. Builds need no database/secrets. Missing/unmigrated,
+changed-history or unexpected-schema databases fail closed. `drizzle/postgresql/`
+contains reviewed SQL, journal and catalog signature, included explicitly in Next
+server traces. Catalog verification includes columns/constraints/indexes, functions,
+triggers and row-security flags/policies. The original SQLite SQL/journal/snapshot
+are historical evidence and never executed by the new runtime.
+
+Typed native `pg` queries and the public Drizzle migration loader preserve strict
+checking. The pinned ORM's PostgreSQL entry point independently reproduced 70
+strict declaration failures; see
+[compatibility evidence](intent/postgresql-persistence/storage-compatibility.md).
+Family mutations hold one transaction-level advisory lock before their decision
+reads on the same connection. This retains conservative cross-process ordering,
+with transaction-local timeouts supported by Neon transaction pooling and bounded
+client queries. Global mutation serialization is a deliberate small-app tradeoff.
+
+### Tests and backups
+
+After build, `pnpm run test:family` and `pnpm run test:auth` use real PostgreSQL.
+They load the dedicated `TEST_DATABASE_URL` from the ignored development config,
+require loopback and the `mp_test` role, create random `mp_test_<hex>` databases,
+and clean up only their own databases after checking ownership. They never reset
+the development database. PostgreSQL must be started and local migration applied
+before the runtime-role regression. Test servers force empty provider keys and
+use test-process-only Google fixtures. Browser commands are
+`node --import tsx tests/auth/browser.ts` and
+`node --import tsx tests/family/browser.ts` (isolated real Chrome, 320/1440).
+
+Use PostgreSQL `pg_dump` custom format and `pg_restore`, with `PGHOST`, `PGPORT`,
+`PGUSER`, `PGDATABASE` and `PGPASSWORD` supplied through a private process
+environment or 0600 pgpass file; never put the URL/password in arguments. Use
+Homebrew's versioned `bin` directory. Keep backup directories 0700 and files 0600,
+and verify restore into a fresh isolated database before relying on a backup.
+The real-PostgreSQL regression performs dump/restore and verifies durable invited
+access across complete application restart. No backup/deletion scheduler is installed.
+
+The initial rollback SQL is a destructive proof **only for disposable test DBs**;
+the suite exercises it and remigrates. It is not a development or production reset.
+For operational rollback, preserve PostgreSQL data and restore a verified backup
+only after a reviewed plan; old SQLite code cannot read PostgreSQL invitation grants.
+Retain encrypted backups for 30 days under the host's policy. Membership identity
+and grants persist for the membership lifetime; record purging/erasure/export need
+separately reviewed procedures.
+
+Read-only discovery found no DATABASE_PATH config or `.data` entries in main,
+the source family checkout, or this migration checkout at task start. That is a
+limited discovery, not a claim that no SQLite data exists elsewhere. Nothing was
+deleted or imported. If an existing SQLite DB is identified, preserve it and a
+consistent backup; review transfer/identity/grant/count validation before cutover.
+
+### Future Neon / Vercel configuration (not executed)
+
+Use PostgreSQL 17 in Neon. A future authorized setup should provision separate
+schema-owner and restricted runtime roles, revoke PUBLIC database/schema access,
+and apply the same domain-table DML/read-only-ledger grants. Set **server-only**
+`DATABASE_URL` to the pooled endpoint with `sslmode=verify-full`; use the direct
+endpoint and owner credentials as `MIGRATION_DATABASE_URL` for explicit migrations.
+Only those two variables name database connections; no `NEXT_PUBLIC_` database
+configuration. URL options other than a single sslmode are rejected; do not use
+SSL verification bypasses. Small lazy pools use four connections per instance;
+plan provider capacity against Vercel concurrency. No filesystem persistence is used.
+
+Keep Preview and Production isolated, retain current Node24 duration/cancellation
+and manual deployment gates, and verify an authorized candidate with a real hosted
+connection before release. Build traces include SQL/journal/catalog assets, but no
+live Neon connection or deployment is claimed. Hosted provisioning, environment
+changes, production migrations and deployment each require fresh authorization.
+Follow [the deployment runbook](intent/vercel-deployment/deployment-runbook.md).
 
 ## Agent workflow
 
 The agent org contract is in `org/org-chart.yaml` and `org/protocol.md`.
 Every feature keeps its intent and specifications in `intent/<feature-slug>/`:
 `intent.md`, `spec.md`, `plan.md`, and related design notes. The current feature
-is in `intent/family-membership/`; the Vercel loop remains archived as historical evidence. See `intent/README.md` for the convention; review and
+is in `intent/postgresql-persistence/`; prior family/Vercel artifacts and loop snapshots remain historical evidence. See `intent/README.md` for the convention; review and
 verification evidence lives in `org/reviews/`.
 Human approval remains required for merges and releases.

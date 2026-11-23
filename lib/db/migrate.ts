@@ -1,17 +1,17 @@
 import { checkHistory, checkSchema, connectDatabase, repositoryMigrations } from './connection';
-export function migrateDatabase(path: string) {
-  const db = connectDatabase(path, true);
+export async function migrateDatabase(url: string) {
+  const db = connectDatabase(url);
   try {
-    const migrations = repositoryMigrations();
-    db.transaction(() => {
-      db.exec('CREATE TABLE IF NOT EXISTS __drizzle_migrations (id INTEGER PRIMARY KEY AUTOINCREMENT, hash TEXT NOT NULL, created_at INTEGER NOT NULL)');
-      const applied = checkHistory(db, migrations, false);
-      const record = db.prepare<[string, number]>('INSERT INTO __drizzle_migrations (hash, created_at) VALUES (?, ?)');
-      for (const migration of migrations.slice(applied)) {
-        for (const statement of migration.sql) db.exec(statement);
-        record.run(migration.hash, migration.folderMillis);
+    await db.transaction(async (transaction) => {
+      const migrations = repositoryMigrations();
+      await transaction.execute('CREATE TABLE IF NOT EXISTS __drizzle_migrations (id integer PRIMARY KEY, hash text NOT NULL, created_at bigint NOT NULL)');
+      const applied = await checkHistory(transaction, migrations, false);
+      for (const [index, migration] of migrations.entries()) {
+        if (index < applied) continue;
+        for (const statement of migration.sql) await transaction.execute(statement);
+        await transaction.execute('INSERT INTO __drizzle_migrations (id, hash, created_at) VALUES ($1,$2,$3)', [index, migration.hash, migration.folderMillis]);
       }
-      checkSchema(db, migrations);
-    }).immediate();
-  } finally { db.close(); }
+      await checkSchema(transaction);
+    }, 73462902);
+  } finally { await db.close(); }
 }
