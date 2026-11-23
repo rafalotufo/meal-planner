@@ -85,3 +85,16 @@ memory ID, preserving both originals. The authenticated-access merged graph
 is archived separately; the active recipe-photo graph remains `in_review`
 until the requested main merge actually succeeds. Existing code validation
 and independent integration review therefore cover the unchanged source.
+
+
+## Completed local merge
+
+Main checkout `/Users/rafael/projects/meal-planner` was clean. Executed
+`git merge --ff-only codex/recipe-search`: exit0, main advanced from
+`305b14aa6a31c35f22f2b428484362d93e12dbae` to
+`7c3e5b77e2e5b0a285a11de9d3ac653db045bbb0`.
+The current photo implementation gate is advanced using committed human ledger
+record `merge-recipe-search-photos-001`. Recipe search is included in that merge.
+No application changes followed successful combined verification. This final
+bookkeeping commit records the actual merge and leaves release not_started.
+The previous task's stale localhost3100 preview was stopped during integration.

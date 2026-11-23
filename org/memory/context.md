@@ -45,11 +45,11 @@ intent/recipe-photos/intent.md
 
 ## Recent decisions
 
-- mem-0028 reviewer: Recipe-search code and bounded spec/plan amendments approved after34 TypeScript tests and7 Python workflow tests; browser and sampled live OpenAI search pass with2 source-checked recipes in21.51s. Public endpoint origin filtering is not authentication; human merge/release and production access/shared-quota policy remain outstanding. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0013; org/reviews/recipe-search-verification.md)
 - mem-0029 orchestrator: User requested better source-grounded recipe photos. Archived completed recipe-search run and graph before starting a separate six-turn recipe-photos intent; prior merge/release approval remains pending. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0014; org/intake/forms/recipe-photos-001.md)
 - mem-0030 reviewer: Recipe-photo enrichment approved after57 TypeScript tests,7 workflow tests and real-source/CUA checks:all3 observed gnocchi photos load at500x500/1250x833/1248x832; provider captured/simulated,metadata and photo loads real,0 modelcalls. Source ambiguity/raw-control findings resolved with independent code/security002 clearance; human merge/release pending. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0015; org/reviews/recipe-photos-verification.md)
 - mem-0031 ceo: Merge recipe-search/photo improvements into main after integration validation; preserve Google account protection and pnpm. Production release remains unapproved. (org/messages/ceo-0006.md)
 - mem-0033 orchestrator: Owner explicitly approved merge to main. Fast-forwarded main b2e3266 to d5f1583 with current human gate merge-authenticated-access-001; no conflicts/source changes. On merged main, frozen install, Python7, lint, strict typecheck, build, auth11 and Chrome320/1440 passed. Implementation graph now merged; release remains not_started. Source worktree generated change/OAuth config preserved. (org/merge/recipe-search-main-2026-11-23/main-followup/org/memory/events.jsonl#mem-0023; org/reviews/authenticated-access-merge-verification.md)
+- mem-0034 orchestrator: Completed user-authorized local merge of recipe search/photo improvements into main at7c3e5b77e2e5b0a285a11de9d3ac653db045bbb0. Preserved authenticated access and pnpm; combined tests/build/browser and independent review pass. Release remains not_started. (org/reviews/recipe-merge-verification.md)
 
 ## Constraints
 
@@ -70,7 +70,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0033 from org/merge/recipe-search-main-2026-11-23/main-followup/org/memory/events.jsonl#mem-0023; org/reviews/authenticated-access-merge-verification.md
+- mem-0034 from org/reviews/recipe-merge-verification.md
 
 <!-- machine:end -->
 
