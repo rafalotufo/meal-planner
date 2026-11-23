@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/intent.md
-base_commit: null
-turn: 0
-no_progress: 0
+base_commit: 1da0d6e478c3f8fb601913f28dff2f59d060d9fc
+turn: 1
+no_progress: 1
 phase: intent
-status: not_started
-last_input_hash: null
+status: in_progress
+last_input_hash: 72f3751c3f963ba3eff08d2b72acf770e6cf91d57bc34c67f157379ad832175d
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: null
+last_action: "product-manager:review_intent"
+artifacts: [{"path": "org/reviews/intent-intake-001.md", "sha256": "6ff4586f417adf81e144867080667f7707d770d1a41759a1e34e1d93d9d94e00"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 1, "pass": false}, {"command": "make lint", "exit": 2, "pass": false}]
+updated_at: "2026-11-23T13:59:00Z"

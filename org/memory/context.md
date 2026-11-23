@@ -8,8 +8,8 @@ intent/intent.md
 
 ## Loop
 
-- status: not_started
-- turn: 0
+- status: in_progress
+- turn: 1
 - phase: intent
 - stop_reason: None
 
@@ -25,7 +25,7 @@ intent/intent.md
 
 ## Open messages
 
-(none)
+- product-manager-0001 product-manager -> ceo question: Feature scope needed for intake
 
 ## Recent decisions
 
@@ -37,15 +37,15 @@ intent/intent.md
 
 ## Artifacts
 
-(none)
+- org/reviews/intent-intake-001.md (6ff4586f417adf81e144867080667f7707d770d1a41759a1e34e1d93d9d94e00)
 
 ## Next action
 
-(run org_loop.py next)
+product-manager:review_intent
 
 ## Last digest source
 
-(no recorded events)
+- mem-0001 from org/reviews/intent-intake-001.md
 
 <!-- machine:end -->
 

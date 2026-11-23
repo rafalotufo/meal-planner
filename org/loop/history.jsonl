@@ -1,1 +1,1 @@
-
+{"acceptance": [{"command": "python3 -m unittest discover -s tests", "exit": 1, "pass": false}, {"command": "make lint", "exit": 2, "pass": false}], "action": "review_intent", "artifact": "org/reviews/intent-intake-001.md", "blocking_findings": [], "evidence": "org/reviews/intent-intake-001.md", "input_hash": "72f3751c3f963ba3eff08d2b72acf770e6cf91d57bc34c67f157379ad832175d", "phase_after": "intent", "result": "no_progress", "review_approved": false, "role": "product-manager", "status_after": "in_progress", "timestamp": "2026-11-23T13:59:00Z", "turn": 1}
