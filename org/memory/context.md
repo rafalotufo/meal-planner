@@ -34,6 +34,8 @@ intent/vercel-deployment/intent.md
 - ceo-0010 ceo -> orchestrator decision: Owner will perform required Vercel pause
 - ceo-0011 ceo -> orchestrator decision: Authorize bounded remaining Vercel verification
 - ceo-0012 ceo -> orchestrator decision: Confirm owner checks and completed scoped pause
+- ceo-0013 ceo -> orchestrator answer: Existing provider budget enforcement confirmed; numeric inventory pending
+- ceo-0014 ceo -> orchestrator answer: Confirm existing monthly provider budget amount
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -80,7 +82,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0046 from org/reviews/vercel-deployment-remaining-verification.md
+- mem-0047 from org/messages/ceo-0014.md
 
 <!-- machine:end -->
 

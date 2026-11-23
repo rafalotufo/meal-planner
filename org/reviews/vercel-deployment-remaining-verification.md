@@ -162,9 +162,11 @@ while paused.
 
 Rafael answered “Budge will stop requests” to the controls verification request
 (ceo-0013): budget enforcement is owner-attested, not independently inspected.
-Monthly limit amount, alert thresholds, and effective gpt-6.2-sol requests/minute
-and tokens/minute remain unspecified; the follow-up asks for those existing
-values only. No numeric cap is invented and no setting is changed.
+Rafael subsequently confirmed the current monthly budget is $20 (ceo-0014;
+currency unspecified). Amount and enforcement are owner-attested existing
+configuration. Alert thresholds and effective gpt-6.2-sol requests/minute and
+tokens/minute remain unrecorded. No setting is changed and production remains
+paused without resume authorization.
 
 Official provider documentation distinguishes enforced spend limits from
 alerts and notes tracking delays; the existing spec already preserves delayed
