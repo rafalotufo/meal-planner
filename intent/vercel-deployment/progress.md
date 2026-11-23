@@ -19,8 +19,10 @@ Approved plan source: `96f3154`; approval record:
 - [ ] Step 5: Authorized by Rafael in ceo-0007. Empty meal-planner Hobby project
   created in rafalotufos-projects; Next.js/Node24/Fluid and manual promotion
   configured, four non-secret Production variables set, WAF rule published.
-  Credential transfer awaits explicit sensitive-egress approval. Rafael confirmed
-  the Google callback was added; live OAuth remains unverified. See release-verification record.
+  Owner entered credentials directly; Google secrets verified Production-only.
+  OPEN_API_KEY is misnamed (must be OPENAI_API_KEY), and BETTER_AUTH_SECRET is
+  missing. Rafael confirmed the callback was added; live OAuth remains unverified.
+  See release-verification record.
 - [ ] Step 6: Production release and hosted verification; separate authorization required.
 
 Vercel interactive login succeeded. Human-approved local main fast-forwarded

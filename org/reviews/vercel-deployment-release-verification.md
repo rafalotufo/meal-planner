@@ -49,10 +49,17 @@ reviewed .env and .vercel exclusions and .env.example exception.
 Automatic approval review rejected the attempted credential-copy command before
 execution. Reason: project configuration approval did not explicitly identify
 the particular local Google/OpenAI secrets and Vercel destination for sensitive
-egress. No credential value was sent by that command. Explicit owner approval
-is pending for Google client ID/secret from the authenticated-access worktree,
-OpenAI key from this worktree and a new random auth secret to this project's
-Production-only settings. No secret values appear in this record.
+egress. No credential value was sent by that command. The owner subsequently
+entered credentials directly in Vercel; agent credential transfer is no longer
+requested. No secret values appear in this record.
+
+Metadata-only verification after “Credentials saved to vercel environment”:
+GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET exist as sensitive Production-only
+variables. OPEN_API_KEY also exists as sensitive Production-only, but the app
+expects OPENAI_API_KEY, which is absent. BETTER_AUTH_SECRET is absent. The owner
+must add those two exact required names before release. The other four approved
+non-secret keys remain Production-only. No values were read or displayed.
+Project metadata still shows no deployments and automatic assignment disabled.
 
 Rafael confirmed “Added callback to OAuth client” on 2026-11-23, following the
 exact URI above. This is owner-confirmed configuration, not an independent
