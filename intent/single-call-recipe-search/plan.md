@@ -89,6 +89,24 @@ not production dependencies and are not committed.
    aggregate/card observations; do not commit credentials or raw source bodies.
    Existing authorization covers these three calls; do not change account or
    provider limits. Do not promise a latency improvement from the small sample.
+   If those three samples expose an unresolved metadata-availability concern,
+   permit one additional diagnostic on the same mushroom query after peer
+   acknowledgement: unchanged actual provider/payload, 60-second abort signal,
+   eight tools and 5,000 output tokens. Clone the response to inspect only
+   optional field names/nulls/types/excerpt containment metrics. Keep raw
+   body evidence only in ignored build storage and record sanitized findings.
+   This is a single bounded diagnostic, not an application retry or a new
+   model/settings sweep; establish the cause before proposing any source edit.
+   The diagnostic established evidence/excerpt wire noncompliance: metadata
+   evidence was commentary while excerpts were different quoted source text.
+   After peer acknowledgement, clarify only the existing source prompt so
+   evidence contains actual observed metadata text and its excerpt copies the
+   exact same text without citation display. Preserve parser/checks/caps,
+   model, and no-fallback behavior. Re-run the same three synthetic queries
+   through the actual final provider, recording sanitized optional field shapes,
+   containment and nonnull counts. Total paid verification is bounded to seven
+   requests: initial three, one diagnostic, final three; no further model sweep.
+   Keep initial/diagnostic/final findings distinct and raw bodies only ignored.
 6. Run application/workflow/deployment smoke tests, lint, strict typecheck,
    production build, then auth regression and real isolated Chrome QA. The
    existing tests/auth/browser.ts harness covers mobile/desktop plus tablet,

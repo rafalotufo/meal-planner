@@ -50,3 +50,47 @@ reviewer for this plan-only approval.
 Implementation review must inspect actual red/green output, final application
 checks, live one-request evidence, screenshot preservation, and the resulting
 code before code/security clearance can be granted.
+
+## Bounded diagnostic addendum approval
+
+Accepted the verification delta proposed by the orchestrator during code review
+on 2026-11-23, to be recorded in plan.md before execution: one additional
+synthetic mushroom-pasta query through the unchanged implemented provider.
+The initial three live searches returned null time/image metadata on all nine
+cards, an unresolved quality observation deserving diagnosis rather than an
+unsubstantiated parser change.
+
+Keep the configured model, payload, request count, caps and cancellation
+unchanged. Clone the response only to inspect optional field presence, types,
+null values and same-record excerpt containment. Confine any raw response to
+ignored local storage; commit only sanitized diagnostic findings. The delta
+authorizes exactly one additional paid request, with no retry, fix, budget,
+model-limit, account, production configuration or release action implied.
+
+This is a narrow extension of the existing live verification, not a new product
+requirement, a changed evidence policy or final code approval. An actual defect
+must be diagnosed and reviewed before any production-source change.
+
+## Prompt-only remediation and final live proof
+
+The diagnostic established that all expected fields were present, but the model
+put commentary in evidence fields and different actual quoted metadata in
+excerpt fields. Inspection of the ignored diagnostic summary and one raw
+record independently confirmed that mismatch. The existing parser correctly
+rejected unsupported containment; relaxing it would violate the specification.
+
+Approved the narrow follow-up proposed through the orchestrator: record this
+cause and limit in plan.md, then clarify only the production prompt. Require
+the evidence fields to include actual source-observed metadata text, with
+excerpt fields containing literal substrings of that evidence without citation
+display. A small internally consistent example is appropriate. Do not change
+the parser, schema policy, model, usage caps, fallback policy, UI, photo/auth
+boundaries, dependencies, or production configuration.
+
+After the prompt change, repeat required source verification and exactly the
+three original synthetic-query live calls against the final adapter, recording
+one request per search and sanitized metadata-presence/containment observations.
+This permits seven paid requests for this implementation verification in total:
+three initial calls, one diagnostic, and three final calls. Existing real Chrome
+fixture evidence remains applicable to the unchanged UI; it is not live model
+proof. Final code/security clearance remains pending final-source verification.

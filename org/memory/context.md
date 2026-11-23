@@ -9,8 +9,8 @@ intent/single-call-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: implement
+- turn: 4
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -19,8 +19,8 @@ intent/single-call-recipe-search/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/single-call-recipe-search/intent.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
+- reviewer: busy (single-call-recipe-search-implementation)
+- security-researcher: busy (single-call recipe search security consultation)
 - senior-developer: busy (single-call-recipe-search implementation and verification)
 
 ## Open messages
@@ -43,6 +43,9 @@ intent/single-call-recipe-search/intent.md
 - ceo-0019 ceo -> orchestrator decision: Implement single-call recipe research and curation
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0017 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
+- orchestrator-0018 orchestrator -> senior-developer handoff: Implement approved single-call recipe search plan
+- orchestrator-0019 orchestrator -> senior-developer decision: Record one bounded metadata diagnostic after observed null results
+- orchestrator-0020 orchestrator -> senior-developer decision: Apply peer-approved literal metadata evidence prompt clarification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -65,14 +68,17 @@ intent/single-call-recipe-search/intent.md
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
 - senior-developer-0004 senior-developer -> orchestrator handoff: Vercel implementation plan ready for human approval
+- senior-developer-0005 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
+- senior-developer-0006 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
+- senior-developer-0007 senior-developer -> orchestrator handoff: Single-call implementation verified and ready for final review
 
 ## Recent decisions
 
-- mem-0035 ceo: Rafael approved Vercel deployment intent and Design; production Vercel URL, rafalotufos-projects Hobby new project, existing OpenAI project limits and no billing changes. Human spec/plan/merge/release gates remain. (org/reviews/intent-vercel-deployment-001.md)
 - mem-0036 ceo: Rafael approved Vercel deployment specification from 9bbc2d2. Local implementation planning authorized; plan, merge, project configuration and production release remain gated. (org/reviews/spec-vercel-deployment-approval-001.md)
 - mem-0050 orchestrator: Rafael selected Everyday grid plus Search notebook history with per-search local pill filtering. Implemented and independently reviewed on codex/recipe-search-notebook; history is page-local, title-only ingredient evidence and conservative total-time filtering. Local verification passed; human merge/release remain pending. (intent/recipe-search-notebook/intent.md)
 - mem-0051 orchestrator: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. (org/messages/ceo-0018.md)
 - mem-0052 orchestrator: Rafael selected combined single-call research and curation after live comparisons; PM accepted intent. Existing citation, source evidence, model, usage, photo/auth/UI boundaries remain; no latency guarantee; human merge/release remain pending. Archived completed notebook loop before initializing this feature. (intent/single-call-recipe-search/intent.md)
+- mem-0053 architect: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. (intent/single-call-recipe-search/spec.md)
 
 ## Constraints
 
@@ -83,14 +89,15 @@ intent/single-call-recipe-search/intent.md
 - intent/single-call-recipe-search/intent.md (6ad1a4bb8aff249c1490d9825685f2f4fc4de0d36fd008b5623022ff764bbad2)
 - intent/single-call-recipe-search/spec.md (ff32bbdb7363d2793be23b9b627a02e243dd8b48b5f23e2b5b7517ae67d3050a)
 - intent/single-call-recipe-search/plan.md (1bbf270912e2182bffe7d13134826149d7bb9df590e930eec1f01ba02caa4649)
+- org/reviews/single-call-recipe-search-verification.md (f0f81e6474707d85d99f4715d37e1f9d95e26d9b0e846e79b6027915128027e3)
 
 ## Next action
 
-senior-developer:draft_plan
+senior-developer:implement
 
 ## Last digest source
 
-- mem-0052 from intent/single-call-recipe-search/intent.md
+- mem-0053 from intent/single-call-recipe-search/spec.md
 
 <!-- machine:end -->
 

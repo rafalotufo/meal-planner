@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { createOpenAIProvider } from "../lib/recipes/openai.js";
-import { candidate, card, modelResponse, queuedTransport, research } from "./recipe-fixtures.js";
+import { candidate, modelResponse, queuedTransport, research } from "./recipe-fixtures.js";
 
 function provider(...responses: unknown[]) {
   const queued = queuedTransport(...responses);
@@ -22,7 +22,7 @@ test("completed explicit no-results is empty without citations or a curator call
   assert.equal(calls[0].payload.reasoning.effort, "low");
 });
 
-test("missing tool use and nonempty uncited research fail before curation", async () => {
+test("missing tool use and nonempty uncited research fail without a repair call", async () => {
   for (const response of [research([], { search: false }), research([candidate()], { citations: [] })]) {
     const { service, calls } = provider(response);
     await assert.rejects(service.search("chickpeas", options()), { code: "SEARCH_FAILED" });
@@ -49,26 +49,26 @@ test("provider HTTP/errors, oversized bodies and excessive research context fail
   const largeResearch = research([candidate({ methodText: "x".repeat(20001) })]);
   for (const response of [new Response("private upstream diagnostic", { status: 429 }),
     new Error("private transport diagnostic"), large, largeResearch]) {
-    const { service } = provider(response);
+    const { service, calls } = provider(response);
     await assert.rejects(service.search("chickpeas", options()), { code: "SEARCH_FAILED" });
+    assert.equal(calls.length, 1);
   }
 });
 
-test("grounded research produces public cards through a tool-free strict curator", async () => {
+test("one combined request produces grounded public cards without internal evidence", async () => {
   const item = candidate();
-  const { service, calls } = provider(research([item]), modelResponse({ recipes: [card(item)] }));
+  const { service, calls } = provider(research([item]),
+    modelResponse({ recipes: [{ ...item, candidateId: "recipe-1" }] }));
   const signal = options();
   assert.deepEqual(await service.search("chickpeas", signal), [{ title: item.title,
     sourceUrl: item.sourceUrl, imageUrl: item.imageUrl,
     summary: "Simmer chickpeas with softened onion and lemon.", time: item.time }]);
-  assert.equal(calls.length, 2);
-  assert.equal(calls[1].signal, signal.signal);
-  assert.equal(calls[1].payload.store, false);
-  assert.deepEqual(calls[1].payload.tools, []);
-  assert.equal(calls[1].payload.max_output_tokens, 3000);
-  assert.equal(calls[1].payload.text?.format.type, "json_schema");
-  assert.equal(calls[1].payload.text?.format.strict, true);
-  assert.equal(calls[1].payload.text?.format.schema.additionalProperties, false);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].signal, signal.signal);
+  assert.equal(calls[0].payload.store, false);
+  assert.equal(calls[0].payload.model, "gpt-6.2-sol");
+  assert.equal(calls[0].payload.max_output_tokens, 5000);
+  assert.equal(calls[0].payload.text, undefined);
 });
 
 test("native citation display spans inside source/title JSON strings do not corrupt grounded recipe identity", async () => {
@@ -82,7 +82,7 @@ test("native citation display spans inside source/title JSON strings do not corr
     content.annotations.push({ type: "url_citation", url: item.sourceUrl, title: "Recipe source",
       start_index: offset, end_index: offset + marker.length });
   }
-  const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+  const { service } = provider(response);
   const [recipe] = await service.search("chickpeas", options());
   assert.equal(recipe.sourceUrl, item.sourceUrl);
   assert.equal(recipe.title, item.title);
@@ -108,7 +108,7 @@ test("citation cleanup resolves astral Unicode and inclusive/exclusive native ch
     content.annotations = [{ type: "url_citation", title: "Source", url: item.sourceUrl,
       start_index: codePoints ? Array.from(text.slice(0, start)).length : start,
       end_index: (codePoints ? Array.from(text.slice(0, start + marker.length)).length : start + marker.length) - Number(inclusive) }];
-    const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+    const { service } = provider(response);
     assert.equal((await service.search("chickpeas", options()))[0]?.title, item.title);
   }
 });
@@ -125,7 +125,7 @@ test("native citation offsets are local to each output text part", async () => {
     return { type: "output_text", text: part, annotations: [{ type: "url_citation", title: "Source",
       url: item.sourceUrl, start_index: start, end_index: start + marker.length }] };
   });
-  const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+  const { service } = provider(response);
   assert.equal((await service.search("chickpeas", options()))[0]?.sourceUrl, item.sourceUrl);
 });
 
@@ -157,7 +157,7 @@ test("identical native citation ranges deduplicate before overlap detection", as
   const annotation = { type: "url_citation", title: "Source", url: item.sourceUrl,
     start_index: start, end_index: start + marker.length };
   content.annotations = [annotation, { ...annotation }];
-  const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+  const { service } = provider(response);
   assert.equal((await service.search("chickpeas", options()))[0]?.sourceUrl, item.sourceUrl);
 });
 
@@ -177,52 +177,114 @@ test("ambiguous native index interpretations do not trigger broad display-marker
   assert.equal(calls.length, 1);
 });
 
-test("method/source/title/ID mismatches drop cards instead of borrowing another recipe's evidence", async () => {
-  const first = candidate();
+test("method evidence cannot be borrowed from another record, and invalid summaries are omitted", async () => {
   const second = candidate({ sourceUrl: "https://recipes.example.com/beans", title: "Baked beans",
-    methodText: "Bake beans with tomato until tender.", imageUrl: "https://images.example.com/beans.jpg",
-    imageEvidence: "Bean photo", time: { kind: "total", text: "1 hour" }, timeEvidence: "Total time: 1 hour" });
-  for (const wrong of [card(first, { candidateId: "unknown" }), card(first, { sourceUrl: second.sourceUrl }),
-    card(first, { title: second.title }), card(first, { methodEvidence: second.methodText }),
-    card(first, { summary: "" }), card(first, { sourceUrl: "https://uncited.example.com/recipe" })]) {
-    const { service } = provider(research([first, second]), modelResponse({ recipes: [wrong] }));
-    assert.deepEqual(await service.search("dinner", options()), []);
+    methodText: "Bake beans with tomato until tender.", summary: "Bake beans with tomato." });
+  for (const overrides of [{ methodEvidence: second.methodText }, { summary: "" },
+    { summary: "x".repeat(601) }, { methodEvidence: "" }, { methodEvidence: "x".repeat(4001) }]) {
+    const { service, calls } = provider(research([candidate(overrides), second]));
+    const results = await service.search("dinner", options());
+    assert.deepEqual(results.map((recipe) => recipe.sourceUrl), [second.sourceUrl]);
+    assert.equal(calls.length, 1);
   }
 });
 
-test("swapped optional evidence becomes null while the correctly grounded method survives", async () => {
-  const first = candidate();
-  const second = candidate({ sourceUrl: "https://recipes.example.com/beans", title: "Beans",
-    methodText: "Bake beans.", imageUrl: "https://images.example.com/beans.jpg", imageEvidence: "Bean photo",
+test("unsafe and uncited source records cannot gain authority from another recipe", async () => {
+  const item = candidate();
+  for (const sourceUrl of ["https://uncited.example.com/recipe", "https://localhost/recipe",
+    "javascript:alert(1)", `${item.sourceUrl}?utm_source=openai`]) {
+    const { service, calls } = provider(research([candidate({ sourceUrl })], { citations: [item.sourceUrl] }));
+    await assert.rejects(service.search("dinner", options()), { code: "SEARCH_FAILED" });
+    assert.equal(calls.length, 1);
+  }
+});
+
+test("optional excerpts stay local and unsupported metadata is null without discarding the card", async () => {
+  const second = candidate({ sourceUrl: "https://recipes.example.com/beans", title: "Baked beans",
+    methodText: "Bake beans with tomato until tender.", summary: "Bake beans with tomato.",
+    imageUrl: "https://images.example.com/beans.jpg", imageEvidence: "Another recipe's photo",
     time: { kind: "total", text: "1 hour" }, timeEvidence: "Total time: 1 hour" });
+  const swapped = candidate({ imageEvidenceExcerpt: second.imageEvidence,
+    timeEvidenceExcerpt: second.timeEvidence });
+  const { service: paired, calls: pairedCalls } = provider(research([swapped, second]));
+  const [firstCard, secondCard] = await paired.search("dinner", options());
+  assert.equal(firstCard.imageUrl, null);
+  assert.equal(firstCard.time, null);
+  assert.equal(secondCard.imageUrl, second.imageUrl);
+  assert.deepEqual(secondCard.time, second.time);
+  assert.equal(pairedCalls.length, 1);
   for (const overrides of [
-    { imageUrl: second.imageUrl, imageEvidence: second.imageEvidence, time: second.time, timeEvidence: second.timeEvidence },
-    { imageEvidence: second.imageEvidence, timeEvidence: second.timeEvidence },
-    { imageUrl: "javascript:alert(1)", timeEvidence: null },
+    { imageEvidenceExcerpt: "Another recipe's photo", timeEvidenceExcerpt: "Total time: 1 hour" },
+    { imageEvidenceExcerpt: null, timeEvidenceExcerpt: null },
+    { imageEvidence: null, timeEvidence: null },
+    { imageUrl: "javascript:alert(1)", time: { kind: "total", text: "" } },
+    { imageEvidence: "x".repeat(1001), timeEvidence: "x".repeat(1001) },
+    { imageEvidenceExcerpt: "x".repeat(1001), timeEvidenceExcerpt: "x".repeat(1001) },
   ]) {
-    const { service } = provider(research([first, second]), modelResponse({ recipes: [card(first, overrides)] }));
+    const raw = { ...candidate(), ...overrides };
+    const { service, calls } = provider(modelResponse({ outcome: "recipes", candidates: [raw] },
+      { search: true, citations: [raw.sourceUrl] }));
     const [result] = await service.search("dinner", options());
     assert.equal(result.imageUrl, null);
     assert.equal(result.time, null);
-    assert.equal(result.title, first.title);
+    assert.equal(result.title, raw.title);
+    assert.equal(calls.length, 1);
   }
+  const missing = { ...candidate(), imageUrl: 42, time: 42,
+    imageEvidence: undefined, timeEvidence: undefined };
+  const { service } = provider(modelResponse({ outcome: "recipes", candidates: [missing] },
+    { search: true, citations: [missing.sourceUrl] }));
+  const [result] = await service.search("dinner", options());
+  assert.equal(result.imageUrl, null);
+  assert.equal(result.time, null);
 });
 
-test("research and curation deduplicate source identity and enforce six cards", async () => {
+test("an invalid card cannot suppress a later valid duplicate, and six emitted sources are distinct", async () => {
   const items = Array.from({ length: 7 }, (_, index) => candidate({ sourceUrl: `https://recipes.example.com/${index}` }));
-  const { service } = provider(research([items[0], items[0], ...items.slice(1)]),
-    modelResponse({ recipes: [card(items[0]), ...items.map((item, index) => card(item, { candidateId: `recipe-${index + 1}` }))] }));
+  const { service, calls } = provider(research([candidate({ ...items[0], summary: "" }),
+    items[0], items[0], ...items.slice(1)]));
   const results = await service.search("dinner", options());
   assert.equal(results.length, 6);
   assert.equal(new Set(results.map((item) => item.sourceUrl)).size, 6);
+  assert.deepEqual(results.map((item) => item.sourceUrl), items.slice(0, 6).map((item) => item.sourceUrl));
+  assert.equal(calls.length, 1);
 });
 
-test("empty curator output succeeds, while malformed/incomplete curator output fails", async () => {
-  const { service } = provider(research([candidate()]), modelResponse({ recipes: [] }));
+test("usable sources with rejected cards may be empty, but malformed roots never become no-results", async () => {
+  const { service, calls } = provider(research([candidate({ summary: "" })]));
   assert.deepEqual(await service.search("dinner", options()), []);
-  for (const response of [modelResponse({ wrong: [] }), modelResponse({ recipes: [] }, { status: "incomplete" }),
-    { status: "completed", output: [{ type: "message", content: [{ type: "refusal", refusal: "No" }] }] }]) {
-    const { service: failing } = provider(research([candidate()]), response);
+  assert.equal(calls.length, 1);
+  for (const raw of [null, [], { candidates: [] }, { outcome: "no_results" },
+    { outcome: "unknown", candidates: [] }, { outcome: "recipes", candidates: [null, 42] }]) {
+    const { service: failing, calls: failedCalls } = provider(modelResponse(raw, { search: true }));
     await assert.rejects(failing.search("dinner", options()), { code: "SEARCH_FAILED" });
+    assert.equal(failedCalls.length, 1);
   }
+});
+
+test("configured model is retained and an already-aborted search makes no request", async () => {
+  const queued = queuedTransport(research([candidate()]));
+  const service = createOpenAIProvider({ apiKey: "test-only-key", model: "configured-search-model", transport: queued.transport });
+  await service.search("dinner", options());
+  assert.equal(queued.calls[0].payload.model, "configured-search-model");
+  assert.equal(queued.calls.length, 1);
+  const controller = new AbortController();
+  const reason = new Error("parent canceled");
+  controller.abort(reason);
+  await assert.rejects(service.search("dinner", { signal: controller.signal }), (error) => error === reason);
+  assert.equal(queued.calls.length, 1);
+});
+
+test("abort during the provider request preserves the parent reason without a retry", async () => {
+  const controller = new AbortController();
+  const reason = new Error("parent canceled");
+  let calls = 0;
+  const service = createOpenAIProvider({ apiKey: "test-only-key", transport: async (_url, init) => {
+    calls++;
+    assert.equal(init?.signal, controller.signal);
+    controller.abort(reason);
+    throw new Error("private abort transport diagnostic");
+  } });
+  await assert.rejects(service.search("dinner", { signal: controller.signal }), (error) => error === reason);
+  assert.equal(calls, 1);
 });
