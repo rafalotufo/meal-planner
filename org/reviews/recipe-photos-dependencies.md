@@ -64,3 +64,12 @@ classifier's exact address-range behavior after authorized installation.
 
 The application source, package files, lockfile, installed node_modules, org
 state, ledger and Git history remain untouched by this planning inspection.
+
+## Authorized installation checkpoint
+
+After independent plan approval, `npm install --save-exact --ignore-scripts
+htmlparser2@10.1.0 ipaddr.js@2.5.0` exited 0 and added exactly eight packages.
+The application lockfile matches the reviewed prospective lock byte-for-byte
+(SHA-256 above), so the reviewed graph/audit evidence applies without drift.
+Actual classifier checks also identify IPv4/IPv6 documentation, 6to4, Teredo,
+and mapped addresses separately from public unicast. No install script ran.
