@@ -8,7 +8,8 @@ agents:
   architect: { status: idle, assignment: null, last_report: Spec peer review approved. }
   senior-developer: { status: busy, assignment: plan.md, last_report: null }
   security-researcher: { status: idle, assignment: null, last_report: null }
-  reviewer: { status: idle, assignment: null, last_report: "review spec-home-page-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review plan-home-page-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

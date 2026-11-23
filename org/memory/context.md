@@ -9,8 +9,8 @@ intent/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: plan
+- turn: 4
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -40,10 +40,11 @@ intent/intent.md
 - org/reviews/intent-intake-001.md (6ff4586f417adf81e144867080667f7707d770d1a41759a1e34e1d93d9d94e00)
 - intent/intent.md (c719b569c9c2d34a19688baae6708bb6710e2449e2d4cfd3cf1857ac54d83d3c)
 - spec.md (db889160a19fde99fe4c96eecffb4d1d1cc35f51bca104a79694e286bc9df5d9)
+- plan.md (889608b0410fc4dccd27762bb65e090115d236728a56746bb5f69a1a8c7d5c99)
 
 ## Next action
 
-architect:draft_spec
+senior-developer:draft_plan
 
 ## Last digest source
 
