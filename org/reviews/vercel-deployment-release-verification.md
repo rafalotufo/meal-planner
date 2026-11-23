@@ -262,6 +262,8 @@ cancellation timing, exact-width/keyboard results, three owner-attested checks,
 one additional live search and independently verified pause at18:48UTC.
 The earlier listed browser/cancellation evidence gaps are resolved; hosted60s/
 504 remains unobserved under the approved nonblocking amendment. Final review
-also identified that the existing OpenAI controls inventory required above is
-still pending owner verification. The deployment remains paused pending that
-inventory and final production-resume authorization.
+also identified the missing OpenAI controls inventory required above. Owner
+subsequently supplied the budget, enforcement, model limits and alert values
+(ceo-0013 through ceo-0016), completing it. Rafael separately approved normal
+production resumption (ceo-0017); final execution/results are recorded in the
+remaining-verification report.

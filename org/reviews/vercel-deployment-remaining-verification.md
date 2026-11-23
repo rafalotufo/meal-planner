@@ -152,11 +152,10 @@ Final independent review found one earlier checklist item omitted from that
 list: D4 requires effective existing OpenAI model/rate/spend/alert controls to
 be verified and recorded (first release report lines77-78, spec D4/C2). Keeping
 settings unchanged and successful model access do not establish those limits.
-Owner verification has been requested, without billing changes or credential
-access. Overall production readiness remains pending that inventory; the
-hosted-timeout limitation remains accepted as nonblocking. Production resumption also
-requires owner release authorization; the release graph remains in_progress
-while paused.
+The follow-up below completes that inventory through owner verification,
+without billing changes or credential access. The hosted-timeout limitation
+remains accepted as nonblocking. Rafael subsequently authorized normal
+production resumption in ceo-0017; execution and post-resume checks follow.
 
 ### Provider inventory follow-up
 
@@ -167,16 +166,24 @@ currency unspecified). Amount and enforcement are owner-attested existing
 configuration. Rafael supplied gpt-6.2-sol limits (ceo-0015):4,000,000 TPM,
 10,000 RPM and50,000 IPM (IPM label preserved as supplied). These values are
 owner-reported existing configuration, not an independent account inspection.
-Only alert thresholds remain unrecorded in the provider inventory. Budget
+Rafael confirmed spend alerts at50% ($10) and100% ($20), ceo-0016. This completes
+the required existing provider-controls inventory by owner attestation. Budget
 enforcement remains owner-confirmed; a separate screenshot of its UI setting
-is not required. No setting is changed and production remains paused without
-resume authorization.
+is not required. No setting is changed.
 
 Official provider documentation distinguishes enforced spend limits from
 alerts and notes tracking delays; the existing spec already preserves delayed
 overshoot exposure. Reference:
 https://developers.openai.com/api/docs/guides/spend-limits.
 
-Final independent rereview of the corrected records:0 Blocker,0 Major,0 Minor;
+Prior independent rereview of the corrected records:0 Blocker,0 Major,0 Minor;
 the readiness-overstatement Minor is resolved by keeping D4 inventory pending.
 Documentation is READY FOR HUMAN REVIEW, not production-completion approval.
+
+### Normal production-resume authorization
+
+Rafael explicitly approved resumption after the final inventory information,
+ceo-0017. This covers only the retained deployment/project above, no rebuild,
+redeploy, configuration/billing/security change or extra paid search. The
+previous mandatory pause was completed and verified; this is separate renewed
+authority for normal production use, not an extension of the bounded test run.

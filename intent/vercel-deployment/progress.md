@@ -45,7 +45,8 @@ Production domain was promoted, tested and owner-paused; the same artifact was
 temporarily resumed for the explicitly authorized bounded verification run,
 then paused again. Listed browser/cancellation checks passed; hosted60s/504
 remains unobserved under the approved nonblocking amendment. Final independent
-review found the existing D4 OpenAI controls inventory still needs owner
-verification; requested without changes. Step6/release remains open for that
-inventory and final production-resume authority. Indefinite live serving was
-not authorized by the test run.
+review found the existing D4 OpenAI controls inventory missing. Owner has now
+confirmed $20 monthly enforced budget,50%/$10 and100%/$20 alerts, and model
+limits4,000,000 TPM/10,000 RPM/50,000 IPM, completing it without changes.
+Rafael separately approved normal production resumption (ceo-0017).
+Step6/release remains open until resume and anonymous post-resume checks pass.
