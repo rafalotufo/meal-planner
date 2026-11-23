@@ -5,13 +5,15 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted recipe-search intent for Design; provider is a design decision. }
-  architect: { status: busy, assignment: intent/recipe-search/spec.md, last_report: Spec peer review approved. }
-  senior-developer: { status: idle, assignment: null, last_report: App and nested plan checker verified; independent code review approved. }
+  architect: { status: busy, assignment: intent/recipe-search/spec.md, last_report: Drafted configurable OpenAI recipe-search design; ready for independent review. }
+  senior-developer: { status: busy, assignment: intent/recipe-search/plan.md, last_report: App and nested plan checker verified; independent code review approved. }
   security-researcher: { status: idle, assignment: null, last_report: "Security clear for static increment; zero production audit findings, dev-only Drizzle advisories documented." }
-  reviewer: { status: idle, assignment: null, last_report: "review code-home-page-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review spec-recipe-search-002: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-search-001, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-recipe-search-002, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }

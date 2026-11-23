@@ -9,8 +9,8 @@ intent/recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: spec
+- turn: 2
+- phase: plan
 - stop_reason: None
 
 ## Agents
@@ -19,14 +19,14 @@ intent/recipe-search/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/recipe-search/spec.md)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/recipe-search/plan.md)
 
 ## Open messages
 
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
-- orchestrator-0002 orchestrator -> architect handoff: Design source-grounded recipe search
+- orchestrator-0003 orchestrator -> senior-developer handoff: Plan approved recipe-search spec
 
 ## Recent decisions
 
@@ -42,10 +42,11 @@ intent/recipe-search/intent.md
 ## Artifacts
 
 - intent/recipe-search/intent.md (189b443857eb9a970f353134560158dc589132980e8e23dd85cab5340471de1e)
+- intent/recipe-search/spec.md (22bfac988b8c532d69b1ac26e54730a3c58ee152d5ba13b1a6f2984b2ea331eb)
 
 ## Next action
 
-product-manager:review_intent
+architect:draft_spec
 
 ## Last digest source
 
