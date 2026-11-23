@@ -19,14 +19,18 @@ intent/recipe-photos/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/recipe-photos/intent.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
+- reviewer: busy (recipe-photos-implementation)
+- security-researcher: busy (recipe-photos-implementation)
 - senior-developer: busy (recipe-photos-implementation)
 
 ## Open messages
 
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - orchestrator-0010 orchestrator -> senior-developer handoff: Implement source-grounded recipe photos
+- orchestrator-0011 orchestrator -> security-researcher handoff: Assess complete recipe-photo implementation
+- orchestrator-0012 orchestrator -> reviewer handoff: Independently review recipe-photo code
+- orchestrator-0013 orchestrator -> senior-developer handoff: Correct recipe-photo association edge cases
+- security-researcher-0002 security-researcher -> orchestrator finding: Reject raw controls before metadata URL normalization
 
 ## Recent decisions
 

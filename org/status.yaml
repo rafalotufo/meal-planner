@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: busy, assignment: intent/recipe-photos/intent.md, last_report: Six-turn recipe-search agent loop solved; verified local branch awaits human merge/release. }
   product-manager: { status: idle, assignment: null, last_report: Recipe-photos intent accepted; source-backed larger photos and explicit safe retrieval design required. }
   architect: { status: idle, assignment: null, last_report: Recipe-photo spec independently approved including bounded network boundary. }
-  senior-developer: { status: busy, assignment: recipe-photos-implementation, last_report: Photo plan and dependency graph independently approved and committed. }
-  security-researcher: { status: idle, assignment: null, last_report: Pinned photo transport consultation clear; final enrichment review pending. }
-  reviewer: { status: idle, assignment: null, last_report: "review plan-recipe-photos-001: approved" }
+  senior-developer: { status: busy, assignment: recipe-photos-implementation, last_report: Recipe-photo integration and live-source/CUA QA verified;55TS+7Python/allchecks pass. }
+  security-researcher: { status: busy, assignment: recipe-photos-implementation, last_report: Pinned photo transport consultation clear; final enrichment review pending. }
+  reviewer: { status: busy, assignment: recipe-photos-implementation, last_report: "review code-recipe-photos-001: changes" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -23,3 +23,5 @@ review_queue:
   - { id: code-recipe-search-002, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: spec-recipe-photos-001, artifact: intent/recipe-photos/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-recipe-photos-001, artifact: intent/recipe-photos/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-photos-001, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-photos-002, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: null, status: assigned }

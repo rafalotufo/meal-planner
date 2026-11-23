@@ -44,6 +44,34 @@ test("conflicting explicit/page identities and unsafe metadata cannot recover un
   }
 });
 
+test("multiple source-matching Recipe nodes cannot pool a different recipe's better-ranked photo", () => {
+  const menu = photoRecipe({ sourceUrl: "https://recipes.example.com/menu" });
+  const recipes = [
+    { "@type": "Recipe", "@id": `${menu.sourceUrl}#gnocchi`, name: menu.title,
+      image: { url: picture, width: 1200, height: 800 } },
+    { "@type": "Recipe", "@id": `${menu.sourceUrl}#cake`, name: "Chocolate Cake",
+      image: { url: "https://images.example.com/cake.jpg", width: 480, height: 270 } },
+  ];
+  assert.equal(selectRecipePhoto(page("", jsonLd(recipes)), menu), null);
+  const social = "https://images.example.com/menu-social.jpg";
+  const head = `<link rel="canonical" href="${menu.sourceUrl}"><meta property="og:image" content="${social}">`;
+  assert.equal(selectRecipePhoto(page(head, jsonLd(recipes)), menu)?.imageUrl, social);
+});
+
+test("raw controls are rejected before URL normalization for images and declared identities", () => {
+  const controlledImage = "https://images.exa\nmple.com/gnocchi.jpg";
+  assert.equal(selected(page("", jsonLd(node(controlledImage)))), null);
+  assert.equal(selected(page(canonical + `<meta property="og:image" content="https://images.exa&#10;mple.com/gnocchi.jpg">`)), null);
+  const controlledSource = "https://recipes.exa\nmple.com/gnocchi";
+  for (const fields of [{ url: controlledSource }, { "@id": controlledSource },
+    { mainEntityOfPage: { "@id": controlledSource } }]) {
+    assert.equal(selected(page(canonical, jsonLd(node(picture, fields)))), null);
+  }
+  const anonymous = jsonLd({ "@type": "Recipe", name: recipe.title, image: picture });
+  assert.equal(selected(page(`<link rel="canonical" href="${controlledSource}">`, anonymous)), null);
+  assert.equal(selected(page(canonical + `<meta property="og:url" content="${controlledSource}">`, anonymous)), null);
+});
+
 test("adequate recipe images choose the smallest declared adequate area before unknown and publisher ties", () => {
   const result = selectRecipePhoto(page("", jsonLd(node([
     "https://images.example.com/unknown.jpg",

@@ -8,7 +8,7 @@ merge/release gates remain separate.
 
 | Command | Actual result |
 | --- | --- |
-| `npm test` | Exit 0; 55 TypeScript application tests, 55 pass, no failures/skips/cancellations; original 34 remain. |
+| `npm test` | Exit 0; 57 TypeScript application tests, 57 pass, no failures/skips/cancellations; original 34 remain. |
 | `npm run lint` | Exit 0; ESLint `--max-warnings 0`. |
 | `npm run typecheck` | Exit 0; Next route generation and TypeScript checking. |
 | `npm run build` | Exit 0; webpack compiled, TypeScript passed, static `/`, dynamic `/api/recipes/search`. |
@@ -60,6 +60,27 @@ fields/order/count and previous images on failure, near-deadline skip, retained
 completed photos at soft timeout, parent abort authority and released capacity.
 An intentionally uncooperative loader resolves late after soft cancellation;
 its callback cannot change already returned cards. No network is used in tests.
+
+## Final review corrections
+
+Two independent review findings were reproduced before the final correction:
+57 tests / 55 pass / 2 fail. Multiple explicit Recipe fragment identities could
+normalize to one source and pool images, selecting a cake photo for a gnocchi
+card. Separately, `new URL` stripped raw newline controls before URL validation.
+
+The selector now resolves Recipe-node association before image collection; when
+more than one node qualifies, Recipe imagery is ignored and the existing
+page-bound OG/provider fallback policy remains. The shared metadata URL helper
+rejects raw C0/DEL characters before normalization. Invalid declared identities
+remain present for conflict checks, so a valid canonical/title cannot turn them
+into an accepted anonymous Recipe. New fixtures cover the exact cross-recipe
+case, fallback, image controls, explicit/nested identities, canonical and og:url.
+
+After correction all 57 tests, lint/typecheck and seven Python tests pass.
+The implementation agent independently reran the cached-real-HTML selector
+script on all three publisher snapshots; selections match the pre-fix JSON
+exactly. No repeated publisher fetch or paid model call was needed. The refreshed
+production build passed; final independent rereview remains a handoff check.
 
 ## Exact dependency graph
 

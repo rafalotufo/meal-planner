@@ -7,7 +7,7 @@ type ImageCandidate = { imageUrl: string; width: number | null; height: number |
 type OgImage = { url?: string; secure?: string; width?: string; height?: string };
 
 function resolveUrl(value: unknown, source: string): string | null {
-  if (typeof value !== "string" || !value.trim() || value.length > 2048) return null;
+  if (typeof value !== "string" || /[\x00-\x1f\x7f]/.test(value) || !value.trim() || value.length > 2048) return null;
   try { return safeRecipeUrl(new URL(value.trim(), source).href); } catch { return null; }
 }
 function dimension(value: unknown): number | null {
@@ -108,18 +108,21 @@ export function selectRecipePhoto(html: string, recipe: { sourceUrl: string; tit
     if (Array.isArray(value["@graph"])) roots.push(...[...value["@graph"]].reverse());
   }
   const pageBound = identities.length > 0 && identities.every((identity) => resolveUrl(identity, source) === source);
-  const recipeImages: ImageCandidate[] = [];
-  let candidates = ogImages.length;
-  for (const node of recipes) {
+  const associated = recipes.filter((node) => {
     const declared = [node.url, node["@id"], node.mainEntityOfPage].filter((value) => value !== undefined);
     const identities = declared.flatMap((value) => {
       if (!isRecord(value)) return [value];
       const links = [value["@id"], value.url].filter((link) => link !== undefined);
       return links.length ? links : [null];
     });
-    const associated = identities.length ? identities.every((value) => resolveUrl(value, source) === source)
+    return identities.length ? identities.every((value) => resolveUrl(value, source) === source)
       : recipes.length === 1 && pageBound && normalizedName(node.name) === normalizedName(recipe.title);
-    if (!associated) continue;
+  });
+  // Fragment-normalized identity can bind several different recipes to one page.
+  // Resolve that ambiguity before collecting photos; never pool competing nodes.
+  const recipeImages: ImageCandidate[] = [];
+  let candidates = ogImages.length;
+  for (const node of associated.length === 1 ? associated : []) {
     const images = Array.isArray(node.image) ? node.image : [node.image];
     for (const image of images) {
       if (++candidates > 20) return null;
