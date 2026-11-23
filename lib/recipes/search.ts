@@ -2,6 +2,7 @@ import { SearchError, type SearchErrorCode } from "./errors";
 import { createOpenAIProvider } from "./openai";
 import type { RecipeSearchProvider } from "./types";
 import { isRecord, validateQuery } from "./validation";
+import type { PhotoEnricher } from "./photos";
 
 const ERRORS: Record<SearchErrorCode, { status: number; message: string }> = {
   INVALID_REQUEST: { status: 400, message: "Enter a recipe description between 1 and 1,000 characters." },
@@ -93,12 +94,13 @@ export function createRecipeProvider(config: {
   return createOpenAIProvider({ apiKey, model: config.OPENAI_RECIPE_MODEL?.trim() || undefined, transport });
 }
 
-export function createSearchHandler({ getProvider, now = Date.now, timeoutMs = 60000 }: {
-  getProvider: () => RecipeSearchProvider; now?: () => number; timeoutMs?: number;
+export function createSearchHandler({ getProvider, enrichPhotos, now = Date.now, timeoutMs = 60000 }: {
+  getProvider: () => RecipeSearchProvider; enrichPhotos?: PhotoEnricher; now?: () => number; timeoutMs?: number;
 }) {
   let active = 0;
   let accepted: number[] = [];
   return async function search(request: Request): Promise<Response> {
+    const deadlineAt = now() + timeoutMs;
     const controller = new AbortController();
     const abort = () => controller.abort(new SearchError("SEARCH_TIMEOUT"));
     const timer = setTimeout(abort, timeoutMs);
@@ -129,7 +131,11 @@ export function createSearchHandler({ getProvider, now = Date.now, timeoutMs = 6
         rejectOnAbort = () => reject(controller.signal.reason);
         controller.signal.addEventListener("abort", rejectOnAbort, { once: true });
       });
-      const recipes = await Promise.race([provider.search(query, { signal: controller.signal }), aborted]);
+      const search = async () => {
+        const recipes = await provider.search(query, { signal: controller.signal });
+        return enrichPhotos ? enrichPhotos(recipes, { signal: controller.signal, deadlineAt }) : recipes;
+      };
+      const recipes = await Promise.race([search(), aborted]);
       return json({ recipes });
     } catch (error) {
       return errorResponse(controller.signal.aborted ? "SEARCH_TIMEOUT" : error instanceof SearchError ? error.code : "SEARCH_FAILED");

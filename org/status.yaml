@@ -6,8 +6,8 @@ agents:
   orchestrator: { status: busy, assignment: intent/recipe-photos/intent.md, last_report: Six-turn recipe-search agent loop solved; verified local branch awaits human merge/release. }
   product-manager: { status: idle, assignment: null, last_report: Recipe-photos intent accepted; source-backed larger photos and explicit safe retrieval design required. }
   architect: { status: idle, assignment: null, last_report: Recipe-photo spec independently approved including bounded network boundary. }
-  senior-developer: { status: busy, assignment: intent/recipe-photos/plan.md, last_report: "Recipe-search complete locally;34 TypeScript tests and all checks pass, live browser/source sample verified." }
-  security-researcher: { status: idle, assignment: null, last_report: Recipe-photo network design clear; implementation evidence still required. }
+  senior-developer: { status: busy, assignment: recipe-photos-implementation, last_report: Photo plan and dependency graph independently approved and committed. }
+  security-researcher: { status: idle, assignment: null, last_report: Pinned photo transport consultation clear; final enrichment review pending. }
   reviewer: { status: idle, assignment: null, last_report: "review plan-recipe-photos-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

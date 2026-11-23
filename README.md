@@ -46,7 +46,24 @@ missing cooking times are omitted. Source fidelity still requires live sampling.
 Queries/results are not persisted or logged by the application. Both model
 requests use `store: false`; the description is sent to the configured provider.
 Recipe photos load directly from their source hosts, without a referrer. The
-server does not fetch or proxy recipe pages or images.
+server fetches only exact validated recipe pages through a bounded, pinned-
+address HTTPS metadata path; it never proxies or downloads image binaries.
+
+After any configured provider returns valid recipes, deterministic enrichment
+prefers source-associated Recipe JSON-LD images, then page-bound Open Graph
+metadata according to declared size and publisher order. It never guesses a
+larger filename or borrows a related recipe's photo. Unknown dimensions require
+browser verification; inaccessible, ambiguous, unsafe or broken photos retain
+the existing image or fallback.
+
+Metadata retrieval validates every A/AAAA address before pinning one public
+address with the original TLS/Host identity. It does not follow redirects, use
+environment proxies, forward credentials, or execute publisher scripts. Parsing
+uses exact htmlparser2 10.1.0; address classification uses ipaddr.js 2.5.0.
+At most six exact pages are attempted per search, with two active DNS/HTML jobs
+per process, a six-second optional stage and three-second per-page bound.
+This work shares the original search deadline, skips near its expiry and fails
+softly without discarding valid recipe cards. No additional model call is made.
 
 Each search has a 60-second deadline, at most eight hosted research tool calls,
 and 5,000/3,000 output-token ceilings. A process allows two concurrent searches
@@ -93,6 +110,6 @@ intentionally deferred until the first feature that requires persistence.
 The agent org contract is in `org/org-chart.yaml` and `org/protocol.md`.
 Every feature keeps its intent and specifications in `intent/<feature-slug>/`:
 `intent.md`, `spec.md`, `plan.md`, and related design notes. The current feature
-is in `intent/recipe-search/`. See `intent/README.md` for the convention; review and
+is in `intent/recipe-photos/`. See `intent/README.md` for the convention; review and
 verification evidence lives in `org/reviews/`.
 Human approval remains required for merges and releases.

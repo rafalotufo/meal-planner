@@ -4,6 +4,7 @@ import { setImmediate as nextTurn, setTimeout as delay } from "node:timers/promi
 import { createRecipeProvider, createSearchHandler } from "../lib/recipes/search.js";
 import { SearchError } from "../lib/recipes/errors.js";
 import type { Recipe, RecipeSearchProvider } from "../lib/recipes/types.js";
+import { photoRecipe } from "./recipe-photo-fixtures.js";
 
 function request(body: unknown = { query: "  chickpeas  " }, headers: HeadersInit = {}) {
   return new Request("https://meal.example.com/api/recipes/search", {
@@ -24,6 +25,20 @@ test("valid search trims input and returns only the common response with no-stor
   assert.equal(response.headers.get("Cache-Control"), "no-store");
   assert.deepEqual(await response.json(), { recipes: [] });
   assert.deepEqual(calls, ["chickpeas"]);
+});
+
+test("provider-independent photos receive the original search deadline and do not change other fields", async () => {
+  let now = 1000;
+  const original = photoRecipe();
+  const run = createSearchHandler({ now: () => now, getProvider: () => ({ search: async () => { now = 5000; return [original]; } }),
+    enrichPhotos: async (recipes, budget) => {
+      assert.equal(budget.deadlineAt, 61000);
+      assert.equal(budget.signal.aborted, false);
+      return recipes.map((recipe) => ({ ...recipe, imageUrl: "https://images.example.com/gnocchi.jpg" }));
+    } });
+  const response = await run(request());
+  assert.equal(response.status, 200);
+  assert.deepEqual((await response.json()).recipes, [{ ...original, imageUrl: "https://images.example.com/gnocchi.jpg" }]);
 });
 
 test("invalid query shapes, JSON, media type and origin invoke no provider", async () => {

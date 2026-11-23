@@ -18,6 +18,10 @@ and global CSS; the home page is a server component composing the recipe-search
 client form. Recipe search uses a server-only configurable provider boundary,
 with OpenAI implemented first and future providers deferred. Render model text
 as text; keep source-specific evidence, URL checks, and usage bounds intact.
+Recipe-photo enrichment may fetch only exact validated source HTML through the
+approved all-address-checked, pinned HTTPS transport. Preserve its no-redirect,
+no-proxy/credential-forwarding, strict byte/time/encoding and global two-job
+bounds. Metadata is optional; never drop valid cards or swallow parent abort.
 Drizzle ORM/Kit are dependencies;
 no database engine, schema, credentials, or migration is configured yet.
 
@@ -41,6 +45,6 @@ Pin exact stable dependency versions and commit npm's generated lockfile.
 
 Use `intent/<feature-slug>/` for every intent and all of its specifications,
 including `intent.md`, `spec.md`, `plan.md`, and any feature-specific design
-notes. Use lowercase kebab-case slugs. Current feature: `intent/recipe-search/`.
+notes. Use lowercase kebab-case slugs. Current feature: `intent/recipe-photos/`.
 Before dispatch, read the active work item from `org/loop/state.yaml` and its
 sibling spec/plan; keep graph artifact paths aligned. See `intent/README.md`.

@@ -54,7 +54,7 @@ planned. The feature-specific review label is already configured by the org.
   lock graph in private temporary storage using `--package-lock-only
   --ignore-scripts`; inspect added lifecycle scripts/exports/types and audit.
   Record evidence before implementation approval; no candidate scripts execute.
-- [ ] After approval, add exact runtime dependencies and npm-generated lockfile
+- [x] After approval, add exact runtime dependencies and npm-generated lockfile
   with scripts disabled. Compare actual graph with the reviewed prospective
   delta; unexpected scripts/packages or new reachable high/critical findings
   return to review. Preserve unrelated existing versions and advisory records.
@@ -70,15 +70,15 @@ in `org/reviews/recipe-photos-dependencies.md` before code dispatch.
 
 **Dependencies:** task 1. **Scope:** transport and focused fixtures/tests.
 
-- [ ] Write failing tests for all-answer A/AAAA validation (including mixed
+- [x] Write failing tests for all-answer A/AAAA validation (including mixed
   public/private, mapped/tunnel/documentation/special IPv6), family mismatch,
   resolver errors/count/timeout, rebinding, redirects, TLS identity, and cleanup.
-- [ ] Implement per-fetch Resolver plus a dedicated HTTPS agent: validate every
+- [x] Implement per-fetch Resolver plus a dedicated HTTPS agent: validate every
   address, pin one through custom lookup with correct all/family callback shape,
   preserve original Host/SNI/certificate verification, disable reuse and proxy
   routing, and send only fixed credential-free GET headers. Never connect before
   both families are checked or retry/resolve/follow redirects after pinning.
-- [ ] Enforce total DNS/connect/body deadline, 16-KiB headers, actual 1-MiB body,
+- [x] Enforce total DNS/connect/body deadline, 16-KiB headers, actual 1-MiB body,
   HTML/charset/identity encoding and strict UTF-8. Test dishonest lengths,
   chunked/slow bodies, compressed/binary content, caller abort and resource
   destruction/resolver cancellation on every path, with no live private network.
@@ -94,15 +94,15 @@ must not bypass the spec's explicit IPv6 global/range policy.
 
 **Dependencies:** task 1; task 2 remains isolated from parsing. **Scope:** pure.
 
-- [ ] Write failing synthetic metadata tests for Recipe string/array/ImageObject,
+- [x] Write failing synthetic metadata tests for Recipe string/array/ImageObject,
   root/@graph discovery, exact identities, sole unidentified Recipe + exact page
   identity/title match, conflicting/related/multiple recipes and Open Graph
   grouping. Verify source binding before collecting/ranking images.
-- [ ] Parse bounded event callbacks with htmlparser2, no DOM/runtime execution.
+- [x] Parse bounded event callbacks with htmlparser2, no DOM/runtime execution.
   Enforce script/head/traversal/candidate limits from the spec; resolve relative
   URLs against the exact source, ignoring base tags. Test escaped/unsafe URLs,
   malformed/deep/oversized input and that remote contexts/body images do nothing.
-- [ ] Implement exact spec precedence and declared-dimension thresholds/ties,
+- [x] Implement exact spec precedence and declared-dimension thresholds/ties,
   with deterministic dedup/publisher ordering and existing-image fallback.
   Test unknown/invalid/tiny dimensions without filename-size inference or URL
   rewriting, and confirm unrelated logos/other recipes cannot contribute images.
@@ -115,18 +115,18 @@ separate QA, never deterministic unit-test dependencies.
 
 **Dependencies:** tasks 2–3. **Scope:** one decorator plus handler composition.
 
-- [ ] Write failing tests for <=6 deduplicated exact sources, unchanged non-photo
+- [x] Write failing tests for <=6 deduplicated exact sources, unchanged non-photo
   fields/order/card count, metadata failures retaining prior images, and one
   shared two-job limit including DNS across simultaneous searches. Saturation
   skips work; bounded batches launch only acquired slots, with no waiting queue.
-- [ ] Export testable `createPhotoEnricher` from photos.ts, backed by module-wide
+- [x] Export testable `createPhotoEnricher` from photos.ts, backed by module-wide
   two-slot admission shared across factory instances, and compose one production
   enricher in the server-only root,
   after `provider.search`. Handler computes `deadlineAt` once at original timer
   start and passes it plus the same parent signal through an injectable typed
   enrichment seam. Existing handler tests avoid network via explicit injection;
   no environment fixture switch or provider-specific integration is added.
-- [ ] Enforce <1-second-remaining skip, <=6-second soft stage and <=3-second
+- [x] Enforce <1-second-remaining skip, <=6-second soft stage and <=3-second
   per-fetch budgets including <=1-second single-try DNS. Test that optional
   timeout settles with original/already-enriched cards before the hard deadline,
   aborts outstanding work and releases slots/listeners/timers; late callbacks
@@ -141,14 +141,14 @@ or initial page rendering. No public Recipe/API shape or UI change.
 
 **Dependencies:** task 4. **Scope:** documentation/evidence, owned with root.
 
-- [ ] Update README/agent guidance for the approved metadata-only network
+- [x] Update README/agent guidance for the approved metadata-only network
   exception, exact dependencies, bounds, fail-soft behavior and current feature.
   Preserve ignored credentials and every historical workflow/audit record.
-- [ ] Orchestrator runs the real safe transport/selector on the three exact
+- [x] Orchestrator runs the real safe transport/selector on the three exact
   research URLs without an LLM call. Record selected URL, metadata reason/declared
   size, HTTP/access outcome, elapsed time and any fallback. Use known cards or a
   clearly labeled simulated provider response; metadata and photo loads are real.
-- [ ] Orchestrator uses CUA at mobile/desktop to inspect actual natural dimensions
+- [x] Orchestrator uses CUA at mobile/desktop to inspect actual natural dimensions
   (>150×150 for Love and Lemons), Inspired Taste/King Arthur loaded photos where
   accessible, legible/stable cards and broken-image fallback. Save screenshots
   and separate simulated-provider evidence from real publisher/photo evidence.
