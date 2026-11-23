@@ -14,13 +14,13 @@ nodes:
     stage: plan
     artifact: intent/intent.md
     gate: product_owner_accept
-    status: not_started
+    status: accepted
     done_status: accepted
   spec:
     stage: design
     artifact: spec.md
     gate: product_owner_approve
-    status: not_started
+    status: approved
     done_status: approved
   plan:
     stage: build
