@@ -55,3 +55,10 @@ closed; no production changes have been made.
 - Graph implementation is in_review for human code-owner approval. No merge,
   push, production configuration change or deployment was performed. Earlier
   untracked work/ design presentation is preserved outside the feature commits.
+
+## Human merge approval
+
+Rafael instructed “Merge to main” on 2026-11-23. Approval is recorded in
+org/messages/ceo-0018.md and gate record merge-recipe-search-notebook-001 for
+reviewed source6b94405. The implementation graph is approved for merge; its
+terminal marker is corrected to merged. Production release remains gated.

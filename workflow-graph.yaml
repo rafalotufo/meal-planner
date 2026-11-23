@@ -32,8 +32,8 @@ nodes:
     stage: build
     artifact: code + tests
     gate: code_owner_approve
-    status: in_progress
-    done_status: in_progress
+    status: approved
+    done_status: merged
   release:
     stage: deploy
     artifact: authorized release
