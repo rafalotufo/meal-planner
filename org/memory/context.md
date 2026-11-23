@@ -9,19 +9,19 @@ intent/pnpm-migration/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: plan
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/pnpm-migration/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/pnpm-migration/plan.md)
 
 ## Open messages
 
@@ -29,6 +29,8 @@ intent/pnpm-migration/intent.md
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
+- reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
+- senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 
 ## Recent decisions
 
@@ -45,10 +47,11 @@ intent/pnpm-migration/intent.md
 
 - intent/pnpm-migration/intent.md (045720746444fdbe2b223a5948ca7299c6038f42f0b55e49a1a98c13eedd7730)
 - intent/pnpm-migration/spec.md (4b2857a3c280b341461d4d3b57c60dbcf923462697735d2282e6557af5c69714)
+- intent/pnpm-migration/plan.md (9802adb40b659eac140963ac42545a00ae3b0b59b30bad56fbecba097c1029be)
 
 ## Next action
 
-architect:draft_spec
+senior-developer:draft_plan
 
 ## Last digest source
 
