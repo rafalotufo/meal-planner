@@ -99,3 +99,24 @@ spec-recipe-waiting-game-002 approved the amendment with no required findings;
 reviewer-0011 records the result. Seven workflow tests passed again. Full-spec
 human approval is still pending; no plan, puzzle data or application code was
 created. The existing spec gate remains in_review.
+
+## Specification approval and implementation planning
+
+Rafael approved the 128-puzzle specification at 6b660c1. Evidence:
+org/reviews/spec-recipe-waiting-game-human-approval-001.md and ceo-0021;
+ledger product_owner_approve-015 records that human decision. Graph spec is
+approved. Senior developer produced plan.md and handoff senior-developer-0005.
+Bounded turn 4 records draft_plan; graph plan is in_review and the loop next
+action stops at engineer_approve. No implementation has started.
+
+Plan review is assigned as plan-recipe-waiting-game-001. The plan proposes
+owner approval for a fresh bounded implementation cycle, preserving this
+cycle's history: the remaining two turns cannot cover separate implementation,
+security and final review. No reset, budget increase or phase merging has
+occurred. Seven workflow tests passed; application checks remain recorded as
+failing with missing dependencies. Setup is an explicit first implementation
+task, not waived verification.
+
+Independent review plan-recipe-waiting-game-001 approved with no required
+findings; evidence org/reviews/plan-recipe-waiting-game-001.md and reviewer-0012.
+Human plan approval and authorization for a fresh bounded cycle remain pending.

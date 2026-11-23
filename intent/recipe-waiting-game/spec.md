@@ -2,7 +2,7 @@
 
 - Derived from: sibling intent.md; PM reviews 001/002; Rafael's “intent approved” following the continued-play amendment.
 - Author: architect
-- Status: Draft — ready for independent review and human specification approval
+- Status: Approved — Rafael; org/reviews/spec-recipe-waiting-game-human-approval-001.md
 - Date: 2026-11-23
 
 ## Requirements
@@ -166,9 +166,9 @@ game-specific fetch, import-on-play download, external assets or dependency.
   action. Very fast searches may finish before anyone opens the game.
 - Persistent-on-success behavior explicitly supersedes the original automatic
   dismissal assumption. Error termination remains as accepted in the intent.
-- No unresolved product questions remain for this proposed specification.
-  Human specification approval and an approved implementation plan are still
-  required; this draft does not authorize code, merge or release.
+- No unresolved product questions remain for this specification. Rafael
+  approved it after the 128-puzzle amendment. An approved implementation plan
+  is still required before code; merge and release remain human gates.
 
 ## Verification plan
 

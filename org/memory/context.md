@@ -9,8 +9,8 @@ intent/recipe-waiting-game/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: plan
+- turn: 4
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -21,7 +21,7 @@ intent/recipe-waiting-game/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/recipe-waiting-game/plan.md)
 
 ## Open messages
 
@@ -44,11 +44,14 @@ intent/recipe-waiting-game/intent.md
 - ceo-0018 ceo -> orchestrator decision: Approve recipe notebook merge to main
 - ceo-0019 ceo -> orchestrator decision: Approve amended Word Snack intent
 - ceo-0020 ceo -> orchestrator decision: Use 128 Word Snack puzzles
+- ceo-0021 ceo -> orchestrator decision: Approve 128-puzzle Word Snack specification
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0017 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0018 orchestrator -> product-manager handoff: Review Word Snack waiting-game intent
 - orchestrator-0020 orchestrator -> architect handoff: Draft Word Snack specification from approved intent
 - orchestrator-0021 orchestrator -> reviewer handoff: Independently review Word Snack specification
+- orchestrator-0022 orchestrator -> senior-developer handoff: Plan approved Word Snack specification
+- orchestrator-0023 orchestrator -> reviewer handoff: Review Word Snack implementation plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -65,6 +68,7 @@ intent/recipe-waiting-game/intent.md
 - reviewer-0009 reviewer -> orchestrator review: Independent recipe notebook code review approved
 - reviewer-0010 reviewer -> orchestrator review: Word Snack specification peer review approved
 - reviewer-0011 reviewer -> orchestrator review: Word Snack 128-puzzle amendment approved
+- reviewer-0012 reviewer -> orchestrator review: Word Snack implementation plan peer review approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
@@ -72,14 +76,15 @@ intent/recipe-waiting-game/intent.md
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
 - senior-developer-0004 senior-developer -> orchestrator handoff: Vercel implementation plan ready for human approval
+- senior-developer-0005 senior-developer -> orchestrator handoff: Word Snack implementation plan ready for review
 
 ## Recent decisions
 
-- mem-0051 orchestrator: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. (org/messages/ceo-0018.md)
 - mem-0052 product-manager: Accepted Word Snack recipe-search waiting-game intent for Design following Rafael selecting the six-letter word game. Dictionary, rules, responsive layout and interruption focus remain Design questions. No spec/plan, implementation, merge or release approved. Prior notebook loop and graph archived unchanged. (org/reviews/intent-recipe-waiting-game-001.md)
 - mem-0053 ceo: Rafael clarified Word Snack success must preserve the open playable game and focus, announce available recipes, and let users explicitly close to view results. PM accepted amendment for Design; supersedes automatic dismissal on success. Error/cancellation/navigation behavior unchanged. (org/reviews/intent-recipe-waiting-game-002.md)
 - mem-0054 ceo: Rafael explicitly approved the amended Word Snack intent and Design. Successful searches preserve play with results-ready notice and explicit dismissal. Specification, plan, merge and release remain unapproved. (org/reviews/intent-recipe-waiting-game-human-approval-001.md)
 - mem-0056 ceo: Rafael directed128 Word Snack puzzles instead of12. Architect revised specification count/cycle, distinct letter multisets and64KiB serialized-data design budget; no implementation or blanket spec approval inferred. (org/messages/ceo-0020.md)
+- mem-0057 ceo: Rafael approved the128-puzzle Word Snack specification at6b660c1. Human approval recorded; implementation planning authorized. Plan, code, merge and release still gated. (org/reviews/spec-recipe-waiting-game-human-approval-001.md)
 
 ## Constraints
 
@@ -89,14 +94,15 @@ intent/recipe-waiting-game/intent.md
 
 - intent/recipe-waiting-game/intent.md (aa0c6468234bf4f69e411058cc0ac8f3d486cfe3da084dac1bc342dfc73bd70d)
 - intent/recipe-waiting-game/spec.md (90522b73910a8baf1c3d1b69ffee7b4f1b8fc10f861db474cff3da63350d7471)
+- intent/recipe-waiting-game/plan.md (a11e920cb53dd5509e70293828016f5cda573bdd0911c7bcaf3de5771a50745b)
 
 ## Next action
 
-architect:draft_spec
+senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0056 from org/messages/ceo-0020.md
+- mem-0058 from org/reviews/plan-recipe-waiting-game-001.md
 
 <!-- machine:end -->
 
