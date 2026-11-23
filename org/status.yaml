@@ -8,7 +8,7 @@ agents:
   architect: { status: idle, assignment: null, last_report: Recipe-photo spec independently approved including bounded network boundary. }
   senior-developer: { status: busy, assignment: intent/recipe-photos/plan.md, last_report: "Recipe-search complete locally;34 TypeScript tests and all checks pass, live browser/source sample verified." }
   security-researcher: { status: idle, assignment: null, last_report: Recipe-photo network design clear; implementation evidence still required. }
-  reviewer: { status: idle, assignment: null, last_report: "review spec-recipe-photos-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review plan-recipe-photos-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -22,3 +22,4 @@ review_queue:
   - { id: code-recipe-search-001, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: code-recipe-search-002, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: spec-recipe-photos-001, artifact: intent/recipe-photos/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-photos-001, artifact: intent/recipe-photos/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
