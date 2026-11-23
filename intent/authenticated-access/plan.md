@@ -3,7 +3,7 @@
 - Derived from: approved `intent/authenticated-access/spec.md`; accepted sibling intent
 - Author: senior-developer
 - Status: Approved by independent reviewer (`org/reviews/plan-authenticated-access-001.md`)
-- Compatibility amendment: approved (`org/reviews/authenticated-access-types-amendment-001.md`)
+- Compatibility amendment: approved (`org/reviews/authenticated-access-types-amendment-002.md`)
 - Date: 2026-11-23
 
 ## Files that change
@@ -45,10 +45,11 @@ requires an inspected, narrow allow/deny decision; preserve existing decisions.
 Use exact stable `better-auth@1.7.27` without a database. Keep all existing
 manifest versions and scripts; add `test:auth` for Node's built-in test runner.
 Pinned Better Auth requires the `bun:sqlite` ambient declaration even on Node.
-Add exact stable `@types/bun@1.4.5` as a development-only type compatibility
-dependency after architect/reviewer amendment approval; keep strict checks.
-If TypeScript 6 needs explicit ambient discovery, add `bun` to `compilerOptions.types`
-alongside existing Node/React globals; no runtime Bun or database is introduced.
+Add exact stable `bun-types@1.4.5` as a development-only type compatibility
+dependency and load only its official `bun-types/sqlite` ambient module through
+`compilerOptions.types` alongside Node/React globals. Full Bun globals conflict
+with Next; do not load them. Preserve `skipLibCheck: false` and all existing
+strict checks; no runtime Bun, shim, or database is introduced.
 Prefer `.mjs` tests to avoid a new loader; exact `tsx@4.23.15` is permitted only
 if meaningful TypeScript-level tests need it. Inspect the pinned package's
 stateless JWE, state/account-cookie, expiry and logout implementations before

@@ -25,22 +25,29 @@ No Drizzle schema, database engine, migration, or external session store.
 
 ### Build compatibility amendment — independently approved
 
-Review: `org/reviews/authenticated-access-types-amendment-001.md`.
+Review: `org/reviews/authenticated-access-types-amendment-002.md` (supersedes 001).
 
-Allow exact development-only `@types/bun@1.4.5` (registry dependency
-`bun-types@1.4.5`). Better Auth 1.7.27's published core declaration imports
-`Database` from `bun:sqlite` unconditionally, although this application uses
-Node and no database. With existing `skipLibCheck: false`, `pnpm run typecheck`
-reproduced TS2307 at `@better-auth/core/dist/types/init-options.d.mts:17`.
-The published Bun type definitions supply that missing module; this does not
-install a Bun runtime or authorize any SQLite database usage. Keep all strict
-checks; no local ambient shim, ignored diagnostic, patched dependency, or
-`skipLibCheck` change is permitted. If TypeScript 6 requires explicit ambient
-type inclusion, add `bun` to an explicit compiler `types` list that also
-preserves the existing Node/React ambient types, and verify the complete
-application typecheck/build rather than copying Bun's compiler configuration.
-Registry verification returned stable 1.4.5 on 2026-11-23; installation and
-successful strict typechecking remain Build evidence, not assumed success.
+Add exact development-only `bun-types@1.4.5` and explicitly load only its
+published `bun-types/sqlite` declaration through compiler `types`:
+`["node", "react", "react-dom", "bun-types/sqlite"]`. Preserve existing Node
+and React types. Better Auth 1.7.27's core declaration imports `Database` from
+`bun:sqlite` unconditionally, even though this application uses Node and no
+database. Existing strict checking reproduced TS2307 in
+`@better-auth/core/dist/types/init-options.d.mts:17`.
+
+The official package's standalone `sqlite.d.ts` declares that missing module
+and depends only on existing Node globals. Loading all of `@types/bun` instead
+conflicts with Next's `process.browser`, `ImportMetaEnv`, and Node utility
+types; that earlier proposed dependency is superseded and must be removed.
+A strict compiler prototype loading only the published SQLite declaration
+passed with exit 0. Build must verify the stable package subpath after direct
+installation through the full `pnpm run typecheck` and production build.
+
+This is type compatibility only: no Bun runtime, SQLite usage, or database
+infrastructure. Keep `skipLibCheck: false` and all other strict checks; no
+local ambient shim, diagnostic suppression, or dependency patch. The official
+`bun-types` package is pinned to stable 1.4.5, the same implementation package
+used by `@types/bun@1.4.5`; inspect pnpm's generated lockfile and script policy.
 
 Use `lib/auth.ts` for server-only configuration and the library instance,
 `lib/auth-client.ts` for the minimal browser client, and a small server auth
@@ -209,9 +216,11 @@ reviews precede human merge/release. No merge, deployment, or release here.
 - [Better Auth options](https://better-auth.com/docs/reference/options):
   trusted origins, fixed baseURL, account state, disabled paths, and expiry.
 - [Bun TypeScript definitions](https://bun.sh/docs/typescript):
-  `@types/bun` supplies Bun built-in API declarations; TypeScript 6 may require
-  explicit ambient type inclusion. Only the missing declaration dependency is
-  adopted; retain this repository's Node runtime and strict compiler settings.
+  `@types/bun` delegates to the official `bun-types` package. Load only its
+  SQLite declaration for this compatibility need; retain the repository's
+  Node runtime and strict compiler settings.
+- [Official SQLite declaration source](https://github.com/oven-sh/bun/blob/main/packages/bun-types/sqlite.d.ts):
+  the installed 1.4.5 declaration is a self-contained `bun:sqlite` ambient module.
 - [Next.js authentication guide](https://nextjs.org/docs/app/guides/authentication):
   library selection and checks near protected data/action execution.
 - npm registry queries `pnpm view better-auth version peerDependencies engines --json`
