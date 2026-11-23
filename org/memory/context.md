@@ -51,7 +51,7 @@ security-researcher:assess_security
 
 ## Last digest source
 
-- mem-0006 from org/loop/state.yaml
+- mem-0007 from gates/ledger.jsonl
 
 <!-- machine:end -->
 
