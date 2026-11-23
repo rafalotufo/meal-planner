@@ -40,7 +40,7 @@ task file. Preserve the existing 34 application and seven Python tests.
 - CLAUDE.md
 - org/reviews/recipe-photos-dependencies.md
 - org/reviews/recipe-photos-verification.md
-- org/reviews/recipe-photos-*.png
+- org/reviews/recipe-photos-*.jpg
 
 The existing test compiler/glob already includes these TypeScript files; no new
 test runner, compiler configuration, npm script, or org budget/gate change is
