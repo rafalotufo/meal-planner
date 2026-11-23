@@ -51,25 +51,25 @@ plan approval. Each slice records red/green evidence and an atomic save point.
 
 ### 1. Establish an executable baseline — small; no feature code
 
-- [ ] Confirm Node 24.x and pnpm 10.33.0; run frozen installation, then baseline
+- [x] Confirm Node 24.x and pnpm 10.33.0; run frozen installation, then baseline
   pnpm test, lint, typecheck and build. Existing node_modules is absent and the
   prior install hit ENOTFOUND; obtain permitted registry access or report setup
   blocked rather than weakening checks or treating missing tools as passes.
-- [ ] Preserve untracked work/ and brainstorm-notes.md outside feature commits.
+- [x] Preserve untracked work/ and brainstorm-notes.md outside feature commits.
   Confirm real Chrome and isolated test-server prerequisites before UI work.
 
 Dependencies: approved plan. Verify actual command output in progress.md.
 
 ### 2. Prove word rules and publish the catalogue — medium; four files
 
-- [ ] Write failing tests in both new recipe-word-snack test files, then add
+- [x] Write failing tests in both new recipe-word-snack test files, then add
   lib/word-snack.ts and lib/word-snack-puzzles.ts. Tests import these modules;
   the existing compiler follows imports, so no test-config change is needed.
-- [ ] Author exactly 128 unique six-letter multisets with unique IDs, >=10
+- [x] Author exactly 128 unique six-letter multisets with unique IDs, >=10
   distinct supported 3–6-letter answers and a six-letter answer each; include
   repeated letters. Test ASCII, multiplicities, answer uniqueness and UTF-8
   JSON serialization <=65,536 bytes. Test catalogue order and wrap at 128.
-- [ ] Test case/trim, invalid characters/length, tile supply, typed input,
+- [x] Test case/trim, invalid characters/length, tile supply, typed input,
   duplicate acceptance prevention, delete/clear, rejected draft retention,
   accepted draft clearing, immutable transitions and all-answers-found play.
 
@@ -78,10 +78,10 @@ measured catalogue bytes. No scraped/imported dictionary or generated endpoint.
 
 ### 3. Audit vocabulary and document coverage — small; two files
 
-- [ ] Review every authored rack/answer for familiar English, typos, proper
+- [x] Review every authored rack/answer for familiar English, typos, proper
   names, abbreviations and excluded content; structural tests alone cannot
   establish lexical quality. Correct dubious entries, retaining all invariants.
-- [ ] Create vocabulary.md with authorship, selection rules, coverage limits
+- [x] Create vocabulary.md with authorship, selection rules, coverage limits
   and review evidence; add a source comment linking it from catalogue data.
   Have an independent reviewer audit the full catalogue before final acceptance.
 
@@ -90,15 +90,15 @@ coverage and limitations without claiming a comprehensive dictionary.
 
 ### Checkpoint A
 
-- [ ] Rules/catalogue tests, lint and strict typecheck pass; 128 distinct racks
+- [x] Rules/catalogue tests, lint and strict typecheck pass; 128 distinct racks
   meet size/content requirements. No network or storage used by game modules.
 
 ### 4. Protect notebook focus — medium; three files
 
-- [ ] Extend tests/recipe-notebook.test.ts first for optional add-without-select
+- [x] Extend tests/recipe-notebook.test.ts first for optional add-without-select
   and idempotent open-by-ID; preserve normal newest-opens, toggles, filters,
   sorts, repeated query IDs and unknown-ID handling.
-- [ ] Implement only those actions in lib/recipes/notebook.ts; add stable
+- [x] Implement only those actions in lib/recipes/notebook.ts; add stable
   numeric search-panel metadata in app/search-notebook.tsx for parent focus
   detection. Existing heading IDs remain dismissal targets.
 
@@ -106,15 +106,15 @@ Dependencies: 1. Verify pnpm test red/green; no game coupling in notebook state.
 
 ### 5. Integrate accessible play and request lifecycle — medium; four files
 
-- [ ] Add request-ID round actions/tests to lib/word-snack.ts and its test:
+- [x] Add request-ID round actions/tests to lib/word-snack.ts and its test:
   start hidden, pending open/close/reopen, ready without reset, closed/never-open
   completion, zero results, stale IDs, failure/abort discard and fresh searches.
   Invalid query/duplicate pending attempts do not consume another rack.
-- [ ] Compose app/word-snack.tsx from RecipeSearch with sibling word form,
+- [x] Compose app/word-snack.tsx from RecipeSearch with sibling word form,
   bounded input, six labeled tiles, feedback, found list and close control.
   Show Play only during pending search; no autofocus, global key handlers,
   extra requests, sound, animation, timer or persistent state.
-- [ ] Keep fetch dispatch immediate and existing generation/abort guards.
+- [x] Keep fetch dispatch immediate and existing generation/abort guards.
   Capture focused old notebook panel at response time, not submission time;
   add without selecting only when its controls would otherwise unmount.
   Success preserves game component identity, draft, found words and focus,
@@ -130,14 +130,14 @@ Exhausting the focused tile transfers to the word input as specified.
 
 ### 6. Prove real browser behavior — small; one TypeScript harness
 
-- [ ] Extend tests/auth/browser.ts using its held CDP search interceptions and
+- [x] Extend tests/auth/browser.ts using its held CDP search interceptions and
   isolated authenticated server; permit explicit malformed-response fixtures.
   Preserve auth, provider-fixture and previous notebook regressions.
-- [ ] At 320/390/768/1024/1440px verify keyboard and touch interactions, 44px
+- [x] At 320/390/768/1024/1440px verify keyboard and touch interactions, 44px
   controls, 16px input, wrapping/contrast/focus and no overflow. Hold success
   mid-word; assert same focus/draft/letters/found words, then accept another
   word and close to the associated search after browsing another group.
-- [ ] Cover pending close/reopen, fast/long/zero success, no launch after closed
+- [x] Cover pending close/reopen, fast/long/zero success, no launch after closed
   success, new/invalid queries, old-panel focused success, focused/unfocused
   errors, malformed data and reload. Count recipe requests and inspect bodies;
   word Enter/tiles/clear/close cannot submit recipes or leak game words.
@@ -150,13 +150,13 @@ Browser responses are fixtures, not live provider evidence; no paid LLM calls.
 
 ### Checkpoint B and final verification
 
-- [ ] Document optional play, limited vocabulary, page-local state and continued
+- [x] Document optional play, limited vocabulary, page-local state and continued
   play in README; record outputs/screenshots in progress.md. Run pnpm test,
   pnpm run lint, pnpm run typecheck, pnpm run build, then pnpm run test:auth.
-- [ ] Run python3 -m unittest discover -s tests; node --import tsx --test
+- [x] Run python3 -m unittest discover -s tests; node --import tsx --test
   tests/deployment/smoke.test.ts; staged secret scan (zero findings); plan-sync
   hook with this plan; git diff --check. Recheck after material fixes.
-- [ ] Obtain independent code/content and security review against spec/plan and
+- [x] Obtain independent code/content and security review against spec/plan and
   REVIEW.md; fix required findings, preserve tests and attach actual evidence.
   Stop before human merge/release gates; no deployment or push is authorized.
 

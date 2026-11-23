@@ -210,3 +210,28 @@ code/security review); production build completed before server/browser runs.
   readback diagnostic were fixed in the harness, not filtered out.
 - git diff --check: clean. Root performs staged secret scan and approved-plan
   manifest check for the final commit, with independent review still pending.
+
+### Independent review completion
+
+Catalogue, code and security reviews approved without required findings:
+org/reviews/catalogue-recipe-waiting-game-001.md,
+org/reviews/code-recipe-waiting-game-001.md and
+org/reviews/security-recipe-waiting-game-001.md. The code reviewer inverted the
+ready/open retention condition and observed two persistence tests fail, then
+restored source exactly and reran 17 focused tests successfully. All plan task
+checkboxes reflect completed local implementation and verification, including
+the independent reviews. Human merge and release remain pending.
+
+Consolidated handoff: org/reviews/recipe-waiting-game-verification.md. The plan's
+approval metadata was formatted onto an exact Status: Approved line to satisfy
+the existing deterministic checker; no gate or parser was weakened. Full range
+plan-sync passed after that correction. Prior overwritten test screenshots were
+restored; all new evidence uses word-snack-* paths.
+
+Fresh bounded cycle completed at turn 6/6 with status solved, no budget
+extension, all configured acceptance commands passing, clear security and
+approved code review. Turns 1–3 explicitly carried forward existing approvals;
+turns 4–6 record implementation, security and final review. Graph implementation
+is in_review for human merge approval; release is not_started. No push, merge
+or release was performed. Existing untracked brainstorm-notes.md and work/
+remain outside feature commits.

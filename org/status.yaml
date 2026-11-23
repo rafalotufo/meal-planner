@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Human-approved recipe search notebook merged into local main from reviewed source6b94405 and approval68a28ef. Application content matches verified feature. Production release remains gated. }
+  orchestrator: { status: idle, assignment: null, last_report: "Word Snack bounded cycle solved6/6:128puzzles, verified fivewidth UI, all required tests/build/lint/types pass, independent content/code/security approved. Human merge/release pending; no push/deploy." }
   product-manager: { status: idle, assignment: null, last_report: "Accepted Word Snack completion amendment; review intent-recipe-waiting-game-002.md. Preserve playable state/focus after success, announce results ready, explicit dismissal; Design details remain." }
   architect: { status: busy, assignment: intent/recipe-waiting-game/spec.md, last_report: Revised Word Snack draft to 128 distinct letter-multiset puzzles and 64 KiB data design budget at Rafael request. Rules and provenance preserved; no code/data creation or blanket spec approval. Diff check passed. }
-  senior-developer: { status: busy, assignment: intent/recipe-waiting-game/plan.md, last_report: "Word Snack draft plan ready:128 authored racks, test-first lifecycle/UI and full browser/content proof; no code. Setup access and bounded-turn limit explicit; independent/human plan approval pending." }
-  security-researcher: { status: idle, assignment: null, last_report: "Recipe notebook security review clear: page-local history, React text and original source/photo/auth boundaries preserved. No new provider requests or persistence." }
-  reviewer: { status: idle, assignment: null, last_report: Word Snack plan independently approved for human review; plan-recipe-waiting-game-001.md. No required findings; owner plan and next-cycle decisions pending. }
+  senior-developer: { status: idle, assignment: null, last_report: "Word Snack implemented and independently approved;74app12auth12smoke7workflow tests, lint/types/build and fivewidth Chrome passed.128puzzles; no merge/release authorized." }
+  security-researcher: { status: idle, assignment: null, last_report: "Word Snack security assessment clear at 47a5878; security-recipe-waiting-game-001.md. No findings: bounded local React text, query-only requests, unchanged auth/provider/photo boundaries and isolated test fixtures. Merge/release remain human gates." }
+  reviewer: { status: idle, assignment: null, last_report: "Word Snack code review approved at 47a5878; code-recipe-waiting-game-001.md. Mutation killed and restored exactly; 17 focused tests pass, ready 320/1440 screenshots inspected. Human merge/release gates remain." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -42,3 +42,5 @@ review_queue:
   - { id: spec-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-recipe-waiting-game-002, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: catalogue-recipe-waiting-game-001, artifact: lib/word-snack-puzzles.ts, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-waiting-game-001, artifact: recipe-waiting-game-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
