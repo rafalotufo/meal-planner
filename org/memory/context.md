@@ -45,11 +45,11 @@ intent/authenticated-access/intent.md
 
 ## Recent decisions
 
-- mem-0018 product-manager: User replaced any-Google eligibility with server-code Gmail allowlist of four confirmed accounts. PM accepted same-feature intent amendment; require verified Gmail, exact trim/lower matching, empty denyall, pre-issuance and per-request enforcement, no signup/admin UI/roles. (org/reviews/intent-authenticated-access-allowlist-001.md)
 - mem-0019 reviewer: Approved same-feature Gmail allowlist spec and plan amendments, replacing unrestricted Google eligibility. Configure four owner-confirmed accounts in server-only code; verify email at issuance and every protected read; no alias collapsing, no signup/admin UI. Tests use configured member only in network fixture. Inline blank favicon metadata fixes observed automatic404. (org/reviews/authenticated-access-allowlist-amendment-001.md)
 - mem-0020 orchestrator: Implemented owner-requested Gmail allowlist with four confirmed members, verified identity issuance/per-request guards, TypeScript policy and all new tests/helpers, and TypeScript test rules in AGENTS/CLAUDE. Mandatory implementation turn ran all five acceptance commands exit0; final independent reviews and human gates remain. (org/reviews/authenticated-access-verification.md)
 - mem-0021 orchestrator: Final independent code review approved and security clear for four-account Gmail authentication with strict TypeScript tests/helpers and instruction rules. 11 auth tests,7 Python tests,lint,typecheck,build,real Chrome320/1440 pass; secret and active manifest checks pass. Current committed plan approval separately verified because legacy checker selects first historic reused-gate record. Live Google configuration and human merge/release remain. (org/reviews/security-authenticated-access-001.md)
 - mem-0022 orchestrator: Authenticated-access six-turn loop solved with all five acceptance commands exit0 at final security/review checkpoints. Implementation a2f015d; independent code/security approved. Graph implementation in_review awaits fresh human code-owner merge approval; no prior approval reused. Four Gmail members configured, tests/helpers TypeScript and both rules updated. Live Google OAuth credentials/consent remain external; inherited moderate advisory due2026-12-07. (org/reviews/code-authenticated-access-001.md)
+- mem-0023 orchestrator: Owner explicitly approved merge to main. Fast-forwarded main b2e3266 to d5f1583 with current human gate merge-authenticated-access-001; no conflicts/source changes. On merged main, frozen install, Python7, lint, strict typecheck, build, auth11 and Chrome320/1440 passed. Implementation graph now merged; release remains not_started. Source worktree generated change/OAuth config preserved. (org/reviews/authenticated-access-merge-verification.md)
 
 ## Constraints
 
@@ -70,7 +70,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0022 from org/reviews/code-authenticated-access-001.md
+- mem-0023 from org/reviews/authenticated-access-merge-verification.md
 
 <!-- machine:end -->
 

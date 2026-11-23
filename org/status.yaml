@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Authenticated-access loop solved in6turns; fourGmail allowlist, TypeScript tests/rules, allchecks/browser and independentreviews pass. Human merge/liveGoogle setup pending." }
+  orchestrator: { status: idle, assignment: null, last_report: Authenticated access merged to main under explicit human approval; all tests/build/browser checks passed on main; release not authorized. }
   product-manager: { status: idle, assignment: null, last_report: Accepted Google sign-in intent; any verified Google account proposed; design to define session lifecycle. }
   architect: { status: idle, assignment: null, last_report: Spec independently approved; Better Auth 1.7.27 stateless Google sessions; no DB. }
   senior-developer: { status: idle, assignment: null, last_report: Verified Google allowlist and TypeScript tests; all checks/browser passed; independent code review approved. }
