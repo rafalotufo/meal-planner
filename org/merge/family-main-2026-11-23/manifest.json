@@ -1,0 +1,1038 @@
+{
+  "feature_commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+  "main_commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+  "files": [
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "gates/ledger.jsonl",
+      "archive": "org/merge/family-main-2026-11-23/feature/gates/ledger.jsonl",
+      "sha256": "b9a493d7cf47239643dbf0dd1281cb3ea7989ba631ec4aa609afe864f38fe43e",
+      "bytes": 13005
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "intent/family-membership/intent.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/intent/family-membership/intent.md",
+      "sha256": "a7ad8dfcaff70227042622152290935ca8b7342b65daad71c8d485d6353835f4",
+      "bytes": 8563
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "intent/family-membership/plan.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/intent/family-membership/plan.md",
+      "sha256": "84fd9df2eda1e7311929af4d5b582c8bf6daca2216fd8419c0b35a58e4af2d26",
+      "bytes": 19811
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "intent/family-membership/spec.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/intent/family-membership/spec.md",
+      "sha256": "165a83e22c7cb7916b21e66a305a5d17937d0e44e0a7cc393782b69e2cff7361",
+      "bytes": 33485
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "intent/family-membership/storage-compatibility.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/intent/family-membership/storage-compatibility.md",
+      "sha256": "fda333f870278ca77895ff4d7ef0a8a3b0229876d956d17cde03586b52e0e96f",
+      "bytes": 5836
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/loop/config.yaml",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/loop/config.yaml",
+      "sha256": "1ecc2058af77f520dc66c8d16d956eb04eea6f88c0b6188e900ed84dbf3f8706",
+      "bytes": 959
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/loop/history.jsonl",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/loop/history.jsonl",
+      "sha256": "bbbd7a5a6692832d4ab380d54bee57c9fe945e013c3deb69883412c17528f4ed",
+      "bytes": 4685
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/loop/state.yaml",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/loop/state.yaml",
+      "sha256": "b3399bdad7ee485208d1a2011c8a13dd1ac72668d40f7a377b00cc575b223e53",
+      "bytes": 1507
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/memory/context.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/memory/context.md",
+      "sha256": "a58a1df96c1738ba12945af8d2ce34e81193b4af1ca947f2792abcd83819b220",
+      "bytes": 6644
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/memory/events.jsonl",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl",
+      "sha256": "5cde347db697a144d55a4b43721ebe7b41ee3de4711adac049f8d9817a5227e2",
+      "bytes": 17256
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/README.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/README.md",
+      "sha256": "5fb5e58dacbd0f1aecaa40e698f639ddda8dc4b49511aa0cca1e7b0818ddd0fe",
+      "bytes": 734
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/architect-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/architect-0001.md",
+      "sha256": "3b8eb6b184122d67e5eb2fb82f0c167c8b26adaa93cf8a300950129d8fc393c3",
+      "bytes": 579
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/architect-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/architect-0002.md",
+      "sha256": "bdb298bff76a4f2e104f105dcd06f330703935b750714b68e1e307127afc88b8",
+      "bytes": 1028
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/ceo-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/ceo-0001.md",
+      "sha256": "2087639f6cf7be99c9743775f43aeec68304acbedbbf435ee04a32456d15b707",
+      "bytes": 501
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/ceo-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/ceo-0002.md",
+      "sha256": "a34cbda6a1b664dc1a1464f5f5d54f8b5cdd21e22cd59877942d807f09a3adb0",
+      "bytes": 585
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/ceo-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/ceo-0003.md",
+      "sha256": "f99a94b836999c7e95167ebe161be64419ae4fdaac09841e68e7ea6a27bd43de",
+      "bytes": 655
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/ceo-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/ceo-0004.md",
+      "sha256": "d9ec5d55eff5980cd778f29faaac00f4906664d8ad96e781f082401380000cf0",
+      "bytes": 503
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/ceo-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/ceo-0005.md",
+      "sha256": "20c4931df1eacb6e1233312bde5db61f89d4fb28e165b0863653c34eb9881d09",
+      "bytes": 556
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/ceo-0006.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/ceo-0006.md",
+      "sha256": "a48578f58300b784c1a90c0a075c8ebef3bbd40f4be345b8011efd41335ca471",
+      "bytes": 598
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/orchestrator-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/orchestrator-0001.md",
+      "sha256": "eff3bfe394e5a6d9e86f428f2d328404865d189ef193e5af534a37f23269d9dc",
+      "bytes": 1039
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0001.md",
+      "sha256": "0bae6960550b05ac5f0494435fd29bf9f7611a1f766e3da819d847aeb589a706",
+      "bytes": 512
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0002.md",
+      "sha256": "f31cfb93059d5941974e23708122d594b447050ff495a67ca78b974017769824",
+      "bytes": 541
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0003.md",
+      "sha256": "e6f4c9b2aa1aa847a547dcc6b4f5f139ee5df0799d64b50b1c1e951c514f4c16",
+      "bytes": 571
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0004.md",
+      "sha256": "4dee44e81587bd19adeb1ac454b20347640cf0632baa1189f2a259b4c209c968",
+      "bytes": 614
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0005.md",
+      "sha256": "e5ea92eb15543c0cb132440da3d7881385d4fad4a4765f71553fbb8b572f95cb",
+      "bytes": 836
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0006.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0006.md",
+      "sha256": "978b3781e7670a0ef123de8bef1c29a3b49e233047b12745ee0d6eb4e57de59d",
+      "bytes": 739
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0007.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0007.md",
+      "sha256": "74cf5c385f6b8533e9d5556fbbc67a3d18fb529bb8d0d9e28bbf42e73084db0d",
+      "bytes": 708
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/product-manager-0008.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/product-manager-0008.md",
+      "sha256": "f1502cdb194f6fd4126afb8d4fc0df520c910a667dbcb4a5b396aaac7a057907",
+      "bytes": 567
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0001.md",
+      "sha256": "d9495543eb82fc1e6e50e25bfca2da2945f0664f19ef5b07fb7abdf4d614a7c0",
+      "bytes": 397
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0002.md",
+      "sha256": "070f54d294734db22febad2bd91fa19208d870c08dd7e2702cde0c0b6f2563b0",
+      "bytes": 460
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0003.md",
+      "sha256": "0376c3fdb64c067a6ae0e96370edd3af5dadcb45dc3e941eec89c3c639e8e1cf",
+      "bytes": 633
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0004.md",
+      "sha256": "a484a609f311c368f81717649c4c89f3275d98165fd4cc5ea6fc089c998ce221",
+      "bytes": 489
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0005.md",
+      "sha256": "b0c04916dc814838ce5d7944882d6b5c8d3982a096385e6e3c359044a3ab9a26",
+      "bytes": 500
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0006.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0006.md",
+      "sha256": "ea3fcfec2c412cd92b5c40e1e6ccab3f322e2a89f38e4c229d6648128aada93b",
+      "bytes": 675
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0007.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0007.md",
+      "sha256": "c69292ce17bff2baf976217fa03caac51779aa22c5eb617e39aa2bab7495c876",
+      "bytes": 598
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0008.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0008.md",
+      "sha256": "15ff114a590c6b6c259a7c9152e3ece16e0a6a1a891e16c16becc49f4042236e",
+      "bytes": 559
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0009.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0009.md",
+      "sha256": "a1fc54e0555f8b62a7989246e286b5731677f334cdd11cef82733cd38d1f0d4d",
+      "bytes": 752
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/reviewer-0010.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/reviewer-0010.md",
+      "sha256": "aa6dd645f7011b34add3de16a80789c114e25e3fcdac3c8895f118829ee6c583",
+      "bytes": 754
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/security-researcher-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/security-researcher-0001.md",
+      "sha256": "2ec5ba8f559940e1f05c65d19668e0ccebb594abe22c00fd6707a49daba9bb88",
+      "bytes": 570
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/security-researcher-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/security-researcher-0002.md",
+      "sha256": "53b2b1c70ac2fe30daf20bfbf4938745db9defb44f8f7ed68db07381d4ebc2c7",
+      "bytes": 617
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/security-researcher-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/security-researcher-0003.md",
+      "sha256": "29113200e621ccc648f3fdb4417d30a7f1767cf12bedcb9fc7d06d20d7b8f72d",
+      "bytes": 832
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/security-researcher-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/security-researcher-0004.md",
+      "sha256": "a7a95e2fbe400258513f7744f1282d71ce1b4e048124db431c4290f3de72dae0",
+      "bytes": 792
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/senior-developer-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/senior-developer-0001.md",
+      "sha256": "fcc48e00aa0a1ebf22ea61500375e9f3f42ad23a553fc9192dedc34c6c4884b4",
+      "bytes": 536
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/senior-developer-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/senior-developer-0002.md",
+      "sha256": "574b4b3105ab3021096bbaefc65e0c64616f756163ef4057986f03e340c57f6e",
+      "bytes": 724
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/senior-developer-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/senior-developer-0003.md",
+      "sha256": "33d8b38ae631b0950e114ba9b7aa38337791a48cfad54275891ca04139b8bf46",
+      "bytes": 723
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/senior-developer-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/senior-developer-0004.md",
+      "sha256": "645681c2fcba304f7f2bc114699c23e2917465ca5039eb6211967f042d19d8c5",
+      "bytes": 1039
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/messages/senior-developer-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/messages/senior-developer-0005.md",
+      "sha256": "9cdb338bebc61ef17e78d08d642d3069c4e4822eaefa793d34945a2c46d64612",
+      "bytes": 894
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/code-family-membership-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/code-family-membership-001.md",
+      "sha256": "0f3e2194b7c042c8a2d178c889b6bfc94116f27e3b3f774cb884b419eeb0a89f",
+      "bytes": 6070
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-code-checkpoint.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-code-checkpoint.md",
+      "sha256": "0f6f02d164b3e7f218301a0982654c99f7aaa071f62d6440c2f3f5913f3643ed",
+      "bytes": 3679
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-design-baseline.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-design-baseline.md",
+      "sha256": "0a5f96723270af83cf8e3d0b2d9c2f20ed320294cac69948143f598780978b31",
+      "bytes": 1502
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-first-login.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-first-login.md",
+      "sha256": "ca14be5c126d3d2fd6b6160a30883b86b5164d249cd9e53ca2fa0ec77f5e2936",
+      "bytes": 1853
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-foundation.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-foundation.md",
+      "sha256": "01e49cc63b9c9017d04e572271fb71a76be1fb0be58121523f2b297bf77634ec",
+      "bytes": 4267
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-invitations.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-invitations.md",
+      "sha256": "a5ad593e2bb121f5aa3aff23c97dbb00bc0f8fc1f642b65ae5bd3be2cdc71623",
+      "bytes": 2587
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-security-checkpoint.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-security-checkpoint.md",
+      "sha256": "516705438c1938afee2c91008b647089711c3f9c1de9070c593030d11ace4464",
+      "bytes": 5500
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-storage-amendment-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-storage-amendment-001.md",
+      "sha256": "d83310e8427c39b7504ba0be471cf11422367c2eb35810e16aaef72c3ea98564",
+      "bytes": 4683
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/family-membership-verification.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/family-membership-verification.md",
+      "sha256": "1b98c701f09979cf9150b57e5a0ceae29190e22c565726d03a38205cc5a33490",
+      "bytes": 9870
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/intent-family-membership-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/intent-family-membership-001.md",
+      "sha256": "d245f278f1725fee12699a0ec50fa43b9fbb29c1ee96436198693a4a7652dbb6",
+      "bytes": 2973
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/intent-family-membership-002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/intent-family-membership-002.md",
+      "sha256": "6057890a3b778da1104b29e90fb60349b06a02d7d0c706bdb8f39ddfe708b4a6",
+      "bytes": 2996
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/intent-family-membership-003.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/intent-family-membership-003.md",
+      "sha256": "9a17f54ce0dd11fc05059a00985dd3b244fd5898a3d1de3ed214b8ecd3cd1a05",
+      "bytes": 2075
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/intent-family-membership-004.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/intent-family-membership-004.md",
+      "sha256": "ea9cccf8577754fe41a0c3b8261d914e6e1046dde3e28e9e1138bbb0aa229937",
+      "bytes": 2599
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/intent-family-membership-acceptance-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/intent-family-membership-acceptance-001.md",
+      "sha256": "9e03fb85f5963ecb22850ecc10c9092c2b570d8ae12f630bc37af8f8584a499a",
+      "bytes": 1374
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/plan-family-membership-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/plan-family-membership-001.md",
+      "sha256": "f4ca05d208b65e53a8bae813dff360a388d8c67bd1accf9307299faa83aa0903",
+      "bytes": 4586
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/security-family-membership-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/security-family-membership-001.md",
+      "sha256": "f35fad95c6d75cf6783c3278c0e6ef12774f1038c9f98039ccf90d1ca984f2ee",
+      "bytes": 7634
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/spec-family-membership-001.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/spec-family-membership-001.md",
+      "sha256": "1d7ce16abc200a227032f031cd7141053e2b03e513b364f298fd9dd1a036bc67",
+      "bytes": 5590
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/reviews/spec-family-membership-002.md",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/reviews/spec-family-membership-002.md",
+      "sha256": "9241c16fd4a5bd45c6fa420321ed8d1842915cfdb7846efeed9af7d0062432b5",
+      "bytes": 3010
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "org/status.yaml",
+      "archive": "org/merge/family-main-2026-11-23/feature/org/status.yaml",
+      "sha256": "79935a7f7c51bc920465ace4b71c2e1cd1743aa0a56d8c018d4e3140398b67fc",
+      "bytes": 3448
+    },
+    {
+      "source": "feature",
+      "commit": "5eaff43d0aa8d652ee505b9bae1012799060169e",
+      "path": "workflow-graph.yaml",
+      "archive": "org/merge/family-main-2026-11-23/feature/workflow-graph.yaml",
+      "sha256": "94a679b39f99f59fe5c02efbf38a2e3405ed6bff890891e1c2a5a7cae18b7b90",
+      "bytes": 1638
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "gates/ledger.jsonl",
+      "archive": "org/merge/family-main-2026-11-23/main/gates/ledger.jsonl",
+      "sha256": "df9bc44d50117fbe45d598f394968785fbaf6b478d3ba039f3973bc5ec835c71",
+      "bytes": 23656
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/loop/config.yaml",
+      "archive": "org/merge/family-main-2026-11-23/main/org/loop/config.yaml",
+      "sha256": "75574c28d86b255c006e7f08a0534bb03c272d5ee939a456978c1e32dc1db691",
+      "bytes": 1113
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/loop/history.jsonl",
+      "archive": "org/merge/family-main-2026-11-23/main/org/loop/history.jsonl",
+      "sha256": "73436e0b2020e8c3196db3bd5408ebefe03a56be12926e19b2200258cef0696a",
+      "bytes": 4993
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/loop/state.yaml",
+      "archive": "org/merge/family-main-2026-11-23/main/org/loop/state.yaml",
+      "sha256": "b77b9fb1f7f96fa3570a6b54a5af20d9c8530ec1a06554a55a4d97c124bef835",
+      "bytes": 1626
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/memory/context.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/memory/context.md",
+      "sha256": "764fdcb989adca648b1a4b4958115b72f6023319c3d947bf693a6bf062d2e92f",
+      "bytes": 6073
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/memory/events.jsonl",
+      "archive": "org/merge/family-main-2026-11-23/main/org/memory/events.jsonl",
+      "sha256": "7f852ecd0651228767e519c105498e9a117ff20324ad504ae3fbfbe3cf2289ec",
+      "bytes": 23377
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/README.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/README.md",
+      "sha256": "5fb5e58dacbd0f1aecaa40e698f639ddda8dc4b49511aa0cca1e7b0818ddd0fe",
+      "bytes": 734
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/architect-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/architect-0001.md",
+      "sha256": "3b8eb6b184122d67e5eb2fb82f0c167c8b26adaa93cf8a300950129d8fc393c3",
+      "bytes": 579
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/architect-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/architect-0002.md",
+      "sha256": "57b502097ea0270e065d97ff7dd9b59a41f444f26a57153c11da5a0a660bd647",
+      "bytes": 710
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0001.md",
+      "sha256": "2087639f6cf7be99c9743775f43aeec68304acbedbbf435ee04a32456d15b707",
+      "bytes": 501
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0002.md",
+      "sha256": "3dccd7feacb9491723f3263fdaab75597682d7f80f6f16d1cc53089a131d8dd4",
+      "bytes": 662
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0003.md",
+      "sha256": "e499277689bbcc54cce7f0405f14a9293392bc795006d555dd5ebfda99b3e48b",
+      "bytes": 738
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0004.md",
+      "sha256": "ecc1f0a80b7c86d5a374eb637cc6c815726c3a3b19155f0666df87d0757d967f",
+      "bytes": 727
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0005.md",
+      "sha256": "1b67d4f73cf8b6f47e46ea8b29789a9c47d46fa060f9cadf7bf19d81f9f6fdf2",
+      "bytes": 715
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0006.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0006.md",
+      "sha256": "3caafff3ec3ccb8cca82d1d4ba52116e5ce30edd76795c00ea4153b21780227c",
+      "bytes": 798
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0007.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0007.md",
+      "sha256": "641940e31457d8fbd2d2f3a898590a7ca65bda84d9b1c41de389bcd75bc9b0e8",
+      "bytes": 651
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0008.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0008.md",
+      "sha256": "945ae4b547cbed9889cf20f258638e55ed57794b1ab11c370b709ea25e3757ec",
+      "bytes": 869
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0009.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0009.md",
+      "sha256": "ce28870ebc692c4133a1a70fce3f77c189272de5eff33a492140024b459e828c",
+      "bytes": 881
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0010.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0010.md",
+      "sha256": "467b4fef19bf5ced70e80c00e8f10c9eed118d730fd18aa80e0aba94c9912d7e",
+      "bytes": 724
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0011.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0011.md",
+      "sha256": "87a8300c75032e5a33ac5e8999446d86a0e14c73f2faa267274edba929da5e93",
+      "bytes": 1122
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0012.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0012.md",
+      "sha256": "cfd40d07011ca5636fab50d682117973cac419cbf6be03cf6a3fe67f0520f59a",
+      "bytes": 946
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0013.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0013.md",
+      "sha256": "63cef3b55ce171d6e9955baa9db65cbf9d6f8906b38677550d25e39cc7ecfa77",
+      "bytes": 672
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0014.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0014.md",
+      "sha256": "d34e6978084d53f5ca86c0acbf4514ce4c8c9f24a32afbbf94628579f6a7e4bb",
+      "bytes": 729
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0015.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0015.md",
+      "sha256": "f3cb2831be2b0e3fe6e68095d4460ada9b2f206a65a60a1fc450deccbd3a67a6",
+      "bytes": 752
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0016.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0016.md",
+      "sha256": "df28a372ad013be1c9aacce1729f387f141ff1119d59a87cdba92303b3b08d11",
+      "bytes": 706
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/ceo-0017.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/ceo-0017.md",
+      "sha256": "e3724d91e39bb2676b917275c98809d5a5c874e4ba3b12311a82d7491958b989",
+      "bytes": 957
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0001.md",
+      "sha256": "49f7d216d9e29dbfb014bf8de1ba43bb514e3716052264fd136a37c0d4eda88a",
+      "bytes": 662
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0002.md",
+      "sha256": "b92f2f7c86af785c4021d5a0ccbcf0f112b53ce789482f3461fb89d74105a3a1",
+      "bytes": 609
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0003.md",
+      "sha256": "bd4b7fe9e3058ed865b43804544ab13d89d6b4f4a894cb995c146e28a2f9419d",
+      "bytes": 714
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0004.md",
+      "sha256": "654823ee77f5a284518fbdba15b21f750322044ef9b0aa0b9a5444d06c62f36a",
+      "bytes": 692
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0005.md",
+      "sha256": "a6b973098368d22d87fc6ddd63206a87fa619f2e343a256766ebf250f6cb269b",
+      "bytes": 786
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0006.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0006.md",
+      "sha256": "1454ef157cf225d99ff3484570a2edc3d6fb79c12316bd6f92394c7a2d82b400",
+      "bytes": 733
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0007.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0007.md",
+      "sha256": "fb8126c0c4683d305198ef1052a615726b8c46f1b3cc17c7ff6aa064d0469607",
+      "bytes": 736
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0008.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0008.md",
+      "sha256": "154e8b50fa6e1322dfb76ec52b0e8d2478a02075265070870eaeb71bad4b90a6",
+      "bytes": 800
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0009.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0009.md",
+      "sha256": "5ab2755cae624e2f35bd92b289d58bf32e9e9a1c6898db3954fc0a9b7c272348",
+      "bytes": 706
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0010.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0010.md",
+      "sha256": "f280558af57e5a1ceee21c46bf42ac05f46d9cfc8e64dbab9bb64fcbf3eab0ce",
+      "bytes": 684
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0011.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0011.md",
+      "sha256": "a7c34e44956f33205aabf4bb8487e8d8728a277b2f890890085830c3c647611f",
+      "bytes": 689
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0012.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0012.md",
+      "sha256": "034fb9c6f21c629fbd0ee5d7e717be1d4f7a47a2de6918b64abe4d2c5d7e1888",
+      "bytes": 586
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0013.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0013.md",
+      "sha256": "a608df0dd42df2ad2095504523b9e147a0739479c4a6d9a7585b22c11ac9e988",
+      "bytes": 925
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/orchestrator-0014.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/orchestrator-0014.md",
+      "sha256": "cd33cc2db3e77d187fa1594ca3a34809c1a08c5de47d079ad5d97f46e05048ce",
+      "bytes": 808
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/product-manager-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/product-manager-0001.md",
+      "sha256": "0bae6960550b05ac5f0494435fd29bf9f7611a1f766e3da819d847aeb589a706",
+      "bytes": 512
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/product-manager-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/product-manager-0002.md",
+      "sha256": "f31cfb93059d5941974e23708122d594b447050ff495a67ca78b974017769824",
+      "bytes": 541
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/product-manager-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/product-manager-0003.md",
+      "sha256": "e6f4c9b2aa1aa847a547dcc6b4f5f139ee5df0799d64b50b1c1e951c514f4c16",
+      "bytes": 571
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/product-manager-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/product-manager-0004.md",
+      "sha256": "4dee44e81587bd19adeb1ac454b20347640cf0632baa1189f2a259b4c209c968",
+      "bytes": 614
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0001.md",
+      "sha256": "d9495543eb82fc1e6e50e25bfca2da2945f0664f19ef5b07fb7abdf4d614a7c0",
+      "bytes": 397
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0002.md",
+      "sha256": "070f54d294734db22febad2bd91fa19208d870c08dd7e2702cde0c0b6f2563b0",
+      "bytes": 460
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0003.md",
+      "sha256": "0376c3fdb64c067a6ae0e96370edd3af5dadcb45dc3e941eec89c3c639e8e1cf",
+      "bytes": 633
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0004.md",
+      "sha256": "a484a609f311c368f81717649c4c89f3275d98165fd4cc5ea6fc089c998ce221",
+      "bytes": 489
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0005.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0005.md",
+      "sha256": "b0c04916dc814838ce5d7944882d6b5c8d3982a096385e6e3c359044a3ab9a26",
+      "bytes": 500
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0006.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0006.md",
+      "sha256": "ea3fcfec2c412cd92b5c40e1e6ccab3f322e2a89f38e4c229d6648128aada93b",
+      "bytes": 675
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0007.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0007.md",
+      "sha256": "c69292ce17bff2baf976217fa03caac51779aa22c5eb617e39aa2bab7495c876",
+      "bytes": 598
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/reviewer-0008.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/reviewer-0008.md",
+      "sha256": "0d57bd0457ab21647340d06a6e4269af9f430d0a0b29960d2eeb3e2dcd7bbba8",
+      "bytes": 744
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/security-researcher-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/security-researcher-0001.md",
+      "sha256": "2fd03c1a4f576aa60adca309b81eaa4b9142264cdec6487330ee43c9b658b5ae",
+      "bytes": 1055
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/security-researcher-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/security-researcher-0002.md",
+      "sha256": "489b5e8d9e3bc6b6081641e75abbe4f0717f6da841641257d35379d8cebfd7b8",
+      "bytes": 1043
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/security-researcher-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/security-researcher-0003.md",
+      "sha256": "9a0ca985526759fe65e4de1d8a23a9aa4033f708409dfcc46c112fc46617d84f",
+      "bytes": 570
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/security-researcher-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/security-researcher-0004.md",
+      "sha256": "82de5e171731321b895b45ffc0832d182ba040552654e633b74ae07a63fb9b12",
+      "bytes": 617
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/senior-developer-0001.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/senior-developer-0001.md",
+      "sha256": "fcc48e00aa0a1ebf22ea61500375e9f3f42ad23a553fc9192dedc34c6c4884b4",
+      "bytes": 536
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/senior-developer-0002.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/senior-developer-0002.md",
+      "sha256": "574b4b3105ab3021096bbaefc65e0c64616f756163ef4057986f03e340c57f6e",
+      "bytes": 724
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/senior-developer-0003.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/senior-developer-0003.md",
+      "sha256": "33d8b38ae631b0950e114ba9b7aa38337791a48cfad54275891ca04139b8bf46",
+      "bytes": 723
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/messages/senior-developer-0004.md",
+      "archive": "org/merge/family-main-2026-11-23/main/org/messages/senior-developer-0004.md",
+      "sha256": "0f823b16e228294b251efae12b4d44d2af5f088957dd6f42aff475554bc0526a",
+      "bytes": 678
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "org/status.yaml",
+      "archive": "org/merge/family-main-2026-11-23/main/org/status.yaml",
+      "sha256": "6b406bf74caff47e8fef887fce6b3a04eac5017477c0922d6e7d3475337350e9",
+      "bytes": 5785
+    },
+    {
+      "source": "main",
+      "commit": "766a7925b9489ea9bfda97355f3c2f9c7d99ca67",
+      "path": "workflow-graph.yaml",
+      "archive": "org/merge/family-main-2026-11-23/main/workflow-graph.yaml",
+      "sha256": "497254df7e2a815c80c207e4b5345b1d55165c87a2961278b2cfc669e706e0a6",
+      "bytes": 1625
+    }
+  ]
+}

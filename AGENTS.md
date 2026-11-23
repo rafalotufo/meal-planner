@@ -2,13 +2,15 @@
 
 ## Commands
 
-- Install reproducibly: `pnpm install --frozen-lockfile` (Node.js 22+; tested with 24.15.0/pnpm 10.33.0).
+- Install reproducibly: `pnpm install --frozen-lockfile` (Node.js 24.x; tested with 24.15.0/pnpm 10.33.0).
 - Package manager: exact `pnpm@10.33.0` in `package.json`; bootstrap missing pnpm
   with `npm install --global pnpm@10.33.0`, then check `pnpm --version`.
 - Develop: `pnpm run dev`.
 - Verify: `pnpm run lint`, `pnpm run typecheck`, `pnpm run build`; all must pass.
 - Family regression: `pnpm run test:family` after build (owns temporary migrated databases).
 - Local explicit migration: `pnpm run db:migrate` after setting private absolute `DATABASE_PATH`.
+- Recipe/photo regressions: `pnpm test` (compiled TypeScript and native Node runner).
+- Deployment helper regression: `node --import tsx --test tests/deployment/smoke.test.ts`.
 - Authentication regression: `pnpm run test:auth` after build (owns isolated servers).
 - Workflow regression tests: `python3 -m unittest discover -s tests`.
 - Production preview: `pnpm run start` after build.
@@ -17,8 +19,8 @@
 ## Architecture and scope
 
 TypeScript, Next.js App Router, and Tailwind CSS v4. Root layout owns metadata
-and global CSS; the home page is a server component. Keep the initial home page
-blank except for its `Meal Planner` heading. Family/invitation controls live on
+and global CSS; the home page is a server component composing main’s approved
+recipe-search form and Meal Planner heading. Family/invitation controls live on
 separate pages. SQLite uses one durable local host/volume, typed bound native
 statements, reviewed SQL/journal in `drizzle/`, and the public migration loader.
 No runtime ORM/schema-builder imports: see the reviewed storage compatibility
@@ -45,6 +47,22 @@ invitation creation/acceptance/revocation and metadata writes use immediate
 transactions; GET/HEAD/proxy/render/session reads never provision or consume.
 Only verified Google callback admission may update an existing subject's email.
 Keep future shared entities scoped by required family owner; no recipe/meal CRUD.
+
+Recipe search/provider/photos remain as approved on main, with Node24 runtime,
+90-second Vercel route duration and cancellation configuration unchanged. Require
+current family context on the home page and search route before provider effects;
+pending identities cannot search. Preserve server-only provider configuration,
+text rendering, grounding/URL checks, paid-usage bounds, and photo SSRF protections
+(all-address validation, pinned HTTPS, no redirects/proxy/credentials, strict byte/
+time/encoding limits and two-job bounds). Never swallow parent abort.
+
+This family branch’s SQLite adapter is LOCAL-only and NOT Vercel-compatible.
+Do not configure DATABASE_PATH=/tmp, deploy it, or invent persistence with env vars.
+Hosted PostgreSQL migration/local setup is separate work in a new worktree; no
+DB provider provisioning or migration is authorized in this integration. Preserve
+main’s `vercel.json`, manual deployment gates and environment isolation. Follow
+`intent/vercel-deployment/deployment-runbook.md` for production operations; its
+existing release approval does not authorize deploying this family branch.
 
 ## Verification and workflow
 

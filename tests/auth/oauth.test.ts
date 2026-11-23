@@ -41,7 +41,19 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
   }
   const home = await jar.request(server.origin, '/');
   assert.equal(home.status, 200);
-  assert.match(await home.text(), /<h1[^>]*>Meal Planner<\/h1>/);
+  const homeHtml = await home.text();
+  assert.match(homeHtml, /<h1[^>]*>Meal Planner<\/h1>/);
+  assert.match(homeHtml, /What would you like to cook/);
+  const csp = home.headers.get('content-security-policy') ?? '';
+  assert.match(csp, /(?:^|; )img-src 'self' data: https:(?:;|$)/);
+  assert.match(csp, /script-src 'self' 'nonce-/);
+  assert.match(csp, /connect-src 'self'(?:;|$)/);
+  assert.match(csp, /frame-ancestors 'none'/);
+  const recipeRequest = () => ({ method: 'POST', headers: { Origin: server.origin, 'Content-Type': 'application/json' }, body: JSON.stringify({ query: '' }) });
+  // Invalid descriptions stop before provider discovery, so these checks never call an LLM.
+  const allowedSearch = await jar.request(server.origin, '/api/recipes/search', recipeRequest());
+  assert.equal(allowedSearch.status, 400);
+  assert.match(allowedSearch.headers.get('cache-control') ?? '', /no-store/);
   const hostStatus = await new Promise((resolve, reject) => {
     const request = httpRequest(`${server.origin}/api/session`, { headers: { Host: 'evil.example', Cookie: jar.header() } }, (response) => { response.resume(); resolve(response.statusCode); });
     request.once('error', reject); request.end();
@@ -75,6 +87,7 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
     invalid.values.set('better-auth.session_data', replacement);
     assert.equal((await invalid.request(server.origin, '/api/session')).status, 401);
     assert.equal((await invalid.request(server.origin, '/')).status, 307);
+    assert.equal((await invalid.request(server.origin, '/api/recipes/search', recipeRequest())).status, 401);
   }
   const onlyToken = new CookieJar();
   const signedToken = jar.values.get('better-auth.session_token');

@@ -23,7 +23,7 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
   const secret = randomBytes(48).toString('base64url');
   const config = typeof overrides === 'function' ? overrides(origin) : overrides;
   const database = config.DATABASE_PATH === undefined ? await testDatabase() : undefined;
-  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_PATH: database?.path, ...config };
+  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', OPENAI_API_KEY: '', DATABASE_PATH: database?.path, ...config };
   if (preload) env.NODE_OPTIONS = `--import=tsx --import=${new URL('./google-network.ts', import.meta.url).pathname}`;
   else delete env.NODE_OPTIONS;
   let output = '';

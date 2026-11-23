@@ -1,0 +1,26 @@
+{
+  "commit": "305b14aa6a31c35f22f2b428484362d93e12dbae",
+  "previous_main": "d5f158310e1d91e3a51c97c5887ca3906e9f773d",
+  "files": {
+    "org/memory/context.md": {
+      "archive": "org/merge/recipe-search-main-2026-11-23/main-followup/org/memory/context.md",
+      "sha256": "51b259debd8a6e779e8de09b8111a9d28a3dc2c393d50bd6543f46784af041cc"
+    },
+    "org/memory/events.jsonl": {
+      "archive": "org/merge/recipe-search-main-2026-11-23/main-followup/org/memory/events.jsonl",
+      "sha256": "792aa1d9576c6bdae3942918b4dfe73e550657756fcbd8ff2d883a7cb85fd1d8"
+    },
+    "org/reviews/authenticated-access-merge-verification.md": {
+      "archive": "org/merge/recipe-search-main-2026-11-23/main-followup/org/reviews/authenticated-access-merge-verification.md",
+      "sha256": "c6bffb60d1614b60f159154e6759b1d016377a1513db7ac3ef056ee8dc51800a"
+    },
+    "org/status.yaml": {
+      "archive": "org/merge/recipe-search-main-2026-11-23/main-followup/org/status.yaml",
+      "sha256": "eb0796e62208ed5eaf3703e431015ee4446203145370e24f9e045a85a80c4781"
+    },
+    "workflow-graph.yaml": {
+      "archive": "org/merge/recipe-search-main-2026-11-23/main-followup/workflow-graph.yaml",
+      "sha256": "a3658589a56e1d837ba3bb31b0c40c845b3b21b86de9be5290a53c80f0130911"
+    }
+  }
+}

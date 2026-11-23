@@ -11,7 +11,7 @@ round: 3
 ## Verdict and resolved findings
 
 The onboarding revision matches the owner's answer at
-`org/messages/ceo-0003.md:16`. The round-2 sequencing blocker is resolved:
+`org/messages/ceo-0019.md:16`. The round-2 sequencing blocker is resolved:
 `intent/family-membership/intent.md:38` requires resolving the new user's
 invitation before automatic family creation, and `:41` limits automatic creation
 to users without an invitation.
@@ -37,7 +37,7 @@ blocker found; it is already routed to the CEO, not a new review disagreement.
 
 ## Evidence and limits
 
-Read the complete revised intent, `ceo-0003`, and `product-manager-0007` and
+Read the complete revised intent, `ceo-0019`, and `product-manager-0007` and
 compared the delta with the two preceding independent reviews. No intent,
 message, state, or application source was modified by this review. No runtime
 tests, build, browser, database, or live authentication checks were run for this

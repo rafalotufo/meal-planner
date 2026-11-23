@@ -2,9 +2,9 @@
 
 - Author: Rafael (request); product-manager (intent capture)
 - Source: `org/intake/forms/family-membership-001.md`
-- Membership clarification: owner reply recorded in `org/messages/ceo-0002.md`
-- Onboarding clarification: owner reply recorded in `org/messages/ceo-0003.md`
-- Invitation access clarification: owner reply recorded in `org/messages/ceo-0004.md`
+- Membership clarification: owner reply recorded in `org/messages/ceo-0018.md`
+- Onboarding clarification: owner reply recorded in `org/messages/ceo-0019.md`
+- Invitation access clarification: owner reply recorded in `org/messages/ceo-0020.md`
 - Status: Accepted — product-manager under the org intent gate
 - PM decision: `org/reviews/intent-family-membership-acceptance-001.md`
 - Date: 2026-11-23
@@ -144,3 +144,15 @@ No blocking product question remains. Storage, stable identity mapping,
 invitation transport/lifecycle, and durable eligibility are Design decisions
 within the confirmed rules above. This accepts scope only; specification,
 plan, implementation, merge, and release retain their respective gates.
+
+## Local-main integration — 2026-11-23
+
+The explicit update-from-main request imports the approved recipe-search/photo
+home UI and Node24 Vercel configuration from main766a792. This supersedes the
+earlier heading-only display constraint for the integrated checkout; the home
+page and recipe search must require current family context before provider work.
+Family membership/invitation rules are unchanged. The current SQLite adapter
+remains local durable-host only and is NOT ready for Vercel Functions. Hosted
+PostgreSQL work is separate in a new worktree, with no provider provisioning or
+migration in this integration. Historical source documents and audit decisions
+are preserved in org/merge/family-main-2026-11-23 with SHA manifests.

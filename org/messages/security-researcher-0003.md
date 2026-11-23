@@ -1,18 +1,16 @@
 ---
 id: security-researcher-0003
 from: security-researcher
-to: senior-developer
-kind: finding
-subject: Family database path must reject served roots and symlink aliases
-artifact: org/reviews/family-membership-security-checkpoint.md
+to: orchestrator
+kind: status
+subject: pnpm migration security clear
+artifact: org/reviews/security-pnpm-migration-001.md
 requires_response: false
 in_reply_to: null
-status: closed
-severity: high
-blocking: true
-created_at: "2026-11-23T17:43:31Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/family-membership-security-checkpoint.md
+status: open
+severity: null
+blocking: false
+created_at: "2026-11-23T15:04:47Z"
 ---
 
-Early independent review proved configured DB path could point into Next-served roots, including dangling final-file symlink and legacy static. Developer fixed via lexical/physical root guards and lstat ancestor handling. Independent storage test rerun5/5pass; resolution recorded in interim assessment. Historical finding will be closed with that evidence before final review.
+No blocking findings. Independent version/integrity and script-policy checks passed; production pnpm audit zero. One retained moderate dev-only esbuild advisory, reassess by 2026-12-07 and before release; full evidence in review. No merge/release authorization.

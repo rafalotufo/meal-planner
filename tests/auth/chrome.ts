@@ -18,6 +18,7 @@ export async function openChrome() {
   let id = 0; const errors: string[] = []; const requests: string[] = [];
   const pending = new Map<number, { resolve(value: unknown): void; reject(error: Error): void }>();
   let oauth: { origin: string; code: string } | undefined;
+  let recipeOrigin: string | undefined;
   function send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
     return new Promise((resolve, reject) => { const key = ++id; pending.set(key, { resolve: (value) => resolve(value as T), reject }); socket.send(JSON.stringify({ id: key, method, params })); });
   }
@@ -29,10 +30,18 @@ export async function openChrome() {
     if (message.method === 'Log.entryAdded' && p?.entry && ['error', 'warning'].includes(p.entry.level)) errors.push(p.entry.text);
     if (message.method === 'Network.loadingFailed' && p?.errorText && p.errorText !== 'net::ERR_ABORTED') errors.push(p.errorText);
     if (message.method === 'Network.requestWillBeSent' && p?.request) requests.push(p.request.url);
-    if (message.method === 'Fetch.requestPaused' && p?.request && oauth) {
-      const authorization = new URL(p.request.url);
-      const location = `${oauth.origin}/api/auth/callback/google?code=${oauth.code}&state=${encodeURIComponent(authorization.searchParams.get('state') ?? '')}`;
-      send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 302, responseHeaders: [{ name: 'Location', value: location }] }).catch((error: unknown) => errors.push(String(error)));
+    if (message.method === 'Fetch.requestPaused' && p?.request) {
+      const target = new URL(p.request.url);
+      if (recipeOrigin && target.origin === recipeOrigin && target.pathname === '/api/recipes/search') {
+        const body = Buffer.from(JSON.stringify({ recipes: [{ title: 'Potato Gnocchi', sourceUrl: 'https://www.loveandlemons.com/gnocchi-recipe/', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Boil potatoes, mix with flour, shape the dough, and simmer until the gnocchi float.', time: { kind: 'cook', text: '30 minutes' } }] })).toString('base64');
+        send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body }).catch((error: unknown) => errors.push(String(error)));
+      } else if (recipeOrigin && target.origin === 'https://images.recipe-fixture.test') {
+        const body = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500"><rect width="500" height="500" fill="#e7dfcc"/><circle cx="250" cy="250" r="180" fill="#faf7ee"/><path d="M140 220h220v60H140z" fill="#b69f74"/></svg>').toString('base64');
+        send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'image/svg+xml' }], body }).catch((error: unknown) => errors.push(String(error)));
+      } else if (oauth && target.origin === 'https://accounts.google.com') {
+        const location = `${oauth.origin}/api/auth/callback/google?code=${oauth.code}&state=${encodeURIComponent(target.searchParams.get('state') ?? '')}`;
+        send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 302, responseHeaders: [{ name: 'Location', value: location }] }).catch((error: unknown) => errors.push(String(error)));
+      } else send('Fetch.continueRequest', { requestId: p.requestId }).catch((error: unknown) => errors.push(String(error)));
     }
   });
   for (const method of ['Page.enable', 'Runtime.enable', 'Network.enable', 'Log.enable']) await send(method);
@@ -53,11 +62,17 @@ export async function openChrome() {
     await send('Input.dispatchMouseEvent', { type: 'mousePressed', ...point, button: 'left', clickCount: 1 }); await send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...point, button: 'left', clickCount: 1 });
   }
   async function screenshot(path: string) { const result = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' }); await writeFile(path, Buffer.from(result.data, 'base64')); }
-  async function google(origin: string, code: string) { oauth = { origin, code }; await send('Fetch.enable', { patterns: [{ urlPattern: 'https://accounts.google.com/o/oauth2/*', requestStage: 'Request' }] }); }
+  async function patterns() {
+    const patterns = [{ urlPattern: 'https://accounts.google.com/o/oauth2/*', requestStage: 'Request' }];
+    if (recipeOrigin) patterns.push({ urlPattern: `${recipeOrigin}/api/recipes/search`, requestStage: 'Request' }, { urlPattern: 'https://images.recipe-fixture.test/*', requestStage: 'Request' });
+    await send('Fetch.enable', { patterns });
+  }
+  async function google(origin: string, code: string) { oauth = { origin, code }; await patterns(); }
+  async function recipes(origin: string) { recipeOrigin = origin; await patterns(); }
   async function close() {
     socket.close();
     if (chrome.exitCode === null && chrome.signalCode === null) { const exited = new Promise<void>((resolve) => chrome.once('exit', () => resolve())); chrome.kill('SIGTERM'); await exited; }
     await rm(profile, { recursive: true, force: true });
   }
-  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, errors, requests, close };
+  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, errors, requests, close };
 }

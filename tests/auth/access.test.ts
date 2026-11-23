@@ -67,3 +67,17 @@ test('HTTPS configuration issues Secure, host-only HttpOnly OAuth state cookies'
     }
   } finally { await secure.stop(); }
 });
+
+test('anonymous recipe searches reject direct calls before request processing', async () => {
+  const spoofHeaders: Record<string, string>[] = [{}, { 'x-middleware-subrequest': 'proxy:proxy:proxy:proxy:proxy' }];
+  for (const extra of spoofHeaders) {
+    const response = await fetch(`${server.origin}/api/recipes/search`, {
+      method: 'POST',
+      headers: { Origin: server.origin, 'Content-Type': 'application/json', ...extra },
+      body: JSON.stringify({ query: 'quick vegetarian dinner' }),
+    });
+    assert.equal(response.status, 401);
+    assert.deepEqual(await response.json(), { error: 'Unauthorized' });
+    assert.match(response.headers.get('cache-control') ?? '', /no-store/);
+  }
+});

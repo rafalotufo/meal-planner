@@ -1,16 +1,16 @@
 ---
 id: architect-0002
 from: architect
-to: ceo
-kind: question
-subject: Family membership specification ready for approval
-artifact: intent/family-membership/spec.md
-requires_response: true
+to: orchestrator
+kind: handoff
+subject: Vercel Hobby specification ready for human approval
+artifact: intent/vercel-deployment/spec.md
+requires_response: false
 in_reply_to: null
-status: answered
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-23T17:05:32Z"
+created_at: "2026-11-23T17:14:04Z"
 ---
 
-Review intent/family-membership/spec.md and independent review org/reviews/spec-family-membership-002.md. Proposed design: single durable-host SQLite/Drizzle; copied recipient-bound invitation links; stable verified Google subject; invitation-first POST onboarding; durable invitation grants beyond allowlist; no family switching. All product questions resolved. Existing baseline acceptance commands all pass at architect turn. Request specification approval before planning. Applied /Users/rafael/.agents/skills/spec-driven-development/SKILL.md explicitly says: Planning starts only after the human approves the spec in a later turn. No plan, application implementation, production migration, merge or release has been authorized.
+Rafael approved intent and selected rafalotufos-projects Hobby, new project, Vercel production URL and existing OpenAI limits without billing changes. Independent review round 2 has zero findings. Spec defines Node24, pinned pnpm, production-only secrets, cancellation, canonical origin checks, manual release and rollback/pause. Human spec gate is pending; no plan, code, provisioning or release authorized.

@@ -3,7 +3,7 @@
 - Derived from: approved sibling `spec.md` and accepted `intent.md`
 - Author: senior-developer
 - Status: Approved
-- Approval: Rafael; `org/messages/ceo-0006.md`; independent review `org/reviews/plan-family-membership-001.md`
+- Approval: Rafael; `org/messages/ceo-0022.md`; independent review `org/reviews/plan-family-membership-001.md`
 - Storage compatibility amendment: `storage-compatibility.md` — independently
   approved under the org spec/plan peer gate; see
   `org/reviews/family-membership-storage-amendment-001.md`. Original human approval is retained.
@@ -57,6 +57,16 @@
 - AGENTS.md
 - CLAUDE.md
 - org/loop/config.yaml
+
+- .vercelignore
+- .worktreeinclude
+- vercel.json
+- app/recipe-search.tsx
+- app/api/recipes/search/route.ts
+- lib/recipes/*.ts
+- tests/recipe-*.ts
+- tests/deployment/*.ts
+- tsconfig.recipes-test.json
 
 `[[]` matches literal opening brackets in the checker's fnmatch manifest.
 `pnpm-workspace.yaml` is conditional on an inspected new lifecycle-script need;
@@ -229,3 +239,20 @@ backup; rollback preserves data and documents that old allowlist-only code
 cannot serve invited users. No production migration, merge, push or release is
 authorized by plan approval. No blocking product question remains; native/mapping
 proof and independent implementation/security review remain required.
+
+## Authorized local-main integration — 2026-11-23
+
+The user requested updating this feature from local main766a792, which includes
+recipe search/photos and the completed Vercel deployment. Preserve those approved
+features and Node24 config. Main’s recipe home supersedes the earlier heading-only
+UI assertion, while this branch retains family guards before home/search access
+and paid provider work. Add integration regressions and update browser assertions
+to the actual approved form, not an artificial blank-page rollback. All tests
+remain strict TypeScript; no paid/production calls are used.
+
+The imported deployment config is not authorization to deploy the SQLite family
+branch. Hosted PostgreSQL work is deferred to a new worktree. Preserve both exact
+audit namespaces under org/merge/family-main-2026-11-23, keep the family graph in
+review, and verify combined install/lint/type/build/auth/family/recipe/photo/smoke/
+Python/browser checks in org/reviews/family-main-integration.md. No loop reset,
+new production action, provider migration or release is part of this update.

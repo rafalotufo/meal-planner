@@ -2,15 +2,17 @@
 id: security-researcher-0002
 from: security-researcher
 to: orchestrator
-kind: status
-subject: Authenticated access security clear
-artifact: org/reviews/security-authenticated-access-001.md
+kind: finding
+subject: Reject raw controls before metadata URL normalization
+artifact: org/reviews/security-recipe-photos-001.md
 requires_response: false
 in_reply_to: null
-status: open
-severity: null
+status: closed
+severity: medium
 blocking: false
-created_at: "2026-11-23T16:09:05Z"
+created_at: "2026-11-23T16:25:38Z"
+closed_by: orchestrator
+closed_evidence: org/reviews/security-recipe-photos-002.md
 ---
 
-Independent final review clear. Auth11/11, no client-address leaks or production fixture traces, targeted secret scanzero. Full/prod audit one moderate esbuild advisory unreachable in selected runtime, nohigh/critical; inherited deadline2026-12-07 retained. No liveGoogle/merge/release authority.
+MED input validation/source-binding finding in snapshot5cb9410 photo-metadata.ts:9-11: new URL(value.trim(),source) removes raw tabs/newlines before safeRecipeUrl can reject them. Independent TypeScript fixture /private/tmp/recipe-photo-control-character-repro.ts shows control-bearing image and Recipe identity accepted after normalization; zero network requests. Add pre-normalization raw-control rejection and failing TypeScript image/identity regressions. Existing final host/scheme checks remain: no private-fetch/credential/SSRF bypass is claimed. Review verdict changes; message severity medium, default nonblocking.

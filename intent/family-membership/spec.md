@@ -2,7 +2,7 @@
 
 - Derived from: accepted sibling `intent.md`
 - Author: architect
-- Status: Approved — Rafael; `org/messages/ceo-0005.md`
+- Status: Approved — Rafael; `org/messages/ceo-0021.md`
 - Storage compatibility amendment: `storage-compatibility.md` — independently
   approved under the org spec/plan peer gate; see
   `org/reviews/family-membership-storage-amendment-001.md`. Original human approval is retained.
@@ -473,7 +473,7 @@ interface is implicitly authorized.
 Always preserve strict checks, audit history, independent reviews, TypeScript
 tests, scoped server authorization and secret scanning. Never add a fake-user
 bypass, weaken failing tests or expose the eligibility list. Production changes,
-merge and release retain human gates. Human specification approval is recorded in `org/messages/ceo-0005.md`;
+merge and release retain human gates. Human specification approval is recorded in `org/messages/ceo-0021.md`;
 Build planning may proceed. Implementation requires an approved plan.
 
 Primary sources checked 2026-11-23 (rolling docs are cross-checked against pinned
@@ -498,3 +498,15 @@ packages; Build must verify native/platform and mapping behavior):
   Installed `node_modules/better-auth/dist/oauth2/link-account.mjs` and
   `dist/db/schema.mjs` confirm generated user identity and provider-field rules.
 - [Next server package externalization](https://nextjs.org/docs/app/api-reference/config/next-config-js/serverExternalPackages).
+
+## Local-main integration — 2026-11-23
+
+The explicit update-from-main request imports the approved recipe-search/photo
+home UI and Node24 Vercel configuration from main766a792. This supersedes the
+earlier heading-only display constraint for the integrated checkout; the home
+page and recipe search must require current family context before provider work.
+Family membership/invitation rules are unchanged. The current SQLite adapter
+remains local durable-host only and is NOT ready for Vercel Functions. Hosted
+PostgreSQL work is separate in a new worktree, with no provider provisioning or
+migration in this integration. Historical source documents and audit decisions
+are preserved in org/merge/family-main-2026-11-23 with SHA manifests.

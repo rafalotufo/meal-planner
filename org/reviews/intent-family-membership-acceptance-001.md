@@ -12,10 +12,10 @@ Accepted for Design under the PM scope authority in `org/protocol.md` and
 `org/org-chart.yaml`. This is a scope decision, not independent self-review.
 
 The owner resolved all three product questions: existing members cannot accept
-new invitations (`org/messages/ceo-0002.md`); invitees join existing families,
-and only users without invitations receive a new family (`ceo-0003.md`);
+new invitations (`org/messages/ceo-0018.md`); invitees join existing families,
+and only users without invitations receive a new family (`ceo-0019.md`);
 a valid invitation grants sign-in access beyond the Gmail allowlist
-(`ceo-0004.md`). Prior draft reviews remain unchanged as historical evidence.
+(`ceo-0020.md`). Prior draft reviews remain unchanged as historical evidence.
 
 The accepted intent establishes single-family membership, durable provisioning,
 recipient-bound invitations and shared family ownership for future entities.

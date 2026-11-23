@@ -11,7 +11,7 @@ round: 4
 ## Verdict
 
 Approved for Design. The remaining product ambiguity is resolved by the owner's
-choice recorded in `org/messages/ceo-0004.md`: a valid invitation grants access.
+choice recorded in `org/messages/ceo-0020.md`: a valid invitation grants access.
 The PM acceptance separately records its scope authority in
 `org/reviews/intent-family-membership-acceptance-001.md`. This independent review
 finds no blocking mismatch between the confirmed requests and accepted intent.

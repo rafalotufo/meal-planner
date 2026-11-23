@@ -20,7 +20,7 @@ the intent into Design or authorize implementation.
 - **Existing-member transition:** `intent/family-membership/intent.md:37`
   rejects acceptance for every existing member and requires atomic enforcement.
   `:107` attributes this rule to the owner, consistent with
-  `org/messages/ceo-0002.md:16`. Existing membership and data remain unchanged;
+  `org/messages/ceo-0018.md:16`. Existing membership and data remain unchanged;
   moving and data transfer are excluded at `:99`.
 - **Deletion/cleanup ambiguity:** `intent/family-membership/intent.md:109`
   removes provisional-family deletion as a joining mechanism. No abandoned
@@ -40,7 +40,7 @@ the intent into Design or authorize implementation.
 2. **Security / Compliance — invitation sign-in eligibility remains
    unanswered.** `intent/family-membership/intent.md:119` and
    `org/messages/product-manager-0006.md:16` retain the pending Gmail policy
-   question. The owner's `ceo-0002` answer concerns membership only. Preserve
+   question. The owner's `ceo-0018` answer concerns membership only. Preserve
    `lib/auth.ts:44` and `lib/session.ts:10` allowlist enforcement until an explicit
    decision establishes whether invitation recipients receive access.
 
@@ -51,7 +51,7 @@ the CEO, as already routed in `product-manager-0006`.
 
 ## Evidence and limits
 
-Read the complete revised intent, the round-1 review, `ceo-0002`, and
+Read the complete revised intent, the round-1 review, `ceo-0018`, and
 `product-manager-0006`; compared their statements with the original intake and
 the authentication boundaries inspected in round 1. No source code, intent,
 state, or message file was changed by this review. No application tests,

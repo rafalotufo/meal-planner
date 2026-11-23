@@ -3,7 +3,7 @@
 Read `AGENTS.md` for shared repository guidance, architecture, conventions,
 verification requirements, and agent-org gates.
 
-Use Node.js 22+ (tested with 24.15.0/pnpm 10.33.0). Install with `pnpm install --frozen-lockfile`.
+Use Node.js 24.x (tested with 24.15.0/pnpm 10.33.0). Install with `pnpm install --frozen-lockfile`.
 The package manager is pinned in `package.json`. If missing, bootstrap once with
 `npm install --global pnpm@10.33.0` and check `pnpm --version`.
 Run `pnpm run lint`, `pnpm run typecheck`, and `pnpm run build`; all must pass.
@@ -29,7 +29,10 @@ never expose the list in client code, HTML, errors or logs. Membership alone
 must not create an eligibility bypass. One-hour sessions do not refresh; logout
 clears cookies even after admission loss and cannot revoke copied cookies.
 
-Keep the home heading only; family controls live at `/family`. Private SQLite
+Keep main’s approved recipe-search home UI; family controls live at `/family`.
+The home/search endpoint must require current family context before provider
+effects. Preserve recipe/photo URL, SSRF, deadline/usage, cancellation and fallback
+protections. Run `pnpm test` and deployment helper regressions as well. Private SQLite
 storage requires one durable local host and absolute `DATABASE_PATH` outside
 public/.next/legacy static and aliases. Run `pnpm run db:migrate` explicitly;
 ordinary reads/build/imports never create or migrate storage. Reviewed SQL is the
@@ -54,3 +57,13 @@ New application tests and test helpers must use TypeScript, including HTTP,
 provider-fixture and browser helpers. Use the pinned tsx loader with Node's
 built-in test runner and keep them in strict TypeScript checking. Preserve
 the existing Python workflow regression tests; do not migrate or weaken them.
+
+## Integration and deployment boundary
+
+Main’s Vercel deployment remains live and unchanged. This family branch still
+requires local durable SQLite and is not ready for Vercel Functions. Do not use
+/tmp or an environment variable as a substitute for persistent storage. Hosted
+PostgreSQL work belongs in a separately requested worktree; no provider/DB
+provisioning or migration occurs here. Preserve Node24, main’s Vercel config,
+manual release gates and secret isolation. Existing production release records
+are historical authority for their source, never this family integration.

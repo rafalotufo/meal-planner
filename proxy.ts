@@ -13,7 +13,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.json({ error: "Misdirected request" }, { status: 421, headers: noStore });
   }
   const nonce = crypto.randomUUID().replaceAll("-", "");
-  const csp = `default-src 'self'; script-src 'self' 'nonce-${nonce}'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ""}; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
+  const csp = `default-src 'self'; script-src 'self' 'nonce-${nonce}'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ""}; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'`;
   let response: NextResponse;
   try {
     // A canonical configured origin, never a client-supplied Host, owns all redirects.
