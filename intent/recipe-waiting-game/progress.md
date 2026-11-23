@@ -59,3 +59,27 @@ Acceptance is recorded as product_owner_accept-011. Bounded turn 2 records the
 consultation without advancing past Design. Seven workflow tests passed again;
 the loop acceptance suite continues to record application-check failures with
 dependencies unavailable. No runtime verification is claimed.
+
+## Human intent approval and Design
+
+Rafael explicitly approved the amended intent (“intent approved”). Evidence:
+org/reviews/intent-recipe-waiting-game-human-approval-001.md and ceo-0019;
+ledger product_owner_accept-012 records that human decision against af0cdde.
+Architect dispatched for bounded turn 3 to produce spec.md, followed by
+independent review. This does not authorize implementation or approve the
+unwritten plan, merge or release.
+
+Architect produced spec.md and handoff architect-0003. Proposed Design uses
+12 small authored racks, 3–6-letter words, optional inline play, explicit
+post-success dismissal, and focus-preserving results arrival. Bounded turn 3
+records draft_spec. Independent review assigned as spec-recipe-waiting-game-001.
+The graph marks spec in_review, and org_loop.py next returns gate_required:
+spec requires product_owner_approve. No implementation plan or code is written.
+
+Seven workflow tests passed during Design. Application acceptance checks
+remain failing with missing dependencies, as recorded by the loop; this is
+document-stage evidence, not runtime/game verification.
+
+Independent reviewer approved spec-recipe-waiting-game-001 with no required
+findings; evidence org/reviews/spec-recipe-waiting-game-001.md and reviewer-0010.
+This is peer review only; specification approval from Rafael remains pending.
