@@ -8,7 +8,7 @@ agents:
   architect: { status: idle, assignment: null, last_report: Spec independently approved; Better Auth 1.7.27 stateless Google sessions; no DB. }
   senior-developer: { status: busy, assignment: intent/authenticated-access/plan.md, last_report: pnpm migration committed c7f2afe; independent security/code reviews approved; all checks passed. }
   security-researcher: { status: idle, assignment: null, last_report: pnpm security clear; production audit zero; existing moderate dev esbuild advisory retained. }
-  reviewer: { status: idle, assignment: null, last_report: "review spec-authenticated-access-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review plan-authenticated-access-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -19,3 +19,4 @@ review_queue:
   - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
