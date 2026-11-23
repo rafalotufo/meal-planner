@@ -8,10 +8,10 @@ intent/home-page/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 5
-- phase: security
-- stop_reason: None
+- status: exhausted
+- turn: 6
+- phase: review
+- stop_reason: exhausted
 
 ## Agents
 
@@ -20,7 +20,7 @@ intent/home-page/intent.md
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: busy (implementation)
+- security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -43,14 +43,15 @@ intent/home-page/intent.md
 - intent/home-page/spec.md (f94dac5da04f1886032e11a5e2ebe0107406461eb1c6a0ff384391777ac70fe3)
 - intent/home-page/plan.md (62f209d49eea4097f2986c38d6db1d88d3d32fc6496242238cee72acf7781292)
 - app/page.tsx (4579fcff73632afe1d6f56252b21ee8017482fb85e4e6273f5029861e5a0c519)
+- org/reviews/security-home-page-001.md (cdec61b6266a4369495b4328f69e33756c186fe0e101535e146f795e987ab6ee)
 
 ## Next action
 
-senior-developer:implement
+security-researcher:assess_security
 
 ## Last digest source
 
-- mem-0004 from org/reviews/code-home-page-001.md
+- mem-0006 from org/loop/state.yaml
 
 <!-- machine:end -->
 
