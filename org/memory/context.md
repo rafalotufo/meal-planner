@@ -9,13 +9,13 @@ intent/pnpm-migration/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: spec
+- turn: 2
+- phase: plan
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/pnpm-migration/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -28,6 +28,7 @@ intent/pnpm-migration/intent.md
 - architect-0001 architect -> orchestrator handoff: Draft pnpm migration specification ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
+- reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 
 ## Recent decisions
 
@@ -43,10 +44,11 @@ intent/pnpm-migration/intent.md
 ## Artifacts
 
 - intent/pnpm-migration/intent.md (045720746444fdbe2b223a5948ca7299c6038f42f0b55e49a1a98c13eedd7730)
+- intent/pnpm-migration/spec.md (4b2857a3c280b341461d4d3b57c60dbcf923462697735d2282e6557af5c69714)
 
 ## Next action
 
-product-manager:review_intent
+architect:draft_spec
 
 ## Last digest source
 
