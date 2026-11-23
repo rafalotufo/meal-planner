@@ -7,7 +7,7 @@ subject: Family membership build plan ready for approval
 artifact: intent/family-membership/plan.md
 requires_response: true
 in_reply_to: null
-status: open
+status: answered
 severity: null
 blocking: false
 created_at: "2026-11-23T17:17:36Z"

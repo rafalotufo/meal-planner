@@ -2,8 +2,8 @@
 
 - Derived from: approved sibling `spec.md` and accepted `intent.md`
 - Author: senior-developer
-- Status: Draft
-- Approval boundary: independently reviewed; human plan approval required before implementation
+- Status: Approved
+- Approval: Rafael; `org/messages/ceo-0006.md`; independent review `org/reviews/plan-family-membership-001.md`
 - Date: 2026-11-23
 
 ## Files that change
@@ -216,5 +216,5 @@ is enforced on every lookup and any later purge is separately reviewed. Before
 production migration obtain human authorization and a verified consistent
 backup; rollback preserves data and documents that old allowlist-only code
 cannot serve invited users. No production migration, merge, push or release is
-authorized by this draft. No blocking product question remains; native/mapping
-proof, independent review and human plan approval are the remaining checkpoints.
+authorized by plan approval. No blocking product question remains; native/mapping
+proof and independent implementation/security review remain required.

@@ -21,7 +21,7 @@ intent/family-membership/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/family-membership/plan.md)
 
 ## Open messages
 
@@ -31,6 +31,7 @@ intent/family-membership/intent.md
 - ceo-0003 ceo -> product-manager answer: Re: Family invitation onboarding and remaining Gmail eligibility decision
 - ceo-0004 ceo -> product-manager answer: Re: Remaining family invitation sign-in eligibility decision
 - ceo-0005 ceo -> architect answer: Re: Family membership specification ready for approval
+- ceo-0006 ceo -> senior-developer answer: Re: Family membership build plan ready for approval
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -48,15 +49,14 @@ intent/family-membership/intent.md
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
-- senior-developer-0004 senior-developer -> ceo question: Family membership build plan ready for approval
 
 ## Recent decisions
 
-- mem-0023 orchestrator: Owner explicitly approved merge to main. Fast-forwarded main b2e3266 to d5f1583 with current human gate merge-authenticated-access-001; no conflicts/source changes. On merged main, frozen install, Python7, lint, strict typecheck, build, auth11 and Chrome320/1440 passed. Implementation graph now merged; release remains not_started. Source worktree generated change/OAuth config preserved. (org/reviews/authenticated-access-merge-verification.md)
 - mem-0025 ceo: Owner clarified that anyone already in a family cannot accept a new invitation. No empty-family exemption, switching, or data transfer. Pending: new-invitee onboarding sequencing before automatic family creation, and Gmail allowlist policy. (org/messages/ceo-0002.md)
 - mem-0026 ceo: Owner confirmed invitees join existing families; new family creation applies only to users without an invitation. Resolve invitation before automatic provisioning. Existing family members cannot accept. Gmail allowlist eligibility remains open. (org/messages/ceo-0003.md)
 - mem-0027 product-manager: Accepted family membership scope after owner confirmed invitation-based sign-in eligibility beyond allowlist. Persist recipient-bound invitation grants, preserve Google verification and removal behavior for allowlist-only users; do not let membership imply eligibility. Architect drafting specification, no implementation yet. (org/reviews/intent-family-membership-acceptance-001.md)
 - mem-0029 ceo: Rafael approved the independently reviewed family membership specification at commit4ce2cd1. Build planning authorized; implementation still requires approved plan. Senior-developer drafting feature-local plan; no production migration/merge/release approval. (org/messages/ceo-0005.md)
+- mem-0031 ceo: Rafael approved the independently reviewed family build plan at f886fa9. Implementation/local verification authorized under approved spec and plan; no production migration, push, merge or release. Current plan approval plan-family-membership-001, not a historical reused gate. (org/messages/ceo-0006.md)
 
 ## Constraints
 
@@ -74,7 +74,7 @@ senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0030 from org/reviews/plan-family-membership-001.md
+- mem-0031 from org/messages/ceo-0006.md
 
 <!-- machine:end -->
 
