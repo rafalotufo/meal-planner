@@ -1,0 +1,70 @@
+# Autonomous agent org — orchestrator-led team.
+# The CEO is the human owner; every agent reports to the orchestrator, who
+# reports to the CEO. Keep this file committed: it is the org contract.
+version: 1
+
+owner:
+  role: ceo
+  human: true
+
+agents:
+  ceo:
+    title: Chief Executive Officer
+    human: true
+    reports_to: null
+    authority: [pr_merge_approval, release_authorization, escalation_final]
+  orchestrator:
+    title: Orchestrator
+    reports_to: ceo
+    authority: [dispatch, routing, budget_enforcement, gate_detection, memory_digest]
+  product-manager:
+    title: Product Manager
+    reports_to: orchestrator
+    authority: [intent_review, scope_decision, acceptance_criteria]
+  architect:
+    title: Architect
+    reports_to: orchestrator
+    authority: [system_design, interface_decision, adr, design_review]
+  senior-developer:
+    title: Senior Developer
+    reports_to: orchestrator
+    authority: [plan, implement, test, verify]
+  security-researcher:
+    title: Security Researcher
+    reports_to: orchestrator
+    authority: [threat_model, security_assessment, security_finding]
+  reviewer:
+    title: Reviewer
+    reports_to: orchestrator
+    authority: [peer_review]
+  memory-keeper:
+    title: Memory Keeper
+    reports_to: orchestrator
+    authority: [curate_context, record_decision, flag_stale_context]
+  product-engineer:
+    title: Product Engineering Agent
+    reports_to: orchestrator
+    enabled: false
+    authority: [file_tickets, draft_intents]
+
+gates:
+  intent: product_manager_review; escalate to CEO on ambiguity
+  spec: peer_review; escalate to CEO after two unresolved rounds
+  plan: peer_review; escalate to CEO after two unresolved rounds
+  pr_merge: human (CEO)
+  release: human (CEO); production gate + gate ledger record
+
+communication:
+  routes:
+    senior-developer: [architect, product-manager, security-researcher, reviewer, orchestrator]
+    reviewer: [senior-developer, security-researcher, orchestrator]
+    security-researcher: [senior-developer, reviewer, orchestrator]
+    architect: [senior-developer, product-manager, orchestrator]
+    product-manager: [orchestrator, product-engineer]
+    memory-keeper: [orchestrator]
+    orchestrator: ["*"]
+
+escalation:
+  owner: orchestrator
+  max_disagreement_rounds: 2
+  route: writer -> reviewer -> orchestrator -> ceo
