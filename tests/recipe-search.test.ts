@@ -40,6 +40,33 @@ test("invalid query shapes, JSON, media type and origin invoke no provider", asy
   assert.deepEqual(calls, []);
 });
 
+test("browser Origin matches validated direct Host even when Next synthesizes a bind-host request URL", async () => {
+  const { run, calls } = handler();
+  const nextRequest = new Request("http://0.0.0.0:3100/api/recipes/search", { method: "POST",
+    headers: { "Content-Type": "application/json", Host: "127.0.0.1:3100", Origin: "http://127.0.0.1:3100" },
+    body: JSON.stringify({ query: "" }) });
+  assert.equal((await run(nextRequest)).status, 400);
+  assert.deepEqual(calls, []);
+  const valid = new Request("http://0.0.0.0:3100/api/recipes/search", { method: "POST",
+    headers: { "Content-Type": "application/json", Host: "127.0.0.1:3100", Origin: "http://127.0.0.1:3100" },
+    body: JSON.stringify({ query: "chickpeas" }) });
+  assert.equal((await run(valid)).status, 200);
+  assert.deepEqual(calls, ["chickpeas"]);
+});
+
+test("direct Host validation rejects malformed authority and never trusts forwarded host or protocol", async () => {
+  const { run, calls } = handler();
+  for (const host of ["meal.example.com/path", "user@meal.example.com", "meal.example.com,evil.example.com",
+    "meal.example.com:65536", "meal.example.com:", "meal.example.com%0a", "meal.example.com\\evil"] ) {
+    assert.equal((await run(request({ query: "a" }, { Host: host, Origin: "https://meal.example.com" }))).status, 403);
+  }
+  assert.equal((await run(request({ query: "a" }, { Host: "meal.example.com", Origin: "https://evil.example.com",
+    "X-Forwarded-Host": "evil.example.com", "X-Forwarded-Proto": "https" }))).status, 403);
+  assert.equal((await run(request({ query: "a" }, { Host: "meal.example.com", Origin: "http://meal.example.com",
+    "X-Forwarded-Proto": "http" }))).status, 403);
+  assert.deepEqual(calls, []);
+});
+
 test("actual streamed body limit is enforced without trusting Content-Length", async () => {
   const { run, calls } = handler();
   const init: RequestInit & { duplex: "half" } = { method: "POST", duplex: "half",

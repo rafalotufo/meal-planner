@@ -23,6 +23,27 @@ function errorResponse(code: SearchErrorCode) {
   return json({ error: { code, message } }, status);
 }
 
+function directRequestOrigin(request: Request): string {
+  const url = new URL(request.url);
+  const host = request.headers.get("Host");
+  if (url.protocol !== "http:" && url.protocol !== "https:") throw new SearchError("FORBIDDEN_ORIGIN");
+  if (host === null) return url.origin;
+  if (!host || host.length > 260 || /[\s\\/@?#%]/.test(host) || host.endsWith(":")) {
+    throw new SearchError("FORBIDDEN_ORIGIN");
+  }
+  try {
+    const authority = new URL(`${url.protocol}//${host}`);
+    const defaultPort = url.protocol === "https:" ? ":443" : ":80";
+    const normalizedHost = host.toLowerCase().endsWith(defaultPort)
+      ? host.toLowerCase().slice(0, -defaultPort.length) : host.toLowerCase();
+    const dnsName = /^(?=.{1,253}$)[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*\.?$/;
+    if (authority.host !== normalizedHost || (!authority.hostname.startsWith("[") && !dnsName.test(authority.hostname))) {
+      throw new SearchError("FORBIDDEN_ORIGIN");
+    }
+    return authority.origin;
+  } catch { throw new SearchError("FORBIDDEN_ORIGIN"); }
+}
+
 async function readQuery(request: Request, signal: AbortSignal): Promise<string> {
   if (!request.body) throw new SearchError("INVALID_REQUEST");
   const reader = request.body.getReader();
@@ -87,7 +108,10 @@ export function createSearchHandler({ getProvider, now = Date.now, timeoutMs = 6
     try {
       if (request.signal.aborted) { abort(); throw new SearchError("SEARCH_TIMEOUT"); }
       const origin = request.headers.get("Origin");
-      if (origin !== null && origin !== new URL(request.url).origin) throw new SearchError("FORBIDDEN_ORIGIN");
+      // Next can synthesize Request.url from its bind hostname; direct Host is the browser authority.
+      // Forwarded headers are deliberately excluded from this same-origin boundary.
+      const expectedOrigin = directRequestOrigin(request);
+      if (origin !== null && origin !== expectedOrigin) throw new SearchError("FORBIDDEN_ORIGIN");
       if (request.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
         throw new SearchError("UNSUPPORTED_MEDIA_TYPE");
       }

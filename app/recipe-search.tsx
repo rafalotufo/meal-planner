@@ -104,7 +104,7 @@ export default function RecipeSearch() {
           {loading ? "Searching…" : "Find recipes"}<span aria-hidden="true">→</span>
         </button>
       </form>
-      <section aria-label="Recipe results" aria-busy={loading} className="mt-10">
+      <section aria-label="Recipe results" className="mt-10">
         <p role="status" aria-live="polite" aria-atomic="true" className="text-sm text-stone-600">{status}</p>
         {error ? <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900">{error}</p> : null}
         {recipes && recipes.length > 0 ? <>

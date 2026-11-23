@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/recipe-search/intent.md
 base_commit: 0bc1b139ba038834797602d6dfb05ab264b78129
-turn: 5
+turn: 6
 no_progress: 0
-phase: review
-status: in_progress
-last_input_hash: bcd8ff259a8df39c0803c0b32110b3fe9bc03702cc8932eac974fe0cb39f95a9
-stop_reason: null
-last_action: "security-researcher:assess_security"
-artifacts: [{"path": "intent/recipe-search/intent.md", "sha256": "189b443857eb9a970f353134560158dc589132980e8e23dd85cab5340471de1e"}, {"path": "intent/recipe-search/spec.md", "sha256": "22bfac988b8c532d69b1ac26e54730a3c58ee152d5ba13b1a6f2984b2ea331eb"}, {"path": "intent/recipe-search/plan.md", "sha256": "2970c430b0bab5b18653ec89e9203cc978056ef42afe4997e97a5e4a4e69a6ac"}, {"path": "app/recipe-search.tsx", "sha256": "b38bf0bf221dd2bf83224b0ff765e1e93e487a57d97a6456fe632950cf4482f0"}, {"path": "org/reviews/security-recipe-search-002.md", "sha256": "e65d515dce254910c400cb0feb72cbf147aee94147508e0f390b25a247daf6ff"}]
+phase: done
+status: solved
+last_input_hash: 564222df2579839ba58e0e8499cd96ab6609df9f25077bc9c528d98e19223ebe
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/recipe-search/intent.md", "sha256": "189b443857eb9a970f353134560158dc589132980e8e23dd85cab5340471de1e"}, {"path": "intent/recipe-search/spec.md", "sha256": "22bfac988b8c532d69b1ac26e54730a3c58ee152d5ba13b1a6f2984b2ea331eb"}, {"path": "intent/recipe-search/plan.md", "sha256": "2970c430b0bab5b18653ec89e9203cc978056ef42afe4997e97a5e4a4e69a6ac"}, {"path": "app/recipe-search.tsx", "sha256": "b38bf0bf221dd2bf83224b0ff765e1e93e487a57d97a6456fe632950cf4482f0"}, {"path": "org/reviews/security-recipe-search-002.md", "sha256": "e65d515dce254910c400cb0feb72cbf147aee94147508e0f390b25a247daf6ff"}, {"path": "org/reviews/code-recipe-search-002.md", "sha256": "a580a4ba9240ba9b77ce490a09e8e4cfda9f08634f6c695367ccdc708367c1a6"}]
 acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "npm test", "exit": 0, "pass": true}, {"command": "npm run lint", "exit": 0, "pass": true}, {"command": "npm run typecheck", "exit": 0, "pass": true}, {"command": "npm run build", "exit": 0, "pass": true}]
-updated_at: "2026-11-23T15:01:45Z"
+updated_at: "2026-11-23T15:27:42Z"

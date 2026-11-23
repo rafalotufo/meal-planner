@@ -38,8 +38,9 @@ test("incomplete, refused, malformed and contradictory research outcomes fail", 
     modelResponse({ outcome: "recipes", candidates: [] }, { search: true }),
     modelResponse({ outcome: "no_results", candidates: [candidate()] }, { search: true }),
     research([candidate({ sourceUrl: "https://localhost/recipe" })])]) {
-    const { service } = provider(response);
+    const { service, calls } = provider(response);
     await assert.rejects(service.search("chickpeas", options()), { code: "SEARCH_FAILED" });
+    assert.equal(calls.length, 1);
   }
 });
 
@@ -68,6 +69,112 @@ test("grounded research produces public cards through a tool-free strict curator
   assert.equal(calls[1].payload.text?.format.type, "json_schema");
   assert.equal(calls[1].payload.text?.format.strict, true);
   assert.equal(calls[1].payload.text?.format.schema.additionalProperties, false);
+});
+
+test("native citation display spans inside source/title JSON strings do not corrupt grounded recipe identity", async () => {
+  const item = candidate();
+  const marker = `([Recipe source](${item.sourceUrl}))`;
+  const response = research([candidate({ sourceUrl: `${item.sourceUrl} ${marker}`, title: `${item.title} ${marker}` })]);
+  const content = response.output.at(-1)!.content![0];
+  const text = content.text!;
+  content.annotations = [];
+  for (let offset = text.indexOf(marker); offset >= 0; offset = text.indexOf(marker, offset + marker.length)) {
+    content.annotations.push({ type: "url_citation", url: item.sourceUrl, title: "Recipe source",
+      start_index: offset, end_index: offset + marker.length });
+  }
+  const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+  const [recipe] = await service.search("chickpeas", options());
+  assert.equal(recipe.sourceUrl, item.sourceUrl);
+  assert.equal(recipe.title, item.title);
+});
+
+test("unannotated citation-looking source suffixes are rejected instead of used as URL authority", async () => {
+  const item = candidate();
+  const response = research([candidate({ sourceUrl: `${item.sourceUrl} ([Source](${item.sourceUrl}))` })],
+    { citations: [item.sourceUrl] });
+  const { service, calls } = provider(response);
+  await assert.rejects(service.search("chickpeas", options()), { code: "SEARCH_FAILED" });
+  assert.equal(calls.length, 1);
+});
+
+test("citation cleanup resolves astral Unicode and inclusive/exclusive native character offsets", async () => {
+  const item = candidate({ title: "🍋 Lemony chickpeas" });
+  const marker = `([Source](${item.sourceUrl}))`;
+  for (const codePoints of [false, true]) for (const inclusive of [false, true]) {
+    const response = research([candidate({ ...item, title: `${item.title} ${marker}` })]);
+    const content = response.output.at(-1)!.content![0];
+    const text = content.text!;
+    const start = text.indexOf(marker);
+    content.annotations = [{ type: "url_citation", title: "Source", url: item.sourceUrl,
+      start_index: codePoints ? Array.from(text.slice(0, start)).length : start,
+      end_index: (codePoints ? Array.from(text.slice(0, start + marker.length)).length : start + marker.length) - Number(inclusive) }];
+    const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+    assert.equal((await service.search("chickpeas", options()))[0]?.title, item.title);
+  }
+});
+
+test("native citation offsets are local to each output text part", async () => {
+  const item = candidate();
+  const marker = `([Source](${item.sourceUrl}))`;
+  const response = research([candidate({ sourceUrl: `${item.sourceUrl} ${marker}`, title: `${item.title} ${marker}` })]);
+  const message = response.output.at(-1)!;
+  const text = message.content![0].text!;
+  const split = text.indexOf(marker, text.indexOf('"title"'));
+  message.content = [text.slice(0, split), text.slice(split)].map((part) => {
+    const start = part.indexOf(marker);
+    return { type: "output_text", text: part, annotations: [{ type: "url_citation", title: "Source",
+      url: item.sourceUrl, start_index: start, end_index: start + marker.length }] };
+  });
+  const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+  assert.equal((await service.search("chickpeas", options()))[0]?.sourceUrl, item.sourceUrl);
+});
+
+test("invalid, overlapping and absent native offsets cannot recover contaminated URL strings", async () => {
+  const item = candidate();
+  const marker = `([Source](${item.sourceUrl}))`;
+  for (const mode of ["missing", "out-of-range", "overlap", "json-syntax"]) {
+    const response = research([candidate({ sourceUrl: `${item.sourceUrl} ${marker}` })]);
+    const content = response.output.at(-1)!.content![0];
+    const start = content.text!.indexOf(marker);
+    const annotation = { type: "url_citation", title: "Source", url: item.sourceUrl,
+      start_index: start, end_index: start + marker.length };
+    content.annotations = mode === "missing" ? [{ type: "url_citation", title: "Source", url: item.sourceUrl }]
+      : mode === "out-of-range" ? [{ ...annotation, end_index: content.text!.length + 1 }]
+      : mode === "json-syntax" ? [{ ...annotation, start_index: 0, end_index: content.text!.length }]
+      : [annotation, { ...annotation, start_index: start + 1, end_index: start + marker.length - 1 }];
+    const { service, calls } = provider(response);
+    await assert.rejects(service.search("chickpeas", options()), { code: "SEARCH_FAILED" });
+    assert.equal(calls.length, 1);
+  }
+});
+
+test("identical native citation ranges deduplicate before overlap detection", async () => {
+  const item = candidate();
+  const marker = `([Source](${item.sourceUrl}))`;
+  const response = research([candidate({ sourceUrl: `${item.sourceUrl} ${marker}` })]);
+  const content = response.output.at(-1)!.content![0];
+  const start = content.text!.indexOf(marker);
+  const annotation = { type: "url_citation", title: "Source", url: item.sourceUrl,
+    start_index: start, end_index: start + marker.length };
+  content.annotations = [annotation, { ...annotation }];
+  const { service } = provider(response, modelResponse({ recipes: [card(item)] }));
+  assert.equal((await service.search("chickpeas", options()))[0]?.sourceUrl, item.sourceUrl);
+});
+
+test("ambiguous native index interpretations do not trigger broad display-marker removal", async () => {
+  const sourceUrl = "https://a.example.com/r";
+  const marker = `([S](${sourceUrl}))`;
+  const item = candidate({ title: "🍋".repeat(marker.length), sourceUrl });
+  const { title, ...fields } = item;
+  const raw = { title, ...fields, sourceUrl: `${sourceUrl}${marker}${marker}` };
+  const response = research([raw]);
+  const content = response.output.at(-1)!.content![0];
+  const start = content.text!.indexOf(marker);
+  content.annotations = [{ type: "url_citation", title: "Source", url: sourceUrl,
+    start_index: start, end_index: start + marker.length }];
+  const { service, calls } = provider(response);
+  await assert.rejects(service.search("chickpeas", options()), { code: "SEARCH_FAILED" });
+  assert.equal(calls.length, 1);
 });
 
 test("method/source/title/ID mismatches drop cards instead of borrowing another recipe's evidence", async () => {

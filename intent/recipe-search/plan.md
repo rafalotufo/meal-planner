@@ -179,7 +179,7 @@ with installed Chrome. Keep optional QA tooling outside runtime dependencies.
 - [x] Add `npm test` to org acceptance, preserve existing commands/budgets/gates,
   and use `review_artifact: recipe-search-implementation` so a historical generic
   implementation approval cannot satisfy this feature's independent code review.
-- [ ] Run Python regressions, npm test, lint, typecheck, build, org consistency,
+- [x] Run Python regressions, npm test, lint, typecheck, build, org consistency,
   diff, plan-sync and staged zero-finding secret checks. Record actual commands,
   red/green evidence, browser simulation, and a separately labeled live smoke.
 
@@ -189,7 +189,7 @@ code/security review follows. The orchestrator commits the approved artifacts.
 
 ## Live evaluation, limits, and handoff
 
-A configured key is not currently available. Once the CEO configures an
+At initial planning, a configured key was not available. Once the CEO configures an
 authorized key locally, run one representative recipe query through the actual
 endpoint, record model/outcome/count/elapsed time, and compare returned titles,
 methods, links, time and photos against the original pages. Never print keys or
@@ -207,3 +207,30 @@ Workflow graph tooling currently checks historical gate names across features;
 historical approvals must never substitute for this feature's evidence. Preserve
 the hash-chained ledger and prior loop archive; do not alter audit history or
 weaken gates to silence warnings. Human merge and release approval remain.
+
+## Live-provider representation correction — 2026-11-23
+
+Architect consultation preserves the approved grounding contract while handling
+native citation display prose inserted into research JSON scalar strings. In
+`lib/recipes/openai.ts`, tighten the prompt to evidence-only citation placement
+and clean only unambiguous native-annotated display spans per text part before
+parsing; preserve native URL authority and every subsequent URL/evidence check.
+Follow the spec's conservative Unicode/index/overlap rules and trim only source
+URL/title surrounding whitespace. Add failing TypeScript transport fixtures in
+`tests/recipe-openai.test.ts` / `tests/recipe-fixtures.ts` for actual contaminated
+scalars, astral Unicode, invalid/overlapping ranges, and unannotated marker text;
+then rerun `npm test`, required checks, and independent code/security review.
+This does not permit arbitrary display parsing, URL-prefix recovery, relaxed
+URL validation, or another paid provider call by the architect.
+
+## Browser origin boundary correction — 2026-11-23
+
+Real browser testing exposed Next.js bind-host URL synthesis. The route compares
+Origin with the URL's HTTP(S) scheme and strictly validated direct Host, falling
+back to the URL origin only if Host is absent. Keep foreign/malformed origins
+blocked, reject malformed host authority, and ignore forwarded host/protocol
+headers. Add realistic bind-host/direct-Host and spoofing regressions, then
+repeat actual same-origin invalid-query HTTP checks before the live smoke.
+Also deduplicate identical native citation spans before detecting distinct
+overlap clusters; keep the duplicate-success and true-overlap-failure fixtures
+separate. No new proxy configuration, infrastructure, or provider behavior.

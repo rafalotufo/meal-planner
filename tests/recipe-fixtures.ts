@@ -4,7 +4,9 @@ type FixtureCandidate = {
   sourceUrl: string; title: string; methodText: string; imageUrl: string | null;
   imageEvidence: string | null; time: RecipeTime | null; timeEvidence: string | null;
 };
-type FixtureContent = { type: string; text?: string; annotations?: { type: string; url: string; title: string }[] };
+type FixtureContent = { type: string; text?: string; annotations?: {
+  type: string; url: string; title: string; start_index?: number; end_index?: number;
+}[] };
 type FixturePayload = Record<string, unknown> & { reasoning: { effort: string }; text?: { format: {
   type: string; strict: boolean; schema: { additionalProperties: boolean };
 } } };

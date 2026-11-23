@@ -8,16 +8,16 @@ intent/recipe-search/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 5
-- phase: review
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/recipe-search/intent.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -29,11 +29,11 @@ intent/recipe-search/intent.md
 
 ## Recent decisions
 
-- mem-0003 orchestrator: User requested all feature specifications under intent/<feature-slug>/. Moved intent/intent.md, spec.md, plan.md to intent/home-page/intent.md, spec.md, plan.md respectively. Updated active graph/work item without resetting turn budget; historical approval paths remain as originally recorded. (intent/README.md)
-- mem-0008 orchestrator: CEO requested next feature recipe-search and an agent-org run. Archived home-page state/history/graph before initializing a new six-turn feature budget; prior ledger and audit records retained. (org/intake/forms/recipe-search-001.md)
 - mem-0009 ceo: Recipe search discovers existing web recipes with source links. Start with OpenAI API behind configurable provider selection and a small extensible interface; future Gemini adapter is deferred. (org/messages/ceo-0002.md)
 - mem-0010 ceo: New recipe test scripts and fixtures must be TypeScript; compile with existing TypeScript then use Node native test runner. Update plan manifest to match; retain Python workflow regressions. (org/messages/ceo-0003.md)
 - mem-0011 security-researcher: Recipe-search security clear after correcting stalled-body deadline/abort cancellation and preserving per-process admission/accounting; live source fidelity and release decisions remain pending. (org/reviews/security-recipe-search-002.md)
+- mem-0012 ceo: Use existing ignored local OpenAI configuration for live verification. Add root-only /.env.local to .worktreeinclude on feature branch for future local Codex-managed worktrees after merge; no credential contents committed. (org/messages/ceo-0004.md)
+- mem-0013 reviewer: Recipe-search code and bounded spec/plan amendments approved after34 TypeScript tests and7 Python workflow tests; browser and sampled live OpenAI search pass with2 source-checked recipes in21.51s. Public endpoint origin filtering is not authentication; human merge/release and production access/shared-quota policy remain outstanding. (org/reviews/recipe-search-verification.md)
 
 ## Constraints
 
@@ -46,14 +46,15 @@ intent/recipe-search/intent.md
 - intent/recipe-search/plan.md (2970c430b0bab5b18653ec89e9203cc978056ef42afe4997e97a5e4a4e69a6ac)
 - app/recipe-search.tsx (b38bf0bf221dd2bf83224b0ff765e1e93e487a57d97a6456fe632950cf4482f0)
 - org/reviews/security-recipe-search-002.md (e65d515dce254910c400cb0feb72cbf147aee94147508e0f390b25a247daf6ff)
+- org/reviews/code-recipe-search-002.md (a580a4ba9240ba9b77ce490a09e8e4cfda9f08634f6c695367ccdc708367c1a6)
 
 ## Next action
 
-security-researcher:assess_security
+reviewer:review
 
 ## Last digest source
 
-- mem-0011 from org/reviews/security-recipe-search-002.md
+- mem-0013 from org/reviews/recipe-search-verification.md
 
 <!-- machine:end -->
 

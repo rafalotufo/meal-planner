@@ -7,7 +7,7 @@ browser verification, and human merge/release gates remain separate.
 
 | Command | Actual result |
 | --- | --- |
-| `npm test` | Exit 0; 25 tests, 25 pass, 0 fail, 0 skipped, 0 cancelled. TypeScript services/tests compile before Node's native runner. |
+| `npm test` | Exit 0; 34 tests, 34 pass, 0 fail, 0 skipped, 0 cancelled. TypeScript services/tests compile before Node's native runner. |
 | `npm run lint` | Exit 0; ESLint with `--max-warnings 0`, no findings. |
 | `npm run typecheck` | Exit 0; Next route types generated and TypeScript completed. |
 | `npm run build` | Exit 0; compiled successfully, TypeScript passed, static `/`, dynamic `/api/recipes/search`. |
@@ -67,7 +67,51 @@ invalid and twenty-five unconfigured requests still leave the full twenty valid
 searches available. Final `npm test`: 25 tests, 25 pass, no failures/skips. This
 records implementation evidence; independent security rereview remains required.
 
+## Live-discovered citation representation revision
+
+The first configured endpoint smoke returned controlled `502 SEARCH_FAILED`.
+One bounded diagnostic used injected transport around the actual adapter and
+printed only sanitized status/type/count metadata, never credentials, headers,
+or raw provider error messages. Research returned HTTP 200 / completed, three
+completed web-search calls, valid 2,201-character JSON, and eight native URL
+citations. Citation display text had been appended inside `sourceUrl` strings;
+strict URL validation correctly rejected every contaminated candidate.
+
+A regression reproducing this payload failed before the fix. Following the
+architect's representation clarification, the research prompt now restricts
+display citations to method/evidence strings. Before parsing JSON, cleanup
+removes only bounded native-annotated citation display spans proven to lie
+inside JSON strings. It resolves a unique character-index interpretation,
+preserves quotes/escapes and underlying URLs, and skips invalid/ambiguous or
+overlapping spans. Native annotation URLs remain the sole source authority;
+unannotated display text cannot recover a URL or bypass exact citation checks.
+
+Six additional tests cover contamination, astral Unicode and index conventions,
+multiple output-text parts, and invalid/overlapping/missing/ambiguous offsets.
+After implementation, `npm test` passed all 31 tests. The diagnostic itself did
+not establish success; the final end-to-end result is recorded below.
+
+The independent code reviewer also found the live loading status inside an
+`aria-busy` ancestor. Root's browser assertion failed before the one-line fix;
+the busy ancestor was removed so the status announcement is not deferred.
+The final browser rerun passed the assertion that the searching status has no
+`aria-busy=true` ancestor while the request is pending.
+
 ## Real-browser evidence
+
+Later real-browser live smoke exposed a pre-provider `403`: Next.js constructs
+the route Request URL from its bind hostname, which can differ from the direct
+Host used by the browser. An invalid-query wire repro confirmed the rejection
+without paid provider work. Three additional regressions failed first (31 pass,
+3 fail): realistic bind-host/direct-Host matching, malformed/forwarded-host
+handling, and duplicate citation spans incorrectly treated as overlaps.
+
+The route now uses the URL's HTTP(S) scheme with strictly validated direct Host,
+falling back to the URL origin only when Host is absent. Forwarded headers are
+not trusted. Identical native ranges deduplicate before distinct-overlap checks;
+separate fixtures cover both outcomes. All 34 tests pass. The final production
+wire rerun passed eight cases, including same-origin invalid input returning
+400 and foreign Origin returning 403, without provider invocation.
 
 Orchestrator ran the production build at `http://127.0.0.1:3100` with isolated
 Google Chrome `157.0.8103.79` and temporary Playwright `1.65.1`. The TypeScript
@@ -108,12 +152,30 @@ without changing application behavior.
 
 ## Live-provider evidence
 
-Pending configured `OPENAI_API_KEY` and explicit readiness from the CEO/root.
-No live provider requests have been made by the implementation agent. A live
-smoke must record model/outcome/count/elapsed time and compare actual returned
-titles/methods/time/photos/links with the original recipe pages. The completed
-fixture tests do not establish live recipe accuracy or photo availability.
-This gap prevents claiming full live-search acceptance.
+Passed with the authorized local OpenAI configuration. The final TypeScript
+`live-browser-qa.ts` submitted a generic vegetarian chickpea/spinach query
+through the actual production UI and endpoint: HTTP 200, **21.51 seconds**, two
+recipes, default model `gpt-6.2-sol`. This run used no browser interception.
+Zero uncaught page errors; no horizontal overflow at 320, 768, 1024, and 1440
+CSS pixels. Actual desktop/mobile screenshots were saved and visually inspected
+as `recipe-search-live-desktop.png` and `recipe-search-live-mobile.png`.
+
+The orchestrator opened both original pages and checked every returned recipe:
+
+| Original source | Observed agreement |
+| --- | --- |
+| [Budget Bytes](https://www.budgetbytes.com/curried-chickpeas-spinach/) | Title and short method match; source recipe card explicitly gives total 25 mins. Returned photo URL is the original page's image link and loaded correctly. |
+| [Great British Chefs](https://www.greatbritishchefs.com/recipes/quick-chickpea-spinach-curry-recipe) | Title and method match; article and covered-pan step explicitly give cooking time 15 minutes. The page's 20-minute heading was not mislabeled as cooking time. No photo URL was retrieved, so the UI used its honest fallback. |
+
+The independent code reviewer separately opened both pages and inspected the
+actual screenshots. This is a successful sampled live evaluation, rather than
+a guarantee that every future model response is accurate.
+
+Credential configuration remained ignored: the CEO's `env.local` was removed
+after copying its value to root `.env.local` with the expected
+`OPENAI_API_KEY` name. No credential values were displayed or committed.
+Tracked `.worktreeinclude` contains only `/.env.local`; it applies to future
+local Codex-managed worktrees created from a revision containing that file.
 
 ## Documentation sources
 
@@ -150,7 +212,20 @@ found zero vulnerabilities. The recorded medium finding was closed with that
 rereview as evidence. Actual endpoint validation was rerun against the corrected
 production build and passed without provider calls.
 
-Independent code review and live source sampling remain pending. Staged
-plan-sync/secret checks and real-browser QA passed at the implementation
-checkpoint; they will be checked again for the final handoff. No merge/release
-is performed or authorized by this report.
+Targeted security review `security-recipe-search-003.md` is clear after the
+native-citation and direct-Host fixes, independently passing all 34 tests and
+additional source-authority/origin probes. Final code review
+`code-recipe-search-002.md` is approved, including the bounded spec/plan and
+worktree-include amendments. All required automated checks and browser/live
+acceptance have passed; final staged plan-sync and diff checks exited 0, and
+the staged secret scan reported `0 finding(s)`. Human merge and release
+approval remain outstanding. The six-turn agent loop recorded `solved`; the
+workflow graph holds implementation at `in_review` for human code-owner merge.
+No Git remote is configured, so the reviewable deliverable is the local
+`codex/recipe-search` branch; no push, PR, merge, or release was performed.
+
+The endpoint is public: Origin filtering is not authentication and non-browser
+clients can replay requests. Existing limits are per process (two active,
+twenty accepted searches per minute). Authentication, anonymous bot controls,
+shared quotas and global spending policy require a product/release decision;
+this feature does not claim to prove a request came from the website UI.

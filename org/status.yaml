@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: intent/recipe-search/intent.md, last_report: null }
+  orchestrator: { status: idle, assignment: null, last_report: Six-turn recipe-search agent loop solved; verified local branch awaits human merge/release. }
   product-manager: { status: idle, assignment: null, last_report: Accepted confirmed web-recipe discovery with configurable OpenAI-first provider. }
   architect: { status: idle, assignment: null, last_report: Recipe-search spec independently approved after evidence-binding and empty-result fixes. }
-  senior-developer: { status: idle, assignment: null, last_report: Security intake fix verified with25 TypeScript tests and all required checks. }
-  security-researcher: { status: idle, assignment: null, last_report: Recipe-search security clear after independent intake-timeout rereview; production audit zero. }
-  reviewer: { status: idle, assignment: null, last_report: "review plan-recipe-search-002: approved" }
+  senior-developer: { status: idle, assignment: null, last_report: "Recipe-search complete locally;34 TypeScript tests and all checks pass, live browser/source sample verified." }
+  security-researcher: { status: idle, assignment: null, last_report: Targeted security review003 clear; native citation authority and direct-origin probes pass. }
+  reviewer: { status: idle, assignment: null, last_report: Recipe-search final code review002 approved; no unresolved findings. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -19,3 +19,5 @@ review_queue:
   - { id: spec-recipe-search-002, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: plan-recipe-search-001, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-recipe-search-002, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-001, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-search-002, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }

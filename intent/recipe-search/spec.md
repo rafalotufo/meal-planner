@@ -116,8 +116,9 @@ is fixed to `https://api.openai.com/v1/responses`, never request-controlled.
    `title`, source-observed `methodText`, nullable `imageUrl`/`imageEvidence`, and
    nullable `time`/`timeEvidence` using the public time shape. Each evidence
    string belongs only to that candidate's exact source URL. Request native URL
-   citations for every candidate; any citation prose belongs inside JSON string
-   values so the envelope remains parseable. Ask for the exact image URL only
+   citations for every candidate; citation prose belongs only in `methodText`,
+   `imageEvidence`, or `timeEvidence` string values. Keep `sourceUrl`, `title`,
+   `imageUrl`, and time scalars plain, without citation display prose. Ask for the exact image URL only
    if the retrieved source supplies one; otherwise record it as null. An
    explicit `no_results` outcome requires an empty candidates array. Search
    snippets without enough method information do not qualify. The server parses
@@ -144,7 +145,36 @@ shell, application tools, credentials in messages, or ability to modify data.
 ## Grounding and validation
 
 Never parse citation display markers as authoritative URLs. Extract real
-`url_citation` annotations from the research response. A displayed `sourceUrl`
+`url_citation` annotations from the research response.
+
+Live-provider representation clarification (architect consultation, 2026-11-23):
+hosted search may insert citation display prose inside JSON scalar strings even
+when plain values were requested. Before JSON parsing, an adapter may remove
+only native `url_citation`-annotated display spans from their own `output_text`
+part. A removable span must be an unambiguous complete citation display inside
+a JSON string, not the underlying field URL, arbitrary prose, JSON delimiters,
+or structural syntax. Retain annotation URLs separately and unchanged as the
+sole citation authority. Do not extract a URL from display Markdown, take a URL
+prefix from contaminated text, or globally strip marker-like substrings.
+
+The API reference describes character indices without specifying JavaScript
+UTF-16 units; never blindly apply them to `String.slice`. Resolve bounded
+Unicode-code-point/UTF-16 and inclusive/exclusive-end interpretations against
+the complete display-only span; accept only one distinct valid span. Deduplicate
+identical spans, skip invalid/out-of-range/ambiguous or nonidentically overlapping
+ranges, and remove accepted spans from right to left. Remaining malformed JSON
+or contaminated URLs still fail existing checks. Missing offsets grant no
+cleanup authority. After parsing, trim only surrounding whitespace from source
+URL and title. Preserve exact normalized native-citation membership, candidate
+binding, evidence checks, and all bounds. Regression fixtures cover annotated
+source/title contamination, astral Unicode before citations, invalid/overlapping
+ranges, and unannotated marker text which must not be stripped.
+
+[Responses annotation fields](https://developers.openai.com/api/reference/resources/responses/methods/create)
+document native URLs and character offsets; the conservative ambiguity handling
+above is application policy, not a documented promise about index units.
+
+ A displayed `sourceUrl`
 must exactly match a normalized safe URL in those annotations (normalization
 removes a fragment and normalizes standard URL encoding/host/default port;
 do not strip arbitrary query parameters or broaden to an entire domain).
@@ -217,9 +247,14 @@ art or a guessed social/image URL.
 - Render all model/user strings as React text. No model HTML, Markdown renderer,
   `dangerouslySetInnerHTML`, or arbitrary attributes. Source links use
   `rel="noopener noreferrer"` when opening a new tab.
-- Accept same-origin browser requests; reject a present Origin different from
-  the request URL's origin, use no permissive CORS headers, and do not treat
-  this check as authentication or a substitute for usage limits.
+- Accept same-origin browser requests; compare a present Origin with the request
+  URL's HTTP(S) scheme and strictly validated direct `Host` authority, because
+  Next.js may synthesize the URL hostname from its bind address. Reject malformed
+  Host values, credentials, control characters and non-authority syntax; only
+  fall back to the URL origin when Host is absent. Do not trust forwarded host
+  or protocol headers, add permissive CORS, or treat this check as authentication
+  or a substitute for usage limits. Public reverse-proxy origin configuration is
+  a future deployment decision.
 - Do not persist queries/results, log full prompts/provider responses, or expose
   upstream error details. README explains API-key configuration without secrets.
   Preserve `.env` ignores. No database infrastructure or dependency upgrades.
