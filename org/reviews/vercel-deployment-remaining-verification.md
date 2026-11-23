@@ -164,9 +164,13 @@ Rafael answered “Budge will stop requests” to the controls verification requ
 (ceo-0013): budget enforcement is owner-attested, not independently inspected.
 Rafael subsequently confirmed the current monthly budget is $20 (ceo-0014;
 currency unspecified). Amount and enforcement are owner-attested existing
-configuration. Alert thresholds and effective gpt-6.2-sol requests/minute and
-tokens/minute remain unrecorded. No setting is changed and production remains
-paused without resume authorization.
+configuration. Rafael supplied gpt-6.2-sol limits (ceo-0015):4,000,000 TPM,
+10,000 RPM and50,000 IPM (IPM label preserved as supplied). These values are
+owner-reported existing configuration, not an independent account inspection.
+Only alert thresholds remain unrecorded in the provider inventory. Budget
+enforcement remains owner-confirmed; a separate screenshot of its UI setting
+is not required. No setting is changed and production remains paused without
+resume authorization.
 
 Official provider documentation distinguishes enforced spend limits from
 alerts and notes tracking delays; the existing spec already preserves delayed
