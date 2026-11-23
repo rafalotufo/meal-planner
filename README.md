@@ -7,8 +7,9 @@ available photos and source-supported cooking times, styled with Tailwind CSS v4
 > This branch uses PostgreSQL for local development and Vercel-compatible family
 > persistence. Native Mac setup is below. Separate Neon Preview/Production
 > databases are migrated and their Vercel connection variables are configured.
-> No deployment was made. Human merge/release authorization remains required;
-> prior release approvals do not apply.
+> Main is merged. The first PostgreSQL Production attempt is paused after a
+> proxy packaging failure; see org/reviews/postgresql-production-live-001.md.
+> A reviewed correction and renewed release authorization are required to resume.
 
 ## Recipe search notebook
 
@@ -171,7 +172,7 @@ pnpm run typecheck
 pnpm run build
 pnpm run test:auth
 pnpm run test:family
-node --import tsx --test tests/deployment/smoke.test.ts
+node --import tsx --test tests/deployment/*.test.ts
 pnpm run start
 ```
 
@@ -366,9 +367,9 @@ MIGRATION_DATABASE_URL and bootstrap credentials remain only in owner-private,
 ignored .data/neon files; no migration-owner credential is stored in Vercel.
 Local .env.local continues to target native Mac PostgreSQL.
 
-There was no deployment/promotion, no local-data import and no fixture data left in
-either hosted database. The existing production deployment is unchanged; new database
-variables apply to a future deployment. Preview currently has only its database
+At the hosted-setup checkpoint there was no deployment/promotion, no local-data
+import and no fixture data left in either hosted database. The later first Production
+attempt and current pause are recorded above. Preview currently has only its database
 variable: before deploying that app, configure its own auth origin/secret and Google
 OAuth credentials/callback. Do not silently reuse Production auth/provider secrets.
 
@@ -395,3 +396,13 @@ Every feature keeps its intent and specifications in `intent/<feature-slug>/`:
 is in `intent/postgresql-persistence/`; prior family/Vercel artifacts and loop snapshots remain historical evidence. See `intent/README.md` for the convention; review and
 verification evidence lives in `org/reviews/`.
 Human approval remains required for merges and releases.
+
+Runtime catalog and ordered migration hashes/timestamps are bundled into server
+code, including the separate proxy. `pnpm run build` first compares the committed
+runtime migration metadata with the public Drizzle loader's current SQL/journal
+and refuses stale inputs. Explicit migrations perform that same check before
+opening the database. Any reviewed schema change must update the corresponding
+runtime metadata together; never skip the verifier or regenerate it at startup.
+The deployment regression runs the compiled app without source/migration files
+against an isolated PostgreSQL database, so local filesystem availability cannot
+hide a missing production dependency.

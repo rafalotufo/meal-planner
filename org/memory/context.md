@@ -17,7 +17,7 @@ intent/postgresql-persistence/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (postgresql-production-release)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -50,6 +50,7 @@ intent/postgresql-persistence/intent.md
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0021 orchestrator -> reviewer handoff: PostgreSQL release candidate preparation
 - orchestrator-0022 orchestrator -> ceo handoff: Reviewed PostgreSQL Production candidate ready for final gates
+- orchestrator-0023 orchestrator -> ceo handoff: Reviewed PostgreSQL recovery candidate; Production paused
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -104,7 +105,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0070 from org/reviews/postgresql-production-verification.md
+- mem-0071 from org/reviews/postgresql-proxy-verification.md
 
 <!-- machine:end -->
 

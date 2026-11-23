@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: postgresql-production-release, last_report: Integrated main notebook into PostgreSQL release candidate; strict build,121Node and7Python tests plus fixture Chrome pass. Private snapshot logical restore verified. Independent code,security and release preparation reviews approved; no deployment or paid calls. Human source merge and bounded live-check approval remain gates. User next-env dev change preserved. }
+  orchestrator: { status: idle, assignment: null, last_report: "Main merged and first PostgreSQL Production release attempted; allowed onboarding failed closed due proxy packaging. Owner paused project; HTTP503 DEPLOYMENT_PAUSED verified. Corrected bundled metadata and invitation cookie handoff pass127Node+7Python, strict build and production/cold-dev Chrome. Independent code/security reviews approve. Await renewed exact-source merge/release/resume authority; zero paid searches used; Preview and DB preserved." }
   product-manager: { status: idle, assignment: null, last_report: "PostgreSQL intent independently accepted under org protocol, scoped to native local setup and Vercel-compatible code; production and human merge gates remain separate." }
   architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
   senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
@@ -11,6 +11,8 @@ agents:
   reviewer: { status: idle, assignment: null, last_report: "Hosted PostgreSQL operational plan/helper/final handoff approved; separate migrated Neon environments and scoped Vercel variable evidence verified, no deployment/merge/release allowed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
+  - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: postgresql-proxy-security-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: security-researcher, rounds: 1, verdict: approved, status: approved }
   - { id: postgresql-production-code-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: postgresql-production-security-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: security-researcher, rounds: 0, verdict: approved, status: approved }
   - { id: postgresql-production-release-001, artifact: postgresql-production-preparation, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

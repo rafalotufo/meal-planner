@@ -34,14 +34,14 @@ try {
             await browser.waitFor("document.body.innerText.includes('Invitation link copied.') || document.body.innerText.includes('Select and copy the invitation link below.')", 'keyboard Copy control feedback');
         }
         catch (error) {
-            await browser.screenshot('org/reviews/postgresql-release-family-copy-failure.png');
+            await browser.screenshot('org/reviews/postgresql-recovery-family-copy-failure.png');
             console.log(JSON.stringify({ errors: browser.errors, focusedLabel: await browser.evaluate('document.activeElement.textContent'), feedback: await browser.evaluate("document.querySelector('[role=status]')?.textContent") }));
             throw error;
         }
         assert.equal(new URL(link).origin, server.origin);
         for (const width of [320, 1440]) {
             await browser.viewport(width);
-            await browser.screenshot(`org/reviews/postgresql-release-family-management-${width}.png`);
+            await browser.screenshot(`org/reviews/postgresql-recovery-family-management-${width}.png`);
         }
         await browser.send('Network.clearBrowserCookies');
         await browser.google(server.origin, 'invitee');
@@ -52,7 +52,7 @@ try {
         await browser.waitFor("location.pathname === '/onboarding' && document.body.innerText.includes('Join family')", 'unlisted invited onboarding');
         for (const width of [320, 1440]) {
             await browser.viewport(width);
-            await browser.screenshot(`org/reviews/postgresql-release-family-join-${width}.png`);
+            await browser.screenshot(`org/reviews/postgresql-recovery-family-join-${width}.png`);
         }
         await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
         await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
@@ -71,7 +71,7 @@ try {
         await browser.waitFor('!document.querySelector(\'button[aria-label="Revoke invitation for revoke@example.test"]\')');
         for (const width of [320, 1440]) {
             await browser.viewport(width);
-            await browser.screenshot(`org/reviews/postgresql-release-family-joined-${width}.png`);
+            await browser.screenshot(`org/reviews/postgresql-recovery-family-joined-${width}.png`);
         }
         await browser.navigate(`${server.origin}/sign-out`);
         await browser.waitFor('Boolean(document.querySelector("button"))');
@@ -94,13 +94,13 @@ try {
         await browser.waitFor("location.pathname === '/sign-in' && document.querySelector('button')?.textContent.includes('Continue with Google')", 'development StrictMode invitation context');
     }
     catch (error) {
-        await browser.screenshot('org/reviews/postgresql-release-family-dev-context-failure.png');
+        await browser.screenshot('org/reviews/postgresql-recovery-family-dev-context-failure.png');
         console.log(JSON.stringify({ errors: browser.errors, paths: browser.requests.map((url) => new URL(url).pathname), server: server.output() }, null, 2));
         throw error;
     }
     assert.equal(await browser.evaluate('location.hash'), '');
     assert.deepEqual(browser.errors, []);
-    await browser.screenshot('org/reviews/postgresql-release-family-dev-context.png');
+    await browser.screenshot('org/reviews/postgresql-recovery-family-dev-context.png');
     console.log('Development Chrome: StrictMode fragment capture preserved and sign-in reached without application errors.');
 }
 finally {
