@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { setImmediate as nextTurn } from "node:timers/promises";
+import { setImmediate as nextTurn, setTimeout as delay } from "node:timers/promises";
 import { createRecipeProvider, createSearchHandler } from "../lib/recipes/search.js";
 import { SearchError } from "../lib/recipes/errors.js";
 import type { Recipe, RecipeSearchProvider } from "../lib/recipes/types.js";
@@ -99,6 +99,22 @@ test("twenty accepted searches per rolling minute expire without storing query i
   assert.equal((await run(request())).status, 200);
 });
 
+test("invalid intake and missing configuration release slots without spending accepted-search allowance", async () => {
+  let configured = false;
+  let calls = 0;
+  const run = createSearchHandler({ getProvider: () => {
+    if (!configured) throw new SearchError("SEARCH_UNAVAILABLE");
+    return { search: async () => { calls++; return []; } };
+  } });
+  for (let count = 0; count < 25; count++) assert.equal((await run(request({ query: "" }))).status, 400);
+  for (let count = 0; count < 25; count++) assert.equal((await run(request())).status, 503);
+  assert.equal(calls, 0);
+  configured = true;
+  for (let count = 0; count < 20; count++) assert.equal((await run(request())).status, 200);
+  assert.equal(calls, 20);
+  assert.equal((await run(request())).status, 429);
+});
+
 test("deadline aborts the provider and cleans up its slot", async () => {
   let aborted = false;
   let shouldWait = true;
@@ -132,4 +148,69 @@ test("caller abort reaches the provider and permits another request", async () =
   assert.equal(observed, true);
   shouldWait = false;
   assert.equal((await run(request())).status, 200);
+});
+
+function stalledRequest({ signal, contentType = "application/json", oversized = false }: {
+  signal?: AbortSignal; contentType?: string; oversized?: boolean;
+} = {}) {
+  let canceled = false;
+  let controller!: ReadableStreamDefaultController<Uint8Array>;
+  let finishCancel!: () => void;
+  const cancelFinished = new Promise<void>((resolve) => { finishCancel = resolve; });
+  const stream = new ReadableStream<Uint8Array>({
+    start(value) { controller = value; if (oversized) value.enqueue(new Uint8Array(8193)); },
+    cancel() { canceled = true; return cancelFinished; },
+  });
+  const init: RequestInit & { duplex: "half" } = { method: "POST", duplex: "half", signal,
+    headers: { "Content-Type": contentType }, body: stream };
+  return { input: new Request("https://meal.example.com/api/recipes/search", init),
+    canceled: () => canceled, cleanup: () => { if (!canceled) controller.close(); finishCancel(); } };
+}
+
+test("the shared deadline cancels a never-closing request body before provider invocation", async () => {
+  let calls = 0;
+  const run = createSearchHandler({ timeoutMs: 10, getProvider: () => ({ search: async () => { calls++; return []; } }) });
+  const body = stalledRequest();
+  const pending = run(body.input);
+  const observed = await Promise.race([pending, delay(100).then(() => null)]);
+  const canceled = body.canceled();
+  body.cleanup();
+  await pending;
+  assert.equal(observed?.status, 504);
+  assert.equal(canceled, true);
+  assert.equal(calls, 0);
+  assert.equal((await run(request())).status, 200);
+});
+
+test("caller abort during body intake cancels the reader and frees admission", async () => {
+  let calls = 0;
+  const run = createSearchHandler({ getProvider: () => ({ search: async () => { calls++; return []; } }) });
+  const aborter = new AbortController();
+  const body = stalledRequest({ signal: aborter.signal });
+  const pending = run(body.input);
+  await nextTurn();
+  aborter.abort();
+  const observed = await Promise.race([pending, delay(100).then(() => null)]);
+  const canceled = body.canceled();
+  body.cleanup();
+  await pending;
+  assert.equal(observed?.status, 504);
+  assert.equal(canceled, true);
+  assert.equal(calls, 0);
+  assert.equal((await run(request())).status, 200);
+});
+
+test("unsupported and oversized streamed bodies cancel without waiting for an uncooperative cancel hook", async () => {
+  const { run, calls } = handler();
+  for (const [options, status] of [[{ contentType: "text/plain" }, 415], [{ oversized: true }, 413]] as const) {
+    const body = stalledRequest(options);
+    const pending = run(body.input);
+    const observed = await Promise.race([pending, delay(100).then(() => null)]);
+    const canceled = body.canceled();
+    body.cleanup();
+    await pending;
+    assert.equal(observed?.status, status);
+    assert.equal(canceled, true);
+  }
+  assert.deepEqual(calls, []);
 });

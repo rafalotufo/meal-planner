@@ -121,8 +121,11 @@ accuracy as requiring live evaluation; fixture grounding is not live evidence.
   request abort, and concurrency/minute limits with slot cleanup on all exits.
 - [x] Implement a testable handler factory and per-process guard: streamed 8-KiB
   request limit, no-store responses, two active/twenty accepted per rolling
-  minute, and one 60-second deadline covering both calls. Propagate abort to
-  transport; release slots in `finally`. Provider selection/key validation runs
+  minute, and one request-scoped 60-second deadline covering body intake and
+  both calls. Reserve active intake capacity before awaiting the body, but count
+  a minute allowance only after valid input and provider configuration. Cancel
+  stalled/rejected readers without awaiting untrusted cancellation hooks.
+  Propagate abort to transport; release slots in `finally`. Provider selection/key validation runs
   before billable work. Do not log queries or provider bodies.
 - [x] Add a server-only composition root with the environment-reading provider
   factory and module-scoped guard. The Next route declares Node runtime and

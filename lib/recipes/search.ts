@@ -23,18 +23,29 @@ function errorResponse(code: SearchErrorCode) {
   return json({ error: { code, message } }, status);
 }
 
-async function readQuery(request: Request): Promise<string> {
+async function readQuery(request: Request, signal: AbortSignal): Promise<string> {
   if (!request.body) throw new SearchError("INVALID_REQUEST");
   const reader = request.body.getReader();
   const decoder = new TextDecoder("utf-8", { fatal: true });
   let size = 0;
   let text = "";
+  let finished = false;
+  let canceled = false;
+  const cancel = () => {
+    if (canceled) return;
+    canceled = true;
+    // Cancellation closes pending reads immediately; do not await an untrusted cancel hook.
+    void reader.cancel(signal.reason).catch(() => {});
+  };
+  signal.addEventListener("abort", cancel, { once: true });
   try {
+    if (signal.aborted) { cancel(); throw new SearchError("SEARCH_TIMEOUT"); }
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (signal.aborted) throw new SearchError("SEARCH_TIMEOUT");
+      if (done) { finished = true; break; }
       size += value.byteLength;
-      if (size > 8192) { await reader.cancel(); throw new SearchError("REQUEST_TOO_LARGE"); }
+      if (size > 8192) throw new SearchError("REQUEST_TOO_LARGE");
       text += decoder.decode(value, { stream: true });
     }
     text += decoder.decode();
@@ -45,7 +56,11 @@ async function readQuery(request: Request): Promise<string> {
     return query;
   } catch (error) {
     throw error instanceof SearchError ? error : new SearchError("INVALID_REQUEST");
-  } finally { reader.releaseLock(); }
+  } finally {
+    signal.removeEventListener("abort", cancel);
+    if (!finished) cancel();
+    reader.releaseLock();
+  }
 }
 
 export function createRecipeProvider(config: {
@@ -63,42 +78,45 @@ export function createSearchHandler({ getProvider, now = Date.now, timeoutMs = 6
   let active = 0;
   let accepted: number[] = [];
   return async function search(request: Request): Promise<Response> {
+    const controller = new AbortController();
+    const abort = () => controller.abort(new SearchError("SEARCH_TIMEOUT"));
+    const timer = setTimeout(abort, timeoutMs);
+    request.signal.addEventListener("abort", abort, { once: true });
+    let admitted = false;
+    let rejectOnAbort: () => void = () => {};
     try {
-      if (request.signal.aborted) throw new SearchError("SEARCH_TIMEOUT");
+      if (request.signal.aborted) { abort(); throw new SearchError("SEARCH_TIMEOUT"); }
       const origin = request.headers.get("Origin");
       if (origin !== null && origin !== new URL(request.url).origin) throw new SearchError("FORBIDDEN_ORIGIN");
       if (request.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase() !== "application/json") {
         throw new SearchError("UNSUPPORTED_MEDIA_TYPE");
       }
-      const query = await readQuery(request);
-      const provider = getProvider();
-      const timestamp = now();
-      accepted = accepted.filter((time) => time > timestamp - 60000);
+      accepted = accepted.filter((time) => time > now() - 60000);
       if (active >= 2 || accepted.length >= 20) throw new SearchError("SEARCH_BUSY");
       active++;
-      accepted.push(timestamp);
-      const controller = new AbortController();
-      const abort = () => controller.abort(new SearchError("SEARCH_TIMEOUT"));
-      const timer = setTimeout(abort, timeoutMs);
-      request.signal.addEventListener("abort", abort, { once: true });
-      let rejectOnAbort: () => void = () => {};
-      try {
-        if (request.signal.aborted) abort();
-        if (controller.signal.aborted) throw controller.signal.reason;
-        const aborted = new Promise<never>((_resolve, reject) => {
-          rejectOnAbort = () => reject(controller.signal.reason);
-          controller.signal.addEventListener("abort", rejectOnAbort, { once: true });
-        });
-        const recipes = await Promise.race([provider.search(query, { signal: controller.signal }), aborted]);
-        return json({ recipes });
-      } finally {
-        clearTimeout(timer);
-        request.signal.removeEventListener("abort", abort);
-        controller.signal.removeEventListener("abort", rejectOnAbort);
-        active--;
-      }
+      admitted = true;
+      const query = await readQuery(request, controller.signal);
+      const provider = getProvider();
+      accepted = accepted.filter((time) => time > now() - 60000);
+      if (accepted.length >= 20) throw new SearchError("SEARCH_BUSY");
+      if (controller.signal.aborted) throw controller.signal.reason;
+      accepted.push(now());
+      const aborted = new Promise<never>((_resolve, reject) => {
+        rejectOnAbort = () => reject(controller.signal.reason);
+        controller.signal.addEventListener("abort", rejectOnAbort, { once: true });
+      });
+      const recipes = await Promise.race([provider.search(query, { signal: controller.signal }), aborted]);
+      return json({ recipes });
     } catch (error) {
-      return errorResponse(request.signal.aborted ? "SEARCH_TIMEOUT" : error instanceof SearchError ? error.code : "SEARCH_FAILED");
+      return errorResponse(controller.signal.aborted ? "SEARCH_TIMEOUT" : error instanceof SearchError ? error.code : "SEARCH_FAILED");
+    } finally {
+      clearTimeout(timer);
+      request.signal.removeEventListener("abort", abort);
+      controller.signal.removeEventListener("abort", rejectOnAbort);
+      if (admitted) active--;
+      if (request.body && !request.body.locked && !request.bodyUsed) {
+        void request.body.cancel().catch(() => {});
+      }
     }
   };
 }

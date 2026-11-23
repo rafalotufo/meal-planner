@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/recipe-search/intent.md
 base_commit: 0bc1b139ba038834797602d6dfb05ab264b78129
-turn: 3
+turn: 5
 no_progress: 0
-phase: implement
+phase: review
 status: in_progress
-last_input_hash: e4feeeb79afe83aa7f28907e8367466edf4a46b176e342d438b35107a7c19af3
+last_input_hash: bcd8ff259a8df39c0803c0b32110b3fe9bc03702cc8932eac974fe0cb39f95a9
 stop_reason: null
-last_action: "senior-developer:draft_plan"
-artifacts: [{"path": "intent/recipe-search/intent.md", "sha256": "189b443857eb9a970f353134560158dc589132980e8e23dd85cab5340471de1e"}, {"path": "intent/recipe-search/spec.md", "sha256": "22bfac988b8c532d69b1ac26e54730a3c58ee152d5ba13b1a6f2984b2ea331eb"}, {"path": "intent/recipe-search/plan.md", "sha256": "2970c430b0bab5b18653ec89e9203cc978056ef42afe4997e97a5e4a4e69a6ac"}]
-acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "npm run lint", "exit": 0, "pass": true}, {"command": "npm run typecheck", "exit": 0, "pass": true}, {"command": "npm run build", "exit": 0, "pass": true}]
-updated_at: "2026-11-23T14:36:02Z"
+last_action: "security-researcher:assess_security"
+artifacts: [{"path": "intent/recipe-search/intent.md", "sha256": "189b443857eb9a970f353134560158dc589132980e8e23dd85cab5340471de1e"}, {"path": "intent/recipe-search/spec.md", "sha256": "22bfac988b8c532d69b1ac26e54730a3c58ee152d5ba13b1a6f2984b2ea331eb"}, {"path": "intent/recipe-search/plan.md", "sha256": "2970c430b0bab5b18653ec89e9203cc978056ef42afe4997e97a5e4a4e69a6ac"}, {"path": "app/recipe-search.tsx", "sha256": "b38bf0bf221dd2bf83224b0ff765e1e93e487a57d97a6456fe632950cf4482f0"}, {"path": "org/reviews/security-recipe-search-002.md", "sha256": "e65d515dce254910c400cb0feb72cbf147aee94147508e0f390b25a247daf6ff"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "npm test", "exit": 0, "pass": true}, {"command": "npm run lint", "exit": 0, "pass": true}, {"command": "npm run typecheck", "exit": 0, "pass": true}, {"command": "npm run build", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T15:01:45Z"

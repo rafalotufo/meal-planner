@@ -7,7 +7,7 @@ browser verification, and human merge/release gates remain separate.
 
 | Command | Actual result |
 | --- | --- |
-| `npm test` | Exit 0; 21 tests, 21 pass, 0 fail, 0 skipped, 0 cancelled. TypeScript services/tests compile before Node's native runner. |
+| `npm test` | Exit 0; 25 tests, 25 pass, 0 fail, 0 skipped, 0 cancelled. TypeScript services/tests compile before Node's native runner. |
 | `npm run lint` | Exit 0; ESLint with `--max-warnings 0`, no findings. |
 | `npm run typecheck` | Exit 0; Next route types generated and TypeScript completed. |
 | `npm run build` | Exit 0; compiled successfully, TypeScript passed, static `/`, dynamic `/api/recipes/search`. |
@@ -17,6 +17,8 @@ browser verification, and human merge/release gates remain separate.
 
 No credentials were needed for these checks. No new dependency, test framework,
 fixture route, provider bypass, or check suppression was introduced.
+The orchestrator replayed all five automated acceptance commands when advancing
+implementation turn 4; each exited 0, recorded in `org/loop/history.jsonl`.
 
 ## Test-first evidence
 
@@ -45,6 +47,26 @@ invalid inputs/configuration/origin, per-process limits, timeout/abort, and slot
 cleanup. Fixtures remain under `tests/` and are never imported by application
 routes or client components.
 
+## Security revision: request-body lifecycle
+
+Independent security finding `org/reviews/security-recipe-search-001.md` exposed
+that the deadline began after body intake. Three new TypeScript regressions
+first produced 24 tests / 21 pass / 3 fail: a never-closing body outlived its
+10-ms deadline, caller abort during intake remained unresolved after 100 ms,
+and rejected media did not cancel its body. No provider calls occurred.
+
+The request deadline/abort listener now starts before intake. Active capacity
+is reserved before awaiting the body; only valid configured searches spend the
+twenty-per-minute accepted-search allowance. Abort and rejected/oversized input
+cancel readers without awaiting untrusted cancellation hooks, and final cleanup
+releases admission/listeners/timers on every exit.
+
+After the fix, all three regressions pass, including an intentionally unresolved
+underlying cancellation hook. An additional regression confirms that twenty-five
+invalid and twenty-five unconfigured requests still leave the full twenty valid
+searches available. Final `npm test`: 25 tests, 25 pass, no failures/skips. This
+records implementation evidence; independent security rereview remains required.
+
 ## Real-browser evidence
 
 Orchestrator ran the production build at `http://127.0.0.1:3100` with isolated
@@ -55,7 +77,8 @@ used for deterministic recipes and failures; these are **simulated**, not live
 provider results. No fixture endpoint or application bypass exists.
 
 Passed at 320, 768, 1024, and 1440 CSS pixels: readable layout without horizontal
-overflow; labeled form and blank-input error without a request; keyboard focus;
+overflow; labeled form and blank-input error without a request; keyboard focus
+and keyboard-only submission;
 loading and disabled duplicate submission; three source-linked cards; distinct
 cook/total labels; missing/broken-photo fallbacks; empty result; failure/query
 retention/retry; recovered photo URL; pending-request cleanup after reload; and
@@ -66,7 +89,8 @@ region, polite status, articles, and source-specific link names.
 Screenshot inspection found loaded-photo geometry at 366×366 while fallbacks
 were 366×274.5. The added geometry assertion failed before the fix (exit 1).
 After a positioned wrapper/absolute image fix and rebuild, it passed (exit 0):
-all three photo areas were 366×274.5. Updated desktop/mobile screenshots were
+all three photo areas were 366×274.5. Geometry assertions also passed at every
+required width. Updated desktop/mobile screenshots were
 visually inspected. Zero uncaught page errors; the only console error was the
 expected HTTP 503 resource message from the deliberately simulated failure.
 
@@ -118,6 +142,15 @@ decision. Retrieved methods/photos may be absent; cards omit unsupported values
 or use the designed fallback. Grounding validation prevents cross-candidate
 mixing but cannot prove the researcher read the original source accurately.
 
-Independent code/security verdicts, staged plan/secret checks, real-browser QA,
-and live source sampling are required handoffs. No merge/release is performed
-or authorized by this report.
+Security initially requested the body-read correction in
+`security-recipe-search-001.md`. Independent rereview
+`security-recipe-search-002.md` is clear, with 25 tests passing plus an additional
+stalled-body/admission cleanup reproduction. The production dependency audit
+found zero vulnerabilities. The recorded medium finding was closed with that
+rereview as evidence. Actual endpoint validation was rerun against the corrected
+production build and passed without provider calls.
+
+Independent code review and live source sampling remain pending. Staged
+plan-sync/secret checks and real-browser QA passed at the implementation
+checkpoint; they will be checked again for the final handoff. No merge/release
+is performed or authorized by this report.
