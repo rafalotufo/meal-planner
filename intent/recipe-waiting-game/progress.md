@@ -120,3 +120,93 @@ task, not waived verification.
 Independent review plan-recipe-waiting-game-001 approved with no required
 findings; evidence org/reviews/plan-recipe-waiting-game-001.md and reviewer-0012.
 Human plan approval and authorization for a fresh bounded cycle remain pending.
+
+## Implementation — 2026-11-23
+
+Rafael subsequently approved the plan and fresh bounded cycle; see
+org/reviews/plan-recipe-waiting-game-human-approval-001.md. This section
+supersedes the earlier pending implementation/setup status, preserving its
+historical evidence. Node 24.15.0 and pnpm 10.33.0 confirmed; root completed
+frozen installation. Baseline 63 application tests, lint, types and build
+passed. Auth initially hit sandbox listen EPERM; an intermediate overlapping
+build also removed BUILD_ID. Neither required source changes. Final server
+checks run after a completed build with isolated localhost permissions.
+
+### Test-first slices
+
+- Rules tests first failed with missing lib/word-snack, then all eight passed
+  with the pure reducer. They cover normalization, repeated letters, neutral
+  rejection, duplicates, ordered catalogue selection, round transitions,
+  stale IDs, continued/zero-result play and fresh searches.
+- Catalogue tests first failed with missing lib/word-snack-puzzles, then two
+  strict compiled tests passed. Exactly 128 distinct letter multisets/IDs,
+  1,392 answer entries (971 distinct words), minimum 10 per rack and 20 racks
+  with repeated letters; serialized catalogue is 17,028 UTF-8 bytes.
+  Implementing author reviewed all entries. Independent all-row content audit
+  approved: org/reviews/catalogue-recipe-waiting-game-001.md.
+- Notebook regression first failed (newest selected instead of retaining the
+  earlier panel), then seven notebook tests passed with optional retained
+  selection and idempotent explicit open. Existing filter/sort semantics stay.
+- Browser regression exposed focus falling to BODY when a closed pending
+  game's focused launcher disappeared at success. The same button now becomes
+  View results when focused; it navigates to results without reopening play.
+  Success does not move focus. This is focus preservation, not a new game mode.
+
+### Delivered behavior and proof
+
+Optional inline play uses a sibling form, typed input and labeled tile buttons,
+local transient state and no new requests/dependencies/assets. Open play keeps
+its component, letters, draft, found words and focus after successful search.
+Zero-result searches also remain playable. One polite search-status notice
+announces completion; the game's visible ready banner is not a duplicate live
+region. Explicit close opens the associated search even if another group was
+selected, focuses its heading and scrolls without animation. Errors close play
+and restore query focus only when the removed game/launcher held focus.
+
+Held-response Chrome checks cover 320/390/768/1024/1440px, real touch at 320/390,
+keyboard entry/tiles including exhaustion focus handoff, close/reopen, partial
+word success and continued play, explicit results target, zero results,
+invalid/new queries, focused old-history controls, malformed/focused HTTP and
+unfocused errors, closed/never-opened completion, network body/request isolation
+and refresh clearing. Existing notebook/auth/photo assertions remain active.
+All captures now use word-snack-* paths; original recipe-notebook evidence is
+preserved. Mobile/desktop ready screenshots were visually inspected with
+view_image: legible controls, correct wrapping, no clipping or overflow.
+
+Browser proof includes accessibility-tree names/roles, native keyboard focus,
+live-region DOM attributes and computed text/control contrast >=4.5:1.
+Actual screen-reader audio/listening was not performed. Search responses and
+Google transport are test fixtures, not live provider grounding; no paid LLM
+calls occurred. The pre-existing photo check uses a real HTTPS publisher image.
+
+### Source grounding
+
+React 19.3/Next 16.4.6 and Tailwind 4.3.5 are pinned. Official React guidance
+verified: https://react.dev/learn/preserving-and-resetting-state (stable tree
+position preserves play), https://react.dev/reference/react/useReducer (pure
+state transitions), https://react.dev/learn/manipulating-the-dom-with-refs
+(focus after DOM commit). Status semantics checked against
+https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role.
+The existing event-driven fetch remains; no new data-fetching pattern introduced.
+
+### Final implementation command results
+
+All commands below exited 0 against the completed feature (before independent
+code/security review); production build completed before server/browser runs.
+
+- pnpm test: 74 tests, 74 pass, 0 fail/skip.
+- pnpm run lint: eslint --max-warnings 0, no output/findings.
+- pnpm run typecheck: Next route types generated; strict tsc passed.
+- pnpm run build: production compile/type/page generation completed; existing
+  protected routes and proxy retained.
+- pnpm run test:auth: 12 tests, 12 pass, 0 fail/skip, isolated servers.
+- python3 -m unittest discover -s tests: 7 tests, OK.
+- node --import tsx --test tests/deployment/smoke.test.ts: 12 tests, 12 pass;
+  localhost permission required for its real HTTP case, not a production probe.
+- node --import tsx tests/auth/browser.ts: all five widths passed; touch,
+  focus/AX/contrast, game lifecycle, previous notebook/auth/photo tests, logout
+  and fixture Google button passed. Ten deliberate fixture HTTP 429s and no
+  unexpected console/network errors. Test-only selector quoting and canvas
+  readback diagnostic were fixed in the harness, not filtered out.
+- git diff --check: clean. Root performs staged secret scan and approved-plan
+  manifest check for the final commit, with independent review still pending.

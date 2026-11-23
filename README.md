@@ -11,6 +11,17 @@ Open a previous group to revisit its results. Filters and sort choices stay
 with that group and run locally without making another search request.
 History stays in this page's memory and clears on refresh or navigation.
 
+While a search runs, **Play Word Snack** offers an optional six-letter word
+game. Type a 3–6-letter word or use the letter buttons; the game uses 128
+locally authored puzzles and a small accepted-word list, not a complete
+dictionary. Game actions make no requests and do not affect recipe searches.
+When recipes arrive, an open game stays playable with its draft and found
+words intact. **Close game and view results** opens that search when you are
+ready. Closing during a pending search allows reopening the same round; a
+new valid search starts a fresh round. Game state clears on refresh/navigation,
+and failed searches close the game. See the [vocabulary notes](intent/recipe-waiting-game/vocabulary.md)
+for authorship and coverage limits.
+
 Chickpeas and Pasta pills appear when those words occur in returned recipe
 titles; they do not verify ingredient lists. The “25 min or less” pill uses
 only exact reported total times. Missing, ambiguous and cook-only times stay
