@@ -5,7 +5,7 @@ import { candidate, card, modelResponse, queuedTransport, research } from "./rec
 
 function provider(...responses: unknown[]) {
   const queued = queuedTransport(...responses);
-  return { ...queued, service: createOpenAIProvider({ apiKey: "test-credential", transport: queued.transport }) };
+  return { ...queued, service: createOpenAIProvider({ apiKey: "test-only-key", transport: queued.transport }) };
 }
 const options = () => ({ signal: new AbortController().signal });
 

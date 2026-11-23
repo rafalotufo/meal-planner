@@ -3,7 +3,8 @@
 - Derived from: accepted `intent/recipe-search/intent.md` and approved `spec.md`
 - Spec review: `org/reviews/spec-recipe-search-002.md`
 - Author: senior-developer
-- Status: Approved by independent reviewer (`org/reviews/plan-recipe-search-001.md`)
+- Status: Approved
+- Reviewed by: independent reviewer (`org/reviews/plan-recipe-search-001.md`; TypeScript-test amendment `org/reviews/plan-recipe-search-002.md`)
 - Date: 2026-11-23
 
 ## Approach
