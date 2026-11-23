@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: busy, assignment: intent/single-call-recipe-search/intent.md, last_report: Human-approved recipe search notebook merged into local main from reviewed source6b94405 and approval68a28ef. Application content matches verified feature. Production release remains gated. }
   product-manager: { status: idle, assignment: null, last_report: Single-call recipe search intent accepted; local implementation selected by Rafael; no latency guarantee and merge/release remain gated. }
   architect: { status: idle, assignment: null, last_report: Single-call flattened source/card response specified and independently approved; optional metadata excerpt checks and bounds retained. }
-  senior-developer: { status: busy, assignment: intent/single-call-recipe-search/plan.md, last_report: "Recipe notebook implementation8fbbaf8 passed63 application/12 auth/7 workflow tests, build/lint/types and five-width real Chrome. Independent code/security approved; human merge/release pending." }
+  senior-developer: { status: busy, assignment: single-call-recipe-search implementation and verification, last_report: Implementation plan independently approved; ready for code gate. }
   security-researcher: { status: idle, assignment: null, last_report: "Recipe notebook security review clear: page-local history, React text and original source/photo/auth boundaries preserved. No new provider requests or persistence." }
-  reviewer: { status: idle, assignment: null, last_report: "review spec-single-call-recipe-search-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review plan-single-call-recipe-search-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -40,3 +40,4 @@ review_queue:
   - { id: design-recipe-search-notebook-001, artifact: intent/recipe-search-notebook/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-recipe-search-notebook-001, artifact: recipe-search-notebook-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-single-call-recipe-search-001, artifact: intent/single-call-recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-single-call-recipe-search-001, artifact: intent/single-call-recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
