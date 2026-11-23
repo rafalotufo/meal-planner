@@ -1,4 +1,5 @@
 import { Pool, types, type PoolClient } from 'pg';
+import { attachDatabasePool } from '@vercel/functions/db-connections';
 import { resolve } from 'node:path';
 import { readFileSync } from 'node:fs';
 import { readMigrationFiles } from 'drizzle-orm/migrator';
@@ -25,12 +26,14 @@ function safeInteger(value: string) {
 }
 export function connectDatabase(value: string) {
   const url = validateDatabaseUrl(value);
-  return new FamilyDatabase(new Pool({
+  const pool = new Pool({
     connectionString: url.href, max: 4, connectionTimeoutMillis: 5000,
     idleTimeoutMillis: 10000, allowExitOnIdle: true,
     query_timeout: 12000,
     types: { getTypeParser: (oid, format) => oid === 20 && format !== 'binary' ? safeInteger : types.getTypeParser(oid, format) },
-  }));
+  });
+  attachDatabasePool(pool);
+  return new FamilyDatabase(pool);
 }
 export const FAMILY_WRITE_LOCK = 73462901;
 export class FamilyDatabase {

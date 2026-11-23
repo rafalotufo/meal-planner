@@ -17,7 +17,7 @@ intent/postgresql-persistence/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (postgresql-hosted-setup)
+- orchestrator: busy (postgresql-production-release)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -44,8 +44,12 @@ intent/postgresql-persistence/intent.md
 - ceo-0020 ceo -> product-manager answer: Re: Remaining family invitation sign-in eligibility decision
 - ceo-0021 ceo -> architect answer: Re: Family membership specification ready for approval
 - ceo-0022 ceo -> senior-developer answer: Re: Family membership build plan ready for approval
+- ceo-0023 ceo -> orchestrator decision: Approve recipe notebook merge to main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
+- orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
+- orchestrator-0021 orchestrator -> reviewer handoff: PostgreSQL release candidate preparation
+- orchestrator-0022 orchestrator -> ceo handoff: Reviewed PostgreSQL Production candidate ready for final gates
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -61,11 +65,13 @@ intent/postgresql-persistence/intent.md
 - reviewer-0009 reviewer -> orchestrator decision: Approved strict SQLite storage compatibility amendment
 - reviewer-0010 reviewer -> orchestrator review: Family membership implementation approved
 - reviewer-0011 reviewer -> orchestrator review: Family membership draft needs product clarification
+- reviewer-0012 reviewer -> orchestrator review: Independent recipe notebook code review approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0006 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0008 security-researcher -> orchestrator status: Family membership security clear
+- security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
@@ -74,11 +80,11 @@ intent/postgresql-persistence/intent.md
 
 ## Recent decisions
 
-- mem-0061 security-researcher: Imported feature event mem-0034 from source commit5eaff43 (original source org/reviews/security-family-membership-001.md): Independent family security review clear for implementation1de139d. Focused HTTP10 and native/policy7 pass; full branch secret scan0; initial served-path issue fixed and independently verified. No high/critical audit issue; inherited unreachable esbuild serve advisory remains due2026-12-07. Code review also approved with independent auth11/family26. Human merge/release and live Google remain separate. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:34)
-- mem-0062 reviewer: Imported feature event mem-0035 from source commit5eaff43 (original source org/reviews/code-family-membership-001.md): Final family code review approved implementation1de139d after independent auth11/family26/native7, meaningful mutation proof, full manifest coverage and UI evidence. Security also clear. Security turn5 reran all six acceptance commands exit0; no blocking findings remain. Normal final review turn6 remains before workflow closure; no human merge or production authorization inferred. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:35)
 - mem-0063 orchestrator: Imported feature event mem-0036 from source commit5eaff43 (original source org/reviews/code-family-membership-001.md): Family membership implementation1de139d complete and six-turn loop solved: final implementation/security/review checkpoints all six acceptance commands exit0. Independent code/security approved; auth11/family26/Python7 and real Chrome320/1440+devStrictMode pass,11 screenshots visually inspected, secret scans0. Graph implementation in_review awaits fresh human merge approval; release not started. SQLite DATABASE_PATH and explicit migration required for runtime; live Google round trip remains external, inherited moderate advisory due2026-12-07. No push/merge/production migration/release performed. (org/merge/family-main-2026-11-23/feature/org/memory/events.jsonl:36)
 - mem-0065 orchestrator: PostgreSQL is sole local/future hosted family store. Rafael chose native Homebrew on-demand setup over Docker for memory use; strict Drizzle pg probe failed70 declarations, native pg/public loader approved. Historical completed family loop copied byte-exact to org/archives/postgresql-predecessor. Hosted provisioning/production migration/deploy and merge remain unauthorized. (org/reviews/postgresql-design-001.md)
 - mem-0067 orchestrator: Rafael authorized Neon setup/restricted roles/initial migrations/Vercel DB envs, separate Preview/Production, stop before deployment. Two independent Free pg17 projects in aws-us-east-1 are migrated with restricted own credentials, sensitive per-env runtime DATABASE_URL only. Migration/bootstrap creds remain private outside Vercel; no deployment/merge/paid feature or local-data import. Exact targets and limits are in hosted setup/resources/verification artifacts. (intent/postgresql-persistence/hosted-setup.md)
+- mem-0068 orchestrator: Rafael selected Everyday grid plus Search notebook history with per-search local pill filtering. Implemented and independently reviewed on codex/recipe-search-notebook; history is page-local, title-only ingredient evidence and conservative total-time filtering. Local verification passed; human merge/release remain pending. (org/merge/postgresql-notebook-2026-11-23/main/org/memory/events.jsonl#mem-0050)
+- mem-0069 orchestrator: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. (org/merge/postgresql-notebook-2026-11-23/main/org/memory/events.jsonl#mem-0051)
 
 ## Constraints
 
@@ -98,7 +104,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0067 from intent/postgresql-persistence/hosted-setup.md
+- mem-0070 from org/reviews/postgresql-production-verification.md
 
 <!-- machine:end -->
 

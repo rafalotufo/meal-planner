@@ -10,6 +10,21 @@ available photos and source-supported cooking times, styled with Tailwind CSS v4
 > No deployment was made. Human merge/release authorization remains required;
 > prior release approvals do not apply.
 
+## Recipe search notebook
+
+Search results appear in a responsive recipe grid, grouped under each search.
+Open a previous group to revisit its results. Filters and sort choices stay
+with that group and run locally without making another search request.
+History stays in this page's memory and clears on refresh or navigation.
+
+Chickpeas and Pasta pills appear when those words occur in returned recipe
+titles; they do not verify ingredient lists. The “25 min or less” pill uses
+only exact reported total times. Missing, ambiguous and cook-only times stay
+under All recipes and sort after known totals when choosing Quickest first.
+Original source links, reported time labels and optional-photo fallback remain
+available on every card.
+
+
 ## Local development
 
 Use Node.js 24.x and pnpm 10.33.0 (pinned in `package.json`).

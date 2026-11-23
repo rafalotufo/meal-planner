@@ -21,6 +21,7 @@
     "node": "24.x"
   },
   "dependencies": {
+    "@vercel/functions": "3.11.3",
     "better-auth": "1.7.27",
     "drizzle-orm": "0.45.4",
     "htmlparser2": "10.1.0",

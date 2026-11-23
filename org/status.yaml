@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: postgresql-hosted-setup, last_report: Authorized isolated Neon Preview/Production setup complete; initial schemas migrated and restricted sensitive Vercel DB vars configured; independent hosted review clear. Current deployment/list unchanged; stopped before deployment. Existing user next-env dev change preserved. }
+  orchestrator: { status: busy, assignment: postgresql-production-release, last_report: Integrated main notebook into PostgreSQL release candidate; strict build,121Node and7Python tests plus fixture Chrome pass. Private snapshot logical restore verified. Independent code,security and release preparation reviews approved; no deployment or paid calls. Human source merge and bounded live-check approval remain gates. User next-env dev change preserved. }
   product-manager: { status: idle, assignment: null, last_report: "PostgreSQL intent independently accepted under org protocol, scoped to native local setup and Vercel-compatible code; production and human merge gates remain separate." }
   architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
   senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
@@ -11,6 +11,9 @@ agents:
   reviewer: { status: idle, assignment: null, last_report: "Hosted PostgreSQL operational plan/helper/final handoff approved; separate migrated Neon environments and scoped Vercel variable evidence verified, no deployment/merge/release allowed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
+  - { id: postgresql-production-code-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: postgresql-production-security-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: security-researcher, rounds: 0, verdict: approved, status: approved }
+  - { id: postgresql-production-release-001, artifact: postgresql-production-preparation, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -42,3 +45,5 @@ review_queue:
   - { id: plan-postgresql-hosted-001, artifact: intent/postgresql-persistence/hosted-setup.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: helper-postgresql-hosted-001, artifact: scripts/postgres-hosted.ts, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: final-postgresql-hosted-001, artifact: postgresql-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+
+# Production preparation review records; human merge/release gates remain separate.
