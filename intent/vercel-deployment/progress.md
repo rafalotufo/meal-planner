@@ -23,7 +23,7 @@ Approved plan source: `96f3154`; approval record:
   required variables present, Production-only; required secrets are sensitive.
   Rafael confirmed the callback was added; real allowed Google OAuth passed.
   Project configuration complete; existing provider limits remain unchanged.
-- [ ] Step 6: Authorized d682c1b staged/promoted as
+- [x] Step 6: Authorized d682c1b staged/promoted as
   dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB. Real Google login, five live recipe cards,
   three loaded photos, logout/error UI, security headers and WAF passed.
   Two agent live calls used (one success, one disconnect499). Independent
@@ -49,4 +49,7 @@ review found the existing D4 OpenAI controls inventory missing. Owner has now
 confirmed $20 monthly enforced budget,50%/$10 and100%/$20 alerts, and model
 limits4,000,000 TPM/10,000 RPM/50,000 IPM, completing it without changes.
 Rafael separately approved normal production resumption (ceo-0017).
-Step6/release remains open until resume and anonymous post-resume checks pass.
+Normal production resumed19:05:34UTC under committed authorization
+release-vercel-production-resume-human-003. paused:false, anonymous smoke pass
+and visible browser sign-in verified; no additional provider calls or rebuild.
+Step6/release complete with the approved hosted-timeout evidence limitation.

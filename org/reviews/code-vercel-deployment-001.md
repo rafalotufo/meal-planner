@@ -57,3 +57,13 @@ and transport evidence gaps and preserves their requirements. The approved
 amendment covers only the unobserved hosted timeout evidence. Production is
 paused and acceptance remains incomplete. READY FOR HUMAN REVIEW applies to
 these records; it is not release-completion approval.
+
+## Final inventory and resumption review
+
+Independent review after ceo-0013..0016 supplied budget/enforcement, model
+limits and alert thresholds:0 Blocker,0 Major,0 Minor. Owner attestations are
+clearly labeled, the previously missing D4 inventory is complete, and ceo-0017
+separately authorizes normal resumption of the retained deployment. No evidence
+blocker remains beyond the already-accepted hosted-timeout limitation. READY
+FOR HUMAN REVIEW. Subsequent scoped resume and anonymous/browser checks are
+recorded in vercel-deployment-remaining-verification.md; no paid probe authorized.

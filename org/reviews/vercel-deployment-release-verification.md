@@ -1,6 +1,8 @@
 # Vercel deployment — configuration and release evidence
 
-Date: 2026-11-23. **Deployed/promoted, verified working, then owner-paused.**
+Date: 2026-11-23. **Production resumed after completed verification and separate
+owner approval.** Earlier setup/first-window snapshots below are historical;
+final results are in vercel-deployment-remaining-verification.md.
 
 ## Human authority and merge
 
@@ -267,3 +269,8 @@ subsequently supplied the budget, enforcement, model limits and alert values
 (ceo-0013 through ceo-0016), completing it. Rafael separately approved normal
 production resumption (ceo-0017); final execution/results are recorded in the
 remaining-verification report.
+
+Final state: scoped normal-production resume completed19:05:34UTC under
+release-vercel-production-resume-human-003. paused:false, anonymous smoke pass
+and visible browser sign-in verified. Release complete with the approved
+unobserved hosted60s/504 limitation; no additional paid call or rebuild.

@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Listed browser/cancellation checks passed; owner pause verified18:48UTC. Final review caught existing D4 OpenAI controls inventory still unrecorded; owner verification requested. No indefinite production-resume authority." }
+  orchestrator: { status: idle, assignment: null, last_report: "Production resumed with explicit owner approval after all checks and provider inventory. Exact projectpaused:false and anonymous/browser pass verified19:05UTC. Release complete; approved unobserved hosted60s504 limitation retained, no added model call or rebuild." }
   product-manager: { status: idle, assignment: null, last_report: Rafael approved Vercel production intent; Hobby scope and existing OpenAI limits recorded. }
   architect: { status: idle, assignment: null, last_report: "Rafael approved Vercel specification; planning authorized, implementation remains gated." }
   senior-developer: { status: idle, assignment: null, last_report: "Vercel local implementation verified and independently reviewed; login/team access succeeded, no project created." }

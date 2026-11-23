@@ -1,5 +1,9 @@
 # Remaining hosted verification — 2026-11-23
 
+Current state: normal production resumed under Rafael's separate approval;
+post-resume anonymous checks pass. Release verification complete with the
+previously accepted unobserved hosted60s/504 limitation.
+
 Scope: existing deployment dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB, project
 prj_ntxXnJAVA977jHjLNDR7xJuwSx4V, rafalotufos-projects Hobby, stable origin
 https://meal-planner-delta-six-55.vercel.app. No application/configuration,
@@ -187,3 +191,26 @@ ceo-0017. This covers only the retained deployment/project above, no rebuild,
 redeploy, configuration/billing/security change or extra paid search. The
 previous mandatory pause was completed and verified; this is separate renewed
 authority for normal production use, not an extension of the bounded test run.
+
+Final independent inventory/readiness review:0 Blocker,0 Major,0 Minor,
+READY FOR HUMAN REVIEW. Reviewer confirmed the owner-supplied inventory,
+separate resumption authorization and accepted timeout limitation; no other
+evidence blocker identified.
+
+### Production resumption — complete
+
+Committed authorization release-vercel-production-resume-human-003 was verified
+with require-committed and release_authorization gate before execution. At
+19:05:34UTC (14:05:34 Toronto), scoped CLI resume returned the exact project
+ID/name with paused:false. The retained deployment/source are unchanged.
+Anonymous smoke:status401,elapsedMs2158,pass:true, covering canonical root
+redirect, sign-in200, protected session/search401 and no-store. The browser
+independently loaded the real sign-in page; screenshot
+vercel-deployment-production-resumed.jpg. No paused error remained.
+
+All mandatory release verification and provider inventory are complete;
+hosted60s/504 remains explicitly unobserved and accepted as nonblocking.
+Normal production use is authorized. No extra model call, deployment, build,
+credential/environment/allowlist/security setting or billing change occurred
+in resuming the app. Existing tracked-spend enforcement may overshoot as already
+documented; no exact global process/WAF spending cap is claimed.

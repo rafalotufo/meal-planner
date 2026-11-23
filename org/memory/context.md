@@ -37,6 +37,8 @@ intent/vercel-deployment/intent.md
 - ceo-0013 ceo -> orchestrator answer: Existing provider budget enforcement confirmed; numeric inventory pending
 - ceo-0014 ceo -> orchestrator answer: Confirm existing monthly provider budget amount
 - ceo-0015 ceo -> orchestrator answer: Confirm existing provider model rate limits
+- ceo-0016 ceo -> orchestrator answer: Confirm existing provider spend alert thresholds
+- ceo-0017 ceo -> orchestrator decision: Authorize normal production resumption
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -83,7 +85,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0048 from org/messages/ceo-0015.md
+- mem-0049 from org/reviews/vercel-deployment-remaining-verification.md
 
 <!-- machine:end -->
 
