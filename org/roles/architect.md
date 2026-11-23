@@ -10,7 +10,8 @@ Owns system design, interfaces, and technical tradeoffs.
 ## Responsibilities
 
 - Answer design questions from the senior developer and product manager.
-- Produce ADRs and interface notes linked from `spec.md` or `plan.md`.
+- Produce ADRs and interface notes in `intent/<feature-slug>/`, linked from
+  that feature's `spec.md` or `plan.md`; follow `intent/README.md`.
 - Review designs for compatibility, failure modes, and unnecessary coupling.
 - Record durable decisions in `org/memory/events.jsonl`.
 

@@ -8,16 +8,19 @@ plan.md in the same change set.
 
 Usage:
     check_plan_sync.py --base <rev> --head <rev>
+                       [--plan <repo-relative-path>]
                        [--graph workflow-graph.yaml]
                        [--ledger gates/ledger.jsonl]
                        [--ignore <glob>]... [--two-dot]
-    check_plan_sync.py --hook [--graph workflow-graph.yaml]
+    check_plan_sync.py --hook [--plan <repo-relative-path>]
+                              [--graph workflow-graph.yaml]
                               [--ledger gates/ledger.jsonl]
                               [--ignore <glob>]...
 
 PR mode defaults to a three-dot diff (merge-base). Hook mode validates the
-staged diff (HEAD vs index) and reads plan.md from the index. Ledger chain
-verification is delegated to gate_ledger.py.
+staged diff (HEAD vs index) and reads the selected plan from the index. Plan
+selection uses --plan, then the graph's nodes.plan.artifact, then legacy plan.md.
+Ledger chain verification is delegated to gate_ledger.py.
 
 Exit codes: 0 = pass, 1 = violation, 2 = usage error.
 """
@@ -109,8 +112,30 @@ def _changed_files_hook(repo: Path) -> tuple[bool, list[str] | str]:
     return True, [line for line in out.splitlines() if line.strip()]
 
 
-def _show(repo: Path, spec: str) -> tuple[bool, str]:
-    return _git(repo, ["show", f"{spec}:plan.md"])
+def _show(repo: Path, spec: str, path: str = "plan.md") -> tuple[bool, str]:
+    return _git(repo, ["show", f"{spec}:{path}"])
+
+
+def _plan_path(repo: Path, args: argparse.Namespace) -> str:
+    selected = args.plan
+    if selected is None and args.graph:
+        graph_path = Path(args.graph)
+        if not graph_path.is_absolute():
+            graph_path = repo / graph_path
+        if graph_path.is_file():
+            graph = gl.load_yaml(graph_path)
+            nodes = graph.get("nodes", {})
+            plan = nodes.get("plan", {}) if isinstance(nodes, dict) else {}
+            if isinstance(plan, dict):
+                selected = plan.get("artifact")
+    if selected is None:
+        return "plan.md"
+    if not isinstance(selected, str) or not selected.strip():
+        raise ValueError("selected plan must be a repository-relative file path")
+    path = Path(selected)
+    if path.is_absolute() or ".." in path.parts:
+        raise ValueError("selected plan must stay inside the repository")
+    return path.as_posix()
 
 
 def _manifest_entries(text: str) -> list[str]:
@@ -236,6 +261,7 @@ def _check(
     graph_path: str | None,
     ignores: list[str],
     hook_mode: bool,
+    plan_path: str = "plan.md",
 ) -> int:
     implementation = [
         path for path in changed if not _is_process_path(path, ignores)
@@ -244,10 +270,10 @@ def _check(
         return 0
 
     if plan_text is None:
-        print("error: no plan.md", file=sys.stderr)
+        print(f"error: no {plan_path}", file=sys.stderr)
         return 1
     if not _plan_is_approved(plan_text):
-        print("error: plan.md not Approved", file=sys.stderr)
+        print(f"error: {plan_path} not Approved", file=sys.stderr)
         return 1
 
     try:
@@ -286,7 +312,7 @@ def _check(
                 return 1
 
     if plan_diff_base is not None:
-        old_ok, old_text = _show(repo, plan_diff_base)
+        old_ok, old_text = _show(repo, plan_diff_base, plan_path)
         if not old_ok:
             old_text = None
     else:
@@ -303,7 +329,7 @@ def _check(
 
     if unplanned:
         details = " ".join(
-            f'{path} (add a matching entry under "Files that change" in plan.md)'
+            f'{path} (add a matching entry under "Files that change" in {plan_path})'
             for path in sorted(unplanned)
         )
         print(f"error: unplanned files: {details}", file=sys.stderr)
@@ -316,7 +342,8 @@ def cmd_pr(args: argparse.Namespace, repo: Path) -> int:
     if not ok:
         print(f"error: git diff failed: {changed}", file=sys.stderr)
         return 1
-    ok, head_plan = _show(repo, args.head)
+    plan_path = _plan_path(repo, args)
+    ok, head_plan = _show(repo, args.head, plan_path)
     if not ok:
         head_plan = ""
     if not head_plan.strip():
@@ -330,6 +357,7 @@ def cmd_pr(args: argparse.Namespace, repo: Path) -> int:
         args.graph,
         args.ignore,
         hook_mode=False,
+        plan_path=plan_path,
     )
 
 
@@ -338,7 +366,8 @@ def cmd_hook(args: argparse.Namespace, repo: Path) -> int:
     if not ok:
         print(f"error: git diff failed: {changed}", file=sys.stderr)
         return 1
-    ok, staged_plan = _show(repo, "")
+    plan_path = _plan_path(repo, args)
+    ok, staged_plan = _show(repo, "", plan_path)
     if not ok:
         staged_plan = ""
     if not staged_plan.strip():
@@ -351,7 +380,7 @@ def cmd_hook(args: argparse.Namespace, repo: Path) -> int:
         ]
         if implementation:
             print(
-                "error: plan.md is not staged; stage plan.md with the implementation",
+                f"error: {plan_path} is not staged; stage {plan_path} with the implementation",
                 file=sys.stderr,
             )
             return 1
@@ -365,6 +394,7 @@ def cmd_hook(args: argparse.Namespace, repo: Path) -> int:
         args.graph,
         args.ignore,
         hook_mode=True,
+        plan_path=plan_path,
     )
 
 
@@ -373,7 +403,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--hook", action="store_true", help="check the staged diff")
     parser.add_argument("--base", default=None, help="base revision (PR mode)")
     parser.add_argument("--head", default=None, help="head revision (PR mode)")
-    parser.add_argument("--graph", default=None, help="workflow-graph.yaml (default: plan gate engineer_approve)")
+    parser.add_argument("--plan", default=None, help="explicit repository-relative plan path")
+    parser.add_argument("--graph", default="workflow-graph.yaml", help="workflow graph selecting the plan path and gate")
     parser.add_argument("--ledger", default=None, help="gates/ledger.jsonl when ledger-gating is wanted")
     parser.add_argument("--ignore", action="append", default=[], help="additional process-path glob")
     parser.add_argument(
@@ -389,9 +420,13 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("pass --hook or both --base and --head")
 
     repo = Path.cwd()
-    if args.hook:
-        return cmd_hook(args, repo)
-    return cmd_pr(args, repo)
+    try:
+        if args.hook:
+            return cmd_hook(args, repo)
+        return cmd_pr(args, repo)
+    except (ValueError, OSError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":

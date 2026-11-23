@@ -17,6 +17,7 @@ Open <http://localhost:3000>. No environment variables or database are needed.
 ## Verification and production preview
 
 ```bash
+python3 -m unittest discover -s tests
 npm run lint
 npm run typecheck
 npm run build
@@ -26,6 +27,11 @@ npm run start
 The production preview also runs at <http://localhost:3000>. Check the home
 page at mobile and desktop widths: one heading, white background, no horizontal
 overflow, and no additional product content.
+
+Python's standard-library tests cover workflow tooling, including the active
+feature plan path used by the PR and staged-change checks. Select a plan via
+`--plan intent/<feature-slug>/plan.md`, or let `workflow-graph.yaml` select it.
+Repositories without a graph retain the legacy root `plan.md` fallback.
 
 ## Database
 

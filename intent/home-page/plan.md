@@ -2,7 +2,8 @@
 
 - Derived from: approved `intent/home-page/spec.md`; accepted `intent/home-page/intent.md`
 - Author: senior-developer
-- Status: Approved by independent reviewer (org/reviews/plan-home-page-001.md)
+- Status: Approved
+- Reviewed by: reviewer (org/reviews/plan-home-page-001.md; revision org/reviews/plan-home-page-002.md)
 - Date: 2026-11-23
 
 ## Files that change
@@ -80,6 +81,7 @@ keep full library type checking enabled.
 
 ## Proof and verification
 
+- `python3 -m unittest discover -s tests`: focused workflow regressions pass.
 - `npm run lint`, `npm run typecheck`, `npm run build`: all exit zero.
 - Start production with `npm run start`; `/` returns HTTP 200 without a DB.
 - Browser: English document; exact title; one visible heading `Meal Planner`;

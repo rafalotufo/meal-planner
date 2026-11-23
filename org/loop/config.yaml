@@ -8,7 +8,9 @@ human_gates: [code_owner_approve, release_authorization]
 acceptance:
   commands:
     - python3 -m unittest discover -s tests
-    - make lint
+    - npm run lint
+    - npm run typecheck
+    - npm run build
 roles:
   product: product-manager
   design: architect

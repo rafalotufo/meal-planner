@@ -2,7 +2,9 @@
 
 Every demand lands here as a markdown record, no matter the channel. The
 product engineering agent reads these, consolidates them into feature tickets,
-and drafts `intent.md` for PM review.
+and drafts `intent/<feature-slug>/intent.md` for PM review. Keep its `spec.md`,
+`plan.md`, and related specifications in the same feature folder; see
+`intent/README.md`.
 
 ## Channels
 

@@ -5,6 +5,7 @@
 - Install reproducibly: `npm ci` (Node.js 22+; tested with 24.15.0/npm 11.12.1).
 - Develop: `npm run dev`.
 - Verify: `npm run lint`, `npm run typecheck`, `npm run build`; all must pass.
+- Workflow regression tests: `python3 -m unittest discover -s tests`.
 - Production preview: `npm run start` after build.
 - Secrets: `python3 scripts/scan_secrets.py --staged` (zero findings).
 
@@ -19,9 +20,10 @@ no database engine, schema, credentials, or migration is configured yet.
 
 Use approved intent/spec/plan and `org/protocol.md`. Preserve org audit records,
 independent review, and human merge/release gates. Report actual command output
-and verify visible UI in a real browser at mobile and desktop widths. No unit
-test runner exists for the static title page; add meaningful tests with future
-behavior. Never suppress checks or remove failing tests to get a passing run.
+and verify visible UI in a real browser at mobile and desktop widths. Python
+unittest covers workflow tooling. No JavaScript unit-test runner exists for the
+static title page; add meaningful tests with future behavior. Never suppress
+checks or remove failing tests to get a passing run.
 
 ## Conventions
 

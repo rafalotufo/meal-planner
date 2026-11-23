@@ -6,7 +6,7 @@ must cite a source (artifact, commit, or message id).
 
 ```bash
 python3 scripts/org_memory.py add --kind decision --actor architect \
-  --text "Use an append-only ledger" --source spec.md
+  --text "Use an append-only ledger" --source intent/home-page/spec.md
 python3 scripts/org_memory.py digest
 python3 scripts/org_memory.py check
 ```
