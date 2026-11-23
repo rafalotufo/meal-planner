@@ -3,7 +3,7 @@ max_turns: 6
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: recipe-search-notebook-implementation
+review_artifact: single-call-recipe-search-implementation
 human_gates: [product_owner_approve, engineer_approve, code_owner_approve, release_authorization]
 acceptance:
   commands:

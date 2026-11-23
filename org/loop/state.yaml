@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/recipe-search-notebook/intent.md
-base_commit: 766a7925b9489ea9bfda97355f3c2f9c7d99ca67
-turn: 6
+work_item: intent/single-call-recipe-search/intent.md
+base_commit: 7cbe321c432532316dd23d94598ee5e75f3ce309
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 0bebaa99b8a901508d8042e0090579cb97b95addf4a9312411e8a23a40910960
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/recipe-search-notebook/intent.md", "sha256": "fac45f3d092d74977da3d95472f34b01aa0aa54fefc7f02a4259b8d0db506224"}, {"path": "intent/recipe-search-notebook/spec.md", "sha256": "d7dee4a8972eb6970909b29429f9ee328e7f927c94a3a3fcc35d2b04b855d192"}, {"path": "intent/recipe-search-notebook/plan.md", "sha256": "ae971010ecaf2c07f70eb418fd54e18231ae3a6d5948b5d9dd2f6cc9345edf0a"}, {"path": "org/reviews/recipe-search-notebook-verification.md", "sha256": "f2cdb7635e2a09df33da8bf74b97a1612a097204ef77cead5d92851aafac4d41"}, {"path": "org/reviews/security-recipe-search-notebook-001.md", "sha256": "2114ca59ced5212f81f1d064b18df5d5f364ca99447b2e31d6030868bce3f824"}, {"path": "org/reviews/code-recipe-search-notebook-001.md", "sha256": "aa698ce31ebd88ca8f7b46793c73a6543fec45f0c2971b21c37391df16651164"}]
+phase: spec
+status: in_progress
+last_input_hash: bf7cd2204dbad60cc475c0e153afc13fe120165f00718b1477e066b27dbb976c
+stop_reason: null
+last_action: "product-manager:review_intent"
+artifacts: [{"path": "intent/single-call-recipe-search/intent.md", "sha256": "6ad1a4bb8aff249c1490d9825685f2f4fc4de0d36fd008b5623022ff764bbad2"}]
 acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/smoke.test.ts", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/auth/*.test.ts", "exit": 0, "pass": true}]
-updated_at: "2026-11-23T19:47:18Z"
+updated_at: "2026-11-23T20:37:57Z"
