@@ -75,7 +75,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0040 from org/reviews/vercel-deployment-release-verification.md
+- mem-0041 from org/reviews/vercel-deployment-release-verification.md
 
 <!-- machine:end -->
 

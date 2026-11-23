@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Owner-entered Google Production secrets verified; OPENAI_API_KEY name correction and missing BETTER_AUTH_SECRET pending, release closed." }
+  orchestrator: { status: idle, assignment: null, last_report: All eight Production env names/scopes verified; sensitive secret types correct; owner-confirmed callback; ready for explicit production release authorization. }
   product-manager: { status: idle, assignment: null, last_report: Rafael approved Vercel production intent; Hobby scope and existing OpenAI limits recorded. }
   architect: { status: idle, assignment: null, last_report: "Rafael approved Vercel specification; planning authorized, implementation remains gated." }
   senior-developer: { status: idle, assignment: null, last_report: "Vercel local implementation verified and independently reviewed; login/team access succeeded, no project created." }

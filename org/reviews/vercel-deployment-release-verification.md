@@ -61,6 +61,13 @@ must add those two exact required names before release. The other four approved
 non-secret keys remain Production-only. No values were read or displayed.
 Project metadata still shows no deployments and automatic assignment disabled.
 
+After Rafael's “Done” confirmation, a second metadata-only check verified all
+eight required keys present and Production-only. BETTER_AUTH_SECRET,
+GOOGLE_CLIENT_SECRET and OPENAI_API_KEY are sensitive; GOOGLE_CLIENT_ID is also
+sensitive. OPEN_API_KEY is no longer in the inventory. No values were read;
+secret validity/length and successful OAuth/provider calls remain runtime checks.
+Configuration step 5 is complete at the metadata level. No deployment exists.
+
 Rafael confirmed “Added callback to OAuth client” on 2026-11-23, following the
 exact URI above. This is owner-confirmed configuration, not an independent
 console inspection or successful live Google consent round trip. The owner
@@ -68,8 +75,7 @@ completed this externally; task-browser Google sign-in is no longer needed.
 
 Existing OpenAI billing/limits remain unchanged; effective account limits
 must be verified by the owner/read-only account access before release.
-Production credentials, actual hosted Node/
-duration/cancellation settings, real OAuth/provider/source/browser acceptance
+Actual hosted Node/duration/cancellation settings, real OAuth/provider/source/browser acceptance
 and natural hosted deadline evidence remain incomplete. Application protection
 and transport code have not been weakened to bypass those checks.
 
