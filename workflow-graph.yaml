@@ -32,9 +32,7 @@ nodes:
     stage: build
     artifact: code + tests
     gate: code_owner_approve
-    # Independent review passed; pnpm migration requires a new CEO merge approval.
-    # Historical home-page merge approval does not authorize this feature.
-    status: in_review
+    status: merged
     done_status: merged
   release:
     stage: deploy

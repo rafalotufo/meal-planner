@@ -62,7 +62,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0010 from org/reviews/code-pnpm-migration-001.md
+- mem-0011 from gates/ledger.jsonl
 
 <!-- machine:end -->
 
