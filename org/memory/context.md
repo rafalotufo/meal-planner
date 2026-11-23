@@ -9,8 +9,8 @@ intent/single-call-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 4
-- phase: security
+- turn: 5
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -20,7 +20,7 @@ intent/single-call-recipe-search/intent.md
 - orchestrator: busy (intent/single-call-recipe-search/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: busy (single-call-recipe-search-implementation)
-- security-researcher: busy (single-call recipe search security consultation)
+- security-researcher: idle (unassigned)
 - senior-developer: busy (single-call-recipe-search implementation and verification)
 
 ## Open messages
@@ -64,6 +64,7 @@ intent/single-call-recipe-search/intent.md
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
+- security-researcher-0006 security-researcher -> orchestrator review: Independent single-call recipe search security clear
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
@@ -90,10 +91,11 @@ intent/single-call-recipe-search/intent.md
 - intent/single-call-recipe-search/spec.md (ff32bbdb7363d2793be23b9b627a02e243dd8b48b5f23e2b5b7517ae67d3050a)
 - intent/single-call-recipe-search/plan.md (1bbf270912e2182bffe7d13134826149d7bb9df590e930eec1f01ba02caa4649)
 - org/reviews/single-call-recipe-search-verification.md (f0f81e6474707d85d99f4715d37e1f9d95e26d9b0e846e79b6027915128027e3)
+- org/reviews/security-single-call-recipe-search-001.md (a53a0b7391a4270294fe11501f62979813ef350fea58a38764efc02a409e4bba)
 
 ## Next action
 
-senior-developer:implement
+security-researcher:assess_security
 
 ## Last digest source
 

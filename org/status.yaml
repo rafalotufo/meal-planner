@@ -7,7 +7,7 @@ agents:
   product-manager: { status: idle, assignment: null, last_report: Single-call recipe search intent accepted; local implementation selected by Rafael; no latency guarantee and merge/release remain gated. }
   architect: { status: idle, assignment: null, last_report: Single-call flattened source/card response specified and independently approved; optional metadata excerpt checks and bounds retained. }
   senior-developer: { status: busy, assignment: single-call-recipe-search implementation and verification, last_report: Implementation plan independently approved; ready for code gate. }
-  security-researcher: { status: busy, assignment: single-call recipe search security consultation, last_report: "Recipe notebook security review clear: page-local history, React text and original source/photo/auth boundaries preserved. No new provider requests or persistence." }
+  security-researcher: { status: idle, assignment: null, last_report: "Final single-call security approved: native citations/local exact excerpts/bounds/abort intact, final live metadata retention verified; no required findings." }
   reviewer: { status: busy, assignment: single-call-recipe-search-implementation, last_report: "review plan-single-call-recipe-search-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
