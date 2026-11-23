@@ -75,3 +75,17 @@ D4 helper checks are tested locally, not a published WAF policy or billing chang
 D5/D6 runbook specifies manual gates, candidate 421, promotion, first-live checks,
 scoped pause/rollback and incident diagnosis. Human merge, configuration and
 release approvals remain outstanding. No hosted success is claimed.
+
+## Review correction
+
+Independent code review identified one Minor: an actual candidate platform
+redirect was classified as failure instead of inconclusive. Native fetch still
+refuses redirects; missing candidate responses now return inconclusive.
+Two focused tests reproduced false != null before the fix, then 11/11 passed.
+Existing application tests remain unchanged. No unsafe request is now accepted.
+
+The workflow loop's first expanded acceptance run parsed `pnpm run test:auth`
+as a YAML mapping (even when quoted) under its existing minimal parser. That
+run honestly records the invalid-command failure. Config now uses the identical
+package-script expansion `node --import tsx --test tests/auth/*.test.ts`, keeping
+the regression enforced without changing parser code or dropping tests.

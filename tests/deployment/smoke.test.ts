@@ -69,9 +69,9 @@ test("unexpected destinations and status/cache errors fail closed", async () => 
   assert.equal((await runSmoke({ origin, mode: "candidate", fetchImpl: async () => new Response(null, { status: 302, headers: { location: "https://evil.example" } }) })).pass, null);
 });
 
-test("network errors are sanitized", async () => {
+test("no candidate application response is inconclusive and sanitized", async () => {
   const result = await runSmoke({ origin, mode: "candidate", fetchImpl: async () => { throw new Error("private cookie leaked by upstream"); } });
-  assert.equal(result.pass, false);
+  assert.equal(result.pass, null);
   assert.doesNotMatch(JSON.stringify(result), /private|cookie|upstream/);
 });
 
@@ -115,7 +115,7 @@ test("fast disconnect response is inconclusive; one abort is not server cancella
   assert.ok(Date.now() - started >= 1900 && Date.now() - started < 4000);
 });
 
-test("real HTTP boundary rejects a redirect without forwarding private cookie", async () => {
+test("real HTTP candidate redirect is inconclusive without forwarding private cookie", async () => {
   let calls = 0;
   const server = createServer((_request, response) => { calls++; response.writeHead(302, { location: "http://127.0.0.1:1/secret" }).end(); });
   server.listen(0, "127.0.0.1");
@@ -124,7 +124,7 @@ test("real HTTP boundary rejects a redirect without forwarding private cookie", 
   assert.ok(address && typeof address !== "string");
   try {
     const result = await runSmoke({ origin, mode: "candidate", sessionCookie: "protection=private", fetchImpl: (url, init) => fetch(`http://127.0.0.1:${address.port}${new URL(url).pathname}`, init) });
-    assert.equal(result.pass, false);
+    assert.equal(result.pass, null);
     assert.equal(calls, 1);
   } finally {
     server.closeAllConnections();

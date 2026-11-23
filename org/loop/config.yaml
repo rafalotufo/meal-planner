@@ -9,9 +9,11 @@ acceptance:
   commands:
     - python3 -m unittest discover -s tests
     - pnpm test
+    - node --import tsx --test tests/deployment/smoke.test.ts
     - pnpm run lint
     - pnpm run typecheck
     - pnpm run build
+    - node --import tsx --test tests/auth/*.test.ts
 roles:
   product: product-manager
   design: architect

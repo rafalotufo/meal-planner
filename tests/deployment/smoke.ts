@@ -75,8 +75,11 @@ export async function runSmoke({ origin: input, mode, fetchImpl = fetch, session
     }
     return result(false);
   } catch {
-    // Neither a client abort nor a deadline proves server-side cancellation/WAF.
-    return result(mode === "disconnect" && controller.signal.aborted || mode === "waf" && controller.signal.aborted ? null : false);
+    // Without a candidate response (including a refused platform login redirect),
+    // there is no application result to judge. Never follow the redirect.
+    const inconclusive = mode === "candidate" ||
+      (controller.signal.aborted && (mode === "disconnect" || mode === "waf"));
+    return result(inconclusive ? null : false);
   } finally { clearTimeout(timer); }
 }
 

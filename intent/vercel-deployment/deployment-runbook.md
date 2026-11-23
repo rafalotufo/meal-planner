@@ -141,7 +141,8 @@ Expected app responses are 421/no-store for `/`, `/sign-in`, `/api/session`
 and an actual built static path (check the latter manually). Proxy rejects
 noncanonical Host before public routes. If Vercel Authentication intercepts,
 the operator may privately supply its protection cookie on stdin. Never use a
-production app cookie for candidate checks. Platform denial alone is inconclusive;
+production app cookie for candidate checks. Platform denial, refused login
+redirect or missing candidate response is inconclusive (exit 2);
 never spoof Host or loosen auth to make the candidate appear healthy.
 
 After passing candidate/config checks, promote that same Production artifact:
