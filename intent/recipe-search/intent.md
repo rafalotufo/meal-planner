@@ -19,9 +19,10 @@ Users enter a free-text description of recipes they want to find, such as
 recipes and present relevant results in a clear, responsive interface. Each
 result lets the user review the recipe and open its original source.
 
-"Search" is interpreted as discovering existing web recipes, rather than
-inventing recipes. The orchestrator has asked the CEO to confirm this reading;
-any contrary answer must revise this intent before dependent design proceeds.
+The CEO confirmed that search discovers existing web recipes and links to
+their original sources. The LLM provider must be configurable: implement
+OpenAI API first and preserve a small provider boundary so another provider,
+such as Gemini, can be added later.
 
 ### Acceptance criteria
 
@@ -48,6 +49,10 @@ any contrary answer must revise this intent before dependent design proceeds.
   easy to scan without horizontal overflow at mobile and desktop sizes.
 - Model/search credentials remain server-side. Missing configuration produces
   a useful failure rather than fabricated results or exposed provider details.
+- Provider selection is configurable through server-side configuration. OpenAI
+  API is the only provider implemented in this increment; unsupported selections
+  fail clearly. The provider boundary permits future integrations without
+  coupling the search interface to OpenAI-specific request or response shapes.
 - The existing required lint, typecheck, build, workflow regression, secret,
   and real-browser checks pass; new behavior receives meaningful automated
   coverage and both successful and failed search flows are verified.
@@ -70,9 +75,10 @@ approve it. The existing Next.js, TypeScript, and Tailwind foundation remains.
   timeouts, URL/image handling, and error handling require explicit design.
 - Do not commit credentials, require a database, or persist visitor queries
   merely to support this search feature.
-- Provider, model, search tooling, and the minimum useful agent arrangement
-  are architecture decisions. The CEO's provider preference is being requested;
-  no provider or paid-service setup is authorized by this intent alone.
+- Use OpenAI API for the initial implementation, with configurable provider
+  selection and a small provider abstraction. Model, search tooling, and the
+  minimum useful agent arrangement remain architecture decisions. Creating
+  paid accounts or provisioning paid services is not authorized by this intent.
 
 ## Out of scope
 
@@ -81,16 +87,15 @@ shopping lists, database provisioning or migrations, nutrition analysis,
 medical or allergy guarantees, autonomous cooking actions, and production
 deployment. Extra filters, pagination, and streaming are deferred unless the
 approved design establishes that they are necessary for the initial search.
+Implementing Gemini or other additional providers is deferred to a future
+increment; do not add speculative provider adapters now.
 
 ## Open questions
 
-- CEO confirmation of the existing-web-recipe interpretation is pending in the
-  active chat. A different answer changes product scope and must return to PM.
-- Which LLM provider should power the agents? Architect may propose a choice
-  if no preference exists; this does not require credentials in the repository.
 - Architect must define retrieval/grounding, result limits, agent responsibilities,
   latency and cost bounds, trustworthy source extraction, picture delivery,
-  safe link handling, and test/live verification strategy before implementation.
+  safe link handling, the small configurable provider boundary, and test/live
+  verification strategy before implementation.
 
 These technical questions belong in Design. Live-provider verification requires
 an authorized configured service; deterministic tests alone cannot establish

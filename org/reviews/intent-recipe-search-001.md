@@ -16,16 +16,17 @@ text. Spec, plan, code, and security retain their separate review gates.
 
 ## Findings
 
-No blocking product-scope finding under the ordinary reading of "search for
-such recipes": find existing web recipes, with source attribution. The owner
+No blocking product-scope finding. The CEO confirmed discovery of existing
+web recipes, with links to their original sources. The owner
 explicitly requests free-text input, LLM-agent search, and reviewable recipe
 title, picture, short cooking description, and available cooking time.
 
-The orchestrator is confirming existing recipes versus generated recipes and
-the preferred provider with the CEO. A request for generation changes scope
-and must revise the intent before dependent work proceeds. Provider choice
-is a design decision rather than an unresolved product objective; do not
-invent a commitment to a vendor or paid-service provisioning.
+The CEO requested a configurable provider, starting with OpenAI API, and the
+ability to add providers such as Gemini later. This increment implements only
+OpenAI behind a small provider boundary with configurable server-side
+selection. Future Gemini implementation is deferred. The exact interface,
+model, and search tooling belong to Design; paid account creation or service
+provisioning remains outside the authorized scope.
 
 Missing images and cook times are normal search outcomes. The intent requires
 honest fallbacks and source-grounded summaries rather than fabricated metadata.
@@ -36,6 +37,9 @@ accounts, meal planning, or database is needed for this outcome.
 
 - `org/intake/forms/recipe-search-001.md`, Details: Rafael names recipe-search
   and specifies textual descriptions, LLM agents, and the four result fields.
+- CEO clarification in the active chat, relayed by the orchestrator: existing
+  web recipes with source links; configurable provider starting with OpenAI API,
+  supporting future additions such as Gemini.
 - `org/roles/product-manager.md`: PM owns intent review, scope, and ambiguity
   escalation; `org/protocol.md`, Gates: PM accepts intent, CEO retains merge
   and release approval.
