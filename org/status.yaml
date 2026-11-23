@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Recipe-photo six-turn loop solved; committed local work awaits human merge/release. }
+  orchestrator: { status: idle, assignment: null, last_report: Recipe-photo loop solved; combined authenticated pnpm integration verified and independently approved; human local merge authorized, release closed. }
   product-manager: { status: idle, assignment: null, last_report: Recipe-photos intent accepted; source-backed larger photos and explicit safe retrieval design required. }
   architect: { status: idle, assignment: null, last_report: Recipe-photo spec independently approved including bounded network boundary. }
   senior-developer: { status: idle, assignment: null, last_report: "Photo enrichment verified57TS+7Python/allchecks, real3source photos and CUA; code/security002 approved." }
@@ -25,3 +25,11 @@ review_queue:
   - { id: plan-recipe-photos-001, artifact: intent/recipe-photos/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-recipe-photos-001, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: code-recipe-photos-002, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-authenticated-access-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+
+  - { id: code-recipe-merge-001, artifact: recipe-merge-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

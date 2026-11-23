@@ -42,6 +42,48 @@ task file. Preserve the existing 34 application and seven Python tests.
 - org/reviews/recipe-photos-verification.md
 - org/reviews/recipe-photos-*.jpg
 
+- .worktreeinclude
+- tsconfig.recipes-test.json
+- lib/recipes/types.ts
+- lib/recipes/errors.ts
+- lib/recipes/validation.ts
+- lib/recipes/openai.ts
+- app/api/recipes/search/route.ts
+- app/recipe-search.tsx
+- app/page.tsx
+- tests/recipe-validation.test.ts
+- tests/recipe-openai.test.ts
+- tests/recipe-fixtures.ts
+- org/loop/config.yaml
+- org/reviews/recipe-search-verification.md
+- org/reviews/recipe-search-*.png
+- pnpm-lock.yaml
+- pnpm-workspace.yaml
+- org/reviews/pnpm-migration*.md
+- org/reviews/pnpm-migration*.jpg
+- org/reviews/pnpm-migration*.png
+- tsconfig.json
+- .gitignore
+- .env.example
+- lib/auth.ts
+- lib/auth-client.ts
+- lib/allowed-google-emails.json
+- lib/google-access.ts
+- lib/session.ts
+- lib/auth-policy.ts
+- proxy.ts
+- app/layout.tsx
+- app/api/auth/[[]...all]/route.ts
+- app/api/session/route.ts
+- app/sign-in/page.tsx
+- app/sign-in/sign-in-button.tsx
+- app/sign-out/page.tsx
+- app/sign-out/sign-out-button.tsx
+- tests/auth/*.ts
+- tests/auth/package.json
+- org/reviews/authenticated-access*
+- org/reviews/*authenticated-access*.md
+
 The existing test compiler/glob already includes these TypeScript files; no new
 test runner, compiler configuration, npm script, or org budget/gate change is
 planned. The feature-specific review label is already configured by the org.
@@ -162,3 +204,34 @@ independent reviewers inspect exact native connection and failure paths.
 Source blocking/unsafe metadata remain explicit failures/fallbacks, never cause
 weakened SSRF rules or a claim of universal coverage. No extra paid model call,
 credential inspection, production deployment, merge or release is authorized.
+
+
+## Merge integration amendment — 2026-11-23
+
+Rafael explicitly requested "merge to main" after final photo verification.
+Main advanced independently with approved pnpm migration and authenticated access.
+This amendment supersedes the earlier no-merge handoff restriction for the local
+merge only; production release remains a separate human gate.
+
+Preserve both approved capabilities and all existing dependency versions. Generate
+pnpm's lockfile with the same eight approved photo dependencies and retain the
+reviewed strict lifecycle policy. Remove the superseded npm lockfile. Keep both
+TypeScript native-runner test commands, using pnpm as the package manager.
+The manifest above includes the inherited approved file sets so merge checks
+cover both sides; it does not authorize unrelated changes.
+
+Compose the protected server home page with the recipe form. The recipe endpoint
+must read the shared allowed-Google session before parsing input or invoking the
+provider, fail closed with401/503, and retain existing request/usage/photo bounds.
+Allow HTTPS images in CSP for approved external recipe photos; preserve nonce
+scripts, same-origin connections, frame denial and no-referrer behavior.
+
+Preserve both original audit chains byte-for-byte in a provenance archive. Extend
+main's canonical chain with imports citing original record hashes and the explicit
+human merge approval. Keep historical test evidence unchanged and record combined
+pnpm results separately. Independently review the integration, run recipe/auth/
+workflow tests and lint/typecheck/build, and verify authenticated cards and HTTPS
+photos in a real browser at320/1440 before completing the local merge.
+
+Evidence: org/reviews/recipe-merge-review-001.md and
+org/reviews/recipe-merge-verification.md; authority: org/messages/ceo-0006.md.

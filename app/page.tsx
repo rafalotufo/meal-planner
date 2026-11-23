@@ -1,6 +1,8 @@
 import RecipeSearch from "./recipe-search";
+import { requirePageSession } from "../lib/session";
 
-export default function HomePage() {
+export default async function HomePage() {
+  await requirePageSession();
   return (
     <main className="min-h-screen bg-stone-50 px-5 py-10 sm:px-8 sm:py-14">
       <div className="mx-auto max-w-6xl">

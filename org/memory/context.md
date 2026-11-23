@@ -25,15 +25,31 @@ intent/recipe-photos/intent.md
 
 ## Open messages
 
+- architect-0001 architect -> orchestrator handoff: Draft pnpm migration specification ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
+- product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
+- product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
+- product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
+- reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
+- reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
+- reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
+- reviewer-0004 reviewer -> orchestrator review: Authenticated access specification approved
+- reviewer-0005 reviewer -> orchestrator review: Authenticated access build plan approved
+- reviewer-0006 reviewer -> orchestrator review: Server-code Gmail allowlist specification and plan approved
+- reviewer-0007 reviewer -> orchestrator review: Authenticated access implementation approved
+- security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
+- security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
+- senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
+- senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
+- senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
 
 ## Recent decisions
 
-- mem-0011 security-researcher: Recipe-search security clear after correcting stalled-body deadline/abort cancellation and preserving per-process admission/accounting; live source fidelity and release decisions remain pending. (org/reviews/security-recipe-search-002.md)
-- mem-0012 ceo: Use existing ignored local OpenAI configuration for live verification. Add root-only /.env.local to .worktreeinclude on feature branch for future local Codex-managed worktrees after merge; no credential contents committed. (org/messages/ceo-0004.md)
-- mem-0013 reviewer: Recipe-search code and bounded spec/plan amendments approved after34 TypeScript tests and7 Python workflow tests; browser and sampled live OpenAI search pass with2 source-checked recipes in21.51s. Public endpoint origin filtering is not authentication; human merge/release and production access/shared-quota policy remain outstanding. (org/reviews/recipe-search-verification.md)
-- mem-0014 orchestrator: User requested better source-grounded recipe photos. Archived completed recipe-search run and graph before starting a separate six-turn recipe-photos intent; prior merge/release approval remains pending. (org/intake/forms/recipe-photos-001.md)
-- mem-0015 reviewer: Recipe-photo enrichment approved after57 TypeScript tests,7 workflow tests and real-source/CUA checks:all3 observed gnocchi photos load at500x500/1250x833/1248x832; provider captured/simulated,metadata and photo loads real,0 modelcalls. Source ambiguity/raw-control findings resolved with independent code/security002 clearance; human merge/release pending. (org/reviews/recipe-photos-verification.md)
+- mem-0027 ceo: Use existing ignored local OpenAI configuration for live verification. Add root-only /.env.local to .worktreeinclude on feature branch for future local Codex-managed worktrees after merge; no credential contents committed. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0012; org/messages/ceo-0004.md)
+- mem-0028 reviewer: Recipe-search code and bounded spec/plan amendments approved after34 TypeScript tests and7 Python workflow tests; browser and sampled live OpenAI search pass with2 source-checked recipes in21.51s. Public endpoint origin filtering is not authentication; human merge/release and production access/shared-quota policy remain outstanding. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0013; org/reviews/recipe-search-verification.md)
+- mem-0029 orchestrator: User requested better source-grounded recipe photos. Archived completed recipe-search run and graph before starting a separate six-turn recipe-photos intent; prior merge/release approval remains pending. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0014; org/intake/forms/recipe-photos-001.md)
+- mem-0030 reviewer: Recipe-photo enrichment approved after57 TypeScript tests,7 workflow tests and real-source/CUA checks:all3 observed gnocchi photos load at500x500/1250x833/1248x832; provider captured/simulated,metadata and photo loads real,0 modelcalls. Source ambiguity/raw-control findings resolved with independent code/security002 clearance; human merge/release pending. (org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl#mem-0015; org/reviews/recipe-photos-verification.md)
+- mem-0031 ceo: Merge recipe-search/photo improvements into main after integration validation; preserve Google account protection and pnpm. Production release remains unapproved. (org/messages/ceo-0006.md)
 
 ## Constraints
 
@@ -54,7 +70,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0015 from org/reviews/recipe-photos-verification.md
+- mem-0032 from org/reviews/recipe-merge-verification.md
 
 <!-- machine:end -->
 

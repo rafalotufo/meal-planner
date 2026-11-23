@@ -1,0 +1,95 @@
+{
+  "purpose": "Preserve both concurrent immutable audit histories before merge reconciliation",
+  "sources": {
+    "HEAD": {
+      "commit": "1b71017daeb9fd31a8f2482820e0f49588bd0ed4",
+      "files": {
+        "gates/ledger.jsonl": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/gates/ledger.jsonl",
+          "sha256": "55b7c9cee86481177e2fcc667df4263126f2f735960920e61dcb6d575a20d858"
+        },
+        "org/memory/events.jsonl": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/events.jsonl",
+          "sha256": "f15a8e2bed6e01a4798eec350d48816657982ade194a70026b3c6e36e59186e9"
+        },
+        "org/memory/context.md": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/memory/context.md",
+          "sha256": "ca009306e55b686e0768143a5b9824d2f158fc052571698c90443ae8e9937273"
+        },
+        "org/loop/config.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/loop/config.yaml",
+          "sha256": "1351a896c57493927d42e3735b6037e294e32dc5ae57a24087b5b67c61486a4b"
+        },
+        "org/loop/history.jsonl": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/loop/history.jsonl",
+          "sha256": "65c878f502c1d57010aff44940e42f116ee6cf3135d33e578976bff49521c051"
+        },
+        "org/loop/state.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/loop/state.yaml",
+          "sha256": "98e8057cca89e278b4465a1af785ee67b90b668cbb362161bfdc524a77678d87"
+        },
+        "workflow-graph.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/workflow-graph.yaml",
+          "sha256": "41a66a3f8c8018066e6e8a4fb40cd1289436a8188035dc0dc3cb316e7f22ba6a"
+        },
+        "org/status.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/status.yaml",
+          "sha256": "fe37f573baa1878dac13c9dfa7f48ca3b932afee62b30f3615e886921c35ffd5"
+        },
+        "org/messages/security-researcher-0001.md": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/messages/security-researcher-0001.md",
+          "sha256": "2fd03c1a4f576aa60adca309b81eaa4b9142264cdec6487330ee43c9b658b5ae"
+        },
+        "org/messages/security-researcher-0002.md": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/HEAD/org/messages/security-researcher-0002.md",
+          "sha256": "489b5e8d9e3bc6b6081641e75abbe4f0717f6da841641257d35379d8cebfd7b8"
+        }
+      }
+    },
+    "main": {
+      "commit": "d5f158310e1d91e3a51c97c5887ca3906e9f773d",
+      "files": {
+        "gates/ledger.jsonl": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/gates/ledger.jsonl",
+          "sha256": "b313175ea0c3dd7cb73723829963a7203ca353720a3334c4c293cbba748a007e"
+        },
+        "org/memory/events.jsonl": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/memory/events.jsonl",
+          "sha256": "c00a7b8c0da163837d6d56707f7b1427844b076faa0c7cd45bdedebc93bf2ccb"
+        },
+        "org/memory/context.md": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/memory/context.md",
+          "sha256": "183b1e63ff46e50f6f44f1152a0790d63e85a3a7c65d61038b81ea2203ec8913"
+        },
+        "org/loop/config.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/loop/config.yaml",
+          "sha256": "9c84a81749562d7b2ef4f164efc0b2edf32b47e6795148d5973f68cf4f987e23"
+        },
+        "org/loop/history.jsonl": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/loop/history.jsonl",
+          "sha256": "803bbfb932cdb8543d386be78777722e4d68e00e598a8edb04434675384d9c1f"
+        },
+        "org/loop/state.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/loop/state.yaml",
+          "sha256": "007039a5eb4e77ee020d810d665a71d72a41862b0519b2c396ead1ceb0bcb26e"
+        },
+        "workflow-graph.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/workflow-graph.yaml",
+          "sha256": "92ecc626dc356907f1ea914a287f19e3fabbb93038acec40333486dfe814bf1d"
+        },
+        "org/status.yaml": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/status.yaml",
+          "sha256": "e0c830f4b8a7651ed29c11b5651b011bf0ad2ab2c1cb283d89493d196c8361ee"
+        },
+        "org/messages/security-researcher-0001.md": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/messages/security-researcher-0001.md",
+          "sha256": "2ec5ba8f559940e1f05c65d19668e0ccebb594abe22c00fd6707a49daba9bb88"
+        },
+        "org/messages/security-researcher-0002.md": {
+          "archive": "org/merge/recipe-search-main-2026-11-23/main/org/messages/security-researcher-0002.md",
+          "sha256": "53b2b1c70ac2fe30daf20bfbf4938745db9defb44f8f7ed68db07381d4ebc2c7"
+        }
+      }
+    }
+  }
+}

@@ -11,3 +11,6 @@ build/
 .next/
 out/
 *.tsbuildinfo
+
+# The example contains placeholders only.
+!.env.example

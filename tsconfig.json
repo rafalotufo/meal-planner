@@ -21,7 +21,14 @@
         "name": "next"
       }
     ],
-    "skipLibCheck": false
+    "skipLibCheck": false,
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "bun-types/sqlite"
+    ],
+    "allowImportingTsExtensions": true
   },
   "include": [
     "next-env.d.ts",

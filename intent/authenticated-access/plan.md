@@ -1,0 +1,202 @@
+# Meal Planner — authenticated access build plan
+
+- Derived from: approved `intent/authenticated-access/spec.md`; accepted sibling intent
+- Author: senior-developer
+- Status: Approved
+- Reviewed by: independent reviewer (`org/reviews/plan-authenticated-access-001.md`); scope/type amendments below and in org/reviews.
+- Compatibility amendment: approved (`org/reviews/authenticated-access-types-amendment-002.md`)
+- Gmail allowlist amendment: approved (`org/reviews/authenticated-access-allowlist-amendment-001.md`)
+- Date: 2026-11-23
+
+## Files that change
+
+- package.json
+- pnpm-lock.yaml
+- pnpm-workspace.yaml
+- tsconfig.json
+- .gitignore
+- .env.example
+- lib/auth.ts
+- lib/auth-client.ts
+- lib/allowed-google-emails.json
+- lib/google-access.ts
+- lib/session.ts
+- lib/auth-policy.ts
+- proxy.ts
+- app/page.tsx
+- app/layout.tsx
+- app/api/auth/[[]...all]/route.ts
+- app/api/session/route.ts
+- app/sign-in/page.tsx
+- app/sign-in/sign-in-button.tsx
+- app/sign-out/page.tsx
+- app/sign-out/sign-out-button.tsx
+- tests/auth/*.ts
+- tests/auth/package.json
+- README.md
+- AGENTS.md
+- CLAUDE.md
+- org/loop/config.yaml
+- org/reviews/authenticated-access*
+- org/reviews/*authenticated-access*.md
+
+The auth catch-all manifest uses fnmatch `[[]` to match its literal opening bracket.
+
+Feature documents and org graph, status, memory, messages, loop and ledger
+records remain process artifacts owned by the orchestrator. The test checklist
+lives in this plan per repository convention; no duplicate task tracker.
+`pnpm-workspace.yaml` changes only if a newly introduced dependency script
+requires an inspected, narrow allow/deny decision; preserve existing decisions.
+
+## Design and dependencies
+
+Use exact stable `better-auth@1.7.27` without a database. Keep all existing
+manifest versions and scripts; add `test:auth` for Node's built-in test runner.
+Pinned Better Auth requires the `bun:sqlite` ambient declaration even on Node.
+Add exact stable `bun-types@1.4.5` as a development-only type compatibility
+dependency and load only its official `bun-types/sqlite` ambient module through
+`compilerOptions.types` alongside Node/React globals. Full Bun globals conflict
+with Next; do not load them. Preserve `skipLibCheck: false` and all existing
+strict checks; no runtime Bun, shim, or database is introduced.
+All new application tests and helpers use TypeScript and exact `tsx@4.23.15`
+with Node's built-in runner. The isolated test package is ESM; the root module
+mode is unchanged. Keep all tests in strict typechecking, with no suppressions. Inspect the pinned package's
+stateless JWE, state/account-cookie, expiry and logout implementations before
+coding. One-hour sessions do not refresh; browser logout cannot revoke a
+previously copied cookie before expiry. Do not hand-roll session/OAuth crypto.
+The administrator maintains the four owner-approved Gmail addresses in the
+server-only imported JSON list. A pure TypeScript matcher normalizes trim/lowercase
+only, denies empty/malformed lists, requires verified `@gmail.com` membership,
+and is called before session creation and on every protected session read.
+Removing an address and rebuilding/redeploying blocks its existing sessions;
+never expose the list to client props, bundles, logs or auth error messages.
+
+Dependency order: regression harness → config/session boundary → OAuth flow
+and authenticated content → logout → documentation/full evidence → reviews.
+Implementation, dependency mutations, tests and builds run sequentially.
+
+## Ordered tasks and checkpoints
+
+### 1. Capture failing HTTP regression and dependency foundation
+
+Dependency: independent approval of this plan. Files: `tests/auth/*.ts`,
+`package.json`, `pnpm-lock.yaml`, conditional `pnpm-workspace.yaml`.
+
+- [x] Add Node test-runner harness that launches the built Next server on an
+  isolated loopback port, owns cleanup, and asserts anonymous `/` redirects
+  and `/api/session` returns 401. Run against the existing production build;
+  retain concrete failing evidence before adding protection.
+- [x] Add exact Better Auth; inspect dependency changes/install scripts before
+  execution, retain fail-closed lifecycle policy, generate the lockfile using
+  pnpm, and verify a frozen install. Use the approved exact tsx loader for the TypeScript suite.
+- [x] Inspect pinned-library options and official references; record material
+  incompatibilities for architect/spec review rather than weakening the spec.
+
+Acceptance: regression fails for the current unprotected page, dependency
+installation is reproducible, no unrelated dependency upgrade or blanket trust.
+
+### 2. Close anonymous page and endpoint access
+
+Dependency: task 1. Files: `lib/auth.ts`, `lib/session.ts`,
+`lib/auth-policy.ts`, `proxy.ts`, `app/page.tsx`.
+
+- [x] Lazily validate canonical origin, Google credentials and a strong secret;
+  missing/invalid configuration fails closed at request time, while build can
+  run without secrets. Configure Google-only stateless JWE, one-hour expiry,
+  disabled refresh, cookie state/account storage and secure transport policy.
+  Configure the four owner-approved addresses in `lib/allowed-google-emails.json`
+  and use `lib/google-access.ts` before issuing a session and on every
+  `readSession`; require verified Google email plus exact normalized Gmail match.
+- [x] Implement exact public path/method policy and default full server session
+  verification. Return page redirects, API/non-navigation 401s, and generic
+  503 configuration/verification failures with private/no-store responses.
+- [x] Re-check the session in the home server component. Keep its existing
+  heading-only markup. Extend HTTP regression for dotted/nested/unknown paths,
+  RSC/prefetch/bypass headers and missing configuration.
+
+Acceptance/checkpoint: anonymous requests cannot obtain protected content;
+`pnpm run lint`, `pnpm run typecheck`, and `pnpm run build` pass. Run the
+focused auth tests and retain failures for later OAuth routes as appropriate.
+
+### 3. Establish Google sessions and endpoint proof
+
+Dependency: task 2. Files: auth catch-all, `app/api/session/route.ts`,
+`lib/auth-client.ts`, sign-in page/button; extend `tests/auth/*.ts`.
+
+- [x] Mount only the specified auth paths/methods, retain library handler CSRF,
+  state, PKCE and provider checks, and fix successful/error destinations to
+  same-origin `/` and `/sign-in`. Reject unsupported providers and external
+  callback destinations. Re-check the protected session endpoint server-side.
+- [x] Add accessible minimal Google button with pending/failure states. No
+  session lookup hook, external assets, new server actions or extra home UI.
+- [x] Stub Google token/user-info/JWKS responses only at the outbound network
+  boundary in a test-only Node preloader. Exercise real initiation/callback,
+  library-issued valid sessions, malformed/forged/wrong-secret/expired cookie
+  denials, state failures, cross-origin requests and disallowed methods/routes.
+  Read the first real configured member only inside the test network fixture;
+  do not add a fake member, environment override, or alternate verifier.
+  Add pure matcher tests (`tests/auth/access-policy.test.ts`) for empty/malformed
+  lists, trim/case behavior, unverified claims, wrong domain and nonmembership,
+  with no dot/plus aliases. Exercise denied provider identities and valid
+  cryptographic sessions carrying now-unlisted email claims through real HTTP.
+
+Acceptance: a completed mocked Google flow grants both `/` and `/api/session`;
+invalid sessions never do. Tests verify actual cookie attributes, absolute
+expiry without an hour-long wait, redirects and no-store behavior. State any
+library option uncertainty explicitly before changing the approved design.
+
+### 4. End the browser session
+
+Dependency: task 3. Files: sign-out page/button, auth handler if needed;
+extend `tests/auth/*.ts`.
+
+- [x] Require a session for `/sign-out` and sign-out POST, use the library
+  handler, expire every auth cookie/chunk and navigate to `/sign-in`.
+- [x] Use the same cookie jar through sign-in, protected requests and sign-out;
+  prove subsequent protected page/API requests are denied, GET cannot mutate
+  logout, and cross-origin POST is rejected.
+
+Acceptance/checkpoint: `pnpm run test:auth`, lint, typecheck and build pass;
+expiry and browser logout match the documented stateless limit.
+
+### 5. Configure, inspect the browser and record evidence
+
+Dependency: task 4. Files: `.env.example`, `.gitignore`, README, AGENTS,
+CLAUDE, `org/loop/config.yaml`; auth tests and verification/screenshots as needed.
+
+- [x] Document environment variable placeholders, random-secret generation,
+  administrator code-list maintenance/deny-all empty policy, canonical HTTPS
+  origin/local loopback exception, exact Google Web OAuth
+  callback URI, `test:auth`, session expiry and copied-cookie revocation limit.
+  Unignore only `.env.example`; append auth regression after production build
+  in workflow acceptance. The standalone command starts its own built server.
+- [x] Run clean frozen install, `python3 -m unittest discover -s tests`,
+  `pnpm run test:auth`, lint, typecheck, production build and native dependency
+  audit. Record actual results and triage reachable high/critical findings.
+- [x] Verify sign-in and authenticated heading-only screens in an isolated
+  real Chrome/browser (CDP via Node WebSocket or parent CUA) at 320 and 1440
+  CSS-pixel widths using the test-network
+  provider flow or a library-issued allowed-member test session. Check document title/lang,
+  keyboard controls, no overflow, console/network errors; save screenshots.
+- [x] Record evidence in `org/reviews/authenticated-access-verification.md`;
+  run diff, message/memory/loop and ledger checks.
+- [ ] Orchestrator completes staged secret/active plan-sync checks, audit turn
+  records, commits and independent security/code review before human gates.
+
+Acceptance: all required checks pass, screenshots are visually inspected, no
+secrets committed, and review evidence is concrete. Real Google credentials,
+consent configuration and a live Google round trip remain an explicitly
+reported environment-dependent verification; mocked success is not live proof.
+No merge, push, deploy or release is authorized.
+
+## Risks and recovery
+
+Rolling documentation can differ from pinned stateless behavior; inspect source
+and test actual cryptographic session validation rather than cookie presence.
+Google token material may exist in encrypted account cookies; request identity
+scopes only, no refresh tokens, and verify bounded lifetime and logout deletion.
+A test preloader must never be imported by production or enabled by application
+configuration. Preserve all existing checks and tests. Spec changes require
+architect/independent review, never silent relaxation. Shared Git metadata and
+package downloads may require sandbox escalation; local store paths are not
+repository defaults. Orchestrator owns review dispatch and human gates.

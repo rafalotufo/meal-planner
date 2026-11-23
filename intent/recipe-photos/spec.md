@@ -225,3 +225,16 @@ encoding and size policies intentionally prefer fallback over broader crawling.
 No credential inspection, paid calls, new dependencies, or application changes
 occurred in this design turn. Independent security review must approve the new
 network boundary before implementation.
+
+
+## Integration with authenticated main — 2026-11-23
+
+The authorized local merge preserves main's allowed-Google authentication and
+pnpm migration. Recipe search is available only to a currently allowed session,
+checked by both request middleware and the endpoint before effects. Anonymous
+search returns401; unavailable authentication fails closed. HTTPS image loading
+is permitted by CSP for source photos while script and connect policies remain
+unchanged. No provider or photo-retrieval behavior changes. Original verification
+remains historical; combined evidence is recorded separately in
+org/reviews/recipe-merge-verification.md and independently reviewed in
+org/reviews/recipe-merge-review-001.md. Production release remains unapproved.
