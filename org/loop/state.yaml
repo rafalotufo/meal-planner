@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/vercel-deployment/intent.md
-base_commit: 5619f28c80b22098d5e69ca0a693e2ba4507f862
+work_item: intent/recipe-search-notebook/intent.md
+base_commit: 766a7925b9489ea9bfda97355f3c2f9c7d99ca67
 turn: 6
 no_progress: 0
 phase: done
 status: solved
-last_input_hash: 1735025adc08e419c838954e60b3e444597729959cdb15411458c21dd185926f
+last_input_hash: 0bebaa99b8a901508d8042e0090579cb97b95addf4a9312411e8a23a40910960
 stop_reason: solved
 last_action: "reviewer:review"
-artifacts: [{"path": "intent/vercel-deployment/intent.md", "sha256": "28f5431620366c6c976f679005d434a2fe2362fd10dd9c88401f1372df2e4153"}, {"path": "intent/vercel-deployment/spec.md", "sha256": "4031591b1fcd427de46e5fb5db5be76833657d89e8c20162d0d0b32ffa34f3ca"}, {"path": "intent/vercel-deployment/plan.md", "sha256": "c1c704d4d4d2fb8febf6e68281f5db44ff9c8fb8f17ae864527820d24a8d9bec"}, {"path": "org/reviews/vercel-deployment-build-verification.md", "sha256": "992b170829913fa64fe71f4e72b9ecd008fa818cc4fbe4f8a8f2c12b8754b330"}, {"path": "org/reviews/security-vercel-deployment-001.md", "sha256": "303a04bb0deee1b56c956a579c86a906e0efad8d8bf8308b6dd35de33dbe190a"}, {"path": "org/reviews/code-vercel-deployment-001.md", "sha256": "02f9417c035672cbebbfec980e41a4563aadfa4d5b8766ab573c53ee4a8fe36c"}]
+artifacts: [{"path": "intent/recipe-search-notebook/intent.md", "sha256": "fac45f3d092d74977da3d95472f34b01aa0aa54fefc7f02a4259b8d0db506224"}, {"path": "intent/recipe-search-notebook/spec.md", "sha256": "d7dee4a8972eb6970909b29429f9ee328e7f927c94a3a3fcc35d2b04b855d192"}, {"path": "intent/recipe-search-notebook/plan.md", "sha256": "ae971010ecaf2c07f70eb418fd54e18231ae3a6d5948b5d9dd2f6cc9345edf0a"}, {"path": "org/reviews/recipe-search-notebook-verification.md", "sha256": "f2cdb7635e2a09df33da8bf74b97a1612a097204ef77cead5d92851aafac4d41"}, {"path": "org/reviews/security-recipe-search-notebook-001.md", "sha256": "2114ca59ced5212f81f1d064b18df5d5f364ca99447b2e31d6030868bce3f824"}, {"path": "org/reviews/code-recipe-search-notebook-001.md", "sha256": "aa698ce31ebd88ca8f7b46793c73a6543fec45f0c2971b21c37391df16651164"}]
 acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/smoke.test.ts", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/auth/*.test.ts", "exit": 0, "pass": true}]
-updated_at: "2026-11-23T17:37:46Z"
+updated_at: "2026-11-23T19:47:18Z"
