@@ -3,10 +3,10 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: null }
+  orchestrator: { status: idle, assignment: null, last_report: PnPM migration loop solved in 6 turns; independent reviews approved; awaiting human merge approval. }
   product-manager: { status: idle, assignment: null, last_report: Accepted pnpm migration scope; design may select compatible stable pnpm without app dependency upgrades. }
   architect: { status: idle, assignment: null, last_report: "Spec independently approved: org/reviews/spec-pnpm-migration-001.md" }
-  senior-developer: { status: busy, assignment: implementation, last_report: "pnpm migration implemented; clean/repeat frozen install, app/workflow checks and browser QA pass; ready for independent security/code review." }
+  senior-developer: { status: idle, assignment: null, last_report: pnpm migration committed c7f2afe; independent security/code reviews approved; all checks passed. }
   security-researcher: { status: idle, assignment: null, last_report: pnpm security clear; production audit zero; existing moderate dev esbuild advisory retained. }
   reviewer: { status: idle, assignment: null, last_report: "review code-pnpm-migration-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
