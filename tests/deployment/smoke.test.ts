@@ -63,10 +63,19 @@ test("anonymous checks inspect exact redirect and never send authentication", as
 });
 
 test("unexpected destinations and status/cache errors fail closed", async () => {
-  for (const location of ["https://evil.example/sign-in", `${origin}/other`, "/sign-in"]) {
+  for (const location of ["https://evil.example/sign-in", `${origin}/other`, "//evil.example/sign-in", `${origin}/sign-in?next=other`]) {
     assert.equal((await runSmoke({ origin, mode: "anonymous", fetchImpl: async () => new Response(null, { status: 307, headers: { ...noStore, location } }) })).pass, false);
   }
   assert.equal((await runSmoke({ origin, mode: "candidate", fetchImpl: async () => new Response(null, { status: 302, headers: { location: "https://evil.example" } }) })).pass, null);
+});
+
+test("Vercel's relative redirect resolves to the exact expected sign-in URL", async () => {
+  const result = await runSmoke({ origin, mode: "anonymous", fetchImpl: async (url) => {
+    const path = new URL(url).pathname;
+    if (path === "/") return new Response(null, { status: 307, headers: { ...noStore, location: "/sign-in" } });
+    return new Response(null, { status: path === "/sign-in" ? 200 : 401, headers: noStore });
+  } });
+  assert.equal(result.pass, true);
 });
 
 test("no candidate application response is inconclusive and sanitized", async () => {

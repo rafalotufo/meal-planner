@@ -57,7 +57,8 @@ export async function runSmoke({ origin: input, mode, fetchImpl = fetch, session
     }
     if (mode === "anonymous") {
       const home = await request("/", { redirect: "manual" });
-      if (home.status !== 307 || home.headers.get("location") !== `${origin}/sign-in` || !uncached(home)) return result(false);
+      const location = home.headers.get("location");
+      if (home.status !== 307 || !location || new URL(location, origin).href !== `${origin}/sign-in` || !uncached(home)) return result(false);
       for (const [path, expected] of [["/sign-in", 200], ["/api/session", 401], ["/api/recipes/search", 401]] as const) {
         const response = await request(path, { post: path === "/api/recipes/search" });
         if (response.status !== expected || !uncached(response)) return result(false);
