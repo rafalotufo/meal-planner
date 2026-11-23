@@ -1,0 +1,15 @@
+.env
+.env.*
+.vercel
+.git
+node_modules
+.next
+build
+dist
+out
+org
+intent
+tests
+scripts
+hooks
+.worktreeinclude

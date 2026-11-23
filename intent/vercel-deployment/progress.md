@@ -5,9 +5,17 @@ Approved plan source: `96f3154`; approval record:
 
 - [x] Step 1: Baseline application/workflow tests, lint, strict typecheck, build
   and 12 auth regressions passed on unchanged source during planning. Frozen
-  install uses pnpm 10.33.0 / Node 24.15.0. Native dependency audit pending.
-- [ ] Step 2: Minimal Vercel config and clean upload build.
-- [ ] Step 3: Bounded operator helpers with TypeScript tests first.
-- [ ] Step 4: Runbook, full validation, browser QA and independent reviews.
+  install uses pnpm 10.33.0 / Node 24.15.0. Audit: one pre-existing moderate
+  development-server advisory, zero high/critical; triage recorded in build verification.
+- [x] Step 2: Minimal Vercel config implemented; frozen install, lint, typecheck,
+  57 recipe tests and build passed. Clean upload export install/build passed
+  without secrets, audit or test folders. Lockfile unchanged.
+- [x] Step 3: Tests failed before smoke.ts existed, then 11 helper tests passed
+  including real local HTTP redirect rejection and bounded disconnect.
+- [ ] Step 4: Runbook, 12 auth tests, seven Python tests and Chrome 320/1440 QA
+  completed; independent code/security reviews pending.
 - [ ] Step 5: Free project configuration; separate authorization required.
 - [ ] Step 6: Production release and hosted verification; separate authorization required.
+
+Vercel interactive login succeeded; read-only listing confirmed the requested
+Hobby scope and no projects. No project creation/link, config or deployment.

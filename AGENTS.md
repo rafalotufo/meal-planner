@@ -2,7 +2,7 @@
 
 ## Commands
 
-- Install reproducibly: `pnpm install --frozen-lockfile` (Node.js 22+; tested with 24.15.0/pnpm 10.33.0).
+- Install reproducibly: `pnpm install --frozen-lockfile` (Node.js 24.x; tested with 24.15.0/pnpm 10.33.0).
 - Package manager: exact `pnpm@10.33.0` in `package.json`; bootstrap missing pnpm
   with `npm install --global pnpm@10.33.0`, then check `pnpm --version`.
 - Develop: `pnpm run dev`.
@@ -13,6 +13,8 @@
   for Node's native runner; no runtime fixture endpoints).
 - Production preview: `pnpm run start` after build.
 - Secrets: `python3 scripts/scan_secrets.py --staged` (zero findings).
+- Deployment: follow `intent/vercel-deployment/deployment-runbook.md`; pin Vercel CLI
+  66.6.0, retain manual release gates and never upload local `.env*` files.
 
 ## Architecture and scope
 

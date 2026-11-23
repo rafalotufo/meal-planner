@@ -6,7 +6,7 @@ available photos and source-supported cooking times, styled with Tailwind CSS v4
 
 ## Local development
 
-Use Node.js 22 or newer and pnpm 10.33.0 (pinned in `package.json`).
+Use Node.js 24.x and pnpm 10.33.0 (pinned in `package.json`).
 Verified with Node.js 24.15.0 and pnpm 10.33.0.
 
 If pnpm is not installed, bootstrap the exact version once:
@@ -169,6 +169,24 @@ Python's standard-library tests cover workflow tooling, including the active
 feature plan path used by the PR and staged-change checks. Select a plan via
 `--plan intent/<feature-slug>/plan.md`, or let `workflow-graph.yaml` select it.
 Repositories without a graph retain the legacy root `plan.md` fallback.
+
+## Vercel deployment
+
+Deployment targets a new Hobby project in `rafalotufos-projects`, using a stable
+Vercel-provided HTTPS URL. Follow the
+[deployment runbook](intent/vercel-deployment/deployment-runbook.md) for local
+login, Production-only environment variables, Google callback setup, bounded
+checks, manual promotion and recovery. No Git auto-production deployment or
+paid hosting features are configured. Existing OpenAI project limits stay unchanged.
+
+`vercel.json` keeps the Next.js build on pnpm's frozen lockfile and enables
+cancellation for the Node search function; its platform duration is 90 seconds
+while the application's own deadline remains 60 seconds. Set
+`ENABLE_EXPERIMENTAL_COREPACK=1` in Vercel to honor exact pnpm 10.33.0, and verify
+effective build/function settings. Node 24.x is pinned by major; Vercel controls
+hosted patch updates. Local `.env*` files and operator/audit/test directories
+are excluded from CLI uploads. Production deployment requires explicit release
+approval after review and merge; local authentication does not grant that approval.
 
 ## Database
 

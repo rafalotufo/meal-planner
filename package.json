@@ -12,7 +12,7 @@
     "test:auth": "node --import tsx --test tests/auth/*.test.ts"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": "24.x"
   },
   "dependencies": {
     "better-auth": "1.7.27",

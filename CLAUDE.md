@@ -3,7 +3,9 @@
 Read `AGENTS.md` for shared repository guidance, architecture, conventions,
 verification requirements, and agent-org gates.
 
-Use Node.js 22+ (tested with 24.15.0/pnpm 10.33.0). Install with `pnpm install --frozen-lockfile`.
+Use Node.js 24.x (tested with 24.15.0/pnpm 10.33.0). Install with `pnpm install --frozen-lockfile`.
+For hosting, follow `intent/vercel-deployment/deployment-runbook.md` with pinned
+Vercel CLI 66.6.0, manual release gates and no local `.env*` uploads.
 The package manager is pinned in `package.json`. If missing, bootstrap once with
 `npm install --global pnpm@10.33.0` and check `pnpm --version`.
 Run `pnpm run lint`, `pnpm run typecheck`, and `pnpm run build`; all must pass.

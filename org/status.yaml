@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: "Vercel plan ready for human approval; no implementation, project configuration or release authorized." }
   product-manager: { status: idle, assignment: null, last_report: Rafael approved Vercel production intent; Hobby scope and existing OpenAI limits recorded. }
   architect: { status: idle, assignment: null, last_report: "Rafael approved Vercel specification; planning authorized, implementation remains gated." }
-  senior-developer: { status: idle, assignment: null, last_report: Vercel implementation plan drafted and independently reviewed; human plan approval pending. }
+  senior-developer: { status: busy, assignment: vercel-deployment-implementation, last_report: Vercel implementation plan drafted and independently reviewed; human plan approval pending. }
   security-researcher: { status: idle, assignment: null, last_report: Recipe-photo security002 clear after57tests+control/association probes. }
-  reviewer: { status: idle, assignment: null, last_report: "review plan-vercel-deployment-001: approved" }
+  reviewer: { status: busy, assignment: vercel-deployment-implementation, last_report: "review plan-vercel-deployment-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -35,3 +35,4 @@ review_queue:
   - { id: spec-vercel-deployment-001, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: spec-vercel-deployment-002, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
