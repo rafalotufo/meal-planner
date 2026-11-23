@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: busy, assignment: family-membership-final-verification, last_report: Authenticated access merged to main under explicit human approval; all tests/build/browser checks passed on main; release not authorized. }
   product-manager: { status: idle, assignment: null, last_report: Family-membership intent drafted; awaiting CEO answers on invitation transition and Gmail eligibility; independent review recorded. }
   architect: { status: idle, assignment: null, last_report: Family specification complete and independently reviewed; awaiting human specification approval; no plan or application implementation. }
-  senior-developer: { status: busy, assignment: intent/family-membership/plan.md, last_report: "Family build plan complete: 14 tasks, native/subject probes first, isolated DB harness, full browser/test gates; independent review clear, human plan approval outstanding." }
-  security-researcher: { status: busy, assignment: family-membership-backend-security, last_report: "Security clear: 11 auth tests independently pass, no client-member leak/production fixture imports; one unreachable moderate advisory retained, due2026-12-07." }
-  reviewer: { status: busy, assignment: implementation, last_report: Family build plan approved for human review; no blocking findings; implementation not authorized before human plan approval. }
+  senior-developer: { status: idle, assignment: null, last_report: "Family feature implemented and verified at 1de139d; code and security reviews approved, all tests and real Chrome pass; no production actions." }
+  security-researcher: { status: idle, assignment: null, last_report: "Family security clear at 1de139d; focused HTTP10 and native/policy7 pass, path issue fixed, audit no high/critical; live Google and human production gates remain." }
+  reviewer: { status: idle, assignment: null, last_report: "Family code review approved at 1de139d; independent auth11/family26/native7 pass, mutation meaningful, manifest covered; fresh human merge/release required." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -21,4 +21,4 @@ review_queue:
   - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-authenticated-access-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: code-family-membership-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: code-family-membership-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
