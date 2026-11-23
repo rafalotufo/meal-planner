@@ -9,8 +9,8 @@ intent/pnpm-migration/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 4
-- phase: security
+- turn: 5
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -30,6 +30,7 @@ intent/pnpm-migration/intent.md
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
+- security-researcher-0001 security-researcher -> orchestrator status: pnpm migration security clear
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 
@@ -50,10 +51,11 @@ intent/pnpm-migration/intent.md
 - intent/pnpm-migration/spec.md (4b2857a3c280b341461d4d3b57c60dbcf923462697735d2282e6557af5c69714)
 - intent/pnpm-migration/plan.md (9802adb40b659eac140963ac42545a00ae3b0b59b30bad56fbecba097c1029be)
 - org/reviews/pnpm-migration-verification.md (e0b2a6cfe04271e6832cdba3d3027746ceb12e044deb06fa759a1ccfe8a2d287)
+- org/reviews/security-pnpm-migration-001.md (6affb7041500ea0b8f0d088dce8841b1a434658c792b677bf7fffdd47da7c1b7)
 
 ## Next action
 
-senior-developer:implement
+security-researcher:assess_security
 
 ## Last digest source
 
