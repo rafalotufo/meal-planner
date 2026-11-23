@@ -9,7 +9,7 @@ export function SignInButton() {
     setPending(true);
     setFailed(false);
     try {
-      const { error } = await authClient.signIn.social({ provider: "google", callbackURL: "/", errorCallbackURL: "/sign-in" });
+      const { error } = await authClient.signIn.social({ provider: "google", callbackURL: "/onboarding", errorCallbackURL: "/sign-in" });
       if (!error) return;
     } catch { /* A generic retry message keeps provider details out of the page. */ }
     setFailed(true);

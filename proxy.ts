@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { authConfiguration } from "./lib/auth";
 import { isApiRequest, isPublicRequest, noStore } from "./lib/auth-policy";
-import { readSession } from "./lib/session";
+import { readCryptographicSession, readSession } from "./lib/session";
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -17,10 +17,19 @@ export async function proxy(request: NextRequest) {
   let response: NextResponse;
   try {
     // A canonical configured origin, never a client-supplied Host, owns all redirects.
-    if (!isPublicRequest(pathname, request.method) && !await readSession(request.headers)) {
+    const publicRequest = isPublicRequest(pathname, request.method);
+    const signOut = (pathname === "/sign-out" && ["GET", "HEAD"].includes(request.method)) || (pathname === "/api/auth/sign-out" && request.method === "POST");
+    const admitted = publicRequest || signOut ? null : await readSession(request.headers);
+    const session = signOut ? await readCryptographicSession(request.headers) : admitted;
+    const onboarding = pathname === "/onboarding" || pathname === "/api/onboarding/provision" || pathname === "/api/invitations/accept";
+    if (!publicRequest && !session) {
       response = isApiRequest(pathname) || !["GET", "HEAD"].includes(request.method)
         ? NextResponse.json({ error: "Unauthorized" }, { status: 401 })
         : NextResponse.redirect(new URL("/sign-in", origin));
+    } else if (!publicRequest && !signOut && admitted && admitted.access.kind !== "member" && !onboarding) {
+      response = isApiRequest(pathname) || !["GET", "HEAD"].includes(request.method)
+        ? NextResponse.json({ error: "Family membership required" }, { status: 403 })
+        : NextResponse.redirect(new URL("/onboarding", origin));
     } else {
       const requestHeaders = new Headers(request.headers);
       requestHeaders.set("Content-Security-Policy", csp);

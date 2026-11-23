@@ -124,41 +124,41 @@ Verify: `node --import tsx --test tests/family/storage.test.ts`; `pnpm run typec
 ### 4. Give the HTTP harness isolated persistent identities
 
 Dependency: 3. Files: tests/auth/server.ts, tests/auth/google-network.ts, tests/auth/flow.ts, tests/family/database.ts (medium).
-- [ ] Every server owns a migrated temporary database and cleanup; explicit missing/unmigrated cases can opt out. Extend only the test-process transport with distinct signed Google subjects/emails and changed-email cases.
-- [ ] Keep OAuth initiation/callback separate from completing onboarding so tests can inspect pending access and POST provisioning/acceptance explicitly; omit fixed success destinations in default helper requests so the server owns them, and support restart against the same test-owned file.
+- [x] Every server owns a migrated temporary database and cleanup; explicit missing/unmigrated cases can opt out. Extend only the test-process transport with distinct signed Google subjects/emails and changed-email cases.
+- [x] Keep OAuth initiation/callback separate from completing onboarding so tests can inspect pending access and POST provisioning/acceptance explicitly; omit fixed success destinations in default helper requests so the server owns them, and support restart against the same test-owned file.
 Verify: `pnpm run test:auth` against the existing behavior and strict `pnpm run typecheck`; inspect that application code imports no fixture and no production fake-user/config switch exists.
 
 ### 5. Carry a stable verified subject through admission
 
 Dependency: 4. Files: lib/identity-access.ts, lib/auth.ts, lib/session.ts, tests/family/identity.test.ts, tests/auth/oauth.test.ts (medium).
-- [ ] Implement typed admission states from current SQLite membership/grants/invitations plus the existing allowlist matcher; pending invitees get onboarding only, durable grants permit later unlisted login, membership alone never grants access. Malformed configuration/storage errors fail closed.
-- [ ] Populate only verified Google `sub`, retain it in encrypted cache, and reject legacy cookies missing it. Only fresh verified post-admission callbacks may update an existing subject's unique email; older cookie reads never write or merge identities.
+- [x] Implement typed admission states from current SQLite membership/grants/invitations plus the existing allowlist matcher; pending invitees get onboarding only, durable grants permit later unlisted login, membership alone never grants access. Malformed configuration/storage errors fail closed.
+- [x] Populate only verified Google `sub`, retain it in encrypted cache, and reject legacy cookies missing it. Only fresh verified post-admission callbacks may update an existing subject's unique email; older cookie reads never write or merge identities.
 Verify: focused identity tests and real callback/JWE assertions; changed-email/collision/stale-cookie cases, empty/malformed policy, allowlist removal, and stable subject across fresh login/restart. Retain existing signature/audience/issuer/expiry checks and absolute session lifetime.
 
 ### 6. Enforce member-only routes and safe logout
 
 Dependency: 5. Files: lib/auth-policy.ts, proxy.ts, app/page.tsx, app/api/session/route.ts, app/sign-out/page.tsx (medium); finish the shared session helper from 5.
-- [ ] Require current family context for member pages/APIs; route eligible onboarding identities to onboarding, deny other protected APIs, ignore caller context headers, and preserve heading-only `/`.
-- [ ] Exact sign-out GET/HEAD and POST use the cryptographic-only helper at proxy/page/handler even after admission loss; no database/admission lookup or family data on this exception.
+- [x] Require current family context for member pages/APIs; route eligible onboarding identities to onboarding, deny other protected APIs, ignore caller context headers, and preserve heading-only `/`.
+- [x] Exact sign-out GET/HEAD and POST use the cryptographic-only helper at proxy/page/handler even after admission loss; no database/admission lookup or family data on this exception.
 Verify: `tests/auth/access.test.ts` and `tests/family/identity.test.ts` through real HTTP; anonymous/dotted/RSC/prefetch/header-bypass cases, pending-member denial, database outage, and eligibility-loss sign-out. Add these assertions in the same green auth-boundary slice with task 7.
 
 ### 7. Complete an allowlisted user's first-login path
 
 Dependency: 6. Files: app/api/auth/[...all]/route.ts, app/sign-in/sign-in-button.tsx, lib/family-store.ts, tests/family/provisioning.test.ts, tests/auth/oauth.test.ts (medium).
-- [ ] Fix successful OAuth destinations to `/onboarding` in client, forwarding and response validation; retain strict Google-only shape and reject injected subject/family/direct-token fields and generic mutation routes. Clear invitation-context cookie with all library cookie chunks on logout.
-- [ ] Implement transactional no-invitation provisioning and idempotent existing-membership return without rewriting email. Atomically recheck eligibility, membership and pending invitations before creating one family/user.
+- [x] Fix successful OAuth destinations to `/onboarding` in client, forwarding and response validation; retain strict Google-only shape and reject injected subject/family/direct-token fields and generic mutation routes. Clear invitation-context cookie with all library cookie chunks on logout.
+- [x] Implement transactional no-invitation provisioning and idempotent existing-membership return without rewriting email. Atomically recheck eligibility, membership and pending invitations before creating one family/user.
 Verify: build then auth/identity/provisioning tests, updating old success assertions to complete the approved onboarding POST rather than weakening protected-home checks. The HTTP completion path becomes green in task 8 before committing this slice.
 
 ### 8. Expose guarded automatic setup
 
 Dependency: 7. Files: lib/family.ts, app/onboarding/page.tsx, app/onboarding/onboarding-controls.tsx, app/api/onboarding/provision/route.ts, tests/family/provisioning.test.ts (medium).
-- [ ] Separate eligible identity from server-owned `{ userId, familyId }`; server rendering stays read-only. Auto-POST only for eligible users without membership, active invitation or presented context; derive all ownership server-side.
-- [ ] Retries/concurrent connections create no duplicates or orphans; GET/HEAD/prefetch/session reads cannot provision. A racing invitation wins or loses according to the immediate transaction's lock order, never both.
+- [x] Separate eligible identity from server-owned `{ userId, familyId }`; server rendering stays read-only. Auto-POST only for eligible users without membership, active invitation or presented context; derive all ownership server-side.
+- [x] Retries/concurrent connections create no duplicates or orphans; GET/HEAD/prefetch/session reads cannot provision. A racing invitation wins or loses according to the immediate transaction's lock order, never both.
 Verify: `pnpm run build`, `pnpm run test:auth`, `node --import tsx --test tests/family/provisioning.test.ts`; use real HTTP and separate SQLite connections/processes, including rollback/lock failures.
 
 ### Checkpoint B — first-login vertical flow
 
-- [ ] Tasks 4–8 yield a working allowlisted login → POST setup → title-only home → logout path; strict checks and all existing auth regressions pass. The not-yet-created invitation tests are added with the next slices.
+- [x] Tasks 4–8 yield a working allowlisted login → POST setup → title-only home → logout path; strict checks and all existing auth regressions pass. The not-yet-created invitation tests are added with the next slices.
 
 ### 9. Create recipient-bound invitations within a family
 
