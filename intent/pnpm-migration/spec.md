@@ -2,7 +2,7 @@
 
 - Derived from: accepted `intent/pnpm-migration/intent.md`
 - Author: architect
-- Status: Draft — independent peer review required
+- Status: Approved by independent reviewer (`org/reviews/spec-pnpm-migration-001.md`)
 - Date: 2026-11-23
 
 ## Requirements

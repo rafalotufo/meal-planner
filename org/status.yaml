@@ -5,13 +5,14 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted pnpm migration scope; design may select compatible stable pnpm without app dependency upgrades. }
-  architect: { status: idle, assignment: null, last_report: Draft pnpm specification ready for independent peer review; stable 10.33.0 and v10 sources verified. }
+  architect: { status: busy, assignment: intent/pnpm-migration/spec.md, last_report: Draft pnpm specification ready for independent peer review; stable 10.33.0 and v10 sources verified. }
   senior-developer: { status: idle, assignment: null, last_report: App and nested plan checker verified; independent code review approved. }
   security-researcher: { status: idle, assignment: null, last_report: "Security clear for static increment; zero production audit findings, dev-only Drizzle advisories documented." }
-  reviewer: { status: idle, assignment: null, last_report: "review code-home-page-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review spec-pnpm-migration-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
