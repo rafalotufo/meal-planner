@@ -29,6 +29,7 @@ intent/vercel-deployment/intent.md
 - architect-0002 architect -> orchestrator handoff: Vercel Hobby specification ready for human approval
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
+- ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -75,7 +76,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0041 from org/reviews/vercel-deployment-release-verification.md
+- mem-0042 from org/reviews/vercel-deployment-release-verification.md
 
 <!-- machine:end -->
 

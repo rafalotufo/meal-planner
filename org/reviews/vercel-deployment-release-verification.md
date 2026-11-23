@@ -1,13 +1,14 @@
 # Vercel deployment — configuration and release evidence
 
-Date: 2026-11-23. **Not released. No deployment exists.**
+Date: 2026-11-23. **Production-target candidate staged; not promoted.**
 
 ## Human authority and merge
 
 Rafael answered “yes” to merging the reviewed changes and creating/configuring
 the free project under the runbook. Source: org/messages/ceo-0007.md.
 Committed records: merge-vercel-deployment-human-001 (code_owner_approve) and
-config-vercel-deployment-human-001 (project_configuration). No release record.
+config-vercel-deployment-human-001 (project_configuration). Release was still
+unapproved during setup; the later authorization/staging evidence is below.
 
 Main checkout was clean, and `git merge-base --is-ancestor main HEAD` passed.
 The authorized fast-forward moved main from 5619f28 to 2157744. Reviewed runtime
@@ -81,5 +82,45 @@ and transport code have not been weakened to bypass those checks.
 
 Deployment requires a separate committed human release authorization for the
 actual project/source SHA, staging, promotion, bounded first-live checks and
-recovery. No production staging, promotion, live search, WAF burst or hosted
-acceptance check has run. Source/API/firewall metadata is setup evidence only.
+recovery. This setup snapshot predates staging; later staging evidence below
+supersedes it. No promotion, live search, WAF burst or hosted acceptance has run.
+
+## Authorized staging — 2026-11-23
+
+Rafael approved production release of d682c1b, including staging/promotion,
+up to two live searches, a 15-minute first-live window and pause on failed or
+incomplete required checks. Source: org/messages/ceo-0008.md. Committed ledger:
+release-vercel-deployment-human-001, expires 2026-11-23T19:00:00Z. Gate hook and
+ledger verification both allowed this staging. The authorization record was
+committed in aa80d19; main includes it.
+
+Exported exactly approved source d682c1b83b9625adee539d9a81d69f1f6700e2ec from
+Git: 50 tracked files under .vercelignore exclusions. No .env*, Git/operator
+state, build outputs, org/intent/test/script folders were sent. Non-runtime
+root workflow documentation and gates/evals files remain in the reviewed
+source payload; previous shorthand “no audit files” referred to org/intent
+exclusions and must not be read as a complete workflow-file exclusion.
+Production secret values stayed in Vercel; none were pulled or printed.
+
+Pinned CLI66.6.0 staged with --prod --skip-domain in the approved Hobby project:
+
+- Deployment ID: dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB.
+- Candidate URL: https://meal-planner-1igkzsbnl-rafalotufos-projects.vercel.app.
+- Status READY, target production; productionUrl null, aliases empty.
+- Metadata sourceCommit matches the exact approved SHA above.
+- Hosted build compiled/completed; extracted pnpm version10.33.0.
+- Deployment/project metadata reports Node24.x. Exact hosted Node patch has
+  not been established; a dependency version in logs is not runtime evidence.
+- functions[app/api/recipes/search/route.ts].supportsCancellation is true.
+- After Vercel CLI access propagated, candidate /, /sign-in and /api/session
+  returned421 with private,no-store. An initial302 was Vercel's access gate,
+  not application success/failure. No Host spoofing or redirects followed.
+- The pinned Next.js polyfill path /_next/static/chunks/polyfills-42372ed130431b0a.js
+  also returned421/no-store. Path came from the equivalent local build; actual
+  hosted asset existence must be confirmed by200 at the stable origin later.
+
+Public API/build-output summaries did not expose the generated function's
+effective maximum duration. Task browser requires Vercel sign-in; Rafael chose
+to verify the settings himself. Confirmation of Node24.x /90seconds is pending
+before promotion. No first-live window has started, live model calls used:0/2.
+The required hosted OAuth/provider/source/deadline/UI checks have not run.

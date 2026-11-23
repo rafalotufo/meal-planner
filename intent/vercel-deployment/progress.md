@@ -15,7 +15,7 @@ Approved plan source: `96f3154`; approval record:
 - [x] Step 4: Runbook, 12 auth tests, seven Python tests and Chrome 320/1440 QA
   completed. Code review's candidate-reporting Minor reproduced and fixed;
   final independent code/security reviews both READY FOR HUMAN REVIEW on
-  55e9de7, no remaining findings. Merge approval pending; no origin remote for PR.
+  55e9de7, no remaining findings. Human local merge approved/completed; no remote for PR.
 - [x] Step 5: Authorized by Rafael in ceo-0007. Empty meal-planner Hobby project
   created in rafalotufos-projects; Next.js/Node24/Fluid and manual promotion
   configured, four non-secret Production variables set, WAF rule published.
@@ -23,9 +23,14 @@ Approved plan source: `96f3154`; approval record:
   required variables present, Production-only; required secrets are sensitive.
   Rafael confirmed the callback was added; live OAuth remains unverified.
   Project configuration complete; existing provider limits remain unchanged.
-- [ ] Step 6: Production release and hosted verification; separate authorization required.
+- [ ] Step 6: Rafael authorized release (ceo-0008; ledger expires19:00UTC).
+  Approved d682c1b staged as dpl_GP3AMEcqCP7A3NGemnEc1hYZQWHB, READY and
+  unpromoted. Candidate Host checks passed; Node24.x/pnpm10.33.0/cancellation
+  metadata confirmed. Owner verifying generated search function90s limit.
+  First-live window not started; live searches used0/2.
 
 Vercel interactive login succeeded. Human-approved local main fast-forwarded
 to 2157744. Assigned production origin:
 https://meal-planner-delta-six-55.vercel.app (not deployed).
-No production deployment or release authorization exists.
+Production candidate exists under explicit release authority; stable domain
+has not been promoted and hosted acceptance remains incomplete.

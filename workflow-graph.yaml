@@ -38,7 +38,7 @@ nodes:
     stage: deploy
     artifact: authorized release
     gate: release_authorization
-    status: not_started
+    status: in_progress
     done_status: done
   diagnosis:
     stage: maintain
