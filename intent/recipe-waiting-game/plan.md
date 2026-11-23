@@ -2,7 +2,8 @@
 
 - Derived from: sibling spec.md, approved by Rafael after the 128-puzzle amendment; org/reviews/spec-recipe-waiting-game-human-approval-001.md.
 - Author: senior-developer
-- Status: Approved — Rafael; org/reviews/plan-recipe-waiting-game-human-approval-001.md
+- Status: Approved
+- Approval: Rafael; org/reviews/plan-recipe-waiting-game-human-approval-001.md
 - Date: 2026-11-23
 
 ## Scope and architecture
