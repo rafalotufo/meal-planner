@@ -203,7 +203,7 @@ Verify: `node --import tsx tests/family/browser.ts` and the adapted auth browser
 
 Dependency: 13. Files: AGENTS.md, CLAUDE.md, org/loop/config.yaml (small); evidence/review records are process artifacts.
 - [x] Update current repository guidance and append family regression to loop acceptance after build/auth; keep TypeScript/strict/no-bypass rules, family context before effects, exact public exceptions and Python regression coverage. Do not rewrite historical auth records.
-- [ ] Run the full commands below, independent code/security review, fix findings and rerun affected checks. Orchestrator records normal bounded turns, current plan gate and artifact, then requests human merge/release; never self-approve, extend the loop budget or apply production migrations.
+- [x] Run the full commands below, independent code/security review, fix findings and rerun affected checks. Orchestrator records normal bounded turns, current plan gate and artifact, then hands off for human merge review; release requires separate authorization. Never self-approve, extend the loop budget or apply production migrations.
 
 ## Final verification and recovery
 
