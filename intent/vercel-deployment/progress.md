@@ -16,8 +16,14 @@ Approved plan source: `96f3154`; approval record:
   completed. Code review's candidate-reporting Minor reproduced and fixed;
   final independent code/security reviews both READY FOR HUMAN REVIEW on
   55e9de7, no remaining findings. Merge approval pending; no origin remote for PR.
-- [ ] Step 5: Free project configuration; separate authorization required.
+- [ ] Step 5: Authorized by Rafael in ceo-0007. Empty meal-planner Hobby project
+  created in rafalotufos-projects; Next.js/Node24/Fluid and manual promotion
+  configured, four non-secret Production variables set, WAF rule published.
+  Credential transfer awaits explicit sensitive-egress approval; Google callback
+  needs console sign-in or owner setup. See release-verification record.
 - [ ] Step 6: Production release and hosted verification; separate authorization required.
 
-Vercel interactive login succeeded; read-only listing confirmed the requested
-Hobby scope and no projects. No project creation/link, config or deployment.
+Vercel interactive login succeeded. Human-approved local main fast-forwarded
+to 2157744. Assigned production origin:
+https://meal-planner-delta-six-55.vercel.app (not deployed).
+No production deployment or release authorization exists.
