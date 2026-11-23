@@ -1,0 +1,16 @@
+---
+id: orchestrator-0019
+from: orchestrator
+to: senior-developer
+kind: decision
+subject: Record one bounded metadata diagnostic after observed null results
+artifact: intent/single-call-recipe-search/plan.md
+requires_response: false
+in_reply_to: null
+status: open
+severity: null
+blocking: false
+created_at: "2026-11-23T20:54:31Z"
+---
+
+Initial3 actual-provider searches returned9 cards with null optional metadata. Peer reviewer accepted the plan addendum for exactly one additional unchanged mushroom query, original model/payload/bounds/cancellation, responseclone inspection, local ignored raw only and sanitized findings. This is necessary verification within user-authorized local implementation/testing; no model/production/billing change or implicit app fix. Record actual total4 live calls and findings.

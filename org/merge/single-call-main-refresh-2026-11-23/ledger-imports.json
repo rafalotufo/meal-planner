@@ -1,0 +1,110 @@
+[
+  {
+    "canonical_id": "import-single-call-import-single-call-intent-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-intent-recipe-search-notebook-001",
+    "hash": "98f38113d035d9af29af19db67e63b950f00c444ffd1e7c6bdad1a0df939fb53",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T19:40:20Z\", \"hash\": \"9a80d4ed82a0517bd97b69e4018a7468e9b2f43b3e8824f1f33977596928e054\", \"original_commit\": null, \"original_evidence\": \"intent/recipe-search-notebook/intent.md\", \"record\": \"intent-recipe-search-notebook-001\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-spec-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-spec-recipe-search-notebook-001",
+    "hash": "bc2dada05e186a6e02fc5bbb20e5b34048771718bf668e11cbfc70be46597aae",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T19:40:20Z\", \"hash\": \"e46b10a6df794ae70bacb11c30bc9ecb4c6c8a6068a0fa2e2fc8c0e3e4be3477\", \"original_commit\": null, \"original_evidence\": \"org/reviews/design-recipe-search-notebook-001.md\", \"record\": \"spec-recipe-search-notebook-001\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-plan-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-plan-recipe-search-notebook-001",
+    "hash": "619ef86d17d5cf970a4876bf04e89dd38b9bb1e879b4a8e77ead5e8bab9cb64b",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T19:40:20Z\", \"hash\": \"b3553303f8725dee7906cd8b4475133068346e236b653a39a43678491e337016\", \"original_commit\": null, \"original_evidence\": \"org/reviews/design-recipe-search-notebook-001.md\", \"record\": \"plan-recipe-search-notebook-001\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-merge-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-merge-recipe-search-notebook-001",
+    "hash": "0c3d64088e07361d69fab1b45f510496130716d3dc5e7b0ea9e18fddacc1d3f6",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": "6b94405",
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T19:57:52Z\", \"hash\": \"72e1dc507d477e21acf0353e15f1b97b7eec989ca1da3274bfdbb578ddef036f\", \"original_commit\": \"6b94405\", \"original_evidence\": \"org/messages/ceo-0018.md\", \"record\": \"merge-recipe-search-notebook-001\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-product_owner_accept-010",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-product_owner_accept-010",
+    "hash": "6ce50625a44bdb05b56b12519a2f7bc290f07a082a98942b817d6aa9a08086cf",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T20:37:14Z\", \"hash\": \"b3d36f05c391b35f2fc08bb2d5e9f678c27e9650aa30893ad59e949f0452ad38\", \"original_commit\": null, \"original_evidence\": \"org/reviews/intent-single-call-recipe-search-001.md\", \"record\": \"product_owner_accept-010\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-product_owner_approve-015",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-product_owner_approve-015",
+    "hash": "ca416d40d6cf61048e0516502acc1fd1170c21d38e0870fd8a770b6aee77647e",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T20:42:09Z\", \"hash\": \"9d0902b9d852be9d188fc4cb039bc7b2d6d2e6825e3bb8c0ab8556c2c6c49c6e\", \"original_commit\": null, \"original_evidence\": \"org/reviews/spec-single-call-recipe-search-001.md\", \"record\": \"product_owner_approve-015\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-engineer_approve-017",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-engineer_approve-017",
+    "hash": "1cfb412d7038e2c14ff6a2e0af5ba085afdfceaa02cd673025ef04effe3b578a",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T20:45:08Z\", \"hash\": \"16649c6e7164d1086114214b53046d0adc9e57851d80f0a1d0f91947ddbf719a\", \"original_commit\": null, \"original_evidence\": \"org/reviews/plan-single-call-recipe-search-001.md\", \"record\": \"engineer_approve-017\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-engineer_approve-018",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-engineer_approve-018",
+    "hash": "1c7e92ba0277f61e08054d0af3461a878a81fbacaa05941056cb5c84cbe14f1e",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T20:54:31Z\", \"hash\": \"0f653740170913786d83696ea99b323bacc1fdb6b90e8cfe53f586940346bb80\", \"original_commit\": null, \"original_evidence\": \"org/reviews/plan-single-call-recipe-search-001.md: bounded metadata diagnostic addendum\", \"record\": \"engineer_approve-018\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-import-single-call-engineer_approve-019",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "import-single-call-engineer_approve-019",
+    "hash": "f172b0dc1cde0a92cf782a7a88953bd9cc0079e8afebf5d36ce060a635a18c25",
+    "decided_at": "2026-11-23T21:09:57Z",
+    "original_commit": null,
+    "original_evidence": "Import of existing decision (not new approval): {\"decided_at\": \"2026-11-23T20:56:47Z\", \"hash\": \"a1f9f05701d9e47f1fcbe792e9377586a7f7ee184b248c2a777f3047ef7a8037\", \"original_commit\": null, \"original_evidence\": \"org/reviews/plan-single-call-recipe-search-001.md: prompt-only metadata remediation and final three calls\", \"record\": \"engineer_approve-019\", \"source\": \"org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl\"}"
+  },
+  {
+    "canonical_id": "import-single-call-code_owner_approve-008",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "code_owner_approve-008",
+    "hash": "65cab330ec76583e1c1370e0d286909c0c1d6c5967307c9298c8d340aa7b8df0",
+    "decided_at": "2026-11-23T21:11:06Z",
+    "original_commit": "7144a0f",
+    "original_evidence": "org/messages/ceo-0026.md"
+  },
+  {
+    "canonical_id": "import-single-call-product_owner_accept-014",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "product_owner_accept-014",
+    "hash": "07c45b58724027e72059a97bc989ac1e7f141c0be3da625c73a59fa7d9dd5058",
+    "decided_at": "2026-11-23T21:18:13Z",
+    "original_commit": null,
+    "original_evidence": "org/messages/ceo-0026.md"
+  },
+  {
+    "canonical_id": "import-single-call-single-call-main-integration-plan-001",
+    "source": "org/merge/single-call-main-refresh-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "single-call-main-integration-plan-001",
+    "hash": "b4d363dc5ae26c2efd33c3e5f583be8dc8e04cb148cec7fb6c20efb8c30d6b8e",
+    "decided_at": "2026-11-23T21:27:25Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/single-call-main-integration-review.md"
+  }
+]

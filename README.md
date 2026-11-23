@@ -126,16 +126,20 @@ Optional server variables:
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `RECIPE_SEARCH_PROVIDER` | `openai` | Provider selection; only OpenAI is implemented. Unsupported values return a controlled unavailable state. |
-| `OPENAI_RECIPE_MODEL` | `gpt-6.2-sol` | A Responses model supporting web search and structured outputs. |
+| `OPENAI_RECIPE_MODEL` | `gpt-6.2-sol` | A Responses model supporting hosted web search. |
 
 The provider boundary permits a future Gemini adapter without changing the
-search form or endpoint. This increment makes two bounded OpenAI calls: one
-researches source recipes using hosted web search, then a tool-free curator
-summarizes validated source-specific candidates. Missing images use a fallback;
-missing cooking times are omitted. Source fidelity still requires live sampling.
+search form or endpoint. One bounded OpenAI request researches source recipes
+using hosted web search and writes their card summaries in the same response.
+The server checks exact native source citations and source-specific method and
+metadata excerpts before exposing public cards. There is no second curator,
+automatic retry, or repair call. Missing images use a fallback; missing cooking
+times are omitted. Evidence and summaries come from the same model response,
+so these checks bind records structurally rather than independently verifying
+every source fact or dietary constraint. Source fidelity still requires live sampling.
 
-Queries/results are not persisted or logged by the application. Both model
-requests use `store: false`; the description is sent to the configured provider.
+Queries/results are not persisted or logged by the application. The model
+request uses `store: false`; the description is sent to the configured provider.
 Recipe photos load directly from their source hosts, without a referrer. The
 server fetches only exact validated recipe pages through a bounded, pinned-
 address HTTPS metadata path; it never proxies or downloads image binaries.
@@ -157,7 +161,7 @@ This work shares the original search deadline, skips near its expiry and fails
 softly without discarding valid recipe cards. No additional model call is made.
 
 Each search has a 60-second deadline, at most eight hosted research tool calls,
-and 5,000/3,000 output-token ceilings. A process allows two concurrent searches
+and a 5,000 output-token ceiling. A process allows two concurrent searches
 and twenty accepted searches per rolling minute. These are local usage bounds;
 multi-instance traffic controls and provider spending settings require review
 before public deployment. Allowed Google sessions protect the endpoint; per-user quotas and paid service provisioning are deferred.

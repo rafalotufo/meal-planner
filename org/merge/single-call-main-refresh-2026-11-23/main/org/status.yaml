@@ -1,0 +1,51 @@
+# Live org state: which agents are busy/idle and what is in the review queue.
+# Agents update this file when they accept or finish work; reviewers accept
+# reviews only when idle. Commit status changes with the artifact they describe.
+version: 1
+agents:
+  orchestrator: { status: idle, assignment: null, last_report: "Main merged and first PostgreSQL Production release attempted; allowed onboarding failed closed due proxy packaging. Owner paused project; HTTP503 DEPLOYMENT_PAUSED verified. Corrected bundled metadata and invitation cookie handoff pass127Node+7Python, strict build and production/cold-dev Chrome. Independent code/security reviews approve. Await renewed exact-source merge/release/resume authority; zero paid searches used; Preview and DB preserved." }
+  product-manager: { status: idle, assignment: null, last_report: "PostgreSQL intent independently accepted under org protocol, scoped to native local setup and Vercel-compatible code; production and human merge gates remain separate." }
+  architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
+  senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
+  security-researcher: { status: idle, assignment: null, last_report: Independent hosted PostgreSQL catalog/hash/roles/grants/empty-data checks approved on both Neon targets; no deployment/merge/release authority granted. }
+  reviewer: { status: idle, assignment: null, last_report: "Hosted PostgreSQL operational plan/helper/final handoff approved; separate migrated Neon environments and scoped Vercel variable evidence verified, no deployment/merge/release allowed." }
+  memory-keeper: { status: idle, assignment: null, last_report: null }
+review_queue:
+  - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: postgresql-proxy-security-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: security-researcher, rounds: 1, verdict: approved, status: approved }
+  - { id: postgresql-production-code-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: postgresql-production-security-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: security-researcher, rounds: 0, verdict: approved, status: approved }
+  - { id: postgresql-production-release-001, artifact: postgresql-production-preparation, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-authenticated-access-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-family-membership-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-search-001, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-recipe-search-002, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-recipe-search-001, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-search-002, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-001, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-search-002, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-recipe-photos-001, artifact: intent/recipe-photos/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-photos-001, artifact: intent/recipe-photos/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-photos-001, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-photos-002, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: code-recipe-merge-001, artifact: recipe-merge-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-vercel-deployment-001, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-vercel-deployment-002, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-vercel-deployment-002, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: code-postgresql-001, artifact: postgresql-persistence-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-postgresql-hosted-001, artifact: intent/postgresql-persistence/hosted-setup.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: helper-postgresql-hosted-001, artifact: scripts/postgres-hosted.ts, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: final-postgresql-hosted-001, artifact: postgresql-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+
+# Production preparation review records; human merge/release gates remain separate.

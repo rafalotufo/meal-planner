@@ -1,4 +1,4 @@
-# Meal Planner — state on the AI-native SDLC loop graph
+# <Project> — state on the AI-native SDLC loop graph
 
 # Update this file as the project moves through gates. Automation may run the
 # edges between nodes but never skip a gate. This file is the team's shared
@@ -12,19 +12,19 @@ version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/postgresql-persistence/intent.md
+    artifact: intent/single-call-recipe-search/merge-refresh.md
     gate: product_owner_accept
     status: accepted
     done_status: accepted
   spec:
     stage: design
-    artifact: intent/postgresql-persistence/spec.md
+    artifact: intent/single-call-recipe-search/spec.md
     gate: product_owner_approve
     status: approved
     done_status: approved
   plan:
     stage: build
-    artifact: intent/postgresql-persistence/plan.md
+    artifact: intent/single-call-recipe-search/plan.md
     gate: engineer_approve
     status: approved
     done_status: approved
@@ -32,7 +32,7 @@ nodes:
     stage: build
     artifact: code + tests
     gate: code_owner_approve
-    status: in_review
+    status: merged
     done_status: merged
   release:
     stage: deploy

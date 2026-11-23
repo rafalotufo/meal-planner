@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/single-call-recipe-search/merge.md
+base_commit: 7144a0f99dd07ec05fd6ef79835b3c759c75ebcc
+turn: 1
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 2cd21db9b60d941db26ce9beee6ac41d2e76738f846b65b874b73e26489a742a
+stop_reason: solved
+last_action: "reviewer:verify_integration"
+artifacts: [{"path": "org/reviews/single-call-main-integration-review.md", "sha256": "98d77b094149d443a50d6a12e64daba3144cc8548a10c1b5ce032fdbc41af8a5"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/smoke.test.ts", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "pnpm run test:auth", "exit": 0, "pass": true}, {"command": "pnpm run test:family", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T21:28:29Z"

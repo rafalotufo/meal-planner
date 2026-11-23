@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/postgresql-persistence/intent.md
-base_commit: 17318251dbe671a0bdd2570100091f024673c158
-turn: 6
+work_item: intent/single-call-recipe-search/merge-refresh.md
+base_commit: 9aadd83ae3552ae2f63a6f5b064341face6c204f
+turn: 1
 no_progress: 0
 phase: done
 status: solved
-last_input_hash: 71726638088b61ddeb68ae4db175c2ce9c3f9ac48690e32a92cb089dec03eadd
+last_input_hash: f05fab9dca424ead9ce89efbef6e6228f4bd4f18174b48ca0d97a1f574343709
 stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/postgresql-persistence/intent.md", "sha256": "71740e4ed089ed18b921b627564584ead597df39b9a5ffa8b8b5253dbedcca54"}, {"path": "intent/postgresql-persistence/spec.md", "sha256": "84280452c146913c3ac2cbd0bf2b3851e1d777e2092774d6da19d76649378b04"}, {"path": "intent/postgresql-persistence/plan.md", "sha256": "d71f31e1b961e6ea1757ee6df0ef768cca2159082c252eabe8be97b5c72844e8"}, {"path": "org/reviews/postgresql-security-001.md", "sha256": "a799bb595311791a6f41468b76acb7696467b71cfc9be9a68ab9f2ef4519ec37"}, {"path": "org/reviews/postgresql-code-001.md", "sha256": "3287d6563b6303851982a7f42a9fd9cfd42399ed2a1530e9fdaf81895368f5c1"}]
-acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "pnpm run test:auth", "exit": 0, "pass": true}, {"command": "pnpm run test:family", "exit": 0, "pass": true}]
-updated_at: "2026-11-23T19:50:00Z"
+last_action: "reviewer:verify_current_integration"
+artifacts: [{"path": "org/reviews/single-call-main-integration-refresh-review.md", "sha256": "1f331517be9ce27bb327a2ec868029894e8d5f9140d64600618b636541f2e742"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/*.test.ts", "exit": 0, "pass": true}, {"command": "pnpm run test:auth", "exit": 0, "pass": true}, {"command": "pnpm run test:family", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T21:41:38Z"
