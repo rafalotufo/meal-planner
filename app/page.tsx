@@ -4,10 +4,12 @@ import { requirePageSession } from "../lib/session";
 export default async function HomePage() {
   await requirePageSession();
   return (
-    <main className="min-h-screen bg-stone-50 px-5 py-10 sm:px-8 sm:py-14">
+    <main className="min-h-screen bg-stone-50 px-4 pb-12 sm:px-8 sm:pb-16">
       <div className="mx-auto max-w-6xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-stone-900">Meal Planner</h1>
-        <p className="mt-3 max-w-xl text-base leading-relaxed text-stone-600">Find a recipe for whatever sounds good.</p>
+        <header className="flex min-h-16 flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-stone-200 py-4">
+          <h1 className="font-serif text-2xl font-semibold tracking-tight text-emerald-950">Meal Planner</h1>
+          <p className="text-xs font-medium tracking-widest text-stone-500 uppercase">Recipe search</p>
+        </header>
         <RecipeSearch />
       </div>
     </main>
