@@ -54,14 +54,14 @@ is pending for Google client ID/secret from the authenticated-access worktree,
 OpenAI key from this worktree and a new random auth secret to this project's
 Production-only settings. No secret values appear in this record.
 
-The Google Cloud console is signed out in the task browser. It is open for
-owner sign-in; alternatively the owner can add the exact callback above to
-the existing Web client, preserving localhost callbacks. No OAuth client
-setting was changed or consent flow verified.
+Rafael confirmed “Added callback to OAuth client” on 2026-11-23, following the
+exact URI above. This is owner-confirmed configuration, not an independent
+console inspection or successful live Google consent round trip. The owner
+completed this externally; task-browser Google sign-in is no longer needed.
 
 Existing OpenAI billing/limits remain unchanged; effective account limits
 must be verified by the owner/read-only account access before release.
-Production credentials, Google callback confirmation, actual hosted Node/
+Production credentials, actual hosted Node/
 duration/cancellation settings, real OAuth/provider/source/browser acceptance
 and natural hosted deadline evidence remain incomplete. Application protection
 and transport code have not been weakened to bypass those checks.
