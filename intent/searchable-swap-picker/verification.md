@@ -269,3 +269,75 @@ The user's original next-env SHA remains unchanged and unstaged. Original dev
 process/cache remain untouched. The owned private QA copy is removed after the
 independent final review; versioned screenshots and result summaries remain.
 Final follow-up review: `org/reviews/searchable-swap-picker-stable-frame-final-001.md`.
+
+## Follow-up — quietly retain displayed recipes until new results are ready
+
+Approved amendment: `org/reviews/searchable-swap-picker-retained-results-plan-001.md`
+(0aec91d). The owner's further instruction, “No need to display updating recipes,”
+was applied during implementation: no visible Updating message is rendered while
+successful recipes remain displayed. aria-busy preserves the loading signal;
+initial loading with no previous successful page retains its original message.
+
+All changes and QA occurred only at
+`/private/tmp/meal-planner-retained-results-0he__gw5/project`, using pinned Node24
+PATH and empty paid keys. Original application source, live process, next-env.d.ts,
+.next and development/hosted data were untouched by this developer. No Git or
+copy-back operation ran here; private generated next-env remains excluded.
+
+### Actual red/green behavior
+
+Added real DOM choice-ID assertions before changing the dialog. The old source
+built successfully (`build-red.log`), then Chrome exited1 (`browser-red.log`):
+“Retained-results baseline:43 populated choices;0 choices while typing F.”
+The exact saved ID array became empty during debounce, reproducing the reported
+blanking. No production source had been changed before that failure.
+
+Only `app/plans/swap-recipe-dialog.tsx` runtime state/rendering changed. A single
+successful displayed snapshot now carries its validated page/query/cursor;
+requested query/page remains separate. Query/page changes still abort old work
+and clear selection immediately, but preserve the display. Native choices,
+paging and confirmation are disabled while the latest request is pending,
+failed or not represented by the displayed snapshot. Metadata names the actual
+visible query/page. Only current-instance/current-request validated success
+commits a replacement snapshot; ordinary failures retain it with Retry, whereas
+current401/403 clears confidential displayed recipes. Stable-frame CSS, API,
+parent action ownership, response/deadline bounds and version guards are unchanged.
+
+Final Chrome exited0 (`browser-final.log`), reporting:
+“Retained-results baseline:43 populated choices;43 choices while typing F.”
+Exact IDs/order stay identical across successive physical characters, debounce
+and delayed response-body loading. Selection is immediately absent, old native
+choices/paging are disabled and confirmation cannot submit them. Only completed
+validated latest success replaces the IDs and permits fresh selection. No visible
+Updating copy is present while aria-busy is true. Ordinary malformed-response
+failure preserves old IDs with disabled actions and Retry; Retry replaces them
+with the requested results. Current401 and403 each clear the retained cards and
+show access links. A changed query after paging sends no old after cursor; a
+valid empty success replaces rather than indefinitely retaining old recipes.
+
+The full prior request/close/reopen/post-fetch-body/late-mutation race, native
+keyboard/focus/dismissal, one-POST/captured stale revision, full-menu search/paging,
+image fallback and unique planning/history assertions remain. All55 physical
+rectangle samples at320/768/1024/1440×1000 and320×568 still have maximum delta0px.
+No numeric dates outside history controls, horizontal overflow or unexpected
+browser console errors. Owned browser/profile/server/database resources cleaned.
+
+### Final checks and visual handoff
+
+Private lint, strict typecheck and production build exited0. Source/build were
+frozen before root's full broad batch; all223 Node tests (82 recipes+34 family+
+39 menu+16 auth+20 plans+32 deployment) and7 Python tests passed on this build.
+No Node test count was added; the regression extends the existing Chrome flow.
+Actual logs in `/private/tmp/meal-planner-retained-results-0he__gw5/`:
+`lint-final.log`, `typecheck-final.log`, `build-final.log`, `browser-final.log`,
+plus root's `regression-*.log`. Red logs above remain preserved.
+
+Refreshed the existing four browse/selected modal screenshots. Visually inspected
+browse320/1440 and selected320×568: accurate display metadata, stable rows/grid,
+wrapped long title, no visible Updating label and reachable action footer. Prior
+stable-frame geometry and scrolling are preserved. Exact handoff paths are in
+this QA parent's `handoff.json`; only dialog, browser test, feature verification
+and changed existing modal PNGs are eligible for guarded copy-back. No helper,
+dependency, schema, API/auth, provider, scheduler, deployment or hosted change.
+Root owns final source/security review, baseline-checked copy-back, Git/secret
+checks and separate human merge/release gates.
