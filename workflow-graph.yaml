@@ -23,7 +23,7 @@ nodes:
     stage: "build"
     artifact: "weekly-meal-planning-implementation"
     gate: "code_owner_approve"
-    status: in_review
+    status: not_started
     done_status: "merged"
   staging_acceptance:
     stage: "test"

@@ -5,7 +5,8 @@
 - Status: Accepted for Design under the org PM intent gate
 - Source: `brainstorm.md` and the owner's request to save it and implement using
   the SDLC org workflow
-- Decision: `org/reviews/intent-weekly-meal-planning-001.md`
+- Decisions: `org/reviews/intent-weekly-meal-planning-001.md`;
+  uniqueness refinement: `org/reviews/intent-weekly-meal-planning-unique-001.md`
 
 ## Problem
 
@@ -19,8 +20,9 @@ meals too often.
 Automatically propose a family meal plan from saved menu recipes every Thursday
 for the upcoming Sunday–Saturday. Family members react to that concrete draft
 by approving it or suggesting a saved-recipe swap. A final plan remains visible
-in weekly history; future drafts favor meals used less recently without banning
-repeats. Keep the interaction small enough that participation saves effort.
+in weekly history; future drafts favor meals used less recently. A recipe may
+recur across different weeks, but never twice within one week's plan. Keep the
+interaction small enough that participation saves effort.
 
 ## Owner-confirmed requirements
 
@@ -28,17 +30,20 @@ repeats. Keep the interaction small enough that participation saves effort.
 - Draft creation is automatic; its day is configurable by an environment
   variable whose default is Thursday.
 - The draft covers the upcoming Sunday through Saturday.
-- Present **seven weekly recipe choices**, without assigning weekday/date labels
+- Present **up to seven unique weekly recipe choices**, without assigning weekday/date labels
   to individual recipes. Do not show a numeric date range in the main plan
   header; retain week dates only inside history controls.
 - Family participation includes approval and suggested recipe swaps.
 - There is no “I'll be away” option.
 - Preserve weekly history and use it to discourage repetitive weekly menus.
-  Repeats remain valid, including when the saved menu is small.
+  Repeats across different weeks remain valid. A recipe must never repeat within
+  the same week, including after a swap. When fewer than seven unique recipes
+  are available, draft only the available unique recipes; an empty menu creates
+  no draft.
 
 ## Acceptance criteria
 
-- A protected weekly-planning screen presents seven recipe choices without
+- A protected weekly-planning screen presents one to seven unique recipe choices without
   individual weekday/date assignments or a numeric date range in its main header,
   draft/final status, family feedback and actionable empty/error states.
   Existing shared navigation makes the screen discoverable.
@@ -48,12 +53,15 @@ repeats. Keep the interaction small enough that participation saves effort.
   edits. GET, HEAD, Proxy, render and session reads never create drafts.
 - Automatic selection is bounded, uses only that family's saved menu, requires
   no new paid provider calls, and meaningfully favors recipes not planned
-  recently. A small or empty menu is handled honestly and repeatably; repetition
-  is allowed rather than blocking planning.
+  recently. With one to six unique menu recipes, draft all available unique
+  recipes without padding by repetition; with at least seven, draft seven unique
+  recipes; with none, create no draft. Cross-week repetition remains permitted.
 - Current eligible family members can approve a draft or suggest a concrete
   saved-recipe replacement for a recipe choice. The screen distinguishes suggestions
   from accepted changes, and accepted changes cannot silently retain misleading
-  approvals of an older draft.
+  approvals of an older draft. Suggestions and accepted swaps must not introduce
+  a duplicate recipe within that week. Unrelated pending suggestions survive a
+  swap; approval reset and stale-client revision conflicts remain enforced.
 - A clear confirmation action settles the plan without needing every family
   member to respond. Swap resolution, confirmation and concurrency behavior are
   explicit and verified. No attendance response or away state is added.
@@ -76,9 +84,10 @@ repeats. Keep the interaction small enough that participation saves effort.
 These are proposed product defaults, not claims of additional owner approval.
 The architect and independent reviewer may refine them within the outcome above:
 
-- Start with **seven dinner recipe choices per week**, without assigning each
-  recipe to a day. Other meal types and multiple courses are outside this first
-  increment. This replaces the initial one-dinner-per-day presentation proposal.
+- Start with **up to seven unique dinner recipe choices per week**, without
+  assigning each recipe to a day. Other meal types and multiple courses are
+  outside this first increment. This replaces the initial one-dinner-per-day
+  presentation proposal and subsequent small-menu repetition allowance.
 - Use the owner's known **America/Toronto** timezone as the proposed application
   default and choose/document a precise generation time. Calendar dates must
   remain correct across daylight-saving transitions. Avoid per-family timezone
@@ -117,7 +126,7 @@ with dates. Lets just have 7 recipes for the draft.” The independently reviewe
 presentation amendment is `org/reviews/weekly-meal-planning-presentation-001.md`.
 This first removed per-recipe weekday/date assignments. Owner follow-up in
 `org/messages/ceo-0052.md` supersedes the retained-header-range assumption: remove
-the numeric range from the main plan header too. Show seven recipes; only history
+the numeric range from the main plan header too. Show the weekly recipes; only history
 controls retain week dates to distinguish retained weeks. Scheduling, history
 and family actions remain unchanged.
 
@@ -135,3 +144,22 @@ for that recipe slot. Suggestions for other recipe slots remain available for
 family review after the draft revision changes. Approvals still reset when meals
 change; stale client revisions still conflict. No new planning capability,
 attendance state, API action, schema or scheduler behavior is introduced.
+
+## Owner behavior refinement — unique recipes within each week
+
+Source: `org/messages/ceo-0054.md`, recording the owner's correction: “I see
+repeated recipes for the week. There should never be repeated recipes.” For a
+menu with fewer than seven unique recipes, the owner selected “Draft the
+available unique recipes.” This supersedes permission to repeat recipes within
+a small-menu week. Earlier statements permitting repeats apply only across
+different weeks.
+
+The architect must define recipe identity and enforce uniqueness throughout
+draft generation, swap suggestions and accepted swaps. Routine legacy handling
+is delegated to independently reviewed Design: any repair of an existing
+duplicated draft requires an explicit local migration preserving existing
+choices and proposals where possible. Finalized raw history remains immutable.
+Ordinary reads must not perform repair. Existing undated presentation,
+unrelated-suggestion preservation, approval reset and stale-client guards remain
+requirements. This acceptance opens Design for the correction; it does not
+authorize a hosted migration, merge or release.

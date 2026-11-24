@@ -64,7 +64,9 @@ work, and whether silence should count as delegation.
 - Family members approve the draft or suggest recipe swaps.
 - **Do not offer “I'll be away.”** That brainstorm option was explicitly rejected.
 - Preserve weekly meal history and use it when creating future drafts so the
-  exact same meals do not recur every week. Repeating a meal is allowed.
+  exact same meals do not recur every week. Repeating a meal across different
+  weeks is allowed; the later within-week uniqueness correction below narrows
+  the original repetition allowance.
 - The owner then asked to save this brainstorm and implement through the SDLC
   org workflow, beginning with an intent.
 - During implementation, the owner refined the presentation: “No need to label
@@ -99,3 +101,21 @@ Accepting a suggested swap should settle that recipe's competing proposals while
 keeping proposals for other recipe choices. This reduces repeated coordination
 when the family is reviewing several recipes at once. Approval renewal still
 applies to the changed draft, and concurrent clients refresh before acting again.
+
+## Owner refinement — no repeated recipes within a week
+
+Source: `org/messages/ceo-0054.md`. The owner reported repeated recipes and
+required: “There should never be repeated recipes.” Asked about a menu smaller
+than seven recipes, the owner selected “Draft the available unique recipes.”
+The current direction is therefore **up to seven unique weekly recipes**: one
+to six when that is all the menu offers, seven when enough are available, and
+no draft for an empty menu. Neither generation nor swaps may introduce a
+within-week duplicate. Repeating a recipe in a different week remains allowed,
+with existing recency preferences encouraging variety.
+
+This refines the selected React to a draft concept; it does not restore recipe
+date labels or change scheduling, history, approvals or family participation.
+Unrelated swap suggestions must still survive a swap, changed meals still reset
+approvals, and stale clients still refresh before further actions. Legacy draft
+handling is delegated to reviewed Design, with any repair explicit and local
+and finalized raw history preserved.

@@ -8,14 +8,14 @@ intent/weekly-meal-planning/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 4
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (unique-weekly-recipes-design)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -59,6 +59,7 @@ intent/weekly-meal-planning/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
+- ceo-0054 ceo -> orchestrator decision: Never repeat a recipe within a weekly plan
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,6 +95,8 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0102 orchestrator -> ceo handoff: Reviewed recipe-scoped swap retention ready
+- orchestrator-0103 orchestrator -> product-manager handoff: Capture unique weekly recipe requirement
+- orchestrator-0104 orchestrator -> architect handoff: Design unique weekly recipes and safe legacy repair
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -105,6 +108,7 @@ intent/weekly-meal-planning/intent.md
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
+- product-manager-0017 product-manager -> orchestrator decision: Accepted unique weekly recipe correction
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -170,14 +174,11 @@ intent/weekly-meal-planning/intent.md
 
 ## Artifacts
 
-- org/reviews/weekly-meal-planning-swap-plan-001.md (0ce309c529b2e7539c8d82af58752ea424441ddbb461c23444496aff58be4646)
-- intent/weekly-meal-planning/verification.md (41521cdfb0543ce1e7a7fbd8ba3895c0fd076ea894379619142a322508507bb7)
-- org/reviews/weekly-meal-planning-swap-security-001.md (b3ec6e025f3299b3f97e7340a863883bab1d20c9aca9ba1f84b526883456ae59)
-- org/reviews/weekly-meal-planning-swap-final-001.md (8e537d8b568eead9ac5cb98bfb0536d43845f435cb6c216df4a7bf6aa5714db7)
+- org/reviews/intent-weekly-meal-planning-unique-001.md (692b9d8a0123940dc430d632ea4a0a3600594f92b1d1ad9c18cd5f049d5720b6)
 
 ## Next action
 
-reviewer:verify_swap_retention
+product-manager:accept_unique_weekly_recipes
 
 ## Last digest source
 
