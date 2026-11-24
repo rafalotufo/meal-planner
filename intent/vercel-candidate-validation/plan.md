@@ -2,7 +2,7 @@
 
 - Author: senior-developer
 - Date: 2026-11-24
-- Status: Approved — independent org plan gate
+- Status: Approved
 - Approval: `org/reviews/plan-vercel-candidate-validation-001.md`
 - Based on: accepted sibling `intent.md`, approved `spec.md`, owner continuation
   `org/messages/ceo-0029.md`, and independent spec/security Design reviews.

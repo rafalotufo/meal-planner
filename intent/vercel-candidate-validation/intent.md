@@ -2,7 +2,7 @@
 
 - Author: product-manager
 - Date: 2026-11-24
-- Status: Accepted for Design — isolated staging selected
+- Status: Accepted — isolated staging selected; local tooling implementation approved
 - Decision: `org/messages/ceo-0028.md`; PM acceptance in
   `org/reviews/intent-vercel-candidate-validation-001.md`
 - Source: Rafael requested the SDLC org workflow and exploration of solutions
@@ -36,11 +36,12 @@ client/callback, and the recorded Preview PostgreSQL database. Keep the app's
 single canonical origin per environment. Production remains a distinct build
 and deployment with its own candidate and post-promotion smoke checks.
 
-The owner selected this approach on 2026-11-24. See sibling `solutions.md` for
-the comparison and proof limits. This acceptance permits Design, not
-implementation, deployment, promotion, external configuration, credential
-changes, a migration, or paid-provider calls. Concrete reviewed scope is still
-required before those actions.
+The owner selected this approach on 2026-11-24 and directed continuation in
+`org/messages/ceo-0029.md`. The reviewed specification and independently approved
+implementation plan authorize the local helper/tests and runbook. See sibling
+`solutions.md` for comparison and proof limits. Deployment, promotion, external
+configuration, credential changes, migrations and paid-provider calls remain
+outside that local implementation authority.
 
 ## Success criteria for the eventual approved solution
 
@@ -92,6 +93,7 @@ finite-multiple-origin or OAuth Proxy alternatives as part of this selection.
 Design must specify manual alias targeting and validation serialization,
 environment/secret/database isolation, approved staging identities and data
 lifecycle, real Google login versus short-lived session reuse, platform
-protection handling, evidence binding and production proof limits. The draft
-[specification](spec.md) is under independent review; the implementation plan
-has not yet been drafted. Their review gates remain.
+protection handling, evidence binding and production proof limits. The
+[specification](spec.md) and [implementation plan](plan.md) have passed independent
+review. Local tooling follows that plan; hosted setup and human merge/release
+gates remain separate.

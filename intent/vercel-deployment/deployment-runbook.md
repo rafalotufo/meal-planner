@@ -7,6 +7,10 @@ CLI: exact `66.6.0`, run with install scripts disabled:
 This tool is separate from the application lockfile. Never enable paid features,
 start a Pro trial or change OpenAI billing controls as part of this deployment.
 
+For separately configured isolated Preview validation, use the
+[staging runbook](../vercel-candidate-validation/staging-runbook.md). Its results
+cover a distinct Preview deployment; the Production gates and checks below remain.
+
 ## Login and gates
 
 1. Run the pinned CLI `login`; the owner approves its Vercel device flow.
