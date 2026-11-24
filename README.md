@@ -225,21 +225,40 @@ Repositories without a graph retain the legacy root `plan.md` fallback.
 
 ## Vercel deployment
 
-Deployment targets a new Hobby project in `rafalotufos-projects`, using a stable
-Vercel-provided HTTPS URL. Follow the
-[deployment runbook](intent/vercel-deployment/deployment-runbook.md) for local
-login, Production-only environment variables, Google callback setup, bounded
-checks, manual promotion and recovery. No Git auto-production deployment or
-paid hosting features are configured. Existing OpenAI project limits stay unchanged.
+Future releases validate the exact reviewed release SHA on isolated staging,
+then obtain owner acceptance of the Preview deployment/configuration and actual
+checks/known gaps before a separate Production build. Follow the
+[staging runbook](intent/vercel-candidate-validation/staging-runbook.md),
+[Production runbook](intent/vercel-deployment/deployment-runbook.md) and approved
+[process amendment](intent/staging-first-release/spec.md). Main ancestry or
+similar source bytes do not substitute for exact-SHA acceptance. Later audit/gate
+commits may reference a fixed source; deploy that pinned clean source, not an
+implicitly newer HEAD. Source/configuration/alias/scope drift requires fresh
+attributed staging validation and acceptance.
 
-`vercel.json` keeps the Next.js build on pnpm's frozen lockfile and enables
-cancellation for the Node search function; its platform duration is 90 seconds
-while the application's own deadline remains 60 seconds. Set
-`ENABLE_EXPERIMENTAL_COREPACK=1` in Vercel to honor exact pnpm 10.33.0, and verify
-effective build/function settings. Node 24.x is pinned by major; Vercel controls
-hosted patch updates. Local `.env*` files and operator/audit/test directories
-are excluded from CLI uploads. Production deployment requires explicit release
-approval after review and merge; local authentication does not grant that approval.
+OAuth, UI and scoped provider/cancellation/WAF functional validation belong on
+staging. The last recorded staging setup is keyless; verify the actual release
+profile. Missing-key evidence does not establish provider success; required paid
+coverage needs separate bounded authority, or the owner must explicitly
+accept that named gap. Protected/inconclusive helper results stay inconclusive.
+No Production-key copying or automatic fallback to Production functional checks.
+The intended Production origin `https://lotufo-meals.vercel.app` must serve the
+app directly with separately authorized matching auth/Google callback/database
+configuration before release; its last recorded old-host redirect is insufficient.
+
+Production still requires human merge and fresh committed release authority:
+`--prod --skip-domain` builds a distinct candidate, followed by readiness/parity
+inspection, manual promotion and minimal canonical anonymous health with scoped
+recovery. Do not promote Preview. An explicit concrete approval may combine
+staging acceptance and Production authority; generic hooks do not automatically
+verify staging SHA/profile parity. No Git auto-production deployment or paid
+hosting feature is introduced; existing OpenAI project limits stay unchanged.
+
+`vercel.json` keeps pnpm's frozen lockfile and Node search cancellation, with a
+90-second platform duration and60-second app deadline. Set the existing
+`ENABLE_EXPERIMENTAL_COREPACK=1` build policy for exact pnpm10.33.0 and inspect
+effective settings. Node24.x is pinned by major; Vercel controls patch updates.
+Private env and operator/audit/test/cache files remain excluded from uploads.
 
 ## Families and invitations
 

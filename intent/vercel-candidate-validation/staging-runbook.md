@@ -5,9 +5,23 @@ recorded in `hosted-setup.md` and its actual execution in `hosted-results.md`.
 The setup instructions below remain approval-scoped for future changes.
 Use with sibling approved `spec.md` and `plan.md`. Staging is a separate Preview
 build with separate credentials/database; it does not certify the Production
-artifact. Continue to use the existing Production release runbook afterward.
+artifact. Future releases follow the
+[staging-first amendment](../staging-first-release/spec.md) and the
+[Production runbook](../vercel-deployment/deployment-runbook.md): exact-source
+staging validation and owner scope/gap acceptance precede a separate Production
+build, manual promotion and minimal anonymous health/recovery.
 
-## One-time setup proposal — requires concrete operational authorization
+## Keyless staging profile and one-time setup authority
+
+The following is the existing keyless helper profile. New setup/configuration,
+identity/data effects and any paid exercise still need concrete scoped authority.
+Do not infer fresh permission from this runbook or an old setup approval.
+For routine releases, reuse the recorded stable origin
+`https://meal-planner-staging-rafalotufos.vercel.app` and existing isolated
+configuration after fresh inspection. The numbered steps below are one-time
+setup/change guidance, not instructions to create aliases or rotate credentials
+every release. Verify actual branch classification and deployment-ref matching;
+no domain/key change is authorized here.
 
 1. Confirm the existing Hobby project `meal-planner`, scope
    `rafalotufos-projects`, team `team_2c0O29FMb91g7L6sUChc9v6J`, project
@@ -154,7 +168,10 @@ generated URLs, complete/safe inspected state and a pre snapshot no older than
 five minutes with no future timestamp. False/unknown safety assertions are
 inconclusive and cause no HTTP/private-input effects. Never set them true merely
 to get through validation. `providerKeyAbsent` is required even when no search
-is selected; the validation lane never carries a Production paid key.
+is selected; this helper's keyless profile never carries a provider key. A
+separately authorized keyed staging exercise must use its own bounded operator
+evidence and reviewed configuration profile, not false key-absence metadata or
+an altered helper. Never copy a Production key into Preview.
 
 ## Genuine browser checks and private session handling
 
@@ -257,8 +274,78 @@ that owner assertions or operator snapshots are truthful. Record fixture/local,
 session-reuse, genuine Google and provider-unverified proof separately. Archive
 only sanitized metadata/reports/screenshots, never the private Cookie input.
 
+## Functional validation and exact-source release handoff
+
+For each release, deploy the exact reviewed `releaseSourceSha` to the stable
+staging lane, inspect source/Preview ID/project/team/target and pre/post alias
+attribution, and complete the agreed functional scope there: real allowed/denied
+Google sign-in, session/household behavior, logout, keyboard/mobile/desktop/UI and
+recipe behavior needed for that release. Label observed Google, owner-reported
+behavior, reused session, local fixtures and provider evidence distinctly.
+Existing real identity/provisioning authority remains separately scoped; no new
+persistent data, invitation, reset or migration is implied.
+
+The last recorded Preview setup is keyless; verify the actual configuration
+profile before release. Missing-key503 proves only error handling; paid
+provider/recipe/photo success and hosted cancellation/WAF enforcement are not
+established by that result. Required live coverage needs separate bounded staging
+authority naming credentials/configuration, request counts, cost/budget,
+origin/IP/window and real correlation evidence. Do not copy a Production key,
+modify WAF policy or run retries as part of this process amendment. Bypassed
+platform traffic cannot certify WAF/bot/platform rate limits. A keyed exercise
+cannot be forced through this helper's `providerKeyAbsent` contract; after a
+relevant configuration change, revalidate/accept the intended actual profile.
+
+Record a sanitized acceptance artifact before Production. Illustrative Markdown
+fields below are **not an actual acceptance or pre-filled pass**:
+
+```markdown
+# Staging acceptance — EXAMPLE ONLY
+releaseSourceSha: <exact reviewed 40-character source SHA>
+previewDeploymentId: <actual inspected Preview ID>
+stagingOrigin: https://meal-planner-staging-rafalotufos.vercel.app
+project/team/target: <actual inspected attribution, Preview>
+validationInterval: <actual UTC start/end>
+configurationProfile: <sanitized version, verified parity/intentional differences>
+localVerificationAndReviews: <actual evidence references>
+performedChecksAndProofClasses: <actual checks/outcomes and owner/observed/session/fixture labels>
+helperReports: <actual references/results, including inconclusive reports>
+gapsAndResidualRisk: <every missing check, e.g. provider success unverified>
+ownerDecision: <actual owner acceptance of this exact source/profile/scope and named gaps, with reference>
+productionReleaseAuthority: <separate or explicit combined decision naming exact source/project/actions/expiry/health/recovery>
+```
+
+Full required checks must be completed or explicitly accepted as named gaps by
+that owner. Such acceptance is a release-scope decision; it does not turn an
+inconclusive/protected helper report into a pass or justify invented per-check
+attestations. Never move a missing staging functional check to Production as an
+automatic fallback. Broad “working as expected” statements remain owner-reported
+behavior unless individual checks were actually established.
+
+Compare accepted staging and proposed Production source by **exact SHA**.
+A new SHA must be staged, validated and accepted even if main contains the old
+commit or application files look equal. Existing source9fc13ff acceptance does
+not certify current main or a new release SHA. Acceptance/gate audit commits may
+come later while referring to a fixed release source: keep that source pinned
+and deploy its clean checkout/export, not the latest audit HEAD. Alias moves,
+redeployment, relevant environment/schema/runtime or scope drift invalidate
+readiness and require refreshed attributed validation/acceptance.
+
+Verify intentional Production origin/OAuth/auth-secret/database/provider-key
+configuration differences privately; reconcile unexpected differences before
+readiness. The [Production runbook](../vercel-deployment/deployment-runbook.md)
+requires separately authorized canonical lotufo-meals routing/auth/callback
+configuration, fresh committed human release authority, a separate Production
+build with `--prod --skip-domain`, manual promotion and minimal anonymous
+canonical/configuration health plus scoped recovery. Do not promote Preview.
+An explicit combined staging acceptance/Production approval is permitted once
+that concrete scope is reviewable; record the separate gates without asking the
+same permission again. Existing helpers/hooks do not automatically enforce these
+SHA/profile requirements; the operator verifies and records them.
+
 On failure, stop and preserve sanitized evidence. Do not reset DB data, weaken
 protection or move Production. Release only this run's owned local lane lock
 after reconciling the alias; recovery effects need their own authority. Any
-later Production release rebuilds/deploys the reviewed source with Production
-configuration and retains existing candidate/post-promotion smoke checks.
+later Production release uses the exact accepted release source, a separate
+Production build, manual promotion and minimal anonymous/configuration health
+under the linked runbook. This staging runbook grants no release authority.

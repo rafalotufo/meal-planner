@@ -1,15 +1,22 @@
 # Meal Planner — Vercel deployment runbook
 
-Account scope: `rafalotufos-projects`, **Hobby only**. New project preference:
-`meal-planner`; record actual assigned name/ID and origin before configuration.
+Existing project: `meal-planner`, ID `prj_ntxXnJAVA977jHjLNDR7xJuwSx4V`,
+team `team_2c0O29FMb91g7L6sUChc9v6J`, scope `rafalotufos-projects`, **Hobby only**.
+Verify these recorded targets and the actual account state before release effects.
 CLI: exact `66.6.0`, run with install scripts disabled:
 `pnpm --config.ignore-scripts=true dlx vercel@66.6.0 <command>`.
 This tool is separate from the application lockfile. Never enable paid features,
 start a Pro trial or change OpenAI billing controls as part of this deployment.
 
-For separately configured isolated Preview validation, use the
-[staging runbook](../vercel-candidate-validation/staging-runbook.md). Its results
-cover a distinct Preview deployment; the Production gates and checks below remain.
+Future releases follow the approved
+[staging-first amendment](../staging-first-release/spec.md): validate the exact
+release revision on isolated staging, obtain owner acceptance of its scope/gaps,
+then create and promote a separate Production build. Use the
+[staging runbook](../vercel-candidate-validation/staging-runbook.md) for functional
+validation. Production checks below cover configuration, packaging, anonymous
+canonical health and recovery. Earlier specs/releases and their recorded checks
+remain historical; their first-live OAuth/search/cancellation/WAF certification
+requirements do not govern future releases under this amendment.
 
 ## Login and gates
 
@@ -27,37 +34,76 @@ cover a distinct Preview deployment; the Production gates and checks below remai
    python3 scripts/gate_ledger.py verify --record "$RELEASE_RECORD" --require-committed --require-gate release_authorization
    ```
 
-The release record must name the reviewed source SHA, actual project ID,
-deployment scope, expiry and authorized recovery. It must cover production-
-target staging, promotion, a 15-minute first-live check window, one normal
-provider search, at most one disconnect search and one anonymous WAF burst.
-No action below overrides those gates. Do not retry paid searches to obtain
-missing evidence or deploy from a dirty/unmerged checkout.
+The committed, unexpired release record must name the fixed `releaseSourceSha`,
+actual project ID, accepted staging artifact/configuration profile and validation
+scope/gaps, Production candidate creation/promotion, a bounded 15-minute anonymous
+health/recovery window (or stricter scope) and authorized safe rollback/pause.
+Routine Production login, paid search, disconnect search and WAF bursts are not
+part of future release certification. Functional checks belong on staging under
+their own concrete authority. The owner may explicitly accept staging and
+approve that concrete Production scope in one decision; record the appropriate
+separate gate decisions without requesting the same permission again. This
+process amendment and old approvals are not a current release authorization.
+
+## Exact-source staging acceptance before Production
+
+Select a reviewed clean `releaseSourceSha`, complete applicable local checks and
+independent reviews, then deploy/validate that exact source on the isolated
+Preview lane. Owner acceptance must bind its Preview deployment ID, stable
+origin, actual project/team/target, validation interval, inspected alias/source
+attribution and a sanitized configuration profile/version. Record actual checks,
+proof classes, evidence references and explicitly accepted missing coverage.
+See the staging runbook's acceptance example. Operator reports and generic hooks
+do not automatically enforce this source/profile relationship; verify it before
+release effects.
+
+Proposed Production source must equal the accepted source **by exact SHA**.
+“Main contains that commit,” similar application files, or a moving branch is
+insufficient. A different release SHA requires staging deployment/validation/
+acceptance of that SHA. In particular, owner acceptance of Preview
+`dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi`/source
+`9fc13ff27a636483fdf3503d5c8bf9f149550e45` does not certify current main or
+another revision; it did not establish an unspecified paid-provider pass.
+
+Later acceptance/gate audit commits may reference the fixed release source.
+Verify the committed gate in the audit checkout, but upload only a clean
+checkout/export of that pinned source, not the later audit HEAD. Record source
+SHA separately from audit commit IDs. An alias move, staging redeployment,
+relevant schema/environment/runtime change or validation-scope change invalidates
+readiness: refresh attributed staging validation and owner acceptance. Do not
+silently move a missing staging check to Production.
+
+The last recorded staging setup is keyless; inspect the actual release profile
+before proceeding. Its optional missing-provider503 check is
+error-path evidence, not recipe/photo/provider success. Required provider,
+cancellation or WAF evidence needs separately scoped staging credentials,
+request/cost bounds, origin/IP/window and real evidence. No Production-key copying,
+paid call, bypass or retry loop is authorized here. Otherwise explicitly record
+provider success unverified and obtain owner acceptance of that named gap.
+An inconclusive/protected helper result stays inconclusive even when the owner
+accepts its declared coverage limits; never forge a helper pass or attestations.
 
 ## Project and exact settings
 
-After explicit configuration authority, create an empty project in the Vercel
-dashboard without a Git integration or initial automatic deployment. If the
-dashboard requires an initial deployment, stop and obtain release authority
-first. Select an available name if meal-planner is unavailable; record it and
-its stable assigned `https://<name>.vercel.app` production origin. Never assume
-the name is available or use an unverified origin as an OAuth callback.
+Inspect the existing project/team, deployment history, domain assignments,
+paused state, protection and effective configuration. Stop on target drift or
+unknown state. This runbook uses the recorded project ID explicitly; no new
+project or default relinking is part of release. A different project requires
+separate future design/configuration authority. Confirm the intended canonical
+lotufo-meals routing and auth prerequisites below before any Production build.
 
 Use Next.js preset, root directory `.`, Node **24.x**, Fluid compute, default
-framework output and the committed `vercel.json` commands. Disable automatic
-production domain assignment. Keep Preview protection where free/available;
+framework output and the committed `vercel.json` commands. Verify automatic
+Production domain assignment remains disabled; change it only with configuration
+authority. Keep Preview protection where free/available;
 the owner must authorize any Production protection setting change needed to
 let allowed Google users access the app without Vercel accounts. No paid
 password protection, Marketplace integrations or analytics add-ons.
 
-Link this checkout only to that project:
-
-```bash
-pnpm --config.ignore-scripts=true dlx vercel@66.6.0 link --project meal-planner --scope rafalotufos-projects
-```
-
-Replace meal-planner with the recorded actual name when necessary. `.vercel/`
-stays ignored. Linking/inspecting is not a production deployment.
+Use explicit `--project prj_ntxXnJAVA977jHjLNDR7xJuwSx4V` and recorded scope
+for deployments rather than relying on a default project. Any existing local
+link must match this target; `.vercel/` stays ignored. Read-only inspection does
+not authorize a configuration change, project resume or deployment.
 
 ## Production environment and Google
 
@@ -69,13 +115,36 @@ and OpenAI key; no NEXT_PUBLIC variables. Avoid screenshots showing values.
 | Key | Value / required verification |
 | --- | --- |
 | `BETTER_AUTH_URL` | Exact stable production HTTPS origin, no path/query/credentials |
-| `BETTER_AUTH_SECRET` | New random secret, at least 32 bytes; preserve securely for recovery |
+| `BETTER_AUTH_SECRET` | Preserve the existing independent Production secret, at least32 bytes; creation/rotation needs separate authority |
 | `GOOGLE_CLIENT_ID` | Google Web application client ID |
 | `GOOGLE_CLIENT_SECRET` | That client's secret |
 | `OPENAI_API_KEY` | Existing authorized project key, same existing limits |
 | `RECIPE_SEARCH_PROVIDER` | `openai` |
 | `OPENAI_RECIPE_MODEL` | `gpt-6.2-sol`, verify existing project access |
 | `ENABLE_EXPERIMENTAL_COREPACK` | `1`, build setting honoring pnpm 10.33.0 |
+
+Before any Production candidate, verify the intended canonical origin
+`https://lotufo-meals.vercel.app` serves the app directly. Its last recorded routing
+redirects to the old hostname; that is not canonical readiness.
+Separately authorized configuration must set Production `BETTER_AUTH_URL` to this
+exact origin and register
+`https://lotufo-meals.vercel.app/api/auth/callback/google` on the actual Production
+Google Web client. Verify consent/eligibility, the recorded restricted verified-TLS
+Production DB target and effective configuration privately. This document does
+not authorize changing domains, Google settings or credentials. Preserve the
+staging branch-qualified domain and unrelated Production mappings; name any
+approved routing changes precisely. Unknown/incorrect routing, auth, callback
+or database configuration blocks Production. Do not weaken Host rejection.
+
+Production intentionally differs from staging in origin, Google credentials,
+auth secret, database URL and any separately authorized provider key. Record
+only a sanitized parity/profile inventory of those reviewed differences. Other
+release-relevant model/build/runtime/duration/cancellation settings must match
+accepted staging or be explicitly reconciled; unexpected/unknown differences
+invalidate readiness and require revalidation/acceptance of the revised profile.
+Staging never receives Production secrets/data. Staging success cannot prove
+actual Production OAuth/provider/authenticated database behavior; these residual
+limits must remain explicit in acceptance and release evidence.
 
 Register exactly `<BETTER_AUTH_URL>/api/auth/callback/google` with the Google
 Web application client. Confirm consent-screen/test-user settings permit the
@@ -91,7 +160,8 @@ promised. Do not revoke a shared key without explicit incident authority.
 
 ## Usage controls
 
-Publish one free-tier-eligible Vercel WAF rule under configuration authority:
+Privately verify the existing reviewed WAF configuration. Any new publication
+requires separate configuration authority. The reviewed rule is:
 request method POST AND path equals `/api/recipes/search`, Fixed Window,
 20 requests / 60 seconds, key IP, action Too Many Requests **429**. Counts
 include anonymous/failed requests and can affect users sharing an IP. Confirm
@@ -118,17 +188,37 @@ not Vercel function behavior. Secret scan must report zero findings.
 
 Local browser QA: `node --import tsx tests/auth/browser.ts`. It runs isolated
 Chrome with test-process Google/search fixtures and a real publisher image.
-Do not describe its fixtures as live OAuth/provider grounding. Hosted checks
-below are separate. Keep its existing screenshot names out of this change.
+Do not describe its fixtures as live OAuth/provider grounding. Required hosted
+functional/OAuth/browser/provider validation and any authorized cancellation/WAF
+exercise occur on staging, recorded distinctly from local fixtures. Keep existing
+screenshot names intact.
 
 ## Authorized stage and promote
 
-After human merge and committed release authority:
+After exact-source staging acceptance, reviewed parity, human merge and fresh
+committed release authority, verify the real gate in the audit checkout:
 
 ```bash
-pnpm --config.ignore-scripts=true dlx vercel@66.6.0 deploy --prod --skip-domain --scope rafalotufos-projects
+RELEASE_SOURCE_SHA="<accepted full source SHA>"
+RELEASE_SOURCE_DIR="<clean checkout/export of that exact source>"
+RELEASE_RECORD="<actual committed release_authorization record ID>"
+python3 scripts/gate_ledger.py verify --record "$RELEASE_RECORD" --require-committed --require-gate release_authorization
+```
+
+The generic verifier checks ledger/gate/expiry, not the staging SHA/profile
+contract. The operator must compare the acceptance and release record to
+`RELEASE_SOURCE_SHA` and verify the clean source checkout/export provenance.
+Later audit HEAD is not the upload source. Invoke the pinned CLI with that
+explicit source directory and the existing verified project ID:
+
+```bash
+pnpm --config.ignore-scripts=true dlx vercel@66.6.0 deploy "$RELEASE_SOURCE_DIR" --prod --skip-domain --project prj_ntxXnJAVA977jHjLNDR7xJuwSx4V --scope rafalotufos-projects
 pnpm --config.ignore-scripts=true dlx vercel@66.6.0 inspect "$DEPLOYMENT_URL" --scope rafalotufos-projects
 ```
+
+Verify the resulting Production deployment's exact source/project/target and
+export/checkout attribution before promotion. A user-provided metadata string
+alone is not proof of source bytes; unknown/mismatched provenance blocks release.
 
 Inspect build readiness/logs without dumping secrets. Verify effective Node24,
 pnpm 10.33.0, search Node runtime, 90-second maximum and supportsCancellation.
@@ -149,7 +239,13 @@ production app cookie for candidate checks. Platform denial, refused login
 redirect or missing candidate response is inconclusive (exit 2);
 never spoof Host or loosen auth to make the candidate appear healthy.
 
-After passing candidate/config checks, promote that same Production artifact:
+Candidate421 checks prove the noncanonical-origin boundary, not OAuth or
+functional readiness. Preserve an inconclusive platform-protected result; it
+cannot silently satisfy a required packaging check. Resolve required evidence
+within the release's scope rather than bypassing authentication.
+
+After required packaging/readiness/config checks, promote that same Production
+artifact (never the Preview deployment):
 
 ```bash
 pnpm --config.ignore-scripts=true dlx vercel@66.6.0 promote "$DEPLOYMENT_URL" --scope rafalotufos-projects
@@ -160,48 +256,41 @@ that workflow. Record source SHA, deployment ID and promotion time in release
 evidence. Set `MEAL_PLANNER_ORIGIN` to the stable production origin for all
 remaining checks.
 
-## First-live verification — 15 minutes
+## Minimal Production health — bounded 15-minute window
 
-- Run `node --import tsx tests/deployment/smoke.ts anonymous`. Expect exact
-  root 307 redirect, sign-in 200, protected session/search 401, all no-store.
-- Owner signs in with a real allowed Google account and separately checks denial
-  with a nonallowed identity. Observe secure HttpOnly/SameSite=Lax host-only
-  cookies without recording their values; verify sign-out and fresh sign-in.
-- Make one normal nonpersonal search. Check same-origin POST, loading/disabled
-  controls, valid links/method/time, loaded source-bound photos or intentional
-  fallback; distinguish source access denial from blanket transport failure.
-- Verify layout, keyboard and no overflow at 390px/1440px. Disable browser
-  networking before another submit to verify error/restored controls without a
-  provider call; restore networking. Label that induced error separately.
-- Run `node --import tsx tests/deployment/smoke.ts disconnect` with the operator's
-  current app Cookie header supplied **privately on stdin**, not in chat, argv,
-  env or a saved file. It makes one search and disconnects after two seconds.
-  The helper returns inconclusive: correlate invocation timing and cancellation
-  metadata to establish server cancellation. Do not infer provider cancellation
-  from a client AbortError. No retries.
-- Run `node --import tsx tests/deployment/smoke.ts waf` from a quiet IP/window;
-  maximum 21 anonymous empty-JSON POSTs / ten seconds, no provider calls. Match
-  observed 429 to WAF events. A helper pass is provisional until correlation;
-  early throttling is inconclusive. Wait for a fresh window before separately
-  authorized retest; do not loop automatically.
-- D3a deadline-evidence amendment (Rafael, ceo-0009): use deterministic local
-  deadline/abort regressions and hosted90s configuration as application/config
-  evidence. Neither proves a real hosted60s/504; label that unverified if absent.
-  Its absence alone is explicitly accepted and does not require pause. Keep
-  the live success/cancellation checks, two-search budget and all other mandatory
-  checks/pause rules. Never force delays, add fixtures or spend repeatedly.
+- Inspect the actual Production alias/deployment ID and configured canonical
+  routing after promotion. Preserve the staging domain and unrelated mappings.
+- Set non-secret `MEAL_PLANNER_ORIGIN` to `https://lotufo-meals.vercel.app` and run
+  `node --import tsx tests/deployment/smoke.ts anonymous`. Require root307
+  exactly to same-origin `/sign-in`, sign-in200, protected session/search401,
+  and no-store headers. Its anonymous empty search POST has no provider effect.
+- Inspect runtime/configuration errors privately and monitor within the release's
+  bounded observation window. Required failed or incomplete canonical/health
+  evidence triggers only the scoped authorized recovery below.
 
-Helper stdout contains only mode/status/elapsedMs/pass. Exit 0 means its local
-assertions passed, 1 failed, 2 inconclusive. Hosted cancellation and WAF require
-the external evidence above even with successful client observations.
-Store sanitized screenshots/results under the approved feature evidence paths.
-Never record emails, tokens, prompts or response bodies in runtime/audit logs.
+Do not require real Production OAuth login, a paid normal/disconnect search, a
+WAF burst or full browser regression as routine release certification. Functional
+checks occur on staging. Minimal anonymous/configuration health does not prove
+real Production OAuth, provider availability or authenticated DB behavior; record
+those residual limits. Existing helper modes remain unchanged, but their dormant
+paid/burst modes are not authorized by this process. No automatic fallback to
+Production is allowed for missing staging coverage.
+
+Helper stdout contains only mode/status/elapsedMs/pass: exit0 assertions passed,
+exit1 failed, exit2 inconclusive. Platform denial is not application success.
+Record sanitized deployment/status/timing evidence; never log emails, cookies,
+OAuth query strings, prompts or response bodies. Earlier release budgets and
+observed results, including the original D3a deadline amendment, remain historical
+without being reused as current per-check proof or authority.
 
 ## Recovery and incident diagnosis
 
-Failed/incomplete mandatory checks within the first-live window: pause this
-project, record why and verify traffic is closed. No previous good deployment
-exists for the first release:
+For required canonical/configuration/anonymous health failure or incomplete
+evidence, stop and use only the recovery explicitly covered by the release
+record. Prefer a safe known-good Production rollback when one exists. If none is
+safe, a scoped project pause must be authorized; it can also affect Preview.
+Record why and verify the resulting traffic state. Never assume an old first-
+release recovery authorization applies to a future release. Scoped pause command:
 
 ```bash
 pnpm --config.ignore-scripts=true dlx vercel@66.6.0 project pause meal-planner --scope rafalotufos-projects
@@ -210,7 +299,7 @@ pnpm --config.ignore-scripts=true dlx vercel@66.6.0 project pause meal-planner -
 This is interactive; the owner types the actual project name if required. Do
 not bypass the confirmation. Resume only after a reviewed correction and
 renewed release authority. Do not pause all team projects or revoke shared keys.
-On subsequent releases, under approved incident authority:
+When a known-good artifact is safe and rollback is explicitly authorized:
 
 ```bash
 pnpm --config.ignore-scripts=true dlx vercel@66.6.0 rollback "$KNOWN_GOOD_DEPLOYMENT" --scope rafalotufos-projects
@@ -218,19 +307,21 @@ pnpm --config.ignore-scripts=true dlx vercel@66.6.0 rollback "$KNOWN_GOOD_DEPLOY
 
 Old deployments retain old env/allowlist. Never roll back to revoked secrets or
 removed membership; rebuild safe code with current config instead. No database
-migration/rollback is involved. Repeat anonymous/auth/search smoke checks.
+migration/rollback is involved. Repeat minimal canonical anonymous/configuration
+health after recovery. Functional remediation and any further paid/provider
+validation belong on staging under separate scope; no Production retry storm.
 
 | Symptom | Inspect without sensitive data | Action |
 | --- | --- | --- |
 | Build fails | Build exit/config/dependency version | Fix reviewed source/config; keep live revision |
-| 421 at stable URL / OAuth callback mismatch | Stable Host, auth origin, exact Google URI | Pause, correct authorized config; no wildcard trust |
+| 421 at canonical URL / observed OAuth incident | Stable Host, auth origin, exact Google URI | Scoped safe rollback/pause; correct configuration only with authority |
 | 503 auth unavailable | Presence/scope of required keys, policy validity | Correct config privately; redeploy with authority |
-| Provider 429 / search 502 | Status/timing and existing project limits | Pause or wait; no billing adjustment or retry storm |
+| Observed provider 429 / search 502 | Status/timing and existing project limits | Follow scoped incident recovery; staging diagnosis, no billing change/retry storm |
 | Search 504 | App 60s deadline vs platform 90s, provider timing | Preserve cancellation; capture bounded evidence |
 | Missing photos | Source availability and function transport compatibility | Retain fallback; unsafe transport workaround forbidden |
-| Abnormal usage | WAF events, Hobby quotas, existing OpenAI usage | Pause this project; preserve shared keys/settings |
+| Abnormal usage | WAF events, Hobby quotas, existing OpenAI usage | Use scoped authorized recovery; preserve shared keys/settings |
 
-The owner monitors first-live checks and ongoing usage. Sanitized deployment
+The owner monitors minimal post-promotion health and ongoing usage. Sanitized deployment
 status, timing/error counts and WAF/provider dashboards are sufficient; do not
 introduce query logs, new analytics or persisted personal data.
 

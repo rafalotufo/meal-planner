@@ -69,7 +69,15 @@ private outside Vercel. This authority does not authorize a deployment, promotio
 merge, future migration, paid feature/plan, or local-data import. Never remove/import
 SQLite data automatically. Preserve main’s vercel.json, environment isolation and
 manual deployment gates; old release approvals do not authorize this branch.
-Follow intent/vercel-deployment/deployment-runbook.md for future production actions.
+Future releases follow intent/staging-first-release/spec.md and the staging/
+Production runbooks: validate and obtain owner scope/gap acceptance for the exact
+release SHA on isolated staging before a separate Production build, manual
+release approval/promotion and minimal canonical anonymous health/recovery.
+Keep later audit HEAD distinct from fixed release source; drift requires fresh
+staging validation. Keyless/protected staging cannot imply provider success or
+fabricated helper passes. Canonical Production routing/auth/callback changes and
+paid staging coverage need concrete separate authority; no new deployment is
+authorized here. See intent/vercel-deployment/deployment-runbook.md.
 Keep private cluster/config files owner-only. Local test databases use the distinct
 restricted CREATEDB role and owned random names, never development/hosted data;
 test servers force empty paid keys. Hosted checks use recorded targets, verified
