@@ -2,9 +2,10 @@
 
 - Author: product-manager, from Rafael's active chat request
 - Date: 2026-11-24
-- Status: Accepted by owner on 2026-11-24; Design authorized
+- Status: Accepted scope via owner-directed amendment; revised architecture/specification review pending
 - Source: “Lets add the ability to add to the menu a recipe from a url. So no search needed, this is the direct link to the recipe. Use sdlc org workflow for this intent”
-- PM assessment: `org/reviews/intent-recipe-url-menu-001.md`
+- PM assessments: `org/reviews/intent-recipe-url-menu-001.md` (original);
+  `org/reviews/intent-recipe-url-menu-002.md` (save-first amendment)
 
 ## Problem
 
@@ -21,10 +22,26 @@ The saved entry must remain available through the existing menu's source link,
 persistence, pagination and confirmed-removal flows.
 
 The owner confirmed: “Read the linked page and save its title, photo, summary
-and time when available.” The flow therefore acquires available recipe metadata
-from the linked page. It does not run recipe discovery or require the user to
-enter a title manually. The owner subsequently accepted this written intent with “approved” in the
-active chat on 2026-11-24. This authorizes Design; later gates remain separate.
+and time when available,” then accepted the original written intent with
+“approved” on 2026-11-24. That acceptance authorized Design of the original
+metadata-import flow; it remains historical evidence, not approval of a revised
+specification or implementation.
+
+After reviewing the draft specification, before approving it, the owner amended
+the outcome: “Lets save the recipe immediately, but start a process that will
+curate the recipe, find image, summary etc, then update the saved entry”.
+
+The current intent is therefore **save first, curate asynchronously**. After
+input validation and current family authorization, persist the source link as an
+honest pending menu entry and acknowledge that durable save without waiting for
+publisher retrieval. Start bounded curation that obtains available metadata and
+updates that same entry. Users can distinguish the saved link from a completed
+recipe snapshot. No recipe search, manual title entry, paid AI or new discovery
+provider is implied. The PM accepts this explicit product amendment; the revised
+architecture/specification still requires review and its normal approval gate.
+The owner also selected reliability behavior: “Keep it simple: save safely,
+start curation, and offer Retry if interrupted.” No independent scheduler or
+queue infrastructure and no guaranteed unattended recovery are requested.
 
 ## Acceptance criteria
 
@@ -35,23 +52,57 @@ active chat on 2026-11-24. This authorizes Design; later gates remain separate.
   Pending identities and other families cannot read or write the caller's menu.
 - Saving persists in the same family-shared collection across reloads, sessions
   and devices. Keep the existing no-collection-maximum policy and bounded pages.
-- Read the linked page and retain its available title, photo, summary and
-  cooking/total time. Missing optional details remain honestly unavailable,
+- A valid authorized URL submission durably saves a pending source-link entry
+  before network curation. Acknowledge success only after that save commits;
+  do not represent request receipt or in-memory work as persistence. Curation
+  must not delay that response while waiting for the publisher.
+- The pending entry is visible in the shared menu across reloads and sessions,
+  with its real source link and explicit pending status. Any temporary label
+  identifies a saved link awaiting details rather than pretending to be a
+  publisher recipe title or summary.
+- Start asynchronous curation of that source and update the same saved entry
+  with its available title, photo, summary and cooking/total time. Missing
+  optional details remain honestly unavailable,
   rather than guessed. Design must define minimum recipe evidence and fallback
   presentation compatible with current storage, and must not invent metadata.
-- Inaccessible pages, non-recipe pages and failed/unsafe acquisition produce
-  clear recoverable errors without saving a bogus entry.
+- Inaccessible/non-recipe pages and failed or unsafe curation leave an honestly
+  labelled saved link with a clear failed/unavailable state and an explicit
+  bounded retry path. Do not invent a recipe snapshot, discard the user's saved
+  link silently or announce completed curation on failure. Invalid/unsafe URL
+  input is rejected before saving or fetching.
+- A retry acts on the same still-existing entry, clearly announces its pending
+  and eventual outcome, and cannot create duplicate entries or silently begin
+  unbounded attempts. Interrupted work retains the durable link and offers
+  explicit Retry; any stale pending label must explain interruption rather than
+  imply background progress is guaranteed. No unattended recovery guarantee or
+  independent queue/scheduler infrastructure is requested.
 - The saved source remains a validated, attributed, usable link. Render recipe
   text as text; never render publisher HTML or execute publisher scripts.
 - Repeated and concurrent saves, including a URL already saved from search,
   have a deterministic outcome consistent with the existing normalized source
-  identity and first-save retention policy unless separately reviewed.
+  identity and first-save retention policy. A duplicate of a pending entry
+  returns that entry rather than creating another entry or redundant unbounded
+  work. Curation may fill the placeholder created by this flow; it must not
+  overwrite existing search-result snapshots or already completed snapshots.
 - Provide labelled input, keyboard operation, visible focus and clear pending,
-  success, duplicate and recoverable-failure feedback at mobile and desktop
-  widths. Invalid input and failed acquisition must not claim a successful save.
+  durable-save success, curation pending/completed/failed, duplicate and retry
+  feedback at mobile and desktop widths. Save failure must not claim a saved
+  entry; curation failure must not imply the committed link was never saved.
 - Keep the existing menu list, source opening, search-result saving, retained
   photos, pagination and removal confirmation working. Existing entries remain
-  readable and safe; do not silently replace their snapshots.
+  readable and safe; do not silently replace their snapshots. Removing a pending
+  or failed entry uses the same confirmation flow and prevents later work from
+  restoring it. A late completion for an old entry must not update a replacement
+  created by a later save of the same URL.
+- Authorize curation effects and final updates against current eligibility and
+  the server-derived owning family. Admission or membership changes between save,
+  retrieval and update must not allow stale work to bypass authorization. Never
+  transfer an entry or its metadata across families or recreate a removed row.
+- Saving and curation have distinct cancellation boundaries: an abandoned client
+  response cannot undo an already committed save. Design must define supported
+  post-response execution, bounded cancellation and retry, and update races
+  without assuming detached in-process promises reliably survive a serverless
+  request.
 - Preserve authentication, family, invitation, search/provider, cancellation,
   photo-safety and deployment boundaries. New effects require reviewed limits,
   validation and failure behavior before implementation.
@@ -61,21 +112,34 @@ active chat on 2026-11-24. This authorizes Design; later gates remain separate.
 
 ## Confirmed product decision and Design questions
 
-The owner selected automatic page metadata acquisition: “Read the linked page
-and save its title, photo, summary and time when available.” The product manager
-accepts this scope as a narrow addition to the existing family menu.
+The owner selected automatic metadata acquisition and then explicitly changed
+its timing to immediate save followed by curation and update. This supersedes
+the original draft specification's fetch-before-save and no-update design. The
+original owner intent approval and draft review remain historical; they are not
+approval of exact amended architecture.
 
-Design must define supported structured recipe
-evidence, selection if a page contains multiple recipes, minimum required
-fields, missing-details presentation, inaccessible/non-recipe handling and the
-save interaction. It must define safe bounded page fetching, URL identity and
-redirect/canonical handling without silently broadening existing deduplication
-or photo-fetch guarantees. It may reuse suitable existing parsing/transport only
-after assessing its contract. No paid AI or discovery call is implied.
+Design must define a truthful pending/failed/completed record contract and
+compatible listing/card behavior, how supported metadata is selected and mapped,
+missing-details presentation, safe bounded transport, source identity,
+retry and concurrency. Use the owner's selected simple reliability model:
+save safely, start curation, and offer Retry if interrupted. Design must choose
+a supported post-response execution mechanism and state its actual limitations,
+including serverless termination and stale work; no independent queue/scheduler
+or guaranteed unattended recovery is in scope. It must describe any schema, restricted
+grant or infrastructure changes before approval; none are assumed authorized
+for execution by this intent.
 
-These are technical design questions, not unresolved product choices. Owner
-acceptance opens Design under the invoked SDLC skill; specification approval
-and plan approval remain separate gates before implementation.
+The existing no-update rule receives one narrow proposed exception: controlled
+curation fills the placeholder belonging to this URL-save flow, targeting the
+same entry with current authorization and stale-work protection. This is not
+recipe editing, refresh of existing snapshots or replacement of search saves.
+No network fetch runs inside a database write lock. Late work cannot recreate a
+removed entry or mutate a newly saved replacement. Technical implementation and
+verification details belong in the reviewed amended specification and plan.
+
+The owner statement authorizes this intent amendment and continued Design;
+PM accepts its product scope. Specification approval and plan approval remain
+separate gates before code, and operational actions retain separate authority.
 
 ## Current grounding
 
@@ -102,8 +166,8 @@ protection, cancellation and untrusted-content handling; preserve existing photo
 protections and never fetch while holding a database write lock. Do not assume
 the current photo parser or transport already satisfies a recipe-import contract.
 
-No meal scheduling, additional menus, recipe editing, general user-authored
-recipes, ingredients/instructions archive, recipe generation, shopping lists,
+No meal scheduling, additional menus, user-directed recipe editing, general
+user-authored recipes, ingredients/instructions archive, recipe generation, shopping lists,
 nutrition, new providers, paid usage, image storage, public sharing, account
 changes, unrelated redesign or dependency changes are requested. No local data
 import, hosted migration, hosted configuration, push, merge, deployment,
@@ -112,9 +176,10 @@ human merge/release gates.
 
 ## Handoff
 
-The product manager accepted the confirmed metadata acquisition scope, and the
-owner accepted this written intent on 2026-11-24 with “approved” after the
-orchestrator requested intent acceptance. The architect now produces the sibling
-specification for independent review and owner approval. Build planning follows
-specification approval; code follows plan approval. No implementation or release
-approval is implied by intent acceptance.
+The product manager accepts the explicit save-first/async-curation amendment.
+The architect revises the sibling specification, replacing synchronous import
+assumptions and identifying operational requirements. Independent review and
+owner specification approval precede Build planning; plan approval precedes
+code. The prior owner intent approval is preserved as history, and the amended
+request authorizes continued Design only. No exact unreviewed design,
+implementation, migration, infrastructure purchase or release is approved here.
