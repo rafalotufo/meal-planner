@@ -1,0 +1,44 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { randomUUID } from 'node:crypto';
+import { provisionFamily } from '../../lib/family-store.ts';
+import { saveMenuRecipe, removeMenuRecipe } from '../../lib/menu/store.ts';
+import { generateDuePlans } from '../../lib/plans/generate.ts';
+import { readPlans, actOnPlan } from '../../lib/plans/store.ts';
+import { testDatabase } from '../family/database.ts';
+const identity = { googleSubject: 'weekly-store', email: 'weekly.store@gmail.com', emailVerified: true as const };
+const other = { googleSubject: 'weekly-foreign', email: 'weekly.foreign@gmail.com', emailVerified: true as const };
+const allowed = [identity.email, other.email];
+const now = new Date('2026-11-26T14:00:00Z');
+const recipe = (n: number) => ({ title: `Dinner ${n}`, summary: 'Cook it.', sourceUrl: `https://example.test/${n}`, imageUrl: null, time: null });
+test('family-bound approval/suggestion resolution invalidates approvals, rejects stale concurrent edits and freezes final history', async () => {
+ const fixture = await testDatabase(); const db = await fixture.open();
+ try {
+  await provisionFamily(db, identity, allowed, false); await provisionFamily(db, other, allowed, false);
+  for (let n=0;n<8;n++) await saveMenuRecipe(db, identity, allowed, recipe(n));
+  await generateDuePlans(db, allowed, 'Thursday', now);
+  let view = await readPlans(db, identity, allowed, {}, now); const id = view.plan!.id;
+  await assert.rejects(actOnPlan(db, other, allowed, id, { action:'approve', revision:1 }, now), {status:404});
+  await assert.rejects(actOnPlan(db, identity, [], id, { action:'approve', revision:1 }, now), {status:403});
+  await assert.rejects(actOnPlan(db, identity, allowed, randomUUID(), { action:'approve', revision:1 }, now), {status:404});
+  await Promise.all([1,2].map(() => actOnPlan(db, identity, allowed, id, { action:'approve', revision:1 }, now)));
+  view = await readPlans(db, identity, allowed, {}, now); assert.equal(view.approvals,1); assert.equal(view.approved,true);
+  const replacement = view.menu.entries.find(entry => entry.recipe.sourceUrl !== view.plan!.meals[0].sourceUrl)!;
+  const action = {action:'suggest',revision:1,day:0,menuRecipeId:replacement.id};
+  await actOnPlan(db, identity, allowed, id, action, now); await actOnPlan(db, identity, allowed, id, action, now);
+  view = await readPlans(db, identity, allowed, {}, now); assert.equal(view.suggestions.length,1);
+  const suggestionId=view.suggestions[0].id;
+  const outcomes=await Promise.allSettled([1,2].map(() => actOnPlan(db, identity, allowed, id, {action:'accept',revision:1,suggestionId},now)));
+  assert.equal(outcomes.filter(value=>value.status==='fulfilled').length,1);
+  view=await readPlans(db,identity,allowed,{},now); assert.equal(view.plan?.revision,2); assert.equal(view.approvals,0); assert.equal(view.plan?.meals[0].sourceUrl,replacement.recipe.sourceUrl);
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'approve',revision:1},now),{status:409});
+  await actOnPlan(db,identity,allowed,id,{action:'approve',revision:2},now);
+  await actOnPlan(db,identity,allowed,id,{action:'finalize',revision:2},now);
+  await removeMenuRecipe(db,identity,allowed,replacement.id);
+  view=await readPlans(db,identity,allowed,{week:'2026-11-29'},new Date('2026-12-15T15:00:00Z'));
+  assert.equal(view.editable,false); assert.equal(view.plan?.status,'final'); assert.equal(view.approvals,1); assert.equal(view.history.includes('2026-11-29'),true);
+  for(const action of [{action:'approve',revision:2},{action:'finalize',revision:2}]) await assert.rejects(actOnPlan(db,identity,allowed,id,action,now),{status:409});
+  await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(Array(7).fill({evil:true})),id]);
+  await assert.rejects(readPlans(db,identity,allowed,{week:'2026-11-29'},now),/Storage unavailable/);
+ }finally{await db.close();await fixture.cleanup();}
+});

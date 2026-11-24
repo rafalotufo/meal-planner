@@ -8,7 +8,7 @@ test('committed PostgreSQL schema enforces membership and invitation integrity',
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     const tables = await db.all<{ name: string }>("SELECT tablename AS name FROM pg_tables WHERE schemaname='public' AND tablename <> '__drizzle_migrations' ORDER BY name");
-    assert.deepEqual(tables, [{name:'app_users'},{name:'families'},{name:'family_invitations'},{name:'menu_recipes'}]);
+    assert.deepEqual(tables, [{name:'app_users'},{name:'families'},{name:'family_invitations'},{name:'meal_plan_approvals'},{name:'meal_plan_suggestions'},{name:'meal_plan_weeks'},{name:'menu_recipes'}]);
     await db.execute('INSERT INTO families VALUES ($1,$2)', ['family', 1]);
     const insert = (values: unknown[]) => db.execute('INSERT INTO app_users (id,google_subject,verified_email,family_id,created_at) VALUES ($1,$2,$3,$4,$5)', values);
     await insert(['user','subject','member@gmail.com','family',1]);
@@ -74,6 +74,7 @@ test('concurrent explicit migrations serialize and disposable initial rollback i
     try {
       const { readFile } = await import('node:fs/promises');
       await db.transaction(async (tx) => {
+        await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));
         await tx.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql','utf8'));
         await tx.execute(await readFile('drizzle/postgresql/rollback-initial.sql','utf8'));
       });
