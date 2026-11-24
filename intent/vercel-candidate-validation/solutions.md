@@ -4,6 +4,17 @@
 - Date: 2026-11-24
 - Status: Research for discussion; no configuration or implementation approved
 
+## Selected approach — 2026-11-24
+
+Rafael approved isolated staging (`org/messages/ceo-0028.md`): use the existing
+Vercel project's Preview environment, a manually controlled stable staging
+alias, independent staging auth secret and Google OAuth client/callback, and the
+recorded Preview database. Keep distinct Production builds and smoke checks.
+This resolves the product choice and permits Design; it does not authorize
+external configuration, production changes, deployment or paid calls. The
+comparison below is preserved as research history. Staging evidence does not
+prove that the exact Production artifact was validated before promotion.
+
 ## What is blocking us
 
 There are three independent layers. Vercel Deployment Protection may intercept
@@ -162,7 +173,7 @@ can skip security checks. It neither fixes Google callback
 registration nor application 421. Source: [Vercel protection bypass
 methods](https://vercel.com/docs/deployment-protection/methods-to-bypass-deployment-protection).
 
-## Decision requested
+## Original decision framing — resolved above
 
 Choose isolated staging with simpler authentication and explicit artifact
 limits, or exact-Production-candidate validation with a stable alias and a

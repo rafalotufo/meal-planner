@@ -3,8 +3,8 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Candidate validation research independently approved; awaiting owner isolated staging versus exact Production artifact decision. No application/external configuration changed. }
-  product-manager: { status: idle, assignment: null, last_report: Candidate validation intent/options drafted; clarify existing callback verified-email writes in exact-Production proposal. }
+  orchestrator: { status: busy, assignment: intent/vercel-candidate-validation/spec.md, last_report: Candidate validation research independently approved; awaiting owner isolated staging versus exact Production artifact decision. No application/external configuration changed. }
+  product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
   architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
   senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
   security-researcher: { status: idle, assignment: null, last_report: Independent hosted PostgreSQL catalog/hash/roles/grants/empty-data checks approved on both Neon targets; no deployment/merge/release authority granted. }

@@ -2,7 +2,9 @@
 
 - Author: product-manager
 - Date: 2026-11-24
-- Status: Draft — solution choice pending owner discussion
+- Status: Accepted for Design — isolated staging selected
+- Decision: `org/messages/ceo-0028.md`; PM acceptance in
+  `org/reviews/intent-vercel-candidate-validation-001.md`
 - Source: Rafael requested the SDLC org workflow and exploration of solutions
   for Google OAuth preventing validation after a `--skip-domain` deployment.
 
@@ -26,13 +28,19 @@ failures, and tie evidence to a source revision and Vercel deployment ID.
 Clearly distinguish isolated staging evidence from checks of the exact
 Production artifact that will be promoted.
 
-## Scope for this turn
+## Selected scope
 
-Research and compare solutions, recommend a practical route, and record the
-product choice needed before a specification. See sibling `solutions.md` for
-repository evidence, primary references, and tradeoffs. This draft does not
-authorize implementation, deployment, promotion, external configuration,
-credential changes, a migration, or paid-provider calls.
+Use the existing Vercel project's Preview environment with a manually controlled
+stable staging alias, an independent staging auth secret and Google OAuth
+client/callback, and the recorded Preview PostgreSQL database. Keep the app's
+single canonical origin per environment. Production remains a distinct build
+and deployment with its own candidate and post-promotion smoke checks.
+
+The owner selected this approach on 2026-11-24. See sibling `solutions.md` for
+the comparison and proof limits. This acceptance permits Design, not
+implementation, deployment, promotion, external configuration, credential
+changes, a migration, or paid-provider calls. Concrete reviewed scope is still
+required before those actions.
 
 ## Success criteria for the eventual approved solution
 
@@ -41,8 +49,11 @@ credential changes, a migration, or paid-provider calls.
 2. Deployment validation automates readiness, anonymous denial, authenticated
    application checks and mobile/desktop browser checks where feasible, with
    sanitized evidence and clear failed/inconclusive outcomes.
-3. Evidence records source SHA, deployment ID, environment and origin, avoiding
-   promotion of a moving alias or a rebuilt artifact under stale evidence.
+3. Staging evidence records source SHA, Preview deployment ID, environment and
+   stable origin; alias movement cannot silently change the target during a
+   validation run. This evidence concerns the attributed staging deployment,
+   not the distinct Production artifact. Production retains separate source/
+   deployment attribution and candidate/post-promotion smoke checks.
 4. Environment/data/secret isolation is explicit. Production data is not used
    for synthetic writes without separate authority. Existing session,
    cryptographic Google identity, admission and family boundaries remain.
@@ -70,13 +81,16 @@ do not by themselves create a working authenticated staging environment.
 No new website UI or recipe/meal CRUD is requested. Do not put test fixtures,
 synthetic identity endpoints or transport interception into hosted production.
 
-## Product choice before Design
+## Resolved product choice and Design handoff
 
-Is an isolated stable staging site sufficient to catch most failures before
-release, with exact-Production authentication still checked immediately after
-promotion, or must the exact `--prod --skip-domain` artifact support real
-authenticated validation before promotion? The latter requires a reviewed
-multi-origin/authentication change or a more involved routing mechanism.
+The owner approved isolated staging in `org/messages/ceo-0028.md`. It catches
+hosted failures before release while retaining actual Production authentication
+checks after promotion. Exact `--prod --skip-domain` artifact authentication
+before promotion is not a requirement of this approach. Do not implement the
+finite-multiple-origin or OAuth Proxy alternatives as part of this selection.
 
-The PM considers the problem in scope, but holds acceptance of a chosen
-solution pending this decision. No spec or implementation plan exists yet.
+Design must specify manual alias targeting and validation serialization,
+environment/secret/database isolation, approved staging identities and data
+lifecycle, real Google login versus short-lived session reuse, platform
+protection handling, evidence binding and production proof limits. No spec or
+implementation plan exists yet; their review gates remain.

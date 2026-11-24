@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/vercel-candidate-validation/intent.md
-base_commit: 2ee77aa24d09f84e01e2f4f168efff71ccb77492
-turn: 2
+base_commit: b08cd7ace58d0e364b6444fd8f19bb401da711b4
+turn: 1
 no_progress: 0
-phase: done
-status: gate_required
-last_input_hash: adb7f0733bb00d1bf55624c5d29927ee5d737f1133107471c83555b323e5c1ed
-stop_reason: gate_required
-last_action: "reviewer:review_validation_options"
-artifacts: [{"path": "intent/vercel-candidate-validation/solutions.md", "sha256": "e2bcd1fc7e7cc7817b339c37e5facf07b81f12d5447e7bf3d953b5d16eb0a240"}, {"path": "org/reviews/options-vercel-candidate-validation-001.md", "sha256": "899eb745049d1f975063ef9e46345eb62eaf4f6b2a68822f27b2d23f6936979b"}]
+phase: design
+status: in_progress
+last_input_hash: 27eed8b0691d5f33f635a1d41d3fb496048c065b43871689f8f0f1b82481f10d
+stop_reason: null
+last_action: "product-manager:accept_isolated_staging_intent"
+artifacts: [{"path": "org/reviews/intent-vercel-candidate-validation-001.md", "sha256": "bc1ecdca911807728a02c9875f226bac0e0cefcfde58155d9fbd4e677599f683"}]
 acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T13:15:26Z"
+updated_at: "2026-11-24T13:30:50Z"

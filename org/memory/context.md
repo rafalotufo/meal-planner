@@ -8,16 +8,16 @@ intent/vercel-candidate-validation/intent.md
 
 ## Loop
 
-- status: gate_required
-- turn: 2
-- phase: done
-- stop_reason: gate_required
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/vercel-candidate-validation/spec.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -49,6 +49,7 @@ intent/vercel-candidate-validation/intent.md
 - ceo-0025 ceo -> orchestrator decision: Implement single-call recipe research and curation
 - ceo-0026 ceo -> orchestrator decision: Authorize single-call search merge into local main
 - ceo-0027 ceo -> orchestrator decision: Explore automated validation of staged Vercel deployments
+- ceo-0028 ceo -> orchestrator decision: Approve isolated staging approach
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -106,11 +107,11 @@ intent/vercel-candidate-validation/intent.md
 
 ## Recent decisions
 
-- mem-0075 architect: Imported prior feature event mem-0075: Imported prior feature event mem-0074: Imported prior feature event mem-0053: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. Original source: intent/single-call-recipe-search/spec.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0076 orchestrator: Imported prior feature event mem-0076: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
 - mem-0078 orchestrator: Opened research-only Vercel candidate-validation intent from Rafael request. Preserved completed single-call integration loop/graph under org/loop/archive/single-call-main-final-before-candidate-validation-2026-11-24. Comparing isolated stable staging with exact Production candidate stable alias; owner assurance choice pending. No application or external configuration authority. (org/messages/ceo-0027.md)
 - mem-0079 orchestrator: Independent reviewer approved Vercel candidate-validation research with no blockers. Google registration alone cannot bypass current canonical Host421. Stable isolated staging is smallest auth change; exact Production artifact alternative needs stable alias and reviewed finite-origin handling plus Production-data effects accounting. Owner assurance choice pending; bounded research loop stops gate_required, no intent/spec/plan/release approval. (org/reviews/options-vercel-candidate-validation-001.md)
+- mem-0080 orchestrator: Rafael approved isolated staging approach: existing Vercel Preview environment and manually controlled stable alias, separate staging auth and recorded Preview DB. PM accepted intent for Design. Preserved completed options loop and graph under org/loop/archive/vercel-candidate-validation-options-2026-11-24 before initializing bounded Design run. No external configuration or release authority inferred. (org/messages/ceo-0028.md)
 
 ## Constraints
 
@@ -118,16 +119,15 @@ intent/vercel-candidate-validation/intent.md
 
 ## Artifacts
 
-- intent/vercel-candidate-validation/solutions.md (e2bcd1fc7e7cc7817b339c37e5facf07b81f12d5447e7bf3d953b5d16eb0a240)
-- org/reviews/options-vercel-candidate-validation-001.md (899eb745049d1f975063ef9e46345eb62eaf4f6b2a68822f27b2d23f6936979b)
+- org/reviews/intent-vercel-candidate-validation-001.md (bc1ecdca911807728a02c9875f226bac0e0cefcfde58155d9fbd4e677599f683)
 
 ## Next action
 
-reviewer:review_validation_options
+product-manager:accept_isolated_staging_intent
 
 ## Last digest source
 
-- mem-0079 from org/reviews/options-vercel-candidate-validation-001.md
+- mem-0080 from org/messages/ceo-0028.md
 
 <!-- machine:end -->
 
