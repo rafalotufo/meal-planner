@@ -325,3 +325,37 @@ the tested copy. The private generated next-env.d.ts and all build/private
 configuration were excluded; the owner's original next-env.d.ts bytes remain
 unchanged.0000–0002 migration bytes remain unchanged. Local development repair
 is still pending independent final security/source review and target validation.
+
+
+## Completed uniqueness review and authorized local repair
+
+Independent security and source reviews approved fixed source
+`0f0b0c84792bb9947fe4ef0790d893973a21e01b` with no material findings:
+`org/reviews/weekly-meal-planning-unique-security-001.md` and
+`org/reviews/weekly-meal-planning-unique-final-001.md`. Reviewers independently
+verified12 and17 focused tests respectively, source/SQL hashes, equivalence,
+old migration bytes and screenshots; supplied219 Node/7 Python evidence remains
+distinct from those independent checks.
+
+Only after those approvals, root validated both URLs as127.0.0.1, dedicated
+meal_planner_dev, distinct mp_migrator/mp_runtime roles. A secret-free
+operational wrapper captured existing plans/approvals/suggestions in memory, ran
+the unchanged `pnpm run db:migrate` command, then compared all plan and feedback
+rows against the reviewed first-occurrence compaction/remap rules.
+
+Command exited0: PostgreSQL migrations completed; runtime privileges applied.
+Applied migration count4; one draft repaired; it now has2 unique recipes; zero
+drafts with repeats. First snapshots/order and correct suggestion/approval
+transitions verified; all other draft/final/history facts unchanged. Restricted
+runtime openDatabase exact history/catalog verification passed. No source or
+configuration changed during the operation; no private row contents/credentials
+were printed. No hosted migration, deployment, paid request or job activation.
+
+The owner stopped the development server before implementation; root did not
+restart it or touch the original build cache. The original user-modified
+next-env.d.ts bytes remain unchanged. Human merge/release gates remain pending;
+later audit commits do not change the fixed reviewed source.
+
+After final equivalence/review/localrepair checks, root removed the owned private
+QA copy (including its restricted private test configuration and generated build).
+Original next-env.d.ts preservation was verified byte-for-byte before cleanup.

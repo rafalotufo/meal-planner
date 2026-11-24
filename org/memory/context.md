@@ -8,19 +8,19 @@ intent/weekly-meal-planning/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 4
-- phase: security
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
-- architect: busy (weekly-meal-planning-unique-plan)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: busy (unique-weekly-recipes-security)
+- security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -59,7 +59,6 @@ intent/weekly-meal-planning/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
-- ceo-0054 ceo -> orchestrator decision: Never repeat a recipe within a weekly plan
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,8 +93,7 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
-- orchestrator-0106 orchestrator -> senior-developer handoff: Implement unique weekly recipes in private copy
-- orchestrator-0107 orchestrator -> security-researcher handoff: Finalize security assessment of verified unique recipes
+- orchestrator-0109 orchestrator -> ceo handoff: Unique weekly plans complete and local draft repaired
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -157,15 +155,14 @@ intent/weekly-meal-planning/intent.md
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 - senior-developer-0015 senior-developer -> orchestrator handoff: Shared layout implementation verified
-- senior-developer-0019 senior-developer -> orchestrator handoff: Unique weekly recipes implemented and verified
 
 ## Recent decisions
 
-- mem-0133 reviewer: Owner clarified visible header dates must also go. Independently approved seven-recipes main header without numeric range, history controls alone keep weekdates; prior completed6turn loop preserved in archive and new bounded correction cycle opened. (org/reviews/weekly-meal-planning-header-001.md)
 - mem-0134 reviewer: Final weekly planning source9f6f8c6ff0c868472926e42d186648309fc4f62f independently approved: no numeric dates in main header/cards; history controls retain week identifiers.13plans/lint/typecheck/build/Chrome rerun green, original212Node/7Python evidence retained. Header correction3turn loop solved; human merge/release and activation pending. (org/reviews/weekly-meal-planning-header-final-001.md)
 - mem-0135 reviewer: Approved owner swap-retention amendment: accepting clears same-recipe-slot competitors only; other pending suggestions carry forward atomically to new revision with identity/content preserved. Approval reset/stale-client/family constraints unchanged. (org/reviews/weekly-meal-planning-swap-plan-001.md)
 - mem-0136 reviewer: Owner swap retention implemented and independently approved at917b9ebf8e7915f415e873cfc4ecdd224ab48f59. Acceptance clears same-recipe competitors only; unrelated pending suggestions retain identity/content and remain actionable at new revision.214Node/7Python and Chrome pass;4turn loop solved, human merge/release still pending. (org/reviews/weekly-meal-planning-swap-final-001.md)
 - mem-0137 reviewer: Approved1-7unique weeklyrecipes and no duplicate swaps;0003will atomically compactduplicate drafts/remap feedback under migrationlock then FIRSTfamilylock beforeDDL. Finalhistoryrawimmutable, privateQA preserves next-env userdiff, localrepair onlyaftertests/source/security review. Owner laterstoppeddevserver. (org/reviews/weekly-meal-planning-unique-plan-001.md)
+- mem-0138 reviewer: Unique1-7weeklyrecipes approved at0f0b0c84792bb9947fe4ef0790d893973a21e01b,219Node/7Python/Chrome green. Root applied reviewedLOCAL0003 afterprecisetargetvalidation:1draft repaired to2unique, snapshots/order/proposals verified, runtime schema4valid. Usernext-env preserved/devleftstopped; no hosted/deploy/jobactivation, humanmerge pending. (intent/weekly-meal-planning/verification.md)
 
 ## Constraints
 
@@ -177,14 +174,16 @@ intent/weekly-meal-planning/intent.md
 - intent/weekly-meal-planning/plan.md (0fe3d55b1b4d5775f98a78ed631deea5d00cef402b0c84631407351533876980)
 - org/reviews/weekly-meal-planning-unique-plan-001.md (a599d2b5116205395f71c8f9304944ac2fcf3c81bcbd156fcbc7e4cd318d6716)
 - intent/weekly-meal-planning/verification.md (41e0428c386bbb8bf5bb9e0d9b044d1f517229fd864ac50823892cab03809991)
+- org/reviews/weekly-meal-planning-unique-security-001.md (24e983b3d813e3d5bcec028c2fedd017106091118afd5b649d48b1dafe52179e)
+- org/reviews/weekly-meal-planning-unique-final-001.md (024afa736c243ebcf5bb304c5a9a7d251e69bbdd8129853904f224651d917b70)
 
 ## Next action
 
-senior-developer:implement_unique_weekly_recipes
+reviewer:verify_unique_weekly_recipes
 
 ## Last digest source
 
-- mem-0137 from org/reviews/weekly-meal-planning-unique-plan-001.md
+- mem-0138 from intent/weekly-meal-planning/verification.md
 
 <!-- machine:end -->
 
