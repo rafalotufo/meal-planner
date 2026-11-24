@@ -306,8 +306,12 @@ pnpm --config.ignore-scripts=true dlx vercel@66.6.0 rollback "$KNOWN_GOOD_DEPLOY
 ```
 
 Old deployments retain old env/allowlist. Never roll back to revoked secrets or
-removed membership; rebuild safe code with current config instead. No database
-migration/rollback is involved. Repeat minimal canonical anonymous/configuration
+removed membership; rebuild safe code with current config instead. This ordinary
+artifact procedure does not roll back database schema. Strict-catalog changes
+such as saved-menu0001 make initial-only artifacts incompatible: follow the
+[target-specific cutover/recovery plan](../saved-recipe-menu/hosted-cutover-plan.md),
+preserve new data, and never infer DROP/history rewrite/backup-restore authority.
+Repeat minimal canonical anonymous/configuration
 health after recovery. Functional remediation and any further paid/provider
 validation belong on staging under separate scope; no Production retry storm.
 

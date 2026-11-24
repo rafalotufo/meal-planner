@@ -79,6 +79,13 @@ private outside Vercel. This authority does not authorize a deployment, promotio
 merge, future migration, paid feature/plan, or local-data import. Never remove/import
 SQLite data automatically. Preserve main’s vercel.json, environment isolation and
 manual deployment gates; old release approvals do not authorize this branch.
+The separately approved saved-menu cutover on2026-11-24 applied0001 and narrow
+menu grants to Preview and Production; see intent/saved-recipe-menu/production-result-2026-11-24.md
+for exact source/deployment and actual observation status. Initial-only old
+artifacts reject this catalog and are not safe rollback targets. Preserve new
+schema/data; use only a reviewed compatible correction or explicitly authorized
+scoped pause. No DROP, ledger rewrite or backup restore is implied by deployment
+authority. This completed scope grants no future release/migration permission.
 Future releases follow intent/staging-first-release/spec.md and the staging/
 Production runbooks: validate and obtain owner scope/gap acceptance for the exact
 release SHA on isolated staging before a separate Production build, manual

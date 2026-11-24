@@ -84,5 +84,5 @@ passed exit0/status401/pass true,2175ms. All environment metadata remains exactl
 unchanged; private non-secret Production provider/model/Corepack comparisons
 match openai/gpt-6.2-sol/1. Production profile is
 saved-menu-production-20261124-v1, with original sealed credentials preserved;
-no credential value was retrieved. These configuration checks are not fresh live
+no Vercel credential value was retrieved/decrypted. These configuration checks are not fresh live
 provider/OAuth proof.

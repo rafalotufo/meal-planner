@@ -73,6 +73,12 @@ test databases. Development and hosted migrations, deployment and promotion
 remain separate authorized operations. The original hosted provisioning verifier
 expects empty targets and is not a populated-data upgrade runbook.
 
+The separately approved November24 cutover applied this migration to development,
+Preview and Production; see the [release record](intent/saved-recipe-menu/production-result-2026-11-24.md)
+for actual verification and observation status. Initial-only deployments are
+incompatible with the new exact catalog. Preserve saved data and follow the
+reviewed schema-compatible recovery plan; an old artifact is not a safe rollback.
+
 ## Local development
 
 Use Node.js 24.x and pnpm 10.33.0 (pinned in `package.json`).
@@ -405,8 +411,10 @@ access across complete application restart. No backup/deletion scheduler is inst
 
 The initial rollback SQL is a destructive proof **only for disposable test DBs**;
 the suite exercises it and remigrates. It is not a development or production reset.
-For operational rollback, preserve PostgreSQL data and restore a verified backup
-only after a reviewed plan; old SQLite code cannot read PostgreSQL invitation grants.
+For operational recovery, preserve PostgreSQL data and verify artifact/schema
+compatibility. Backup restoration needs a separately authorized reviewed plan
+that preserves writes since the snapshot; possessing a backup grants no restore
+authority. Old SQLite code cannot read PostgreSQL invitation grants.
 Retain encrypted backups for 30 days under the host's policy. Membership identity
 and grants persist for the membership lifetime; record purging/erasure/export need
 separately reviewed procedures.
