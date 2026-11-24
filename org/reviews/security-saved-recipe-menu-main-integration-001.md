@@ -122,3 +122,17 @@ resources. Keep the user's active dev server/next-env/dev types untouched.
 Original menu security approvals and fresh source checks support this integration;
 actual final merge/source attribution, remaining QA, exact staging acceptance and
 specific schema/interruption/recovery/release controls remain orchestrator-owned.
+
+## Later attributed QA update
+
+After the snapshot above, the parent relayed the author's completed family browser
+Production/dev pass and auth five-width pass, plus a bounded private rerun of the
+shared-layout six-route320/1440 flow with its original assertions passing. The
+original unbounded shared-layout run remains inconclusive and was terminated143;
+it is not rewritten as a pass or assigned an unproved tool-only cause. The bounded
+rerun added only private CDP deadlines/phase labels/cleanup, with no repository
+application/helper-source change. Parent reports ownership-proven non-FORCE
+cleanup of that interrupted run's fixture database/profile. These later results
+resolve the earlier pending attribution separately; this reviewer did not execute
+them. Local main integration subsequently completed with pinned release source
+1788143. Hosted schema/cutover/staging/release authority remains a separate scope.

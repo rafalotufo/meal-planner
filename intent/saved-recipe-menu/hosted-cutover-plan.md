@@ -136,3 +136,15 @@ Before entering the irreversible compatibility boundary, record the concrete
 owner decision covering both target migrations, accepted interruption, exact
 source/staging acceptance, narrow promotion and safe failure disposition. Merge
 and authorized preparation can proceed while that final scope is made reviewable.
+
+## Owner decision after preparation
+
+Rafael approved this exact cutover plan in canonical `org/messages/ceo-0051.md`
+after merged main1788143, READY PreviewCMzD, private backups, read-only target
+verification and concrete interruption/recovery scope were presented. Gate
+`saved-menu-hosted-cutover-20261124` records that authority with the full pinned
+source SHA. This amendment authorizes the proposal's named migrations/grants and
+scoped pause contingency only; Production promotion still waits for exact-source
+staging acceptance and committed release authority. No destructive restoration
+or incompatible old-artifact rollback is included. Subsequent execution is
+recorded in `release-2026-11-24.md`, distinct from the fixed upload source.
