@@ -49,6 +49,7 @@
 - `org/loop/state.yaml`
 - `org/loop/history.jsonl`
 - `org/loop/archive/shared-site-layout-before-weekly-meal-planning-2026-11-24/*`
+- `org/loop/archive/weekly-meal-planning-before-header-date-refinement-2026-11-24/*`
 - `org/status.yaml`
 - `org/messages/*.md`
 - `org/reviews/*weekly-meal-planning*`
@@ -170,3 +171,27 @@ lint, strict typecheck, build, planning tests and real Chrome320/1440, visually
 inspect updated feature screenshots, and append actual results to verification.
 No additional source paths, schema migration, scheduling changes or deployment
 are part of this amendment.
+
+
+## Owner follow-up amendment — remove main-header date range
+
+Source: `org/messages/ceo-0052.md`. Pending independent approval before source
+changes. Supersedes the retained-header-range instruction in the first amendment.
+The main plan header presents seven recipes without a numeric week/date range;
+only history controls retain week dates. Cards remain undated in draft, final and
+retained-history views. Schedule explanation weekday words/time may remain.
+
+After approval, within the existing manifest update `app/plans/page.tsx` to remove
+the visible main date-range paragraph and replace it with a seven-recipe heading
+or label while retaining plan status. Keep strict selected-week handling and dates
+in recent-history links/the retained-week selector. No core behavior changes.
+Update `tests/plans/browser.ts` to assert no date range/date elements outside
+history controls in draft/final/history; remove the former retained-range
+assertion. Preserve all seven-card, accessibility, approve/suggest/accept/reset,
+stale-conflict, pagination, confirmation and history interaction checks.
+
+Run lint, strict typecheck, build,13 planning tests and real Chrome320/1440;
+recapture six feature screenshots, inspect representative desktop/mobile images,
+and append actual results to verification. No DB/auth/scheduler changes, new
+source paths, deployment, merge or activation. The prior completed local loop is
+preserved under the added process archive path in this plan manifest.

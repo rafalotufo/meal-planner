@@ -263,3 +263,22 @@ variety/recency, revisions, approvals, suggestions, finalization and the top-lev
 week range remain unchanged. Apply the same presentation to immutable final
 and historical plans. This narrowly supersedes the individual dated dinner
 presentation described above; it adds no new behavior or source paths.
+
+
+## Owner follow-up amendment — no numeric dates in the main plan header
+
+Source: `org/messages/ceo-0052.md`. Pending independent review before source
+changes. This supersedes every retained-header-range presentation assumption in
+the original specification and first presentation amendment. The main plan header
+must show the seven-recipe plan without a numeric week/date range. Individual
+cards remain recipe-title-headed and undated. This applies consistently to draft,
+final and retained historical plan views. Week dates remain only inside history
+controls (recent-week links and the labelled retained-week date selector), where
+they distinguish which plan to open. The schedule explanation may retain weekday
+words and Toronto generation time; no numeric date range is added elsewhere in
+the main plan content or empty states.
+
+Retain Sunday–Saturday calendar boundaries, stored week_start and slot identities,
+generation/recency, revision handling, approvals, swaps and finalization unchanged.
+This is a bounded presentation correction, not schema, authentication, scheduler,
+route or deployment scope. No new source path is required.

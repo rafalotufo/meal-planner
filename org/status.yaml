@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Shared layout merged into local main under owner approval; dev stopped, staging acceptance and release unstarted." }
+  orchestrator: { status: idle, assignment: null, last_report: Weekly meal planning local org loop solved; reviewed source9694aee awaits human merge/release. Scheduling unactivated. }
   product-manager: { status: idle, assignment: null, last_report: Accepted weekly meal planning intent for Design; saved brainstorm and explicit defaults. }
-  architect: { status: busy, assignment: weekly-meal-planning-plan, last_report: Drafted weekly meal planning spec and exact manifest plan; ready for independent peer review. }
-  senior-developer: { status: busy, assignment: weekly-meal-planning-implementation, last_report: Weekly meal planning implemented; required checks and real Chrome320/1440 passed; ready independent security/final review. }
+  architect: { status: idle, assignment: null, last_report: Weekly planning design and owner presentation amendment independently approved; implementation reviewed. }
+  senior-developer: { status: busy, assignment: weekly-meal-planning-header-plan, last_report: "Weekly planning implemented and independently approved at9694aee;212 Node/7Python and Chrome320/1440 verified, no deployed activation." }
   security-researcher: { status: idle, assignment: null, last_report: Weekly meal planning security clear at d7e3734; owner subsequently requested removal of per-recipe date labels. }
-  reviewer: { status: busy, assignment: weekly-meal-planning-implementation, last_report: "review weekly-meal-planning-plan-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-header-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -82,4 +82,5 @@ review_queue:
   - { id: shared-site-layout-browser-amendment-001, artifact: shared-site-layout-browser-amendment, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: shared-site-layout-code-001, artifact: shared-site-layout-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-meal-planning-plan-001, artifact: weekly-meal-planning-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: weekly-meal-planning-code-001, artifact: weekly-meal-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: weekly-meal-planning-code-001, artifact: weekly-meal-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-header-plan-001, artifact: weekly-meal-planning-header-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

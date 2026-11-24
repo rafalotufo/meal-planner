@@ -69,8 +69,8 @@ work, and whether silence should count as delegation.
   org workflow, beginning with an intent.
 - During implementation, the owner refined the presentation: “No need to label
   recipes with dates. Lets just have 7 recipes for the draft.” Present seven
-  weekly recipe choices without individual weekday/date assignments; retain the
-  Sunday–Saturday weekly range, scheduling, history and family actions. Source:
+  weekly recipe choices without individual weekday/date assignments. The initial
+  retained-header-range interpretation was superseded by the follow-up below. Source:
   `org/messages/ceo-0051.md`; independent amendment review:
   `org/reviews/weekly-meal-planning-presentation-001.md`.
 
@@ -80,3 +80,15 @@ The owner did not explicitly settle meal types, the generation time/timezone,
 who resolves swaps and confirms a plan, or whether history records plans or
 actual consumption. The intent identifies bounded proposed defaults for these;
 they are not represented as additional owner-approved requirements.
+
+
+## Owner follow-up — remove the header date range
+
+Source: `org/messages/ceo-0052.md`. The owner still saw dates in the screenshots.
+The main plan header must present seven recipes without a numeric date range;
+individual recipe cards remain undated. Week dates appear only in history controls
+to distinguish retained plans. The Sunday–Saturday calendar remains internal
+scheduling/history context; the schedule explanation may retain weekday words.
+All generation, persistence, family feedback and finalization behavior stays as
+previously approved. This supersedes the first amendment's retained-header-range
+assumption, rather than adding another planning capability.

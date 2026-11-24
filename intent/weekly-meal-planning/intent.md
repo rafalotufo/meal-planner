@@ -29,7 +29,8 @@ repeats. Keep the interaction small enough that participation saves effort.
   variable whose default is Thursday.
 - The draft covers the upcoming Sunday through Saturday.
 - Present **seven weekly recipe choices**, without assigning weekday/date labels
-  to individual recipes. Retain the Sunday–Saturday range as weekly context.
+  to individual recipes. Do not show a numeric date range in the main plan
+  header; retain week dates only inside history controls.
 - Family participation includes approval and suggested recipe swaps.
 - There is no “I'll be away” option.
 - Preserve weekly history and use it to discourage repetitive weekly menus.
@@ -38,7 +39,7 @@ repeats. Keep the interaction small enough that participation saves effort.
 ## Acceptance criteria
 
 - A protected weekly-planning screen presents seven recipe choices without
-  individual weekday/date assignments, the Sunday–Saturday weekly range,
+  individual weekday/date assignments or a numeric date range in its main header,
   draft/final status, family feedback and actionable empty/error states.
   Existing shared navigation makes the screen discoverable.
 - An explicit trusted scheduler operation creates at most one draft per family
@@ -114,8 +115,11 @@ concrete conflict to the owner rather than silently changing that contract.
 Owner refinement recorded in `org/messages/ceo-0051.md`: “No need to label recipes
 with dates. Lets just have 7 recipes for the draft.” The independently reviewed
 presentation amendment is `org/reviews/weekly-meal-planning-presentation-001.md`.
-This removes per-recipe weekday/date assignments while retaining weekly range,
-scheduling, history and actions.
+This first removed per-recipe weekday/date assignments. Owner follow-up in
+`org/messages/ceo-0052.md` supersedes the retained-header-range assumption: remove
+the numeric range from the main plan header too. Show seven recipes; only history
+controls retain week dates to distinguish retained weeks. Scheduling, history
+and family actions remain unchanged.
 
 Architect: specify the calendar, scheduler trust boundary, draft algorithm,
 history lifecycle, feedback/confirmation model, persistence and UI; produce a
