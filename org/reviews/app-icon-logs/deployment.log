@@ -1,0 +1,26 @@
+✔ bundled migration metadata exactly matches the public loader SQL and journal (1.336875ms)
+✔ changed SQL is rejected without regenerating reviewed runtime metadata (19.696458ms)
+✔ changed journal timestamps are rejected before migration opens a database (5.806458ms)
+✔ empty malformed reordered and stale runtime manifests fail closed (0.670125ms)
+✔ changed catalog is rejected without opening or repairing a database (6.37675ms)
+✔ compiled protected proxy and routes work without source or migration files (1296.073583ms)
+✔ invalid deployment targets are rejected before any request (1.298791ms)
+✔ candidate requires no-store 421 responses, not platform protection denial (14.032458ms)
+✔ candidate protection cookie stays on exact target and out of output (0.514625ms)
+✔ anonymous checks inspect exact redirect and never send authentication (0.861167ms)
+✔ unexpected destinations and status/cache errors fail closed (1.016417ms)
+✔ Vercel's relative redirect resolves to the exact expected sign-in URL (0.288458ms)
+✔ no candidate application response is inconclusive and sanitized (0.202625ms)
+✔ a quiet WAF window yields twenty anonymous denials then 429 with no provider query (0.499958ms)
+✔ preexisting WAF traffic is inconclusive and unblocked bursts fail (0.444333ms)
+✔ only candidate and disconnect accept bounded single-line cookies (0.277625ms)
+✔ fast disconnect response is inconclusive; one abort is not server cancellation proof (2002.267875ms)
+✔ real HTTP candidate redirect is inconclusive without forwarding private cookie (29.795042ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2212.873666

@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/vercel-candidate-validation/intent.md
+base_commit: 3f88bc0d0d866bb462ae433b2cd6215f6ff29934
+turn: 5
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 1ec552627ffb0bb3f42edc94005a912c301efdd7aea627d58a82b2f7b6e40f43
+stop_reason: solved
+last_action: "reviewer:review_staging_implementation"
+artifacts: [{"path": "intent/vercel-candidate-validation/plan.md", "sha256": "3e13ce01bd1695a4d491a7410ac427b1f2358263f23c7e778af99bce83f74139"}, {"path": "org/reviews/plan-vercel-candidate-validation-001.md", "sha256": "9894bfad6cf3991a631fb625ce1cfeb2806202783fdf663651f10a2b1b7b286a"}, {"path": "intent/vercel-candidate-validation/verification.md", "sha256": "08e0be1c07ed38ce991d5fb6fee25997c28649b5d517fc98d40a20ed730b03a6"}, {"path": "org/reviews/security-vercel-candidate-validation-implementation-001.md", "sha256": "dd5c06033bf038757387b86c97a61d8178d73c376235eb64cb296ee683521b4c"}, {"path": "org/reviews/code-vercel-candidate-validation-002.md", "sha256": "209e1b9be3067728385cce90634033ddf90acdeb32b64a8c80644aece0729393"}]
+acceptance: [{"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/*.test.ts", "exit": 0, "pass": true}, {"command": "(umask 077 && mkdir -p .data/staging-verification && pnpm run test:auth > .data/staging-verification/org-auth.log 2>&1)", "exit": 0, "pass": true}, {"command": "pnpm run test:family", "exit": 0, "pass": true}, {"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T14:15:56Z"

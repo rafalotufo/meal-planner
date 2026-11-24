@@ -1,0 +1,46 @@
+
+> meal-planner@0.1.0 test:family /Users/rafael/.codex/worktrees/ffff/meal-planner
+> node --import tsx --test tests/family/*.test.ts
+
+✔ verified unlisted invitee joins the existing family and retains access after consumed invitation (6639.441375ms)
+✔ expired pending admission still denies acceptance uniformly and permits guarded logout (1997.2885ms)
+✔ wrong recipient, forged token and existing family cannot consume an invitation (1193.39ms)
+✔ revoked onboarding sessions cannot access data but can clear all cookies (1197.087208ms)
+✔ acceptance rollback is atomic and exact retries do not create or switch membership (1123.440458ms)
+✔ fresh verified email updates preserve Google identity and older cookies cannot rewrite it (2003.565125ms)
+✔ two application processes accept one invitation exactly once (2232.919792ms)
+✔ a PostgreSQL dump restores invitation grants across complete server restart (2500.407958ms)
+✔ public invitation context is uniform, bounded and cannot expose invitation data (3375.054625ms)
+✔ Fluid request lifetime covers idle PostgreSQL cleanup after transaction success and rollback (10788.24775ms)
+✔ invitation access is independent of membership and an empty allowlist (1192.644083ms)
+✔ a pending verified recipient is admitted to onboarding even with an empty allowlist (480.448375ms)
+✔ member creates a recipient-bound hash-only invitation and cannot duplicate it (3537.086042ms)
+✔ creation limits, JSON bounds and mutation origins cannot be overridden (1815.186709ms)
+✔ separate processes cannot create duplicate active invitations for one recipient (2932.791166ms)
+✔ two real families cannot enumerate or revoke each other or switch through an invitation (6681.585833ms)
+✔ a matching recipient already in a one-person family cannot accept a new pending invitation (1922.398666ms)
+✔ only current family members can access the imported recipe UI or provider boundary (3553.687958ms)
+✔ PostgreSQL configuration fails closed and remote URLs require verified TLS (1.551833ms)
+✔ migration endpoint validation accepts Neon direct/pooler pairs and rejects unrelated databases (0.899875ms)
+✔ first Google login stays read-only until guarded POST creates exactly one family (6618.646292ms)
+✔ two application processes provision the same Google subject without duplicates (1862.714083ms)
+✔ provisioning rejects cross-origin and presented invalid invitations and rolls back real insert failure (1231.4505ms)
+✔ PostgreSQL advisory lock timeout returns 503 without leaving a partial family (6153.993292ms)
+✔ invitation creation racing provisioning has exactly one serialized outcome (2243.631625ms)
+✔ native runtime is DML-only and test credentials cannot access development data (36.090833ms)
+✔ committed PostgreSQL schema enforces membership and invitation integrity (886.901667ms)
+✔ explicit migrations repeat; runtime never initializes an empty database (482.746792ms)
+✔ changed migration history and partial schema fail closed without repair (819.512041ms)
+✔ failed migration rolls back schema and ledger writes together (322.66675ms)
+✔ unexpected columns and weakened constraints fail catalog validation (416.177291ms)
+✔ concurrent explicit migrations serialize and disposable initial rollback is complete (286.067125ms)
+✔ bound SQL-looking identity values remain data and millisecond timestamps round-trip exactly (279.441083ms)
+✔ unreviewed triggers, functions and row-security changes fail closed (349.828958ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19165.769667

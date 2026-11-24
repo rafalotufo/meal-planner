@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/vercel-candidate-validation/hosted-setup.md
+base_commit: d485897c51c43fd36526b9db12a9edb081376f24
+turn: 4
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: af7404122d759983d2d2697d58ed4a423a522e5e723751937df7fb1b66164959
+stop_reason: solved
+last_action: "reviewer:verify_preview_setup"
+artifacts: [{"path": "intent/vercel-candidate-validation/hosted-setup.md", "sha256": "c43a759ce7f8de79d4b22ea60cc23f952bd531e88a6269e042c2fac27d7a00f1"}, {"path": "org/reviews/hosted-vercel-candidate-validation-001.md", "sha256": "9d14349c70bcd2772ecba0822e417f73131b35e23f1b97002072eed17d540fd3"}, {"path": "intent/vercel-candidate-validation/hosted-results.md", "sha256": "ba7bef6eb08cac9e1c2015982c8d26ba39a7a648c758a4046ae57f6200508c23"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T15:20:59Z"

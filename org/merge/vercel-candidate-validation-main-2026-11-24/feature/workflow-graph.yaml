@@ -1,0 +1,70 @@
+# <Project> — state on the AI-native SDLC loop graph
+
+# Update this file as the project moves through gates. Automation may run the
+# edges between nodes but never skip a gate. This file is the team's shared
+# view of the pipeline: what is in flight, what is blocked at which gate.
+#
+# status: not_started | in_progress | accepted | approved | in_review |
+#         merged | pending | done
+
+version: 1
+
+nodes:
+  intent:
+    stage: plan
+    artifact: intent/vercel-candidate-validation/intent.md
+    gate: product_owner_accept
+    status: accepted
+    done_status: accepted
+  spec:
+    stage: design
+    artifact: intent/vercel-candidate-validation/spec.md
+    gate: product_owner_approve
+    status: approved
+    done_status: approved
+  plan:
+    stage: build
+    artifact: intent/vercel-candidate-validation/plan.md
+    gate: engineer_approve
+    status: approved
+    done_status: approved
+  implementation:
+    stage: build
+    artifact: code + tests
+    gate: code_owner_approve
+    status: pending
+    done_status: merged
+  release:
+    stage: deploy
+    artifact: authorized release
+    gate: release_authorization
+    status: not_started
+    done_status: done
+  diagnosis:
+    stage: maintain
+    artifact: new intent.md
+    gate: on_call_triage
+    status: not_started
+    done_status: done
+
+  preview_setup_authorization:
+    stage: deploy
+    artifact: intent/vercel-candidate-validation/hosted-setup.md
+    gate: preview_deployment_authorization
+    status: approved
+    done_status: approved
+  preview_verification:
+    stage: deploy
+    artifact: intent/vercel-candidate-validation/hosted-results.md
+    gate: preview_verification
+    status: done
+    done_status: done
+
+edges:
+  - { from: intent, to: spec, trigger: acceptance }
+  - { from: spec, to: plan, trigger: approval }
+  - { from: plan, to: implementation, trigger: plan_accepted }
+  - { from: implementation, to: release, trigger: pr_merged }
+  - { from: release, to: diagnosis, trigger: band_breach_or_incident }
+  - { from: diagnosis, to: intent, trigger: written_back }
+  - { from: preview_setup_authorization, to: preview_verification, trigger: explicit_preview_authority }

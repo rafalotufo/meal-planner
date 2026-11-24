@@ -1,0 +1,16 @@
+# Bounded intent/options exploration only; acceptance verifies workflow tooling.
+# An approved options review does not accept the draft intent or authorize Design.
+# The intent review artifact remains unapproved until the product choice is resolved.
+version: 1
+max_turns: 4
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: true
+review_artifact: intent/vercel-candidate-validation/intent.md
+human_gates: [product_owner_accept, product_owner_approve, engineer_approve, code_owner_approve, release_authorization]
+acceptance:
+  commands: ["python3 -m unittest discover -s tests"]
+phases:
+  intent: { role: product-manager, action: research_validation_options, next: options_review }
+  options_review: { role: reviewer, action: review_validation_options, next: done }
+  done: { role: null, action: null, next: null }

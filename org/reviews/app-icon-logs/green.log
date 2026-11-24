@@ -1,0 +1,10 @@
+✔ only exact icon pathnames with GET or HEAD are public (0.556375ms)
+✔ compiled public metadata and icon reads work without a reachable database (736.159167ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 975.426292

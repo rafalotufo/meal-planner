@@ -54,6 +54,9 @@ review_queue:
   - { id: code-single-call-recipe-search-001, artifact: single-call-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: single-call-main-integration-001, artifact: single-call-main-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: single-call-main-refresh-integration-001, artifact: single-call-main-refresh-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-app-icon-001, artifact: intent/app-icon/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-app-icon-001, artifact: intent/app-icon/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-app-icon-001, artifact: app-icon-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: options-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/solutions.md, writer: product-manager, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

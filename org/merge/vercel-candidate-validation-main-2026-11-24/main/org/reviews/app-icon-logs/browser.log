@@ -1,0 +1,83 @@
+{
+  "browser": "isolated headless Google Chrome",
+  "attribution": "test-process Google fixture; no live provider calls",
+  "results": [
+    {
+      "width": 390,
+      "mobile": true,
+      "page": "sign-in",
+      "title": "Meal Planner",
+      "localIcons": 2,
+      "decode": "passed",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "mobile": true,
+      "page": "home",
+      "title": "Meal Planner",
+      "localIcons": 2,
+      "decode": "passed",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "mobile": false,
+      "page": "sign-in",
+      "title": "Meal Planner",
+      "localIcons": 2,
+      "decode": "passed",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "mobile": false,
+      "page": "home",
+      "title": "Meal Planner",
+      "localIcons": 2,
+      "decode": "passed",
+      "overflow": false
+    }
+  ],
+  "imageResponses": [
+    {
+      "pathname": "/icon.svg",
+      "status": 200
+    },
+    {
+      "pathname": "/favicon.ico",
+      "status": 200
+    },
+    {
+      "pathname": "/icon.svg",
+      "status": 200
+    },
+    {
+      "pathname": "/favicon.ico",
+      "status": 200
+    },
+    {
+      "pathname": "/icon.svg",
+      "status": 200
+    },
+    {
+      "pathname": "/favicon.ico",
+      "status": 200
+    },
+    {
+      "pathname": "/icon.svg",
+      "status": 200
+    },
+    {
+      "pathname": "/favicon.ico",
+      "status": 200
+    },
+    {
+      "pathname": "/icon.svg",
+      "status": 200
+    }
+  ],
+  "consoleWarningsAndErrors": [],
+  "tabChrome": "not exposed by headless Chrome; metadata/network/decoding verified",
+  "preview": "org/reviews/app-icon-preview.png"
+}

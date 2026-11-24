@@ -1,0 +1,4 @@
+
+> meal-planner@0.1.0 lint /Users/rafael/.codex/worktrees/ffff/meal-planner
+> eslint . --max-warnings 0
+

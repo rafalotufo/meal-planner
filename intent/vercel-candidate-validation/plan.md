@@ -11,6 +11,9 @@
 
 ## Files that change
 
+- org/merge/vercel-candidate-validation-main-2026-11-24/**
+- intent/vercel-candidate-validation/merge.md
+
 - .vercelignore
 - tests/deployment/staging.ts
 - tests/deployment/staging.test.ts
@@ -270,3 +273,14 @@ for an account that has not been configured/deployed and inspected.
   targets, complete pagination and Production-domain assignment warning.
 - [Vercel project](https://vercel.com/docs/cli/project): project inspection;
   account state and effective private settings remain operator preflights.
+
+## Main integration amendment
+
+Owner-authorized local merge preserves current main icon/runtime bytes and this
+feature's reviewed tooling. Both audit namespaces and original chains are
+archived under `org/merge/vercel-candidate-validation-main-2026-11-24/`; canonical
+main ledger/memory prefixes are retained and branch-only prior decisions/events
+imported with original provenance. Colliding feature message IDs are remapped
+only in live feature references, with exact snapshots/maps preserved. No new
+application behavior or release authority is introduced. Combined verification
+and independent integration review precede the destination main update.
