@@ -74,7 +74,10 @@ domain/project settings remained unchanged. Current Production9a7V readback
 confirmed READY/Production and its recorded saved-menu source1788143, with
 identical runtime/schema contract and only the prompt line differing in app code.
 
-Owner exact-source staging acceptance and concrete Production scope/recovery
-authority remain outstanding. No Production build or promotion has occurred.
+The owner subsequently accepted exact-source staging and concrete Production
+scope/recovery authority; see production.md and committed gates. Production3Sxz
+from pinned4e66fb7 is now LIVE; all16canonical health samples over the required
+15minutes and final source/alias/configuration/error-count reconciliation passed.
+No recovery was needed. Earlier preparation statements above are historical.
 Later audit commits record evidence only; they must not replace pinned4e66fb7 as
 the source for this release.
