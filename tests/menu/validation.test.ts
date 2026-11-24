@@ -55,9 +55,17 @@ test('menu IDs and cursors are canonical, bounded positions without an ownership
 
 test('persisted and public entries fail closed rather than normalizing corrupt rows or leaking owners', () => {
   const row = { id, familyId: 'private-family', savedAt: 1795450000001, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes' };
-  const entry = { id, savedAt: row.savedAt, recipe };
+  const entry = { id, savedAt: row.savedAt, recipe, curation: { state: 'ready', retryable: false } };
   assert.deepEqual(menuEntryFromRow(row), entry);
   assert.deepEqual(parseSavedMenuEntry(entry), entry);
   for (const change of [{ title: ' padded ' }, { sourceUrl: 'https://EXAMPLE.test/r' }, { imageUrl: 'data:image/svg+xml,unsafe' }, { timeKind: null }, { savedAt: -1 }, { id: 'invalid' }]) assert.throws(() => menuEntryFromRow({ ...row, ...change }), /Storage unavailable/);
   for (const change of [{ familyId: 'private' }, { savedAt: -1 }, { recipe: { ...recipe, summary: ' padded ' } }]) assert.equal(parseSavedMenuEntry({ ...entry, ...change }), null);
+});
+
+test('curation state is explicit and exact, with no private task authority in public entries', () => {
+  const entry = { id, savedAt: 1, recipe, curation: { state: 'ready', retryable: false } };
+  assert.deepEqual(parseSavedMenuEntry(entry), entry);
+  assert.equal(parseSavedMenuEntry({ id, savedAt: 1, recipe }), null);
+  for (const curation of [{ state: 'failed', retryable: false }, { state: 'pending', retryable: true }, { state: 'ready', retryable: false, generation: id }, { state: 'unknown', retryable: false }]) assert.equal(parseSavedMenuEntry({ ...entry, curation }), null);
+  assert.deepEqual(parseSavedMenuEntry({ ...entry, curation: { state: 'interrupted', retryable: true } })?.curation, { state: 'interrupted', retryable: true });
 });

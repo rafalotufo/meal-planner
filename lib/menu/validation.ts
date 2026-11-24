@@ -1,5 +1,5 @@
 import { isRecord, safeRecipeUrl } from '../recipes/validation';
-import type { MenuCursor, MenuRecipe, SavedMenuEntry } from './types';
+import type { MenuCursor, MenuPage, MenuRecipe, SavedMenuEntry } from './types';
 
 function exactKeys(value: Record<string, unknown>, keys: readonly string[]) {
   return Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
@@ -9,19 +9,19 @@ function text(value: unknown, maximum: number): string | null {
   const trimmed = value.trim();
   return trimmed.length > 0 && trimmed.length <= maximum ? trimmed : null;
 }
-function url(value: unknown) {
+export function parseMenuSourceUrl(value: unknown) {
   const normalized = safeRecipeUrl(value);
   return normalized && normalized.length <= 2048 && /^[\x21-\x7e]+$/.test(normalized) ? normalized : null;
 }
 export function parseMenuSourceUrls(value: unknown): string[] | null {
   if (!Array.isArray(value) || value.length < 1 || value.length > 6) return null;
-  const normalized = value.map(url);
+  const normalized = value.map(parseMenuSourceUrl);
   return normalized.every((source): source is string => source !== null) ? [...new Set(normalized)] : null;
 }
 export function parseMenuRecipe(value: unknown): MenuRecipe | null {
   if (!isRecord(value) || !exactKeys(value, ['title', 'sourceUrl', 'imageUrl', 'summary', 'time'])) return null;
-  const title = text(value.title, 160), summary = text(value.summary, 600), sourceUrl = url(value.sourceUrl);
-  const imageUrl = value.imageUrl === null ? null : url(value.imageUrl);
+  const title = text(value.title, 160), summary = text(value.summary, 600), sourceUrl = parseMenuSourceUrl(value.sourceUrl);
+  const imageUrl = value.imageUrl === null ? null : parseMenuSourceUrl(value.imageUrl);
   if (!title || !summary || !sourceUrl || value.imageUrl !== null && !imageUrl) return null;
   let time: MenuRecipe['time'] = null;
   if (value.time !== null) {
@@ -54,15 +54,28 @@ function unchangedRecipe(raw: Record<string, unknown>, recipe: MenuRecipe) {
     (raw.time === null ? recipe.time === null : isRecord(raw.time) && raw.time.kind === recipe.time?.kind && raw.time.text === recipe.time?.text);
 }
 export function parseSavedMenuEntry(value: unknown): SavedMenuEntry | null {
-  if (!isRecord(value) || !exactKeys(value, ['id', 'savedAt', 'recipe']) || !parseMenuId(value.id) || !timestamp(value.savedAt)) return null;
+  if (!isRecord(value) || !exactKeys(value, ['id', 'savedAt', 'recipe', 'curation']) || !parseMenuId(value.id) || !timestamp(value.savedAt)) return null;
   const recipe = parseMenuRecipe(value.recipe);
   if (!recipe || !isRecord(value.recipe) || !unchangedRecipe(value.recipe, recipe)) return null;
-  return { id: value.id as string, savedAt: value.savedAt, recipe };
+  const curation = value.curation;
+  if (!isRecord(curation) || !exactKeys(curation, ['state', 'retryable']) || !['ready', 'pending', 'processing', 'failed', 'interrupted'].includes(String(curation.state)) || typeof curation.retryable !== 'boolean' || curation.retryable !== (curation.state === 'failed' || curation.state === 'interrupted')) return null;
+  return { id: value.id as string, savedAt: value.savedAt, recipe, curation: { state: curation.state as SavedMenuEntry['curation']['state'], retryable: curation.retryable } };
 }
 export function menuEntryFromRow(value: unknown): SavedMenuEntry {
   if (!isRecord(value)) throw new Error('Storage unavailable');
   const time = value.timeKind === null && value.timeText === null ? null : { kind: value.timeKind, text: value.timeText };
-  const entry = parseSavedMenuEntry({ id: value.id, savedAt: value.savedAt, recipe: { title: value.title, sourceUrl: value.sourceUrl, imageUrl: value.imageUrl, summary: value.summary, time } });
+  let state: unknown = value.curationState ?? 'ready';
+  if (value.curationState != null) {
+    if (!['pending', 'processing', 'ready', 'failed'].includes(String(state)) || !timestamp(value.curationExpiresAt)) throw new Error('Storage unavailable');
+    if ((state === 'pending' || state === 'processing') && value.curationExpiresAt <= Date.now()) state = 'interrupted';
+  }
+  const entry = parseSavedMenuEntry({ id: value.id, savedAt: value.savedAt, curation: { state, retryable: state === 'failed' || state === 'interrupted' }, recipe: { title: value.title, sourceUrl: value.sourceUrl, imageUrl: value.imageUrl, summary: value.summary, time } });
   if (!entry) throw new Error('Storage unavailable');
   return entry;
+}
+
+export function parseMenuPage(value: unknown): MenuPage | null {
+  if (!isRecord(value) || !exactKeys(value, ['entries', 'nextCursor']) || !Array.isArray(value.entries) || value.entries.length > 50 || value.nextCursor !== null && !parseMenuCursor(value.nextCursor)) return null;
+  const entries = value.entries.map(parseSavedMenuEntry);
+  return entries.every((entry): entry is SavedMenuEntry => entry !== null) ? { entries, nextCursor: value.nextCursor as string | null } : null;
 }
