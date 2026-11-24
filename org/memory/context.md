@@ -57,8 +57,6 @@ intent/recipe-url-menu/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
-- ceo-0066 ceo -> orchestrator decision: Authorize feature-branch main refresh and native local recovery
-- ceo-0067 ceo -> orchestrator decision: Authorize verified recipe URL integration merge to local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -107,17 +105,16 @@ intent/recipe-url-menu/intent.md
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
-- reviewer-0056 reviewer -> orchestrator review: Main integration recovery plan approved
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0153 ceo: Historical mem-0137 import from feature tip: Owner approved recipe URL menu implementation plan at 2513046 and a fresh bounded local Build cycle. Archived exhausted planning loop; no old budget extended. No development/hosted migration, push, merge or release authorized. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0154 orchestrator: Historical mem-0138 import from feature tip: Final code review requested one narrow enum-type correction. Keep max8 turns: correction7 returns to final review8, whose approval requires independent security reconfirmation of the exact corrected source via the committed reviewer-to-security consultation route. Initial security assessment already completed; no security review, tests or human gate removed. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0155 orchestrator: Historical mem-0139 import from feature tip: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
 - mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
+- mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 
 ## Constraints
 
@@ -137,7 +134,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0158 from intent/recipe-url-menu/main-integration-verification.md
+- mem-0159 from intent/recipe-url-menu/main-merge-result-2026-11-24.md
 
 <!-- machine:end -->
 
