@@ -94,6 +94,7 @@ intent/shared-site-layout/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
+- orchestrator-0087 orchestrator -> ceo handoff: Accept exact saved-menu staging result and named coverage gaps
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -183,7 +184,7 @@ reviewer:verify_shared_layout
 
 ## Last digest source
 
-- mem-0126 from org/reviews/shared-site-layout-merge-001.md
+- mem-0127 from intent/saved-recipe-menu/staging-result-2026-11-24.md
 
 <!-- machine:end -->
 
