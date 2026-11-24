@@ -20,3 +20,14 @@ export interface InvitationRow {
   acceptedAt: number | null;
   revokedAt: number | null;
 }
+export interface MenuRecipeRow {
+  id: string;
+  familyId: string;
+  sourceUrl: string;
+  imageUrl: string | null;
+  title: string;
+  summary: string;
+  timeKind: 'cook' | 'total' | null;
+  timeText: string | null;
+  savedAt: number;
+}

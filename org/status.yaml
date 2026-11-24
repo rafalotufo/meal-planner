@@ -6,7 +6,7 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: Saved recipe menu plan reviewed and ready for human engineer approval; no implementation or migration performed. }
   product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
   architect: { status: idle, assignment: null, last_report: "Owner-required removal confirmation designed and independently reviewed; Cancel/Escape preserve recipe, confirm alone removes." }
-  senior-developer: { status: busy, assignment: intent/saved-recipe-menu/plan.md, last_report: Saved menu plan security/peer approved after dynamic-route manifest escape fix; awaiting human engineer approval before code. }
+  senior-developer: { status: idle, assignment: null, last_report: "Foundation tasks1-4 passed:14menu,8storage,lint/typecheck/build; original migration evidence preserved, disposable DBs only." }
   security-researcher: { status: idle, assignment: null, last_report: Saved menu implementation plan security clear; random-DB-only grants/migrations and identity/catalog boundaries verified in planning review. }
   reviewer: { status: idle, assignment: null, last_report: "review plan-saved-recipe-menu-002: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

@@ -95,6 +95,51 @@
     "definition": "text:true:"
   },
   {
+    "kind": "column",
+    "name": "menu_recipes.family_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.image_url",
+    "definition": "text:false:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.saved_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.source_url",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.summary",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.time_kind",
+    "definition": "text:false:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.time_text",
+    "definition": "text:false:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipes.title",
+    "definition": "text:true:"
+  },
+  {
     "kind": "constraint",
     "name": "app_users.app_users_family_id_fkey",
     "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
@@ -150,6 +195,46 @@
     "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
   },
   {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_image_bound",
+    "definition": "CHECK (((image_url IS NULL) OR (((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048)) AND (image_url = TRIM(BOTH FROM image_url)))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_recipes_family_id_fkey",
+    "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_recipes_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_saved_at_safe",
+    "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_source_bound",
+    "definition": "CHECK ((((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048)) AND (source_url = TRIM(BOTH FROM source_url))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_summary_bound",
+    "definition": "CHECK ((((length(summary) >= 1) AND (length(summary) <= 600)) AND (summary = TRIM(BOTH FROM summary))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_time_pair",
+    "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipes.menu_title_bound",
+    "definition": "CHECK ((((length(title) >= 1) AND (length(title) <= 160)) AND (title = TRIM(BOTH FROM title))))"
+  },
+  {
     "kind": "index",
     "name": "app_users_google_subject_unique",
     "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
@@ -188,6 +273,21 @@
     "kind": "index",
     "name": "invitations_recipient",
     "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+  },
+  {
+    "kind": "index",
+    "name": "menu_family_saved",
+    "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+  },
+  {
+    "kind": "index",
+    "name": "menu_family_source_unique",
+    "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+  },
+  {
+    "kind": "index",
+    "name": "menu_recipes_pkey",
+    "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
   },
   {
     "kind": "index",
@@ -247,6 +347,26 @@
   {
     "kind": "relation",
     "name": "invitations_recipient",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "menu_family_saved",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "menu_family_source_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "menu_recipes",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "menu_recipes_pkey",
     "definition": "i:false:false"
   },
   {

@@ -134,15 +134,15 @@ below; never leave a schema/metadata mismatch as a claimed completed increment.
 
 ### 1. Discover strict menu tests and define snapshots/cursors — medium
 
-- [ ] Add `test:menu` as `node --import tsx --test tests/menu/*.test.ts` and
+- [x] Add `test:menu` as `node --import tsx --test tests/menu/*.test.ts` and
   `tests/menu/package.json` with `type: module`, matching auth/family test layout.
   Existing `pnpm test` does not discover these tests; retain that command.
-- [ ] RED in `validation.test.ts`, then implement `types.ts`/`validation.ts`:
+- [x] RED in `validation.test.ts`, then implement `types.ts`/`validation.ts`:
   exact snapshot/time keys, trimmed text bounds, invalid controls/surrogates,
   safe normalized ASCII source/photo URLs, persisted-entry validation, canonical
   UUIDs and exact bounded base64url `[savedAt,id]` cursors. Invalid stored rows
   fail closed rather than being omitted or rendered.
-- [ ] Verify `pnpm run test:menu` discovers/runs the new file and
+- [x] Verify `pnpm run test:menu` discovers/runs the new file and
   `pnpm run typecheck` includes it. No TS exclusions, assertions replacing
   validation or relaxed compiler options.
 
@@ -151,26 +151,26 @@ lib/menu/types.ts, lib/menu/validation.ts. Depends on approved plan.
 
 ### 2. Prove bounded mutation parsing — small
 
-- [ ] RED in `body.test.ts`, then add `body.ts`: exact Origin and JSON type,
+- [x] RED in `body.test.ts`, then add `body.ts`: exact Origin and JSON type,
   cross-site denial, actual byte counting, 16KiB save/4KiB remove bounds,
   malformed/unknown/missing fields and a five-second total body deadline.
-- [ ] Test stalled/chunked/false-length bodies, cancellation and released reader
+- [x] Test stalled/chunked/false-length bodies, cancellation and released reader
   locks; validation failures never produce a successful parse. Deadlines also
   finish when an injected stream ignores abort. No raw input/error logging.
-- [ ] Run `node --import tsx --test tests/menu/body.test.ts` and strict typecheck.
+- [x] Run `node --import tsx --test tests/menu/body.test.ts` and strict typecheck.
 
 Files: lib/menu/body.ts, tests/menu/body.test.ts. Depends on task1 contracts.
 
 ### 3. Prepare the additive migration and its catalog proof — medium, atomic
 
-- [ ] RED in `migration.test.ts` for missing table/constraints/indexes and
+- [x] RED in `migration.test.ts` for missing table/constraints/indexes and
   initial-schema upgrade. Add `0001_saved_recipe_menu.sql` and append journal
   index1 with a fixed increasing timestamp; preserve index0 SQL/journal facts.
-- [ ] Build candidate metadata using the public Drizzle loader, and capture
+- [x] Build candidate metadata using the public Drizzle loader, and capture
   `catalogSignature` after applying the reviewed candidate SQL only to a new
   `testDatabase(false)` database. Explicitly prepare/review the committed catalog
   and runtime hash/timestamp JSON together; tests/build never regenerate them.
-- [ ] Test fresh migration, upgrade from an initial-schema fixture assembled
+- [x] Test fresh migration, upgrade from an initial-schema fixture assembled
   from original SQL+history, repeat migration, constraints, nullable image URL,
   uniqueness, safe timestamps and catalog/history drift. Run the mandatory
   runtime-metadata verifier plus the focused migration test.
@@ -182,15 +182,15 @@ generation framework, owner credential output or development DB mutation.
 
 ### 4. Complete restricted grants and old regressions — medium
 
-- [ ] Add a typed `MenuRecipeRow`; extend the explicit local migration grants
+- [x] Add a typed `MenuRecipeRow`; extend the explicit local migration grants
   with SELECT/INSERT/DELETE only on menu_recipes. Do not grant UPDATE, TRUNCATE,
   DDL, schema creation, migration-history writes or blanket all-table access.
-- [ ] Add `tests/menu/database.ts` around the existing random owned DB fixture.
+- [x] Add `tests/menu/database.ts` around the existing random owned DB fixture.
   For privilege tests, grant existing `mp_runtime` CONNECT/USAGE and the explicit
   table grants on that owned disposable database only. Read its private local
   runtime credential without printing it; substitute only the validated random
   database name. Do not create/alter cluster roles or grant development access.
-- [ ] Extend task3 migration tests for actual restricted-role allowed/denied
+- [x] Extend task3 migration tests for actual restricted-role allowed/denied
   SQL. Add disposable-only rollback-menu-test.sql; update storage.test.ts's
   expected table list and execute that rollback before its unchanged initial
   rollback. Prove rollback/re-migration without touching historic SQL bytes.
@@ -201,9 +201,9 @@ extend existing new migration test. Depends on task3.
 
 ### Checkpoint: storage foundation
 
-- [ ] Focused menu validation/body/migration tests pass; runtime metadata verifier,
+- [x] Focused menu validation/body/migration tests pass; runtime metadata verifier,
   strict typecheck, family storage regression and build pass with new catalog.
-- [ ] Confirm every migration/catalog operation targeted an owned random test DB;
+- [x] Confirm every migration/catalog operation targeted an owned random test DB;
   development and hosted schemas remain untouched. No application request can
   run a migration or load owner credentials.
 

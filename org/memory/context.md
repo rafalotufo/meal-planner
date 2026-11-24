@@ -9,8 +9,8 @@ intent/saved-recipe-menu/plan.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: backend
 - stop_reason: None
 
 ## Agents
@@ -21,7 +21,7 @@ intent/saved-recipe-menu/plan.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/saved-recipe-menu/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -93,7 +93,6 @@ intent/saved-recipe-menu/plan.md
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
 - orchestrator-0093 orchestrator -> ceo handoff: Saved recipe menu implementation plan ready for engineer approval
-- orchestrator-0094 orchestrator -> senior-developer handoff: Implement approved saved menu foundation
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -160,11 +159,11 @@ intent/saved-recipe-menu/plan.md
 
 ## Recent decisions
 
-- mem-0126 orchestrator: Owner requested confirmation before removing saved recipes. Amend current visual Design using remaining two loop turns; no deletion on cancel/dismiss, confirm alone starts removal. Prior unchanged specification approval retained, visual design remains pending. (org/messages/ceo-0051.md)
 - mem-0127 orchestrator: Owner-required menu removal confirmation implemented in Design preview and specification only. Independent review approved; root browser1440/320 verified named dialog, Cancel focus, Cancel/Escape preserve recipe and confirm alone removes. Visual round used four turns, no budget extension; owner visual review pending before Build. (org/reviews/visual-saved-recipe-menu-002.md)
 - mem-0128 orchestrator: Rafael approved final saved-menu visual Design including removal confirmation. Recorded spec amendment and visual approval for3da9c0a; archived completed four-turn visual loop without extension. New bounded build-planning run will produce reviewed plan before human engineer approval; no code or hosted effects authorized. (org/messages/ceo-0052.md)
 - mem-0129 orchestrator: Saved menu Build plan completed with exact manifest and ten tested slices. Independent security and peer review approved after escaping literal[id] route in fnmatch manifest; no remaining findings. Human engineer plan approval pending before code; no runtime/schema/hosted effects. Final evidence plan-saved-recipe-menu-002.md. (intent/saved-recipe-menu/plan.md)
 - mem-0130 orchestrator: Rafael approved reviewed saved menu implementation plan at6a59ed2 and directed implementation. Started bounded eight-turn Build with three tested developer increments then independent security/code reviews; owned disposable local DB migration only. No development/hosted schema mutation, paid calls, merge or release authority. (org/messages/ceo-0053.md)
+- mem-0131 orchestrator: Saved menu foundation tasks1-4 implemented RED/GREEN and verified:14menu and8family-storage tests,lint/typecheck/build pass. New additive schema/catalog/grants tested only on owned random local databases; original migration/SQLite/rollback evidence preserved. Test configuration reused existing native cluster privately without setup or dev/hosted migration. (intent/saved-recipe-menu/verification.md)
 
 ## Constraints
 
@@ -172,15 +171,15 @@ intent/saved-recipe-menu/plan.md
 
 ## Artifacts
 
-(none)
+- intent/saved-recipe-menu/verification.md (cfd65870e4b79d1c4a805efc3e88b7978c42596b069d51d4504d52f28597bb55)
 
 ## Next action
 
-(run org_loop.py next)
+senior-developer:implement_menu_foundation
 
 ## Last digest source
 
-- mem-0130 from org/messages/ceo-0053.md
+- mem-0131 from intent/saved-recipe-menu/verification.md
 
 <!-- machine:end -->
 
