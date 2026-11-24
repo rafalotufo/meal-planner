@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import type { Recipe } from '../../lib/recipes/types';
 interface Message { id?: number; error?: unknown; result?: unknown; method?: string; params?: { type?: string; args?: { value?: unknown; description?: string }[]; exceptionDetails?: { text: string }; entry?: { level: string; text: string }; errorText?: string; requestId?: string; request?: { url: string } } }
 interface Evaluation { exceptionDetails?: { text: string }; result: { value?: unknown } }
 export async function openChrome() {
@@ -19,6 +20,8 @@ export async function openChrome() {
   const pending = new Map<number, { resolve(value: unknown): void; reject(error: Error): void }>();
   let oauth: { origin: string; code: string } | undefined;
   let recipeOrigin: string | undefined;
+  let recipeResults: Recipe[] | undefined;
+  const failures = new Map<string, { status: number; delay: number }>();
   function send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
     return new Promise((resolve, reject) => { const key = ++id; pending.set(key, { resolve: (value) => resolve(value as T), reject }); socket.send(JSON.stringify({ id: key, method, params })); });
   }
@@ -32,12 +35,16 @@ export async function openChrome() {
     if (message.method === 'Network.requestWillBeSent' && p?.request) requests.push(p.request.url);
     if (message.method === 'Fetch.requestPaused' && p?.request) {
       const target = new URL(p.request.url);
-      if (recipeOrigin && target.origin === recipeOrigin && target.pathname === '/api/recipes/search') {
-        const body = Buffer.from(JSON.stringify({ recipes: [{ title: 'Potato Gnocchi', sourceUrl: 'https://www.loveandlemons.com/gnocchi-recipe/', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Boil potatoes, mix with flour, shape the dough, and simmer until the gnocchi float.', time: { kind: 'cook', text: '30 minutes' } }] })).toString('base64');
+      const failure = target.origin === recipeOrigin ? failures.get(target.pathname) : undefined;
+      if (failure) {
+        failures.delete(target.pathname);
+        setTimeout(() => { send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: failure.status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body: Buffer.from(JSON.stringify({ error: 'Fixture request failure' })).toString('base64') }).catch((error: unknown) => errors.push(String(error))); }, failure.delay);
+      } else if (recipeOrigin && target.origin === recipeOrigin && target.pathname === '/api/recipes/search') {
+        const body = Buffer.from(JSON.stringify({ recipes: recipeResults ?? [{ title: 'Potato Gnocchi', sourceUrl: 'https://www.loveandlemons.com/gnocchi-recipe/', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Boil potatoes, mix with flour, shape the dough, and simmer until the gnocchi float.', time: { kind: 'cook', text: '30 minutes' } }] })).toString('base64');
         send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body }).catch((error: unknown) => errors.push(String(error)));
       } else if (recipeOrigin && target.origin === 'https://images.recipe-fixture.test') {
         const body = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500"><rect width="500" height="500" fill="#e7dfcc"/><circle cx="250" cy="250" r="180" fill="#faf7ee"/><path d="M140 220h220v60H140z" fill="#b69f74"/></svg>').toString('base64');
-        send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'image/svg+xml' }], body }).catch((error: unknown) => errors.push(String(error)));
+        send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: target.pathname === '/missing.svg' ? 404 : 200, responseHeaders: [{ name: 'Content-Type', value: 'image/svg+xml' }], body: target.pathname === '/missing.svg' ? '' : body }).catch((error: unknown) => errors.push(String(error)));
       } else if (oauth && target.origin === 'https://accounts.google.com') {
         const location = `${oauth.origin}/api/auth/callback/google?code=${oauth.code}&state=${encodeURIComponent(target.searchParams.get('state') ?? '')}`;
         send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 302, responseHeaders: [{ name: 'Location', value: location }] }).catch((error: unknown) => errors.push(String(error)));
@@ -65,15 +72,16 @@ export async function openChrome() {
   async function screenshot(path: string) { const result = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' }); await writeFile(path, Buffer.from(result.data, 'base64')); }
   async function patterns() {
     const patterns = [{ urlPattern: 'https://accounts.google.com/o/oauth2/*', requestStage: 'Request' }];
-    if (recipeOrigin) patterns.push({ urlPattern: `${recipeOrigin}/api/recipes/search`, requestStage: 'Request' }, { urlPattern: 'https://images.recipe-fixture.test/*', requestStage: 'Request' });
+    if (recipeOrigin) patterns.push({ urlPattern: `${recipeOrigin}/api/recipes/search`, requestStage: 'Request' }, { urlPattern: `${recipeOrigin}/api/menu*`, requestStage: 'Request' }, { urlPattern: 'https://images.recipe-fixture.test/*', requestStage: 'Request' });
     await send('Fetch.enable', { patterns });
   }
   async function google(origin: string, code: string) { oauth = { origin, code }; await patterns(); }
-  async function recipes(origin: string) { recipeOrigin = origin; await patterns(); }
+  async function recipes(origin: string, results?: Recipe[]) { recipeOrigin = origin; recipeResults = results; await patterns(); }
+  function failNext(path: string, status: number, delay = 0) { failures.set(path, { status, delay }); }
   async function close() {
     socket.close();
     if (chrome.exitCode === null && chrome.signalCode === null) { const exited = new Promise<void>((resolve) => chrome.once('exit', () => resolve())); chrome.kill('SIGTERM'); await exited; }
     await rm(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   }
-  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, errors, requests, close };
+  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, failNext, errors, requests, close };
 }

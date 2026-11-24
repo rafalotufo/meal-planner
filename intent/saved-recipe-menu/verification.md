@@ -217,3 +217,49 @@ keeping fresh ordinary menu navigation. Browser output:
 390/1440 no overflow or console errors.` Screenshots saved as
 `org/reviews/saved-recipe-menu-saved-{390,1440}.png` for independent inspection.
 No removal controls are claimed by this checkpoint.
+
+## UI task8 — confirmation, refreshed pages and browser acceptance
+
+RED: extended `node --import tsx tests/menu/browser.ts` against task7 build
+failed at `control [data-remove-recipe]`, before dialog/controller code.
+GREEN: lint, strict typecheck, production build and initial cancel→confirm→real
+remove→same-page refresh→empty-link focus→reload all exit0. The expanded browser
+matrix also exits0 and prints both acceptance phase summaries. It proves:
+
+- An already visited menu is revisited after search/save with current data;
+  save remains available and duplicate-safe. Pending/error/retry messages are
+  local and never render fixture/server diagnostic text.
+- Native dialog names recipe/shared effect, focuses Cancel initially, traps Tab,
+  fits320/390/1440. Cancel/Escape/backdrop send zero removal requests. Failed
+  confirmation keeps the card; each retry opens a fresh confirmation.
+- Confirmed removal survives reload. A 54-entry menu renders50; deletion refills
+  the same page to50 and recomputes its older link. An older page renders3 after
+  refill, retains its cursor during removals and ends with an older-page-specific
+  empty state. Next/previous remove controls and empty-state link receive focus;
+  fresh page navigation focuses the heading.
+- Actual owned-DB SELECT revocation produces a recoverable list failure, never
+  an empty menu; restoring the grant and Reload menu recovers. Invalid/duplicate
+  cursors show the invalid-page state. Literal HTML stays text, missing and failed
+  photos use fallback, retained photo stays a direct URL, long text wraps.
+- Deliberate one-shot503/403 failures exercise UI recovery; real missing-cookie
+ 401 exercises session loss. Menu success, duplicate, list and remove use actual
+  protected HTTP/storage. Test-only Google/search/photo transport prevents paid
+  usage. Expected HTTP401/403/404/503 browser resource logs are identified;
+  no unexpected console/runtime/network errors remain.
+
+Expanded-test development caught a scoped test-variable typo (strict typecheck
+and browser both rejected it), a valid image served404 still decoding (fixture
+now returns undecodable empty image bytes), and activation before fresh-page
+hydration (fixture waits for the required focused heading). Assertions retained.
+Task7 screenshots remain unchanged; new controls/confirmation/photo screenshots
+use distinct `saved-recipe-menu-controls-*`, `-confirm-*`, `-photos-*` names.
+Orchestrator independently inspected controls390 and confirmation320/1440.
+
+`pnpm install --frozen-lockfile` initially aborted in sandbox with
+ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY (no mutation). The same exact command
+with authorized access to the existing native store succeeds: lockfile current,
+already up to date, pnpm10.33.0, exit0. No lock/dependency changes.
+`pnpm test`:82 passed,0 failed; Python unittest:7 passed, exit0 each.
+
+Task8 and complete-flow checkpoint are complete; final full suites and
+independent whole-feature reviews remain below/next, not inferred from browser QA.

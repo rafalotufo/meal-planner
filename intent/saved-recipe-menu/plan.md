@@ -293,15 +293,15 @@ the browser helper's first complete flow; keep the page functional at checkpoint
 
 ### 8. Confirm removal and refresh its page — small
 
-- [ ] Add menu-controls.tsx and remove-recipe-dialog.tsx using native accessible
+- [x] Add menu-controls.tsx and remove-recipe-dialog.tsx using native accessible
   dialog behavior. Name the selected recipe; initially focus Cancel. Cancel,
   Escape and backdrop keep it saved, send zero mutation requests and restore
   trigger focus. Confirm alone starts removal; each retry reconfirms.
-- [ ] Keep the card until successful response, refresh the same cursor to refill
+- [x] Keep the card until successful response, refresh the same cursor to refill
   and recompute its next link, and focus next/previous remove action or the
   correct empty-state link after refreshed content commits. Prevent stale or
   abandoned responses from changing newer page state or removing a replacement.
-- [ ] Expand the browser helper for cancel/confirm, failure/retry, empty/older
+- [x] Expand the browser helper for cancel/confirm, failure/retry, empty/older
   pages, keyboard trapping/focus/announcements, safe literal text and missing/
   failed photo fallback. No optimistic durable-success claim.
 
@@ -311,10 +311,10 @@ Verify browser flows at390/1440 and dialog bounds at320, plus focused HTTP tests
 
 ### Checkpoint: complete user flow
 
-- [ ] Actual local app, not the HTML mockup, passes save→reload→cancel→confirm
+- [x] Actual local app, not the HTML mockup, passes save→reload→cancel→confirm
   removal→reload and pagination/empty/error/keyboard/photo flows. Capture
   screenshots under `org/reviews/saved-recipe-menu-*.png` and inspect them.
-- [ ] Browser fixture intercepts only search/image/Google transport inside its
+- [x] Browser fixture intercepts only search/image/Google transport inside its
   test process, leaving the actual menu API/storage active. Add only needed
   fixture failure/page data via the test-owned browser/HTTP helper; never fake
   production menus or overwrite historical screenshot files.
