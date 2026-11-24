@@ -4,18 +4,18 @@
 
 ## Goal
 
-intent/saved-recipe-menu/intent.md
+intent/saved-recipe-menu/spec.md
 
 ## Loop
 
-- status: exhausted
-- turn: 6
-- phase: awaiting_owner_decision
-- stop_reason: exhausted
+- status: in_progress
+- turn: 0
+- phase: intent
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/saved-recipe-menu/visual-design.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -60,6 +60,7 @@ intent/saved-recipe-menu/intent.md
 - ceo-0047 ceo -> product-manager decision: Saved recipe menu scope
 - ceo-0048 ceo -> architect decision: Remove saved menu recipe maximum
 - ceo-0049 ceo -> architect decision: Keep saved recipe photos when available
+- ceo-0050 ceo -> orchestrator decision: Approve menu specification and request visual Design previews
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -88,6 +89,7 @@ intent/saved-recipe-menu/intent.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
+- orchestrator-0086 orchestrator -> architect handoff: Preview modified search and new menu pages
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -150,11 +152,11 @@ intent/saved-recipe-menu/intent.md
 
 ## Recent decisions
 
-- mem-0119 orchestrator: Started saved-recipe-menu intake from owner request; owner confirmed one shared menu per family. Prior solved Preview loop/config/history/graph preserved verbatim in org/loop/archive/saved-recipe-menu-prior-2026-11-24. Design run retains human spec and plan gates; no implementation or hosted operation authorized. (org/messages/ceo-0047.md)
 - mem-0120 architect: Shared saved menu Design draft uses durable text/source/time snapshots, normalized URL identity with first-save-wins, 200 entries per family, no saved image targets, and existing family transaction/admission lock. New SQL/catalog/grants require separate explicit hosted cutover authority. Draft is not owner spec approval. (intent/saved-recipe-menu/spec.md)
 - mem-0121 orchestrator: Saved recipe menu Design completed: independent security and peer review approved without blockers; human specification approval is pending. Loop stops at product_owner_approve before build planning. Proposed cap200 and saved photo fallback are explicit owner-visible choices. Baseline lint/typecheck/build and82recipe+7workflow tests passed, no feature runtime/UI proof or schema effects. (org/reviews/spec-saved-recipe-menu-001.md)
 - mem-0122 orchestrator: Owner rejected the proposed saved-recipe count maximum and asked what photo fallback means. Reopened draft Design for a focused amendment using remaining existing loop turns; no specification approval inferred, photo policy still proposed. (org/messages/ceo-0048.md)
 - mem-0123 orchestrator: Owner amendment completed and independently peer/security approved: no saved recipe count maximum; bounded50-entry navigation keeps all entries reachable; retain validated publisher photo URLs with existing browser display and fallback only missing/failed. Six-turn Design budget consumed, no extension. Human specification approval remains pending; no implementation/migration/deployment effects. (org/reviews/spec-saved-recipe-menu-002.md)
+- mem-0124 orchestrator: Rafael approved amended saved menu specification at c104a25 and requested visual Design previews before Build. Archived completed six-turn spec run without extension; started separately requested four-turn visual Design round. Application implementation and hosted actions remain unapproved. (org/messages/ceo-0050.md)
 
 ## Constraints
 
@@ -162,18 +164,15 @@ intent/saved-recipe-menu/intent.md
 
 ## Artifacts
 
-- org/reviews/security-saved-recipe-menu-design-001.md (e3772c352bf058267a3476725930d78fb510844db3775a8522fe41da3f6100e8)
-- org/reviews/spec-saved-recipe-menu-001.md (6da63370bc40f40fb6cbb663ce8e9136d57e66b48aa75d4a5f65e82eb0ed0ce5)
-- intent/saved-recipe-menu/spec.md (48e20aa67c68c38e1a70b2dc47d91140efeea4815ed2eaceef02fe705592423e)
-- intent/saved-recipe-menu/intent.md (f648f7fe7e2a910565188bcac2a17ab927fb472d6358df5337aa05e0e9be3570)
+(none)
 
 ## Next action
 
-reviewer:review_uncapped_menu_amendment
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0123 from org/reviews/spec-saved-recipe-menu-002.md
+- mem-0124 from org/messages/ceo-0050.md
 
 <!-- machine:end -->
 

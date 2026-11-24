@@ -11,7 +11,13 @@ nodes:
     stage: design
     artifact: intent/saved-recipe-menu/spec.md
     gate: product_owner_approve
-    status: pending
+    status: approved
+    done_status: approved
+  visual_design:
+    stage: design
+    artifact: intent/saved-recipe-menu/visual-design.md
+    gate: visual_design_approval
+    status: in_progress
     done_status: approved
   plan:
     stage: build
@@ -39,7 +45,8 @@ nodes:
     done_status: done
 edges:
   - { from: intent, to: spec, trigger: acceptance }
-  - { from: spec, to: plan, trigger: approval }
+  - { from: spec, to: visual_design, trigger: approval }
+  - { from: visual_design, to: plan, trigger: visual_design_approved }
   - { from: plan, to: implementation, trigger: plan_accepted }
   - { from: implementation, to: release, trigger: pr_merged }
   - { from: release, to: diagnosis, trigger: band_breach_or_incident }
