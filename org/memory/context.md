@@ -21,11 +21,10 @@ intent/saved-recipe-menu/plan.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/saved-recipe-menu/plan.md)
 
 ## Open messages
 
-- architect-0010 architect -> senior-developer answer: Re: Pinned Next proxy stalls before menu body deadline
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -58,12 +57,6 @@ intent/saved-recipe-menu/plan.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
-- ceo-0047 ceo -> product-manager decision: Saved recipe menu scope
-- ceo-0048 ceo -> architect decision: Remove saved menu recipe maximum
-- ceo-0049 ceo -> architect decision: Keep saved recipe photos when available
-- ceo-0050 ceo -> orchestrator decision: Approve menu specification and request visual Design previews
-- ceo-0051 ceo -> architect decision: Require confirmation before removing saved recipes
-- ceo-0052 ceo -> orchestrator decision: Approve menu visual Design including removal confirmation
 - ceo-0053 ceo -> orchestrator decision: Approve saved menu implementation plan and proceed with Build
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
@@ -93,7 +86,7 @@ intent/saved-recipe-menu/plan.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
-- orchestrator-0093 orchestrator -> ceo handoff: Saved recipe menu implementation plan ready for engineer approval
+- orchestrator-0099 orchestrator -> senior-developer handoff: Implement approved menu UI and complete verification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -104,7 +97,6 @@ intent/saved-recipe-menu/plan.md
 - product-manager-0012 product-manager -> orchestrator answer: Re: Review user-directed completion behavior amendment
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
-- product-manager-0015 product-manager -> orchestrator decision: Accepted shared-family menu for Design
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -138,11 +130,6 @@ intent/saved-recipe-menu/plan.md
 - reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
 - reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
 - reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
-- reviewer-0039 reviewer -> orchestrator review: Saved menu specification peer approved
-- reviewer-0040 reviewer -> orchestrator review: Uncapped menu and retained photo amendment approved
-- reviewer-0041 reviewer -> orchestrator review: Menu visual Design preview peer approved
-- reviewer-0042 reviewer -> orchestrator review: Removal confirmation Design approved
-- reviewer-0044 reviewer -> orchestrator review: Saved menu implementation plan independently approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -153,19 +140,16 @@ intent/saved-recipe-menu/plan.md
 - security-researcher-0018 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
 - security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
 - security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
-- security-researcher-0023 security-researcher -> orchestrator review: Saved menu Design security clear
-- security-researcher-0024 security-researcher -> orchestrator review: Saved menu build plan security clear
-- security-researcher-0025 security-researcher -> orchestrator answer: Re: Review equivalent protected menu boundary for streamed timeout
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0130 orchestrator: Rafael approved reviewed saved menu implementation plan at6a59ed2 and directed implementation. Started bounded eight-turn Build with three tested developer increments then independent security/code reviews; owned disposable local DB migration only. No development/hosted schema mutation, paid calls, merge or release authority. (org/messages/ceo-0053.md)
 - mem-0131 orchestrator: Saved menu foundation tasks1-4 implemented RED/GREEN and verified:14menu and8family-storage tests,lint/typecheck/build pass. New additive schema/catalog/grants tested only on owned random local databases; original migration/SQLite/rollback evidence preserved. Test configuration reused existing native cluster privately without setup or dev/hosted migration. (intent/saved-recipe-menu/verification.md)
 - mem-0132 architect: Pinned Next16.4.6 Proxy clones POST bodies and awaits original EOF before RouteHandler, preventing its5second parser timer from starting. Architect source diagnosis and independent security consultation approve implementing exact menuAPI dispatch exclusion with equivalent all-method protected handler boundary; mandatory compiled matcher/header/auth/unfinished-body regressions preserve protections. No vendor or global timeout change. (intent/saved-recipe-menu/request-timeout-note.md)
 - mem-0133 security-researcher: Moving exact menu API dispatch from Next Proxy exposes BetterAuth same-process memory fallback for missing/expired cache. Independent follow-on review approves menu-only mandatory public JWE cookie-cache verification/expiry/identity/token binding before session helpers; preserve current onehour/no-refresh and all admission/write checks, with realHTTP regression proof. No sharedauth/vendor mutation or deadline/test weakening. (org/reviews/security-saved-recipe-menu-timeout-001.md)
 - mem-0134 orchestrator: Saved menu backend tasks5-6 verified:32menu,34family,14auth,32deployment tests and lint/typecheck/build pass. Scoped exact API matcher+equivalent all-method guard resolves Next body EOF buffering; mandatory public BetterAuth JWE cache/expiry/token/identity precheck preserves stateless denial. Unreleased0001 flatAND checks now round-trip exactly through pg_dump/restore with restricted runtime proof. OriginalSQL/SQLite and dev/hosted data untouched. (intent/saved-recipe-menu/verification.md)
+- mem-0135 orchestrator: Corrected workflow context budget after backend checkpoint by closing17 completed feature informational decision/review/answer/handoff records. Original bodies, ledger and histories remain; current Build authority ceo-0053 and active UI handoff orchestrator-0099 stay open. No question/finding or application behavior changed. (intent/saved-recipe-menu/memory-curation.json)
 
 ## Constraints
 
@@ -181,7 +165,7 @@ senior-developer:implement_menu_store_and_http
 
 ## Last digest source
 
-- mem-0134 from intent/saved-recipe-menu/verification.md
+- mem-0135 from intent/saved-recipe-menu/memory-curation.json
 
 <!-- machine:end -->
 

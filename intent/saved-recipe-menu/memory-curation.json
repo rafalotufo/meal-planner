@@ -1,0 +1,28 @@
+{
+  "reason": "Context exceeded 16384-byte budget at backend checkpoint; close completed informational records only.",
+  "closed_completed_message_ids": [
+    "architect-0010",
+    "ceo-0047",
+    "ceo-0048",
+    "ceo-0049",
+    "ceo-0050",
+    "ceo-0051",
+    "ceo-0052",
+    "orchestrator-0093",
+    "product-manager-0015",
+    "reviewer-0039",
+    "reviewer-0040",
+    "reviewer-0041",
+    "reviewer-0042",
+    "reviewer-0044",
+    "security-researcher-0023",
+    "security-researcher-0024",
+    "security-researcher-0025"
+  ],
+  "preserved_active_message_ids": [
+    "ceo-0053",
+    "orchestrator-0099"
+  ],
+  "evidence": "intent/saved-recipe-menu/verification.md",
+  "preservation": "Original message bodies, gate ledger, histories, open questions and findings are retained."
+}
