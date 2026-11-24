@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Staging-first release guidance merged to local main; exact-source staging acceptance and Production release remain unstarted. }
+  orchestrator: { status: busy, assignment: intent/shared-site-layout/intent.md, last_report: Staging-first release guidance merged to local main; exact-source staging acceptance and Production release remain unstarted. }
   product-manager: { status: idle, assignment: null, last_report: Accepted shared site layout intent; no product ambiguity. }
-  architect: { status: busy, assignment: intent/shared-site-layout/spec.md, last_report: Staging-first intent/spec/plan independently approved; docs-only scope ready. }
-  senior-developer: { status: idle, assignment: null, last_report: Executed authorized staging-first release docs merge into clean local main; no runtime or hosted action. }
+  architect: { status: busy, assignment: shared-site-layout-plan, last_report: Drafted shared site layout spec and exact manifest plan; pinned docs read and frozen install passed. }
+  senior-developer: { status: busy, assignment: intent/shared-site-layout/plan.md, last_report: Executed authorized staging-first release docs merge into clean local main; no runtime or hosted action. }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
-  reviewer: { status: idle, assignment: null, last_report: Staging-first process final review approved; full-baseline plan-sync passed after format-only manifest corrections. }
+  reviewer: { status: idle, assignment: null, last_report: Approved shared layout spec/plan with narrow keyboard helper updates preserving original assertions. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -78,3 +78,4 @@ review_queue:
   - { id: vercel-candidate-validation-main-refresh-001, artifact: vercel-candidate-validation-main-refresh, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: staging-first-release-plan-001, artifact: staging-first-release-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: staging-first-release-final-001, artifact: staging-first-release-docs, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-plan-001, artifact: shared-site-layout-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

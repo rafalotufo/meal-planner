@@ -9,15 +9,15 @@ intent/shared-site-layout/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 3
+- phase: build
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/shared-site-layout/spec.md)
+- architect: busy (shared-site-layout-plan)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/shared-site-layout/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -25,6 +25,7 @@ intent/shared-site-layout/intent.md
 
 ## Open messages
 
+- architect-0010 architect -> orchestrator handoff: Shared layout spec and plan ready
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -87,6 +88,7 @@ intent/shared-site-layout/intent.md
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
 - orchestrator-0081 orchestrator -> product-manager handoff: Capture shared site layout intent
 - orchestrator-0082 orchestrator -> architect handoff: Design shared root layout and styling
+- orchestrator-0083 orchestrator -> reviewer handoff: Independently review shared layout spec and plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -131,6 +133,7 @@ intent/shared-site-layout/intent.md
 - reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
 - reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
 - reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
+- reviewer-0039 reviewer -> orchestrator review: Shared layout spec and plan approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -146,11 +149,11 @@ intent/shared-site-layout/intent.md
 
 ## Recent decisions
 
-- mem-0117 senior-developer: Root authorized bounded inbox curation of16 completed informational imported staging messages. Their original states remain in exact snapshots; current merge request ceo-0046, unanswered questions, blocking findings and response-required records remain open. No approval or release authority changed. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/message-triage.json)
 - mem-0118 senior-developer: Executed owner-authorized local main fast-forward from87482ed to3169dfd containing reviewed integration4a1e5bd. Current icons/T-Rex and staging source preserved, all8 checks passed162Node+7Python. Implementation merged; Production release not started. No push/deploy/hosted action. (intent/vercel-candidate-validation/merge.md)
 - mem-0119 orchestrator: Rafael requested staging-first release policy. Independent spec/plan review approved exact-source staging validation/owner acceptance before a separate authorized Production build; retain minimal Production config/readiness/canonical health/recovery. Docs-only implementation; no runtime/helper/hook/hosted/paid action. One explicit scoped approval may cover acceptance and release records. (org/messages/ceo-0047.md)
 - mem-0121 senior-developer: Executed owner-authorized docs-only local main fast-forward fce96bf to51c95c3 with reviewed staging-first release guidance3e79a5a. Implementation merged; future staging acceptance and Production release not started. No code, deployment, configuration or provider action. (org/reviews/staging-first-release-merge-001.md)
 - mem-0122 product-manager: Accepted owner-requested shared Next.js site layout and common header intent. Local org design/build/test authorized; merge and release remain human gates. Previous completed staging-first release loop archived intact. (org/reviews/intent-shared-site-layout-001.md)
+- mem-0123 reviewer: Approved shared-site-layout spec/plan. Shared header adds real keyboard stops; narrowly adapt two existing browser helpers with bounded Tab traversal while preserving focus/Enter assertions and historical screenshots. (org/reviews/shared-site-layout-plan-001.md)
 
 ## Constraints
 
@@ -159,14 +162,16 @@ intent/shared-site-layout/intent.md
 ## Artifacts
 
 - org/reviews/intent-shared-site-layout-001.md (92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b)
+- intent/shared-site-layout/plan.md (0c7253aefc37a2306d8876e860f685975967a7039429f24e4c8e09a56eb041fa)
+- org/reviews/shared-site-layout-plan-001.md (44c5e5ba2f637613504309b84ef0eca5154273781cababc8bf8784d0c7441663)
 
 ## Next action
 
-product-manager:accept_shared_layout_intent
+reviewer:approve_shared_layout_plan
 
 ## Last digest source
 
-- mem-0122 from org/reviews/intent-shared-site-layout-001.md
+- mem-0123 from org/reviews/shared-site-layout-plan-001.md
 
 <!-- machine:end -->
 

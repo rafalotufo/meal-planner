@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/shared-site-layout/intent.md
 base_commit: d1b11652abb5cf59d2b0ddce2b2b01d02480b8fc
-turn: 1
+turn: 3
 no_progress: 0
-phase: design
+phase: build
 status: in_progress
-last_input_hash: daca615073120f6ed8160f96c1c501202de5ff7403a51028fc8e94cbb91ac1e8
+last_input_hash: c40bc9341c8e48be55960d00197ec3ab1fe379aa000bc7261750ddbaa3f5c914
 stop_reason: null
-last_action: "product-manager:accept_shared_layout_intent"
-artifacts: [{"path": "org/reviews/intent-shared-site-layout-001.md", "sha256": "92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b"}]
+last_action: "reviewer:approve_shared_layout_plan"
+artifacts: [{"path": "org/reviews/intent-shared-site-layout-001.md", "sha256": "92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b"}, {"path": "intent/shared-site-layout/plan.md", "sha256": "0c7253aefc37a2306d8876e860f685975967a7039429f24e4c8e09a56eb041fa"}, {"path": "org/reviews/shared-site-layout-plan-001.md", "sha256": "44c5e5ba2f637613504309b84ef0eca5154273781cababc8bf8784d0c7441663"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T17:34:03Z"
+updated_at: "2026-11-24T17:37:53Z"
