@@ -9,8 +9,8 @@ intent/saved-recipe-menu/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 2
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -19,8 +19,8 @@ intent/saved-recipe-menu/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/saved-recipe-menu/intent.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
+- reviewer: busy (intent/saved-recipe-menu/spec.md)
+- security-researcher: busy (intent/saved-recipe-menu/spec.md)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -88,6 +88,7 @@ intent/saved-recipe-menu/intent.md
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
 - orchestrator-0079 orchestrator -> product-manager handoff: Capture shared saved recipe menu intent
 - orchestrator-0080 orchestrator -> architect handoff: Specify shared family saved recipe menu
+- orchestrator-0081 orchestrator -> security-researcher handoff: Assess shared menu specification security
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -147,11 +148,11 @@ intent/saved-recipe-menu/intent.md
 
 ## Recent decisions
 
-- mem-0115 orchestrator: Imported prior staging event mem-0094 (not new decision; source timestamp 2026-11-24T15:31:25Z): Rafael explicitly authorized merge to local main. Prepared integration ef18951 preserves current main37b appicons/runtime and reviewed staging7bb helper,374 exact audit snapshots and canonical main prefixes. Independent integration review approved; combined8commands and clean expected destination tip must pass before senior-developer executes main update. No remote or Production action. Original source in archived feature namespace: org/messages/ceo-0036.md (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0116 senior-developer: Refreshed the owner-authorized staging integration against main87482ed after concurrent T-Rex merge. All82 runtime/public/license/config files match that main; staging helper/tests/ignore match checkpointd284489. Original first integration remains archived and verified; main has not been updated by this task. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/reconciliation.json)
 - mem-0117 senior-developer: Root authorized bounded inbox curation of16 completed informational imported staging messages. Their original states remain in exact snapshots; current merge request ceo-0046, unanswered questions, blocking findings and response-required records remain open. No approval or release authority changed. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/message-triage.json)
 - mem-0118 senior-developer: Executed owner-authorized local main fast-forward from87482ed to3169dfd containing reviewed integration4a1e5bd. Current icons/T-Rex and staging source preserved, all8 checks passed162Node+7Python. Implementation merged; Production release not started. No push/deploy/hosted action. (intent/vercel-candidate-validation/merge.md)
 - mem-0119 orchestrator: Started saved-recipe-menu intake from owner request; owner confirmed one shared menu per family. Prior solved Preview loop/config/history/graph preserved verbatim in org/loop/archive/saved-recipe-menu-prior-2026-11-24. Design run retains human spec and plan gates; no implementation or hosted operation authorized. (org/messages/ceo-0047.md)
+- mem-0120 architect: Shared saved menu Design draft uses durable text/source/time snapshots, normalized URL identity with first-save-wins, 200 entries per family, no saved image targets, and existing family transaction/admission lock. New SQL/catalog/grants require separate explicit hosted cutover authority. Draft is not owner spec approval. (intent/saved-recipe-menu/spec.md)
 
 ## Constraints
 
@@ -160,14 +161,15 @@ intent/saved-recipe-menu/intent.md
 ## Artifacts
 
 - intent/saved-recipe-menu/intent.md (52ffc050bd43bc9ad60790be8c595ec1a9300751bab0ba9506d774cdf703c975)
+- intent/saved-recipe-menu/spec.md (08cf05a35532f2cd863518db6b41dfbd24244248a59635bf7b5f2b340b392b9c)
 
 ## Next action
 
-product-manager:accept_saved_recipe_menu
+architect:specify_saved_recipe_menu
 
 ## Last digest source
 
-- mem-0119 from org/messages/ceo-0047.md
+- mem-0120 from intent/saved-recipe-menu/spec.md
 
 <!-- machine:end -->
 

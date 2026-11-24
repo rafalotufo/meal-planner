@@ -7,8 +7,8 @@ agents:
   product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
   architect: { status: busy, assignment: intent/saved-recipe-menu/spec.md, last_report: Preview-only operational scope approved; explicit user worktree deployment authority preserves Production/no-merge boundaries. }
   senior-developer: { status: idle, assignment: null, last_report: "Executed authorized local main fast-forward to reviewed staging integration; audit completion only, no hosted/Production action." }
-  security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
-  reviewer: { status: idle, assignment: null, last_report: "review vercel-candidate-validation-main-refresh-001: approved" }
+  security-researcher: { status: busy, assignment: intent/saved-recipe-menu/spec.md, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
+  reviewer: { status: busy, assignment: intent/saved-recipe-menu/spec.md, last_report: "review vercel-candidate-validation-main-refresh-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -76,3 +76,4 @@ review_queue:
   - { id: hosted-vercel-candidate-validation-final-001, artifact: vercel-candidate-validation-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: vercel-candidate-validation-main-integration-001, artifact: vercel-candidate-validation-main-integration, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: vercel-candidate-validation-main-refresh-001, artifact: vercel-candidate-validation-main-refresh, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-saved-recipe-menu-001, artifact: intent/saved-recipe-menu/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }

@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/saved-recipe-menu/intent.md
 base_commit: fce96bffacfe1868e938ddcd213e0dce28458856
-turn: 1
+turn: 2
 no_progress: 0
-phase: design
+phase: security
 status: in_progress
-last_input_hash: f0b6a1a7adee867c5f304110275f580eb564d42bd1eac8af348559792e7a0a8f
+last_input_hash: eb26855c7a5f2743db810f573ec0e99d33a11f020c71c03f635d5ff7b8589335
 stop_reason: null
-last_action: "product-manager:accept_saved_recipe_menu"
-artifacts: [{"path": "intent/saved-recipe-menu/intent.md", "sha256": "52ffc050bd43bc9ad60790be8c595ec1a9300751bab0ba9506d774cdf703c975"}]
+last_action: "architect:specify_saved_recipe_menu"
+artifacts: [{"path": "intent/saved-recipe-menu/intent.md", "sha256": "52ffc050bd43bc9ad60790be8c595ec1a9300751bab0ba9506d774cdf703c975"}, {"path": "intent/saved-recipe-menu/spec.md", "sha256": "08cf05a35532f2cd863518db6b41dfbd24244248a59635bf7b5f2b340b392b9c"}]
 acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T16:12:17Z"
+updated_at: "2026-11-24T16:15:04Z"
