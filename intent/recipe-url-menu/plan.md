@@ -55,7 +55,10 @@ hosted grants/catalog remain unchanged until a separately authorized cutover.
 - `tests/menu/curation-server.ts`
 - `tests/menu/curation-browser.ts`
 - `tests/auth/server.ts`
+- `tests/auth/oauth.test.ts`
+- `tests/auth/browser.ts`
 - `tests/family/storage.test.ts`
+- `tests/family/main-integration.test.ts`
 - `tests/deployment/postgres-metadata.test.ts`
 - `tests/deployment/postgres-packaging.test.ts`
 - `intent/recipe-url-menu/plan.md`
@@ -227,3 +230,11 @@ unchanged and must not be used as a populated-data migration runbook; future
 hosted cutover needs separate reviewed instructions and authority. New schema
 makes old runtime catalogs incompatible; preserve all data and use a reviewed
 compatible correction, never an implied ledger rewrite or restore.
+
+## Independently reviewed baseline-copy amendment — 2026-11-24
+
+`org/reviews/recipe-url-menu-copy-scope-001.md` approves only correcting the stale
+pre-weekly-copy exact label expectations in authentication/family HTTP, browser and
+compiled-packaging tests to the current approved label, “What would you like to
+eat this week?”. Preserve the assertion calls and all surrounding proof; no app
+copy, optional alternatives, skips or relaxed checks. Re-run full family/auth, packaging and the real auth browser helper.

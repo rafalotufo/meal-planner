@@ -3,9 +3,10 @@ import { cp, mkdtemp, rm, symlink, access } from 'node:fs/promises';
 import { resolve, basename } from 'node:path';
 import { tmpdir } from 'node:os';
 import { test } from 'node:test';
-import { CookieJar, startServer } from '../auth/server.ts';
+import { CookieJar } from '../auth/server.ts';
 import { provision, signInWithGoogle } from '../auth/flow.ts';
 import { post } from '../family/http.ts';
+import { startCurationServer } from '../menu/curation-server.ts';
 
 test('compiled protected proxy and routes work without source or migration files', async () => {
   const directory = await mkdtemp(resolve(tmpdir(), 'meal-packaged-runtime-'));
@@ -15,7 +16,8 @@ test('compiled protected proxy and routes work without source or migration files
     await symlink(resolve('node_modules'), resolve(directory, 'node_modules'), 'dir');
     await assert.rejects(access(resolve(directory, 'drizzle')));
     await assert.rejects(access(resolve(directory, 'lib')));
-    const server = await startServer({}, true, false, directory);
+    const fixture = await startCurationServer({ workingDirectory: directory });
+    const server = fixture.server;
     try {
       const owner = new CookieJar();
       await signInWithGoogle(server.origin, owner);
@@ -23,7 +25,7 @@ test('compiled protected proxy and routes work without source or migration files
       assert.equal((await provision(server.origin, owner)).status, 200);
       const home = await owner.request(server.origin, '/');
       assert.equal(home.status, 200);
-      assert.match(await home.text(), /What would you like to cook/);
+      assert.match(await home.text(), /What would you like to eat this week\?/);
       assert.equal((await owner.request(server.origin, '/api/session')).status, 200);
       const recipe = { title: 'Packaged lemon pasta', sourceUrl: 'https://example.test/pasta', imageUrl: null, summary: 'Toss pasta with lemon.', time: null };
       const saved = await post(server.origin, owner, '/api/menu', recipe);
@@ -40,6 +42,24 @@ test('compiled protected proxy and routes work without source or migration files
       assert.match(await menu.text(), /Packaged lemon pasta/);
       assert.equal((await post(server.origin, owner, `/api/menu/${entry.id}/remove`)).status, 200);
       assert.deepEqual(await (await owner.request(server.origin, '/api/menu')).json(), { entries: [], nextCursor: null });
-    } finally { await server.stop(); }
+      fixture.set('/packaged-curation', 'stall');
+      const imported = await post(server.origin, owner, '/api/menu?import=url', { sourceUrl: fixture.source('/packaged-curation') });
+      assert.equal(imported.status, 200);
+      const pending = await imported.json();
+      assert.equal(pending.entry.curation.state, 'pending');
+      await fixture.waitForRequest('/packaged-curation');
+      fixture.release('/packaged-curation');
+      let ready = false;
+      for (let attempt = 0; attempt < 100; attempt++) {
+        const page = await (await owner.request(server.origin, '/api/menu')).json();
+        if (page.entries[0]?.curation.state === 'ready') {
+          assert.equal(page.entries[0].id, pending.entry.id);
+          assert.equal(page.entries[0].recipe.title, 'Imported fixture recipe');
+          ready = true; break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 25));
+      }
+      assert.equal(ready, true, 'bundled parser/transport/store completes after the response without source or migration files');
+    } finally { await fixture.stop(); }
   } finally { await rm(directory, { recursive: true, force: true }); }
 });

@@ -532,7 +532,7 @@ try {
     await send('Network.setCookies', { cookies: [...jar.values].map(([name, value]) => ({ name, value, url: app.origin, httpOnly: true, sameSite: 'Lax' })) });
     await navigate(`${app.origin}/`);
     assert.equal(await evaluate('document.querySelector("h1").textContent'), 'Meal Planner');
-    assert.equal(await evaluate('document.querySelector("label[for=recipe-query]").textContent'), 'What would you like to cook?');
+    assert.equal(await evaluate('document.querySelector("label[for=recipe-query]").textContent'), 'What would you like to eat this week?');
     fixtureRecipes = [gnocchi];
     await submitQuery('potato gnocchi');
     for (let attempt = 0; attempt < 200; attempt++) {
