@@ -9,19 +9,19 @@ intent/saved-recipe-menu/plan.md
 ## Loop
 
 - status: in_progress
-- turn: 4
-- phase: code_review
+- turn: 5
+- phase: awaiting_merge_approval
 - stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/saved-recipe-menu/plan.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (saved-recipe-menu-implementation)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (saved-recipe-menu-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -86,7 +86,7 @@ intent/saved-recipe-menu/plan.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
-- orchestrator-0102 orchestrator -> reviewer handoff: Final independent saved menu code review
+- orchestrator-0103 orchestrator -> ceo handoff: Saved recipe menu implemented and reviewed; human merge gate
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -130,7 +130,7 @@ intent/saved-recipe-menu/plan.md
 - reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
 - reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
 - reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
-- reviewer-0045 reviewer -> senior-developer finding: Guarantee browser fixture cleanup on startup and cleanup failure
+- reviewer-0046 reviewer -> orchestrator review: Saved menu code recheck approved for human merge
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -145,15 +145,14 @@ intent/saved-recipe-menu/plan.md
 - security-researcher-0027 security-researcher -> orchestrator review: Saved menu implementation security approved
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
-- senior-developer-0016 senior-developer -> reviewer handoff: Recheck guaranteed browser resource cleanup correction
 
 ## Recent decisions
 
-- mem-0132 architect: Pinned Next16.4.6 Proxy clones POST bodies and awaits original EOF before RouteHandler, preventing its5second parser timer from starting. Architect source diagnosis and independent security consultation approve implementing exact menuAPI dispatch exclusion with equivalent all-method protected handler boundary; mandatory compiled matcher/header/auth/unfinished-body regressions preserve protections. No vendor or global timeout change. (intent/saved-recipe-menu/request-timeout-note.md)
-- mem-0133 security-researcher: Moving exact menu API dispatch from Next Proxy exposes BetterAuth same-process memory fallback for missing/expired cache. Independent follow-on review approves menu-only mandatory public JWE cookie-cache verification/expiry/identity/token binding before session helpers; preserve current onehour/no-refresh and all admission/write checks, with realHTTP regression proof. No sharedauth/vendor mutation or deadline/test weakening. (org/reviews/security-saved-recipe-menu-timeout-001.md)
 - mem-0134 orchestrator: Saved menu backend tasks5-6 verified:32menu,34family,14auth,32deployment tests and lint/typecheck/build pass. Scoped exact API matcher+equivalent all-method guard resolves Next body EOF buffering; mandatory public BetterAuth JWE cache/expiry/token/identity precheck preserves stateless denial. Unreleased0001 flatAND checks now round-trip exactly through pg_dump/restore with restricted runtime proof. OriginalSQL/SQLite and dev/hosted data untouched. (intent/saved-recipe-menu/verification.md)
 - mem-0135 orchestrator: Corrected workflow context budget after backend checkpoint by closing17 completed feature informational decision/review/answer/handoff records. Original bodies, ledger and histories remain; current Build authority ceo-0053 and active UI handoff orchestrator-0099 stay open. No question/finding or application behavior changed. (intent/saved-recipe-menu/memory-curation.json)
 - mem-0136 orchestrator: Saved menu full implementation and checks complete pending independent final reviews:82recipe+32menu+34family+14auth+32deployment Node tests,7Python,lint/typecheck/build/frozeninstall,realChrome390/1440/dialog320. Actual compiled package save/list/page/remove works without source/SQL. Root inspected desktop/mobile/control/dialog/literaltext-photo screenshots. All owned fixture services/databases cleaned; no dev/hosted migration or paid calls. (intent/saved-recipe-menu/verification.md)
+- mem-0137 orchestrator: Saved menu implementation completed and final security/code reviews approved. One required browser fixture cleanup finding corrected and independently failure-tested; runtime source unchanged,194Node/7Python+Chrome/lint/typecheck/build/frozen pass. All plan tasks complete. Human merge gate pending; no remote PR, dev/hosted migration or deployment performed. (org/reviews/code-saved-recipe-menu-002.md)
+- mem-0138 orchestrator: Final cleanup audit corrected an earlier all-cleaned claim: first task7 RED Chrome ENOTEMPTY left one own menu-test DB. Author confirmed exact birthtime/emptyrecipe provenance; root validated owner/currenthashes/counts/zero connections, removed only exact target without FORCE, and re-audited zero menu-test DBs. Five unrelated old test DBs untouched; no app/dev/hosted change. (intent/saved-recipe-menu/fixture-cleanup-audit.json)
 
 ## Constraints
 
@@ -163,14 +162,15 @@ intent/saved-recipe-menu/plan.md
 
 - intent/saved-recipe-menu/verification.md (8bde09f93a49f36485425a7f9349d0917cb11a56fa31f84b64ae97cd2ddb3812)
 - org/reviews/security-saved-recipe-menu-implementation-001.md (d52c697fc54e4afce1d43ae9deb59df1ba2a78114b2cd9bf2f640eb3fea0157a)
+- org/reviews/code-saved-recipe-menu-002.md (881b91005be72f1e0600654f97980a7f43c630a29094a077f6d9be4913efaa2d)
 
 ## Next action
 
-security-researcher:assess_menu_implementation
+reviewer:review_menu_implementation
 
 ## Last digest source
 
-- mem-0136 from intent/saved-recipe-menu/verification.md
+- mem-0138 from intent/saved-recipe-menu/fixture-cleanup-audit.json
 
 <!-- machine:end -->
 

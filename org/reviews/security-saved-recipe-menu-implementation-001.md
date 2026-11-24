@@ -134,3 +134,27 @@ verified at the local authenticated application boundary, not an untested hosted
 ingress SLA. Copied cookies retain the existing one-hour stateless/no-refresh
 limitation. Human merge/release and target-specific hosted migration authority
 remain outstanding; this security verdict supplies none of them.
+
+## Focused follow-on — fixture cleanup at a0420ed
+
+Reviewed the change froma68b432 toa0420ed and confirmed application/runtime,
+menu API, auth/proxy, migration/catalog/grant, dependency and hosting configuration
+paths have no diff from the originally approved dee3801 source. The executable
+change is confined to `tests/menu/browser.ts`; remaining changes are verification
+and review/audit records. Original application security approval stands for the
+application source present at a0420ed.
+
+Chrome initialization now occurs inside the fixture's protected try. An optional
+owned browser handle permits cleanup after partial startup; existing test actions
+retain a narrowed initialized handle. Cleanup awaits service attempts with
+allSettled, then independently attempts owned database cleanup, so a service
+rejection does not skip database cleanup. Primary failures remain primary; a
+cleanup-only failure is reported and combined failures emit only a fixed warning.
+No production bypass, credential output or broader deletion target was introduced.
+No new security issue found in this scoped correction.
+
+Read the recorded actual-helper negative RED/GREEN and repeated full browser/
+lint/typecheck results at `verification.md:328–354`; they are developer evidence,
+not independently rerun here. No new runtime, test, browser, database or hosted
+action was performed for this recheck. `git diff --check` passed. Final exact-
+revision audit, independent code recheck and human merge/release remain separate.

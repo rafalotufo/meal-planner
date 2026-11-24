@@ -1,0 +1,17 @@
+{
+  "database": "mp_test_ca00ab79e48b3c6e067e72cc",
+  "owner": "mp_test",
+  "createdAt": "2026-11-24T17:33:01.549Z",
+  "matchedCurrentMigrationMetadata": true,
+  "countsBeforeCleanup": {
+    "families": 1,
+    "users": 1,
+    "recipes": 0
+  },
+  "connectionsBeforeCleanup": 0,
+  "dropMode": "non-FORCE exact-name only",
+  "removed": true,
+  "remainingMenuSchemaDatabases": 0,
+  "unrelatedNoMenuDatabasesLeftUntouched": 5,
+  "provenance": "Author confirmed this is first task7 RED Chrome ENOTEMPTY cleanup failure, before task7 commit; source unchanged."
+}

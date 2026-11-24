@@ -348,7 +348,7 @@ migrations; explicit malformed/reordered fixtures remain unchanged.
   executable hosted authorization. Preserve approved visual artifacts.
 - [x] Run the commands below on final code, inspect browser screenshots and
   satisfy all acceptance rows in spec.md. Fix failures without lowering checks.
-- [ ] Hand stable changes/evidence to independent security and code reviewers;
+- [x] Hand stable changes/evidence to independent security and code reviewers;
   resolve required findings and repeat only affected plus required final checks.
   Orchestrator commits audit state; human merge/release remain separate.
 
