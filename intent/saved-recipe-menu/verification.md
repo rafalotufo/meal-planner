@@ -445,3 +445,83 @@ changed. Independent focused review approved this correction with no required
 findings in `org/reviews/code-saved-recipe-menu-title-focus-001.md`. The prior
 full-feature reviews are not represented as reviewing this fix. The human merge
 gate remains pending; subsequent saved-button changes require their own review.
+
+## Owner0056 — disable saved recipes and remove Add again
+
+RED before implementation: new real HTTP lookup test returned400 instead of200;
+real Chrome failed `saved recipe is disabled after success` (actual false).
+New bounded-source/body tests also failed (missing parser export and rejected
+lookup shape). These are superseding owner requirements, not relaxed tests.
+
+Implemented exact read-only POST `/api/menu?lookup=saved` with exact sourceUrls
+array of1–6 normalized URLs, shared Origin/16KiB/five-second parser, current
+family checks and bound family+ANY query LIMIT6. GET pagination, schema/grants,
+common write-lock behavior, Proxy matcher and provider/photo behavior unchanged.
+Lookup returns matching requested URLs only and performs no durable effect.
+
+Notebook now owns normalized-URL status across active results, filters and group
+remounts. Unknown/checking and known saved actions are disabled; saved label and
+accessible name say Added to menu, with no Add again. Lookup failure offers
+Retry checking menu (no save); actual save failure retains Retry adding to menu.
+Successful saves update shared state. Generation/abort checks discard abandoned
+lookups; per-URL save revisions prevent earlier lookup callbacks from reverting
+a later save success. A save cannot start while unknown/checking, so browser
+coverage does not fabricate concurrent saving from a disabled control.
+
+The Chrome fixture matches failure injection by exact pathname+query so an
+intended save503 cannot accidentally fail lookup. It records and cancels its
+owned delayed fixture response when the browser aborts an abandoned request.
+No production test hook was added. The final browser run proves delayed old
+lookup cancellation while switching to a newer search, plus current ready status
+without old failure feedback. Reviewer caught an initial evidence gap: clicking
+the already-selected notebook heading twice does not reopen it. Corrected this
+to select a different existing group, assert the active group changed, then
+return and assert the original group reopened; final GREEN includes that real
+remount. Source-level zero-warning lint caught an unnecessary ref mutation in
+effect cleanup; removed it, retaining abort and request generation protections.
+
+Actual final GREEN (same private isolated Node24 build approach as focus fix):
+
+- `pnpm run lint`: exit0, zero warnings after final TS fixture edits.
+- Isolated `pnpm run typecheck`: exit0, strict final tests/helper included.
+- Isolated `pnpm run build`: exit0, reviewed runtime metadata verified.
+- `pnpm test`:82 passed,0 failed/skipped/cancelled.
+- New focused realHTTP lookup regression:1 passed; full `test:menu`:35 passed,
+  0 failed/skipped/cancelled. It proves older-than-first50 membership, separate
+  family invisibility, bad query/shape/source/Origin/anonymous rejection, bounded
+  input and unchanged recipe count.
+- Isolated `pnpm run test:family`:34 passed,0 failed/skipped/cancelled.
+- Isolated full deployment regressions:32 passed,0 failed/skipped/cancelled;
+  compiled no-source/no-SQL package now exercises lookup then save/list/page/remove.
+- `MENU_TEST_BUILD_DIRECTORY=<private-copy> node --import tsx tests/menu/browser.ts`:
+  exit0. Native saved disabled click sends no save POST; checking/retry lookup
+  sends no save; errors still allow save retry. Actual different-group reopen,
+  new same-URL search, reload/new search and filter remount retain disabled state.
+  Browser also searches the oldest saved URL in a54-row menu (beyond first50)
+  and confirms it is disabled without a save POST. All existing title/pagination/
+  photos/confirmation/removal focus checks continue passing at390/1440 and320.
+
+Dedicated `saved-recipe-menu-disabled-{390,1440}.png` capture the new control;
+previous approved photo screenshots restored after test regeneration. The exact
+user next-env.d.ts bytes, active dev server and active dev/types remain untouched.
+Fixtures cleaned their owned servers/profiles/random databases. No development/
+hosted migration, production data/config change, deployment, provider spend or
+new dependency. Independent focused code and security reviews approved this
+correction without remaining required findings:
+`org/reviews/code-saved-recipe-menu-saved-status-001.md` and
+`org/reviews/security-saved-recipe-menu-saved-status-001.md`. The orchestrator
+inspected both disabled-state screenshots and verified workflow/message checks.
+Staged/final-revision audits are orchestrator-owned. Human merge and release
+remain pending; this correction grants neither authority.
+
+Final supplemental source freeze: base
+`0225e338382ae99670c5c14b80d194eb9c6f12b9`; SHA256 of `git diff --binary HEAD`
+restricted to the16 changed README/application/library/test/spec/plan paths
+(excluding this evidence file, org audit, screenshots and the user's next-env):
+`5f5b02159684f78c62707314d65fc08a470cf15a3029ae1c4fe4aaa8175d5481`.
+After checks and reviewer source stability, removed only the owned private
+`meal-menu-focus-*` source/build snapshot after verifying its owner/name and
+that original next-env still matched exactly. No isolated server was running;
+node_modules/private fixture-config links were unlinked with the snapshot,
+leaving their original targets, active dev outputs and private backups intact.
+No temporary helper file was added outside that owned snapshot.

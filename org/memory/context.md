@@ -21,7 +21,7 @@ intent/saved-recipe-menu/plan.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (Fix automatic menu-title focus reported by owner)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -58,7 +58,6 @@ intent/saved-recipe-menu/plan.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0053 ceo -> orchestrator decision: Approve saved menu implementation plan and proceed with Build
-- ceo-0056 ceo -> orchestrator decision: Disable saved recipe buttons
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -88,7 +87,7 @@ intent/saved-recipe-menu/plan.md
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
 - orchestrator-0103 orchestrator -> ceo handoff: Saved recipe menu implemented and reviewed; human merge gate
-- orchestrator-0106 orchestrator -> architect handoff: Bounded saved-status design advice
+- orchestrator-0108 orchestrator -> ceo status: Saved menu UI corrections verified and reviewed
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

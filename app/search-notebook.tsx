@@ -1,11 +1,14 @@
 "use client";
 
+import { useEffect, useRef, useState } from 'react';
 import {
   availableFilters, FILTER_LABELS, filterRecipes, sortRecipes,
   type RecipeFilter, type RecipeSort, type SearchEntry,
 } from "../lib/recipes/notebook";
 import RecipeCard from "./recipe-card";
 import SaveRecipeButton from "./menu/save-recipe-button";
+import { parseMenuSourceUrls } from '../lib/menu/validation';
+import type { MenuSaveStatus } from '../lib/menu/types';
 
 type Props = {
   entries: SearchEntry[];
@@ -16,6 +19,56 @@ type Props = {
 };
 
 export default function SearchNotebook({ entries, selectedId, onSelect, onFilter, onSort }: Props) {
+  const active = entries.find(entry => entry.id === selectedId);
+  const sources = active ? parseMenuSourceUrls(active.recipes.map(recipe => recipe.sourceUrl)) : null;
+  const sourcesKey = JSON.stringify(sources ?? []);
+  const [saved, setSaved] = useState<Record<string, boolean>>({});
+  const [retry, setRetry] = useState(0);
+  const [lookup, setLookup] = useState<{ key: string; state: 'ready' | 'error' | 'signin' | 'family' } | null>(null);
+  const selectionKey = JSON.stringify([selectedId, sourcesKey, retry]);
+  const generation = useRef(0);
+  const saves = useRef(new Map<string, number>());
+  useEffect(() => {
+    const urls: string[] = JSON.parse(sourcesKey);
+    if (!urls.length) return;
+    const controller = new AbortController();
+    const current = ++generation.current;
+    const before = new Map(urls.map(url => [url, saves.current.get(url) ?? 0]));
+    async function check() {
+      try {
+        const response = await fetch('/api/menu?lookup=saved', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sourceUrls: urls }), signal: controller.signal });
+        if (controller.signal.aborted || generation.current !== current) return;
+        if (response.status === 401 || response.status === 403) { setLookup({ key: selectionKey, state: response.status === 401 ? 'signin' : 'family' }); return; }
+        if (!response.ok) throw new Error('Lookup failed');
+        const value: unknown = await response.json();
+        if (!value || typeof value !== 'object' || Object.keys(value).length !== 1 || !('savedSourceUrls' in value) || !Array.isArray(value.savedSourceUrls) || value.savedSourceUrls.length > 6 || value.savedSourceUrls.some(source => typeof source !== 'string' || !urls.includes(source))) throw new Error('Invalid response');
+        const matches = new Set<unknown>(value.savedSourceUrls);
+        if (controller.signal.aborted || generation.current !== current) return;
+        setSaved(previous => {
+          const next = { ...previous };
+          for (const url of urls) if ((saves.current.get(url) ?? 0) === before.get(url)) next[url] = matches.has(url);
+          return next;
+        });
+        setLookup({ key: selectionKey, state: 'ready' });
+      } catch {
+        if (!controller.signal.aborted && generation.current === current) setLookup({ key: selectionKey, state: 'error' });
+      }
+    }
+    void check();
+    return () => controller.abort();
+  }, [sourcesKey, selectionKey]);
+  function sourceKey(source: string) { return parseMenuSourceUrls([source])?.[0] ?? source; }
+  function status(source: string): MenuSaveStatus {
+    if (saved[sourceKey(source)]) return 'saved';
+    if (!sources) return 'error';
+    if (lookup?.key !== selectionKey) return 'checking';
+    return lookup.state === 'ready' ? 'available' : lookup.state;
+  }
+  function didSave(source: string) {
+    const url = sourceKey(source);
+    saves.current.set(url, (saves.current.get(url) ?? 0) + 1);
+    setSaved(previous => ({ ...previous, [url]: true }));
+  }
   return (
     <section aria-labelledby="notebook-title" className="mt-6 sm:mt-10">
       <div className="mb-5 flex flex-wrap items-end justify-between gap-2">
@@ -73,7 +126,7 @@ export default function SearchNotebook({ entries, selectedId, onSelect, onFilter
                       </label>
                     </div>
                     {visible.length ? <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                      {visible.map(recipe => <RecipeCard key={recipe.sourceUrl} recipe={recipe}><SaveRecipeButton recipe={recipe} /></RecipeCard>)}
+                      {visible.map(recipe => <RecipeCard key={recipe.sourceUrl} recipe={recipe}><SaveRecipeButton recipe={recipe} status={status(recipe.sourceUrl)} onSaved={() => didSave(recipe.sourceUrl)} onRetryCheck={() => setRetry(value => value + 1)} /></RecipeCard>)}
                     </div> : <p className="rounded-lg bg-white p-5 text-sm text-stone-600">No recipes match this filter. Choose All recipes to see this search again.</p>}
                   </> : <div className="rounded-lg border border-dashed border-stone-300 bg-white px-5 py-8 text-center">
                     <p className="font-medium text-stone-900">No matching recipes found.</p>

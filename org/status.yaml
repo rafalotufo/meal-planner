@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Saved family menu implemented,194Node/7Python+Chrome pass, independent security/code approved; awaiting human merge with schema cutover separate." }
+  orchestrator: { status: idle, assignment: null, last_report: "Owner title-focus and saved-button corrections verified and independently reviewed; local development migration backed up/applied. Human merge and hosted release remain pending." }
   product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
   architect: { status: idle, assignment: null, last_report: "Owner-required removal confirmation designed and independently reviewed; Cancel/Escape preserve recipe, confirm alone removes." }
-  senior-developer: { status: busy, assignment: "Fix automatic menu-title focus reported by owner", last_report: "Reproducing in real Chrome before a narrow focus fix; preserve user dev server/next-env and removal focus." }
-  security-researcher: { status: idle, assignment: null, last_report: "Final application security approved; a0420ed helper-only cleanup correction independently rechecked, no new security issue." }
-  reviewer: { status: idle, assignment: null, last_report: "review code-saved-recipe-menu-002: approved" }
+  senior-developer: { status: idle, assignment: null, last_report: "Owner0056 saved controls verified: lint/typecheck/build,82recipe/35menu/34family/32deployment and realChrome pass; independent code/security approved. User dev/next-env preserved." }
+  security-researcher: { status: idle, assignment: null, last_report: "security-saved-recipe-menu-saved-status-001 approved; bounded family lookup and existing guards preserved." }
+  reviewer: { status: idle, assignment: null, last_report: "code-saved-recipe-menu-saved-status-001 approved; actual reopen evidence corrected and verified." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

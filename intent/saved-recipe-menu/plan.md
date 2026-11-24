@@ -277,7 +277,8 @@ parity, raw unfinished save/remove deadlines and focused HTTP suite after build.
 - [x] Add the optional RecipeCard action slot and focused save button; wire it
   in the notebook and add home Menu navigation without changing search/game
   state or provider code. Success/pending/error/session guidance stays local to
-  the selected action; duplicates are safe and saving remains available.
+  the selected action; duplicates stay safe and owner0056 disables known saves,
+  with separate lookup/save retry controls.
 - [x] Add the authenticated server `/menu` page with the shared store, approved
   header, source/time/photo cards, empty/error/invalid-page states and accessible
   Older/Newest links. Handle promised searchParams; accept no client family.
@@ -373,6 +374,19 @@ This is a narrow correction within the existing approved files/scope.
   final audit/commit and the still-pending human merge gate.
 
 ## Verification commands and ownership
+
+Supplemental owner0056 changes saved controls: remove Add again, disable known
+saved recipes and resolve existing membership for each active search batch.
+Reuse exact guarded POST `/api/menu?lookup=saved` with exact `{sourceUrls}` of
+1–6 normalized URLs, existing16KiB/5s/Origin guard and a family-bound indexed
+lookup; GET pagination, schema/grants, Proxy and providers stay unchanged.
+Notebook owns checking/available/saved/error state, batches/rechecks on opening
+searches and protects successful saves against stale lookup results. Lookup
+errors offer Retry check; actual save failures retain their separate retry.
+Test beyond-first50 membership, family isolation, malformed/no-effect lookup,
+fresh/reopened/same-URL views, disabled no-save requests and stale responses.
+Existing manifest paths cover this correction; compiled packaging proof includes
+the new lookup mode. Keep the title-focus correction and user dev server intact.
 
 Use Node24.x (baseline24.15.0) and pnpm10.33.0. Recheck installed pinned Next
 Route Handler, promised params/searchParams, server/client component, router

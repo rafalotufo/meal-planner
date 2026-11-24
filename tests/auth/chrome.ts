@@ -5,7 +5,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { Recipe } from '../../lib/recipes/types';
-interface Message { id?: number; error?: unknown; result?: unknown; method?: string; params?: { type?: string; args?: { value?: unknown; description?: string }[]; exceptionDetails?: { text: string }; entry?: { level: string; text: string }; errorText?: string; requestId?: string; request?: { url: string } } }
+interface Message { id?: number; error?: unknown; result?: unknown; method?: string; params?: { type?: string; args?: { value?: unknown; description?: string }[]; exceptionDetails?: { text: string }; entry?: { level: string; text: string }; errorText?: string; requestId?: string; networkId?: string; request?: { url: string } } }
 interface Evaluation { exceptionDetails?: { text: string }; result: { value?: unknown } }
 export async function openChrome() {
   const profile = await mkdtemp(join(tmpdir(), 'meal-family-chrome-'));
@@ -22,6 +22,8 @@ export async function openChrome() {
   let recipeOrigin: string | undefined;
   let recipeResults: Recipe[] | undefined;
   const failures = new Map<string, { status: number; delay: number }>();
+  const delayedFailures = new Map<string, { timer: ReturnType<typeof setTimeout>; url: string }>();
+  const abortedFixtures: string[] = [];
   function send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
     return new Promise((resolve, reject) => { const key = ++id; pending.set(key, { resolve: (value) => resolve(value as T), reject }); socket.send(JSON.stringify({ id: key, method, params })); });
   }
@@ -32,13 +34,20 @@ export async function openChrome() {
     if (message.method === 'Runtime.exceptionThrown' && p?.exceptionDetails) errors.push(p.exceptionDetails.text);
     if (message.method === 'Log.entryAdded' && p?.entry && ['error', 'warning'].includes(p.entry.level)) errors.push(p.entry.text);
     if (message.method === 'Network.loadingFailed' && p?.errorText && p.errorText !== 'net::ERR_ABORTED') errors.push(p.errorText);
+    if (message.method === 'Network.loadingFailed' && p?.requestId) {
+      const delayed = delayedFailures.get(p.requestId);
+      if (delayed) { clearTimeout(delayed.timer); delayedFailures.delete(p.requestId); abortedFixtures.push(delayed.url); }
+    }
     if (message.method === 'Network.requestWillBeSent' && p?.request) requests.push(p.request.url);
     if (message.method === 'Fetch.requestPaused' && p?.request) {
       const target = new URL(p.request.url);
-      const failure = target.origin === recipeOrigin ? failures.get(target.pathname) : undefined;
+      const failureKey = target.pathname + target.search;
+      const failure = target.origin === recipeOrigin ? failures.get(failureKey) : undefined;
       if (failure) {
-        failures.delete(target.pathname);
-        setTimeout(() => { send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: failure.status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body: Buffer.from(JSON.stringify({ error: 'Fixture request failure' })).toString('base64') }).catch((error: unknown) => errors.push(String(error))); }, failure.delay);
+        failures.delete(failureKey);
+        const key = p.networkId ?? p.requestId!;
+        const timer = setTimeout(() => { delayedFailures.delete(key); send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: failure.status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body: Buffer.from(JSON.stringify({ error: 'Fixture request failure' })).toString('base64') }).catch((error: unknown) => errors.push(String(error))); }, failure.delay);
+        delayedFailures.set(key, { timer, url: p.request.url });
       } else if (recipeOrigin && target.origin === recipeOrigin && target.pathname === '/api/recipes/search') {
         const body = Buffer.from(JSON.stringify({ recipes: recipeResults ?? [{ title: 'Potato Gnocchi', sourceUrl: 'https://www.loveandlemons.com/gnocchi-recipe/', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Boil potatoes, mix with flour, shape the dough, and simmer until the gnocchi float.', time: { kind: 'cook', text: '30 minutes' } }] })).toString('base64');
         send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body }).catch((error: unknown) => errors.push(String(error)));
@@ -79,9 +88,11 @@ export async function openChrome() {
   async function recipes(origin: string, results?: Recipe[]) { recipeOrigin = origin; recipeResults = results; await patterns(); }
   function failNext(path: string, status: number, delay = 0) { failures.set(path, { status, delay }); }
   async function close() {
+    for (const delayed of delayedFailures.values()) clearTimeout(delayed.timer);
+    delayedFailures.clear();
     socket.close();
     if (chrome.exitCode === null && chrome.signalCode === null) { const exited = new Promise<void>((resolve) => chrome.once('exit', () => resolve())); chrome.kill('SIGTERM'); await exited; }
     await rm(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   }
-  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, failNext, errors, requests, close };
+  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, failNext, abortedFixtures, errors, requests, close };
 }

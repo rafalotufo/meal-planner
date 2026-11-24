@@ -24,6 +24,28 @@ async function errorResponse(response: Response, status: number, message: string
   assert.equal(response.status, status); assert.deepEqual(await response.json(), { error: message });
   assert.match(response.headers.get('cache-control') ?? '', /private.*no-store/);
 }
+
+test('bounded saved lookup finds older entries without listing, exposes only current-family matches and never writes', async () => {
+  const s = await setup();
+  try {
+    for (let index = 0; index < 53; index++) assert.equal((await post(s.server.origin, s.jar, '/api/menu', { ...recipe, sourceUrl: `https://example.test/lookup/${index}` })).status, 200);
+    const first = await (await s.jar.request(s.server.origin, '/api/menu')).json();
+    assert.equal(first.entries.some((entry: {recipe: {sourceUrl: string}}) => entry.recipe.sourceUrl === 'https://example.test/lookup/0'), false);
+    const lookup = await post(s.server.origin, s.jar, '/api/menu?lookup=saved', { sourceUrls: ['https://EXAMPLE.test/lookup/0#method', 'https://example.test/missing'] });
+    assert.equal(lookup.status, 200);
+    assert.deepEqual(await lookup.json(), { savedSourceUrls: ['https://example.test/lookup/0'] });
+    securityHeaders(lookup.headers);
+    const other = new CookieJar(); await signInWithGoogle(s.server.origin, other, 'second-member'); await provision(s.server.origin, other);
+    assert.deepEqual(await (await post(s.server.origin, other, '/api/menu?lookup=saved', { sourceUrls: ['https://example.test/lookup/0'] })).json(), { savedSourceUrls: [] });
+    for (const query of ['?lookup=wrong', '?lookup=saved&lookup=saved', '?lookup=saved&after=bad', '?lookup=saved&familyId=forged']) await errorResponse(await post(s.server.origin, s.jar, '/api/menu' + query, { sourceUrls: [recipe.sourceUrl] }), 400, 'Invalid request');
+    for (const sourceUrls of [[], Array(7).fill(recipe.sourceUrl), [null], ['http://example.test/recipe'], ['https://127.0.0.1/recipe'], ['https://example.test/' + 'x'.repeat(2048)]]) await errorResponse(await post(s.server.origin, s.jar, '/api/menu?lookup=saved', { sourceUrls }), 400, 'Invalid request');
+    for (const body of [{ sourceUrls: [recipe.sourceUrl], familyId: 'forged' }, recipe]) await errorResponse(await post(s.server.origin, s.jar, '/api/menu?lookup=saved', body), 400, 'Invalid request');
+    await errorResponse(await post(s.server.origin, new CookieJar(), '/api/menu?lookup=saved', { sourceUrls: [recipe.sourceUrl] }), 401, 'Unauthorized');
+    const forbidden = await s.jar.request(s.server.origin, '/api/menu?lookup=saved', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://attacker.test' }, body: JSON.stringify({ sourceUrls: [recipe.sourceUrl] }) });
+    await errorResponse(forbidden, 403, 'Forbidden');
+    assert.equal((await s.db.one<{n:number}>('SELECT count(*) AS n FROM menu_recipes'))?.n, 53);
+  } finally { await s.close(); }
+});
 function securityHeaders(headers: Headers) {
   assert.match(headers.get('cache-control') ?? '', /private.*no-store/);
   assert.equal(headers.get('x-content-type-options'), 'nosniff');

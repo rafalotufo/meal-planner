@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseSavedMenuEntry } from '../../lib/menu/validation.ts';
+import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseSavedMenuEntry, parseMenuSourceUrls } from '../../lib/menu/validation.ts';
+
+test('saved lookup sources are a bounded normalized set, never ownership or page selectors', () => {
+  assert.deepEqual(parseMenuSourceUrls(['https://EXAMPLE.test:443/recipe#method', 'https://example.test/recipe']), ['https://example.test/recipe']);
+  assert.equal(parseMenuSourceUrls(Array.from({length:6}, (_,i) => `https://example.test/${i}`))?.length, 6);
+  for (const value of [undefined, {}, [], Array(7).fill('https://example.test/recipe'), [null], ['http://example.test/recipe'], ['https://127.0.0.1/recipe'], ['https://example.test/' + 'x'.repeat(2048)]]) assert.equal(parseMenuSourceUrls(value), null);
+});
 
 const id = 'a53f8c90-2345-4789-9234-abcd01234567';
 const recipe = { title: 'Lemony chickpeas', sourceUrl: 'https://example.test/recipe?a=1&b=2', imageUrl: 'https://images.example.test/photo.jpg', summary: 'Warm chickpeas and add lemon.', time: { kind: 'total', text: '20 minutes' } };

@@ -131,10 +131,18 @@ HTML/SVG payload, data URL, credentials or private-literal URL from saved input.
 2. Each search card has an `Add to menu` button with an accessible recipe-specific
    name. During its own request, show `Adding…`, disable only that action and
    announce progress. On success announce `Saved to menu` with a menu link;
-   on failure retain the result and allow retry. The action remains available
-   after success so a later removal elsewhere does not leave a permanently
-   disabled local “saved” flag. Duplicate saves are harmless. No initial menu
-   fetch, saved-state badge on every card, polling or real-time synchronization.
+   on failure retain the result and allow retry. Following owner0056, show
+   `Added to menu` and disable the button after successful save or when its
+   normalized source URL is already saved. Remove `Add again`. Before enabling
+   unsaved actions, check the active search's 1–6 URLs in one bounded family-scoped
+   lookup; unknown status shows disabled `Checking menu…`. Lookup failure offers
+   `Retry checking menu`, which checks only and never saves. Keep save retry
+   separate. Notebook state is shared by normalized URL across filters and
+   reopened searches; recheck on opening/new searches and prevent stale lookup
+   results from undoing a later successful save. Fresh searches after reload
+   also detect saved recipes beyond the first menu page. No polling or real-time
+   promise; another device's removal is reflected by a new check/reopen/reload.
+   Server-side duplicate saves remain harmless as concurrency defense.
 3. `/menu` shows `Your menu`, a short shared-family explanation, the current
    page's recipe count, and up to 50 cards in `saved_at DESC, id DESC` order. Show title, summary,
    source hostname/link, exact time label or `Time not provided`, and the retained photo or missing/failed fallback.
@@ -191,6 +199,7 @@ and their existing new-tab disclosure.
 | --- | --- | --- |
 | `GET /api/menu` | optional single `after` cursor; no body or ownership selector | 200 `{ entries: SavedMenuEntry[], nextCursor: string or null }` |
 | `POST /api/menu` | exact save snapshot above | 200 `{ entry: SavedMenuEntry, created: boolean }` |
+| `POST /api/menu?lookup=saved` | exact `{ sourceUrls: string[] }`, 1–6 validated/normalized source URLs | 200 `{ savedSourceUrls: string[] }`, matching requested URLs in current family only |
 | `POST /api/menu/[id]/remove` | exact empty JSON object `{}` | 200 `{ removed: true }` |
 
 `SavedMenuEntry` has exactly `id` (server random UUID), `savedAt` (nonnegative
@@ -201,7 +210,16 @@ missing/other-family ID produces the same successful no-op response, without
 revealing whether it exists. Only list requests (`GET /api/menu` and `/menu`) accept a single optional
 `after` query parameter; duplicated/unknown parameters or invalid cursors give
 400 (the page shows an invalid-page message with a `Newest recipes` link).
-Mutation endpoints accept no query parameters. Never interpret any parameter as
+Save/remove endpoints accept no query parameters. The read-only POST lookup
+accepts exactly one `lookup=saved` query, no cursor/owner/extra parameters; its
+response order is unspecified. Reuse the protected POST wrapper and exact JSON
+Origin/16KiB/five-second intake bound. Invalid source bounds, shapes or mixed/
+duplicate query parameters return400; ordinary401/403/503 policy is unchanged.
+Lookup binds the current server-derived family and at most six normalized URLs
+to the existing `(family_id,source_url)` index (`ANY` plus LIMIT6), independent
+of list pagination. It never saves, provisions, fetches providers/photos or
+returns snapshots, entry IDs or ownership fields. No schema change is required.
+Never interpret any parameter as
 ownership, page size or a source filter.
 
 Use Node runtime and private/no-store responses for all successes and failures;

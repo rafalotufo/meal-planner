@@ -48,8 +48,13 @@ available on every card.
 Choose **Add to menu** on a search result to save its text, source link, time and
 available publisher photo URL for your family. **Menu** opens `/menu`; every
 current family member can save, browse or remove recipes. Repeated saves of the
-same normalized source URL retain the first saved snapshot. There is no maximum
-collection size; **Older recipes** replaces each 50-entry page and **Newest
+same normalized source URL retain the first saved snapshot.
+The button shows disabled **Added to menu** once saved, including recipes already
+saved before the current search. Active searches check at most six recipe URLs
+for this family's saved status; reopening a search checks again. **Retry checking
+menu** retries only this status check when unavailable, while a failed save has
+its separate retry. The app does not poll for another device's changes.
+There is no maximum collection size; **Older recipes** replaces each 50-entry page and **Newest
 recipes** returns to the beginning. Reload to see another device's changes.
 
 **Remove from menu** first asks for confirmation and names the recipe. Cancel,

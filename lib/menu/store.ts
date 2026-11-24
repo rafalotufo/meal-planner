@@ -3,10 +3,18 @@ import type { FamilyDatabase } from '../db/connection';
 import type { MenuRecipeRow } from '../db/schema';
 import { FamilyError, requireMember, type VerifiedIdentity } from '../identity-access';
 import type { MenuPage } from './types';
-import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe } from './validation';
+import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrls } from './validation';
 
 const columns = 'id, family_id AS "familyId", source_url AS "sourceUrl", image_url AS "imageUrl", title, summary, time_kind AS "timeKind", time_text AS "timeText", saved_at AS "savedAt"';
 const invalid = () => new FamilyError(400, 'Invalid request');
+
+export async function lookupMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, value: unknown) {
+  const sources = parseMenuSourceUrls(value);
+  if (!sources) throw invalid();
+  const user = await requireMember(db, identity, allowedEmails);
+  const rows = await db.all<{sourceUrl: string}>('SELECT source_url AS "sourceUrl" FROM menu_recipes WHERE family_id=$1 AND source_url=ANY($2::text[]) LIMIT 6', [user.familyId, sources]);
+  return { savedSourceUrls: rows.map(row => row.sourceUrl) };
+}
 
 export async function listMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, after?: unknown): Promise<MenuPage> {
   const position = after === undefined ? null : parseMenuCursor(after);

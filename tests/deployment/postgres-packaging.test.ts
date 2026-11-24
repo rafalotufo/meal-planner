@@ -29,6 +29,9 @@ test('compiled protected proxy and routes work without source or migration files
       const saved = await post(server.origin, owner, '/api/menu', recipe);
       assert.equal(saved.status, 200);
       const { entry } = await saved.json();
+      const lookup = await post(server.origin, owner, '/api/menu?lookup=saved', { sourceUrls: [recipe.sourceUrl, 'https://example.test/not-saved'] });
+      assert.equal(lookup.status, 200);
+      assert.deepEqual(await lookup.json(), { savedSourceUrls: [recipe.sourceUrl] });
       const listed = await owner.request(server.origin, '/api/menu');
       assert.equal(listed.status, 200);
       assert.deepEqual(await listed.json(), { entries: [entry], nextCursor: null });

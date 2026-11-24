@@ -6,7 +6,7 @@ import { authConfiguration } from '../../../lib/auth';
 import { getDatabase } from '../../../lib/db';
 import { FamilyError } from '../../../lib/identity-access';
 import { readMenuBody } from '../../../lib/menu/body';
-import { listMenuRecipes, saveMenuRecipe } from '../../../lib/menu/store';
+import { listMenuRecipes, saveMenuRecipe, lookupMenuRecipes } from '../../../lib/menu/store';
 import allowed from '../../../lib/allowed-google-emails.json';
 
 export const runtime = 'nodejs';
@@ -26,7 +26,12 @@ export async function POST(request: NextRequest) {
   return menuApiResponse(request, methods, async () => {
     await requireFamilyContext(request.headers);
     const session = await requireIdentity(request.headers);
-    if (request.nextUrl.searchParams.size) throw new FamilyError(400, 'Invalid request');
+    const query = request.nextUrl.searchParams;
+    if (query.size === 1 && query.get('lookup') === 'saved') {
+      const body = await readMenuBody(request, authConfiguration().origin, 'lookup');
+      return lookupMenuRecipes(await getDatabase(), session.identity, allowed, body.sourceUrls);
+    }
+    if (query.size) throw new FamilyError(400, 'Invalid request');
     const body = await readMenuBody(request, authConfiguration().origin, 'save');
     return saveMenuRecipe(await getDatabase(), session.identity, allowed, body);
   });

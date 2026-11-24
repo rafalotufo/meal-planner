@@ -18,6 +18,14 @@ test('bounded menu reader accepts exact save/empty-remove objects and valid spli
   assert.deepEqual(await readMenuBody(request(body), origin, 'save'), { ...snapshot, title: '🍋' });
 });
 
+test('saved lookup shares the exact object, byte, Origin and deadline parser', async () => {
+  const body = { sourceUrls: [snapshot.sourceUrl] };
+  assert.deepEqual(await readMenuBody(request(JSON.stringify(body).padEnd(16384, ' ')), origin, 'lookup'), body);
+  for (const value of [{ ...body, familyId: 'forged' }, snapshot, {}]) await assert.rejects(readMenuBody(request(JSON.stringify(value)), origin, 'lookup'), invalid());
+  await assert.rejects(readMenuBody(request(JSON.stringify(body), {Origin:'https://attacker.test'}), origin, 'lookup'), invalid(403));
+  await assert.rejects(readMenuBody(request(JSON.stringify(body).padEnd(16385, ' ')), origin, 'lookup'), invalid());
+});
+
 test('Origin and content type reject before parsing and unknown/missing keys fail closed', async () => {
   const forbidden: Record<string, string>[] = [{ Origin: 'https://attacker.test' }, { Origin: '' }, { 'Sec-Fetch-Site': 'cross-site' }];
   const malformed: Record<string, string>[] = [{ 'Content-Type': 'text/plain' }, { 'Content-Length': '16385' }];
@@ -30,7 +38,7 @@ test('Origin and content type reject before parsing and unknown/missing keys fai
 });
 
 test('actual byte limits cover chunked and lying-length bodies and release/cancel readers', async () => {
-  for (const [mode, limit] of [['save', 16384], ['remove', 4096]] as const) {
+  for (const [mode, limit] of [['save', 16384], ['lookup', 16384], ['remove', 4096]] as const) {
     let cancelled = false;
     const body = new ReadableStream<Uint8Array>({ start(c) { c.enqueue(new Uint8Array(limit)); c.enqueue(Uint8Array.of(32)); }, cancel() { cancelled = true; } });
     await assert.rejects(readMenuBody(request(body, { 'Content-Length': '1' }), origin, mode), invalid());

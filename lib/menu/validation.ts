@@ -13,6 +13,11 @@ function url(value: unknown) {
   const normalized = safeRecipeUrl(value);
   return normalized && normalized.length <= 2048 && /^[\x21-\x7e]+$/.test(normalized) ? normalized : null;
 }
+export function parseMenuSourceUrls(value: unknown): string[] | null {
+  if (!Array.isArray(value) || value.length < 1 || value.length > 6) return null;
+  const normalized = value.map(url);
+  return normalized.every((source): source is string => source !== null) ? [...new Set(normalized)] : null;
+}
 export function parseMenuRecipe(value: unknown): MenuRecipe | null {
   if (!isRecord(value) || !exactKeys(value, ['title', 'sourceUrl', 'imageUrl', 'summary', 'time'])) return null;
   const title = text(value.title, 160), summary = text(value.summary, 600), sourceUrl = url(value.sourceUrl);
