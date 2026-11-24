@@ -9,13 +9,13 @@ intent/weekly-meal-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 3
+- phase: build
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (unique-weekly-recipes-design)
+- architect: busy (weekly-meal-planning-unique-plan)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -94,9 +94,6 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
-- orchestrator-0102 orchestrator -> ceo handoff: Reviewed recipe-scoped swap retention ready
-- orchestrator-0103 orchestrator -> product-manager handoff: Capture unique weekly recipe requirement
-- orchestrator-0104 orchestrator -> architect handoff: Design unique weekly recipes and safe legacy repair
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -108,7 +105,6 @@ intent/weekly-meal-planning/intent.md
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
-- product-manager-0017 product-manager -> orchestrator decision: Accepted unique weekly recipe correction
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -162,11 +158,11 @@ intent/weekly-meal-planning/intent.md
 
 ## Recent decisions
 
-- mem-0132 reviewer: Weekly meal planning independently approved at fixed source9694aeedc5757431320f56fd6f8b4b264c157b75: seven undated weekly recipe cards, approvals/swaps/history, configurable due worker,212 Node/7Python and real Chrome320/1440. Local loop solved; merge/release/migration/activation remain separate. (org/reviews/weekly-meal-planning-final-001.md)
 - mem-0133 reviewer: Owner clarified visible header dates must also go. Independently approved seven-recipes main header without numeric range, history controls alone keep weekdates; prior completed6turn loop preserved in archive and new bounded correction cycle opened. (org/reviews/weekly-meal-planning-header-001.md)
 - mem-0134 reviewer: Final weekly planning source9f6f8c6ff0c868472926e42d186648309fc4f62f independently approved: no numeric dates in main header/cards; history controls retain week identifiers.13plans/lint/typecheck/build/Chrome rerun green, original212Node/7Python evidence retained. Header correction3turn loop solved; human merge/release and activation pending. (org/reviews/weekly-meal-planning-header-final-001.md)
 - mem-0135 reviewer: Approved owner swap-retention amendment: accepting clears same-recipe-slot competitors only; other pending suggestions carry forward atomically to new revision with identity/content preserved. Approval reset/stale-client/family constraints unchanged. (org/reviews/weekly-meal-planning-swap-plan-001.md)
 - mem-0136 reviewer: Owner swap retention implemented and independently approved at917b9ebf8e7915f415e873cfc4ecdd224ab48f59. Acceptance clears same-recipe competitors only; unrelated pending suggestions retain identity/content and remain actionable at new revision.214Node/7Python and Chrome pass;4turn loop solved, human merge/release still pending. (org/reviews/weekly-meal-planning-swap-final-001.md)
+- mem-0137 reviewer: Approved1-7unique weeklyrecipes and no duplicate swaps;0003will atomically compactduplicate drafts/remap feedback under migrationlock then FIRSTfamilylock beforeDDL. Finalhistoryrawimmutable, privateQA preserves next-env userdiff, localrepair onlyaftertests/source/security review. Owner laterstoppeddevserver. (org/reviews/weekly-meal-planning-unique-plan-001.md)
 
 ## Constraints
 
@@ -175,14 +171,16 @@ intent/weekly-meal-planning/intent.md
 ## Artifacts
 
 - org/reviews/intent-weekly-meal-planning-unique-001.md (692b9d8a0123940dc430d632ea4a0a3600594f92b1d1ad9c18cd5f049d5720b6)
+- intent/weekly-meal-planning/plan.md (0fe3d55b1b4d5775f98a78ed631deea5d00cef402b0c84631407351533876980)
+- org/reviews/weekly-meal-planning-unique-plan-001.md (a599d2b5116205395f71c8f9304944ac2fcf3c81bcbd156fcbc7e4cd318d6716)
 
 ## Next action
 
-product-manager:accept_unique_weekly_recipes
+reviewer:approve_unique_weekly_recipes
 
 ## Last digest source
 
-- mem-0136 from org/reviews/weekly-meal-planning-swap-final-001.md
+- mem-0137 from org/reviews/weekly-meal-planning-unique-plan-001.md
 
 <!-- machine:end -->
 

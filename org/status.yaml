@@ -5,10 +5,10 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: Swap retention4turn local loop solved; source917b9eb awaits human merge/release. No hosted migration/deployment/activation. }
   product-manager: { status: idle, assignment: null, last_report: Accepted1-7unique weekly recipes and no duplicateintroducing swaps; small menus use availableunique choices. }
-  architect: { status: busy, assignment: unique-weekly-recipes-design, last_report: "Weekly design complete, later owner presentation clarifications peer-reviewed and implemented." }
+  architect: { status: busy, assignment: weekly-meal-planning-unique-plan, last_report: "Designed1-7unique recipes, duplicate-safe swaps and explicit0003draftrepair preservingproposals/history; ready independentreview." }
   senior-developer: { status: idle, assignment: null, last_report: Swap retention independently approved at917b9eb;214Node/7Python and Chrome320/1440 green. }
   security-researcher: { status: idle, assignment: null, last_report: "Swap retention security clear at917b9eb;5storetests independently pass, scopes/atomicity/unique/cap/authorization preserved." }
-  reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-swap-code-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-unique-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -87,3 +87,4 @@ review_queue:
   - { id: weekly-meal-planning-header-code-001, artifact: weekly-plan-header-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-meal-planning-swap-plan-001, artifact: weekly-meal-planning-swap-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-meal-planning-swap-code-001, artifact: weekly-plan-swap-retention-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-unique-plan-001, artifact: weekly-meal-planning-unique-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

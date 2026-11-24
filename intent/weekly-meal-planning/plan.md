@@ -22,10 +22,12 @@
 - `lib/plans/generate.ts`
 - `lib/db/schema.ts`
 - `drizzle/postgresql/0002_weekly_meal_planning.sql`
+- `drizzle/postgresql/0003_unique_weekly_recipes.sql`
 - `drizzle/postgresql/meta/_journal.json`
 - `drizzle/postgresql/runtime-migrations.json`
 - `drizzle/postgresql/catalog.json`
 - `drizzle/postgresql/rollback-plans-test.sql`
+- `drizzle/postgresql/rollback-unique-plans-test.sql`
 - `scripts/migrate-db.ts`
 - `scripts/generate-meal-plans.ts`
 - `app/plans/page.tsx`
@@ -51,6 +53,7 @@
 - `org/loop/archive/shared-site-layout-before-weekly-meal-planning-2026-11-24/*`
 - `org/loop/archive/weekly-meal-planning-before-header-date-refinement-2026-11-24/*`
 - `org/loop/archive/weekly-plan-header-before-swap-retention-2026-11-24/*`
+- `org/loop/archive/weekly-swap-retention-before-unique-recipes-2026-11-24/*`
 - `org/status.yaml`
 - `org/messages/*.md`
 - `org/reviews/*weekly-meal-planning*`
@@ -229,3 +232,111 @@ retain no-date header/card assertions and all existing flows, inspect refreshed
 feature screenshots and record actual red/green evidence in verification. No
 DB/auth/scheduler/deployment changes. Root owns workflow/status/messages/ledger
 and commits; independent final source review follows passing evidence.
+
+## Owner uniqueness amendment — variable unique recipe count and draft repair
+
+- Status: Approved by independent org review (`org/reviews/weekly-meal-planning-unique-plan-001.md`)
+- Source: `org/messages/ceo-0054.md`; owner requires no repeated recipes within a week; with fewer than
+  seven saved recipes, draft the available unique recipes.
+- Supersedes all exact-seven/cycling implementation directions above. The prior
+  no-dates and unrelated-suggestion-retention amendments remain mandatory.
+
+### Additional files that change
+
+- `drizzle/postgresql/0003_unique_weekly_recipes.sql`
+- `drizzle/postgresql/rollback-unique-plans-test.sql`
+- `org/loop/archive/weekly-swap-retention-before-unique-recipes-2026-11-24/*`
+
+These supplement the existing exact manifest. Historical0002 SQL/hash bytes
+must remain unchanged. `next-env.d.ts` is explicitly excluded: preserve the
+owner's existing uncommitted change. No new dependency or grant is needed.
+
+### Ordered amendment slices
+
+1. Independent peer review approves this amendment before source changes. Root
+   records the owner's clarification, prior completed loop archive, current
+   active graph paths, review evidence and bounded dispatch state.
+2. Write failing strict TypeScript tests first within existing planning test
+   files: generation1/2/6/7/8+, unique source URLs, parse cardinality/duplicates,
+   re-saved menu identity, runtime slot bounds, duplicate-proposal409 and duplicate
+   acceptance409 after a different slot used its recipe. Preserve the second
+   proposal's identity/cohort/rejectability and ordinary successful swap tests
+   using a different unused replacement. Capture actual red output.
+3. Add explicit0003 SQL and metadata/catalog derived from an owned disposable
+   migrated database. Alter cardinality to1..7 and acquire the common family
+   advisory lock inside the existing migration transaction before repairing
+   duplicate drafts. First-occurrence compact snapshots, bump revision once,
+   clear only affected approvals, remap current pending slot/cohort, stale
+   deterministic merged-key losers before remapping winners. Preserve raw final
+   history and unrelated/unique plans. Add upgrade fixtures using authentic
+   first-three-migration history; do not rewrite old migration evidence.
+4. Implement unique variable-count generation, strict unique draft parsing and
+   status-specific legacy-final read projection with explicit legacy note.
+   Apply proposal and locked acceptance uniqueness checks by canonical source,
+   dynamic slot bounds and safe conflict copy. Keep existing unrelated pending
+   carry-forward, common lock, revision409, approval reset and finalize semantics.
+5. Update page heading, explanatory/confirmation copy and replacement options
+   for actual1..7 count; exclude every already-planned source from choices.
+   Keep recipe/main-header dates absent, history controls dated, and legacy final
+   disclosure accurate. Do not introduce meal-date assignment or expand CRUD.
+6. Update the existing real HTTP/browser flow so two pending cards can initially
+   propose the same unused replacement, first acceptance preserves the second,
+   duplicate second acceptance gets409 and remains rejectable, then a distinct
+   replacement succeeds. Add variable-count fixture/display and unique card URL
+   checks; retain previous stale/approval/history/no-dates/menu-pagination checks.
+   Exercise320/1440, capture feature screenshots and inspect representative images.
+7. Extend existing migration tests/counts and rollback sequencing for the actual
+   fourth migration; verify runtime grants unchanged and owner/runtime schema
+   compatibility. Run every original required command, record red/green outcomes,
+   limitations and exact migration review evidence in verification.md. Independent
+   security and final source review follow. Root handles process commits/gates.
+8. Only after passing disposable upgrade tests and review, root may verify the
+   exact dedicated local owner/runtime pair and apply the reviewed explicit local
+   migration needed to repair the owner-reported duplicate draft. This is
+   not a hosted migration or scheduler activation; preserve the separate gates.
+
+### Mandatory amendment regressions
+
+- Generator emits `min(7, unique saved recipes)` once each; zero-menu still skips.
+- Draft parse rejects duplicate canonical sources, empty/>7 arrays and malformed
+  snapshots; valid1..7 succeeds. Final legacy duplicates display once with honest
+  original-count note while raw finalized data remains byte-for-byte unchanged.
+- Suggesting any current source yields409 with no row write. Acceptance rechecks
+  current content under lock, no duplicate accepted even after concurrent edits;
+  blocked pending proposal survives and Reject still succeeds.
+-0003 upgrade mixed fixtures preserve first snapshots and ordering, unique drafts,
+  finalized raw history and foreign plans; compacted drafts get one revision bump
+  and cleared approvals; pending remap handles same-user merged-index collisions
+  deterministically. Repeat migration creates no further change.
+- Additive hash/journal/catalog and restricted runtime grants remain exact;
+ 0002 unchanged; rollback either works on compatible data/full disposable cleanup
+  or fails explicitly rather than padding/deleting data.
+- Real HTTP bounds follow actual length. Browser1/2/6/7-card content and headings
+  are accurate, all displayed URLs unique, conflicts/retained swaps recoverable,
+  and no numeric dates appear outside history controls.
+
+Use the unchanged full required command list above, including all family/menu/
+auth/deployment/workflow suites, planning tests, lint/typecheck/build, real Chrome
+and staged secret scan. Update existing assertions only for the changed contract;
+never remove unrelated tests or relax strict checking. Preserve the user-modified
+`next-env.d.ts` and all deployment/hosted/job-activation boundaries.
+
+
+### Private verification checkout
+
+The owner's dev server is live on port3000 and `next-env.d.ts` has a preexisting
+uncommitted dev-path change. Preserve both; do not stop that process, overwrite
+its `.next`, rewrite that file or include it in a feature commit. Root prepares
+an owner-only temporary source copy containing tracked plus approved pending
+manifest files, links the pinned installed dependencies and supplies private
+isolated-test configuration. Run lint/typecheck/build, all required regressions
+and the owned Chrome fixture there; copy only feature screenshots/evidence back.
+The validation copy may regenerate its own types/build. Record actual working
+directory and source equivalence in verification evidence, without leaking
+credentials. This requires no new runtime helper, dependency or framework config.
+
+Migration lock order is mandatory: existing runner lock73462902, then the first
+0003 statement acquires FAMILY_WRITE_LOCK73462901, before **any** application-table
+ALTER, validation or repair statement. Never take an ALTER exclusive table lock
+first and then wait for the family lock: runtime writers take family lock before
+table access, which would create a lock-order deadlock.

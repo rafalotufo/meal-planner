@@ -305,3 +305,186 @@ partial pending unique constraint and100-pending-per-revision bound; moving a
 subset forward cannot add pending suggestions. Finalization closes the remaining
 pending suggestions normally. No migration, API union, scheduler, admission,
 family isolation or approval behavior change beyond this scoped carry-forward.
+
+## Owner uniqueness amendment — one to seven distinct weekly recipes
+
+- Status: Approved by independent org review (`org/reviews/weekly-meal-planning-unique-plan-001.md`)
+- Source: `org/messages/ceo-0054.md`; owner reports repeated recipes and requires “There should never be
+  repeated recipes”; on menus with fewer than seven recipes, owner chooses a
+  draft containing the available unique recipes rather than waiting for seven.
+- Supersedes the original exact-seven/cycling requirement everywhere above.
+  The no-card-dates/no-main-header-dates and unrelated-suggestion carry-forward
+  amendments remain in force.
+
+### User-visible contract
+
+Each draft contains **one to seven unique recipes**, identified by the existing
+normalized canonical `sourceUrl`, not menu-row IDs or titles. Zero saved recipes
+still produces no draft. With one, two or six saved recipes, generate exactly
+one, two or six cards; with seven or more, generate at most seven. Never cycle
+candidates to fill the week. Repeating a recipe in a later week remains valid;
+the existing eight-week recency preference still encourages between-week variety.
+
+Use the actual displayed recipe count in the main heading, any count label and
+confirmation text, including singular “1 recipe”. Do not promise seven dinners
+when fewer are available. Explain that saving more recipes can fill the weekly
+plan, without suggesting duplicates are allowed inside it. Cards and main plan
+header remain undated; calendar dates remain only in history controls. Internal
+indices identify recipes, not weekday assignments, and range from zero through
+`meals.length - 1` within the existing maximum of six.
+
+### Generation, validation and swap invariants
+
+Generation retains the existing eligibility, family lock, bounded query,
+recency ranking, deterministic week tie-break and idempotent nonregeneration.
+Emit each selected candidate once; any week-dependent rotation preserves the
+candidate count and uniqueness. Compare canonical `sourceUrl` throughout.
+
+Extend snapshot parsing from exactly seven to one through seven valid snapshots.
+Ordinary draft parsing also requires unique canonical sources. A malformed,
+empty, over-seven or duplicate draft is unavailable, never silently changed by
+a read. The explicit migration below repairs existing legitimate duplicate
+drafts before the new runtime opens the upgraded schema. Validate user-supplied
+indices against the selected plan's actual length under the lock, in addition
+to the existing generic integer0–6 body validation; out-of-range input is400.
+
+Before storing a suggestion, under the common family write lock reject a
+replacement whose canonical source already appears anywhere in the plan. Return
+409 with a useful safe message, e.g. “That recipe is already in this plan.
+Choose another saved recipe.” This includes choosing the current slot's recipe;
+no no-op or duplicate proposal is created. The UI filters all currently planned
+sources out of replacement choices, not just the target card's source. Server
+checks remain authoritative for stale clients, re-saved menu IDs and direct HTTP.
+
+Accept re-reads the current saved-family replacement as before and, before any
+write, repeats the canonical uniqueness check against every other current slot.
+A pending replacement may have become used by another accepted suggestion.
+That proposal remains pending and visible: accepting it returns a useful409,
+while rejecting it still works. Do not auto-delete/stale that unrelated proposal.
+The reject path must not require a replacement to be unused or still saved.
+
+Preserve the reviewed carry-forward rules: accepting a valid unique swap bumps
+the plan revision, clears approvals, accepts the chosen proposal, stales only
+same-slot competitors and carries other-slot pending proposals forward by changing
+only base_revision. No content/identity loss for unrelated suggestions. Concurrent
+requests with old revisions receive409; after refresh a retained suggestion may
+be accepted if unique, or rejected if its recipe is now used. The client renders
+the bounded safe duplicate-conflict message as text with refresh/reject guidance,
+not the existing misleading implication that refresh necessarily fixes it.
+Finalization requires a valid one-to-seven unique draft and remains immutable.
+
+### Additive schema migration and repair of existing drafts
+
+Append **`0003_unique_weekly_recipes.sql`** to the reviewed PostgreSQL migration
+journal. Never rewrite0002 SQL, its hash/timestamp or already applied history.
+Replace its meals-cardinality constraint with JSON-array length between1and7;
+keep status/timestamp/revision/ownership constraints and existing indexes.
+Application validation enforces canonical snapshot shape and uniqueness. Runtime
+migration metadata and exact catalog must match the new fourth migration.
+Existing grants remain unchanged: no new runtime privileges or schema capability.
+
+The same explicit SQL migration also repairs existing duplicate **drafts**, past
+or upcoming, preserving all first-occurrence recipe snapshots and their relative
+order. Stored valid snapshots from the existing writer already carry canonical
+sourceUrl values. Use that canonical key, not title or menu ID, to group them;
+compacting a draft must not reload recipes from today's menu, which would lose
+saved edits or removed-recipe snapshots. Missing/malformed source keys must abort
+repair rather than silently discard content. General repair of arbitrary corrupt
+snapshot JSON remains outside scope and existing fail-closed validation remains.
+
+The migration runner already owns migration advisory lock73462902. The **first
+statement** of0003 must acquire `pg_advisory_xact_lock(73462901)`, the common
+FAMILY_WRITE_LOCK, before **any application-table ALTER, validation or repair
+statement**, inside that existing single-connection READ COMMITTED transaction.
+Mandatory order is73462902 then73462901, then table locks/access. Taking an ALTER
+exclusive table lock before the family advisory lock can deadlock a runtime
+writer that holds the family lock and waits for table access; never use that
+order. The additional family lock supplements, rather than replaces, the runner's
+migration lock.
+Build transaction-local mapping from each affected plan's old index to the
+compacted first-occurrence index. Materialize the affected IDs, original revision,
+compacted meals and mappings before updates, using transaction-local temporary
+structures or CTEs. No persistent helper table/function or runtime grant is needed.
+
+For each affected draft only:
+
+1. Preserve its id/family/week/status/created/finalized values. Replace meals with
+   the first snapshot for each canonical source in original order and increment
+   revision exactly once. If increment would overflow the existing integer
+   revision bound, fail/roll back the migration; never reset a revision silently.
+2. Delete its approvals so old content approvals cannot survive the change.
+3. Remap only current-original-revision pending suggestions using the old-index
+   mapping. Preserve IDs, proposing users, menu IDs, recipe snapshots, status and
+   created timestamps for retained proposals; set their base_revision to the new
+   plan revision and day_index to the compacted target index.
+4. Duplicate target cards can merge several proposals from the same user into
+   one partial-unique-index key. Select a deterministic winner per affected
+   plan/user/new-index by oldest created_at, then id. Mark losing proposals stale
+   **before** remapping winners, so no transient uniqueness violation occurs.
+   Retained proposals whose replacement is already elsewhere in the compacted
+   plan remain pending/rejectable, subject to the new acceptance409 rule.
+
+Untouched unique drafts retain meals/revision/approvals/suggestions byte-for-byte.
+Other plans' nonpending and noncurrent-revision rows remain unchanged. A source
+family cannot influence another family's mapping. The migration is atomic and
+its ordinary journal idempotency prevents repeat bumps/repair. No GET/HEAD,
+render, session read or scheduler invocation repairs an existing draft.
+
+Finalized rows, their snapshots and historical proposal/approval facts are never
+rewritten. Legacy finalized plans may contain duplicate raw entries from the
+old release. Their read path accepts otherwise valid one-to-seven historical
+snapshots, projects first-occurrence canonical sources once for display and shows
+a clear legacy note that the original finalized plan contained repeated entries.
+Keep the original count available for honest wording; do not represent this as
+a historical data correction. This status-specific legacy path must not relax
+unique-draft parsing or permit duplicate finalization. Eight-week recency still
+reads the retained raw finalized snapshots and computes max-use per source.
+
+Add a disposable-test rollback for0003 before the existing weekly/menu/initial
+rollback. Since compacted valid plans cannot be padded without reintroducing
+repeats, a standalone0003 rollback restores the previous exact-seven constraint
+only when all remaining plans satisfy it; otherwise fail explicitly. Never pad,
+delete or silently mutate plans to make rollback pass. Full clean-database tests
+may drop the weekly tables via their existing reviewed rollback before removing
+that migration-history entry, provided ordering and journal completeness remain
+explicit and tested. Update count assertions3->4 without weakening prior checks.
+
+### Verification and authority for this amendment
+
+Write real red tests before source edits. Cover menus1,2,6,7,8+; recipe identity
+when a source is removed/re-saved under a new menu ID; direct duplicate proposals;
+locked acceptance when two pending slots propose the same unused replacement;
+retention/rejection of the now-conflicting pending proposal; stale concurrent
+accept409; dynamic slot bounds and counts; all previous carry-forward/approval
+reset/finalization/isolation assertions.
+
+Migration fixtures must apply genuine0000–0002 SQL/history before0003, then seed
+mixed duplicate drafts, already unique drafts, finalized duplicates, approvals
+and competing/unrelated proposals. Assert first-snapshot/order preservation,
+correct slot/cohort remap and deterministic losers, exactly one revision bump,
+approval invalidation only where required, no cross-plan/family/history mutation,
+unchanged finalized raw snapshots, readable legacy final projection, idempotent
+rerun, exact catalog/hash/grants, rollback and untouched prior migration bytes.
+
+Real HTTP/browser tests must no longer accept the same replacement into two
+cards. Show the pending second suggestion survives the first acceptance but is
+blocked from duplication and can be rejected, then use a different unused
+replacement to complete the ordinary successful flow. Verify distinct card URLs,
+variable card counts, accurate headings/confirmation, no card/main-header dates,
+mobile320/desktop1440, historical readability and genuine UI events. Retain all
+unrelated workflow/auth/security assertions and run the full required commands.
+
+This amendment authorizes local implementation, isolated-test migrations and the
+necessary reviewed local repair of the owner-reported duplicate draft. Apply that
+local migration only after regression checks and independent security/source
+review, using the existing owner/runtime tooling; root verifies the precise
+dedicated local target before that operation. No hosted
+migration, deployment, merge, paid call or job activation is authorized. Preserve
+uncommitted user changes to `next-env.d.ts` untouched.
+
+Verification must preserve the owner's active dev server and its `.next` cache.
+Root prepares a private temporary source copy with the current approved/pending
+manifest sources, pinned dependency link and private test configuration, runs
+required checks/browser there and returns feature evidence. Do not stop the
+owner's server, regenerate this checkout's `next-env.d.ts` or commit its existing
+dev-path change. This test arrangement adds no runtime/framework configuration.
