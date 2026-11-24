@@ -205,15 +205,45 @@ no public caching or module-global user/menu state. `/menu` is dynamic via sessi
 headers and current DB reads, with no cross-request recipe list cache. Listing
 and rendering share a server store function, not an internal HTTP fetch.
 HEAD/GET do no insert, delete, provisioning, migration or photo/provider work.
-Unsupported methods use framework 405 and cannot mutate anything.
+Unsupported methods explicitly return protected 405 responses and cannot mutate
+anything; automatic OPTIONS/405 must not bypass authentication or response policy.
 
 Every route and page independently invokes `requireFamilyContext` before menu
-reads/effects; proxy enforcement remains an additional layer. The store also
+reads/effects. For the exact menu API shapes, a dedicated handler wrapper
+preserves the proxy's Host/admission/family/security-response boundary without
+framework Proxy dispatch; `/menu` and all other paths retain Proxy. The store also
 uses the verified identity and current admission/membership, following the
 existing familySummary/requireMember pattern. Never accept the family owner
 from input. Reads bind the server-derived family ID, and mutations recheck
 `requireMember` inside their write transaction before deciding ownership or
 reading entries. A pre-request context alone cannot authorize a later write.
+
+Pinned Next16.4.6 clones Node Proxy request bodies and waits for the incoming EOF
+before dispatching a Route Handler, preventing its five-second body deadline from
+starting for an unfinished request. The reviewed technical correction excludes
+only `/api/menu` and `/api/menu/[id]/remove` from static Proxy matching. Their
+cohesive menu wrapper enforces canonical configured Host421, fail-closed auth
+configuration/current family context, private/no-store and the existing CSP,
+nosniff/frame/referrer/HTTPS HSTS response policy on every supported method and
+error. Existing handler context/identity checks, Origin/JSON/body checks and
+transactional admission rechecks remain. GET/HEAD are read-only; unsupported
+methods receive authenticated405 without reading a body. No auth-policy public
+exception or client-selectable header/cookie bypass is added. Compiled false
+prefix/sibling paths remain protected by Proxy. See `request-timeout-note.md`
+and `org/reviews/security-saved-recipe-menu-timeout-001.md`. Local raw HTTP
+regressions prove deadlines before client EOF for both mutations; upstream hosted
+buffering remains a separate platform boundary, not an asserted hosted guarantee.
+
+The callback process can also hold Better Auth's default in-memory adapter,
+which would otherwise accept a signed session token after a missing/invalid
+stateless cache. Before any session helper, the menu wrapper therefore requires
+Better Auth's public `getCookieCache` verifier with configured secret, JWE,
+version and HTTPS-derived cookie prefix. Require a verified Google identity,
+nonempty cached token and finite future embedded/JWT expiry; bind the token and
+stable identity to `readCryptographicSession` before ordinary family checks.
+Reject missing/tampered/expired/wrong-key caches and mixed tokens, including two
+sessions for one subject. Preserve valid secure-prefix/chunked cookies, one-hour
+expiry and no refresh; use no custom crypto or shared-auth/vendor alteration.
 
 POSTs require exact configured Origin and reject `Sec-Fetch-Site: cross-site`,
 matching `lib/http.ts`; same-site is not an Origin substitute. Require JSON

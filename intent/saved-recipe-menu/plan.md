@@ -71,6 +71,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - lib/menu/types.ts
 - lib/menu/validation.ts
 - lib/menu/body.ts
+- lib/menu/http.ts
 - lib/menu/store.ts
 - lib/db/schema.ts
 - drizzle/postgresql/0001_saved_recipe_menu.sql
@@ -80,6 +81,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - drizzle/postgresql/rollback-menu-test.sql
 - scripts/migrate-db.ts
 - scripts/postgres-hosted.ts
+- proxy.ts
 - app/api/menu/route.ts
 - app/api/menu/[[]id]/remove/route.ts
 - app/menu/page.tsx
@@ -101,6 +103,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - tests/menu/browser.ts
 - tests/family/storage.test.ts
 - tests/deployment/postgres-packaging.test.ts
+- tests/deployment/postgres-metadata.test.ts
 - AGENTS.md
 - README.md
 - intent/saved-recipe-menu/**
@@ -179,6 +182,11 @@ Files: new migration, journal, runtime-migrations.json, catalog.json,
 tests/menu/migration.test.ts. Task1 precedes this atomic five-file integration.
 Artifact preparation may use a temporary TypeScript command; no persistent new
 generation framework, owner credential output or development DB mutation.
+The unreleased0001 menu checks use explicit flatAND bounds: PostgreSQL dump/
+restore otherwise flattens BETWEEN-derived nestedAND expression trees and changes
+their exact deparse. Keep equivalent checks and capture their restore-stable
+catalog/hash together, with dump→restore→restricted-runtime-open regression.
+Do not normalize/relax catalog comparison or change initial0000 evidence.
 
 ### 4. Complete restricted grants and old regressions — medium
 
@@ -227,21 +235,36 @@ Depends on task4. Verify focused tests and `pnpm run test:menu`.
 
 ### 6. Expose the protected HTTP flow — medium
 
-- [ ] RED real-HTTP tests, then add GET/POST `/api/menu` and POST
+- [x] RED real-HTTP tests, then add GET/POST `/api/menu` and POST
   `/api/menu/[id]/remove` using the existing family/session/API response patterns.
   Authenticate before parsing, parse before locking, and let store recheck the
   member inside the transaction. Await promise route params per pinned Next.
-- [ ] Prove contracts/status/private-no-store, exactly one optional list cursor,
+- [x] Apply the independently reviewed body-deadline correction in
+  `request-timeout-note.md`: static exact menu API Proxy exclusions plus the
+  cohesive `lib/menu/http.ts` equivalent Host/auth/family/header guard. Preserve
+  every existing handler check, all-method admission and explicit protected405;
+  keep auth-policy/search/other Proxy paths unchanged. No config truncation,
+  framework patch or weakened stalled-body test is permitted.
+- [x] Before any session helper, require the public Better Auth JWE cookie-cache
+  verifier, finite current expiry, verified stable identity and cached token;
+  bind to the shared cryptographic session's token/identity before normal family
+  checks. Cover missing/tampered/wrong-key/expired caches, same-user mixed tokens,
+  secure-prefix/chunked positives and no refresh. This preserves prior stateless
+  rejection independently of callback-process adapter memory; no custom crypto
+  or shared-auth/vendor change.
+- [x] Prove contracts/status/private-no-store, exactly one optional list cursor,
   invalid/duplicate query denial, no mutation from GET/HEAD/unsupported methods,
   unauthorized/pending/expired/denied identities, hostile body/Origin and generic
   DB/schema failures. Confirm accepted writes/listing survive a fresh server
   against the same owned DB. No provider/photo fetch occurs on the server.
-- [ ] Reuse test-process Google/OAuth and owned server fixtures only; the helper
+- [x] Reuse test-process Google/OAuth and owned server fixtures only; the helper
   already forces paid keys empty. Use real requests for body/authorization
   behavior, with no test session endpoint in production.
 
 Files: app/api/menu/route.ts, app/api/menu/[id]/remove/route.ts,
-tests/menu/http.test.ts. Depends on task5; verify focused HTTP suite after build.
+lib/menu/http.ts, proxy.ts, tests/menu/http.test.ts. Depends on task5; verify
+compiled exact/false-prefix/sibling matcher behavior, all-method Host/auth/header
+parity, raw unfinished save/remove deadlines and focused HTTP suite after build.
 
 ### 7. Save from search and open the real menu — medium
 
@@ -306,6 +329,9 @@ Verify browser flows at390/1440 and dialog bounds at320, plus focused HTTP tests
 
 Files: tests/deployment/postgres-packaging.test.ts, scripts/postgres-hosted.ts.
 Depends on tasks6–8; existing metadata tests must continue passing.
+The stale-extra-entry metadata fixture now appends a timestamp after the last
+reviewed migration, preserving its stale-manifest assertion with multiple
+migrations; explicit malformed/reordered fixtures remain unchanged.
 
 ### 10. Documentation, full verification and independent handoff — medium
 

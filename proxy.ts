@@ -49,4 +49,6 @@ export async function proxy(request: NextRequest) {
   return response;
 }
 
-export const config = { matcher: "/:path*" };
+// Menu handlers independently preserve every gate/header without Next's Proxy
+// body cloning, which otherwise waits for client EOF before route deadlines run.
+export const config = { matcher: "/((?!api/menu(?:/[^/]+/remove)?/?$).*)" };

@@ -35,7 +35,7 @@ test('empty malformed reordered and stale runtime manifests fail closed', () => 
     assert.throws(() => validateMigrationMetadata(value));
   }
   assert.throws(() => repositoryMigrations(undefined, [{hash:'a'.repeat(64),folderMillis:runtimeMigrations[0].folderMillis}]), /stale/);
-  assert.throws(() => repositoryMigrations(undefined, [...runtimeMigrations, {...runtimeMigrations[0],folderMillis:runtimeMigrations[0].folderMillis+1}]), /stale/);
+  assert.throws(() => repositoryMigrations(undefined, [...runtimeMigrations, {...runtimeMigrations[0],folderMillis:runtimeMigrations.at(-1)!.folderMillis+1}]), /stale/);
 });
 
 test('changed catalog is rejected without opening or repairing a database', async () => {

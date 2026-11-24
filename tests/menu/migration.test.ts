@@ -78,3 +78,18 @@ test('explicit migration grants allow menu read/insert/delete but deny update, t
     assert.deepEqual(await runtime.one('SELECT rolsuper,rolcreatedb,rolcreaterole,rolbypassrls FROM pg_roles WHERE rolname=current_user'), { rolsuper: false, rolcreatedb: false, rolcreaterole: false, rolbypassrls: false });
   } finally { await runtime.close(); await owner.close(); await fixture.cleanup(); }
 });
+
+test('a PostgreSQL dump restores menu snapshots with an exactly compatible runtime catalog', async () => {
+  const source = await testDatabase(); const db = await source.open();
+  let target: Awaited<ReturnType<typeof restrictedMenuDatabase>> | undefined;
+  try {
+    const family = randomUUID(), id = randomUUID();
+    await db.execute('INSERT INTO families VALUES ($1,$2)', [family, 1]);
+    await db.execute('INSERT INTO menu_recipes (id,family_id,source_url,image_url,title,summary,saved_at) VALUES ($1,$2,$3,$4,$5,$6,$7)', [id, family, 'https://example.test/recipe', 'https://images.example.test/photo.jpg', 'Chickpeas', 'Cook them.', 1795450000001]);
+    target = await restrictedMenuDatabase(source.url);
+    const restored = await openDatabase(target.runtimeUrl);
+    try {
+      assert.deepEqual(await restored.one('SELECT id,image_url,saved_at FROM menu_recipes WHERE family_id=$1', [family]), { id, image_url: 'https://images.example.test/photo.jpg', saved_at: 1795450000001 });
+    } finally { await restored.close(); }
+  } finally { await db.close(); await source.cleanup(); await target?.cleanup(); }
+});

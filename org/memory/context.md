@@ -9,8 +9,8 @@ intent/saved-recipe-menu/plan.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: backend
+- turn: 2
+- phase: frontend
 - stop_reason: None
 
 ## Agents
@@ -25,6 +25,7 @@ intent/saved-recipe-menu/plan.md
 
 ## Open messages
 
+- architect-0010 architect -> senior-developer answer: Re: Pinned Next proxy stalls before menu body deadline
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -154,16 +155,17 @@ intent/saved-recipe-menu/plan.md
 - security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
 - security-researcher-0023 security-researcher -> orchestrator review: Saved menu Design security clear
 - security-researcher-0024 security-researcher -> orchestrator review: Saved menu build plan security clear
+- security-researcher-0025 security-researcher -> orchestrator answer: Re: Review equivalent protected menu boundary for streamed timeout
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0127 orchestrator: Owner-required menu removal confirmation implemented in Design preview and specification only. Independent review approved; root browser1440/320 verified named dialog, Cancel focus, Cancel/Escape preserve recipe and confirm alone removes. Visual round used four turns, no budget extension; owner visual review pending before Build. (org/reviews/visual-saved-recipe-menu-002.md)
-- mem-0128 orchestrator: Rafael approved final saved-menu visual Design including removal confirmation. Recorded spec amendment and visual approval for3da9c0a; archived completed four-turn visual loop without extension. New bounded build-planning run will produce reviewed plan before human engineer approval; no code or hosted effects authorized. (org/messages/ceo-0052.md)
-- mem-0129 orchestrator: Saved menu Build plan completed with exact manifest and ten tested slices. Independent security and peer review approved after escaping literal[id] route in fnmatch manifest; no remaining findings. Human engineer plan approval pending before code; no runtime/schema/hosted effects. Final evidence plan-saved-recipe-menu-002.md. (intent/saved-recipe-menu/plan.md)
 - mem-0130 orchestrator: Rafael approved reviewed saved menu implementation plan at6a59ed2 and directed implementation. Started bounded eight-turn Build with three tested developer increments then independent security/code reviews; owned disposable local DB migration only. No development/hosted schema mutation, paid calls, merge or release authority. (org/messages/ceo-0053.md)
 - mem-0131 orchestrator: Saved menu foundation tasks1-4 implemented RED/GREEN and verified:14menu and8family-storage tests,lint/typecheck/build pass. New additive schema/catalog/grants tested only on owned random local databases; original migration/SQLite/rollback evidence preserved. Test configuration reused existing native cluster privately without setup or dev/hosted migration. (intent/saved-recipe-menu/verification.md)
+- mem-0132 architect: Pinned Next16.4.6 Proxy clones POST bodies and awaits original EOF before RouteHandler, preventing its5second parser timer from starting. Architect source diagnosis and independent security consultation approve implementing exact menuAPI dispatch exclusion with equivalent all-method protected handler boundary; mandatory compiled matcher/header/auth/unfinished-body regressions preserve protections. No vendor or global timeout change. (intent/saved-recipe-menu/request-timeout-note.md)
+- mem-0133 security-researcher: Moving exact menu API dispatch from Next Proxy exposes BetterAuth same-process memory fallback for missing/expired cache. Independent follow-on review approves menu-only mandatory public JWE cookie-cache verification/expiry/identity/token binding before session helpers; preserve current onehour/no-refresh and all admission/write checks, with realHTTP regression proof. No sharedauth/vendor mutation or deadline/test weakening. (org/reviews/security-saved-recipe-menu-timeout-001.md)
+- mem-0134 orchestrator: Saved menu backend tasks5-6 verified:32menu,34family,14auth,32deployment tests and lint/typecheck/build pass. Scoped exact API matcher+equivalent all-method guard resolves Next body EOF buffering; mandatory public BetterAuth JWE cache/expiry/token/identity precheck preserves stateless denial. Unreleased0001 flatAND checks now round-trip exactly through pg_dump/restore with restricted runtime proof. OriginalSQL/SQLite and dev/hosted data untouched. (intent/saved-recipe-menu/verification.md)
 
 ## Constraints
 
@@ -171,15 +173,15 @@ intent/saved-recipe-menu/plan.md
 
 ## Artifacts
 
-- intent/saved-recipe-menu/verification.md (cfd65870e4b79d1c4a805efc3e88b7978c42596b069d51d4504d52f28597bb55)
+- intent/saved-recipe-menu/verification.md (6fc5ea6565ffb4d107ae29b3e7fa63e3fa43befb9d30d600f9c5b9c21ad8f7b6)
 
 ## Next action
 
-senior-developer:implement_menu_foundation
+senior-developer:implement_menu_store_and_http
 
 ## Last digest source
 
-- mem-0131 from intent/saved-recipe-menu/verification.md
+- mem-0134 from intent/saved-recipe-menu/verification.md
 
 <!-- machine:end -->
 
