@@ -58,7 +58,7 @@ export function parseSavedMenuEntry(value: unknown): SavedMenuEntry | null {
   const recipe = parseMenuRecipe(value.recipe);
   if (!recipe || !isRecord(value.recipe) || !unchangedRecipe(value.recipe, recipe)) return null;
   const curation = value.curation;
-  if (!isRecord(curation) || !exactKeys(curation, ['state', 'retryable']) || !['ready', 'pending', 'processing', 'failed', 'interrupted'].includes(String(curation.state)) || typeof curation.retryable !== 'boolean' || curation.retryable !== (curation.state === 'failed' || curation.state === 'interrupted')) return null;
+  if (!isRecord(curation) || !exactKeys(curation, ['state', 'retryable']) || typeof curation.state !== 'string' || !['ready', 'pending', 'processing', 'failed', 'interrupted'].includes(curation.state) || typeof curation.retryable !== 'boolean' || curation.retryable !== (curation.state === 'failed' || curation.state === 'interrupted')) return null;
   return { id: value.id as string, savedAt: value.savedAt, recipe, curation: { state: curation.state as SavedMenuEntry['curation']['state'], retryable: curation.retryable } };
 }
 export function menuEntryFromRow(value: unknown): SavedMenuEntry {
@@ -66,7 +66,7 @@ export function menuEntryFromRow(value: unknown): SavedMenuEntry {
   const time = value.timeKind === null && value.timeText === null ? null : { kind: value.timeKind, text: value.timeText };
   let state: unknown = value.curationState ?? 'ready';
   if (value.curationState != null) {
-    if (!['pending', 'processing', 'ready', 'failed'].includes(String(state)) || !timestamp(value.curationExpiresAt)) throw new Error('Storage unavailable');
+    if (typeof state !== 'string' || !['pending', 'processing', 'ready', 'failed'].includes(state) || !timestamp(value.curationExpiresAt)) throw new Error('Storage unavailable');
     if ((state === 'pending' || state === 'processing') && value.curationExpiresAt <= Date.now()) state = 'interrupted';
   }
   const entry = parseSavedMenuEntry({ id: value.id, savedAt: value.savedAt, curation: { state, retryable: state === 'failed' || state === 'interrupted' }, recipe: { title: value.title, sourceUrl: value.sourceUrl, imageUrl: value.imageUrl, summary: value.summary, time } });

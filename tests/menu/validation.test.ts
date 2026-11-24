@@ -69,3 +69,14 @@ test('curation state is explicit and exact, with no private task authority in pu
   for (const curation of [{ state: 'failed', retryable: false }, { state: 'pending', retryable: true }, { state: 'ready', retryable: false, generation: id }, { state: 'unknown', retryable: false }]) assert.equal(parseSavedMenuEntry({ ...entry, curation }), null);
   assert.deepEqual(parseSavedMenuEntry({ ...entry, curation: { state: 'interrupted', retryable: true } })?.curation, { state: 'interrupted', retryable: true });
 });
+
+test('curation enum boundaries reject non-string states instead of coercing JSON values', () => {
+  const entry = { id, savedAt: 1, recipe, curation: { state: 'ready', retryable: false } };
+  const row = { id, savedAt: 1, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes', curationState: 'ready', curationExpiresAt: Date.now() + 30000 };
+  for (const state of [['ready'], ['pending'], [], 0, 1, true, false, {}, { state: 'ready' }]) {
+    assert.equal(parseSavedMenuEntry({ ...entry, curation: { state, retryable: false } }), null);
+    assert.throws(() => menuEntryFromRow({ ...row, curationState: state }), /Storage unavailable/);
+  }
+  assert.equal(parseSavedMenuEntry({ ...entry, curation: { state: null, retryable: false } }), null);
+  assert.deepEqual(menuEntryFromRow({ ...row, curationState: null, curationExpiresAt: null }).curation, { state: 'ready', retryable: false }, 'a left-joined absent task still identifies an existing search snapshot');
+});

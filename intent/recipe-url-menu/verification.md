@@ -139,3 +139,41 @@ claimed. Interruption proof covers persisted expiry/read-only derivation,
 registration failure, manual Retry and stale-work fencing; it is not a claim
 that a terminated server continues running background work. Formal independent
 security/code review and final staged checks are orchestrator-owned gates.
+
+## Independent review correction — strict curation state types
+
+Independent code review `org/reviews/code-recipe-url-menu-001.md` identified one
+P2 boundary defect at the previously verified source742ce99: String(state)
+coerced JSON arrays such as ["ready"] into accepted enum labels, while returning
+the original array. Added a regression before source edits and observed RED:
+seven existing validation tests passed, new eighth failed because that array was
+returned instead of null. No prior pass is presented as covering this missing case.
+
+The correction changes only the public and persisted enum membership checks to
+require `typeof state === 'string'` and compare the string without coercion. Exact
+keys, enum/status-pair rules and recipe/ID/timestamp checks remain intact.
+Regression cases cover arrays, numbers, booleans and objects at both boundaries,
+plus publicnull rejection. Persistednull from an absent LEFTJOIN task remains the
+specified legacy/search ready state and is explicitly covered.
+
+Actual corrected-source checks:
+
+- Focused parser/body/validation: 28 passed, zero failures/skips.
+- `pnpm run lint`: passed.
+- `pnpm run typecheck`: passed.
+- `pnpm run build`: passed; compile3.3s and TypeScript1.72s.
+- `pnpm run test:menu`: 65 passed in27.45s, zero failures/skips.
+- `node --import tsx --test tests/deployment/*.test.ts`: 32 passed in2.14s.
+- Targeted real Chrome smoke on the rebuilt client: actual protected URL save,
+  ready metadata accepted, exactly one source acquisition and no console errors.
+  It used owned isolated native publisher/database/server/profile fixtures with
+  normal successful API responses, never a fabricated success response.
+- `git diff --check`: passed.
+
+The correction only rejects previously malformed non-string values. Existing
+full Chrome proof for valid string states and visual behavior remains applicable;
+the targeted rebuilt smoke confirms the shared client validator's valid path.
+No broad visual/polling rerun or new screenshots were needed for this two-check
+correction. All correction fixtures stopped and cleaned. Source is frozen for
+independent exact-source security reconfirmation and final code re-review;
+those approvals remain orchestrator-owned and are not asserted here.
