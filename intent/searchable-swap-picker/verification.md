@@ -159,3 +159,27 @@ are evidence. No additional helper or dependency path changed.
 No original source copy-back, hosted operation, migration, job activation, paid
 call, push, merge or deployment occurred here. Root owns guarded copy-back,
 exact-SHA independent security/final review and human merge/release gates.
+
+
+## Root source-equivalence and final handoff
+
+Fixed reviewed source: `b0627be7e2e65eed7061c4cbb1bb4182ed436a52`.
+Root checked each of the23 handoff paths against its original intake baseline
+before copy-back, then checked exact private/original bytes. Independent security
+verified all23 working/committed/private paths; the final code reviewer separately
+verified all10 changed runtime/test paths. Later audit commits contain only
+workflow/review/evidence changes and do not alter this fixed application source.
+
+The user's `next-env.d.ts` SHA256 remains
+`0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc`;
+it was never staged. The owner's development process and original `.next` were
+not stopped/rebuilt. No schema or migration action is required for this feature.
+Actual test outputs are summarized above; private QA logs are temporary and the
+owned private copy is removed after the final reviewers finish. Screenshots and
+review reports remain versioned in the repository.
+
+Independent security: `org/reviews/searchable-swap-picker-security-001.md` (CLEAR).
+Independent code review: `org/reviews/searchable-swap-picker-final-001.md`.
+The org loop completes local implementation only. Human merge and release remain
+pending; hosted ICU availability must be checked read-only for an authorized
+release target before release validation. No deployment or hosted access occurred.

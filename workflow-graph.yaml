@@ -23,7 +23,7 @@ nodes:
     stage: "build"
     artifact: "searchable-swap-picker-implementation"
     gate: "code_owner_approve"
-    status: not_started
+    status: in_review
     done_status: "merged"
   staging_acceptance:
     stage: "test"
