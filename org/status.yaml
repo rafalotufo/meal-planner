@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: "Stable modal frame3turnloop solved; exact5e4dd69 reviewed, humanmerge/release pending." }
   product-manager: { status: idle, assignment: null, last_report: "Searchable visual swap picker intentaccepted forDesign from ownerapprovedpreview; fullmenuboundedsearch, existingsemantics preserved." }
   architect: { status: idle, assignment: null, last_report: Searchable swap picker design independently approved; implementation gate open. }
-  senior-developer: { status: idle, assignment: null, last_report: "Modal flicker fixed at5e4dd69;55geometrysamples0px,223Node7Python/fullChrome pass; independentlyapproved." }
+  senior-developer: { status: busy, assignment: retained-search-results-plan, last_report: "Modal flicker fixed at5e4dd69;55geometrysamples0px,223Node7Python/fullChrome pass; independentlyapproved." }
   security-researcher: { status: idle, assignment: null, last_report: Searchable swap picker securityCLEAR exactb0627be;23path equivalence and8validation independentlypassed. }
-  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-stable-frame-code-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-retained-results-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -93,3 +93,4 @@ review_queue:
   - { id: searchable-swap-picker-code-001, artifact: searchable-swap-picker-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: searchable-swap-picker-stable-frame-plan-001, artifact: searchable-swap-picker-stable-frame-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: searchable-swap-picker-stable-frame-code-001, artifact: searchable-swap-picker-stable-frame, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-retained-results-plan-001, artifact: searchable-swap-picker-retained-results-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

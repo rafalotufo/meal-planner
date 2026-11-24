@@ -29,6 +29,7 @@
 - `org/loop/history.jsonl`
 - `org/loop/archive/unique-weekly-recipes-before-searchable-swap-picker-2026-11-24/*`
 - `org/loop/archive/searchable-swap-picker-before-stable-frame-2026-11-24/*`
+- `org/loop/archive/stable-frame-before-retained-results-2026-11-24/*`
 - `org/status.yaml`
 - `org/messages/*.md`
 - `org/reviews/*searchable-swap-picker*`
@@ -160,3 +161,38 @@ runtime/test manifest; the added archive path preserves the completed prior loop
    exact-source copy-back and human merge/release gates. Preserve original live
    server, next-env.d.ts bytes and .next cache throughout; no deployment or data
    effects are authorized.
+
+
+## Owner follow-up plan — retain results until replacement is ready
+
+Status: Approved in `org/reviews/searchable-swap-picker-retained-results-plan-001.md`. Supersedes the prior
+clear-page/loading-only/no-stale-display directions while preserving immediate
+selection invalidation and disabled stale choices. The archive path above retains
+the completed stable-frame loop. Existing manifest paths suffice.
+
+1. In a fresh root-owned private QA copy, add browser regressions first to
+   `tests/plans/browser.ts`. Capture actual displayed choice IDs before physical
+   typing; sample through successive characters, debounce and a delayed body.
+   IDs must remain identical/nonempty with choices/paging/confirmation disabled
+   and selection cleared. Old behavior must fail by removing the choices. Verify
+   an atomic latest-response replacement, accurate displayed-query metadata,
+   fresh query cursors, ordinary-error retention/Retry and401/403 display clearing.
+2. Update only `app/plans/swap-recipe-dialog.tsx` result lifecycle/rendering as
+   necessary: retain a successful displayed snapshot with its query/cursor,
+   requested query/page separate, and commit snapshot only after current validated
+   success. Show Updating/aria-busy without hiding the retained choices. Disable
+   stale choices/paging/confirmation on pending/error; clear selection immediately.
+   Current unauthorized/forbidden reads clear retained recipes. Preserve all
+   cancellation/version/deadline/response-validation and mutation-instance guards.
+   No API/store/schema/dependency/helper or stable-frame CSS change.
+3. Adapt prior browser assertions to this explicitly changed UX rather than
+   weaken safety checks. Preserve malformed/oversized/UTF8, stale-response,
+   close/reopen, explicit one-POST/captured revision, native focus, unique planning,
+   full-menu paging, no-dates and55 stable-geometry checks. Exercise320/1440 and
+   short-mobile behavior; inspect refreshed existing modal screenshots.
+4. Run private lint/typecheck/build and full Chrome; freeze final build before
+   root's broad/compiled suites, record actual red/green and exact paths in
+   verification.md. Independent review assesses this scoped state/presentation
+   change and unchanged security boundaries. Root owns workflow/git/guarded
+   copy-back; preserve original dev server, next-env.d.ts and .next. No data,
+   hosted, scheduler, paid, merge or deployment action is authorized.

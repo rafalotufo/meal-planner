@@ -8,10 +8,10 @@ intent/searchable-swap-picker/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 3
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: build
+- stop_reason: None
 
 ## Agents
 
@@ -21,7 +21,7 @@ intent/searchable-swap-picker/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (retained-search-results-plan)
 
 ## Open messages
 
@@ -59,6 +59,7 @@ intent/searchable-swap-picker/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
+- ceo-0057 ceo -> orchestrator decision: Keep visible recipes while search updates
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -171,13 +172,11 @@ intent/searchable-swap-picker/intent.md
 
 ## Artifacts
 
-- org/reviews/searchable-swap-picker-stable-frame-plan-001.md (18fe140fdd23bf403c13c6169b0b4f351b7ee6d42dadd9c145c6aca24e72b17b)
-- intent/searchable-swap-picker/verification.md (4905221ab6ef5be06727cd05336b8dabfd36900d7b96fc9ae3420460d1c2ef7c)
-- org/reviews/searchable-swap-picker-stable-frame-final-001.md (40711ec94e5177d0c020d099ed4e2f79eabd0dae1e08dceebeb4fe41ea2a533d)
+- org/reviews/searchable-swap-picker-retained-results-plan-001.md (2118ab75b67881603f37deeba469924a8adf38bde7019de7dfe1cb46260157ca)
 
 ## Next action
 
-reviewer:verify_stable_modal_frame
+reviewer:approve_retained_results_change
 
 ## Last digest source
 

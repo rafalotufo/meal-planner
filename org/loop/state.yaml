@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/searchable-swap-picker/intent.md
-base_commit: 2aad34fc7093d3d0648f58645cc42c044fe1a3b0
-turn: 3
+base_commit: 76ffba0f921f6cf6d9076348f5e87f911bda7336
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: cfc4528726ff5f29e5112a0e3abef1617a03f6d625f44f55dace6d74312a08cb
-stop_reason: solved
-last_action: "reviewer:verify_stable_modal_frame"
-artifacts: [{"path": "org/reviews/searchable-swap-picker-stable-frame-plan-001.md", "sha256": "18fe140fdd23bf403c13c6169b0b4f351b7ee6d42dadd9c145c6aca24e72b17b"}, {"path": "intent/searchable-swap-picker/verification.md", "sha256": "4905221ab6ef5be06727cd05336b8dabfd36900d7b96fc9ae3420460d1c2ef7c"}, {"path": "org/reviews/searchable-swap-picker-stable-frame-final-001.md", "sha256": "40711ec94e5177d0c020d099ed4e2f79eabd0dae1e08dceebeb4fe41ea2a533d"}]
+phase: build
+status: in_progress
+last_input_hash: dbb06dfe3cf2cacc1eaa91fe53894a7e3c086ae99d3d112ca5045b6623c572b9
+stop_reason: null
+last_action: "reviewer:approve_retained_results_change"
+artifacts: [{"path": "org/reviews/searchable-swap-picker-retained-results-plan-001.md", "sha256": "2118ab75b67881603f37deeba469924a8adf38bde7019de7dfe1cb46260157ca"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T22:28:37Z"
+updated_at: "2026-11-24T22:34:05Z"

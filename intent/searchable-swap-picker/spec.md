@@ -290,3 +290,53 @@ then no matches and populated matches; also compare error and selected states.
 Old intrinsic-height CSS must fail this regression. After the CSS correction,
 geometry remains stable without horizontal overflow and all modal actions remain
 reachable. Preserve existing search/race/mutation/planning browser assertions.
+
+## Owner follow-up — retain displayed recipes while updating search
+
+Status: Approved in `org/reviews/searchable-swap-picker-retained-results-plan-001.md`. Source: the owner's
+request to keep current recipes visible during typing and replace them only when
+new results are ready. Supersedes earlier instructions to clear result choices
+on each query/page change, render only a loading message while pending, or forbid
+retention of the old displayed page. Selection clearing and stale-confirmation
+prevention remain mandatory; keeping a display snapshot does not keep it usable.
+
+Retain the last successfully validated displayed snapshot through debounce and
+fetch: page entries, page query and page cursor position move together. A query
+change immediately clears selection and resets the requested cursor, aborts old
+work and disables old choice buttons, paging and confirmation. Keep the recipes
+visible with unobtrusive Updating status and aria-busy while the latest request
+is outstanding. Initial loading with no prior successful snapshot still shows
+its loading state. Do not blank or replace the displayed entries with a spinner.
+
+Only a fully validated response for the current instance/request atomically
+replaces the displayed snapshot. Existing byte/UTF8/shape limits, cancellation,
+12-second deadline and success/error/finally version checks remain unchanged.
+Older responses cannot replace displayed results or enable selection. Once the
+current success commits, choices may be selected normally; no old selection is
+restored automatically.
+
+Display metadata must identify what is actually visible: if the input differs
+from the displayed query, label the retained page as previous/currently displayed
+results rather than claiming it matches the new input. Available counts and
+empty/no-match descriptions refer to the displayed snapshot. A changed query
+never uses its predecessor's cursor. Paging uses only the validated current
+query's snapshot and stays disabled during an update or error. A new page request
+may retain its prior display under these same disabled-state rules.
+
+An ordinary latest-request failure retains the prior successful display with
+Retry, clear failure feedback and disabled choices/paging/confirmation; it does
+not masquerade as an empty result or a successful match for the input. A current
+401/403 search-load failure clears retained confidential recipes and shows the
+existing sign-in/access recovery state. No new admission/authentication behavior
+or public route is introduced. Retry requests the same latest query/page; Clear
+search starts a new query without reusing stale cursors. Closing/reopening still
+starts a fresh instance with no retained snapshot from the previous opening.
+
+Preserve the stable viewport-bounded frame, internal scrolling, native focus and
+dismissal, full-menu title search, explicit one-POST mutation, captured target,
+unique planning and history behavior. Browser regressions must prove that actual
+choice IDs stay identical and nonempty across physical typing/debounce/delayed
+response-body loading, while old choices cannot be selected or confirmed; only
+the latest validated result then replaces the IDs. Cover ordinary error retention,
+401/403 clearing, retry, empty success, query/cursor metadata, request/close races
+and unchanged stable geometry. No new dependency/helper/API/schema is needed.
