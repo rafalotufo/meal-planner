@@ -5,10 +5,10 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: "Unique recipes6turn loopsolved atsource0f0b0c8; reviewedlocalmigration repaired1draft to2unique, usernext-env preserved, devleftstopped, humanmerge/release pending." }
   product-manager: { status: idle, assignment: null, last_report: "Searchable visual swap picker intentaccepted forDesign from ownerapprovedpreview; fullmenuboundedsearch, existingsemantics preserved." }
-  architect: { status: busy, assignment: searchable-swap-picker-design, last_report: Unique recipe design and safe0003repair independentlyapproved/implemented; lockorder andfeedback/history preservation verified. }
-  senior-developer: { status: idle, assignment: null, last_report: "Unique1-7recipes independentlyapproved0f0b0c8;219Node/7Python/Chrome green, rootlocalrepair done2unique." }
+  architect: { status: busy, assignment: searchable-swap-picker-plan, last_report: Searchable swap picker spec/plan ready for independentreview; bounded fullmenuq search/native modal andsavedimagespolicy. }
+  senior-developer: { status: busy, assignment: searchable-swap-picker-implementation, last_report: "Unique1-7recipes independentlyapproved0f0b0c8;219Node/7Python/Chrome green, rootlocalrepair done2unique." }
   security-researcher: { status: idle, assignment: null, last_report: "Unique recipes securityCLEAR at0f0b0c8, frozen-source hashes equal testedQA,12focusedtests independentlypass; localrepair stillpendingfinalapproval." }
-  reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-unique-code-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -89,3 +89,4 @@ review_queue:
   - { id: weekly-meal-planning-swap-code-001, artifact: weekly-plan-swap-retention-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-meal-planning-unique-plan-001, artifact: weekly-meal-planning-unique-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-meal-planning-unique-code-001, artifact: weekly-plan-unique-recipes-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-plan-001, artifact: searchable-swap-picker-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
