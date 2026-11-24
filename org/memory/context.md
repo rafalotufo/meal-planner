@@ -15,7 +15,7 @@ intent/vercel-candidate-validation/intent.md
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/vercel-candidate-validation/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/vercel-candidate-validation/spec.md)
 - product-manager: idle (unassigned)
@@ -64,6 +64,7 @@ intent/vercel-candidate-validation/intent.md
 - orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
+- orchestrator-0037 orchestrator -> architect handoff: Specify approved isolated staging approach
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

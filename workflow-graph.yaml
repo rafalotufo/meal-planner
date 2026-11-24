@@ -14,13 +14,13 @@ nodes:
     stage: plan
     artifact: intent/vercel-candidate-validation/intent.md
     gate: product_owner_accept
-    status: pending
+    status: accepted
     done_status: accepted
   spec:
     stage: design
     artifact: intent/vercel-candidate-validation/spec.md
     gate: product_owner_approve
-    status: not_started
+    status: in_progress
     done_status: approved
   plan:
     stage: build
