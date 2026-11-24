@@ -2,7 +2,10 @@
 
 - Author: senior-developer
 - Date: 2026-11-24
-- Status: Draft for independent security/peer review, then human engineer approval
+- Status: Approved
+- Approval: `org/messages/ceo-0053.md`; independent reviews
+  `org/reviews/security-saved-recipe-menu-plan-001.md` and
+  `org/reviews/plan-saved-recipe-menu-002.md`.
 - Inputs: approved sibling `spec.md` and `visual-design.md`; owner approval
   `org/messages/ceo-0052.md`; removal-confirmation requirement `ceo-0051.md`.
 - Task list: the ordered checklist in this document is the authoritative task
