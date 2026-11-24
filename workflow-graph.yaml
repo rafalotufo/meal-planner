@@ -51,7 +51,7 @@ nodes:
     stage: deploy
     artifact: intent/vercel-candidate-validation/hosted-setup.md
     gate: preview_deployment_authorization
-    status: in_review
+    status: approved
     done_status: approved
   preview_verification:
     stage: deploy
