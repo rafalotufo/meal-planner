@@ -1,29 +1,29 @@
-# Shared site layout; local org work only, human merge/release gates preserved.
+# Weekly meal planning; local org work only, human merge/release gates preserved.
 version: 1
 nodes:
   intent:
     stage: "plan"
-    artifact: "intent/shared-site-layout/intent.md"
+    artifact: "intent/weekly-meal-planning/intent.md"
     gate: "product_owner_accept"
-    status: accepted
+    status: draft
     done_status: "accepted"
   spec:
     stage: "design"
-    artifact: "intent/shared-site-layout/spec.md"
+    artifact: "intent/weekly-meal-planning/spec.md"
     gate: "product_owner_approve"
-    status: approved
+    status: draft
     done_status: "approved"
   plan:
     stage: "build"
-    artifact: "intent/shared-site-layout/plan.md"
+    artifact: "intent/weekly-meal-planning/plan.md"
     gate: "engineer_approve"
-    status: approved
+    status: draft
     done_status: "approved"
   implementation:
     stage: "build"
-    artifact: "shared-site-layout-implementation"
+    artifact: "weekly-meal-planning-implementation"
     gate: "code_owner_approve"
-    status: merged
+    status: not_started
     done_status: "merged"
   staging_acceptance:
     stage: "test"
@@ -33,7 +33,7 @@ nodes:
     done_status: "approved"
   release:
     stage: "deploy"
-    artifact: "authorized shared layout release"
+    artifact: "authorized weekly meal planning release"
     gate: "release_authorization"
     status: "not_started"
     done_status: "done"

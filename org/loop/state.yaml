@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/shared-site-layout/intent.md
-base_commit: d1b11652abb5cf59d2b0ddce2b2b01d02480b8fc
-turn: 6
+work_item: intent/weekly-meal-planning/intent.md
+base_commit: 17881438e3c68f0099e063e714560682c93bd0fb
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: c706ce6f8d1544ca6e608e0c4f62e6b92d59d97a788eb4bc8d1378f3a47828ca
-stop_reason: solved
-last_action: "reviewer:verify_shared_layout"
-artifacts: [{"path": "org/reviews/intent-shared-site-layout-001.md", "sha256": "92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b"}, {"path": "intent/shared-site-layout/plan.md", "sha256": "0c7253aefc37a2306d8876e860f685975967a7039429f24e4c8e09a56eb041fa"}, {"path": "org/reviews/shared-site-layout-plan-001.md", "sha256": "44c5e5ba2f637613504309b84ef0eca5154273781cababc8bf8784d0c7441663"}, {"path": "intent/shared-site-layout/verification.md", "sha256": "279d4ba0ce4a65f0dc4d5c7df87ceafbadaa3bbe57931fbca8881897dfe2264d"}, {"path": "org/reviews/shared-site-layout-security-001.md", "sha256": "995b26a6e0faf339d998b7707954ace473c4c266e73d4edc4b7e4a03e2319bf9"}, {"path": "org/reviews/shared-site-layout-final-001.md", "sha256": "e9737485868f21fafaaec6d06e04b9c55e3736dac6e239c5178aeb04601fba94"}]
+phase: design
+status: in_progress
+last_input_hash: d35e52fd34ed96cd5a52d0e89c47af69241340846ff88a84095dc6971608c97a
+stop_reason: null
+last_action: "product-manager:accept_weekly_meal_planning_intent"
+artifacts: [{"path": "org/reviews/intent-weekly-meal-planning-001.md", "sha256": "6a175e5f6b12cf1b6ff75dc4e0fd67bdd864a345ce3198d9c42deb679ff53197"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T17:52:21Z"
+updated_at: "2026-11-24T19:07:35Z"
