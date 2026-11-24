@@ -2,7 +2,8 @@
 
 - Author: senior-developer
 - Date: 2026-11-24
-- Status: Draft — independent plan review pending
+- Status: Approved — independent org plan gate
+- Approval: `org/reviews/plan-vercel-candidate-validation-001.md`
 - Based on: accepted sibling `intent.md`, approved `spec.md`, owner continuation
   `org/messages/ceo-0029.md`, and independent spec/security Design reviews.
 - Scope: local operator tooling and documentation only. No external setting,
