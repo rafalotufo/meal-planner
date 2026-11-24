@@ -31,7 +31,7 @@ test('due scheduler skips empty/ineligible families, concurrent retries preserve
     assert.equal((await generateDuePlans(db, [], 'Thursday', new Date('2026-12-10T14:00:00Z'))).ineligible, 1);
   } finally { await db.close(); await fixture.cleanup(); }
 });
-test('one recipe cycles across seven dates and snapshots survive removal', async () => {
+test('one recipe appears once and its snapshot survives removal', async () => {
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     await provisionFamily(db, identity, [identity.email], false);
@@ -39,7 +39,7 @@ test('one recipe cycles across seven dates and snapshots survive removal', async
     await generateDuePlans(db, [identity.email], 'Thursday', new Date('2026-11-26T14:00:00Z'));
     await removeMenuRecipe(db, identity, [identity.email], saved.entry.id);
     const view = await readPlans(db, identity, [identity.email], {}, new Date('2026-11-26T14:00:00Z'));
-    assert.deepEqual(view.plan?.meals, Array(7).fill(recipe(1)));
+    assert.deepEqual(view.plan?.meals, [recipe(1)]);
   } finally { await db.close(); await fixture.cleanup(); }
 });
 
@@ -57,4 +57,12 @@ test('off-day CLI succeeds without connecting to a valid unreachable database UR
  const local=torontoClock(new Date());const offday=weekdays[(weekdays.indexOf(local.day)+1)%7];
  const child=spawnSync(process.execPath,['--import','tsx','scripts/generate-meal-plans.ts'],{env:{...process.env,MEAL_PLAN_DRAFT_DAY:offday,DATABASE_URL:'postgresql://sensitive:fixture-password@127.0.0.1:1/unavailable',OPENAI_API_KEY:''},encoding:'utf8'});
  assert.equal(child.status,0);assert.equal(child.stderr,'');assert.deepEqual(JSON.parse(child.stdout),{skipped:true,created:0,existing:0,empty:0,ineligible:0});
+});
+
+
+test('menu sizes1/2/6/7/8 produce only available distinct recipes without cycling',async()=>{
+ for(const count of [1,2,6,7,8]){
+  const fixture=await testDatabase();const db=await fixture.open();
+  try{await provisionFamily(db,identity,[identity.email],false);for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,[identity.email],recipe(n));await generateDuePlans(db,[identity.email],'Thursday',new Date('2026-11-26T14:00:00Z'));const view=await readPlans(db,identity,[identity.email],{},new Date('2026-11-26T14:00:00Z'));assert.equal(view.plan?.meals.length,Math.min(7,count));assert.equal(new Set(view.plan!.meals.map(meal=>meal.sourceUrl)).size,Math.min(7,count));}finally{await db.close();await fixture.cleanup();}
+ }
 });

@@ -15,6 +15,8 @@ export default function PlanControls({ view }: { view: PlanView }) {
   const plan = view.plan;
   if (!plan) return null;
   const disabled = busy || refreshing;
+  const plannedSources = new Set(plan.meals.map(meal => meal.sourceUrl));
+  const replacements = view.menu.entries.filter(entry => !plannedSources.has(entry.recipe.sourceUrl));
   async function submit(action: PlanAction) {
     if (!plan || inFlight.current) return;
     inFlight.current = true; setBusy(true); setMessage(''); setError(null);
@@ -22,7 +24,9 @@ export default function PlanControls({ view }: { view: PlanView }) {
       const response = await fetch(`/api/plans/${plan.id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(action), signal: AbortSignal.timeout(12000) });
       if (!response.ok) {
         setError(response.status);
-        setMessage(response.status === 409 ? 'This plan changed or is read-only. Refresh to see the latest week.' : response.status === 401 ? 'Your session ended. Sign in again.' : response.status === 403 ? 'Family access changed. Check your access.' : response.status === 400 ? 'Choose a different saved dinner and try again.' : 'Could not update your plan. Please try again.');
+        const body: unknown = response.status === 409 ? await response.json().catch(() => null) : null;
+        const conflictMessage = body && typeof body === 'object' && 'error' in body && typeof body.error === 'string' && body.error.length <= 200 ? body.error : 'This plan changed or is read-only.';
+        setMessage(response.status === 409 ? `${conflictMessage} Refresh for the current revision, or reject a pending suggestion.` : response.status === 401 ? 'Your session ended. Sign in again.' : response.status === 403 ? 'Family access changed. Check your access.' : response.status === 400 ? 'Choose a different saved dinner and try again.' : 'Could not update your plan. Please try again.');
       } else {
         setMessage(action.action === 'accept' ? 'Swap accepted. Everyone needs to renew their approval.' : action.action === 'finalize' ? 'Week confirmed. Planned meals are now final.' : action.action === 'approve' ? 'Your approval was saved.' : action.action === 'suggest' ? 'Your suggestion was saved.' : 'Suggestion rejected.');
         setConfirming(false); startRefresh(() => router.refresh());
@@ -39,15 +43,17 @@ export default function PlanControls({ view }: { view: PlanView }) {
       <p><strong>{view.approvals}</strong> {view.approvals === 1 ? 'approval' : 'approvals'} for revision {plan.revision}. Silent members have not approved.</p>
       {view.editable ? <button data-plan-approve className={button} disabled={disabled || view.approved} onClick={() => submit({ action: 'approve', revision: plan.revision })}>{view.approved ? 'You approved' : 'Looks good'}</button> : null}
     </div>
+    {plan.originalRecipeCount > plan.meals.length ? <p role="note" className="mt-5 text-sm text-stone-600">This older finalized plan contained repeated recipes. Showing {plan.meals.length} unique recipes from its original {plan.originalRecipeCount} entries.</p> : null}
+    {view.editable && view.menu.entries.length > 0 && !replacements.length ? <p className="mt-5 text-sm text-stone-600">All recipes on this menu page are already planned. Save more recipes or browse older saved dinners.</p> : null}
     <div className="mt-6 grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {plan.meals.map((meal, day) => <article key={day} className="min-w-0 rounded-xl border border-stone-200 bg-white p-4">
         <h2 className="font-serif text-xl wrap-anywhere text-stone-900">{meal.title}</h2>
         <a href={meal.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-11 items-center text-sm text-emerald-900 underline focus-visible:outline-2 focus-visible:outline-emerald-700">Open recipe<span className="sr-only">: {meal.title} (new tab)</span></a>
-        {view.editable && view.menu.entries.length ? <form className="mt-3 border-t border-stone-100 pt-3" onSubmit={event => { event.preventDefault(); const value = new FormData(event.currentTarget).get('recipe'); if (typeof value === 'string') void submit({ action: 'suggest', revision: plan.revision, day, menuRecipeId: value }); }}>
+        {view.editable && replacements.length ? <form className="mt-3 border-t border-stone-100 pt-3" onSubmit={event => { event.preventDefault(); const value = new FormData(event.currentTarget).get('recipe'); if (typeof value === 'string') void submit({ action: 'suggest', revision: plan.revision, day, menuRecipeId: value }); }}>
           <label className="block text-sm font-medium" htmlFor={`swap-${day}`}>Replacement recipe<span className="sr-only"> for {meal.title}</span></label>
           <select id={`swap-${day}`} name="recipe" required disabled={disabled} defaultValue="" className="mt-2 min-h-11 w-full min-w-0 max-w-full rounded-lg border border-stone-400 bg-white px-2 text-sm focus-visible:outline-2 focus-visible:outline-emerald-700">
             <option value="" disabled>Choose a replacement</option>
-            {view.menu.entries.filter(entry => entry.recipe.sourceUrl !== meal.sourceUrl).map(entry => <option key={entry.id} value={entry.id}>{entry.recipe.title}</option>)}
+            {replacements.map(entry => <option key={entry.id} value={entry.id}>{entry.recipe.title}</option>)}
           </select>
           <button type="submit" disabled={disabled} data-plan-suggest={day} className={`${button} mt-2 w-full`}>Suggest swap</button>
         </form> : null}
@@ -59,7 +65,7 @@ export default function PlanControls({ view }: { view: PlanView }) {
     </div>
     {view.editable ? <section className="mt-6 rounded-xl border border-stone-200 bg-white p-5" aria-label="Confirm planned meals">
       <p className="text-sm text-stone-600">Accepting a swap clears all approvals. Everyone must approve the new revision again.</p>
-      {confirming ? <div className="mt-3"><p id="confirm-warning" className="text-sm font-medium">Confirm these seven planned meals? Later edits are unavailable. Pending suggestions will be closed. Confirmation does not require everyone’s approval.</p><div className="mt-3 flex flex-wrap gap-3"><button data-plan-confirm className={button} aria-describedby="confirm-warning" disabled={disabled} onClick={() => submit({ action: 'finalize', revision: plan.revision })}>Confirm these meals</button><button className={button} disabled={disabled} onClick={() => setConfirming(false)}>Cancel</button></div></div> : <button className={`${button} mt-3`} data-plan-finalize disabled={disabled} onClick={() => setConfirming(true)}>Confirm week</button>}
+      {confirming ? <div className="mt-3"><p id="confirm-warning" className="text-sm font-medium">Confirm {plan.meals.length} planned {plan.meals.length === 1 ? 'recipe' : 'recipes'}? Later edits are unavailable. Pending suggestions will be closed. Confirmation does not require everyone’s approval.</p><div className="mt-3 flex flex-wrap gap-3"><button data-plan-confirm className={button} aria-describedby="confirm-warning" disabled={disabled} onClick={() => submit({ action: 'finalize', revision: plan.revision })}>Confirm these meals</button><button className={button} disabled={disabled} onClick={() => setConfirming(false)}>Cancel</button></div></div> : <button className={`${button} mt-3`} data-plan-finalize disabled={disabled} onClick={() => setConfirming(true)}>Confirm week</button>}
     </section> : <p className="mt-6 text-sm text-stone-600">{plan.status === 'final' ? 'Final planned meals. This week cannot be edited.' : 'This past draft is read-only and was never confirmed.'}</p>}
   </>;
 }

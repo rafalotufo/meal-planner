@@ -193,3 +193,135 @@ retained-suggestion and mobile screenshots. No material findings. The bounded
 correction loop completed in4 turns. Human merge/release and scheduler activation
 remain pending; no hosted migration/deployment or development-data edits occurred.
 Later audit-only commits do not change this reviewed source.
+
+## Unique weekly recipes amendment — isolated QA verification
+
+Source: `org/messages/ceo-0054.md`; approved design/plan review:
+`org/reviews/weekly-meal-planning-unique-plan-001.md`. All implementation and
+verification for this amendment occurred ONLY in
+`/private/tmp/meal-planner-unique-qa-2zcxp482/project`, the root-prepared copy of
+tracked plus approved pending sources. The original checkout, its user-modified
+`next-env.d.ts`, `.next`, environment and development/hosted data were untouched
+by this developer. No Git operations or source copy-back occurred here. Root owns
+baseline/hash comparison, review, selective copy-back and later authorized local
+repair. The private copy has no production/provider environment; all test servers
+force empty paid keys and use owned random local PostgreSQL databases.
+
+Commands explicitly used the private working directory, `OPENAI_API_KEY=`, and
+`PATH=/Users/rafael/.nvm/versions/node/v24.15.0/bin:$PATH` (Node24.15.0/pnpm10.33.0).
+The first attempt inherited broken Homebrew Node22 (missing old ICU dylib); pinning
+the already-installed Node24 path corrected that environment issue without setup
+or dependency changes. Private Next type generation changed its own
+`next-env.d.ts`; this generated private side effect MUST NOT be copied back.
+
+### Actual test-first evidence
+
+Before runtime changes, focused generation/validation run exited1:7 tests,
+4 pass/3 fail. One saved recipe still appeared seven times, the cardinality test
+returned7 instead of1, and the parser rejected a valid one-recipe array.
+Before store changes, the two new duplicate/bounds regressions exited1:2 fail,
+showing missing409 rejection for a planned source and missing400 for slot1 in a
+one-recipe plan. Before0003 existed, authentic0000–0002 upgrade fixtures failed
+for missing fourth SQL and no-op migration instead of repair/failure.
+
+### Migration and runtime results
+
+The additive0003 first statement acquires FAMILY_WRITE_LOCK73462901 inside the
+existing migration-lock73462902 transaction, before table validation/ALTER/repair.
+Exact catalog was derived only by applying reviewed migration SQL through the
+public migration loader in an owned random test database, then dropping it.
+Original0000–0002 SQL/hash entries were preserved. New cardinality is1..7; no
+runtime grants or dependencies changed.
+
+The final3 migration tests passed, covering authentic first-three SQL/history,
+mixed duplicate/unique/foreign/final plans, first snapshot/order preservation,
+current pending slot/cohort mapping, deterministic oldest/time-then-ID winners,
+losers stale before remap, untouched unique pending/approval/final facts,
+idempotency, malformed source/revision-overflow atomic rollback, unchanged
+restricted grants/catalog, compatible clean rollback and explicit refusal to
+rollback compacted non-seven data. An accepted canonical underscore hostname is
+retained, avoiding a new hostname policy narrower than the existing writer.
+
+Focused runtime/migration suite exited0,17/17. Final private commands:
+
+- `pnpm run lint`: exit0, no warnings.
+- `pnpm run typecheck`: exit0, strict TypeScript.
+- `pnpm run build`: exit0; reviewed runtime metadata matches SQL/journal;
+  compiled protected page/action routes present. Source/build frozen afterward
+  before root's existing-suite run; no dev server was used.
+- `pnpm run test:plans`: exit0,20/20 (previous15 plus variable-count generation,
+  two migration and two canonical-duplicate/bounds/legacy tests).
+- `node --import tsx tests/plans/browser.ts`: exit0 on that stable build.
+
+Runtime tests prove menus1/2/6/7/8 yield min(7,count) distinct recipes; canonical
+source identity survives menu removal/re-save; duplicate/no-op proposals409;
+concurrent two-slot accepts cannot repeat a source; the now-conflicting retained
+proposal remains unchanged/pending/rejectable. Both incoming indices and stored
+pending indices obey actual cardinality; invalid stored slot6 on one recipe fails
+closed in reads and accept/reject. Duplicate drafts cannot display/finalize.
+Legacy final projection shows each source once with original count available,
+without modifying raw finalized history. Existing caps, approval reset,
+carry-forward, family/admission and finalization regressions remain in place.
+
+The old214 total belongs to the prior15-planning-test revision. This amendment
+has20 planning tests; combined with the unchanged199 existing Node regression
+set the total is219. Root is recording the current existing-suite/Python run
+separately; this paragraph does not claim a root command before it finishes.
+
+### Real Chrome and visual evidence
+
+Actual output: “Chrome320/1440: seven dinners, labels/focus/no overflow,
+unique1/2/6/7 counts, real approve/two-card suggest/accept/retain/duplicate409/
+reject/distinct/reset, stale conflict refresh, paged menu, confirmation,
+immutable retained history passed.” The main54-menu fixture uses physical
+controls and actual HTTP: two proposals initially target one unused recipe;
+first acceptance preserves the second, duplicate acceptance returns helpful409,
+Reject resolves it, then a different unused recipe succeeds. Menu options exclude
+all current plan sources; approval reset and stale-client refresh still work.
+
+Additional owned fixtures display1/2/6/7 cards with distinct external recipe URLs,
+accurate singular/plural headings and confirmation counts at320/1440. With no
+unused choices the unusable swap form is absent and explanatory/menu pagination
+paths remain. Legacy history displays four unique cards from seven original
+entries with an explicit note; raw history is checked unchanged. No numeric dates
+outside history controls, horizontal overflow or unexpected console errors.
+
+Recaptured six standard feature images and four small-menu images:
+`weekly-plan-{draft,swap,history}-{320,1440}.png` and
+`weekly-plan-small-{1,6}-{320,1440}.png`, under the private `org/reviews/`.
+Visually inspected one-recipe mobile (accurate singular count, one card, no dead
+swap action), six-recipe desktop (six distinct cards), and legacy history mobile
+(clear4-from7 note, undated read-only cards). Owned Chrome/profile/server/database
+were cleaned up.
+
+### Changed-path handoff and limits
+
+Runtime paths: `app/plans/page.tsx`, `app/plans/plan-controls.tsx`, and
+`lib/plans/{generate,store,types,validation}.ts`. Migration paths:
+`drizzle/postgresql/0003_unique_weekly_recipes.sql`,
+`rollback-unique-plans-test.sql`, `meta/_journal.json`, `runtime-migrations.json`,
+and `catalog.json`. Test paths: `tests/plans/{browser.ts,generate.test.ts,
+http.test.ts,migration.test.ts,store.test.ts,validation.test.ts}` plus legitimate
+fourth-migration count/rollback sequencing in `tests/menu/migration.test.ts` and
+`tests/family/storage.test.ts`. Feature verification and screenshots above are
+also outputs. No other runtime source/dependency/config path changed.
+
+Original checkout/runtime repair remains pending independent security/source
+review and root's exact-target verification/copy-back. No local development
+migration, hosted migration, deployment, merge, paid call or scheduler activation
+was performed here. Root performs Git diff/secret checks on the reviewed source
+copy-back; no Git command was run inside the private verification project.
+
+
+Root completed the full private-copy regression run after the frozen Node24
+build: recipes82, family34, menu35, authentication16 and deployment32, all exit0.
+Python workflow tests7/7 exit0. Combined with the20 planning tests,219 Node tests
+passed. Commands ran in `/private/tmp/meal-planner-unique-qa-2zcxp482/project`
+with pinned Node24.15.0/pnpm10.33.0 and empty paid keys. No concurrent builds.
+
+Root copied only approved changed source/tests/metadata/feature screenshots back
+using per-file original-baseline SHA256 guards and verified byte equality with
+the tested copy. The private generated next-env.d.ts and all build/private
+configuration were excluded; the owner's original next-env.d.ts bytes remain
+unchanged.0000–0002 migration bytes remain unchanged. Local development repair
+is still pending independent final security/source review and target validation.

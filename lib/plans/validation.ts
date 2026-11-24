@@ -16,8 +16,9 @@ export function parsePlanQuery(value: Record<string, unknown>): { week?: string;
   if (Object.keys(value).some(key => key !== 'week' && key !== 'menuAfter') || value.week !== undefined && !parseWeek(value.week) || value.menuAfter !== undefined && !parseMenuCursor(value.menuAfter)) return null;
   return { ...(value.week === undefined ? {} : { week: value.week as string }), ...(value.menuAfter === undefined ? {} : { menuAfter: value.menuAfter as string }) };
 }
-export function parseMeals(value: unknown) {
-  if (!Array.isArray(value) || value.length !== 7) return null;
+export function parseMeals(value: unknown, allowLegacyDuplicates = false) {
+  if (!Array.isArray(value) || value.length < 1 || value.length > 7) return null;
   const meals = value.map(parseMenuRecipe);
-  return meals.every(meal => meal !== null) ? meals : null;
+  if (!meals.every(meal => meal !== null)) return null;
+  return allowLegacyDuplicates || new Set(meals.map(meal => meal.sourceUrl)).size === meals.length ? meals : null;
 }

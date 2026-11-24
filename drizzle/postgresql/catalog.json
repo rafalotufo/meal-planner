@@ -407,7 +407,7 @@
   {
     "kind": "constraint",
     "name": "meal_plan_weeks.meal_plan_weeks_meals_check",
-    "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND (jsonb_array_length(meals) = 7)))"
+    "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND ((jsonb_array_length(meals) >= 1) AND (jsonb_array_length(meals) <= 7))))"
   },
   {
     "kind": "constraint",

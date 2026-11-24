@@ -8,13 +8,13 @@ test('exact action unions reject missing/excess keys, unbounded revisions and in
   assert.ok(parsePlanAction({ action: 'accept', revision: 2, suggestionId: id }));
   for (const value of [{ action: 'approve' }, { action: 'approve', revision: 1, day: 0 }, { action: 'finalize', revision: 0 }, { action: 'approve', revision: 2147483648 }, { action: 'suggest', revision: 1, day: 7, menuRecipeId: id }, { action: 'reject', revision: 1, suggestionId: 'bad' }, []]) assert.equal(parsePlanAction(value), null);
 });
-test('week/query and seven validated recipe snapshots fail closed', () => {
+test('week/query and one-to-seven unique validated recipe snapshots fail closed', () => {
   assert.deepEqual(parsePlanQuery({}), {});
   assert.equal(parsePlanQuery({ week: ['2026-11-29', '2026-12-06'] }), null);
   assert.equal(parsePlanQuery({ family: id }), null);
   assert.equal(parsePlanQuery({ week: '2026-11-30' }), null);
   const recipe = { title: 'Dinner', summary: 'Cook it.', sourceUrl: 'https://example.test/dinner', imageUrl: null, time: null };
-  assert.equal(parseMeals(Array(7).fill(recipe))?.length, 7);
-  assert.equal(parseMeals(Array(6).fill(recipe)), null);
+  for (const count of [1,2,6,7]) assert.equal(parseMeals(Array.from({length:count},(_,n)=>({...recipe,sourceUrl:`https://example.test/dinner/${n}`})))?.length,count);
+  for (const value of [[],Array(8).fill(recipe),Array(2).fill(recipe),[recipe,{...recipe,sourceUrl:recipe.sourceUrl+'#method'}]]) assert.equal(parseMeals(value),null);
   assert.equal(parseMeals(Array(7).fill({ ...recipe, sourceUrl: 'javascript:alert(1)' })), null);
 });

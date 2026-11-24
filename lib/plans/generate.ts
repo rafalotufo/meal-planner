@@ -27,7 +27,7 @@ export async function generateDuePlans(db: FamilyDatabase, allowedEmails: unknow
         if (!rows.length) return 'empty';
         const candidates = rows.map(row => menuEntryFromRow(row).recipe);
         const offset = Math.floor(Date.parse(week + 'T12:00:00Z') / 604800000) % candidates.length;
-        const meals = Array.from({ length: 7 }, (_, index) => candidates[(index + offset) % candidates.length]);
+        const meals = candidates.map((_, index) => candidates[(index + offset) % candidates.length]);
         await tx.execute('INSERT INTO meal_plan_weeks (id,family_id,week_start,meals,created_at) VALUES ($1,$2,$3,$4,$5)', [randomUUID(), family.id, week, JSON.stringify(meals), now.getTime()]);
         return 'created';
       });

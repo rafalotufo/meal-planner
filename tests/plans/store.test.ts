@@ -23,7 +23,7 @@ test('family-bound approval/suggestion resolution invalidates approvals, rejects
   await assert.rejects(actOnPlan(db, identity, allowed, randomUUID(), { action:'approve', revision:1 }, now), {status:404});
   await Promise.all([1,2].map(() => actOnPlan(db, identity, allowed, id, { action:'approve', revision:1 }, now)));
   view = await readPlans(db, identity, allowed, {}, now); assert.equal(view.approvals,1); assert.equal(view.approved,true);
-  const replacement = view.menu.entries.find(entry => entry.recipe.sourceUrl !== view.plan!.meals[0].sourceUrl)!;
+  const replacement = view.menu.entries.find(entry => !view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
   const action = {action:'suggest',revision:1,day:0,menuRecipeId:replacement.id};
   await actOnPlan(db, identity, allowed, id, action, now); await actOnPlan(db, identity, allowed, id, action, now);
   view = await readPlans(db, identity, allowed, {}, now); assert.equal(view.suggestions.length,1);
@@ -46,8 +46,8 @@ test('family-bound approval/suggestion resolution invalidates approvals, rejects
 test('past drafts, removed suggestion recipes, denied grants and malformed rows fail closed without changing meals',async()=>{
  const fixture=await testDatabase();const db=await fixture.open();
  try{
-  await provisionFamily(db,identity,allowed,false);for(let n=0;n<2;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
-  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;const replacement=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[0].sourceUrl)!;
+  await provisionFamily(db,identity,allowed,false);for(let n=0;n<8;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
+  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
   await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement.id},now);view=await readPlans(db,identity,allowed,{},now);const suggestion=view.suggestions[0];
   await removeMenuRecipe(db,identity,allowed,replacement.id);
   await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId:suggestion.id},now),{status:409});
@@ -60,7 +60,7 @@ test('past drafts, removed suggestion recipes, denied grants and malformed rows 
   await assert.rejects(readPlans(db,identity,['invalid'],{},now));
   await db.execute('UPDATE app_users SET invitation_granted_at=NULL WHERE google_subject=$1',[identity.googleSubject]);
   await assert.rejects(readPlans(db,identity,[],{},now),{status:403});
-  await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(Array(7).fill({...recipe(1),title:' padded '})),id]);
+  await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(Array.from({length:7},(_,n)=>({...recipe(n),title:' padded '}))),id]);
   // Stored recipes are parsed with the same validated recipe semantics.
   assert.equal((await readPlans(db,identity,allowed,{},now)).plan?.meals[0].title,'padded');
  }finally{await db.close();await fixture.cleanup();}
@@ -69,8 +69,8 @@ test('past drafts, removed suggestion recipes, denied grants and malformed rows 
 test('100 pending suggestions bound a revision; resolving frees capacity and finalize closes remaining input',async()=>{
  const fixture=await testDatabase();const db=await fixture.open();
  try{
-  await provisionFamily(db,identity,allowed,false);for(let n=0;n<2;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
-  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;const replacement=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[0].sourceUrl)!;
+  await provisionFamily(db,identity,allowed,false);for(let n=0;n<8;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
+  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
   const user=await db.one<{id:string;family:string}>('SELECT id,family_id AS family FROM app_users WHERE google_subject=$1',[identity.googleSubject]);assert.ok(user);
   // Other persisted same-family members' valid snapshots exercise the total cap.
   for(let n=0;n<100;n++){
@@ -93,10 +93,10 @@ test('accepting one recipe stales same-slot competitors and preserves other-slot
   await provisionFamily(db,identity,allowed,false);await provisionFamily(db,other,allowed,false);
   const member=await db.one<{family:string}>('SELECT family_id AS family FROM app_users WHERE google_subject=$1',[identity.googleSubject]);assert.ok(member);
   await db.execute('UPDATE app_users SET family_id=$1 WHERE google_subject=$2',[member.family,other.googleSubject]);
-  for(let n=0;n<4;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
+  for(let n=0;n<9;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
   let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;
-  const replacement0=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[0].sourceUrl)!;
-  const replacement1=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[1].sourceUrl)!;
+  const replacement0=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
+  const replacement1=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl) && entry.id!==replacement0.id)!;
   await actOnPlan(db,identity,allowed,id,{action:'approve',revision:1},now);
   await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement0.id},now);
   await actOnPlan(db,other,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement0.id},now);
@@ -127,9 +127,9 @@ test('accepting one recipe stales same-slot competitors and preserves other-slot
 test('simultaneous different-recipe accepts serialize without consuming the stale request’s retained proposal',async()=>{
  const fixture=await testDatabase();const db=await fixture.open();
  try{
-  await provisionFamily(db,identity,allowed,false);for(let n=0;n<4;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
+  await provisionFamily(db,identity,allowed,false);for(let n=0;n<9;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
   let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;
-  for(const day of [0,1]){const replacement=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[day].sourceUrl)!;await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day,menuRecipeId:replacement.id},now);}
+  for(const day of [0,1]){const replacement=view.menu.entries.filter(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))[day]!;await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day,menuRecipeId:replacement.id},now);}
   view=await readPlans(db,identity,allowed,{},now);const proposals=view.suggestions;
   const outcomes=await Promise.allSettled(proposals.map(suggestion=>actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId:suggestion.id},now)));
   assert.equal(outcomes.filter(result=>result.status==='fulfilled').length,1);
@@ -137,10 +137,49 @@ test('simultaneous different-recipe accepts serialize without consuming the stal
   view=await readPlans(db,identity,allowed,{},now);assert.equal(view.plan?.revision,2);assert.deepEqual(view.suggestions,[proposals[loser]]);
   await actOnPlan(db,identity,allowed,id,{action:'accept',revision:2,suggestionId:proposals[loser].id},now);
   view=await readPlans(db,identity,allowed,{},now);assert.equal(view.plan?.revision,3);assert.equal(view.suggestions.length,0);
-  const replacement=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[2].sourceUrl)!;
+  const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
   await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:3,day:2,menuRecipeId:replacement.id},now);
   await actOnPlan(db,identity,allowed,id,{action:'finalize',revision:3},now);
   assert.equal((await db.one<{n:number}>("SELECT count(*) AS n FROM meal_plan_suggestions WHERE plan_id=$1 AND status='pending'",[id]))?.n,0);
   assert.equal((await db.one<{n:number}>("SELECT count(*) AS n FROM meal_plan_suggestions WHERE plan_id=$1 AND status='accepted'",[id]))?.n,2);
+ }finally{await db.close();await fixture.cleanup();}
+});
+
+test('canonical duplicates are blocked at proposal and locked acceptance while retained conflicts remain rejectable',async()=>{
+ const fixture=await testDatabase();const db=await fixture.open();try{
+  await provisionFamily(db,identity,allowed,false);for(let n=0;n<8;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));await generateDuePlans(db,allowed,'Thursday',now);
+  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id,planned=view.plan!.meals[0];
+  const existing=view.menu.entries.find(entry=>entry.recipe.sourceUrl===planned.sourceUrl)!;
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:1,menuRecipeId:existing.id},now),{status:409});
+  await removeMenuRecipe(db,identity,allowed,existing.id);const reSaved=await saveMenuRecipe(db,identity,allowed,{...planned,sourceUrl:planned.sourceUrl+'#again'});
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:reSaved.entry.id},now),{status:409});
+  view=await readPlans(db,identity,allowed,{},now);const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
+  for(const day of [0,1])await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day,menuRecipeId:replacement.id},now);
+  view=await readPlans(db,identity,allowed,{},now);const first=view.suggestions.find(row=>row.day===0)!,second=view.suggestions.find(row=>row.day===1)!;
+  const results=await Promise.allSettled([first,second].map(row=>actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId:row.id},now)));
+  assert.equal(results.filter(result=>result.status==='fulfilled').length,1);
+  view=await readPlans(db,identity,allowed,{},now);assert.equal(view.plan?.revision,2);assert.equal(new Set(view.plan!.meals.map(meal=>meal.sourceUrl)).size,view.plan!.meals.length);assert.equal(view.suggestions.length,1);
+  const retained=view.suggestions[0],before=await db.one('SELECT * FROM meal_plan_suggestions WHERE id=$1',[retained.id]);
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'accept',revision:2,suggestionId:retained.id},now),{status:409,message:'That recipe is already in this plan. Choose another saved recipe.'});
+  assert.deepEqual(await db.one('SELECT * FROM meal_plan_suggestions WHERE id=$1',[retained.id]),before);
+  await actOnPlan(db,identity,allowed,id,{action:'reject',revision:2,suggestionId:retained.id},now);assert.equal((await readPlans(db,identity,allowed,{},now)).suggestions.length,0);
+ }finally{await db.close();await fixture.cleanup();}
+});
+
+test('actual recipe count bounds slots, duplicate drafts fail closed and legacy final projection preserves raw history',async()=>{
+ const fixture=await testDatabase();const db=await fixture.open();try{
+  await provisionFamily(db,identity,allowed,false);await saveMenuRecipe(db,identity,allowed,recipe(0));await generateDuePlans(db,allowed,'Thursday',now);
+  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;const extra=await saveMenuRecipe(db,identity,allowed,recipe(1));
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:1,menuRecipeId:extra.entry.id},now),{status:400});
+  const invalidProposal=randomUUID();const user=await db.one<{id:string}>('SELECT id FROM app_users WHERE google_subject=$1',[identity.googleSubject]);assert.ok(user);
+  await db.execute('INSERT INTO meal_plan_suggestions (id,plan_id,user_id,base_revision,day_index,menu_recipe_id,recipe,created_at) VALUES ($1,$2,$3,1,6,$4,$5,1)',[invalidProposal,id,user.id,extra.entry.id,JSON.stringify(extra.entry.recipe)]);
+  await assert.rejects(readPlans(db,identity,allowed,{},now),/Storage unavailable/);
+  for(const action of ['accept','reject'])await assert.rejects(actOnPlan(db,identity,allowed,id,{action,revision:1,suggestionId:invalidProposal},now),/Storage unavailable/);
+  await db.execute("UPDATE meal_plan_suggestions SET status='stale' WHERE id=$1",[invalidProposal]);
+  const raw=[recipe(0),recipe(0),recipe(1)];await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(raw),id]);
+  await assert.rejects(readPlans(db,identity,allowed,{},now),/Storage unavailable/);await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'finalize',revision:1},now),/Storage unavailable/);
+  await db.execute("UPDATE meal_plan_weeks SET status='final',finalized_at=1 WHERE id=$1",[id]);
+  view=await readPlans(db,identity,allowed,{},now);assert.deepEqual(view.plan?.meals,[recipe(0),recipe(1)]);assert.equal(view.plan?.originalRecipeCount,3);assert.equal(view.editable,false);
+  assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]))?.meals,raw);
  }finally{await db.close();await fixture.cleanup();}
 });

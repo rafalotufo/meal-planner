@@ -6,8 +6,8 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: Swap retention4turn local loop solved; source917b9eb awaits human merge/release. No hosted migration/deployment/activation. }
   product-manager: { status: idle, assignment: null, last_report: Accepted1-7unique weekly recipes and no duplicateintroducing swaps; small menus use availableunique choices. }
   architect: { status: busy, assignment: weekly-meal-planning-unique-plan, last_report: "Designed1-7unique recipes, duplicate-safe swaps and explicit0003draftrepair preservingproposals/history; ready independentreview." }
-  senior-developer: { status: idle, assignment: null, last_report: Swap retention independently approved at917b9eb;214Node/7Python and Chrome320/1440 green. }
-  security-researcher: { status: idle, assignment: null, last_report: "Swap retention security clear at917b9eb;5storetests independently pass, scopes/atomicity/unique/cap/authorization preserved." }
+  senior-developer: { status: idle, assignment: null, last_report: "Unique1-7recipes and0003repair implemented;219Node/7Python andChrome/privatebuildgreen, copiedback byteequivalent, pendingreviews/localrepair." }
+  security-researcher: { status: busy, assignment: unique-weekly-recipes-security, last_report: "Swap retention security clear at917b9eb;5storetests independently pass, scopes/atomicity/unique/cap/authorization preserved." }
   reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-unique-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

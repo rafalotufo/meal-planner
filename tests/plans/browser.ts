@@ -18,11 +18,13 @@ try{
  const user=await db.one<{googleSubject:string;email:string}>('SELECT google_subject AS "googleSubject",verified_email AS email FROM app_users LIMIT 1');assert.ok(user);
  const identity={...user,emailVerified:true as const};const allowed=[user.email];
  for(let n=0;n<54;n++)await saveMenuRecipe(db,identity,allowed,{title:n===53?'Long saved dinner '+ 'hearty'.repeat(23):'Family supper '+n,sourceUrl:'https://example.test/weekly/'+n,imageUrl:null,summary:'A saved family dinner.',time:null});
- async function recipeCards(expectedWeek: string) {
-  assert.equal(await browser!.evaluate("document.querySelectorAll('article').length===7 && document.querySelectorAll('article h2').length===7 && !document.querySelector('article time,article [datetime]')"),true,'seven recipe-title cards without date elements');
+ async function recipeCards(expectedWeek: string, count = 7) {
+  assert.equal(await browser!.evaluate(`document.querySelectorAll('article').length===${count} && document.querySelectorAll('article h2').length===${count} && !document.querySelector('article time,article [datetime]')`),true,'actual number of recipe-title cards without date elements');
   assert.equal(await browser!.evaluate("Array.from(document.querySelectorAll('article')).every(card=>!(/Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|\\d{4}-\\d{2}-\\d{2}/.test(card.innerText)))"),true,'recipe cards have no weekday/date assignment labels');
   assert.equal(await browser!.evaluate("(() => { const content=document.querySelector('main').cloneNode(true); content.querySelector('section[aria-labelledby=planned-history]')?.remove(); return !content.querySelector('time,[datetime]') && !/\\d{4}-\\d{2}-\\d{2}/.test(content.textContent); })()"),true,'no numeric dates or date elements outside history controls');
   assert.equal(await browser!.evaluate(`document.querySelector('#history-week')?.value===${JSON.stringify(expectedWeek)}`),true,'history selector retains selected-week context');
+  assert.equal(await browser!.evaluate(`new Set(Array.from(document.querySelectorAll('article > a')).map(link=>link.href)).size===${count}`),true,'all displayed recipe URLs distinct');
+  assert.equal(await browser!.evaluate(`document.querySelector('main > div > p')?.textContent===${JSON.stringify(`${count} ${count===1?'recipe':'recipes'} for the week`)}`),true,'heading uses actual singular/plural recipe count');
  }
  const local=torontoClock(new Date());const due=new Date(local.date+'T23:00:00Z');
  await generateDuePlans(db,allowed,local.day,due);
@@ -53,10 +55,16 @@ try{
  await browser.waitFor("document.querySelectorAll('[data-plan-accept]').length===1 && Boolean(document.querySelector('article:nth-of-type(2) [data-plan-accept]'))",'other recipe suggestion survives accepted swap');
  assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
  for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-swap-${width}.png`);}
- await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 3') && !document.querySelector('[data-plan-accept]')",'retained suggestion resolved through refreshed real HTTP');
- view=await readPlans(db,identity,allowed,{},due);assert.equal(view.plan?.meals[1].sourceUrl,retained.recipe.sourceUrl);
+ await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.querySelector('[role=alert]')?.textContent.includes('already in this plan')",'duplicate acceptance blocked with useful reject guidance');
+ assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
+ await browser.click('article:nth-of-type(2) [data-plan-reject]');await browser.waitFor("!document.querySelector('[data-plan-accept]')",'retained conflicting suggestion remains rejectable');
+ await browser.waitFor("!document.querySelector('#swap-1').disabled",'distinct replacement control enabled');await browser.click('#swap-1');
+ for(const event of [{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyDown',key:'f',code:'KeyF',text:'f',unmodifiedText:'f',windowsVirtualKeyCode:70},{type:'keyUp',key:'f',code:'KeyF',windowsVirtualKeyCode:70}])await browser.send('Input.dispatchKeyEvent',event);
+ await browser.waitFor("Boolean(document.querySelector('#swap-1').value)",'physical distinct unused replacement');await browser.click('[data-plan-suggest="1"]');await browser.waitFor("Boolean(document.querySelector('article:nth-of-type(2) [data-plan-accept]'))",'distinct saved suggestion');
+ await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 3') && !document.querySelector('[data-plan-accept]')",'distinct replacement accepted through real HTTP');
+ await recipeCards(week);
  // Another device accepts a real stored suggestion while this browser holds revision3.
- view=await readPlans(db,identity,allowed,{},due);const replacement=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[1].sourceUrl)!;
+ view=await readPlans(db,identity,allowed,{},due);const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
  await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:3,day:1,menuRecipeId:replacement.id},due);
  view=await readPlans(db,identity,allowed,{},due);await actOnPlan(db,identity,allowed,id,{action:'accept',revision:3,suggestionId:view.suggestions[0].id},due);
  await browser.click('[data-plan-approve]');await browser.waitFor("document.querySelector('[role=alert]')?.textContent.includes('Refresh')",'real stale conflict guidance');
@@ -75,13 +83,24 @@ try{
  const pastDate=addDays(local.date,-70);const past=new Date(pastDate+'T23:00:00Z');await generateDuePlans(db,allowed,torontoClock(past).day,past);
  const old=(await db.one<{id:string;week:string}>('SELECT id,week_start::text AS week FROM meal_plan_weeks WHERE week_start<$1::date ORDER BY week_start LIMIT 1',[week]))!;
  await actOnPlan(db,identity,allowed,old.id,{action:'finalize',revision:1},past);
+ const historical=(await readPlans(db,identity,allowed,{week:old.week},past)).plan!.meals;const legacy=[historical[0],historical[0],historical[1],historical[2],historical[2],historical[3],historical[0]];await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(legacy),old.id]);
  await browser.navigate(server.origin+'/plans');await browser.waitFor(`Boolean(document.querySelector('a[href="/plans?week=${old.week}"]'))`,'finalized history link');
- await browser.click(`a[href="/plans?week=${old.week}"]`);await browser.waitFor(`location.search.includes('${old.week}') && document.querySelectorAll('article').length===7`,'retained planned history');
+ await browser.click(`a[href="/plans?week=${old.week}"]`);await browser.waitFor(`location.search.includes('${old.week}') && document.querySelectorAll('article').length===4`,'retained planned history');
  assert.equal(await browser.evaluate("Boolean(document.querySelector('[data-plan-suggest]'))"),false);
- await recipeCards(old.week);
+ await recipeCards(old.week,4);
+ assert.equal(await browser.evaluate("document.querySelector('[role=note]')?.textContent.includes('original 7 entries')"),true,'honest legacy final display note');
+ assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[old.id]))?.meals,legacy,'legacy raw history unchanged by display');
  for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-history-${width}.png`);}
  await browser.click('#history-week');await browser.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});await browser.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});
  assert.equal(await browser.evaluate("document.activeElement.matches(':focus-visible')"),true,'native keyboard focus remains visible');
+ for(const [index,count] of [1,2,6,7].entries()){
+  await db.execute('DELETE FROM menu_recipes');for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,allowed,{title:'Small-menu recipe '+n,sourceUrl:'https://example.test/small/'+n,imageUrl:null,summary:'Distinct saved recipe.',time:null});
+  const clock=new Date(addDays(local.date,7*(index+1))+'T23:00:00Z');await generateDuePlans(db,allowed,torontoClock(clock).day,clock);const small=(await readPlans(db,identity,allowed,{},clock)).plan!;
+  await browser.navigate(server.origin+'/plans?week='+small.weekStart);await browser.waitFor(`document.querySelectorAll('article').length===${count} && Boolean(document.querySelector('[data-plan-finalize]'))`,'variable-card plan');await recipeCards(small.weekStart,count);
+  for(const width of [320,1440]){await browser.viewport(width);if(count===1||count===6)await browser.screenshot(`org/reviews/weekly-plan-small-${count}-${width}.png`);}
+  await browser.click('[data-plan-finalize]');await browser.waitFor("Boolean(document.querySelector('[data-plan-confirm]'))",'variable-count confirmation');assert.equal(await browser.evaluate(`document.querySelector('#confirm-warning').textContent.includes(${JSON.stringify('Confirm '+count+' planned '+(count===1?'recipe':'recipes')+'?')})`),true,'confirmation count accurate');
+  await browser.click('section[aria-label="Confirm planned meals"] button:last-child');
+ }
  assert.deepEqual(browser.errors.filter(error=>!/Failed to load resource: the server responded with a status of 409\b/.test(error)),[]);
- console.log('Chrome320/1440: seven dinners, labels/focus/no overflow, real approve/two-card suggest/accept/retain/resolve/reset, stale conflict refresh, paged menu, confirmation, immutable retained history passed.');
+ console.log('Chrome320/1440: seven dinners, labels/focus/no overflow, unique1/2/6/7 counts, real approve/two-card suggest/accept/retain/duplicate409/reject/distinct/reset, stale conflict refresh, paged menu, confirmation, immutable retained history passed.');
 }catch(error){if(browser)console.error('Weekly browser diagnostic:',await browser.evaluate("({feedback:document.querySelector('[role=alert],[role=status]')?.textContent,active:document.activeElement?.outerHTML?.slice(0,300),selection:document.querySelector('#swap-0')?.value})"));throw error;}finally{await browser?.close();await server?.stop();await db?.close();await fixture.cleanup();}

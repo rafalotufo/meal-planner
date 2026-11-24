@@ -74,7 +74,8 @@ test('concurrent explicit migrations serialize and disposable initial rollback i
     try {
       const { readFile } = await import('node:fs/promises');
       await db.transaction(async (tx) => {
-        await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));
+        await tx.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));
+      await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));
         await tx.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql','utf8'));
         await tx.execute(await readFile('drizzle/postgresql/rollback-initial.sql','utf8'));
       });

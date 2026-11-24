@@ -21,6 +21,11 @@ test('protected weekly HTTP rechecks identity/family, exact unions, stale edits,
   assert.match(ok.headers.get('cache-control')??'',/private.*no-store/);assert.equal(ok.headers.get('x-frame-options'),'DENY');
   for(const body of [{action:'approve'},{action:'approve',revision:1,extra:true},{action:'suggest',revision:1,day:7,menuRecipeId:plan.id}])assert.equal((await post(server.origin,jar,path,body)).status,400);
   assert.equal((await post(server.origin,jar,path,{action:'approve',revision:2})).status,409);
+  const extra=await (await post(server.origin,jar,'/api/menu',{title:'Other saved dinner',sourceUrl:'https://example.test/extra-unused',imageUrl:null,summary:'Cook it.',time:null})).json();
+  assert.equal((await post(server.origin,jar,path,{action:'suggest',revision:1,day:1,menuRecipeId:extra.entry.id})).status,400,'slot index follows actual one-card plan');
+  const original=await db.one<{id:string}>('SELECT id FROM menu_recipes WHERE source_url=$1',['https://example.test/weekly']);assert.ok(original);
+  const duplicate=await post(server.origin,jar,path,{action:'suggest',revision:1,day:0,menuRecipeId:original.id});assert.equal(duplicate.status,409);assert.match((await duplicate.json()).error,/already in this plan/);
+
   assert.equal((await post(server.origin,new CookieJar(),path,{action:'approve',revision:1})).status,401);
   const pending=new CookieJar();await signInWithGoogle(server.origin,pending,'second-member');assert.equal((await post(server.origin,pending,path,{action:'approve',revision:1})).status,403);
   await provision(server.origin,pending);assert.equal((await post(server.origin,pending,path,{action:'approve',revision:1})).status,404);
@@ -30,5 +35,9 @@ test('protected weekly HTTP rechecks identity/family, exact unions, stale edits,
   assert.equal((await post(server.origin,jar,path,{action:'finalize',revision:1})).status,200);
   assert.equal((await post(server.origin,jar,path,{action:'approve',revision:1})).status,409);
   assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_weeks'))?.n,1);
+  const legacy=Array(7).fill({title:'Weekly dinner',sourceUrl:'https://example.test/weekly',imageUrl:null,summary:'Cook dinner.',time:null});
+  await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(legacy),plan.id]);
+  const history=await jar.request(server.origin,'/plans');const html=await history.text();assert.equal(history.status,200);assert.match(html,/older finalized plan contained repeated recipes/);assert.match(html,/1 recipe for the week/);assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[plan.id]))?.meals,legacy);
+
  }finally{await server?.stop();await db.close();await fixture.cleanup();}
 });
