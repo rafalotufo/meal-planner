@@ -5,10 +5,10 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: "Shared layout merged into local main under owner approval; dev stopped, staging acceptance and release unstarted." }
   product-manager: { status: idle, assignment: null, last_report: Accepted weekly meal planning intent for Design; saved brainstorm and explicit defaults. }
-  architect: { status: idle, assignment: null, last_report: Previous shared layout loop completed; archived before weekly meal planning intake. }
+  architect: { status: busy, assignment: weekly-meal-planning-plan, last_report: Drafted weekly meal planning spec and exact manifest plan; ready for independent peer review. }
   senior-developer: { status: idle, assignment: null, last_report: Executed authorized shared layout fast-forward into clean local main; no push or deployment. }
   security-researcher: { status: idle, assignment: null, last_report: "Shared layout security clear; static root, unchanged guards/handlers, no config exposure/effects, zero scoped secrets." }
-  reviewer: { status: idle, assignment: null, last_report: "Final shared layout implementation independently approved; no blockers, screenshots and164 Node/7 Python evidence reviewed." }
+  reviewer: { status: busy, assignment: weekly-meal-planning-plan, last_report: "Final shared layout implementation independently approved; no blockers, screenshots and164 Node/7 Python evidence reviewed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -81,3 +81,4 @@ review_queue:
   - { id: shared-site-layout-plan-001, artifact: shared-site-layout-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: shared-site-layout-browser-amendment-001, artifact: shared-site-layout-browser-amendment, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: shared-site-layout-code-001, artifact: shared-site-layout-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-plan-001, artifact: weekly-meal-planning-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }

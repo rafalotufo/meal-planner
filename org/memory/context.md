@@ -9,23 +9,24 @@ intent/weekly-meal-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 2
+- phase: plan_review
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (weekly-meal-planning-plan)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (weekly-meal-planning-plan)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
 
 - architect-0010 architect -> orchestrator handoff: Shared layout spec and plan ready
+- architect-0011 architect -> orchestrator handoff: Weekly meal planning spec and plan ready
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -94,6 +95,8 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0087 orchestrator -> product-manager handoff: Save weekly meal planning brainstorm and assess intent
+- orchestrator-0088 orchestrator -> architect handoff: Design weekly meal planning and prepare bounded plan
+- orchestrator-0089 orchestrator -> reviewer handoff: Independently review weekly meal planning design
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -159,11 +162,11 @@ intent/weekly-meal-planning/intent.md
 
 ## Recent decisions
 
-- mem-0123 reviewer: Approved shared-site-layout spec/plan. Shared header adds real keyboard stops; narrowly adapt two existing browser helpers with bounded Tab traversal while preserving focus/Enter assertions and historical screenshots. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
 - mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
 - mem-0127 product-manager: Accepted weekly meal planning intent: automatic configurable Thursday drafts for Sunday through Saturday from saved menu, family approvals/swaps and finalized history for variety. Local org loop only; merge/release separate. (org/reviews/intent-weekly-meal-planning-001.md)
+- mem-0128 architect: Drafted weekly meal planning spec and exact plan for independent review: local trusted CLI due scheduler plus uninstalled launchd template, no Vercel/hosted activation; immutable finalized planned history and source-URL recency. (intent/weekly-meal-planning/spec.md)
 
 ## Constraints
 
@@ -172,14 +175,15 @@ intent/weekly-meal-planning/intent.md
 ## Artifacts
 
 - org/reviews/intent-weekly-meal-planning-001.md (6a175e5f6b12cf1b6ff75dc4e0fd67bdd864a345ce3198d9c42deb679ff53197)
+- intent/weekly-meal-planning/plan.md (73cfe860b42b808ab9badf18b6a8c25b5e04811d201d645065770db2dad2b8a4)
 
 ## Next action
 
-product-manager:accept_weekly_meal_planning_intent
+architect:specify_and_plan_weekly_meal_planning
 
 ## Last digest source
 
-- mem-0127 from org/reviews/intent-weekly-meal-planning-001.md
+- mem-0128 from intent/weekly-meal-planning/spec.md
 
 <!-- machine:end -->
 

@@ -5,19 +5,19 @@ nodes:
     stage: "plan"
     artifact: "intent/weekly-meal-planning/intent.md"
     gate: "product_owner_accept"
-    status: draft
+    status: accepted
     done_status: "accepted"
   spec:
     stage: "design"
     artifact: "intent/weekly-meal-planning/spec.md"
     gate: "product_owner_approve"
-    status: draft
+    status: not_started
     done_status: "approved"
   plan:
     stage: "build"
     artifact: "intent/weekly-meal-planning/plan.md"
     gate: "engineer_approve"
-    status: draft
+    status: not_started
     done_status: "approved"
   implementation:
     stage: "build"
