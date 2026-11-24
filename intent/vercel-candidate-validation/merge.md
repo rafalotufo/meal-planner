@@ -134,3 +134,15 @@ The active destination expected tip is now
 Before updating main, require the exact reviewed final branch SHA, a clean
 destination at this tip, recorded human merge authority and no further source
 movement. No hosted or provider operation was performed by this refresh.
+
+## Final human merge gate
+
+The refreshed integration `4a1e5bdfb3c74dfbd7f7d24a4d94123b0868538b`
+passed all eight commands (162 Node tests and7 Python tests, lint, strict types
+and production build) and independent refresh review. Rafael's explicit merge
+request is retained as `org/messages/ceo-0046.md`; matching ledger record
+`vercel-candidate-validation-main-merge-001` authorizes the local main merge of
+this reviewed source. The destination must remain clean at
+`87482edff21fadb8445209ee6195044c48c3c52e` immediately before the fast-forward.
+The following gate/audit-only commit changes no tested source. Actual execution
+is recorded after the destination update; no Production action is included.
