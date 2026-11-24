@@ -1,7 +1,8 @@
 # Saved menu — exact-source staging result
 
-Status: staged; owner acceptance of exact source/profile and named gaps pending.
-Production build, migration and promotion have not occurred.
+Status: staged; owner accepted this exact source/profile and named gaps in
+`org/messages/ceo-0052.md`. Production execution is separately recorded in the
+release record; no missing check is converted into a pass by that acceptance.
 
 ## Attribution and profile
 

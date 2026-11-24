@@ -60,6 +60,7 @@ intent/shared-site-layout/intent.md
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
 - ceo-0051 ceo -> orchestrator decision: Approve exact saved-menu hosted cutover and scoped recovery
+- ceo-0052 ceo -> orchestrator decision: Accept exact saved-menu staging gaps and authorize Production release
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,7 +95,6 @@ intent/shared-site-layout/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
-- orchestrator-0087 orchestrator -> ceo handoff: Accept exact saved-menu staging result and named coverage gaps
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
