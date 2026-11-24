@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Main merged and first PostgreSQL Production release attempted; allowed onboarding failed closed due proxy packaging. Owner paused project; HTTP503 DEPLOYMENT_PAUSED verified. Corrected bundled metadata and invitation cookie handoff pass127Node+7Python, strict build and production/cold-dev Chrome. Independent code/security reviews approve. Await renewed exact-source merge/release/resume authority; zero paid searches used; Preview and DB preserved." }
-  product-manager: { status: idle, assignment: null, last_report: "PostgreSQL intent independently accepted under org protocol, scoped to native local setup and Vercel-compatible code; production and human merge gates remain separate." }
+  orchestrator: { status: busy, assignment: intent/vercel-candidate-validation/intent.md, last_report: "Main merged and first PostgreSQL Production release attempted; allowed onboarding failed closed due proxy packaging. Owner paused project; HTTP503 DEPLOYMENT_PAUSED verified. Corrected bundled metadata and invitation cookie handoff pass127Node+7Python, strict build and production/cold-dev Chrome. Independent code/security reviews approve. Await renewed exact-source merge/release/resume authority; zero paid searches used; Preview and DB preserved." }
+  product-manager: { status: busy, assignment: intent/vercel-candidate-validation/solutions.md, last_report: Drafted candidate-validation intent and sourced options; awaiting owner staging-versus-exact-artifact choice and independent options review. }
   architect: { status: idle, assignment: null, last_report: "PostgreSQL spec/plan and native Homebrew amendment approved; strict ORM failure documented, native pg/public loader supported with no compiler weakening." }
   senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
   security-researcher: { status: idle, assignment: null, last_report: Independent hosted PostgreSQL catalog/hash/roles/grants/empty-data checks approved on both Neon targets; no deployment/merge/release authority granted. }
-  reviewer: { status: idle, assignment: null, last_report: "Hosted PostgreSQL operational plan/helper/final handoff approved; separate migrated Neon environments and scoped Vercel variable evidence verified, no deployment/merge/release allowed." }
+  reviewer: { status: busy, assignment: intent/vercel-candidate-validation/solutions.md, last_report: "Hosted PostgreSQL operational plan/helper/final handoff approved; separate migrated Neon environments and scoped Vercel variable evidence verified, no deployment/merge/release allowed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
@@ -54,3 +54,4 @@ review_queue:
   - { id: code-single-call-recipe-search-001, artifact: single-call-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: single-call-main-integration-001, artifact: single-call-main-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: single-call-main-refresh-integration-001, artifact: single-call-main-refresh-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: options-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/solutions.md, writer: product-manager, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }

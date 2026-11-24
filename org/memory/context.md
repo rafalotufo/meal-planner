@@ -4,22 +4,22 @@
 
 ## Goal
 
-intent/single-call-recipe-search/merge-refresh.md
+intent/vercel-candidate-validation/intent.md
 
 ## Loop
 
-- status: solved
+- status: in_progress
 - turn: 1
-- phase: done
-- stop_reason: solved
+- phase: options_review
+- stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
-- product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- orchestrator: busy (intent/vercel-candidate-validation/intent.md)
+- product-manager: busy (intent/vercel-candidate-validation/solutions.md)
+- reviewer: busy (intent/vercel-candidate-validation/solutions.md)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -48,6 +48,7 @@ intent/single-call-recipe-search/merge-refresh.md
 - ceo-0024 ceo -> orchestrator decision: Approve recipe notebook merge to main
 - ceo-0025 ceo -> orchestrator decision: Implement single-call recipe research and curation
 - ceo-0026 ceo -> orchestrator decision: Authorize single-call search merge into local main
+- ceo-0027 ceo -> orchestrator decision: Explore automated validation of staged Vercel deployments
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -61,6 +62,7 @@ intent/single-call-recipe-search/merge-refresh.md
 - orchestrator-0029 orchestrator -> ceo status: Single-call recipe search implemented and reviewed locally
 - orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
+- orchestrator-0033 orchestrator -> product-manager handoff: Research staged deployment validation options
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -103,11 +105,11 @@ intent/single-call-recipe-search/merge-refresh.md
 
 ## Recent decisions
 
-- mem-0073 orchestrator: Imported prior feature event mem-0073: Imported prior feature event mem-0072: Imported prior feature event mem-0051: Rafael explicitly authorized merging the recipe search notebook into main. Merge includes reviewed feature6b94405 and approval68a28ef, with unchanged application content and no conflicts. No push or release authorized. Original source: org/messages/ceo-0018.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0074 orchestrator: Imported prior feature event mem-0074: Imported prior feature event mem-0073: Imported prior feature event mem-0052: Rafael selected combined single-call research and curation after live comparisons; PM accepted intent. Existing citation, source evidence, model, usage, photo/auth/UI boundaries remain; no latency guarantee; human merge/release remain pending. Archived completed notebook loop before initializing this feature. Original source: intent/single-call-recipe-search/intent.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0075 architect: Imported prior feature event mem-0075: Imported prior feature event mem-0074: Imported prior feature event mem-0053: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. Original source: intent/single-call-recipe-search/spec.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0076 orchestrator: Imported prior feature event mem-0076: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
+- mem-0078 orchestrator: Opened research-only Vercel candidate-validation intent from Rafael request. Preserved completed single-call integration loop/graph under org/loop/archive/single-call-main-final-before-candidate-validation-2026-11-24. Comparing isolated stable staging with exact Production candidate stable alias; owner assurance choice pending. No application or external configuration authority. (org/messages/ceo-0027.md)
 
 ## Constraints
 
@@ -115,15 +117,15 @@ intent/single-call-recipe-search/merge-refresh.md
 
 ## Artifacts
 
-- org/reviews/single-call-main-integration-refresh-review.md (1f331517be9ce27bb327a2ec868029894e8d5f9140d64600618b636541f2e742)
+- intent/vercel-candidate-validation/solutions.md (e2bcd1fc7e7cc7817b339c37e5facf07b81f12d5447e7bf3d953b5d16eb0a240)
 
 ## Next action
 
-reviewer:verify_current_integration
+product-manager:research_validation_options
 
 ## Last digest source
 
-- mem-0077 from org/reviews/single-call-main-integration-refresh.md
+- mem-0078 from org/messages/ceo-0027.md
 
 <!-- machine:end -->
 
