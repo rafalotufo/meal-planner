@@ -102,3 +102,73 @@ create that new domain. Manual staging assignment was held pending the owner's
 confirmation of that concurrent change; no Production mapping was overwritten.
 An anonymous browser visit to the still-unmapped staging host showed Vercel404
 DEPLOYMENT_NOT_FOUND; it sent no credentials and is not a validation pass.
+
+## Owner reconciliation
+
+Rafael confirmed in `org/messages/ceo-0033.md` that he added
+`lotufo-meals.vercel.app` and intends it as the Production URL. Preserve that
+owner-added domain, its current redirect and deployment mapping, together with
+both original Production aliases. The original baseline remains intact; a fresh
+reconciled baseline includes all three Production aliases. This confirmation
+unblocks the previously authorized staging-only alias assignment, without any
+Production routing/OAuth/deployment change or another Preview deployment.
+
+## Stable staging mapping and bounded checks
+
+The reconciled preflight verified the recorded READY Preview, source/ref/team/
+project, project paused false, complete domain/alias inventory, unchanged
+Production environment metadata, unchanged seven Preview variables and existing
+Preview database metadata, and absent paid provider key. Original baseline was
+retained; the owner-confirmed new Production domain was included in a separate
+reconciled baseline.
+
+A single pinned CLI alias assignment exited0. Fresh readback at
+2026-11-24T15:17:35.923Z confirms:
+`https://meal-planner-staging-rafalotufos.vercel.app` maps to
+`dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi`. The domain remains verified, qualified to
+`codex/vercel-candidate-validation`, and has no redirect. All three Production
+aliases/domains retain their reconciled classification/mappings; the Production
+deployment remains `dpl_Hf41h7Cr65E6U2UBv3duCa83FYFT`.
+
+The implemented anonymous helper's initial sandbox invocation could not perform
+its first request (exit2 REQUEST_UNAVAILABLE). After allowing network access,
+a bounded invocation received302 to Vercel's SSO endpoint on its first request,
+so it again correctly returned exit2 REQUEST_UNAVAILABLE without a pass. A
+minimal status/redirect diagnostic confirmed `/`, `/sign-in` and `/api/session`
+are platform-protected for the unauthenticated CLI. No redirect was followed,
+private cookie/bypass credential sent, protection changed or provider called.
+The check cannot be finalized as an authenticated validation pass.
+
+The authenticated platform browser reached the stable staging `/sign-in` page
+and showed the expected heading and Google button. At390px and1440px, document
+scroll width equaled viewport width; screenshots are
+`org/reviews/vercel-candidate-validation-hosted-mobile.jpg` and
+`org/reviews/vercel-candidate-validation-hosted-desktop.jpg`. The viewport was
+reset after checks. An attempted keyboard sequence did not establish focus and
+one body-key action timed out; keyboard validation remains unverified, not passed.
+No Google button activation, real Google round-trip, ineligible identity test,
+sign-out/fresh sign-in, app session reuse, family provisioning or DB write was
+performed. Those and paid provider behavior remain unverified. Private truthful
+attestations retain false for uncompleted checks; anonymous CLI proof is
+inconclusive. This completes configuration/deployment and visible public sign-in
+layout evidence only, not the full authenticated staging certification.
+
+## Post-check reconciliation
+
+Fresh post-inspection captured2026-11-24T15:19:54.958Z, after the HTTP and
+browser observations, retained the exact READY Preview/source/ref/staging mapping.
+The complete3-domain/4-alias inventories were unchanged from the reconciled
+baseline plus the intended staging assignment. All three Production mappings,
+Production deployment, branch-qualified staging classification, project paused
+false, Production environment metadata and configured Preview/DB metadata were
+unchanged. The paid provider key remains absent. No full pass was finalized from
+the inconclusive platform-protected check; no additional deployment or alias
+mutation was performed. Independent final review and owned-lock release are
+recorded at completion.
+
+Final independent review approved the bounded setup/deployment scope in
+`org/reviews/hosted-vercel-candidate-validation-final-001.md`. The matching
+Preview-verification gate records only this scoped completion; full authenticated
+certification remains unverified. After final reconciliation, the owned lane
+run-id was checked against `preview-1795530899553` and only that run-id file and
+empty lane directory were removed. No unrelated lock/state was removed.

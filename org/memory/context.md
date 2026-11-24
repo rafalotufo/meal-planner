@@ -8,20 +8,20 @@ intent/vercel-candidate-validation/hosted-setup.md
 
 ## Loop
 
-- status: in_progress
-- turn: 2
-- phase: configure
-- stop_reason: None
+- status: solved
+- turn: 4
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/vercel-candidate-validation/hosted-setup.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (vercel-candidate-validation-hosted-setup)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (.vercelignore)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -54,6 +54,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - ceo-0030 ceo -> orchestrator decision: Authorize Preview deployment from worktree after OAuth domains
 - ceo-0031 ceo -> orchestrator decision: Approve Google staging policy and dedicated client
 - ceo-0032 ceo -> orchestrator decision: Approve the specified sole staging OAuth test user
+- ceo-0033 ceo -> orchestrator decision: Confirm owner-added Production URL and preserve during staging
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -69,7 +70,6 @@ intent/vercel-candidate-validation/hosted-setup.md
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
 - orchestrator-0047 orchestrator -> ceo handoff: Reviewed isolated staging tooling ready for merge and hosted setup
-- orchestrator-0049 orchestrator -> reviewer handoff: Review actual Preview deployment and concurrent domain drift
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -118,11 +118,11 @@ intent/vercel-candidate-validation/hosted-setup.md
 
 ## Recent decisions
 
-- mem-0080 orchestrator: Rafael approved isolated staging approach: existing Vercel Preview environment and manually controlled stable alias, separate staging auth and recorded Preview DB. PM accepted intent for Design. Preserved completed options loop and graph under org/loop/archive/vercel-candidate-validation-options-2026-11-24 before initializing bounded Design run. No external configuration or release authority inferred. (org/messages/ceo-0028.md)
 - mem-0081 orchestrator: Isolated staging specification drafted and independently approved for quality by security/reviewer with no blockers. Scope unchanged canonical-origin app plus future operator helper/runbook, Preview-only secrets/data, no paid provider key, stable alias safety preflight and separate Production build. Await owner Design approval; next org dispatch stops gate_required at product_owner_approve. No application or external changes. (org/reviews/spec-vercel-candidate-validation-001.md)
 - mem-0082 orchestrator: Rafael directed continuing isolated staging, already approved. Recorded specification approval and archived Design run before local Build. Apply org peer plan/code/security review gates; no repeat approach confirmation. Local operator helper/tests and runbook only, preserve application and separate hosted setup/release boundaries. (org/messages/ceo-0029.md)
 - mem-0083 orchestrator: Completed isolated staging local tooling and tests under approved plan. f3ef526 fixes independently found P2 failed-report timestamp issue with RED/GREEN regression. Security and code round2 approved; final org turn5 solved all8commands,144Node+7Python, realChrome5widths. One prior auth repeat exit1 unroot-caused/nonreproduced is disclosed, direct/final reruns pass. No app/auth/config/dependency or hosted changes. Await human merge and concrete Preview-only setup/deployment authority per staging runbook; actual alias/private config/Git/paused-state preflights remain. (intent/vercel-candidate-validation/verification.md)
 - mem-0084 orchestrator: Rafael explicitly authorized Preview-only deployment from current worktree branch and OAuth domains first (ceo-0030), overriding prior merge prerequisite for this Preview operation only. Scoped hosted-setup approved by independent review; same Hobby project, safe branch-qualified free hostname before callback, dedicated Preview auth, existing Preview DB and no paid key. Production untouched. Google meal-planner-515616 has no OAuth client/consent; minimal staging brand form prepared, not submitted. Actual Chrome tool access denied; authenticated in-app browser works. Preserved completed Build loop before bounded ops run. (org/messages/ceo-0030.md)
+- mem-0087 orchestrator: Rafael confirmed lotufo-meals.vercel.app is his owner-added intended Production URL; preserve its current redirect/mapping. Staging stablealias now maps READY Preview9fc13ff;390/1440 public sign-in visible nooverflow. Freshpost allProduction/Previewenv/DB metadata unchanged. CLI302VercelSSO remainsinconclusive, no bypass/Googlelogin/memberdata/paidcalls; fullauthcertification not claimed. (org/messages/ceo-0033.md)
 
 ## Constraints
 
@@ -132,14 +132,15 @@ intent/vercel-candidate-validation/hosted-setup.md
 
 - intent/vercel-candidate-validation/hosted-setup.md (c43a759ce7f8de79d4b22ea60cc23f952bd531e88a6269e042c2fac27d7a00f1)
 - org/reviews/hosted-vercel-candidate-validation-001.md (9d14349c70bcd2772ecba0822e417f73131b35e23f1b97002072eed17d540fd3)
+- intent/vercel-candidate-validation/hosted-results.md (ba7bef6eb08cac9e1c2015982c8d26ba39a7a648c758a4046ae57f6200508c23)
 
 ## Next action
 
-reviewer:review_preview_scope
+reviewer:verify_preview_setup
 
 ## Last digest source
 
-- mem-0086 from intent/vercel-candidate-validation/hosted-results.md
+- mem-0088 from org/reviews/hosted-vercel-candidate-validation-final-001.md
 
 <!-- machine:end -->
 

@@ -2,25 +2,28 @@
 artifact: intent/vercel-candidate-validation/hosted-results.md
 reviewed_at: 2026-11-24
 reviewer: reviewer
-verdict: pending
-status: interim
+verdict: approved
+status: final
 round: 1
 source_commit: 9fc13ff27a636483fdf3503d5c8bf9f149550e45
 ---
 
-# Interim independent review — actual Preview setup and deployment
+# Final scoped review — actual Preview setup and deployment
 
-## Interim conclusion
+## Final scoped verdict
 
-Completed setup/deployment evidence is consistent with the scoped owner authority.
-No defect in the completed steps is identified. Final operational approval remains
-pending: the staging alias is unmapped, concurrent Production-domain inventory
-changed, and genuine staging OAuth/member/browser validation is not established.
-This record does not approve alias assignment, a complete validation pass or any
-Production effect. The pending state reflects incomplete operational evidence,
-not a new code-review finding or a request to repeat already granted permissions.
+Approved for the owner-requested Preview configuration and deployment scope.
+The dedicated staging callback/configuration, one READY reviewed-source Preview,
+stable staging mapping and public sign-in layout evidence are complete. This
+approval does not certify full authenticated staging validation: CLI app checks
+remain platform-blocked/inconclusive, and Google round-trip/member/keyboard
+checks were not completed. No Production promotion or routing change is approved.
 
-## Evidence inspected
+The initial review held final sign-off because the alias was unmapped and a
+Production domain had appeared concurrently. Owner reconciliation and fresh
+post-operation evidence resolve that operational hold, as recorded below.
+
+## Initial deployment evidence inspected
 
 Read `org/messages/orchestrator-0049.md`, `hosted-results.md`, owner decisions
 `ceo-0030` through `ceo-0032`, and only the named sanitized private deployment and
@@ -65,17 +68,41 @@ state remains attributable to the clean recorded commit. There is no claim of
 migration, fixture identity, copied Production cookie, paid provider call, new
 project, Git integration, resume or Production release.
 
-## Remaining evidence before final operational sign-off
+## Initial hold and final resolution
 
-Reconcile the externally added domain with the owner and preserve its assignment;
-record the resulting complete current Production baseline without overwriting the
-historical one. After that is resolved, any authorized staging-only alias operation
-must prove exact Preview mapping, unchanged branch classification and unchanged
-reconciled Production assignments. Run the appropriate bounded anonymous checks
-with fresh pre/post evidence; record platform denials as inconclusive. Genuine
-OAuth/member/browser evidence and any separately scoped persistent identity effects
-must remain explicit before a full authenticated validation pass can be claimed.
+The initial hold required reconciliation of the externally added domain and fresh
+mapping/Production evidence. `org/messages/ceo-0033.md` now confirms the owner added
+`lotufo-meals.vercel.app` as the intended Production URL and directs preservation
+of its existing mapping while completing authorized staging-only work. The
+historical baseline remains distinct from the reconciled baseline.
+
+Read `.data/staging-ops/alias-mapped-result.json`, `post.json` and `post-result.json`:
+
+- At15:17:35.923Z, the stable staging hostname maps to the exact READY Preview
+  deployment/source/branch. At15:19:54.958Z, the post evidence still records
+  `stagingAliasMapped:true`, target Preview, the same source SHA/deployment ID,
+  complete domain/alias inventories and safe non-Production classification.
+- Reconciled Production aliases/domains/deployment, Production env metadata,
+  Preview env metadata and existing Preview DB metadata are all reported unchanged;
+  paid provider key remains absent. The post evidence includes the owner-added
+  Production domain rather than silently deleting it from the comparison.
+- Bounded CLI checks received Vercel SSO302 and correctly remained exit2
+  REQUEST_UNAVAILABLE. A failed/inconclusive check report must not be finalized
+  or described as an authenticated pass. No bypass, redirect following or app
+  credential was used to work around the platform challenge.
+- Independently viewed both hosted390px/1440px screenshots: they show the expected
+  Meal Planner sign-in heading and Google button, without identity/credential
+  disclosure or visible layout clipping. The operator records equal viewport/
+  scroll widths. Screenshots establish visible public sign-in layout, not Google
+  authentication or the unverified keyboard sequence.
+
+Full Google allowed/denied round-trip, member session/family reads, sign-out/fresh
+sign-in and provider behavior remain explicitly unverified. No database write or
+household provisioning is claimed. These limits do not prevent completion of the
+specific owner-authorized setup/deployment request, but must remain visible in the
+handoff. A future full authenticated validation run needs its actual evidence and
+any independently scoped real-identity effects; this review invents no pass.
 
 `git diff --check` passed. No independent application tests/build were rerun for
-this evidence-only interim review, and no external mutation or secret handling was
-performed. The orchestrator owns continued operations and the final evidence update.
+this evidence-only final review, and no external mutation or secret handling was
+performed. The orchestrator owns serialized audit updates and final handoff; no further external action is required by this scoped review.

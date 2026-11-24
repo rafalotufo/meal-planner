@@ -57,7 +57,7 @@ nodes:
     stage: deploy
     artifact: intent/vercel-candidate-validation/hosted-results.md
     gate: preview_verification
-    status: not_started
+    status: done
     done_status: done
 
 edges:

@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: intent/vercel-candidate-validation/hosted-setup.md, last_report: Single authorized Preview READY from9fc13ff; staging alias held for external Production-domain drift pending owner clarification; original Production aliases unchanged. }
+  orchestrator: { status: idle, assignment: null, last_report: "Requested staging OAuth setup and Preview deployment completed, independent final review approved. Production URL owner-confirmed and preserved; full authenticated automation remains unverified." }
   product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
   architect: { status: idle, assignment: null, last_report: Preview-only operational scope approved; explicit user worktree deployment authority preserves Production/no-merge boundaries. }
-  senior-developer: { status: idle, assignment: null, last_report: "Single authorized Preview deployment READY; exact source/ref verified; no staging alias assignment after external Production-domain drift." }
+  senior-developer: { status: idle, assignment: null, last_report: Single READY Preview9fc13ff and stable staging alias verified; reconciled Production mappings/environment/Preview DB unchanged. No data/provider/protection effects. }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
-  reviewer: { status: idle, assignment: null, last_report: Operational packaging amendment independently approved; clean payload build required before actual authorized Preview deployment. }
+  reviewer: { status: idle, assignment: null, last_report: Final bounded Preview setup/deployment approved; full Google/member certification unverified and CLI protected by Vercel SSO. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
@@ -61,4 +61,4 @@ review_queue:
   - { id: code-vercel-candidate-validation-002, artifact: vercel-candidate-validation-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: hosted-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/hosted-setup.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: hosted-vercel-candidate-validation-packaging-001, artifact: .vercelignore, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: hosted-vercel-candidate-validation-final-001, artifact: vercel-candidate-validation-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: hosted-vercel-candidate-validation-final-001, artifact: vercel-candidate-validation-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
