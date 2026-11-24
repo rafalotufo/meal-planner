@@ -1,7 +1,8 @@
 # App icon — implementation plan
 
 - Author: architect; adopted by senior-developer after independent approval c51518a
-- Status: Approved by independent reviewer for senior-developer adoption; see `org/reviews/app-icon-design-001.md`
+- Status: Approved
+- Approval: Independent reviewer; see `org/reviews/app-icon-design-001.md`
 - Date: 2026-11-24
 - Derived from: sibling accepted `intent.md` and approved `spec.md`
 
