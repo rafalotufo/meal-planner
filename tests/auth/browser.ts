@@ -522,8 +522,10 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("h1").length'), 1);
     assert.equal(await evaluate('document.querySelector("button").textContent.trim()'), 'Continue with Google');
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
-    await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
-    await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+    for (let step = 0; step < 5 && await evaluate('document.activeElement.tagName') !== 'BUTTON'; step++) {
+      await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+      await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+    }
     assert.equal(await evaluate('document.activeElement.tagName'), 'BUTTON');
     let screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
     if (width === 320 || width === 1440) await writeFile(`org/reviews/t-rex-main-integration-sign-in-${width}.png`, Buffer.from(screenshot.data, 'base64'));

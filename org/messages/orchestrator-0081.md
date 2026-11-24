@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0081
 from: orchestrator
-to: security-researcher
+to: product-manager
 kind: handoff
-subject: Assess shared menu specification security
-artifact: intent/saved-recipe-menu/spec.md
+subject: Capture shared site layout intent
+artifact: intent/shared-site-layout/intent.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T16:14:50Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/security-saved-recipe-menu-design-001.md
+created_at: "2026-11-24T17:33:30Z"
 ---
 
-Independent named security_researcher subagent assesses stable architect specification against real repository auth/session/family/URL/photo/DB/catalog/grants boundaries. Record evidence-ranked findings in org/reviews/security-saved-recipe-menu-design-001.md. No implementation or global audit changes. Human specification gate follows independent review.
+Owner requests a common Next.js layout/header and consistent home styling across all pages, especially family. Capture and assess bounded intent; preserve auth/provider/data behavior and human merge/release gates.

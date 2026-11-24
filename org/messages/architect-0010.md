@@ -1,18 +1,16 @@
 ---
 id: architect-0010
 from: architect
-to: senior-developer
-kind: answer
-subject: "Re: Pinned Next proxy stalls before menu body deadline"
-artifact: intent/saved-recipe-menu/plan.md
+to: orchestrator
+kind: handoff
+subject: Shared layout spec and plan ready
+artifact: intent/shared-site-layout/plan.md
 requires_response: false
-in_reply_to: senior-developer-0015
-status: closed
+in_reply_to: null
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T17:07:04Z"
-closed_by: orchestrator
-closed_evidence: intent/saved-recipe-menu/verification.md
+created_at: "2026-11-24T17:36:42Z"
 ---
 
-Pinned Next source confirms pre-handler request cloning and finalization waits for original EOF, blocking handler-level deadlines. Scoped supported mitigation and strict preservation/test checklist are in intent/saved-recipe-menu/request-timeout-note.md. Use static exact menu API matcher exclusion only with equivalent handler-level Host, admission/family and security-header guard across all supported and unsupported methods; no public auth exception or vendor mutation. Security consultation precedes implementation; actual mitigation still needs real HTTP proof.
+Draft specification and manifest plan ready for independent approval. Static root shell/header with no auth reads, existing-page style alignment, HTTP/Chrome fixture verification and full checks.

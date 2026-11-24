@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/saved-recipe-menu/intent.md
+base_commit: fce96bffacfe1868e938ddcd213e0dce28458856
+turn: 6
+no_progress: 0
+phase: awaiting_owner_decision
+status: exhausted
+last_input_hash: 6a8c6fb6d11915f4dc0fe9883b9aff2df280735a324f37f661e73333cbff2997
+stop_reason: exhausted
+last_action: "reviewer:review_uncapped_menu_amendment"
+artifacts: [{"path": "org/reviews/security-saved-recipe-menu-design-001.md", "sha256": "e3772c352bf058267a3476725930d78fb510844db3775a8522fe41da3f6100e8"}, {"path": "org/reviews/spec-saved-recipe-menu-001.md", "sha256": "6da63370bc40f40fb6cbb663ce8e9136d57e66b48aa75d4a5f65e82eb0ed0ce5"}, {"path": "intent/saved-recipe-menu/spec.md", "sha256": "48e20aa67c68c38e1a70b2dc47d91140efeea4815ed2eaceef02fe705592423e"}, {"path": "intent/saved-recipe-menu/intent.md", "sha256": "f648f7fe7e2a910565188bcac2a17ab927fb472d6358df5337aa05e0e9be3570"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T16:22:15Z"

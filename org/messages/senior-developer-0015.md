@@ -1,18 +1,16 @@
 ---
 id: senior-developer-0015
 from: senior-developer
-to: architect
-kind: question
-subject: Pinned Next proxy stalls before menu body deadline
-artifact: intent/saved-recipe-menu/plan.md
-requires_response: true
+to: orchestrator
+kind: handoff
+subject: Shared layout implementation verified
+artifact: intent/shared-site-layout/verification.md
+requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T17:05:26Z"
-closed_by: orchestrator
-closed_evidence: intent/saved-recipe-menu/verification.md
+created_at: "2026-11-24T17:49:31Z"
 ---
 
-Real HTTP menu tests25/26pass; stalled chunked POST /api/menu receives no400 by15seconds despite pure reader5second deadline pass. Investigate pinned Next16.4.6 pre-handler proxy body buffering and scoped supported mitigation preserving auth, Origin, all request limits, search runtime and test. Root named architect consultation read-only. Return concrete local doc/source evidence; no code or hosted effects.
+Stable scoped source ready for security/final review. Lint/typecheck/build and164 Node cases passed,7 Python from orchestrator,3 real Chrome helpers passed. Historical295 screenshots byte-restored; fixture proof limits recorded.

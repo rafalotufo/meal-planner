@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Owner title-focus and saved-button corrections verified and independently reviewed; local development migration backed up/applied. Human merge and hosted release remain pending." }
-  product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
-  architect: { status: idle, assignment: null, last_report: "Owner-required removal confirmation designed and independently reviewed; Cancel/Escape preserve recipe, confirm alone removes." }
-  senior-developer: { status: idle, assignment: null, last_report: "Owner0056 saved controls verified: lint/typecheck/build,82recipe/35menu/34family/32deployment and realChrome pass; independent code/security approved. User dev/next-env preserved." }
-  security-researcher: { status: idle, assignment: null, last_report: "security-saved-recipe-menu-saved-status-001 approved; bounded family lookup and existing guards preserved." }
-  reviewer: { status: idle, assignment: null, last_report: "code-saved-recipe-menu-saved-status-001 approved; actual reopen evidence corrected and verified." }
+  orchestrator: { status: idle, assignment: null, last_report: "Shared layout merged into local main under owner approval; dev stopped, staging acceptance and release unstarted." }
+  product-manager: { status: idle, assignment: null, last_report: Accepted shared site layout intent; no product ambiguity. }
+  architect: { status: busy, assignment: shared-site-layout-plan, last_report: Drafted shared site layout spec and exact manifest plan; pinned docs read and frozen install passed. }
+  senior-developer: { status: idle, assignment: null, last_report: Executed authorized shared layout fast-forward into clean local main; no push or deployment. }
+  security-researcher: { status: idle, assignment: null, last_report: "Shared layout security clear; static root, unchanged guards/handlers, no config exposure/effects, zero scoped secrets." }
+  reviewer: { status: idle, assignment: null, last_report: "Final shared layout implementation independently approved; no blockers, screenshots and164 Node/7 Python evidence reviewed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -76,11 +76,8 @@ review_queue:
   - { id: hosted-vercel-candidate-validation-final-001, artifact: vercel-candidate-validation-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: vercel-candidate-validation-main-integration-001, artifact: vercel-candidate-validation-main-integration, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: vercel-candidate-validation-main-refresh-001, artifact: vercel-candidate-validation-main-refresh, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: spec-saved-recipe-menu-001, artifact: intent/saved-recipe-menu/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: spec-saved-recipe-menu-002, artifact: intent/saved-recipe-menu/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: visual-saved-recipe-menu-001, artifact: intent/saved-recipe-menu/visual-design.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: visual-saved-recipe-menu-002, artifact: intent/saved-recipe-menu/visual-design.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: plan-saved-recipe-menu-001, artifact: intent/saved-recipe-menu/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
-  - { id: plan-saved-recipe-menu-002, artifact: intent/saved-recipe-menu/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
-  - { id: code-saved-recipe-menu-001, artifact: saved-recipe-menu-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
-  - { id: code-saved-recipe-menu-002, artifact: saved-recipe-menu-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: staging-first-release-plan-001, artifact: staging-first-release-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: staging-first-release-final-001, artifact: staging-first-release-docs, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-plan-001, artifact: shared-site-layout-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-browser-amendment-001, artifact: shared-site-layout-browser-amendment, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-code-001, artifact: shared-site-layout-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0085
 from: orchestrator
-to: reviewer
+to: security-researcher
 kind: handoff
-subject: Review uncapped menu and retained photo amendment
-artifact: intent/saved-recipe-menu/spec.md
+subject: Review shared layout auth and privacy boundaries
+artifact: intent/shared-site-layout/verification.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T16:20:55Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/spec-saved-recipe-menu-002.md
+created_at: "2026-11-24T17:49:31Z"
 ---
 
-Final remaining loop turn6. Review owner no-maximum correction and keep-photos choice against amended intent/spec. Confirm cursor bounds/family predicates/all entries accessible and safe publisher image URL browser-only rendering with missing/failure fallback. Write independent focused peer/security addendum org/reviews/spec-saved-recipe-menu-002.md; no global mutations.
+Independent security review of stable scoped shared layout diff vs baseline d1b11652. Verify root remains static, no new session/config exposure or prefetch effects, preserved guards/effects and fixture isolation. No external calls or runtime edits.

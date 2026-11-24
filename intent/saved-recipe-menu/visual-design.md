@@ -3,7 +3,7 @@
 - Author: architect
 - Date: 2026-11-24
 - Status: Approved by owner, including removal confirmation;
-  `org/messages/ceo-0052.md`.
+  `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0052.md`.
 - Preview: `mockups/menu-preview.html`
 - Based on: approved sibling specification and existing `app/page.tsx`,
   `app/recipe-search.tsx`, `app/search-notebook.tsx`, `app/recipe-card.tsx`.

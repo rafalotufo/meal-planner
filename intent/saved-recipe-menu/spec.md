@@ -3,11 +3,11 @@
 - Author: architect
 - Date: 2026-11-24
 - Status: Approved by owner, including removal confirmation;
-  `org/messages/ceo-0052.md` (initial approval: `org/messages/ceo-0050.md`).
+  `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0052.md` (initial approval: `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0050.md`).
 - Input: accepted sibling `intent.md`; PM decision `org/reviews/intent-saved-recipe-menu-001.md`
 - Owner decisions: one shared menu per family; no maximum saved-recipe count;
   retain photos when available and use fallback only when missing or failed.
-  Initial ownership source: `org/messages/ceo-0047.md`; subsequent owner replies
+  Initial ownership source: `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0047.md`; subsequent owner replies
   in this Design conversation supersede the initial cap/photo proposal.
 - Implementation and migration execution are not approved by this document.
 
@@ -126,8 +126,11 @@ HTML/SVG payload, data URL, credentials or private-literal URL from saved input.
 
 ## User flows and state
 
-1. Add a visible `Menu` link in the home header and a `Recipe search` link on the
-   menu page. Preserve the Meal Planner heading and search/notebook/game layout.
+1. Use current main's shared site shell: one Meal Planner brand and Primary
+   navigation with Recipes, Menu and Family on every page. Menu uses fresh
+   ordinary navigation, Recipes returns to search. Do not duplicate the header
+   or outer padding in `/menu`; give it one Your menu h1. Preserve the existing
+   search/notebook/game content and current main's family/account page layout.
 2. Each search card has an `Add to menu` button with an accessible recipe-specific
    name. During its own request, show `Adding…`, disable only that action and
    announce progress. On success announce `Saved to menu` with a menu link;
@@ -153,7 +156,7 @@ HTML/SVG payload, data URL, credentials or private-literal URL from saved input.
    `Newest recipes` on an older page. These are accessible ordinary navigation
    links, each loading a replacement page with its heading focused/announced via
    an explicit native heading target. Following owner feedback
-   `org/messages/ceo-0055.md`, do not automatically focus/select the heading on
+   `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0055.md`, do not automatically focus/select the heading on
    direct load/reload or header navigation to `/menu`. Focus the heading only
    when the user deliberately follows Older/Newest navigation.
 4. Each menu card has a recipe-specific `Remove from menu` button. Activating

@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0079
 from: orchestrator
-to: product-manager
+to: reviewer
 kind: handoff
-subject: Capture shared saved recipe menu intent
-artifact: intent/saved-recipe-menu/intent.md
+subject: Review staging-first release documentation plan
+artifact: intent/staging-first-release/plan.md
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T16:11:32Z"
+created_at: "2026-11-24T15:57:00Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/intent-saved-recipe-menu-001.md
+closed_evidence: org/reviews/staging-first-release-plan-001.md
 ---
 
-PM intake dispatched as named product_manager subagent under the committed role card. Source ceo-0047 confirms family-shared menu, save from search, list and remove. Record PM scope decision; then architect, security and independent peer review prepare a concrete human specification gate. No implementation in this Design run.
+Review accepted owner direction CEO47 plus new intent/staging-first-release intent/spec/plan. Docs-only: move functional validation to exact-source staging acceptance, keep concrete human release scope and minimal Production configuration/readiness/anonymous health/recovery. Existing keyless helper unchanged; no paid/config/deploy authority. Check source/audit SHA distinction, named scope gaps, lotufo canonical URL prerequisite, no repeat approval prompts if one explicit combined approval covers concrete scope. Review graph staging_acceptance edge as operator process, not claim of automatic evidence enforcement. No active runbook changes before approval.

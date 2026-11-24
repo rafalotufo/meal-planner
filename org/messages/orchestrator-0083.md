@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0083
 from: orchestrator
-to: ceo
+to: reviewer
 kind: handoff
-subject: Shared saved recipe menu specification ready for approval
-artifact: intent/saved-recipe-menu/spec.md
+subject: Independently review shared layout spec and plan
+artifact: intent/shared-site-layout/plan.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T16:17:33Z"
-closed_by: orchestrator
-closed_evidence: org/messages/ceo-0048.md
+created_at: "2026-11-24T17:36:42Z"
 ---
 
-PM accepted confirmed shared-family scope; architect draft and independent security/peer reviews have no required findings. Proposed menu: add search cards, list/remove at /menu, normalized source dedup first-save-wins, max 200 entries, text/source/time snapshots with photo fallback. Baseline lint/typecheck/build, 82 recipe tests and 7 Python workflow tests pass. Approval of this spec is next before build planning; no implementation, migration, merge/deploy/release performed. See design-verification.md and org reviews.
+Review bounded shared layout/header design and exact implementation manifest before code. Verify public/invited states retain auth boundaries and checks cover styling/navigation at mobile/desktop without paid requests.

@@ -50,6 +50,8 @@ try {
   assert.equal(await browser.evaluate('document.activeElement.tagName'), 'A', 'normal Tab navigation reaches a link');
   assert.equal(await browser.evaluate('document.activeElement.matches(":focus-visible")'), true, 'keyboard focus remains visible');
   await key('Tab', 'Tab', 9);
+  assert.equal(await browser.evaluate('document.activeElement.textContent'), 'Recipes', 'shared navigation retains recipes');
+  await key('Tab', 'Tab', 9);
   assert.equal(await browser.evaluate('document.activeElement.getAttribute("href")'), '/menu', 'Tab continues through navigation without a trap');
   await browser.click('a[href="/"]');
   await browser.waitFor("Boolean(document.querySelector('#recipe-query'))");

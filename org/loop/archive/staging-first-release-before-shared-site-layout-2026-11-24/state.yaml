@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/staging-first-release/intent.md
+base_commit: fce96bffacfe1868e938ddcd213e0dce28458856
+turn: 4
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 752f7b6e846e8a725d9a652bd5d2502f0f96d36e8e80058ea5c0940a7aa38db0
+stop_reason: solved
+last_action: "reviewer:verify_release_process"
+artifacts: [{"path": "intent/staging-first-release/plan.md", "sha256": "092977916ed45223831f81d9a201ceb9381d283ab0a8043093d5ce21d92e67f1"}, {"path": "org/reviews/staging-first-release-plan-001.md", "sha256": "3c326a368def3b794d0b10b02ea747183c58133b6ff65d0ab8acae0adcd988f3"}, {"path": "intent/vercel-deployment/deployment-runbook.md", "sha256": "89e5927714d505cbb8fbc1a9cccf9b3d995737c476428b7ac0f9f9113593cc23"}, {"path": "org/reviews/staging-first-release-final-001.md", "sha256": "cf86455c0ee0ab75cb4d4cb287c40c0ea3fb3c69e813a1f09ae4d5171669134e"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T16:07:52Z"

@@ -525,3 +525,75 @@ that original next-env still matched exactly. No isolated server was running;
 node_modules/private fixture-config links were unlinked with the snapshot,
 leaving their original targets, active dev outputs and private backups intact.
 No temporary helper file was added outside that owned snapshot.
+
+## Current-main integration candidate — shared shell and staging-first main
+
+Integrated main6efc2cff into feature6458023 without committing or switching to
+main. Application conflicts were home composition and the shared Chrome scroll
+helper. Adopted main's root/home shell, preserved all its family/account styling,
+added fresh Menu navigation to Primary beside Recipes/Family, removed duplicate
+menu header/outer padding and retained one Your menu h1. The scroll helper keeps
+main's real-input scroll behavior and feature fixtures/cleanup. Save/status,
+confirmation, title and post-removal focus behavior stay intact. Added inherited
+shared-layout HTTP/browser coverage for Menu and adjusted Tab traversal to the
+shared brand/navigation. No runbook, runtime/auth/provider/schema relaxation.
+
+The orchestrator separately preserved the exact full feature audit under
+org/archive/saved-recipe-menu-pre-main-6458023, retained canonical main workflow/
+message IDs/ledger and staging-first runbooks, and rewrote feature references.
+This implementation did not concatenate ledgers or choose conflicting audit data.
+
+Integration RED: updated shared-layout HTTP regression against prior compiled
+feature failed2/2 (public header missing, no shared Primary navigation). Combined
+isolated GREEN: lint/typecheck/build exit0; recipes82, menu35, family34, auth16
+(including the2 inherited shared-layout tests extended to Menu), deployment32,
+all0 failed/skipped/cancelled. Full menu Chrome passes390/1440 and dialog320,
+including current-family status, disabled saves, stale request handling, paged
+reads, title/keyboard and confirmation/removal focus. Inherited auth/recipe/game
+Chrome passes320/390/768/1024/1440 with real HTTPS publisher photo, ten deliberate
+fixture429s and0 unexpected errors. Inherited family Chrome production and
+owned-development/StrictMode flows both pass320/1440 without overflow/errors.
+Python workflow regression:7 passed in2.249s, exit0.
+
+The initial unbounded inherited shared-layout browser stalled after its signin320
+frame; its owned Chrome still responded to public-page diagnostics (ready complete,
+fonts loaded). It is recorded inconclusive/terminated143, not a pass or an app
+failure. Stopped only verified test74145 and its Next74158/Chrome74162 children.
+Identified its unique owned random DB by menu schema + fixture state, then dropped
+only mp_test_85c2e7420bb01519cf5ba64d with exact name/owner/reviewed hashes/
+1family1user1invitation0recipes and zero-connection checks, without FORCE. Removed
+only its stopped profile and the completed auth QA profile after process checks.
+
+One bounded PRIVATE rerun of that same shared-layout browser added CDP command
+10-second deadlines/phase labels and bounded fixture cleanup, retaining every
+original assertion. It passed all six public/member/account/invitation routes at
+320/1440, common landmarks/background, keyboard navigation, guarded/no-prefetch
+links and create/revoke behavior, exit0. Those private diagnostic edits were then
+restored from exact repo source; no diagnostic/test weakening entered this diff.
+The transient original stall's cause remains unproven.
+
+Automatic approval review rejected frozen install in the active checkout because
+it could relink active dependencies. The shared-node_modules isolated attempt had
+already aborted without mutation. Followed the safe alternative: unlink only the
+candidate's symlink and run CI=true pnpm install --frozen-lockfile --offline in
+that private copy, creating its OWN node_modules:434 cached packages,0 downloads,
+exit0. No active-checkout dependency mutation or rejected-action workaround.
+
+All QA ran in a private candidate with owner-only fixture configuration access;
+source next-env was backed up privately and repeatedly compared byte-for-byte.
+The user dev server, active dev/types, config and all historical screenshots stay
+untouched. Only new dedicated main-menu390/1440, main-confirm320 and main-signin320
+screenshots were copied back. Following owned-development QA, final strict check
+correctly caught duplicate generated LayoutProps/RouteContext in the PRIVATE
+candidate. Applied the documented workaround only to its stopped/unlocked
+candidate dev/types, moving it to an owned private backup; production type/build
+regeneration results follow. Original user dev output remains active/intact.
+
+Final isolated production regeneration: strict typecheck exit0, build exit0 after
+the inactive candidate-only cache workaround. No compiler exclusion or source
+change. Final user next-env byte comparison passes; removed only the owned
+isolated integration directory/dependency copy/private temporary backups after
+all fixture jobs stopped. User dev server/config/dependencies and prior private
+backups remain untouched. Source frozen for reviewed integration; no unmerged
+paths, candidate secrets0 and git diffcheck0. Commit/merge/release remain with
+orchestrator; this agent performed no external or hosted effect.

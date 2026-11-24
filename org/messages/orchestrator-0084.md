@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0084
 from: orchestrator
-to: architect
+to: senior-developer
 kind: handoff
-subject: Amend menu specification without saved-count cap
-artifact: intent/saved-recipe-menu/spec.md
+subject: Implement approved shared layout plan
+artifact: intent/shared-site-layout/plan.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T16:19:27Z"
-closed_by: orchestrator
-closed_evidence: intent/saved-recipe-menu/spec.md
+created_at: "2026-11-24T17:37:53Z"
 ---
 
-Owner scope correction recorded in latest CEO decision. Use existing remaining bounded turn5 for amendment, then turn6 independent review; do not reset or increase budget. Remove collection cap/full state and specify bounded page reads so every saved recipe remains accessible. Photo choice remains draft.
+Approved spec/plan open local code gate. Implement scoped shared layout/header and coherent all-page styling. Preserve auth/data/provider behavior and keyboard assertions. Run required full checks and real Chrome mobile/desktop fixture QA, visually inspect screenshots, record actual evidence. Historical screenshots preserved.

@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/saved-recipe-menu/plan.md
-base_commit: 6a59ed2af75f08ab0cba138b3b701f9a61bc3813
-turn: 5
+work_item: intent/shared-site-layout/intent.md
+base_commit: d1b11652abb5cf59d2b0ddce2b2b01d02480b8fc
+turn: 6
 no_progress: 0
-phase: awaiting_merge_approval
-status: in_progress
-last_input_hash: e4f8febedc73e5da558ae9284360bbd59b4474e6132c73e8ca8e9ae6ac770b18
-stop_reason: null
-last_action: "reviewer:review_menu_implementation"
-artifacts: [{"path": "intent/saved-recipe-menu/verification.md", "sha256": "8bde09f93a49f36485425a7f9349d0917cb11a56fa31f84b64ae97cd2ddb3812"}, {"path": "org/reviews/security-saved-recipe-menu-implementation-001.md", "sha256": "d52c697fc54e4afce1d43ae9deb59df1ba2a78114b2cd9bf2f640eb3fea0157a"}, {"path": "org/reviews/code-saved-recipe-menu-002.md", "sha256": "881b91005be72f1e0600654f97980a7f43c630a29094a077f6d9be4913efaa2d"}]
-acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T17:56:11Z"
+phase: done
+status: solved
+last_input_hash: c706ce6f8d1544ca6e608e0c4f62e6b92d59d97a788eb4bc8d1378f3a47828ca
+stop_reason: solved
+last_action: "reviewer:verify_shared_layout"
+artifacts: [{"path": "org/reviews/intent-shared-site-layout-001.md", "sha256": "92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b"}, {"path": "intent/shared-site-layout/plan.md", "sha256": "0c7253aefc37a2306d8876e860f685975967a7039429f24e4c8e09a56eb041fa"}, {"path": "org/reviews/shared-site-layout-plan-001.md", "sha256": "44c5e5ba2f637613504309b84ef0eca5154273781cababc8bf8784d0c7441663"}, {"path": "intent/shared-site-layout/verification.md", "sha256": "279d4ba0ce4a65f0dc4d5c7df87ceafbadaa3bbe57931fbca8881897dfe2264d"}, {"path": "org/reviews/shared-site-layout-security-001.md", "sha256": "995b26a6e0faf339d998b7707954ace473c4c266e73d4edc4b7e4a03e2319bf9"}, {"path": "org/reviews/shared-site-layout-final-001.md", "sha256": "e9737485868f21fafaaec6d06e04b9c55e3736dac6e239c5178aeb04601fba94"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T17:52:21Z"

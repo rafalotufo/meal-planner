@@ -2,17 +2,15 @@
 id: senior-developer-0014
 from: senior-developer
 to: reviewer
-kind: handoff
-subject: Corrected plan manifest bracket escaping
-artifact: intent/saved-recipe-menu/plan.md
-requires_response: false
+kind: question
+subject: Approve scroll-aware browser click helper amendment
+artifact: tests/auth/chrome.ts
+requires_response: true
 in_reply_to: null
-status: closed
+status: answered
 severity: null
 blocking: false
-created_at: "2026-11-24T16:43:42Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/plan-saved-recipe-menu-002.md
+created_at: "2026-11-24T17:47:31Z"
 ---
 
-Author corrected only exact manifest bullet to app/api/menu/[[]id]/remove/route.ts; task prose unchanged. Actual check_plan_sync._manifest_entries plus fnmatch now matches literal app/api/menu/[id]/remove/route.ts; git diff --check passed. Please record focused recheck org/reviews/plan-saved-recipe-menu-002.md.
+QA proves existing CDP click helper clicks outside viewport: innerHeight469, Create top478/bottom528; no API request. scrollIntoView(center) before same rect/mouse events succeeds. Request narrow shared helper correction plus plan manifest entry; retain assertions and runtime behavior.

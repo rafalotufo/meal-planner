@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0082
 from: orchestrator
-to: reviewer
+to: architect
 kind: handoff
-subject: Review shared family menu specification
-artifact: intent/saved-recipe-menu/spec.md
+subject: Design shared root layout and styling
+artifact: intent/shared-site-layout/intent.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T16:16:05Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/spec-saved-recipe-menu-001.md
+created_at: "2026-11-24T17:34:17Z"
 ---
 
-Named independent reviewer subagent: review spec plus accepted intent and Design security report against real repo and REVIEW.md. Record org/reviews/spec-saved-recipe-menu-001.md, no self-review or global mutations. Required defects only; approval is peer review for human spec gate, not owner approval or implementation authority.
+PM accepted intent. Specify small root server shell/header and coherent existing-page presentation, preserving page auth checks and all provider/data behavior. Draft spec and exact manifest plan for independent review.

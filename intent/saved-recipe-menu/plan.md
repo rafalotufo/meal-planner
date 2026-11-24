@@ -3,11 +3,11 @@
 - Author: senior-developer
 - Date: 2026-11-24
 - Status: Approved
-- Approval: `org/messages/ceo-0053.md`; independent reviews
+- Approval: `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0053.md`; independent reviews
   `org/reviews/security-saved-recipe-menu-plan-001.md` and
   `org/reviews/plan-saved-recipe-menu-002.md`.
 - Inputs: approved sibling `spec.md` and `visual-design.md`; owner approval
-  `org/messages/ceo-0052.md`; removal-confirmation requirement `ceo-0051.md`.
+  `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0052.md`; removal-confirmation requirement `ceo-0051.md`.
 - Task list: the ordered checklist in this document is the authoritative task
   list, following the repository's feature-folder convention.
 
@@ -89,6 +89,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - app/menu/remove-recipe-dialog.tsx
 - app/menu/save-recipe-button.tsx
 - app/page.tsx
+- app/layout.tsx
 - app/recipe-card.tsx
 - app/search-notebook.tsx
 - package.json
@@ -102,6 +103,8 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - tests/menu/http.test.ts
 - tests/menu/browser.ts
 - tests/auth/chrome.ts
+- tests/auth/shared-layout.test.ts
+- tests/auth/shared-layout-browser.ts
 - tests/family/storage.test.ts
 - tests/deployment/postgres-packaging.test.ts
 - tests/deployment/postgres-metadata.test.ts
@@ -109,7 +112,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - README.md
 - intent/saved-recipe-menu/**
 - org/loop/**
-- org/messages/**
+- org/archive/saved-recipe-menu-pre-main-6458023/org/messages/**
 - org/memory/**
 - org/reviews/**
 - org/status.yaml
@@ -359,7 +362,7 @@ Depends on task9. This is the final Build/Test checkpoint, not deployment.
 
 ## Supplemental owner correction — menu title focus
 
-Owner report `org/messages/ceo-0055.md`: the menu title appears selected when
+Owner report `org/archive/saved-recipe-menu-pre-main-6458023/org/messages/ceo-0055.md`: the menu title appears selected when
 opening the page. Remove unconditional mount focus while retaining native
 `#menu-heading` targets for deliberate Older/Newest navigation, including the
 empty older page. Keep confirmation and post-removal focus behavior unchanged.
@@ -372,6 +375,24 @@ This is a narrow correction within the existing approved files/scope.
   family regressions without touching the active user dev server or next-env.
 - [x] Independent focused code review of the correction; orchestrator owns
   final audit/commit and the still-pending human merge gate.
+
+## Current-main integration — shared shell and staging-first process
+
+Integrate main6efc2cff while preserving its shared-site-layout and staging-first
+release work. Use main's home/root shell; add fresh Menu navigation to the shared
+Primary header and remove `/menu`'s duplicate shell/header. Its Your menu heading
+becomes the page's single h1 while retaining title/pagination/removal focus rules.
+Reconcile the shared Chrome scroll helper without losing bounded fixtures or
+cleanup. Extend inherited shared-layout tests to Menu and update menu keyboard
+expectations for the shared brand/navigation. The added layout/shared-test paths
+are in the manifest. Orchestrator preserves/reconciles divergent audit records;
+do not concatenate ledger chains or overwrite current-main runbooks.
+
+Run combined frozen install/lint/typecheck/build/recipe/menu/family/auth/deployment,
+shared-layout/menu and inherited auth/family browser verification in an isolated
+copy, preserving the active user dev server and exact next-env bytes. Capture
+new integration screenshots separately. Fresh independent code/security reviews
+assess combined code before the orchestrator's merge/release actions.
 
 ## Verification commands and ownership
 

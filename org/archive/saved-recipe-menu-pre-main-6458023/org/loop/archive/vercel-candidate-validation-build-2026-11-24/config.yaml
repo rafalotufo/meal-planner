@@ -1,0 +1,18 @@
+# Approved isolated-staging local Build run; previous Design run preserved.
+# Spec/plan decisions use org independent peer review; merge/release remain human.
+version: 1
+max_turns: 6
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: true
+review_artifact: vercel-candidate-validation-implementation
+human_gates: [code_owner_approve, release_authorization]
+acceptance:
+  commands: ["pnpm run lint", "pnpm run typecheck", "pnpm test", "pnpm run build", "node --import tsx --test tests/deployment/*.test.ts", "(umask 077 && mkdir -p .data/staging-verification && pnpm run test:auth > .data/staging-verification/org-auth.log 2>&1)", "pnpm run test:family", "python3 -m unittest discover -s tests"]
+phases:
+  intent: { role: senior-developer, action: plan_isolated_staging, next: plan_review }
+  plan_review: { role: reviewer, action: review_staging_plan, next: implement }
+  implement: { role: senior-developer, action: implement_staging_validation, next: security }
+  security: { role: security-researcher, action: assess_staging_implementation, next: review }
+  review: { role: reviewer, action: review_staging_implementation, next: done }
+  done: { role: null, action: null, next: null }
