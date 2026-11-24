@@ -20,7 +20,7 @@ nodes:
     stage: design
     artifact: intent/vercel-candidate-validation/spec.md
     gate: product_owner_approve
-    status: in_progress
+    status: pending
     done_status: approved
   plan:
     stage: build

@@ -9,18 +9,18 @@ intent/vercel-candidate-validation/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: security
+- turn: 4
+- phase: awaiting_spec_approval
 - stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/vercel-candidate-validation/spec.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: busy (intent/vercel-candidate-validation/spec.md)
+- security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -64,7 +64,7 @@ intent/vercel-candidate-validation/intent.md
 - orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
-- orchestrator-0038 orchestrator -> security-researcher handoff: Assess isolated staging specification
+- orchestrator-0040 orchestrator -> ceo handoff: Reviewed isolated staging specification ready for Design approval
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -89,6 +89,7 @@ intent/vercel-candidate-validation/intent.md
 - reviewer-0017 reviewer -> orchestrator review: Single-call main integration independently approved
 - reviewer-0018 reviewer -> orchestrator review: Current-main single-call integration approved
 - reviewer-0019 reviewer -> orchestrator review: Approved candidate validation options research
+- reviewer-0020 reviewer -> orchestrator review: Isolated staging specification independently reviewed
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator status: pnpm migration security clear
@@ -97,6 +98,7 @@ intent/vercel-candidate-validation/intent.md
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
+- security-researcher-0014 security-researcher -> orchestrator review: Isolated staging design security clear
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
@@ -108,11 +110,11 @@ intent/vercel-candidate-validation/intent.md
 
 ## Recent decisions
 
-- mem-0076 orchestrator: Imported prior feature event mem-0076: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
 - mem-0078 orchestrator: Opened research-only Vercel candidate-validation intent from Rafael request. Preserved completed single-call integration loop/graph under org/loop/archive/single-call-main-final-before-candidate-validation-2026-11-24. Comparing isolated stable staging with exact Production candidate stable alias; owner assurance choice pending. No application or external configuration authority. (org/messages/ceo-0027.md)
 - mem-0079 orchestrator: Independent reviewer approved Vercel candidate-validation research with no blockers. Google registration alone cannot bypass current canonical Host421. Stable isolated staging is smallest auth change; exact Production artifact alternative needs stable alias and reviewed finite-origin handling plus Production-data effects accounting. Owner assurance choice pending; bounded research loop stops gate_required, no intent/spec/plan/release approval. (org/reviews/options-vercel-candidate-validation-001.md)
 - mem-0080 orchestrator: Rafael approved isolated staging approach: existing Vercel Preview environment and manually controlled stable alias, separate staging auth and recorded Preview DB. PM accepted intent for Design. Preserved completed options loop and graph under org/loop/archive/vercel-candidate-validation-options-2026-11-24 before initializing bounded Design run. No external configuration or release authority inferred. (org/messages/ceo-0028.md)
+- mem-0081 orchestrator: Isolated staging specification drafted and independently approved for quality by security/reviewer with no blockers. Scope unchanged canonical-origin app plus future operator helper/runbook, Preview-only secrets/data, no paid provider key, stable alias safety preflight and separate Production build. Await owner Design approval; next org dispatch stops gate_required at product_owner_approve. No application or external changes. (org/reviews/spec-vercel-candidate-validation-001.md)
 
 ## Constraints
 
@@ -122,14 +124,16 @@ intent/vercel-candidate-validation/intent.md
 
 - org/reviews/intent-vercel-candidate-validation-001.md (bc1ecdca911807728a02c9875f226bac0e0cefcfde58155d9fbd4e677599f683)
 - intent/vercel-candidate-validation/spec.md (9a198428f401b61bc3d4df18a509e2268f02e38cc35d5e52ac79d3b9c073868a)
+- org/reviews/security-vercel-candidate-validation-design-001.md (bac7d5aebd1251811874731d9a53f2f92065cd488d2da2345e8f5c9fbe107822)
+- org/reviews/spec-vercel-candidate-validation-001.md (d5f5681eaf7beba95c75cad1d1c6f0351bd45c8b977c806618d2df570278c2f7)
 
 ## Next action
 
-architect:specify_isolated_staging
+reviewer:review_staging_spec
 
 ## Last digest source
 
-- mem-0080 from org/messages/ceo-0028.md
+- mem-0081 from org/reviews/spec-vercel-candidate-validation-001.md
 
 <!-- machine:end -->
 

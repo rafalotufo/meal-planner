@@ -2,7 +2,9 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Draft — independent security/spec review and approval pending
+- Status: Independently reviewed — owner approval pending
+- Reviews: `org/reviews/security-vercel-candidate-validation-design-001.md`;
+  `org/reviews/spec-vercel-candidate-validation-001.md`
 - Intent: sibling `intent.md`, accepted by PM in
   `org/reviews/intent-vercel-candidate-validation-001.md` after `ceo-0028`.
 - Scope: local operator tooling and documented staging operations; this document
