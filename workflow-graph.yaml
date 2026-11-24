@@ -23,7 +23,7 @@ nodes:
     stage: "build"
     artifact: "staging-first-release-docs"
     gate: "code_owner_approve"
-    status: "in_progress"
+    status: "pending"
     done_status: "merged"
   staging_acceptance:
     stage: "test"

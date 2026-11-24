@@ -8,20 +8,20 @@ intent/staging-first-release/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 2
-- phase: documents
-- stop_reason: None
+- status: solved
+- turn: 4
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/staging-first-release/intent.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/staging-first-release/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -57,7 +57,6 @@ intent/staging-first-release/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
-- ceo-0047 ceo -> orchestrator decision: Make staging validation the Production deployment prerequisite
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -158,14 +157,16 @@ intent/staging-first-release/intent.md
 
 - intent/staging-first-release/plan.md (092977916ed45223831f81d9a201ceb9381d283ab0a8043093d5ce21d92e67f1)
 - org/reviews/staging-first-release-plan-001.md (3c326a368def3b794d0b10b02ea747183c58133b6ff65d0ab8acae0adcd988f3)
+- intent/vercel-deployment/deployment-runbook.md (89e5927714d505cbb8fbc1a9cccf9b3d995737c476428b7ac0f9f9113593cc23)
+- org/reviews/staging-first-release-final-001.md (cf86455c0ee0ab75cb4d4cb287c40c0ea3fb3c69e813a1f09ae4d5171669134e)
 
 ## Next action
 
-reviewer:review_process_plan
+reviewer:verify_release_process
 
 ## Last digest source
 
-- mem-0119 from org/messages/ceo-0047.md
+- mem-0120 from org/reviews/staging-first-release-final-001.md
 
 <!-- machine:end -->
 
