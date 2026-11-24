@@ -43,7 +43,7 @@ test('initial schema upgrades preserve existing data and migrations repeat witho
     await migrateDatabase(fixture.url); await migrateDatabase(fixture.url);
     const runtime = await openDatabase(fixture.url); await runtime.close();
     assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM families'))?.n, 1);
-    assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n, 2);
+    assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n, 4);
     await db.execute('DROP INDEX menu_family_saved');
     await assert.rejects(openDatabase(fixture.url), /Storage unavailable/);
     await assert.rejects(migrateDatabase(fixture.url));
@@ -54,6 +54,8 @@ test('disposable menu rollback precedes preserved initial rollback and permits f
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     await db.transaction(async tx => {
+      await tx.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));
+      await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql', 'utf8'));
       await tx.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql', 'utf8'));
       await tx.execute(await readFile('drizzle/postgresql/rollback-initial.sql', 'utf8'));
     });

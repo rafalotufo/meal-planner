@@ -1,0 +1,14 @@
+version: 1
+max_turns: 4
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: false
+review_artifact: searchable-swap-picker-stable-frame
+human_gates: [code_owner_approve, release_authorization]
+acceptance:
+  commands: ["git diff --check"]
+phases:
+  intent: { role: reviewer, action: approve_stable_frame_fix, next: build }
+  build: { role: senior-developer, action: fix_stable_modal_frame, next: review }
+  review: { role: reviewer, action: verify_stable_modal_frame, next: done }
+  done: { role: null, action: null, next: null }

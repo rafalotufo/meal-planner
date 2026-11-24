@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Saved-menu merged main; Production9a7V/source1788143 live,15-minute health and final reconciliation pass; accepted hosted gaps explicit." }
-  product-manager: { status: idle, assignment: null, last_report: Accepted shared site layout intent; no product ambiguity. }
-  architect: { status: busy, assignment: shared-site-layout-plan, last_report: Drafted shared site layout spec and exact manifest plan; pinned docs read and frozen install passed. }
-  senior-developer: { status: idle, assignment: null, last_report: "Combined menu/main source verified:199Node/7Python, lint/type/build/frozen isolated install and menu/auth/family/shared-layout browser pass; userdev preserved." }
-  security-researcher: { status: idle, assignment: null, last_report: "security-saved-recipe-menu-production-handoff-001 approved; source/gates/backups/schema/grants/17samples/finalerrorcounts verified." }
-  reviewer: { status: idle, assignment: null, last_report: "Final shared layout implementation independently approved; no blockers, screenshots and164 Node/7 Python evidence reviewed." }
+  orchestrator: { status: idle, assignment: null, last_report: Retained-results four-turn local loop solved; source 4f91e9c approved. Human merge and release pending. }
+  product-manager: { status: idle, assignment: null, last_report: "Searchable visual swap picker intentaccepted forDesign from ownerapprovedpreview; fullmenuboundedsearch, existingsemantics preserved." }
+  architect: { status: idle, assignment: null, last_report: Searchable swap picker design independently approved; implementation gate open. }
+  senior-developer: { status: idle, assignment: null, last_report: "Retained search results approved at 4f91e9c; 223 Node and 7 Python tests, browser flows and strict checks pass." }
+  security-researcher: { status: idle, assignment: null, last_report: "Retained results exact4f91e9c securityCLEAR;7paths independentlyequivalent, nofindings." }
+  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-retained-results-code-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -81,3 +81,17 @@ review_queue:
   - { id: shared-site-layout-plan-001, artifact: shared-site-layout-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: shared-site-layout-browser-amendment-001, artifact: shared-site-layout-browser-amendment, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: shared-site-layout-code-001, artifact: shared-site-layout-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-plan-001, artifact: weekly-meal-planning-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-code-001, artifact: weekly-meal-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-header-plan-001, artifact: weekly-meal-planning-header-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-header-code-001, artifact: weekly-plan-header-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-swap-plan-001, artifact: weekly-meal-planning-swap-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-swap-code-001, artifact: weekly-plan-swap-retention-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-unique-plan-001, artifact: weekly-meal-planning-unique-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-unique-code-001, artifact: weekly-plan-unique-recipes-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-plan-001, artifact: searchable-swap-picker-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-code-001, artifact: searchable-swap-picker-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-stable-frame-plan-001, artifact: searchable-swap-picker-stable-frame-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-stable-frame-code-001, artifact: searchable-swap-picker-stable-frame, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-retained-results-plan-001, artifact: searchable-swap-picker-retained-results-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-retained-results-code-001, artifact: searchable-swap-picker-retained-results, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

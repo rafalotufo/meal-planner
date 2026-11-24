@@ -96,6 +96,111 @@
   },
   {
     "kind": "column",
+    "name": "meal_plan_approvals.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_approvals.plan_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_approvals.revision",
+    "definition": "integer:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_approvals.user_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.base_revision",
+    "definition": "integer:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.day_index",
+    "definition": "integer:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.menu_recipe_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.plan_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.recipe",
+    "definition": "jsonb:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.status",
+    "definition": "text:true:'pending'::text"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_suggestions.user_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.family_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.finalized_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.meals",
+    "definition": "jsonb:true:"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.revision",
+    "definition": "integer:true:1"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.status",
+    "definition": "text:true:'draft'::text"
+  },
+  {
+    "kind": "column",
+    "name": "meal_plan_weeks.week_start",
+    "definition": "date:true:"
+  },
+  {
+    "kind": "column",
     "name": "menu_recipes.family_id",
     "definition": "text:true:"
   },
@@ -196,6 +301,136 @@
   },
   {
     "kind": "constraint",
+    "name": "meal_plan_approvals.meal_plan_approvals_created_at_check",
+    "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_approvals.meal_plan_approvals_pkey",
+    "definition": "PRIMARY KEY (plan_id, user_id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_approvals.meal_plan_approvals_plan_id_fkey",
+    "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_approvals.meal_plan_approvals_revision_check",
+    "definition": "CHECK ((revision > 0))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_approvals.meal_plan_approvals_user_id_fkey",
+    "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_base_revision_check",
+    "definition": "CHECK ((base_revision > 0))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_created_at_check",
+    "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_day_index_check",
+    "definition": "CHECK (((day_index >= 0) AND (day_index <= 6)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_id_check",
+    "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_menu_recipe_id_check",
+    "definition": "CHECK ((menu_recipe_id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_plan_id_fkey",
+    "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_recipe_check",
+    "definition": "CHECK ((jsonb_typeof(recipe) = 'object'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_status_check",
+    "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'accepted'::text, 'rejected'::text, 'stale'::text])))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_suggestions.meal_plan_suggestions_user_id_fkey",
+    "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_check",
+    "definition": "CHECK ((((status = 'draft'::text) AND (finalized_at IS NULL)) OR ((status = 'final'::text) AND (finalized_at IS NOT NULL))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_created_at_check",
+    "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_family_id_fkey",
+    "definition": "FOREIGN KEY (family_id) REFERENCES families(id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_family_id_week_start_key",
+    "definition": "UNIQUE (family_id, week_start)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_finalized_at_check",
+    "definition": "CHECK (((finalized_at >= 0) AND (finalized_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_id_check",
+    "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_meals_check",
+    "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND ((jsonb_array_length(meals) >= 1) AND (jsonb_array_length(meals) <= 7))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_revision_check",
+    "definition": "CHECK ((revision > 0))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_status_check",
+    "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'final'::text])))"
+  },
+  {
+    "kind": "constraint",
+    "name": "meal_plan_weeks.meal_plan_weeks_week_start_check",
+    "definition": "CHECK (((EXTRACT(dow FROM week_start) = (0)::numeric) AND ((week_start >= '0001-01-01'::date) AND (week_start <= '9999-12-31'::date))))"
+  },
+  {
+    "kind": "constraint",
     "name": "menu_recipes.menu_image_bound",
     "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
   },
@@ -276,6 +511,41 @@
   },
   {
     "kind": "index",
+    "name": "meal_plan_approvals_pkey",
+    "definition": "CREATE UNIQUE INDEX meal_plan_approvals_pkey ON public.meal_plan_approvals USING btree (plan_id, user_id)"
+  },
+  {
+    "kind": "index",
+    "name": "meal_plan_family_week",
+    "definition": "CREATE INDEX meal_plan_family_week ON public.meal_plan_weeks USING btree (family_id, week_start DESC)"
+  },
+  {
+    "kind": "index",
+    "name": "meal_plan_pending_unique",
+    "definition": "CREATE UNIQUE INDEX meal_plan_pending_unique ON public.meal_plan_suggestions USING btree (plan_id, base_revision, day_index, user_id) WHERE (status = 'pending'::text)"
+  },
+  {
+    "kind": "index",
+    "name": "meal_plan_suggestion_revision",
+    "definition": "CREATE INDEX meal_plan_suggestion_revision ON public.meal_plan_suggestions USING btree (plan_id, base_revision, status)"
+  },
+  {
+    "kind": "index",
+    "name": "meal_plan_suggestions_pkey",
+    "definition": "CREATE UNIQUE INDEX meal_plan_suggestions_pkey ON public.meal_plan_suggestions USING btree (id)"
+  },
+  {
+    "kind": "index",
+    "name": "meal_plan_weeks_family_id_week_start_key",
+    "definition": "CREATE UNIQUE INDEX meal_plan_weeks_family_id_week_start_key ON public.meal_plan_weeks USING btree (family_id, week_start)"
+  },
+  {
+    "kind": "index",
+    "name": "meal_plan_weeks_pkey",
+    "definition": "CREATE UNIQUE INDEX meal_plan_weeks_pkey ON public.meal_plan_weeks USING btree (id)"
+  },
+  {
+    "kind": "index",
     "name": "menu_family_saved",
     "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
   },
@@ -347,6 +617,56 @@
   {
     "kind": "relation",
     "name": "invitations_recipient",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_approvals",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_approvals_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_family_week",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_pending_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_suggestion_revision",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_suggestions",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_suggestions_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_weeks",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_weeks_family_id_week_start_key",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "meal_plan_weeks_pkey",
     "definition": "i:false:false"
   },
   {

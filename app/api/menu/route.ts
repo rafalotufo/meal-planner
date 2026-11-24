@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
     await requireFamilyContext(request.headers);
     const session = await requireIdentity(request.headers);
     const query = request.nextUrl.searchParams;
-    if ([...query.keys()].some(key => key !== 'after') || query.getAll('after').length > 1) throw new FamilyError(400, 'Invalid request');
-    return listMenuRecipes(await getDatabase(), session.identity, allowed, query.get('after') ?? undefined);
+    if ([...query.keys()].some(key => key !== 'after' && key !== 'q') || query.getAll('after').length > 1 || query.getAll('q').length > 1) throw new FamilyError(400, 'Invalid request');
+    return listMenuRecipes(await getDatabase(), session.identity, allowed, query.get('after') ?? undefined, query.get('q') ?? undefined);
   });
 }
 

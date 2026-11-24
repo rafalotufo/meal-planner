@@ -1,17 +1,15 @@
 version: 1
-max_turns: 8
+max_turns: 6
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: shared-site-layout-implementation
+review_artifact: searchable-swap-picker-retained-results
 human_gates: [code_owner_approve, release_authorization]
 acceptance:
   commands: ["git diff --check"]
 phases:
-  intent: { role: product-manager, action: accept_shared_layout_intent, next: design }
-  design: { role: architect, action: specify_and_plan_shared_layout, next: plan_review }
-  plan_review: { role: reviewer, action: approve_shared_layout_plan, next: build }
-  build: { role: senior-developer, action: implement_and_verify_shared_layout, next: security }
-  security: { role: security-researcher, action: assess_shared_layout_security, next: review }
-  review: { role: reviewer, action: verify_shared_layout, next: done }
+  intent: { role: reviewer, action: approve_retained_results_change, next: build }
+  build: { role: senior-developer, action: retain_search_results, next: security }
+  security: { role: security-researcher, action: assess_retained_results, next: review }
+  review: { role: reviewer, action: verify_retained_results, next: done }
   done: { role: null, action: null, next: null }

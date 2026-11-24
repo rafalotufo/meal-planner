@@ -4,18 +4,18 @@
 
 ## Goal
 
-intent/shared-site-layout/intent.md
+intent/searchable-swap-picker/intent.md
 
 ## Loop
 
 - status: solved
-- turn: 6
+- turn: 4
 - phase: done
 - stop_reason: solved
 
 ## Agents
 
-- architect: busy (shared-site-layout-plan)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -58,6 +58,7 @@ intent/shared-site-layout/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0061 ceo -> orchestrator decision: Merge searchable swap modal into local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -93,6 +94,7 @@ intent/shared-site-layout/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
+- orchestrator-0118 orchestrator -> ceo handoff: Recipes remain visible while search loads
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -104,6 +106,7 @@ intent/shared-site-layout/intent.md
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
+- product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -157,11 +160,11 @@ intent/shared-site-layout/intent.md
 
 ## Recent decisions
 
-- mem-0122 product-manager: Accepted owner-requested shared Next.js site layout and common header intent. Local org design/build/test authorized; merge and release remain human gates. Previous completed staging-first release loop archived intact. (org/reviews/intent-shared-site-layout-001.md)
-- mem-0123 reviewer: Approved shared-site-layout spec/plan. Shared header adds real keyboard stops; narrowly adapt two existing browser helpers with bounded Tab traversal while preserving focus/Enter assertions and historical screenshots. (org/reviews/shared-site-layout-plan-001.md)
-- mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
-- mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
-- mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
+- mem-0140 reviewer: Approved1-7unique weeklyrecipes and no duplicate swaps;0003will atomically compactduplicate drafts/remap feedback under migrationlock then FIRSTfamilylock beforeDDL. Finalhistoryrawimmutable, privateQA preserves next-env userdiff, localrepair onlyaftertests/source/security review. Owner laterstoppeddevserver. (org/reviews/weekly-meal-planning-unique-plan-001.md)
+- mem-0141 reviewer: Unique1-7weeklyrecipes approved at0f0b0c84792bb9947fe4ef0790d893973a21e01b,219Node/7Python/Chrome green. Root applied reviewedLOCAL0003 afterprecisetargetvalidation:1draft repaired to2unique, snapshots/order/proposals verified, runtime schema4valid. Usernext-env preserved/devleftstopped; no hosted/deploy/jobactivation, humanmerge pending. (intent/weekly-meal-planning/verification.md)
+- mem-0142 reviewer: Searchable thumbnail swap modal independently approved at b0627be7e2e65eed7061c4cbb1bb4182ed436a52;223Node/7Python/lint/typecheck/build/Chrome pass, exactcopybackverified, ownernext-env/dev preserved. Fullmenu boundsearch, explicitconfirmation, race/focus/image guards retained. Humanmerge/release pending; hostedICU remains prereleasecheck. (org/reviews/searchable-swap-picker-final-001.md)
+- mem-0143 reviewer: Searchmodal size flicker corrected at5e4dd69d4d07c0b6d1a034c79e4f5eafd4c23f4d with2CSS sizing attributes; actual500pxshrink reproduced then55geometrysamples0px at5viewports.223Node7Python/fullChrome/lint/typecheck/build pass, independentapproval. Ownernext-env/dev preserved, merge/release pending. (org/reviews/searchable-swap-picker-stable-frame-final-001.md)
+- mem-0144 reviewer: Retained search results approved at 4f91e9c2b833dddbe154a795c60cc869f4035366. Current cards remain visible until validated latest results arrive, without an updating label; stale actions stay disabled and current access failures clear snapshots. All 223 Node/7 Python tests, strict checks and Chrome pass, with zero geometry movement in 55 samples. Owner next-env/dev preserved. Human merge/release pending. (org/reviews/searchable-swap-picker-retained-results-final-001.md)
 
 ## Constraints
 
@@ -169,21 +172,21 @@ intent/shared-site-layout/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-shared-site-layout-001.md (92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b)
-- intent/shared-site-layout/plan.md (0c7253aefc37a2306d8876e860f685975967a7039429f24e4c8e09a56eb041fa)
-- org/reviews/shared-site-layout-plan-001.md (44c5e5ba2f637613504309b84ef0eca5154273781cababc8bf8784d0c7441663)
-- intent/shared-site-layout/verification.md (279d4ba0ce4a65f0dc4d5c7df87ceafbadaa3bbe57931fbca8881897dfe2264d)
-- org/reviews/shared-site-layout-security-001.md (995b26a6e0faf339d998b7707954ace473c4c266e73d4edc4b7e4a03e2319bf9)
-- org/reviews/shared-site-layout-final-001.md (e9737485868f21fafaaec6d06e04b9c55e3736dac6e239c5178aeb04601fba94)
+- org/reviews/searchable-swap-picker-retained-results-plan-001.md (2118ab75b67881603f37deeba469924a8adf38bde7019de7dfe1cb46260157ca)
+- intent/searchable-swap-picker/verification.md (42752f835c80f4fd3c8c97dc0cbfd86384746cd41f7f4e44405fb2b147654876)
+- org/reviews/searchable-swap-picker-retained-results-security-001.md (f2284810ad0ae157c3f619f35c73738e2b6dc287ba6d5a8e3f91b52d5459c138)
+- org/reviews/searchable-swap-picker-retained-results-final-001.md (708a2ba6402cf0c96dde86968bf1db2c07382441270d2213dddae3db466de9a1)
 
 ## Next action
 
-reviewer:verify_shared_layout
+reviewer:verify_retained_results
 
 ## Last digest source
 
-- mem-0129 from intent/saved-recipe-menu/production-result-2026-11-24.md
+- mem-0144 from org/reviews/searchable-swap-picker-retained-results-final-001.md
 
 <!-- machine:end -->
 
 ## Curated notes
+
+

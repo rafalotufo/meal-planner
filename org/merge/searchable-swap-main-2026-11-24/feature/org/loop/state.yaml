@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/searchable-swap-picker/intent.md
+base_commit: 76ffba0f921f6cf6d9076348f5e87f911bda7336
+turn: 4
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 3b73eca5bb705a9f15c4c6da26d9c97f26fcc16bd93b5c75fa5a122a807d30a9
+stop_reason: solved
+last_action: "reviewer:verify_retained_results"
+artifacts: [{"path": "org/reviews/searchable-swap-picker-retained-results-plan-001.md", "sha256": "2118ab75b67881603f37deeba469924a8adf38bde7019de7dfe1cb46260157ca"}, {"path": "intent/searchable-swap-picker/verification.md", "sha256": "42752f835c80f4fd3c8c97dc0cbfd86384746cd41f7f4e44405fb2b147654876"}, {"path": "org/reviews/searchable-swap-picker-retained-results-security-001.md", "sha256": "f2284810ad0ae157c3f619f35c73738e2b6dc287ba6d5a8e3f91b52d5459c138"}, {"path": "org/reviews/searchable-swap-picker-retained-results-final-001.md", "sha256": "708a2ba6402cf0c96dde86968bf1db2c07382441270d2213dddae3db466de9a1"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T22:41:41Z"

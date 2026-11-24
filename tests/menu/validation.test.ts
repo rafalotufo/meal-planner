@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseSavedMenuEntry, parseMenuSourceUrls } from '../../lib/menu/validation.ts';
+import { parseMenuSearch, parseMenuPage, encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseSavedMenuEntry, parseMenuSourceUrls } from '../../lib/menu/validation.ts';
 
 test('saved lookup sources are a bounded normalized set, never ownership or page selectors', () => {
   assert.deepEqual(parseMenuSourceUrls(['https://EXAMPLE.test:443/recipe#method', 'https://example.test/recipe']), ['https://example.test/recipe']);
@@ -60,4 +60,17 @@ test('persisted and public entries fail closed rather than normalizing corrupt r
   assert.deepEqual(parseSavedMenuEntry(entry), entry);
   for (const change of [{ title: ' padded ' }, { sourceUrl: 'https://EXAMPLE.test/r' }, { imageUrl: 'data:image/svg+xml,unsafe' }, { timeKind: null }, { savedAt: -1 }, { id: 'invalid' }]) assert.throws(() => menuEntryFromRow({ ...row, ...change }), /Storage unavailable/);
   for (const change of [{ familyId: 'private' }, { savedAt: -1 }, { recipe: { ...recipe, summary: ' padded ' } }]) assert.equal(parseSavedMenuEntry({ ...entry, ...change }), null);
+});
+
+
+test('title query is bounded trimmed well-formed literal text, with blank/unset compatibility',()=>{
+ assert.equal(parseMenuSearch(undefined),'');assert.equal(parseMenuSearch('  '),'');assert.equal(parseMenuSearch("  50%_Lemon's 🍋  "),"50%_Lemon's 🍋");assert.equal(parseMenuSearch('🍋'.repeat(50))?.length,100);
+ for(const value of [null,[],1,'x'.repeat(101),'🍋'.repeat(51),'bad\nquery','bad\tquery','\u0000','\u007f','\ud800'])assert.equal(parseMenuSearch(value),null);
+});
+
+test('menu response pages require exact bounded canonical unique descending entries and matching cursors',()=>{
+ const entries=Array.from({length:50},(_,n)=>({id:`00000000-0000-0000-0000-${String(100-n).padStart(12,'0')}`,savedAt:100-n,recipe:{...recipe,sourceUrl:`https://example.test/response/${n}`}}));
+ const valid={entries,nextCursor:encodeMenuCursor(entries[49])};assert.deepEqual(parseMenuPage(valid),valid);assert.deepEqual(parseMenuPage({entries:[],nextCursor:null}),{entries:[],nextCursor:null});
+ for(const value of [null,{}, {entries:Array(1),nextCursor:null}, {...valid,familyId:id},{entries:[...entries,entries[0]],nextCursor:null},{entries:entries.slice(1),nextCursor:valid.nextCursor},{entries:[],nextCursor:valid.nextCursor},{entries,nextCursor:encodeMenuCursor(entries[0])},{entries:[entries[0],entries[0]],nextCursor:null},{entries:[entries[1],entries[0]],nextCursor:null},{entries:[entries[0],{...entries[1],recipe:entries[0].recipe}],nextCursor:null},{entries:[{...entries[0],recipe:{...recipe,sourceUrl:'javascript:alert(1)'}}],nextCursor:null}])assert.equal(parseMenuPage(value),null);
+ const tied=[{...entries[0],savedAt:1},{...entries[1],savedAt:1}];assert.ok(parseMenuPage({entries:tied,nextCursor:null}));assert.equal(parseMenuPage({entries:tied.toReversed(),nextCursor:null}),null);
 });

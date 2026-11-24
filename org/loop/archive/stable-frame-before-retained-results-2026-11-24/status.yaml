@@ -1,0 +1,95 @@
+# Live org state: which agents are busy/idle and what is in the review queue.
+# Agents update this file when they accept or finish work; reviewers accept
+# reviews only when idle. Commit status changes with the artifact they describe.
+version: 1
+agents:
+  orchestrator: { status: idle, assignment: null, last_report: "Stable modal frame3turnloop solved; exact5e4dd69 reviewed, humanmerge/release pending." }
+  product-manager: { status: idle, assignment: null, last_report: "Searchable visual swap picker intentaccepted forDesign from ownerapprovedpreview; fullmenuboundedsearch, existingsemantics preserved." }
+  architect: { status: idle, assignment: null, last_report: Searchable swap picker design independently approved; implementation gate open. }
+  senior-developer: { status: idle, assignment: null, last_report: "Modal flicker fixed at5e4dd69;55geometrysamples0px,223Node7Python/fullChrome pass; independentlyapproved." }
+  security-researcher: { status: idle, assignment: null, last_report: Searchable swap picker securityCLEAR exactb0627be;23path equivalence and8validation independentlypassed. }
+  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-stable-frame-code-001: approved" }
+  memory-keeper: { status: idle, assignment: null, last_report: null }
+review_queue:
+  - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-search-001, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-recipe-search-002, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-recipe-search-001, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-search-002, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-001, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-search-002, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-recipe-photos-001, artifact: intent/recipe-photos/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-photos-001, artifact: intent/recipe-photos/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-photos-001, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-photos-002, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-authenticated-access-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-merge-001, artifact: recipe-merge-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-vercel-deployment-001, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-vercel-deployment-002, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-vercel-deployment-002, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: design-recipe-search-notebook-001, artifact: intent/recipe-search-notebook/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-notebook-001, artifact: recipe-search-notebook-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-waiting-game-002, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: catalogue-recipe-waiting-game-001, artifact: lib/word-snack-puzzles.ts, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-waiting-game-001, artifact: recipe-waiting-game-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-t-rex-runner-001, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-t-rex-runner-002, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-t-rex-runner-001, artifact: intent/t-rex-runner/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-t-rex-runner-001, artifact: t-rex-runner-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: postgresql-proxy-security-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: security-researcher, rounds: 1, verdict: approved, status: approved }
+  - { id: postgresql-production-code-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: postgresql-production-security-001, artifact: postgresql-production-candidate, writer: orchestrator, reviewer: security-researcher, rounds: 0, verdict: approved, status: approved }
+  - { id: postgresql-production-release-001, artifact: postgresql-production-preparation, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-family-membership-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-postgresql-001, artifact: postgresql-persistence-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-postgresql-hosted-001, artifact: intent/postgresql-persistence/hosted-setup.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: helper-postgresql-hosted-001, artifact: scripts/postgres-hosted.ts, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: final-postgresql-hosted-001, artifact: postgresql-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-single-call-recipe-search-001, artifact: intent/single-call-recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-single-call-recipe-search-001, artifact: intent/single-call-recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-single-call-recipe-search-001, artifact: single-call-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: single-call-main-integration-001, artifact: single-call-main-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: single-call-main-refresh-integration-001, artifact: single-call-main-refresh-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-app-icon-001, artifact: intent/app-icon/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-app-icon-001, artifact: intent/app-icon/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-app-icon-001, artifact: app-icon-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: options-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/solutions.md, writer: product-manager, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-vercel-candidate-validation-001, artifact: vercel-candidate-validation-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-vercel-candidate-validation-002, artifact: vercel-candidate-validation-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: hosted-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/hosted-setup.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: hosted-vercel-candidate-validation-packaging-001, artifact: .vercelignore, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: hosted-vercel-candidate-validation-final-001, artifact: vercel-candidate-validation-hosted-setup, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: vercel-candidate-validation-main-integration-001, artifact: vercel-candidate-validation-main-integration, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: vercel-candidate-validation-main-refresh-001, artifact: vercel-candidate-validation-main-refresh, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: staging-first-release-plan-001, artifact: staging-first-release-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: staging-first-release-final-001, artifact: staging-first-release-docs, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-plan-001, artifact: shared-site-layout-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-browser-amendment-001, artifact: shared-site-layout-browser-amendment, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-code-001, artifact: shared-site-layout-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-plan-001, artifact: weekly-meal-planning-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-code-001, artifact: weekly-meal-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-header-plan-001, artifact: weekly-meal-planning-header-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-header-code-001, artifact: weekly-plan-header-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-swap-plan-001, artifact: weekly-meal-planning-swap-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-swap-code-001, artifact: weekly-plan-swap-retention-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-unique-plan-001, artifact: weekly-meal-planning-unique-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-meal-planning-unique-code-001, artifact: weekly-plan-unique-recipes-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-plan-001, artifact: searchable-swap-picker-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-code-001, artifact: searchable-swap-picker-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-stable-frame-plan-001, artifact: searchable-swap-picker-stable-frame-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-stable-frame-code-001, artifact: searchable-swap-picker-stable-frame, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

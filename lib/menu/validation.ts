@@ -1,5 +1,5 @@
 import { isRecord, safeRecipeUrl } from '../recipes/validation';
-import type { MenuCursor, MenuRecipe, SavedMenuEntry } from './types';
+import type { MenuCursor, MenuRecipe, SavedMenuEntry, MenuPage } from './types';
 
 function exactKeys(value: Record<string, unknown>, keys: readonly string[]) {
   return Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key));
@@ -65,4 +65,21 @@ export function menuEntryFromRow(value: unknown): SavedMenuEntry {
   const entry = parseSavedMenuEntry({ id: value.id, savedAt: value.savedAt, recipe: { title: value.title, sourceUrl: value.sourceUrl, imageUrl: value.imageUrl, summary: value.summary, time } });
   if (!entry) throw new Error('Storage unavailable');
   return entry;
+}
+
+export function parseMenuSearch(value: unknown): string | null {
+  if (value === undefined) return '';
+  if (typeof value !== 'string' || !value.isWellFormed() || /[\x00-\x1f\x7f]/.test(value)) return null;
+  const query = value.trim();
+  return query.length <= 100 ? query : null;
+}
+export function parseMenuPage(value: unknown): MenuPage | null {
+  if (!isRecord(value) || !exactKeys(value, ['entries', 'nextCursor']) || !Array.isArray(value.entries) || value.entries.length > 50) return null;
+  const entries = Array.from(value.entries, parseSavedMenuEntry);
+  if (!entries.every(entry => entry !== null)) return null;
+  if (new Set(entries.map(entry => entry.id)).size !== entries.length || new Set(entries.map(entry => entry.recipe.sourceUrl)).size !== entries.length) return null;
+  if (entries.some((entry, index) => index > 0 && (entries[index - 1].savedAt < entry.savedAt || entries[index - 1].savedAt === entry.savedAt && entries[index - 1].id <= entry.id))) return null;
+  if (value.nextCursor !== null && typeof value.nextCursor !== 'string') return null;
+  if (value.nextCursor !== null && (entries.length !== 50 || !parseMenuCursor(value.nextCursor) || value.nextCursor !== encodeMenuCursor(entries[49]))) return null;
+  return { entries, nextCursor: value.nextCursor };
 }

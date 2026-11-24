@@ -23,7 +23,7 @@ test('compiled protected proxy and routes work without source or migration files
       assert.equal((await provision(server.origin, owner)).status, 200);
       const home = await owner.request(server.origin, '/');
       assert.equal(home.status, 200);
-      assert.match(await home.text(), /What would you like to cook/);
+      assert.match(await home.text(), /What would you like to eat this week\?/);
       assert.equal((await owner.request(server.origin, '/api/session')).status, 200);
       const recipe = { title: 'Packaged lemon pasta', sourceUrl: 'https://example.test/pasta', imageUrl: null, summary: 'Toss pasta with lemon.', time: null };
       const saved = await post(server.origin, owner, '/api/menu', recipe);

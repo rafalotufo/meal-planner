@@ -15,7 +15,7 @@ test('only current family members can access the imported recipe UI or provider 
     }
     const pendingHome = await owner.request(server.origin, '/'); assert.equal(pendingHome.status, 307); assert.equal(new URL(pendingHome.headers.get('location')!, server.origin).pathname, '/onboarding');
     assert.equal((await provision(server.origin, owner)).status, 200);
-    const home = await owner.request(server.origin, '/'); assert.equal(home.status, 200); assert.match(await home.text(), /What would you like to cook/);
+    const home = await owner.request(server.origin, '/'); assert.equal(home.status, 200); assert.match(await home.text(), /What would you like to eat this week\?/);
     assert.equal((await post(server.origin, owner, '/api/recipes/search', { query: '' })).status, 400, 'full members reach real input validation before provider setup');
     assert.equal((await post(server.origin, owner, '/api/recipes/search', { query: 'provider unavailable without credentials' })).status, 503);
     const invitation = await (await post(server.origin, owner, '/api/family/invitations', { recipientEmail: 'invitee@example.test' })).json();

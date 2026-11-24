@@ -21,7 +21,7 @@ function assertSharedPage(html: string) {
   parser.end(html);
   assert.deepEqual(counts, { header: 1, main: 1, h1: 1 });
   assert.equal(primaryNavigation, true, 'common labelled primary navigation');
-  assert.deepEqual(links, ['/', '/', '/menu', '/family']);
+  assert.deepEqual(links, ['/', '/', '/menu', '/plans', '/family']);
 }
 
 test('public pages share the header without database access while protected pages keep their guards', async () => {
@@ -32,7 +32,7 @@ test('public pages share the header without database access while protected page
       assert.equal(response.status, 200, path);
       assertSharedPage(await response.text());
     }
-    for (const path of ['/', '/family', '/menu']) {
+    for (const path of ['/', '/family', '/menu', '/plans']) {
       const response = await fetch(`${server.origin}${path}`, { redirect: 'manual' });
       assert.equal(response.status, 307);
       assert.equal(new URL(response.headers.get('location')!, server.origin).pathname, '/sign-in');
@@ -46,7 +46,7 @@ test('authenticated home and family retain one page landmark and common navigati
     const owner = new CookieJar();
     await signInWithGoogle(server.origin, owner);
     assert.equal((await provision(server.origin, owner)).status, 200);
-    for (const path of ['/', '/family', '/menu']) {
+    for (const path of ['/', '/family', '/menu', '/plans']) {
       const response = await owner.request(server.origin, path);
       assert.equal(response.status, 200, path);
       assertSharedPage(await response.text());

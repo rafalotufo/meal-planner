@@ -1,0 +1,32 @@
+# Weekly meal planning — independent final review 001
+
+- Reviewer: independent reviewer; feature writer: senior-developer. Reviewer did not author the feature.
+- Date: 2026-11-24; org final-review turn 6.
+- Reviewed source: base `17881438e3c68f0099e063e714560682c93bd0fb` through `9694aeedc5757431320f56fd6f8b4b264c157b75`.
+- Inputs: AGENTS.md, org/protocol.md, org/roles/reviewer.md, REVIEW.md, code-review-and-quality skill, active intent/spec/plan/verification, owner decision ceo-0051, presentation amendment review and independent security review.
+- Verdict: **Approve local implementation. No material bug, security or compliance findings; no required changes.** This verdict does not authorize merge, release, hosted migration, deployment or scheduler installation/activation.
+
+## Review passes
+
+**Bugs:** Examined the complete feature implementation and planning tests. Toronto calendar arithmetic handles exact09:00, strict subsequent Sunday and DST; worker checks configuration and skips off-day before connecting. Due generation locks eligibility, existing-week detection, menu selection and insertion; unique family/week and the common transaction lock preserve drafts under retries and concurrency. Recency uses bounded finalized history and normalized source URLs. Small-menu repeats and empty-menu skips are explicit. Reads and actions derive family scope from current membership. Current-revision actions reject stale/final/past plans, accepted swaps advance revision and clear approvals, and finalization closes pending suggestions without requiring unanimity. Snapshots remain readable after menu removal. No material defect found.
+
+**Security:** Examined protected page/API guards, exact action/query validation, bounded JSON handling, bound SQL and all application effects. Existing Proxy/admission policy remains unchanged. Each mutation rechecks membership under the shared READ COMMITTED advisory lock before family-scoped decision reads. Suggestion resolution binds plan/revision and rechecks the family-owned current menu row. Stored snapshots are validated before props/render; recipe titles remain text and links use existing URL validation with opener protection. No family IDs, allowlist or credentials enter props or error output. Scheduler has no HTTP bypass, client identity/date override or provider effects. Grant additions exclude weekly DELETE/TRUNCATE/DDL and migration-history writes. Independent security review is clear at the prior core SHA; the final delta only changes card presentation/tests/docs/screenshots. No material finding.
+
+**Compliance:** Source changes fit the approved manifest; explicit SQL0002, journal, runtime hash, catalog, rollback and grants agree. Prior migrations and existing test assertions are preserved apart from authorized new-schema counts/order/navigation expectations. No dependency/lockfile, Proxy, auth-policy or Vercel configuration change was introduced. CLI/template/runbook explicitly leave activation separate and state the missed-day limitation. PM-aligned intent/brainstorm, spec/plan amendment and final shared rendering now agree with the owner's seven weekly recipe choices without per-card weekday/date assignments. The top-level range, scheduling/history and internal action slots remain intact. No attendance, general recipe CRUD or paid provider call was added.
+
+Readability/architecture/performance: feature logic is confined to focused planning modules and page/route components; shared changes are limited to domain rows, migration grants and navigation. Existing transaction, menu validation and HTTP helpers are reused. Family enumeration, recent weeks, suggestions, history and menu choices use explicit bounds; no new server photo fetch or unbounded client menu/history load occurs. No structural or performance finding warrants a requested change.
+
+## Independent verification
+
+- Ran `node --import tsx --test tests/plans/calendar.test.ts tests/plans/validation.test.ts`: exit0,4 tests passed.
+- Per the review skill, changed `local.hour >= 9` to `local.hour > 9` only in an isolated temporary copy of the calendar source/tests. Both calendar tests failed at exact09:00 as expected (exit1); repository source was never mutated and the temporary directory was removed. This proves those boundary assertions detect the regression.
+- Ran `git diff --check 17881438e3c68f0099e063e714560682c93bd0fb`: exit0, including the final presentation slice.
+- Independently computed SQL0002 SHA256 `f6a77d005618de16b22350df733f35674fc301ef638aa087ae5654efbfea035b`, identical to runtime metadata; inspected journal/catalog/rollback/grant delta.
+- Independently opened the refreshed `weekly-plan-draft-1440.png`, `weekly-plan-history-320.png` and `weekly-plan-swap-320.png`. Desktop shows seven title-headed cards without dates; mobile history has separate week context and undated cards; the long replacement title wraps inside its mobile card and controls remain readable. These are developer-generated real-browser screenshots, not a browser run performed by this reviewer.
+- Inspected final browser helper assertions for seven title headings, no card time/date elements or weekday/date labels, retained top-level week range, associated recipe-oriented select labels, and preserved physical approve/suggest/accept/approval-reset/stale-refresh/pagination/confirm/history flow.
+
+## Supplied verification and limits
+
+Reviewed verification.md and orchestrator/developer reports: lint, strict typecheck and production build exit0; existing Node suites199 passed plus13 planning tests (212 total); Python7 passed. After the bounded presentation correction, lint/typecheck/build,13 planning tests and full Chrome320/1440 flow were rerun successfully; all six screenshots were refreshed and owned fixtures cleaned up. Browser assertions were first shown failing against the older compiled dated UI, then green after correction. Root reports final staged secret scan0 and full manifest check0. The independent security reviewer additionally reran11 targeted tests on owned isolated databases.
+
+This reviewer did not rerun the full database/HTTP/browser suites or build, and distinguishes those supplied results from the independent commands above. No source edits, commits, development/hosted data effects or deployment/activation operations were performed by this reviewer. Remaining work is the orchestrator's audit/gate recording and the human merge/release decisions; approval does not imply unattended Production scheduling is active.

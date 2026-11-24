@@ -43,7 +43,7 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
   assert.equal(home.status, 200);
   const homeHtml = await home.text();
   assert.match(homeHtml, /<h1[^>]*>Meal Planner<\/h1>/);
-  assert.match(homeHtml, /What would you like to cook/);
+  assert.match(homeHtml, /What would you like to eat this week\?/);
   const csp = home.headers.get('content-security-policy') ?? '';
   assert.match(csp, /(?:^|; )img-src 'self' data: https:(?:;|$)/);
   assert.match(csp, /script-src 'self' 'nonce-/);
