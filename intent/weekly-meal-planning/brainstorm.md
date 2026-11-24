@@ -92,3 +92,10 @@ scheduling/history context; the schedule explanation may retain weekday words.
 All generation, persistence, family feedback and finalization behavior stays as
 previously approved. This supersedes the first amendment's retained-header-range
 assumption, rather than adding another planning capability.
+
+## Owner refinement — independent recipe suggestions survive a swap
+
+Accepting a suggested swap should settle that recipe's competing proposals while
+keeping proposals for other recipe choices. This reduces repeated coordination
+when the family is reviewing several recipes at once. Approval renewal still
+applies to the changed draft, and concurrent clients refresh before acting again.

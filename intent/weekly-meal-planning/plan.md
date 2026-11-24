@@ -195,3 +195,36 @@ recapture six feature screenshots, inspect representative desktop/mobile images,
 and append actual results to verification. No DB/auth/scheduler changes, new
 source paths, deployment, merge or activation. The prior completed local loop is
 preserved under the added process archive path in this plan manifest.
+
+## Owner behavior amendment — retain suggestions for other recipes
+
+Pending independent review before source changes. Source is the owner's active
+request that accepting a swap clear only competing suggestions for that recipe.
+Supersedes the all-other-pending-stale rule, without broadening the existing
+source manifest.
+
+After independent approval, change `lib/plans/store.ts` acceptance only: chosen
+pending suggestion becomes accepted; competing pending suggestions for the same
+slot become stale; unrelated pending slots update only base_revision to the new
+plan revision. Preserve unrelated IDs/users/menu IDs/snapshots/status/timestamps.
+Clear approvals and retain overall revision conflicts and existing common-lock
+transaction semantics. Other plans/families and nonpending history stay unchanged.
+No migration, API or UI change is needed unless existing explanatory copy is
+found to contradict the revised behavior.
+
+Write regression tests first in `tests/plans/store.test.ts`: multiple members'
+competing same-slot proposals and other-slot proposals; chosen/competing statuses;
+retained unrelated IDs/content visible at the new revision and later resolvable;
+stale old requests409; simultaneous different-slot accepts serialize with one
+stale response while that suggestion survives for refreshed resolution; pending
+cap/unique constraints and normal finalization remain intact. Extend the existing
+`tests/plans/browser.ts` owned-fixture flow with a meaningful two-card pending
+suggestion scenario and verify the second remains after accepting the first.
+Use existing `tests/plans/http.test.ts` only if a real HTTP boundary regression
+needs coverage. No new helper paths/dependencies.
+
+Run lint, strict typecheck, build, planning regressions and real Chrome320/1440,
+retain no-date header/card assertions and all existing flows, inspect refreshed
+feature screenshots and record actual red/green evidence in verification. No
+DB/auth/scheduler/deployment changes. Root owns workflow/status/messages/ledger
+and commits; independent final source review follows passing evidence.

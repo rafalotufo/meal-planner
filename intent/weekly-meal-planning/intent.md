@@ -127,3 +127,11 @@ bounded manifest plan. Independent peer review approves spec/plan before source
 implementation. Escalate material product or deployment-constraint conflicts.
 Senior developer then implements and verifies locally. Human merge and release
 gates remain separate.
+
+## Owner behavior refinement — preserve unrelated swap suggestions
+
+Accepting a replacement for one recipe clears only competing pending suggestions
+for that recipe slot. Suggestions for other recipe slots remain available for
+family review after the draft revision changes. Approvals still reset when meals
+change; stale client revisions still conflict. No new planning capability,
+attendance state, API action, schema or scheduler behavior is introduced.

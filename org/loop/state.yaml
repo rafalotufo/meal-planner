@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/weekly-meal-planning/intent.md
-base_commit: 9694aeedc5757431320f56fd6f8b4b264c157b75
-turn: 3
+base_commit: aced6ec859735cf9da079cc4d48b5d658712ffc9
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 58d2976d861bfec3baa21d9c1217c631220d922d940e69220e56c4eba719617d
-stop_reason: solved
-last_action: "reviewer:verify_undated_plan_header"
-artifacts: [{"path": "org/reviews/weekly-meal-planning-header-001.md", "sha256": "85d5bbc04baa54d499ba580c30f809685cf5a43a64a7605fcffc9854d3674c21"}, {"path": "intent/weekly-meal-planning/verification.md", "sha256": "d51c2449efa1f34c16939b12a5dcb958296e855545b8576eb08edc40792a83ae"}, {"path": "org/reviews/weekly-meal-planning-header-final-001.md", "sha256": "956e5f8a81c1c19b06e5375ba2a4ccc4b1e65c3e746f1ab2dcfb137a37cadd19"}]
+phase: build
+status: in_progress
+last_input_hash: a74005b8f2d76ed5a976e583350ac8403b543bdfdd050dd102d088072daa034d
+stop_reason: null
+last_action: "reviewer:approve_swap_retention_amendment"
+artifacts: [{"path": "org/reviews/weekly-meal-planning-swap-plan-001.md", "sha256": "0ce309c529b2e7539c8d82af58752ea424441ddbb461c23444496aff58be4646"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T19:41:19Z"
+updated_at: "2026-11-24T20:07:52Z"

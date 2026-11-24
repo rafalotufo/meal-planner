@@ -282,3 +282,26 @@ Retain Sunday–Saturday calendar boundaries, stored week_start and slot identit
 generation/recency, revision handling, approvals, swaps and finalization unchanged.
 This is a bounded presentation correction, not schema, authentication, scheduler,
 route or deployment scope. No new source path is required.
+
+## Owner behavior amendment — carry unrelated suggestions into the new revision
+
+Pending independent review before source changes. Supersedes the original rule
+that accepting a swap marks every other pending suggestion stale. Inside the
+existing common-lock READ COMMITTED transaction, accepting a current-revision
+suggestion applies its validated saved-family recipe as before, increments the
+plan revision and clears approvals. Mark the chosen suggestion accepted and
+other pending suggestions for that same recipe slot stale. Carry pending
+suggestions for every other slot forward by updating only their base_revision
+to the new plan revision. Preserve their IDs, proposing users, recipe snapshots,
+menu recipe IDs, pending status and created timestamps. Their appearance and
+accept/reject actions remain available on the refreshed current revision.
+
+The overall client revision remains mandatory: requests carrying the old revision
+return409, including a concurrent accept on a different slot. That request must
+not consume or stale its unrelated pending suggestion; after refresh the same
+suggestion can be resolved using the new revision. Other plans/families and
+historical accepted/rejected/stale rows remain untouched. Keep the existing
+partial pending unique constraint and100-pending-per-revision bound; moving a
+subset forward cannot add pending suggestions. Finalization closes the remaining
+pending suggestions normally. No migration, API union, scheduler, admission,
+family isolation or approval behavior change beyond this scoped carry-forward.
