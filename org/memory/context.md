@@ -8,18 +8,18 @@ intent/vercel-candidate-validation/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 1
-- phase: options_review
-- stop_reason: None
+- status: gate_required
+- turn: 2
+- phase: done
+- stop_reason: gate_required
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/vercel-candidate-validation/intent.md)
-- product-manager: busy (intent/vercel-candidate-validation/solutions.md)
-- reviewer: busy (intent/vercel-candidate-validation/solutions.md)
+- orchestrator: idle (unassigned)
+- product-manager: idle (unassigned)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -62,7 +62,7 @@ intent/vercel-candidate-validation/intent.md
 - orchestrator-0029 orchestrator -> ceo status: Single-call recipe search implemented and reviewed locally
 - orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
-- orchestrator-0033 orchestrator -> product-manager handoff: Research staged deployment validation options
+- orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -86,6 +86,7 @@ intent/vercel-candidate-validation/intent.md
 - reviewer-0016 reviewer -> orchestrator review: Independent single-call implementation code review approved
 - reviewer-0017 reviewer -> orchestrator review: Single-call main integration independently approved
 - reviewer-0018 reviewer -> orchestrator review: Current-main single-call integration approved
+- reviewer-0019 reviewer -> orchestrator review: Approved candidate validation options research
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator status: pnpm migration security clear
@@ -105,11 +106,11 @@ intent/vercel-candidate-validation/intent.md
 
 ## Recent decisions
 
-- mem-0074 orchestrator: Imported prior feature event mem-0074: Imported prior feature event mem-0073: Imported prior feature event mem-0052: Rafael selected combined single-call research and curation after live comparisons; PM accepted intent. Existing citation, source evidence, model, usage, photo/auth/UI boundaries remain; no latency guarantee; human merge/release remain pending. Archived completed notebook loop before initializing this feature. Original source: intent/single-call-recipe-search/intent.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0075 architect: Imported prior feature event mem-0075: Imported prior feature event mem-0074: Imported prior feature event mem-0053: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. Original source: intent/single-call-recipe-search/spec.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0076 orchestrator: Imported prior feature event mem-0076: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
 - mem-0078 orchestrator: Opened research-only Vercel candidate-validation intent from Rafael request. Preserved completed single-call integration loop/graph under org/loop/archive/single-call-main-final-before-candidate-validation-2026-11-24. Comparing isolated stable staging with exact Production candidate stable alias; owner assurance choice pending. No application or external configuration authority. (org/messages/ceo-0027.md)
+- mem-0079 orchestrator: Independent reviewer approved Vercel candidate-validation research with no blockers. Google registration alone cannot bypass current canonical Host421. Stable isolated staging is smallest auth change; exact Production artifact alternative needs stable alias and reviewed finite-origin handling plus Production-data effects accounting. Owner assurance choice pending; bounded research loop stops gate_required, no intent/spec/plan/release approval. (org/reviews/options-vercel-candidate-validation-001.md)
 
 ## Constraints
 
@@ -118,14 +119,15 @@ intent/vercel-candidate-validation/intent.md
 ## Artifacts
 
 - intent/vercel-candidate-validation/solutions.md (e2bcd1fc7e7cc7817b339c37e5facf07b81f12d5447e7bf3d953b5d16eb0a240)
+- org/reviews/options-vercel-candidate-validation-001.md (899eb745049d1f975063ef9e46345eb62eaf4f6b2a68822f27b2d23f6936979b)
 
 ## Next action
 
-product-manager:research_validation_options
+reviewer:review_validation_options
 
 ## Last digest source
 
-- mem-0078 from org/messages/ceo-0027.md
+- mem-0079 from org/reviews/options-vercel-candidate-validation-001.md
 
 <!-- machine:end -->
 

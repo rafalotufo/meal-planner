@@ -21,7 +21,7 @@ Repository evidence:
 - `app/api/auth/[...all]/route.ts:14,19,43,50–52` exposes only social sign-in,
   Google callback and logout; enforces exact Origin; writes absolute canonical
   callbacks; and clamps callback redirects to canonical `/onboarding`.
-- `lib/http.ts:5` independently requires that same exact Origin for effects.
+- `lib/http.ts:6` independently requires that same exact Origin for effects.
   `lib/auth.ts:59–65` uses cookie-backed OAuth state and one-hour stateless
   sessions without refresh. Host-only cookies cannot bridge origins.
 - `intent/vercel-deployment/deployment-runbook.md:125–164` stages a Production
@@ -108,11 +108,15 @@ POST rejection as well as allowed flows. These are Design topics, not approved
 changes.
 
 The Production-target candidate has live Production database connectivity and
-credentials regardless of its alias. Prefer read-only validation with a
-separately authorized existing test household; any synthetic writes, invitation
-changes, schema migration or paid search needs its own explicit scope. A stable
-alias does not make unsafe schema rollout safe. Post-promotion smoke checks
-remain necessary for the actual production hostname/callback/routing.
+credentials regardless of its alias. Prefer read-only page/API checks with a
+separately authorized existing test household. This does not make login
+read-only: the existing verified Google callback can update a member's stored
+verified email (`lib/auth.ts:53`). Select an approved test identity and explicitly
+account for callback writes in validation authority and evidence. Do not add
+synthetic invitation or provisioning changes; any other synthetic writes,
+schema migration or paid search needs its own explicit scope. A stable alias
+does not make unsafe schema rollout safe. Post-promotion smoke checks remain
+necessary for the actual production hostname/callback/routing.
 
 ### OAuth Proxy feasibility
 
