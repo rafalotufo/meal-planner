@@ -1,6 +1,8 @@
 # Isolated Preview staging — operator runbook
 
-Status: local tooling; hosted setup/deployment has not been authorized or run.
+Status: local tooling verified; a separate owner-authorized Preview setup is
+recorded in `hosted-setup.md` and its actual execution in `hosted-results.md`.
+The setup instructions below remain approval-scoped for future changes.
 Use with sibling approved `spec.md` and `plan.md`. Staging is a separate Preview
 build with separate credentials/database; it does not certify the Production
 artifact. Continue to use the existing Production release runbook afterward.

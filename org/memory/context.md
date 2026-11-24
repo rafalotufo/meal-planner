@@ -19,7 +19,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/vercel-candidate-validation/hosted-setup.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (vercel-candidate-validation-hosted-setup)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (.vercelignore)
 
@@ -69,6 +69,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
 - orchestrator-0047 orchestrator -> ceo handoff: Reviewed isolated staging tooling ready for merge and hosted setup
+- orchestrator-0049 orchestrator -> reviewer handoff: Review actual Preview deployment and concurrent domain drift
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -138,7 +139,7 @@ reviewer:review_preview_scope
 
 ## Last digest source
 
-- mem-0085 from intent/vercel-candidate-validation/hosted-results.md
+- mem-0086 from intent/vercel-candidate-validation/hosted-results.md
 
 <!-- machine:end -->
 

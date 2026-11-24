@@ -80,3 +80,25 @@ webpack compiled, strict TypeScript passed and12/12 static pages generated.
 An initial offline store miss was resolved with the frozen network-enabled
 install; neither source dependencies nor lockfile changed. Root build state was
 untouched. Actual deployment follows a clean reviewed-source commit.
+
+## Actual Preview deployment
+
+The single authorized deployment exited0 and reached READY:
+
+- Deployment: `dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi`.
+- Generated URL: `https://meal-planner-nq54abywc-rafalotufos-projects.vercel.app`.
+- Actual Vercel environment: Preview (`target: null`), recorded team/project match.
+- Actual Git metadata: commit `9fc13ff27a636483fdf3503d5c8bf9f149550e45`,
+  branch `codex/vercel-candidate-validation`; source was clean at submission.
+- Pinned CLI66.6.0, existing project and explicit Preview environment; no second
+  deployment, Production flag, promotion, link, protection bypass or migration.
+
+Vercel did not attach the staging hostname automatically. Before manually
+assigning it, complete fresh inventory found concurrent Production-domain drift:
+`lotufo-meals.vercel.app` was added with null gitBranch, verified true, redirecting
+to `meal-planner-delta-six-55.vercel.app`, and mapped to the existing Production
+ID. Both original Production aliases remain unchanged. This workflow did not
+create that new domain. Manual staging assignment was held pending the owner's
+confirmation of that concurrent change; no Production mapping was overwritten.
+An anonymous browser visit to the still-unmapped staging host showed Vercel404
+DEPLOYMENT_NOT_FOUND; it sent no credentials and is not a validation pass.
