@@ -6,8 +6,8 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: Shared family saved menu specification peer/security clear; awaiting human specification approval before build planning. }
   product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
   architect: { status: idle, assignment: null, last_report: "Owner-required removal confirmation designed and independently reviewed; Cancel/Escape preserve recipe, confirm alone removes." }
-  senior-developer: { status: busy, assignment: intent/saved-recipe-menu/plan.md, last_report: "Executed authorized local main fast-forward to reviewed staging integration; audit completion only, no hosted/Production action." }
-  security-researcher: { status: idle, assignment: null, last_report: "Independent saved menu Design security approved; no blockers, evidence security-saved-recipe-menu-design-001.md." }
+  senior-developer: { status: idle, assignment: null, last_report: "Drafted exact saved menu implementation manifest, ten tested slices and full verification; no implementation/migration effects." }
+  security-researcher: { status: busy, assignment: intent/saved-recipe-menu/plan.md, last_report: "Independent saved menu Design security approved; no blockers, evidence security-saved-recipe-menu-design-001.md." }
   reviewer: { status: idle, assignment: null, last_report: "review visual-saved-recipe-menu-002: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

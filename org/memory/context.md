@@ -9,8 +9,8 @@ intent/saved-recipe-menu/spec.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -20,8 +20,8 @@ intent/saved-recipe-menu/spec.md
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
-- senior-developer: busy (intent/saved-recipe-menu/plan.md)
+- security-researcher: busy (intent/saved-recipe-menu/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -92,6 +92,7 @@ intent/saved-recipe-menu/spec.md
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
 - orchestrator-0090 orchestrator -> senior-developer handoff: Plan approved saved menu feature implementation
+- orchestrator-0091 orchestrator -> security-researcher handoff: Assess saved menu implementation plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -168,11 +169,11 @@ intent/saved-recipe-menu/spec.md
 
 ## Artifacts
 
-(none)
+- intent/saved-recipe-menu/plan.md (3c3c03477ca1a62146d84f7b8c6e773896d74d09a9eb60694953e00172a82fcc)
 
 ## Next action
 
-(run org_loop.py next)
+senior-developer:plan_menu_build
 
 ## Last digest source
 

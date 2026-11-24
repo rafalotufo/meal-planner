@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/saved-recipe-menu/spec.md
 base_commit: 3da9c0a0ae0426e40422df6298d199a86f88ece6
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: security
 status: in_progress
-last_input_hash: null
+last_input_hash: 0fdfd6a09499a2bc6aade558574d9e1ac378c633624f1aa18211d05561f77a7d
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-24T16:36:51Z"
+last_action: "senior-developer:plan_menu_build"
+artifacts: [{"path": "intent/saved-recipe-menu/plan.md", "sha256": "3c3c03477ca1a62146d84f7b8c6e773896d74d09a9eb60694953e00172a82fcc"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T16:41:06Z"
