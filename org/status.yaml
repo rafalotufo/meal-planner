@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: t-rex-runner-implementation, last_report: "T-Rex specification approved by Rafael; implementation plan and provenance independently approved. Human plan approval pending; loop3/6 at implement gate. No application changes, dev cache preserved." }
+  orchestrator: { status: idle, assignment: null, last_report: "T-Rex cycle solved6/6, all configured checks0, code/security rechecks approved. Fullwidth userdelta and WordSnackremoval complete; original dev files restored. Human merge/release pending; no push/deploy." }
   product-manager: { status: idle, assignment: null, last_report: T-Rex automatic-lifecycle amendment accepted for Design; intent-t-rex-runner-002.md. Valid search auto-starts runner; results including zero auto-close it. Reduced-motion opt-in and scoped focus retained; spec/plan and merge/release gates remain. }
   architect: { status: idle, assignment: null, last_report: "T-Rex automatic-search lifecycle spec amended and independently approved in review003. Auto-start, immediate results cleanup and guarded focus specified; human spec approval pending, no code." }
-  senior-developer: { status: busy, assignment: t-rex-runner-implementation, last_report: "T-Rex replacement candidate verified:79app12auth12smoke7workflow, lint/types/build, expandedChrome5widths and68sourcehashes match. Fullwidth, autostart/autoclose, fiveWordSnackdeletions done; independent reviews pending." }
-  security-researcher: { status: idle, assignment: null, last_report: "T-Rex security and shipped provenance clear at 1017d39; security-t-rex-runner-001.md. No findings: bounded local simulation/input, owned cleanup, fixed protected assets, unchanged server boundaries. 68 hashes and complete pinned notices verified; human merge/release gates remain." }
-  reviewer: { status: idle, assignment: null, last_report: T-Rex code review requests one revoked-autostart/focus fix; code-t-rex-runner-001.md. Mutation killed/restored; 15 focused tests pass; source/cache unchanged. Recheck pending. }
+  senior-developer: { status: idle, assignment: null, last_report: "T-Rex corrected0febee7 verified and independently approved;79app12auth12smoke7workflow, lint/types/build, expandedChrome5widths, fullwidth/autostart/autoclose and5WordSnackdeletions. Human merge/release pending." }
+  security-researcher: { status: idle, assignment: null, last_report: T-Rex focused security recheck clear at 0febee7; security-t-rex-runner-002.md. Revoked initial motion permission stays paused until explicit Resume. 68 refreshed hashes match; unchanged source/license/server boundaries retain assessment001. Human merge/release gates remain. }
+  reviewer: { status: idle, assignment: null, last_report: T-Rex final code recheck approved at 0febee7; code-t-rex-runner-002.md resolves initial-autostart P2. 15 focused tests and independent repro pass; 68-file snapshot match. Human merge/release remain gated. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -47,4 +47,4 @@ review_queue:
   - { id: spec-t-rex-runner-001, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: spec-t-rex-runner-002, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: plan-t-rex-runner-001, artifact: intent/t-rex-runner/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: code-t-rex-runner-001, artifact: t-rex-runner-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-t-rex-runner-001, artifact: t-rex-runner-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }

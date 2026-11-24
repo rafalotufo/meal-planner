@@ -8,10 +8,10 @@ intent/t-rex-runner/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 3
-- phase: implement
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
@@ -52,6 +52,7 @@ intent/t-rex-runner/intent.md
 - ceo-0023 ceo -> orchestrator decision: Automatically start and close T-Rex with search
 - ceo-0024 ceo -> orchestrator decision: Approve automatic-lifecycle T-Rex specification
 - ceo-0025 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
+- ceo-0026 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0017 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0018 orchestrator -> product-manager handoff: Review Word Snack waiting-game intent
@@ -70,6 +71,11 @@ intent/t-rex-runner/intent.md
 - orchestrator-0032 orchestrator -> reviewer handoff: Review automatic T-Rex search lifecycle amendment
 - orchestrator-0033 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0034 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
+- orchestrator-0035 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
+- orchestrator-0036 orchestrator -> security-researcher handoff: Assess verified T-Rex implementation
+- orchestrator-0037 orchestrator -> reviewer handoff: Review verified full-width T-Rex replacement
+- orchestrator-0038 orchestrator -> senior-developer handoff: Resolve T-Rex code-review focus race
+- orchestrator-0039 orchestrator -> ceo status: T-Rex replacement verified and ready for human merge review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -95,10 +101,14 @@ intent/t-rex-runner/intent.md
 - reviewer-0016 reviewer -> orchestrator review: T-Rex specification correction approved
 - reviewer-0017 reviewer -> orchestrator review: T-Rex automatic lifecycle amendment approved
 - reviewer-0018 reviewer -> orchestrator review: T-Rex implementation plan and pinned provenance approved
+- reviewer-0019 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
+- reviewer-0020 reviewer -> orchestrator review: T-Rex corrected code review approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0006 security-researcher -> orchestrator review: Word Snack security review clear at 47a5878
+- security-researcher-0007 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
+- security-researcher-0008 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
 - senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
 - senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
@@ -109,11 +119,11 @@ intent/t-rex-runner/intent.md
 
 ## Recent decisions
 
-- mem-0059 ceo: Rafael authorized reviewed Word Snack plan and fresh bounded six-turn cycle. Preserved design loop snapshot; new cycle carries forward existing approvals before implementation/security/review. Dependencies installed frozen on Node24.15.0/pnpm10.33.0; no merge/push/release authorized. (org/reviews/plan-recipe-waiting-game-human-approval-001.md)
 - mem-0061 product-manager: Rafael selected wayou/t-rex-runner to replace Word Snack. PM accepted captured intent for Design; preserve results-ready continued play, scoped Space/touch controls, pinned local upstream reuse and attribution. Prior WordSnack audit archived; no game code/assets changed. (org/reviews/intent-t-rex-runner-001.md)
 - mem-0063 ceo: Rafael changed T-Rex lifecycle to auto-open/start on valid search and auto-close immediately on success/zero results. Supersedes continued play and optional initial launch. PM and independent review approved amended artifacts; guarded focus/late-callback cleanup specified. Human spec approval pending; no code changes. (org/reviews/spec-t-rex-runner-003.md)
 - mem-0064 ceo: Rafael approved amended T-Rex specification at483d401: auto-start with valid search, immediate close on success/zero. Planning authorized, provenance prerequisites unresolved until planning; plan/code/merge/release not approved. (org/reviews/spec-t-rex-runner-human-approval-001.md)
 - mem-0066 ceo: Rafael approved reviewed T-Rex implementation plan at040184b, including deleting obsolete Word Snack code/tests, pinned reuse/notices, automatic search lifetime and reversible verification safeguards. Local implement/test/reviews authorized; no push/merge/release or loop budget extension. (org/reviews/plan-t-rex-runner-human-approval-001.md)
+- mem-0067 ceo: Rafael explicitly amended in-progress T-Rex implementation to fill available game content width. Remove CSS600pxcap, retain fixed logical600×150physics and uniformDPRscaling, prove desktop/mobilewidth/nooverflow. Continue approved autostart/autoclose and WordSnack deletion; no new approval gate or budgetturn. (org/messages/ceo-0026.md)
 
 ## Constraints
 
@@ -124,14 +134,17 @@ intent/t-rex-runner/intent.md
 - intent/t-rex-runner/intent.md (de55afc2aefe37b175f179054a65421032a37fd2ec6a6d5421e5e66492481411)
 - intent/t-rex-runner/spec.md (a94c2a16a923e4633f935dd7c7f422c477171ba5d45e7269e84e6be846bd5d97)
 - intent/t-rex-runner/plan.md (39495a52ab89c1708f16a33a6f01986232938f16b79b34e35273036220f1148e)
+- intent/t-rex-runner/progress.md (2a745f4df1027224b82038aa6679bdc575c7b8d0e7a98271804c20a923107b7e)
+- org/reviews/security-t-rex-runner-002.md (ee5f42b4d156c3787a99b6bf38014f05063a1a8fe63340bac49d168c29803129)
+- org/reviews/code-t-rex-runner-002.md (dbc4fd3b8edc1e1100e95806f2319fd575db462f71655e1ae82402eb5ccb1a6a)
 
 ## Next action
 
-senior-developer:draft_plan
+reviewer:review
 
 ## Last digest source
 
-- mem-0066 from org/reviews/plan-t-rex-runner-human-approval-001.md
+- mem-0068 from org/reviews/t-rex-runner-verification.md
 
 <!-- machine:end -->
 

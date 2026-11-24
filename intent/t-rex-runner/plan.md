@@ -62,10 +62,10 @@ before each behavior change; preserve red/green output, then save small slices.
 
 ### 1. Clear provenance and verification setup — no implementation
 
-- [ ] Independently review provenance.md: complete pinned upstream BSD notice,
+- [x] Independently review provenance.md: complete pinned upstream BSD notice,
   original Chromium/extraction credit, historical Chromium BSD and exact-match
   original sprites. Block reuse until notice/mapping questions are resolved.
-- [ ] Confirm Node 24.x/pnpm 10.33.0/frozen dependencies, Chrome and isolated
+- [x] Confirm Node 24.x/pnpm 10.33.0/frozen dependencies, Chrome and isolated
   fixture server prerequisites; record actual baseline and cache limitations.
 
 Dependencies: human-approved plan and license clearance. No new package,
@@ -73,13 +73,13 @@ unchecked vendored JS, remote execution, .env copying or public auth exception.
 
 ### 2. Prove jump-only simulation — medium; module and test
 
-- [ ] Write recipe-t-rex-runner tests first; implement immutable create/jump,
+- [x] Write recipe-t-rex-runner tests first; implement immutable create/jump,
   tick/collision/restart and pause/resume modes in lib/t-rex-runner.ts, using
   provenance-mapped jump calculations/running boxes. Inject dt and seeded RNG.
-- [ ] Fix world=600×150, speed <=240px/s, fixed jump, 3s obstacle-free start,
+- [x] Fix world=600×150, speed <=240px/s, fixed jump, 3s obstacle-free start,
   single small cacti, no acceleration/duck/hold advantage. Prove jump landing,
   ignored repeat/airborne presses, collision/restart-jump and frozen score/state.
-- [ ] Cap accepted delta at 50ms, physics substeps <=1000/60ms; test huge/invalid
+- [x] Cap accepted delta at 50ms, physics substeps <=1000/60ms; test huge/invalid
   deltas, immutable state and deterministic seeds. Set minimum spawn separation
   above maximum measured jump duration plus 300ms at chosen speed; test every
   generated gap and a simulated successful jump over the original hitboxes.
@@ -89,11 +89,11 @@ clock, Date, fetch, storage or recipe data in simulation.
 
 ### 3. Prove request lifecycle — medium; module and test
 
-- [ ] Add recipe-t-rex-session tests then lib/t-rex-session.ts: actual start
+- [x] Add recipe-t-rex-session tests then lib/t-rex-session.ts: actual start
   creates fresh visible request-ID snapshot; Hide/Show retains paused/crashed
   state only while pending; stale IDs ignored; success/zero/error/abort discard
   unconditionally. No deferred play/ready banner after results.
-- [ ] Cover invalid/duplicate pending submits preserving identity, replacement
+- [x] Cover invalid/duplicate pending submits preserving identity, replacement
   and explicit focus intents. Separate simulation state from current notebook
   selection; keep intent to autofocus invalidatable, never asset-triggered.
 
@@ -101,18 +101,18 @@ Dependencies: 2. Verify lifecycle tests red/green, including success in every mo
 
 ### Checkpoint A
 
-- [ ] Pure tests, lint and strict types pass using the clean-source strategy
+- [x] Pure tests, lint and strict types pass using the clean-source strategy
   below; no auth/provider/photo transport or dependency changes.
 
 ### 4. Vendor notices/sprites and render owned canvas — medium
 
-- [ ] After license clearance copy exact provenance bytes to manifest paths;
+- [x] After license clearance copy exact provenance bytes to manifest paths;
   write asset tests for SHA-256, dimensions, local paths and both full notices.
   Update provenance map to actual adapted exports; preserve source headers.
-- [ ] Implement lib/t-rex-canvas.ts as an instance-owned typed drawing/loading
+- [x] Implement lib/t-rex-canvas.ts as an instance-owned typed drawing/loading
   controller, not upstream Runner singleton. Use original running/jumping/crash
   frames, 1×/2× source offsets and ground/cactus regions; test crop bounds.
-- [ ] Mount it in app/t-rex-runner.tsx with named focusable canvas/fallback,
+- [x] Mount it in app/t-rex-runner.tsx with named focusable canvas/fallback,
   DOM mode/status, score (not live), Jump, Pause/Resume, Hide and notice link.
   Reserve >=128px canvas area, fill available content width with the uniformly
   scaled 600×150 logical world (Rafael's approved implementation amendment), account
@@ -126,15 +126,15 @@ may revive a hidden/completed/unmounted generation. No global input listeners.
 
 ### 5. Integrate auto-start/auto-close and remove Word Snack — medium
 
-- [ ] In RecipeSearch start visible state synchronously after valid submit and
+- [x] In RecipeSearch start visible state synchronously after valid submit and
   before dispatching existing fetch; do not await sprite/image callbacks.
   At initial commit focus surface only if initiating-form focus/user-interaction
   token is still eligible. Later interaction/terminal response invalidates it.
-- [ ] Scope Space to surface target, prevent scroll for every surface Space
+- [x] Scope Space to surface target, prevent scroll for every surface Space
   keydown, ignore repeat/airborne/paused actions; native buttons act once.
   Outside-section focus/blur/hidden/reduced-motion pauses and revokes asset
   autostart; only explicit Resume while visible/focused opts back into motion.
-- [ ] Hide disposes mounted resources, retains paused snapshot and focuses Show;
+- [x] Hide disposes mounted resources, retains paused snapshot and focuses Show;
   Show restores paused state and surface focus. Success/zero discards everything
   immediately and focuses associated search only if removed game/Show held it;
   otherwise retain outside focus and old-panel selection. Errors restore query
@@ -147,16 +147,16 @@ request a provider, persist score or alter textarea Space/ordinary control keys.
 
 ### 6. Verify real browser resources and interaction — one TS harness
 
-- [ ] Replace word-specific assertions in tests/auth/browser.ts; retain search,
+- [x] Replace word-specific assertions in tests/auth/browser.ts; retain search,
   auth, notebook/focus/photo and request-body regressions. Use held recipe and
   delayed sprite fixtures, harness-only RAF/listener instrumentation, no prod
   test endpoints. Assert zero owned resources after terminal transitions and
   Hide/unmount; repeated Show/Strict Mode ownership allows at most one loop.
-- [ ] At 320/390/768/1024/1440px verify auto-open/run, sprites, keyboard/touch
+- [x] At 320/390/768/1024/1440px verify auto-open/run, sprites, keyboard/touch
   jump/collision/restart, 44px controls, overflow, blocked surface Space scroll,
   unaffected textarea Space and one native button activation. Test reduced
   motion, focus/blur/visibility pauses, explicit resume and resize/DPR continuity.
-- [ ] Hold success/zero mid-jump and in paused/crashed/hidden/loading states;
+- [x] Hold success/zero mid-jump and in paused/crashed/hidden/loading states;
   prove immediate discard/focus outcome, no late sprite start/focus, no extra
   POSTs and no continued game. Cover terminal-before-first-frame, focus-intent
   invalidation, old-panel/query focus, invalid/duplicate/new requests and errors.
@@ -200,15 +200,15 @@ planning. Clean-source browser QA plus matching source hashes remains primary.
 
 ### Final checkpoint and independent review
 
-- [ ] Run frozen install evidence, pnpm test, lint, typecheck, build then
+- [x] Run frozen install evidence, pnpm test, lint, typecheck, build then
   test:auth, Python unittest discovery, deployment smoke and real browser in
   the matching clean snapshot. Copy only evidence screenshots back, never
   generated config/cache or secrets. Serialize Next builds/server checks.
-- [ ] Require zero command failures, zero unexpected browser errors and
+- [x] Require zero command failures, zero unexpected browser errors and
   structural/behavior/resource assertions. Run staged secret scan (zero),
   approved-plan sync and diff check in workspace; record all actual exits and
   original-root baseline limitations in progress.md.
-- [ ] Obtain independent code/security/license review against spec/plan and
+- [x] Obtain independent code/security/license review against spec/plan and
   provenance, fix required findings and reverify affected paths. Human merge
   and release stay gated; no push/deploy. Six-turn loop is currently at 2:
   plan=3, implementation=4, security=5, final review=6; do not extend/reset it.

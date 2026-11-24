@@ -268,3 +268,28 @@ map is retained as historical evidence, not asserted current. No root dev cache
 or next-env changes were made; root owns runtime acceptance and the independent
 code/security recheck. React callback identity guidance was verified at
 https://react.dev/reference/react/useCallback.
+
+## Final independent review and bounded-cycle outcome
+
+Code recheck org/reviews/code-t-rex-runner-002.md approved corrected candidate
+0febee7 with no remaining required findings; initial finding 001 is preserved.
+Security recheck org/reviews/security-t-rex-runner-002.md is clear and independently
+recomputed the 68 current hashes. The code reviewer also inverted the session
+terminal-discard condition, observed two tests fail, restored exact source and
+reran all 15 focused T-Rex tests successfully. No source changed during review.
+
+The unchanged configured checkout acceptance commands all exited 0 at turns
+4, 5 and 6. Turn 4 checked initial candidate 1017d39; turns 5/6 checked corrected
+0febee7. Approved temporary generated-type holds were respectively
+/private/tmp/trex-runtime-types-evvpi5mk,
+/private/tmp/trex-runtime-types-1ajv1u0z and
+/private/tmp/trex-runtime-types-swclk41_. Each finally restoration preserved the
+original generated env bytes and dev types, with no concurrent regeneration
+conflict. No config/check suppression, test exclusion or invented acceptance.
+
+The cycle finished solved at 6/6 turns with all acceptance results passing,
+approved code review and clear security. All plan checkboxes reflect completed
+local work. Consolidated evidence: org/reviews/t-rex-runner-verification.md.
+Implementation is in_review for human merge approval; release is not_started.
+No push, merge or release occurred. Pre-existing next-env.d.ts changes,
+untracked work/ and earlier brainstorm notes remain outside feature commits.
