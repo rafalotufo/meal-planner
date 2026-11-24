@@ -4,7 +4,7 @@ import { getDatabase } from '../../lib/db';
 import allowed from '../../lib/allowed-google-emails.json';
 import { readPlans } from '../../lib/plans/store';
 import { parsePlanQuery } from '../../lib/plans/validation';
-import { addDays, currentWeek, draftDay } from '../../lib/plans/calendar';
+import { currentWeek, draftDay } from '../../lib/plans/calendar';
 import type { PlanView } from '../../lib/plans/types';
 import PlanControls from './plan-controls';
 export default async function PlansPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -26,7 +26,7 @@ export default async function PlansPage({ searchParams }: { searchParams: Promis
     {!query ? <div className="mt-8"><p role="alert">This plan page is invalid.</p><a className={linkClass} href="/plans">Latest plan</a></div>
       : !view ? <div role="alert" className="mt-8"><p>Could not load your plan. Please try again.</p><a className={linkClass} href="/plans">Reload plans</a></div>
       : <>
-        <div className="mt-8 flex flex-wrap items-center gap-3"><p className="font-serif text-xl"><time dateTime={week}>{week}</time> – <time dateTime={addDays(week, 6)}>{addDays(week, 6)}</time></p>{view.plan ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-950">{view.plan.status === 'final' ? 'Final · Planned meals' : 'Draft'}</span> : null}</div>
+        <div className="mt-8 flex flex-wrap items-center gap-3"><p className="font-serif text-xl">{view.plan ? 'Seven recipes for the week' : 'Weekly recipes'}</p>{view.plan ? <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-950">{view.plan.status === 'final' ? 'Final · Planned meals' : 'Draft'}</span> : null}</div>
         {view.plan ? <PlanControls key={view.plan.id} view={view} /> : <div className="mt-6 rounded-xl border border-stone-200 bg-white p-5"><p>No draft exists for this week.</p><p className="mt-2 text-sm text-stone-600">The next scheduled draft can fill the upcoming week when your menu has saved recipes.</p></div>}
         {!view.menu.entries.length ? <p className="mt-5 text-sm">{query.menuAfter ? 'No recipes on this menu page. ' : 'Your menu is empty. '}<a className={linkClass} href="/menu">Open Menu</a> or <Link className={linkClass} href="/" prefetch={false}>find recipes</Link>.</p> : null}
         {view.editable ? <nav aria-label="Saved dinner pages" className="mt-5 flex flex-wrap gap-5"><a className={linkClass} href={`/plans?week=${week}`}>Newest saved dinners</a>{view.menu.nextCursor ? <a className={linkClass} href={`/plans?week=${week}&menuAfter=${encodeURIComponent(view.menu.nextCursor)}`}>Older saved dinners</a> : null}</nav> : null}

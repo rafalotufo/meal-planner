@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/weekly-meal-planning/intent.md
 base_commit: 9694aeedc5757431320f56fd6f8b4b264c157b75
-turn: 1
+turn: 2
 no_progress: 0
-phase: build
+phase: review
 status: in_progress
-last_input_hash: 250662ae7a068aca973fab42a10fd0ecd718a3b242197f1dc56f3d6cdd61841f
+last_input_hash: e3f31af03b47cf77ce0517bffb8dd13eca3e2ee2c3c7fa11e8eb6fa6e527c83f
 stop_reason: null
-last_action: "reviewer:approve_undated_plan_header"
-artifacts: [{"path": "org/reviews/weekly-meal-planning-header-001.md", "sha256": "85d5bbc04baa54d499ba580c30f809685cf5a43a64a7605fcffc9854d3674c21"}]
+last_action: "senior-developer:remove_plan_header_dates"
+artifacts: [{"path": "org/reviews/weekly-meal-planning-header-001.md", "sha256": "85d5bbc04baa54d499ba580c30f809685cf5a43a64a7605fcffc9854d3674c21"}, {"path": "intent/weekly-meal-planning/verification.md", "sha256": "d51c2449efa1f34c16939b12a5dcb958296e855545b8576eb08edc40792a83ae"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T19:37:45Z"
+updated_at: "2026-11-24T19:39:53Z"

@@ -175,8 +175,8 @@ are part of this amendment.
 
 ## Owner follow-up amendment — remove main-header date range
 
-Source: `org/messages/ceo-0052.md`. Pending independent approval before source
-changes. Supersedes the retained-header-range instruction in the first amendment.
+Source: `org/messages/ceo-0052.md`. Independently approved before source
+changes: `org/reviews/weekly-meal-planning-header-001.md`. Supersedes the retained-header-range instruction in the first amendment.
 The main plan header presents seven recipes without a numeric week/date range;
 only history controls retain week dates. Cards remain undated in draft, final and
 retained-history views. Schedule explanation weekday words/time may remain.

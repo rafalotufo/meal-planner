@@ -88,3 +88,31 @@ source/intent alignment and refreshed desktop/mobile screenshots.
 The local org loop completed at six turns. Human merge, staging/release approval,
 hosted migration and scheduler activation remain unperformed. Later audit-only
 commits do not change the fixed reviewed feature source above.
+
+## Header date-range refinement — final evidence
+
+Owner clarification `org/messages/ceo-0052.md` supersedes the retained-header-range
+assumption in the earlier screenshot evidence above. Independent approval:
+`org/reviews/weekly-meal-planning-header-001.md`, before source correction.
+
+Authored the browser assertion first: old compiled UI exited1 with the expected
+“no numeric dates or date elements outside history controls” failure. Updated only
+`app/plans/page.tsx` runtime presentation: main context now says “Seven recipes
+for the week” (or “Weekly recipes” without a plan), with no main date range.
+Selected-week handling and the date-bearing history controls remain unchanged.
+No scheduling, database, authentication or other core change.
+
+Final correction commands: `pnpm run lint` exit0; `pnpm run typecheck` exit0;
+`pnpm run build` exit0; `pnpm run test:plans` exit0,13/13; and
+`node --import tsx tests/plans/browser.ts` exit0. Chrome asserts seven undated
+recipe-title cards, no numeric dates/date elements outside history controls in
+draft/final/history, and retained selected-week history input. All prior physical
+approval/swap/reset/stale refresh/pagination/confirmation/history checks passed
+at320/1440, with no overflow or unexpected console errors.
+
+All six `weekly-plan-{draft,swap,history}-{320,1440}.png` screenshots were
+recaptured from the corrected final build. Visually inspected desktop draft,
+mobile accepted long-title swap and mobile finalized history: all show “Seven
+recipes for the week” and no actual dates near the header or recipe cards.
+These latest images supersede earlier header-range screenshots. The owned server,
+Chrome profile and disposable database were cleaned up. `git diff --check` exit0.

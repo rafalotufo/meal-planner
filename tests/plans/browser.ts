@@ -21,7 +21,8 @@ try{
  async function recipeCards(expectedWeek: string) {
   assert.equal(await browser!.evaluate("document.querySelectorAll('article').length===7 && document.querySelectorAll('article h2').length===7 && !document.querySelector('article time,article [datetime]')"),true,'seven recipe-title cards without date elements');
   assert.equal(await browser!.evaluate("Array.from(document.querySelectorAll('article')).every(card=>!(/Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|\\d{4}-\\d{2}-\\d{2}/.test(card.innerText)))"),true,'recipe cards have no weekday/date assignment labels');
-  assert.equal(await browser!.evaluate(`Array.from(document.querySelectorAll('main > div time')).some(time=>time.getAttribute('datetime')===${JSON.stringify(expectedWeek)})`),true,'week range stays above cards');
+  assert.equal(await browser!.evaluate("(() => { const content=document.querySelector('main').cloneNode(true); content.querySelector('section[aria-labelledby=planned-history]')?.remove(); return !content.querySelector('time,[datetime]') && !/\\d{4}-\\d{2}-\\d{2}/.test(content.textContent); })()"),true,'no numeric dates or date elements outside history controls');
+  assert.equal(await browser!.evaluate(`document.querySelector('#history-week')?.value===${JSON.stringify(expectedWeek)}`),true,'history selector retains selected-week context');
  }
  const local=torontoClock(new Date());const due=new Date(local.date+'T23:00:00Z');
  await generateDuePlans(db,allowed,local.day,due);

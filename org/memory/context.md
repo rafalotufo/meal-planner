@@ -9,8 +9,8 @@ intent/weekly-meal-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: build
+- turn: 2
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/weekly-meal-planning/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (weekly-plan-header-implementation)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (weekly-meal-planning-header-plan)
+- senior-developer: busy (weekly-plan-header-implementation)
 
 ## Open messages
 
@@ -96,6 +96,8 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0093 orchestrator -> ceo handoff: Weekly meal planning ready for human merge review
 - orchestrator-0094 orchestrator -> reviewer handoff: Review removal of visible plan header dates
+- orchestrator-0095 orchestrator -> senior-developer handoff: Remove remaining plan header date range
+- orchestrator-0096 orchestrator -> reviewer handoff: Final review of undated plan header
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -158,6 +160,7 @@ intent/weekly-meal-planning/intent.md
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 - senior-developer-0015 senior-developer -> orchestrator handoff: Shared layout implementation verified
+- senior-developer-0017 senior-developer -> orchestrator handoff: Plan header dates removed and verified
 
 ## Recent decisions
 
@@ -174,10 +177,11 @@ intent/weekly-meal-planning/intent.md
 ## Artifacts
 
 - org/reviews/weekly-meal-planning-header-001.md (85d5bbc04baa54d499ba580c30f809685cf5a43a64a7605fcffc9854d3674c21)
+- intent/weekly-meal-planning/verification.md (d51c2449efa1f34c16939b12a5dcb958296e855545b8576eb08edc40792a83ae)
 
 ## Next action
 
-reviewer:approve_undated_plan_header
+senior-developer:remove_plan_header_dates
 
 ## Last digest source
 
