@@ -2,7 +2,8 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Approved by independent org peer review (`org/reviews/weekly-meal-planning-plan-001.md`)
+- Status: Approved
+- Independent approval: `org/reviews/weekly-meal-planning-plan-001.md`
 - Inputs: accepted intent.md and sibling specification
 
 ## Files that change
