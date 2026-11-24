@@ -4,23 +4,26 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { mountRunnerCanvas, type RunnerCanvas, type RunnerView } from "../lib/t-rex-canvas";
 import type { RunnerState } from "../lib/t-rex-runner";
 
-type Props = { initial: RunnerState; onHide: (snapshot: RunnerState) => void };
+type Props = { requestId: number; initial: RunnerState; canAutoStart: (requestId: number) => boolean; onHide: (snapshot: RunnerState) => void };
 const control = "min-h-11 min-w-11 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-stone-800 hover:bg-stone-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800";
 
-export default function TRexRunner({ initial, onHide }: Props) {
+export default function TRexRunner({ requestId, initial, canAutoStart, onHide }: Props) {
   const section = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const controller = useRef<RunnerCanvas | null>(null);
+  const initialEligibility = useRef<boolean | null>(null);
   const [view, setView] = useState<RunnerView>({ mode: initial.mode, score: Math.floor(initial.distance / 10), status: "Loading sprites…", loading: true, unavailable: false, y: initial.y });
 
   useLayoutEffect(() => {
     if (!canvas.current || !section.current) return;
+    // Keep the one first-commit decision across Strict Mode effect replay.
+    if (initialEligibility.current === null) initialEligibility.current = canAutoStart(requestId);
     const mounted = mountRunnerCanvas(canvas.current, section.current, initial, next => {
       setView(previous => previous.mode === next.mode && previous.score === next.score && previous.status === next.status && previous.y === next.y ? previous : next);
-    });
+    }, initialEligibility.current);
     controller.current = mounted;
     return () => { mounted.dispose(); controller.current = null; };
-  }, [initial]);
+  }, [initial, requestId, canAutoStart]);
 
   return <section ref={section} aria-labelledby="t-rex-title"
     onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) controller.current?.pause("focus"); }}

@@ -13,8 +13,10 @@ export const SPRITE_LAYOUT = {
 export type RunnerView = { mode: RunnerState["mode"]; score: number; status: string; loading: boolean; unavailable: boolean; y: number };
 export type RunnerCanvas = { jump: (repeat?: boolean) => void; pause: (reason: string) => void; resume: () => void; snapshot: () => RunnerState; dispose: () => void };
 
-export function mountRunnerCanvas(canvas: HTMLCanvasElement, section: HTMLElement, initial: RunnerState, onView: (view: RunnerView) => void): RunnerCanvas {
-  let state = initial;
+export function mountRunnerCanvas(canvas: HTMLCanvasElement, section: HTMLElement, initial: RunnerState, onView: (view: RunnerView) => void, autoStartAllowed = false): RunnerCanvas {
+  // Automatic motion requires the parent's first-commit interaction eligibility,
+  // not merely focus that may return before a delayed image callback.
+  let state = autoStartAllowed ? initial : pauseRunner(initial, "focus");
   let disposed = false;
   let image: HTMLImageElement | null = new Image();
   let loaded = false;

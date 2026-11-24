@@ -221,3 +221,50 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
 Pinned adapted source mapping and notices are documented in provenance.md.
 Independent final code/security/license review is still required; this report
 is implementation evidence, not self-approval or merge/release authorization.
+
+## Independent review correction — revoked initial autostart
+
+Review code-t-rex-runner-001 identified a required first-commit race in candidate
+1017d39: skipping autofocus alone did not pause a fresh controller. Before the
+canvas ever held focus, moving elsewhere caused no section-blur event; focusing
+it again before delayed sprites loaded could start motion without Resume.
+
+A real Chrome regression first failed against the unchanged reviewed build:
+within the recipe fetch fixture, focus and a pointer interaction move outside
+synchronously after submission queued the round but before its initial commit.
+The test then focuses the canvas before releasing held sprites. Expected paused;
+actual running. This is a harness-only timing fixture; production fetch remains
+unchanged and no test endpoint or input bypass was added.
+
+The correction shares the initial request/interaction eligibility predicate
+between focus and motion. The child captures that first-commit decision once
+(retained across Strict Mode effect replay); the controller defaults to paused
+unless explicitly permitted before loading. Failed initial eligibility cannot
+be revived by later focus or image completion. Normal form-owned mouse, touch
+and keyboard submissions still receive automatic start, while explicit Resume
+is required after revocation. No simulation, source pin, notices or game rules
+changed.
+
+Added successful-old-panel coverage too: a pending result arrives while an
+older sort control is focused; the exact DOM control, open panel and quickest
+sort remain, and new history is inserted. This complements prior malformed-error
+and outside-query focus coverage.
+
+All required commands passed again in matching clean snapshot
+`/private/tmp/trex-implementation-m16a0ihf`: 79 application tests, 12 auth,
+12 smoke, 7 Python workflow tests, lint, strict types and production build.
+Expanded Chrome passed at all five widths including the new revoked-focus
+regression and successful-old-panel case, with normal real mouse/touch/keyboard
+starts still passing; ten deliberate fixture 429s and zero unexpected console/
+network errors. Current-feature t-rex-* captures were refreshed; historical
+Word Snack/notebook records remain untouched. Actual screen-reader listening
+and live LLM grounding remain unperformed as previously disclosed.
+
+Post-check 68-file source/config/test/asset comparison matches workspace and
+snapshot, with all five Word Snack removals absent in both. Aggregate SHA-256:
+`b49253690e2e63b755871599bf2782d14fa00ff25db490fad444a61a196bea59`.
+Detailed map: snapshot `.implementation-evidence.json`. The earlier candidate
+map is retained as historical evidence, not asserted current. No root dev cache
+or next-env changes were made; root owns runtime acceptance and the independent
+code/security recheck. React callback identity guidance was verified at
+https://react.dev/reference/react/useCallback.

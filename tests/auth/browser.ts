@@ -205,6 +205,40 @@ try {
     await send('Emulation.setTouchEmulationEnabled', { enabled: touch, maxTouchPoints: 1 });
     const baseline = await resources();
     assert.equal(baseline.frames, 0);
+    // Force a genuine focus/pointer interaction after submit queued a round,
+    // but before React's first commit. Images are still held when focus returns.
+    fixtureRecipes=dinnerRecipes;
+    await send('Network.setCacheDisabled',{cacheDisabled:true});
+    holdSprites=true;
+    await evaluate('window.__runnerProbe.revokeInitialFocus=true');
+    await holdQuery('Initial outside interaction revokes autostart');
+    assert.equal(await evaluate('document.activeElement.id'),await evaluate('window.__runnerProbe.revokedTarget'));
+    for(let attempt=0;attempt<100&&!heldSprites.length;attempt++)await new Promise(resolve=>setTimeout(resolve,25));
+    assert.ok(heldSprites.length,'sprites are held before focus returns');
+    await evaluate('document.querySelector("#t-rex-surface").focus()');
+    await releaseSprites();
+    await waitFor('!document.querySelector("#t-rex-jump").disabled');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused','revoked initial eligibility cannot be restored by focus or late sprites');
+    assert.equal((await resources()).frames,0);
+    await key(' ','Space',32,' ');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+    await activate('#t-rex-pause',touch);
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    await finishQuery();
+    await send('Network.setCacheDisabled',{cacheDisabled:false});
+    assert.deepEqual(await resources(),baseline);
+
+    // Successful arrival while an earlier result control has focus retains
+    // that exact node, open panel and sort, while still inserting new history.
+    await holdQuery('Successful arrival retains old panel focus');
+    await evaluate(`(() => {const control=document.querySelector('select');control.value='quickest';control.dispatchEvent(new Event('change',{bubbles:true}));control.focus();window.__runnerProbe.oldControl=control;window.__runnerProbe.oldPanel=control.closest('[data-search-panel]').id;})()`);
+    const beforeOldPanel=await evaluate('document.querySelectorAll("button[aria-expanded]").length');
+    await finishQuery();
+    assert.ok(await evaluate('document.activeElement===window.__runnerProbe.oldControl'));
+    assert.equal(await evaluate('document.querySelector("[data-search-panel]:not([hidden])").id'),await evaluate('window.__runnerProbe.oldPanel'));
+    assert.equal(await evaluate('document.activeElement.value'),'quickest');
+    assert.equal(await evaluate('document.querySelectorAll("button[aria-expanded]").length'),Number(beforeOldPanel)+1);
+    assert.deepEqual(await resources(),baseline);
     fixtureRecipes = dinnerRecipes;
     const requestsBefore = searchRequests;
     await holdQuery('Dinner while running T-Rex', touch ? 'touch' : 'mouse');
@@ -455,6 +489,16 @@ try {
     const getContext=HTMLCanvasElement.prototype.getContext;
     HTMLCanvasElement.prototype.getContext=function(...args){if(this.id==='t-rex-surface'&&window.__runnerProbe?.failContext)return null;return getContext.apply(this,args);};
     window.__runnerProbe={counts:()=>({frames:frames.size,observers:observers.size,listeners:[...listeners.values()].reduce((n,set)=>n+set.size,0)})};
+    const fetchOriginal=window.fetch;
+    window.fetch=function(...args){
+      if(window.__runnerProbe.revokeInitialFocus&&String(args[0]).includes('/api/recipes/search')){
+        window.__runnerProbe.revokeInitialFocus=false;
+        const outside=document.querySelector('button[aria-expanded]');
+        window.__runnerProbe.revokedTarget=outside.id;
+        outside.focus();outside.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true}));
+      }
+      return fetchOriginal.apply(this,args);
+    };
   })()` });
   const app = await startServer({}, true);
   server = app;

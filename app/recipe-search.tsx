@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useReducer, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState, type FormEvent } from "react";
 import type { Recipe } from "../lib/recipes/types";
 import { initialNotebook, notebookReducer } from "../lib/recipes/notebook";
 import { isRecord, validateQuery } from "../lib/recipes/validation";
@@ -28,14 +28,22 @@ export default function RecipeSearch() {
   const notebookRegion = useRef<HTMLDivElement>(null);
   const focusAfterCommit = useRef<string | null>(null);
 
+  // The same initial interaction token authorizes both focus and automatic motion.
+  // A failed first-commit check must not be revived by later sprite loading/focus.
+  const canAutoStart = useCallback((id: number) => {
+    const intent = initialFocus.current;
+    return Boolean(intent && intent.id === id && generation.current === id
+      && pending.current && !pending.current.signal.aborted && intent.version === interactionVersion.current
+      && intent.form.contains(document.activeElement));
+  }, []);
+
   // Commit-time focus is never deferred to asset callbacks.
   // https://react.dev/learn/manipulating-the-dom-with-refs
   useLayoutEffect(() => {
     const intent = initialFocus.current;
+    const focusGame = intent && runner?.visible && runner.requestId === intent.id && canAutoStart(intent.id);
     initialFocus.current = null;
-    if (intent && runner?.visible && runner.requestId === intent.id && generation.current === intent.id
-      && pending.current && !pending.current.signal.aborted && intent.version === interactionVersion.current
-      && intent.form.contains(document.activeElement)) {
+    if (focusGame) {
       document.getElementById("t-rex-surface")?.focus({ preventScroll: true });
     }
     const id = focusAfterCommit.current;
@@ -44,7 +52,7 @@ export default function RecipeSearch() {
     const target = document.getElementById(id);
     target?.focus({ preventScroll: true });
     if (id.startsWith("search-heading-")) target?.scrollIntoView({ behavior: "instant", block: "start" });
-  }, [runner?.requestId, runner?.visible, notebook.selectedId]);
+  }, [runner?.requestId, runner?.visible, notebook.selectedId, canAutoStart]);
 
   function hideRunner(snapshot: RunnerState) {
     if (!runner) return;
@@ -140,7 +148,7 @@ export default function RecipeSearch() {
         {error ? <p role="alert" className="mt-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900">{error}</p> : null}
       </section>
       <div ref={gameRegion}>
-        {runner?.visible ? <TRexRunner key={runner.requestId} initial={runner.snapshot} onHide={hideRunner} />
+        {runner?.visible ? <TRexRunner key={runner.requestId} requestId={runner.requestId} initial={runner.snapshot} canAutoStart={canAutoStart} onHide={hideRunner} />
           : runner ? <button id="t-rex-show" type="button" onClick={() => {
             focusAfterCommit.current = "t-rex-surface";
             runnerAction({ type: "show", requestId: runner.requestId });
