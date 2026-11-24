@@ -3,7 +3,7 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "App icon local SDLC completed in six bounded turns: PM, design, independent design approval, verified implementation, security and code review approved. All required checks pass; desktop/mobile Chrome icon decode and native-size artwork inspected. Ready for human merge gate; no merge, push or release." }
+  orchestrator: { status: idle, assignment: null, last_report: "App icon merged into clean local main under Rafael approval; original full verification and independent approvals preserved, audit checks clean. No push or deployment; release requires separate authorization." }
   product-manager: { status: idle, assignment: null, last_report: "App icon intent accepted for Design; static local browser tab icon, independent design/build review and human merge/release gates preserved." }
   architect: { status: busy, assignment: intent/app-icon/spec.md, last_report: "App icon specification and implementation plan drafted for independent peer review; static assets and exact read-only auth exceptions, no code changed." }
   senior-developer: { status: busy, assignment: app-icon-implementation, last_report: "App icon implemented; red2/green2, all required checks pass and isolated Chrome390/1440 public/admitted icon evidence recorded; ready for independent final review." }

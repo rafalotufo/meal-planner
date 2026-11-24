@@ -65,6 +65,7 @@ intent/app-icon/intent.md
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0033 orchestrator -> architect handoff: Design browser tab app icon
 - orchestrator-0034 orchestrator -> ceo handoff: Reviewed app icon ready for merge approval
+- orchestrator-0035 orchestrator -> ceo status: App icon merged into local main
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -113,11 +114,11 @@ intent/app-icon/intent.md
 
 ## Recent decisions
 
-- mem-0076 orchestrator: Imported prior feature event mem-0076: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
 - mem-0078 architect: App icon design proposes static root SVG plus ICO fallback with exact GET/HEAD public asset exceptions; preserve proxy Host/configuration checks and remove blank data URL metadata. (intent/app-icon/spec.md)
 - mem-0079 orchestrator: App icon local design/build/test/security/code review complete; human merge and release remain separate. See final verification and code approval. (org/reviews/app-icon-code-001.md)
 - mem-0080 orchestrator: Rafael approved local app icon merge of reviewed a72e0ad into clean unchanged main 2ee77aa. Approval recorded as code_owner_approve-011; no push or release authorized. (org/messages/ceo-0027.md)
+- mem-0081 orchestrator: Approved app icon fast-forward merged into clean unchanged local main; application/test bytes match reviewed b311ac6. No push or release. (intent/app-icon/merge.md)
 
 ## Constraints
 
@@ -138,7 +139,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0080 from org/messages/ceo-0027.md
+- mem-0081 from intent/app-icon/merge.md
 
 <!-- machine:end -->
 
