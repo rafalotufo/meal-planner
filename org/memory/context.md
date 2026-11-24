@@ -9,8 +9,8 @@ intent/recipe-url-menu/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 6
+- phase: planning
 - stop_reason: None
 
 ## Agents
@@ -26,6 +26,7 @@ intent/recipe-url-menu/intent.md
 ## Open messages
 
 - architect-0010 architect -> orchestrator handoff: Shared layout spec and plan ready
+- architect-0011 architect -> orchestrator answer: Re: Revise design for accepted asynchronous curation amendment
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -59,6 +60,7 @@ intent/recipe-url-menu/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0053 ceo -> orchestrator decision: Accept recipe URL menu intent
+- ceo-0054 ceo -> orchestrator decision: Amend recipe URL menu to save before curation
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,7 +96,6 @@ intent/recipe-url-menu/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
-- orchestrator-0090 orchestrator -> architect handoff: Design accepted recipe URL menu intent
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -107,6 +108,7 @@ intent/recipe-url-menu/intent.md
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0016 product-manager -> orchestrator decision: Recipe URL menu scope reviewed
+- product-manager-0017 product-manager -> orchestrator answer: Re: Amend intent for owner-directed save-first curation
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -143,6 +145,7 @@ intent/recipe-url-menu/intent.md
 - reviewer-0039 reviewer -> orchestrator review: Shared layout spec and plan approved
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0041 reviewer -> orchestrator review: Shared layout final implementation approved
+- reviewer-0042 reviewer -> orchestrator answer: Re: Review save-first curation specification amendment
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -160,11 +163,11 @@ intent/recipe-url-menu/intent.md
 
 ## Recent decisions
 
-- mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
-- mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
 - mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
 - mem-0130 product-manager: Recipe URL menu PM scope accepted: owner confirmed reading the linked page for title, photo, summary and time when available. Written-intent owner acceptance is pending before Design; no code or release approval. (intent/recipe-url-menu/intent.md)
 - mem-0132 ceo: Owner approved the written recipe-url-menu intent in chat. Design is authorized; specification, plan, merge and release approval remain separate gates. (org/messages/ceo-0053.md)
+- mem-0133 ceo: Owner changed recipe URL menu to durable immediate URL save followed by background source-metadata curation of the same entry. Owner selected best-effort start with explicit Retry if interrupted; no independent scheduler or unattended recovery guarantee. Revised spec needs review and approval. (org/messages/ceo-0054.md)
+- mem-0134 reviewer: Revised save-first curation specification independently approved with explicit shorter-of-session/JWE delegation expiry. PostgreSQL task state, one bounded after callback, manual Retry, guarded same-entry completion and no-resurrection rules are specified. Owner specification approval is pending; no plan/code/migration execution. (org/reviews/spec-recipe-url-menu-002.md)
 
 ## Constraints
 
@@ -173,14 +176,17 @@ intent/recipe-url-menu/intent.md
 ## Artifacts
 
 - org/reviews/intent-recipe-url-menu-001.md (fbf464212e3ac81bd2051a836abe61819e02a7f344077ac82cd3ee9fc2223f10)
+- org/reviews/spec-recipe-url-menu-001.md (3133f5c370831f267e6f0f5c8773dc8bdd79b56d94bc237440862a660f4d64c9)
+- org/reviews/intent-recipe-url-menu-002.md (df282d373356d1b4d01af80fc7b7ff4cb75210dea7aa4e1fdaab4b7160fa4f81)
+- intent/recipe-url-menu/spec.md (ab953eebcb5a10914486c9f6b35d9fa9dee88429574b33cbe1a6232db62b8cee)
 
 ## Next action
 
-product-manager:review_recipe_url_menu_intent
+reviewer:answer_message
 
 ## Last digest source
 
-- mem-0132 from org/messages/ceo-0053.md
+- mem-0134 from org/reviews/spec-recipe-url-menu-002.md
 
 <!-- machine:end -->
 
