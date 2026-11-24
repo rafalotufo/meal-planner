@@ -78,7 +78,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - scripts/migrate-db.ts
 - scripts/postgres-hosted.ts
 - app/api/menu/route.ts
-- app/api/menu/[id]/remove/route.ts
+- app/api/menu/[[]id]/remove/route.ts
 - app/menu/page.tsx
 - app/menu/menu-controls.tsx
 - app/menu/remove-recipe-dialog.tsx

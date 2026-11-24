@@ -9,8 +9,8 @@ intent/saved-recipe-menu/spec.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: security
+- turn: 3
+- phase: awaiting_plan_approval
 - stop_reason: None
 
 ## Agents
@@ -20,7 +20,7 @@ intent/saved-recipe-menu/spec.md
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: busy (intent/saved-recipe-menu/plan.md)
+- security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -91,8 +91,7 @@ intent/saved-recipe-menu/spec.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
-- orchestrator-0090 orchestrator -> senior-developer handoff: Plan approved saved menu feature implementation
-- orchestrator-0091 orchestrator -> security-researcher handoff: Assess saved menu implementation plan
+- orchestrator-0093 orchestrator -> ceo handoff: Saved recipe menu implementation plan ready for engineer approval
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -141,6 +140,7 @@ intent/saved-recipe-menu/spec.md
 - reviewer-0040 reviewer -> orchestrator review: Uncapped menu and retained photo amendment approved
 - reviewer-0041 reviewer -> orchestrator review: Menu visual Design preview peer approved
 - reviewer-0042 reviewer -> orchestrator review: Removal confirmation Design approved
+- reviewer-0044 reviewer -> orchestrator review: Saved menu implementation plan independently approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -152,16 +152,17 @@ intent/saved-recipe-menu/spec.md
 - security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
 - security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
 - security-researcher-0023 security-researcher -> orchestrator review: Saved menu Design security clear
+- security-researcher-0024 security-researcher -> orchestrator review: Saved menu build plan security clear
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0124 orchestrator: Rafael approved amended saved menu specification at c104a25 and requested visual Design previews before Build. Archived completed six-turn spec run without extension; started separately requested four-turn visual Design round. Application implementation and hosted actions remain unapproved. (org/messages/ceo-0050.md)
 - mem-0125 orchestrator: Created requested visual Design preview for modified recipe search and new shared menu. Independent visual review approved, root real-browser checks at1440/390 confirmed layout and local save/menu/remove/paging; sample images/local state are illustrative. Owner visual review pending before Build planning, no application/schema/hosted implementation. (intent/saved-recipe-menu/visual-design.md)
 - mem-0126 orchestrator: Owner requested confirmation before removing saved recipes. Amend current visual Design using remaining two loop turns; no deletion on cancel/dismiss, confirm alone starts removal. Prior unchanged specification approval retained, visual design remains pending. (org/messages/ceo-0051.md)
 - mem-0127 orchestrator: Owner-required menu removal confirmation implemented in Design preview and specification only. Independent review approved; root browser1440/320 verified named dialog, Cancel focus, Cancel/Escape preserve recipe and confirm alone removes. Visual round used four turns, no budget extension; owner visual review pending before Build. (org/reviews/visual-saved-recipe-menu-002.md)
 - mem-0128 orchestrator: Rafael approved final saved-menu visual Design including removal confirmation. Recorded spec amendment and visual approval for3da9c0a; archived completed four-turn visual loop without extension. New bounded build-planning run will produce reviewed plan before human engineer approval; no code or hosted effects authorized. (org/messages/ceo-0052.md)
+- mem-0129 orchestrator: Saved menu Build plan completed with exact manifest and ten tested slices. Independent security and peer review approved after escaping literal[id] route in fnmatch manifest; no remaining findings. Human engineer plan approval pending before code; no runtime/schema/hosted effects. Final evidence plan-saved-recipe-menu-002.md. (intent/saved-recipe-menu/plan.md)
 
 ## Constraints
 
@@ -169,15 +170,16 @@ intent/saved-recipe-menu/spec.md
 
 ## Artifacts
 
-- intent/saved-recipe-menu/plan.md (3c3c03477ca1a62146d84f7b8c6e773896d74d09a9eb60694953e00172a82fcc)
+- org/reviews/security-saved-recipe-menu-plan-001.md (5795f36a97ef7fc122461092c87ac64dc8fd407dc5afa18a3a1489ce0039f52f)
+- intent/saved-recipe-menu/plan.md (5c237d1fdb0edf37ea832ce5fc0d95c892a6d90a419983266f1864c15d8490b1)
 
 ## Next action
 
-senior-developer:plan_menu_build
+reviewer:review_menu_build_plan
 
 ## Last digest source
 
-- mem-0128 from org/messages/ceo-0052.md
+- mem-0129 from intent/saved-recipe-menu/plan.md
 
 <!-- machine:end -->
 

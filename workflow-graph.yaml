@@ -23,7 +23,7 @@ nodes:
     stage: build
     artifact: intent/saved-recipe-menu/plan.md
     gate: engineer_approve
-    status: in_progress
+    status: pending
     done_status: approved
   implementation:
     stage: build
