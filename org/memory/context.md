@@ -21,7 +21,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (vercel-candidate-validation-main-integration)
 
 ## Open messages
 
@@ -58,6 +58,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - ceo-0033 ceo -> orchestrator decision: Confirm owner-added Production URL and preserve during staging
 - ceo-0034 ceo -> orchestrator decision: Approve working staging deployment
 - ceo-0035 ceo -> orchestrator decision: Explore automated validation of staged Vercel deployments
+- ceo-0036 ceo -> orchestrator decision: Authorize merging approved isolated staging into main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -130,11 +131,11 @@ intent/vercel-candidate-validation/hosted-setup.md
 
 ## Recent decisions
 
-- mem-0086 orchestrator: Imported prior staging event mem-0082 (not a new decision; original timestamp 2026-11-24T13:49:34Z): Rafael directed continuing isolated staging, already approved. Recorded specification approval and archived Design run before local Build. Apply org peer plan/code/security review gates; no repeat approach confirmation. Local operator helper/tests and runbook only, preserve application and separate hosted setup/release boundaries. Original source in archived feature namespace: org/messages/ceo-0029.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0087 orchestrator: Imported prior staging event mem-0083 (not a new decision; original timestamp 2026-11-24T14:16:52Z): Completed isolated staging local tooling and tests under approved plan. f3ef526 fixes independently found P2 failed-report timestamp issue with RED/GREEN regression. Security and code round2 approved; final org turn5 solved all8commands,144Node+7Python, realChrome5widths. One prior auth repeat exit1 unroot-caused/nonreproduced is disclosed, direct/final reruns pass. No app/auth/config/dependency or hosted changes. Await human merge and concrete Preview-only setup/deployment authority per staging runbook; actual alias/private config/Git/paused-state preflights remain. Original source in archived feature namespace: intent/vercel-candidate-validation/verification.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0088 orchestrator: Imported prior staging event mem-0084 (not a new decision; original timestamp 2026-11-24T14:33:06Z): Rafael explicitly authorized Preview-only deployment from current worktree branch and OAuth domains first (ceo-0030), overriding prior merge prerequisite for this Preview operation only. Scoped hosted-setup approved by independent review; same Hobby project, safe branch-qualified free hostname before callback, dedicated Preview auth, existing Preview DB and no paid key. Production untouched. Google meal-planner-515616 has no OAuth client/consent; minimal staging brand form prepared, not submitted. Actual Chrome tool access denied; authenticated in-app browser works. Preserved completed Build loop before bounded ops run. Original source in archived feature namespace: org/messages/ceo-0030.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0091 orchestrator: Imported prior staging event mem-0087 (not a new decision; original timestamp 2026-11-24T15:20:13Z): Rafael confirmed lotufo-meals.vercel.app is his owner-added intended Production URL; preserve its current redirect/mapping. Staging stablealias now maps READY Preview9fc13ff;390/1440 public sign-in visible nooverflow. Freshpost allProduction/Previewenv/DB metadata unchanged. CLI302VercelSSO remainsinconclusive, no bypass/Googlelogin/memberdata/paidcalls; fullauthcertification not claimed. Original source in archived feature namespace: org/messages/ceo-0033.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0093 orchestrator: Imported prior staging event mem-0089 (not a new decision; original timestamp 2026-11-24T15:22:41Z): Rafael confirmed staging is working as expected and approved it. Current stable staging deployment dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi/source9fc13ff is owner-validated; exact unspecified checks are not inferred. CLI automation historical inconclusive result preserved. Merge and Production release remain separate pending gates. Original source in archived feature namespace: org/messages/ceo-0034.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0094 orchestrator: Rafael explicitly authorized merge to local main. Prepared integration ef18951 preserves current main37b appicons/runtime and reviewed staging7bb helper,374 exact audit snapshots and canonical main prefixes. Independent integration review approved; combined8commands and clean expected destination tip must pass before senior-developer executes main update. No remote or Production action. (org/messages/ceo-0036.md)
 
 ## Constraints
 
@@ -152,7 +153,7 @@ reviewer:verify_preview_setup
 
 ## Last digest source
 
-- mem-0093 from org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl
+- mem-0094 from org/messages/ceo-0036.md
 
 <!-- machine:end -->
 

@@ -16,5 +16,6 @@
     "org/messages/security-researcher-0017.md"
   ],
   "canonicalMainPrefixesExact": true,
-  "mainTipUntouched": "37b608372505ee852b116cb8870581fabf4243aa"
+  "mainTipUntouched": "37b608372505ee852b116cb8870581fabf4243aa",
+  "codeSnapshotsStoredWithSuffix": 8
 }

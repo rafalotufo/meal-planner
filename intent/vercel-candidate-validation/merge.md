@@ -60,9 +60,30 @@ retained for independent verification, not used to infer a new release grant.
 
 ## Combined verification
 
-Pending actual commands on the integrated source: lint, strict typecheck,
-production build, recipe tests, post-build deployment regressions, auth and
-family regressions, Python workflow tests. Logs remain private under
-`.data/staging-merge/`; actual results and independent integration review follow.
-No new live Google/provider check is required for this local merge. Existing
-feature-specific browser evidence from both reviewed inputs is preserved.
+All eight required combined-source commands passed: lint, strict typecheck,
+production build,66 recipe tests,32 post-build deployment regressions,14 auth
+regressions (including main's icon checks),34 family regressions and7 Python
+workflow tests. That is146 Node tests plus7 Python tests, with no failing test
+or compiler/lint suppression. Build verification included reviewed SQL/journal/
+runtime metadata and the integrated Next routes/proxy.
+
+The first typecheck exposed automatic collection of newly archived `.ts` source
+copies, whose partial snapshot namespace lacked unchanged helper imports.
+Eight new executable-source snapshots now use a `.snapshot` storage suffix;
+manifest `path`/source-ref/hash/bytes remain unchanged, and `storagePath` records
+only the archival filename. All374 snapshot hashes still verify, older archives
+remain untouched, and no tsconfig/ESLint exclusion or runtime source changed.
+Independent review approved this storage-only correction.
+
+Initial sandbox deployment/auth/family commands were blocked by concrete
+`listen EPERM: operation not permitted 127.0.0.1`. Their original logs are
+preserved. Only those three commands were repeated with authorization to bind
+isolated localhost fixture servers; all passed unchanged. The other five passing
+commands were not needlessly repeated. Private0600 logs and exact stage summaries
+are under `.data/staging-merge/verification/` (`summary.json` and
+`local-server-summary.json`); `typecheck-initial.log` preserves the archive issue.
+
+No new live Google/provider check was required or performed for this local merge.
+Existing feature-specific browser evidence from both reviewed inputs is preserved.
+The destination main update still waits for the orchestrator's recorded gate,
+independent final evidence handoff and captured-tip/clean-checkout checks.
