@@ -31,3 +31,9 @@ export interface MenuRecipeRow {
   timeText: string | null;
   savedAt: number;
 }
+
+export interface MenuCurationRow {
+  entryId: string; state: 'pending' | 'processing' | 'ready' | 'failed'; generation: string;
+  scheduledAt: number; expiresAt: number; lease: string | null; googleSubject: string;
+  verifiedEmail: string; credentialExpiresAt: number;
+}
