@@ -32,3 +32,22 @@ export function createMenuCurator({ loadHtml = createSafeHtmlLoader() }: { loadH
   };
 }
 export const curateMenuRecipe = createMenuCurator();
+
+/** Register only after the save commits; failed registration cannot erase that saved link. */
+export async function registerMenuCuration(
+  entryId: string,
+  generation: string,
+  register: (callback: () => Promise<void>) => void,
+  database: () => Promise<FamilyDatabase>,
+  allowedEmails: unknown,
+) {
+  try {
+    register(async () => {
+      try { await curateMenuRecipe(await database(), entryId, generation, allowedEmails); }
+      catch { /* Durable failed/interrupted state supplies explicit Retry without private errors. */ }
+    });
+  } catch {
+    try { await failMenuRecipeCuration(await database(), entryId, generation); }
+    catch { /* The committed link remains recoverable through its expiry. */ }
+  }
+}

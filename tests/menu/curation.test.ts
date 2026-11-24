@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { provisionFamily } from '../../lib/family-store.ts';
-import { createMenuCurator } from '../../lib/menu/curation.ts';
+import { createMenuCurator, registerMenuCuration } from '../../lib/menu/curation.ts';
 import { listMenuRecipes, saveMenuRecipeUrl } from '../../lib/menu/store.ts';
 import { restrictedMenuDatabase } from './database.ts';
 const identity = { googleSubject: 'curation-worker', email: 'worker@gmail.com', emailVerified: true as const }, allowed = [identity.email];
@@ -54,5 +54,19 @@ test('worker deadline abort is propagated instead of accepted as unavailable met
     const recovered = await saveMenuRecipeUrl(db, identity, allowed, 'https://example.test/ready-after-abort', Date.now() + 60000);
     assert.equal(await curator(db, recovered.entry.id, recovered.generation!, allowed), true);
     assert.equal((await listMenuRecipes(db, identity, allowed)).entries.find(e => e.id === expiring.entry.id)?.curation.state, 'failed');
+  } finally { await db.close(); await fixture.cleanup(); }
+});
+
+
+test('post-commit registration failure retains the saved entry and exposes explicit Retry', async () => {
+  const fixture = await restrictedMenuDatabase(); const db = await fixture.open();
+  try {
+    await provisionFamily(db, identity, allowed, false);
+    const saved = await saveMenuRecipeUrl(db, identity, allowed, 'https://example.test/registration', Date.now() + 60000);
+    await registerMenuCuration(saved.entry.id, saved.generation!, () => { throw new Error('Registration unavailable'); }, async () => db, allowed);
+    const entry = (await listMenuRecipes(db, identity, allowed)).entries[0];
+    assert.equal(entry.id, saved.entry.id);
+    assert.equal(entry.recipe.sourceUrl, saved.entry.recipe.sourceUrl);
+    assert.deepEqual(entry.curation, { state: 'failed', retryable: true });
   } finally { await db.close(); await fixture.cleanup(); }
 });

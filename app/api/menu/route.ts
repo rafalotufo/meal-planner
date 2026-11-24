@@ -6,23 +6,15 @@ import { authConfiguration } from '../../../lib/auth';
 import { getDatabase } from '../../../lib/db';
 import { FamilyError } from '../../../lib/identity-access';
 import { readMenuBody } from '../../../lib/menu/body';
-import { listMenuRecipes, saveMenuRecipe, lookupMenuRecipes, saveMenuRecipeUrl, retryMenuRecipeCuration, failMenuRecipeCuration } from '../../../lib/menu/store';
-import { curateMenuRecipe } from '../../../lib/menu/curation';
+import { listMenuRecipes, saveMenuRecipe, lookupMenuRecipes, saveMenuRecipeUrl, retryMenuRecipeCuration } from '../../../lib/menu/store';
+import { registerMenuCuration } from '../../../lib/menu/curation';
 import allowed from '../../../lib/allowed-google-emails.json';
 
 export const runtime = 'nodejs';
 const methods = ['GET', 'HEAD', 'POST'];
 
 async function scheduleCuration(entryId: string, generation: string) {
-  try {
-    after(async () => {
-      try { await curateMenuRecipe(await getDatabase(), entryId, generation, allowed); }
-      catch { /* The persisted task exposes failed/interrupted Retry without leaking network errors. */ }
-    });
-  } catch {
-    // Registration cannot undo an already committed saved link.
-    try { await failMenuRecipeCuration(await getDatabase(), entryId, generation); } catch { /* Expiry remains recoverable. */ }
-  }
+  await registerMenuCuration(entryId, generation, after, getDatabase, allowed);
 }
 
 export async function GET(request: NextRequest) {
