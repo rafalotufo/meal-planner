@@ -4,7 +4,10 @@
 - Date: 2026-11-24
 - Status: Draft for independent security/peer review, then human specification approval
 - Input: accepted sibling `intent.md`; PM decision `org/reviews/intent-saved-recipe-menu-001.md`
-- Owner decision: one shared menu per family (`org/messages/ceo-0047.md`)
+- Owner decisions: one shared menu per family; no maximum saved-recipe count;
+  retain photos when available and use fallback only when missing or failed.
+  Initial ownership source: `org/messages/ceo-0047.md`; subsequent owner replies
+  in this Design conversation supersede the initial cap/photo proposal.
 - Implementation and migration execution are not approved by this document.
 
 ## Outcome and scope
@@ -14,11 +17,14 @@ visit `/menu` to see its saved recipes, and remove entries. All current members
 have the same add/read/remove permissions. A family's menu is isolated from every
 other family. Persistence is PostgreSQL, not browser storage or the search notebook.
 
-The first version is a bounded collection with **up to 200 recipes per family**,
-newest saved first. Every saved recipe remains visible on one page; there is no
-pagination, sorting control, calendar, recipe editing, ingredient import, or new
-provider call. The cap bounds read/render/storage costs and is visible when full;
-there is no silent truncation or eviction. A later cap change requires review.
+The owner explicitly rejected a maximum saved-recipe count. There is **no
+application collection limit** or eviction. Keep per-request work bounded with
+50-entry keyset pages, newest saved first, on the same `/menu` page. Every saved
+recipe remains reachable through `Older recipes` navigation; each navigation
+replaces the current page instead of accumulating an unbounded DOM. There is no
+sorting control, calendar, recipe editing, ingredient import, or new provider
+call. The page size limits individual reads/renders, not how many recipes a
+family may save.
 
 This is a narrow proposed exception to AGENTS.md's earlier “no recipe/meal CRUD”
 restriction: store validated result snapshots, list them, and remove them. It
@@ -54,11 +60,14 @@ cache system. Recheck relevant pinned guides before implementation.
 
 ## Saved snapshot and identity
 
-The save input is exactly `{ title, sourceUrl, summary, time }`. All four keys
+The save input is exactly `{ title, sourceUrl, summary, time, imageUrl }`. All five keys
 are required; extra keys, arrays, wrong types and omitted/null required text
 fail validation. `time` is either null or exactly `{ kind, text }`, with kind
 `cook` or `total`. The client copies these fields from the selected result;
-it does not send `imageUrl`, user/family IDs, timestamps or entry IDs.
+it does not send user/family IDs, timestamps or entry IDs. `imageUrl` is null
+or an HTTPS publisher URL normalized by `safeRecipeUrl`, then restricted to
+ASCII and at most 2048 bytes, just like sourceUrl. Reject invalid nonnull photo
+URLs rather than fetching/repairing them.
 
 Validate text as strings, trim outer whitespace, require nonempty values and
 maximum UTF-16 lengths of title 160, summary 600 and time text 80. Reject NUL,
@@ -78,8 +87,7 @@ rule follows current search normalization; it is not semantic recipe matching.
 
 One entry per `(family_id, source_url)`. The first committed save retains its
 snapshot, ID and saved time. Repeated/concurrent saves return that existing entry
-without replacing text or changing order. Valid duplicate saves succeed even
-at capacity. A delete followed by a new save creates a new ID/time and position.
+without replacing text or changing order. Valid duplicate saves succeed without changing the existing entry. A delete followed by a new save creates a new ID/time and position.
 A delayed remove targets the old entry ID and cannot remove its replacement.
 Concurrent add/remove commits follow the common transaction lock's serialization
 order; no stronger ordering than committed database outcomes is promised.
@@ -93,15 +101,27 @@ content. Source attribution and the existing search grounding remain intact.
 
 ### Photos
 
-Save only text/source/time. Persist **no photo URL, image bytes or metadata**.
-The menu uses the existing intentional “Photo unavailable” fallback with
-`imageUrl: null`. This keeps durable snapshots independent of publisher URL
-expiry and avoids admitting an arbitrary durable image target or introducing a
-server fetch/proxy. Search result photos continue unchanged under the existing
-approved enrichment and transport protections. No background refresh, image
-fetch during save/list, Next image optimization of saved links, or new origin
-allowlist is introduced. Optional photos were explicitly optional in the intent;
-photo persistence can be a separate scoped increment.
+The owner explicitly requested retaining photos when available. Persist the
+selected result's validated nullable `imageUrl` along with its text snapshot.
+Existing search photos are publisher HTTPS URLs (`lib/recipes/photo-metadata.ts`),
+not image bytes or transient application tokens. Keep the same `RecipeCard`
+behavior: unoptimized browser image display, `referrerPolicy="no-referrer"`,
+and the existing gray `Photo unavailable` area only when the URL is missing or
+the browser image load fails. A publisher URL can expire or change later;
+persistence retains the selected URL, not an archived or permanently available
+image. Duplicate saves retain the first snapshot's photo as well as its text.
+
+No image bytes, image hosting, photo scraping or background refresh is added.
+Save/list/remove do not fetch the image or source server-side. Preserve the
+existing safe HTML photo metadata enrichment, all-address checks, pinned HTTPS,
+no redirects/proxy/credentials, byte/time/encoding limits and two-job bounds
+unchanged. Those server protections are not a guarantee about DNS/redirects when
+the browser later loads a publisher image. Stored image links use the same
+validated URL and direct browser-rendering boundary as current search cards;
+do not introduce a server image proxy or Next image optimization of these URLs.
+As with text snapshots, admitted clients can forge a syntactically valid photo
+URL; validation is not a new proof of publisher provenance. Render no arbitrary
+HTML/SVG payload, data URL, credentials or private-literal URL from saved input.
 
 ## User flows and state
 
@@ -114,10 +134,15 @@ photo persistence can be a separate scoped increment.
    after success so a later removal elsewhere does not leave a permanently
    disabled local “saved” flag. Duplicate saves are harmless. No initial menu
    fetch, saved-state badge on every card, polling or real-time synchronization.
-3. `/menu` shows `Your menu`, a short shared-family explanation, count `N of 200`,
-   and all saved cards in `saved_at DESC, id DESC` order. Show title, summary,
-   source hostname/link, exact time label or `Time not provided`, and fallback.
-   Empty state explains that recipes can be added from search and links there.
+3. `/menu` shows `Your menu`, a short shared-family explanation, the current
+   page's recipe count, and up to 50 cards in `saved_at DESC, id DESC` order. Show title, summary,
+   source hostname/link, exact time label or `Time not provided`, and the retained photo or missing/failed fallback.
+   First-page empty state explains that recipes can be added from search and
+   links there. An empty older page says there are no recipes on that page and
+   links to `Newest recipes`; it must not claim the whole menu is empty.
+   Show `Older recipes` only when another row exists and always offer
+   `Newest recipes` on an older page. These are accessible ordinary navigation
+   links, each loading a replacement page with its heading focused/announced.
 4. Each menu card has a recipe-specific `Remove from menu` button. Disable it
    while removing and leave the card visible until confirmed success. Then
    remove it and update count/empty state; announce removal. Failure leaves the
@@ -148,17 +173,20 @@ and their existing new-tab disclosure.
 
 | Endpoint | Request | Success |
 | --- | --- | --- |
-| `GET /api/menu` | no body or ownership selector | 200 `{ entries: SavedMenuEntry[] }` |
+| `GET /api/menu` | optional single `after` cursor; no body or ownership selector | 200 `{ entries: SavedMenuEntry[], nextCursor: string or null }` |
 | `POST /api/menu` | exact save snapshot above | 200 `{ entry: SavedMenuEntry, created: boolean }` |
 | `POST /api/menu/[id]/remove` | exact empty JSON object `{}` | 200 `{ removed: true }` |
 
 `SavedMenuEntry` has exactly `id` (server random UUID), `savedAt` (nonnegative
-safe integer epoch milliseconds), and `recipe` (`Recipe` with imageUrl null).
+safe integer epoch milliseconds), and `recipe` (`Recipe` including validated nullable imageUrl).
 Responses contain no family/user IDs, admission data, raw DB columns or secrets.
 Removal accepts only a canonical lowercase UUID; invalid IDs give 400. A valid
 missing/other-family ID produces the same successful no-op response, without
-revealing whether it exists. Unknown query parameters on menu API endpoints
-are rejected with 400 rather than interpreted as ownership/filter controls.
+revealing whether it exists. Only list requests (`GET /api/menu` and `/menu`) accept a single optional
+`after` query parameter; duplicated/unknown parameters or invalid cursors give
+400 (the page shows an invalid-page message with a `Newest recipes` link).
+Mutation endpoints accept no query parameters. Never interpret any parameter as
+ownership, page size or a source filter.
 
 Use Node runtime and private/no-store responses for all successes and failures;
 no public caching or module-global user/menu state. `/menu` is dynamic via session
@@ -193,7 +221,6 @@ Error bodies follow existing fixed `{ error: string }` responses:
 | 400 | Invalid request |
 | 401 | Unauthorized (existing proxy/session behavior) |
 | 403 | Forbidden for Origin; Family membership required for pending/unprovisioned identities |
-| 409 | Menu is full. Remove a recipe before adding another. |
 | 503 | Service unavailable (DB/schema/transaction failure) |
 
 The current proxy may return its existing `Authentication unavailable` 503
@@ -214,6 +241,7 @@ without runtime ORM/schema-builder imports.
 | id | text primary key; application-generated random UUID |
 | family_id | required text FK to families(id), ON DELETE RESTRICT |
 | source_url | required text, normalized ASCII HTTPS URL, max 2048 bytes |
+| image_url | nullable text, normalized ASCII HTTPS URL when present, max 2048 bytes |
 | title | required text; trimmed nonempty, max 160 UTF-16 units in application |
 | summary | required text; trimmed nonempty, max 600 UTF-16 units in application |
 | time_kind | nullable text: cook or total |
@@ -221,10 +249,11 @@ without runtime ORM/schema-builder imports.
 | saved_at | required bigint; nonnegative safe integer epoch milliseconds |
 
 SQL CHECKs enforce nonempty/trimmed bounded text by PostgreSQL character count,
-source byte limit, time null-pair consistency/kind and safe timestamp range.
+source/image byte limits and nullable nonempty image URL, time null-pair
+consistency/kind and safe timestamp range.
 Application UTF-16 bounds are equal or stricter than SQL character bounds.
 Source URL syntactic normalization remains the validated application boundary;
-reads validate persisted rows before building a public `Recipe`/URL instance.
+reads validate persisted rows before building a public `Recipe`/URL instance, including the nullable photo URL.
 Malformed stored data fails the entire list with generic service failure; do not
 silently drop rows or render an unsafe link. No created-by user is needed for
 permissions or display in this increment.
@@ -238,8 +267,8 @@ the isolation boundary; every SELECT/DELETE includes family_id explicitly.
 
 Save uses `FamilyDatabase.transaction` with its unchanged common
 `FAMILY_WRITE_LOCK`. After that lock and admission/member recheck: look up the
-family+source; return it if present; otherwise count family entries; reject at
-200; insert a random-ID snapshot with server timestamp and return it. Unique
+family+source; return it if present; otherwise insert a random-ID snapshot
+with server timestamp and return it. There is no collection-count check. Unique
 constraint remains defense in depth. No UPDATE permission or query is needed
 for menu rows. Remove uses the same transaction and recheck, deleting only
 `WHERE family_id=$family AND id=$id`. No row is a success. Transaction timeouts
@@ -247,11 +276,34 @@ and rollback behavior remain unchanged. This deliberately uses existing global
 write serialization rather than introducing an independent lock that could race
 with membership/admission metadata writes. No network fetch occurs inside locks.
 
-List queries use only the authorized family, order as above and **LIMIT 201**.
-If more than 200 rows are found, return service failure rather than hiding data
-or emitting an unbounded list. The cap is enforced by cooperating application
-writers under the lock; a migration owner can bypass it and is trusted. No
-claim of a SQL per-family count constraint or globally serializable reads.
+### Bounded pagination without a collection maximum
+
+List queries use the authorized family, ordering above and **LIMIT 51**. Return
+only the first 50 validated rows; the extra row determines whether to supply a
+next cursor. A next cursor represents the last returned row's `(saved_at, id)`
+and is emitted only if the extra row exists. Its wire format is unpadded
+base64url of UTF-8 JSON `[savedAt,id]`, maximum 128 ASCII characters. Validate
+canonical encoding, exact two-element array, safe nonnegative integer timestamp,
+and canonical lowercase UUID; reject malformed data with 400. It is an unsigned
+position, not an authority token: bind it to SQL values and always apply current
+server-derived family authorization. Never accept a family ID in a cursor or
+require the boundary row to still exist.
+
+For an older page add `(saved_at,id) < ($cursorTime,$cursorId)` to the scoped
+query. Use the same database ordering/collation for comparison and ordering.
+Deleting the cursor row does not invalidate the position. Newly added recipes
+normally appear on the first page; a traversal is not a frozen snapshot, so
+concurrent changes can alter what a later reload shows. No offset/count-all
+query, total-count label, hidden result cap or server-side full-menu materialization.
+`Newest recipes` clears the cursor and makes fresh additions discoverable.
+
+After successful deletion, refresh the same page/cursor from the server to fill
+its available places and recompute the next link, replacing its state rather
+than appending. Focus the next surviving remove control, previous control, or
+newest/search link when empty. An empty older page remains navigable back to the
+first page. Save actions do not need to traverse pages or prefetch the whole menu.
+A forged position can choose a slice of only the caller's own family's data;
+missing and cross-family cursor positions do not disclose foreign row existence.
 
 ### Migration, grants and operational boundary
 
@@ -294,14 +346,14 @@ Python workflow tests. No fake-user production bypass or hosted synthetic rows.
 
 | Area | Required proof |
 | --- | --- |
-| Validation | Exact keys/nested time, null/type/missing fields, whitespace, UTF-16/surrogates/controls, boundaries; source HTTPS/credentials/ports/private-literal/path/query/fragment/default-port cases; canonical length growth; hostile text rendered literally. |
+| Validation | Exact keys/nested time, null/type/missing fields, whitespace, UTF-16/surrogates/controls, boundaries; source HTTPS/credentials/ports/private-literal/path/query/fragment/default-port cases; canonical length growth; hostile text rendered literally; null/invalid/oversized photo URLs, exact retained URL and duplicate first-photo retention. |
 | HTTP parsing/CSRF | Missing/wrong Origin and cross-site fail, content-type rejection, malformed/chunked/false-length/oversized/slow body cancellation; authentication before parsing; no write after any rejected body. |
-| Persistence | Save and list after fresh DB connection/server restart; same-family second identity sees it; duplicate retains first snapshot/ID/time; concurrent duplicate unique, capacity 199→200 race, duplicate at capacity, remove frees a slot. |
+| Persistence | Save and list after fresh DB connection/server restart; same-family second identity sees it; duplicate retains first snapshot/ID/time; concurrent duplicate unique; saving continues beyond 200 entries with no count limit or eviction. |
 | Isolation/admission | Two real fixture families; all reads/add/removes scoped; body family/user selectors rejected; guessed UUID removal indistinguishable; expired/denied/pending identities denied; membership/admission changed between outer check and transaction fails with no write. |
 | Concurrency | Concurrent add/remove commits follow lock order; repeated/missing deletion succeeds; delayed old-ID remove leaves new entry intact; transaction failure rolls back; DB unavailable/schema drift produces generic errors. |
-| Storage/security | Fresh + initial-schema upgrade migration; restricted runtime grants work only as required; no DDL/history write/TRUNCATE/UPDATE on menu table; metadata/catalog drift rejected; malformed stored row fails closed; 201-row owner-seeded fixture fails bounded read. |
-| No external effects | Save/list/remove and menu rendering never invoke provider/photo network paths; saved imageUrl always null; server-only configuration absent from browser props/bundle/error evidence. |
-| Browser 390/1440 | Test-process search/OAuth fixtures; real Chrome save→navigate→reload→remove→reload, duplicate feedback, empty/full/error/retry states, keyboard announcements/focus, source link, long text, no horizontal overflow, no console/unexpected network errors. |
+| Storage/security | Fresh + initial-schema upgrade migration; restricted runtime grants work only as required; no DDL/history write/TRUNCATE/UPDATE on menu table; metadata/catalog drift rejected; malformed stored row fails closed; more than 100 saved entries traverse 50/50/remainder with no missing/duplicate unchanged rows; malformed, duplicate-query and foreign-position cursors cannot bypass authorization; removal of boundary row remains traversable; each query/render stays bounded. |
+| No external effects | Save/list/remove and menu rendering never invoke provider/photo network paths; saved imageUrl retained; browser image loads alone are allowed under existing card behavior; server-only configuration absent from browser props/bundle/error evidence. |
+| Browser 390/1440 | Test-process search/OAuth fixtures; real Chrome save→navigate→reload→remove→reload, duplicate feedback, empty/older-page/error/retry states and older/newest navigation without accumulating cards, keyboard announcements/focus, source link, available saved photo after reload, null/failed-image fallback, long text, no horizontal overflow, no console/unexpected network errors. |
 | Regression/package | Existing auth/family/search/photo/game/deployment checks; compiled menu page and APIs operate with runtime metadata but no migration/source files; upload excludes private/test material; strict typechecking includes new tests. |
 
 During Build record actual outputs for frozen install, Node24/pnpm10.33,

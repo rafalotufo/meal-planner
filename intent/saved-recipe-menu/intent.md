@@ -4,6 +4,9 @@
 - Date: 2026-11-24
 - Source: current owner request to use the SDLC org workflow
 - Ownership clarification: owner selected “One shared menu per family.”
+- Collection size clarification: owner explicitly requested no maximum saved-recipe count.
+- Photo clarification: owner requested keeping photos when available, with fallback
+  only when missing or failed.
 - Status: Accepted for Design under the org PM intent gate
 - PM verdict: Accepted; `org/reviews/intent-saved-recipe-menu-001.md`
 
@@ -31,12 +34,16 @@ other families have their own independent menus.
 
 - An eligible current family member can save a recipe directly from a search
   result, with clear pending, success, and recoverable failure feedback.
-- A discoverable separate menu page lists all recipes saved within the approved
-  ownership scope and provides a useful empty state.
+- A discoverable separate menu page makes all recipes saved within the approved
+  ownership scope accessible and provides a useful empty state. There is no
+  application maximum saved-recipe count; bounded page navigation may keep
+  individual reads/renders small without truncating the collection.
 - Each saved entry preserves enough of the selected result to identify it and
   decide whether to open it: title, summary, original source link, and supported
   cooking or total time when available. Missing time remains unavailable rather
-  than guessed. A photo is optional and must retain a safe unavailable fallback.
+  than guessed. Retain the selected result's photo when available, with the existing safe
+  unavailable fallback only when missing or failed. Persisting a publisher URL
+  does not archive its image bytes or promise permanent availability.
 - Opening the original source remains available from saved entries. Displayed
   recipe text remains text and source attribution remains visible.
 - A user can remove an entry from the menu and see the result. Removal affects
@@ -110,18 +117,21 @@ deployment, merge, or release.
 
 ## Confirmed product decision
 
-The owner selected one shared menu per family. No critical product ambiguity
-remains; specification, plan, implementation, merge, and release retain their
-respective gates.
+The owner selected one shared menu per family and explicitly rejected a maximum
+saved-recipe count. Design must bound individual reads/renders through navigation
+without limiting collection size. The owner clarified that photos must
+be retained when available, and fallback used only when missing or failed. This
+supersedes the architect's initial all-fallback proposal. Specification, plan,
+implementation, merge, and release retain their respective gates.
 
 ## Open questions for Design
 
 1. Define the saved snapshot contract, whether a repeated save retains the
    original snapshot or replaces it, recipe identity/URL normalization, ordering,
    and concurrent add/remove outcomes. Prefer the smallest predictable behavior.
-2. Determine whether and how optional photo metadata can safely persist; define
-   validation and fallback without expanding the existing photo attack surface.
-3. Define bounded durable storage, authorization/transaction boundaries, API or
+2. Retain available photo URLs safely; define validation and missing/failed
+   fallback without introducing server image fetching or storage infrastructure.
+3. Define bounded per-request storage work, authorization/transaction boundaries, API or
    action contracts, empty/error states, navigation, and verification strategy.
    A separate operational decision is required before applying a future
    migration to any hosted database.

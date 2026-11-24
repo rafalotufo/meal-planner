@@ -23,3 +23,14 @@ These are baseline checks of existing application code and checks of workflow
 records. They do not prove menu behavior. Menu persistence, auth/family/deployment
 regressions and real-browser QA at mobile/desktop widths remain required during
 the separately approved Build/Test run. No menu UI exists to inspect in Design.
+
+## Owner amendment
+
+The owner removed the proposed saved-recipe count maximum and requested keeping
+available photos, with fallback only when missing or failed. The amended draft
+uses bounded page navigation without a collection cap and retains validated
+publisher photo URLs using the existing browser image boundary. Initial review
+reports describe the previous draft; the focused review
+`org/reviews/spec-saved-recipe-menu-002.md` assesses these changed contracts.
+Only documentation/audit files changed; baseline application checks above are
+not new menu or pagination/photo runtime evidence.

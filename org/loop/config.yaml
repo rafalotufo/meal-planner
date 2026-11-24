@@ -13,5 +13,7 @@ phases:
   design: { role: architect, action: specify_saved_recipe_menu, next: security }
   security: { role: security-researcher, action: assess_menu_design, next: spec_review }
   spec_review: { role: reviewer, action: review_menu_spec, next: awaiting_spec_approval }
-  awaiting_spec_approval: { role: null, action: null, next: null }
+  awaiting_spec_approval: { role: architect, action: remove_menu_count_cap, next: amendment_review }
+  amendment_review: { role: reviewer, action: review_uncapped_menu_amendment, next: awaiting_owner_decision }
+  awaiting_owner_decision: { role: null, action: null, next: null }
   done: { role: null, action: null, next: null }
