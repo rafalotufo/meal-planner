@@ -81,8 +81,8 @@ auth command preserves its private log for diagnosis if it recurs. No check
 is skipped, suppressed or weakened. Final review/acceptance results follow.
 
 Read-only pinned CLI project inspection confirmed the recorded project ID/name,
-Next.js/Node24 and no Git integration. It did not expose paused state; that
-remains unverified. No account setting or deployment changed.
+Next.js/Node24. Its summary does not expose Git-link or paused-state fields;
+both remain operational preflights rather than facts verified by this read. No account setting or deployment changed.
 
 ## Independent-review timestamp correction
 
@@ -99,3 +99,25 @@ After the fix, `node --import tsx --test tests/deployment/staging.test.ts`
 passed14/14; focused ESLint and `pnpm run typecheck` both passed (exit0).
 The earlier31-test deployment/143-Node totals above describe the pre-correction
 full run; the orchestrator records the final broadened verification separately.
+
+## Final acceptance and independent reviews
+
+Corrected helper source: `f3ef526`. Final org turn5 completed as `solved` with
+all eight mandatory commands exit0: lint, typecheck, recipe66 tests, build,
+deployment32 tests (including14 helper regressions), auth12 tests, family34
+tests and Python7 tests. Final total:144 Node tests plus7 Python tests, zero
+failed/skipped/cancelled. The final auth log is retained privately and shows
+12/12 passed; the earlier unroot-caused exit1 remains disclosed above.
+
+Independent security review approved in
+`org/reviews/security-vercel-candidate-validation-implementation-001.md`.
+Code review round1 found the timestamp issue; round2 approved its correction
+and regression in `org/reviews/code-vercel-candidate-validation-002.md`.
+The independent reversible mutation experiment caught an inverted Preview
+guard and restored the exact source bytes. No unresolved review findings remain.
+
+The helper/test/runbook are committed locally. Application/auth/proxy/build
+configuration and dependency files have no difference from the accepted
+pre-feature baseline `3f88bc0`. Existing upload exclusions keep operator tooling
+out of the application. Human merge and concrete Preview-only hosted setup/
+deployment authorization remain pending; no Production release is authorized.
