@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/searchable-swap-picker/intent.md
 base_commit: 2aad34fc7093d3d0648f58645cc42c044fe1a3b0
-turn: 1
+turn: 3
 no_progress: 0
-phase: build
-status: in_progress
-last_input_hash: e42d4ba7153e095f1dd56fe945ef3b40329d52937928ab291158133f51800de1
-stop_reason: null
-last_action: "reviewer:approve_stable_frame_fix"
-artifacts: [{"path": "org/reviews/searchable-swap-picker-stable-frame-plan-001.md", "sha256": "18fe140fdd23bf403c13c6169b0b4f351b7ee6d42dadd9c145c6aca24e72b17b"}]
+phase: done
+status: solved
+last_input_hash: cfc4528726ff5f29e5112a0e3abef1617a03f6d625f44f55dace6d74312a08cb
+stop_reason: solved
+last_action: "reviewer:verify_stable_modal_frame"
+artifacts: [{"path": "org/reviews/searchable-swap-picker-stable-frame-plan-001.md", "sha256": "18fe140fdd23bf403c13c6169b0b4f351b7ee6d42dadd9c145c6aca24e72b17b"}, {"path": "intent/searchable-swap-picker/verification.md", "sha256": "4905221ab6ef5be06727cd05336b8dabfd36900d7b96fc9ae3420460d1c2ef7c"}, {"path": "org/reviews/searchable-swap-picker-stable-frame-final-001.md", "sha256": "40711ec94e5177d0c020d099ed4e2f79eabd0dae1e08dceebeb4fe41ea2a533d"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T22:22:47Z"
+updated_at: "2026-11-24T22:28:37Z"

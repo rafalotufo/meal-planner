@@ -253,7 +253,7 @@ ICU root collation in its official [collation support reference](https://www.pos
 
 ## Follow-up bug amendment — stable dialog frame during search
 
-Status: Pending independent approval before source edits. Source: owner's report
+Status: Approved in `org/reviews/searchable-swap-picker-stable-frame-plan-001.md`. Source: owner's report
 that the modal size flickers while typing a search. This changes presentation
 geometry only; all search/network/selection/mutation/access behavior stays intact.
 

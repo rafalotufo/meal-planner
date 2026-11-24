@@ -183,3 +183,89 @@ Independent code review: `org/reviews/searchable-swap-picker-final-001.md`.
 The org loop completes local implementation only. Human merge and release remain
 pending; hosted ICU availability must be checked read-only for an authorized
 release target before release validation. No deployment or hosted access occurred.
+
+## Follow-up — stable frame while typing search
+
+Approved bounded fix plan:
+`org/reviews/searchable-swap-picker-stable-frame-plan-001.md` (0125d52).
+Implementation/QA occurred only in
+`/private/tmp/meal-planner-stable-modal-dyn7d8_a/project`, using the same explicit
+pinned Node24 PATH and empty paid key as above. Original live server, app source,
+next-env.d.ts and .next were untouched. No Git or copy-back operation ran here.
+Private generated types remain excluded from copy-back.
+
+### Reproduction and root cause
+
+Added a real Chrome bounding-rectangle regression before changing production CSS.
+The unchanged application built successfully (`build-red.log`), then
+`node --import tsx tests/plans/browser.ts` exited1 (`browser-red.log`):
+
+|320×1000 state|x|y|width|height|
+|---|---:|---:|---:|---:|
+|Populated menu|16|16|288|968|
+|Typing first character F / debounce|16|266|288|468|
+
+Height changed500px and native centering moved the top edge250px. `reset()` was
+correctly clearing stale choices; maximum-height-only dialog/wrapper sizing made
+the frame's intrinsic height collapse around the short loading message. Search
+state or response timing did not need changing.
+
+### Minimal correction and results
+
+Production change is exactly two class attributes in
+`app/plans/swap-recipe-dialog.tsx`: give the outer frame explicit height
+`min(52rem, calc(100dvh - 2rem))`, and replace the inner maximum-height constraint
+with `h-full`. Keep existing capped width, flex result region/min-height-zero,
+internal overflow, short-viewport outer scroll,44px close target and all event/
+network/state/selection/submission behavior unchanged. No JavaScript sizing,
+retained stale choices, transition masking or new helper was introduced.
+
+Final private `pnpm run lint`, `pnpm run typecheck`, and `pnpm run build` all
+exited0. Logs are `lint-final.log`, `typecheck-final.log`, `build-final.log` in
+`/private/tmp/meal-planner-stable-modal-dyn7d8_a/`. Source/build were frozen before
+root's broader compiled regression runs.
+
+Final Chrome exited0 (`browser-final.log`). Each viewport checks actual x/y/
+width/height through populated results, physical typing F then Fa/debounce,
+delayed response-body loading, populated matches, no matches, a valid empty page,
+load error, Retry results, selected long title and scrolling to the footer.
+All55 samples across11 states×5 viewports remained exactly stable:
+
+|Viewport|Maximum rectangle delta|
+|---|---:|
+|320×1000|0px|
+|768×1000|0px|
+|1024×1000|0px|
+|1440×1000|0px|
+|320×568|0px|
+
+The regression allows at most1 CSS pixel; no allowance was weakened after the
+red run. Frame bounds, no document horizontal overflow and footer access pass.
+The same run preserves the complete prior native keyboard/focus/dismissal,
+explicit one-POST, full-menu paging/search, thumbnail/fallback, response limits,
+request/instance race, captured stale revision and planning/history checks.
+All owned browser/profile/server/database fixtures were cleaned up.
+
+Refreshed existing browse/selected `swap-picker-{browse,selected}-{320,1440}.png`.
+Visually inspected browse320/1440: stable centered frame, compact rows/desktop
+columns, clear search and accessible footer. Inspected selected320×568: long title
+wraps, the short frame remains bounded and Cancel/Suggest stay reachable.
+Geometry changes only when the viewport changes, not while typing or loading.
+No security/API/database/provider/scheduler/deployment boundary changed. Root
+retains baseline-guarded copy-back, diff/secret checks, exact-source final review
+and human merge/release gates.
+
+Root's current frozen-build menu run completed exit0,39/39. All223 Node tests
+(82 recipes+34 family+39 menu+16 auth+20 plans+32 deployment) and7 Python tests
+passed on this fixed build, with no failures. Root logs are the current QA
+parent's `regression-*.log`. This completes the current aggregate rather than
+reusing the prior feature run's result. Final source/build remain frozen.
+
+
+Root copied back the seven approved handoff paths only, with original-baseline
+hash checks and exact private/original bytes. Fixed follow-up application source:
+`5e4dd69` (two sizing class attributes); later audit edits do not change it.
+The user's original next-env SHA remains unchanged and unstaged. Original dev
+process/cache remain untouched. The owned private QA copy is removed after the
+independent final review; versioned screenshots and result summaries remain.
+Final follow-up review: `org/reviews/searchable-swap-picker-stable-frame-final-001.md`.
