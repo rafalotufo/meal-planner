@@ -103,8 +103,8 @@ export default function SwapRecipeDialog({ title, plannedSources, trigger, block
     onCancel={event => { event.preventDefault(); dismiss(); }}
     onPointerDown={event => { backdrop.current = event.target === event.currentTarget; }}
     onClick={event => { const bounds = event.currentTarget.getBoundingClientRect(); if (backdrop.current && event.target === event.currentTarget && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) dismiss(); }}
-    className="m-auto max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-2xl overflow-x-hidden overflow-y-auto rounded-2xl border border-stone-200 bg-white p-0 text-stone-900 shadow-xl backdrop:bg-stone-950/50">
-    <div className="flex max-h-[calc(100dvh-2rem)] min-h-0 flex-col">
+    className="m-auto h-[min(52rem,calc(100dvh-2rem))] max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-2xl overflow-x-hidden overflow-y-auto rounded-2xl border border-stone-200 bg-white p-0 text-stone-900 shadow-xl backdrop:bg-stone-950/50">
+    <div className="flex h-full min-h-0 flex-col">
       <div className="shrink-0 border-b border-stone-200 p-4 sm:p-6">
         <div className="flex items-start justify-between gap-3"><div><p className="text-xs font-semibold tracking-widest text-emerald-800 uppercase">From your saved menu</p><h2 id="swap-title" className="mt-2 font-serif text-2xl">Choose a replacement</h2></div><button type="button" aria-label="Close recipe picker" onClick={dismiss} className={`${action} min-w-11 shrink-0 px-3`}>×</button></div>
         <p id="swap-context" className="mt-2 text-sm wrap-anywhere text-stone-600">Replacing: {title}</p>
