@@ -55,6 +55,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - ceo-0031 ceo -> orchestrator decision: Approve Google staging policy and dedicated client
 - ceo-0032 ceo -> orchestrator decision: Approve the specified sole staging OAuth test user
 - ceo-0033 ceo -> orchestrator decision: Confirm owner-added Production URL and preserve during staging
+- ceo-0034 ceo -> orchestrator decision: Approve working staging deployment
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -118,11 +119,11 @@ intent/vercel-candidate-validation/hosted-setup.md
 
 ## Recent decisions
 
-- mem-0081 orchestrator: Isolated staging specification drafted and independently approved for quality by security/reviewer with no blockers. Scope unchanged canonical-origin app plus future operator helper/runbook, Preview-only secrets/data, no paid provider key, stable alias safety preflight and separate Production build. Await owner Design approval; next org dispatch stops gate_required at product_owner_approve. No application or external changes. (org/reviews/spec-vercel-candidate-validation-001.md)
 - mem-0082 orchestrator: Rafael directed continuing isolated staging, already approved. Recorded specification approval and archived Design run before local Build. Apply org peer plan/code/security review gates; no repeat approach confirmation. Local operator helper/tests and runbook only, preserve application and separate hosted setup/release boundaries. (org/messages/ceo-0029.md)
 - mem-0083 orchestrator: Completed isolated staging local tooling and tests under approved plan. f3ef526 fixes independently found P2 failed-report timestamp issue with RED/GREEN regression. Security and code round2 approved; final org turn5 solved all8commands,144Node+7Python, realChrome5widths. One prior auth repeat exit1 unroot-caused/nonreproduced is disclosed, direct/final reruns pass. No app/auth/config/dependency or hosted changes. Await human merge and concrete Preview-only setup/deployment authority per staging runbook; actual alias/private config/Git/paused-state preflights remain. (intent/vercel-candidate-validation/verification.md)
 - mem-0084 orchestrator: Rafael explicitly authorized Preview-only deployment from current worktree branch and OAuth domains first (ceo-0030), overriding prior merge prerequisite for this Preview operation only. Scoped hosted-setup approved by independent review; same Hobby project, safe branch-qualified free hostname before callback, dedicated Preview auth, existing Preview DB and no paid key. Production untouched. Google meal-planner-515616 has no OAuth client/consent; minimal staging brand form prepared, not submitted. Actual Chrome tool access denied; authenticated in-app browser works. Preserved completed Build loop before bounded ops run. (org/messages/ceo-0030.md)
 - mem-0087 orchestrator: Rafael confirmed lotufo-meals.vercel.app is his owner-added intended Production URL; preserve its current redirect/mapping. Staging stablealias now maps READY Preview9fc13ff;390/1440 public sign-in visible nooverflow. Freshpost allProduction/Previewenv/DB metadata unchanged. CLI302VercelSSO remainsinconclusive, no bypass/Googlelogin/memberdata/paidcalls; fullauthcertification not claimed. (org/messages/ceo-0033.md)
+- mem-0089 orchestrator: Rafael confirmed staging is working as expected and approved it. Current stable staging deployment dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi/source9fc13ff is owner-validated; exact unspecified checks are not inferred. CLI automation historical inconclusive result preserved. Merge and Production release remain separate pending gates. (org/messages/ceo-0034.md)
 
 ## Constraints
 
@@ -140,7 +141,7 @@ reviewer:verify_preview_setup
 
 ## Last digest source
 
-- mem-0088 from org/reviews/hosted-vercel-candidate-validation-final-001.md
+- mem-0089 from org/messages/ceo-0034.md
 
 <!-- machine:end -->
 

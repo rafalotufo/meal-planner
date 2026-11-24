@@ -172,3 +172,15 @@ Preview-verification gate records only this scoped completion; full authenticate
 certification remains unverified. After final reconciliation, the owned lane
 run-id was checked against `preview-1795530899553` and only that run-id file and
 empty lane directory were removed. No unrelated lock/state was removed.
+
+## Owner acceptance
+
+Rafael subsequently confirmed: “staging is working as expected. approved.”
+Recorded in `org/messages/ceo-0034.md` on2026-11-24 for the current stable
+staging deployment `dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi`, source
+`9fc13ff27a636483fdf3503d5c8bf9f149550e45`. Staging is owner-validated and
+approved. This owner-reported functional result supplements the agent's evidence;
+it does not change the historical inconclusive CLI report or attest to individual
+Google/denial/keyboard/session/provider checks that were not specified. No merge,
+Production promotion/deployment or Production configuration change is authorized
+by this staging acceptance.
