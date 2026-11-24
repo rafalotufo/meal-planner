@@ -178,7 +178,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0101 from org/reviews/t-rex-runner-human-merge-approval-001.md
+- mem-0102 from intent/t-rex-runner/merge.md
 
 <!-- machine:end -->
 

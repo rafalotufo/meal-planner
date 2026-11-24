@@ -3,10 +3,10 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "T-Rex cycle solved6/6, all configured checks0, code/security rechecks approved. Fullwidth userdelta and WordSnackremoval complete; original dev files restored. Human merge/release pending; no push/deploy." }
+  orchestrator: { status: idle, assignment: null, last_report: "T-Rex locally merged into main14db815 after independent integration reviews;82app14auth34family18deployment7workflow,lint/types/build,Chrome5width+familymobile/desktop pass.142main source hashes match. Release not authorized; no push/deploy." }
   product-manager: { status: idle, assignment: null, last_report: T-Rex automatic-lifecycle amendment accepted for Design; intent-t-rex-runner-002.md. Valid search auto-starts runner; results including zero auto-close it. Reduced-motion opt-in and scoped focus retained; spec/plan and merge/release gates remain. }
   architect: { status: idle, assignment: null, last_report: "T-Rex automatic-search lifecycle spec amended and independently approved in review003. Auto-start, immediate results cleanup and guarded focus specified; human spec approval pending, no code." }
-  senior-developer: { status: idle, assignment: null, last_report: "T-Rex corrected0febee7 verified and independently approved;79app12auth12smoke7workflow, lint/types/build, expandedChrome5widths, fullwidth/autostart/autoclose and5WordSnackdeletions. Human merge/release pending." }
+  senior-developer: { status: idle, assignment: null, last_report: Verified integrationf929e57 preserves approvedT-Rex and main runtime;82app14auth34family18deployment7workflow+lint/types/build+Chrome pass. Local mainmerge14db815 completed with user approval; no release. }
   security-researcher: { status: idle, assignment: null, last_report: "T-Rex current-main integration security clear at f929e579; security-t-rex-main-integration.md. 142 source hashes, unchanged family/provider/config boundaries,254 archived originals and approval/message chains verified. No findings; root owns audit commit and local merge, release remains separate." }
   reviewer: { status: idle, assignment: null, last_report: "Independent T-Rex/main integration approved at f929e57; t-rex-main-integration-review.md. Parent source preservation, audit reconciliation, 142 matching hashes and integrated browser/command evidence verified. No push/release authority." }
   memory-keeper: { status: idle, assignment: null, last_report: null }
