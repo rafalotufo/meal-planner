@@ -1,5 +1,18 @@
 # Recipe result count — correction plan
 
+- Status: Approved
+- Approval: org/reviews/recipe-result-count-plan.md; release follow-up reviewed
+  in org/reviews/recipe-result-count-release.md.
+
+## Files that change
+
+- `lib/recipes/openai.ts`
+- `intent/recipe-result-count/*`
+- `org/reviews/recipe-result-count-*.md`
+- `gates/ledger.jsonl`
+
+## Ordered work
+
 1. Independently review this bounded correction before implementation.
 2. Clarify the research prompt in `lib/recipes/openai.ts` only. This reversible
    prompt edit needs no new test that merely asserts the prompt's own wording.
