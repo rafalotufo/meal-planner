@@ -3,15 +3,15 @@ max_turns: 8
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: weekly-plan-unique-recipes-implementation
+review_artifact: searchable-swap-picker-implementation
 human_gates: [code_owner_approve, release_authorization]
 acceptance:
   commands: ["git diff --check"]
 phases:
-  intent: { role: product-manager, action: accept_unique_weekly_recipes, next: design }
-  design: { role: architect, action: specify_unique_weekly_recipes, next: plan_review }
-  plan_review: { role: reviewer, action: approve_unique_weekly_recipes, next: build }
-  build: { role: senior-developer, action: implement_unique_weekly_recipes, next: security }
-  security: { role: security-researcher, action: assess_unique_weekly_recipes_security, next: review }
-  review: { role: reviewer, action: verify_unique_weekly_recipes, next: done }
+  intent: { role: product-manager, action: accept_searchable_swap_picker, next: design }
+  design: { role: architect, action: specify_searchable_swap_picker, next: plan_review }
+  plan_review: { role: reviewer, action: approve_searchable_swap_picker, next: build }
+  build: { role: senior-developer, action: implement_searchable_swap_picker, next: security }
+  security: { role: security-researcher, action: assess_searchable_swap_picker_security, next: review }
+  review: { role: reviewer, action: verify_searchable_swap_picker, next: done }
   done: { role: null, action: null, next: null }

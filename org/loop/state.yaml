@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/weekly-meal-planning/intent.md
-base_commit: b38580cf6c3b0f921651fb9644669a9e9471a732
-turn: 6
+work_item: intent/searchable-swap-picker/intent.md
+base_commit: cbc9b1edf7217103fe4dc872c08b59fb7191d752
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 50ac3814ccabf497e164751a7397ab3dc39a61066908a73b11d69ec250d3d98f
-stop_reason: solved
-last_action: "reviewer:verify_unique_weekly_recipes"
-artifacts: [{"path": "org/reviews/intent-weekly-meal-planning-unique-001.md", "sha256": "692b9d8a0123940dc430d632ea4a0a3600594f92b1d1ad9c18cd5f049d5720b6"}, {"path": "intent/weekly-meal-planning/plan.md", "sha256": "0fe3d55b1b4d5775f98a78ed631deea5d00cef402b0c84631407351533876980"}, {"path": "org/reviews/weekly-meal-planning-unique-plan-001.md", "sha256": "a599d2b5116205395f71c8f9304944ac2fcf3c81bcbd156fcbc7e4cd318d6716"}, {"path": "intent/weekly-meal-planning/verification.md", "sha256": "41e0428c386bbb8bf5bb9e0d9b044d1f517229fd864ac50823892cab03809991"}, {"path": "org/reviews/weekly-meal-planning-unique-security-001.md", "sha256": "24e983b3d813e3d5bcec028c2fedd017106091118afd5b649d48b1dafe52179e"}, {"path": "org/reviews/weekly-meal-planning-unique-final-001.md", "sha256": "024afa736c243ebcf5bb304c5a9a7d251e69bbdd8129853904f224651d917b70"}]
+phase: design
+status: in_progress
+last_input_hash: 76ab7675eb95868caa424a775fc36f29ba06e2ca1876ded082f07b9fd136de6b
+stop_reason: null
+last_action: "product-manager:accept_searchable_swap_picker"
+artifacts: [{"path": "org/reviews/intent-searchable-swap-picker-001.md", "sha256": "9b9adcb8e8b786c35c4a15508e03c72793a3850f61a7f68984d141bb3978eee7"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T21:24:40Z"
+updated_at: "2026-11-24T21:55:01Z"

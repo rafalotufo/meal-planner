@@ -4,18 +4,18 @@
 
 ## Goal
 
-intent/weekly-meal-planning/intent.md
+intent/searchable-swap-picker/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (searchable-swap-picker-design)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -59,6 +59,7 @@ intent/weekly-meal-planning/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
+- ceo-0055 ceo -> orchestrator decision: Implement approved searchable visual swap picker
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,6 +95,8 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0109 orchestrator -> ceo handoff: Unique weekly plans complete and local draft repaired
+- orchestrator-0110 orchestrator -> product-manager handoff: Capture searchable swap picker intent
+- orchestrator-0111 orchestrator -> architect handoff: Design approved searchable swap modal
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -105,6 +108,7 @@ intent/weekly-meal-planning/intent.md
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
+- product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -170,16 +174,11 @@ intent/weekly-meal-planning/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-weekly-meal-planning-unique-001.md (692b9d8a0123940dc430d632ea4a0a3600594f92b1d1ad9c18cd5f049d5720b6)
-- intent/weekly-meal-planning/plan.md (0fe3d55b1b4d5775f98a78ed631deea5d00cef402b0c84631407351533876980)
-- org/reviews/weekly-meal-planning-unique-plan-001.md (a599d2b5116205395f71c8f9304944ac2fcf3c81bcbd156fcbc7e4cd318d6716)
-- intent/weekly-meal-planning/verification.md (41e0428c386bbb8bf5bb9e0d9b044d1f517229fd864ac50823892cab03809991)
-- org/reviews/weekly-meal-planning-unique-security-001.md (24e983b3d813e3d5bcec028c2fedd017106091118afd5b649d48b1dafe52179e)
-- org/reviews/weekly-meal-planning-unique-final-001.md (024afa736c243ebcf5bb304c5a9a7d251e69bbdd8129853904f224651d917b70)
+- org/reviews/intent-searchable-swap-picker-001.md (9b9adcb8e8b786c35c4a15508e03c72793a3850f61a7f68984d141bb3978eee7)
 
 ## Next action
 
-reviewer:verify_unique_weekly_recipes
+product-manager:accept_searchable_swap_picker
 
 ## Last digest source
 

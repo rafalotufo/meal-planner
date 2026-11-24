@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/weekly-meal-planning/intent.md
+base_commit: b38580cf6c3b0f921651fb9644669a9e9471a732
+turn: 6
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 50ac3814ccabf497e164751a7397ab3dc39a61066908a73b11d69ec250d3d98f
+stop_reason: solved
+last_action: "reviewer:verify_unique_weekly_recipes"
+artifacts: [{"path": "org/reviews/intent-weekly-meal-planning-unique-001.md", "sha256": "692b9d8a0123940dc430d632ea4a0a3600594f92b1d1ad9c18cd5f049d5720b6"}, {"path": "intent/weekly-meal-planning/plan.md", "sha256": "0fe3d55b1b4d5775f98a78ed631deea5d00cef402b0c84631407351533876980"}, {"path": "org/reviews/weekly-meal-planning-unique-plan-001.md", "sha256": "a599d2b5116205395f71c8f9304944ac2fcf3c81bcbd156fcbc7e4cd318d6716"}, {"path": "intent/weekly-meal-planning/verification.md", "sha256": "41e0428c386bbb8bf5bb9e0d9b044d1f517229fd864ac50823892cab03809991"}, {"path": "org/reviews/weekly-meal-planning-unique-security-001.md", "sha256": "24e983b3d813e3d5bcec028c2fedd017106091118afd5b649d48b1dafe52179e"}, {"path": "org/reviews/weekly-meal-planning-unique-final-001.md", "sha256": "024afa736c243ebcf5bb304c5a9a7d251e69bbdd8129853904f224651d917b70"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T21:24:40Z"
