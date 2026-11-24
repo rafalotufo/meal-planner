@@ -21,7 +21,7 @@ intent/weekly-meal-planning/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (weekly-meal-planning-build)
 
 ## Open messages
 
@@ -97,6 +97,7 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0087 orchestrator -> product-manager handoff: Save weekly meal planning brainstorm and assess intent
 - orchestrator-0088 orchestrator -> architect handoff: Design weekly meal planning and prepare bounded plan
 - orchestrator-0089 orchestrator -> reviewer handoff: Independently review weekly meal planning design
+- orchestrator-0090 orchestrator -> senior-developer handoff: Implement approved weekly meal planning
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

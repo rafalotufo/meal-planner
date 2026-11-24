@@ -16,7 +16,9 @@
     "db:setup": "node --import tsx scripts/postgres-local.ts setup",
     "db:start": "node --import tsx scripts/postgres-local.ts start",
     "db:stop": "node --import tsx scripts/postgres-local.ts stop",
-    "db:status": "node --import tsx scripts/postgres-local.ts status"
+    "db:status": "node --import tsx scripts/postgres-local.ts status",
+    "test:plans": "node --import tsx --test tests/plans/*.test.ts",
+    "plans:generate": "node --env-file=.env.local --import tsx scripts/generate-meal-plans.ts"
   },
   "engines": {
     "node": "24.x"
