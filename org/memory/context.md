@@ -8,14 +8,14 @@ intent/saved-recipe-menu/spec.md
 
 ## Loop
 
-- status: in_progress
-- turn: 2
-- phase: awaiting_visual_approval
-- stop_reason: None
+- status: exhausted
+- turn: 4
+- phase: awaiting_owner_visual_review
+- stop_reason: exhausted
 
 ## Agents
 
-- architect: busy (intent/saved-recipe-menu/visual-design.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -61,6 +61,7 @@ intent/saved-recipe-menu/spec.md
 - ceo-0048 ceo -> architect decision: Remove saved menu recipe maximum
 - ceo-0049 ceo -> architect decision: Keep saved recipe photos when available
 - ceo-0050 ceo -> orchestrator decision: Approve menu specification and request visual Design previews
+- ceo-0051 ceo -> architect decision: Require confirmation before removing saved recipes
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -136,6 +137,7 @@ intent/saved-recipe-menu/spec.md
 - reviewer-0039 reviewer -> orchestrator review: Saved menu specification peer approved
 - reviewer-0040 reviewer -> orchestrator review: Uncapped menu and retained photo amendment approved
 - reviewer-0041 reviewer -> orchestrator review: Menu visual Design preview peer approved
+- reviewer-0042 reviewer -> orchestrator review: Removal confirmation Design approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -152,11 +154,11 @@ intent/saved-recipe-menu/spec.md
 
 ## Recent decisions
 
-- mem-0121 orchestrator: Saved recipe menu Design completed: independent security and peer review approved without blockers; human specification approval is pending. Loop stops at product_owner_approve before build planning. Proposed cap200 and saved photo fallback are explicit owner-visible choices. Baseline lint/typecheck/build and82recipe+7workflow tests passed, no feature runtime/UI proof or schema effects. (org/reviews/spec-saved-recipe-menu-001.md)
-- mem-0122 orchestrator: Owner rejected the proposed saved-recipe count maximum and asked what photo fallback means. Reopened draft Design for a focused amendment using remaining existing loop turns; no specification approval inferred, photo policy still proposed. (org/messages/ceo-0048.md)
 - mem-0123 orchestrator: Owner amendment completed and independently peer/security approved: no saved recipe count maximum; bounded50-entry navigation keeps all entries reachable; retain validated publisher photo URLs with existing browser display and fallback only missing/failed. Six-turn Design budget consumed, no extension. Human specification approval remains pending; no implementation/migration/deployment effects. (org/reviews/spec-saved-recipe-menu-002.md)
 - mem-0124 orchestrator: Rafael approved amended saved menu specification at c104a25 and requested visual Design previews before Build. Archived completed six-turn spec run without extension; started separately requested four-turn visual Design round. Application implementation and hosted actions remain unapproved. (org/messages/ceo-0050.md)
 - mem-0125 orchestrator: Created requested visual Design preview for modified recipe search and new shared menu. Independent visual review approved, root real-browser checks at1440/390 confirmed layout and local save/menu/remove/paging; sample images/local state are illustrative. Owner visual review pending before Build planning, no application/schema/hosted implementation. (intent/saved-recipe-menu/visual-design.md)
+- mem-0126 orchestrator: Owner requested confirmation before removing saved recipes. Amend current visual Design using remaining two loop turns; no deletion on cancel/dismiss, confirm alone starts removal. Prior unchanged specification approval retained, visual design remains pending. (org/messages/ceo-0051.md)
+- mem-0127 orchestrator: Owner-required menu removal confirmation implemented in Design preview and specification only. Independent review approved; root browser1440/320 verified named dialog, Cancel focus, Cancel/Escape preserve recipe and confirm alone removes. Visual round used four turns, no budget extension; owner visual review pending before Build. (org/reviews/visual-saved-recipe-menu-002.md)
 
 ## Constraints
 
@@ -164,16 +166,17 @@ intent/saved-recipe-menu/spec.md
 
 ## Artifacts
 
-- intent/saved-recipe-menu/visual-design.md (631dc470b279efd6cbf69f43d1b5375b0a4e6c73044e93e4687b80ea599cd56b)
 - org/reviews/visual-saved-recipe-menu-001.md (03231a9d5ff226ea4cdd43a412a797db06ff1aaecb0b35081bb7c4b931a97d0a)
+- intent/saved-recipe-menu/visual-design.md (185e71e278e665f7ba1c33964c018dbbb01c1266757e2e69f35fcf79852833e5)
+- org/reviews/visual-saved-recipe-menu-002.md (2496da3096067f1cb4562b574ed098b0b7d7ea627d3034244b3e83a85bdae2ac)
 
 ## Next action
 
-reviewer:review_page_mockups
+reviewer:review_removal_confirmation
 
 ## Last digest source
 
-- mem-0125 from intent/saved-recipe-menu/visual-design.md
+- mem-0127 from org/reviews/visual-saved-recipe-menu-002.md
 
 <!-- machine:end -->
 

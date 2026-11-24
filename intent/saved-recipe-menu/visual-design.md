@@ -16,7 +16,12 @@ recipe-specific Add to menu action with pending, success and retry feedback.
 There is no redesigned landing page or new dashboard.
 
 The new Menu page reuses recipe cards, adds a shared-family explanation and
-Remove from menu actions, and offers clear empty/error states. Keep available
+Remove from menu actions, and offers clear empty/error states. Per the owner's
+subsequent request, removal first opens `Remove recipe from menu?`, names the
+selected recipe, and offers Cancel and Remove from menu. Cancel has initial
+focus; Cancel, Escape and backdrop dismissal leave the recipe unchanged and
+return focus to the triggering control. Confirmation alone starts removal;
+every removal retry is confirmed again. Keep available
 photos; show Photo unavailable only for missing/failed images. No collection
 maximum. Older/Newest navigation replaces the visible page. Product uses 50
 entries per keyset page; this compact preview uses three representative cards
@@ -24,9 +29,10 @@ per page solely to let reviewers inspect the page transition without scrolling
 through 50 repeated examples. It does not change the specification's page size.
 
 Desktop uses three card columns, tablet two, and narrow/mobile one, keeping
-44px actions and wrapping text. The preview width switch changes presentation;
+44px actions and wrapping text. The preview initially opens Menu (saved host preference takes precedence).
+The preview width switch changes presentation;
 all navigation, filters, sorting, adding, duplicate saving, pending feedback,
-removal and older/newest links work locally. Host design controls expose the
+confirmation, removal and older/newest links work locally. Host design controls expose the
 screen and empty/error/missing-photo states. Failed actions can be retried;
 removing the final item reveals the empty state. Product implementation still
 requires its approved plan, real authorization/storage and runtime verification.

@@ -7,6 +7,7 @@
 - Collection size clarification: owner explicitly requested no maximum saved-recipe count.
 - Photo clarification: owner requested keeping photos when available, with fallback
   only when missing or failed.
+- Removal clarification: owner requires confirmation before removing a saved recipe.
 - Status: Accepted for Design under the org PM intent gate
 - PM verdict: Accepted; `org/reviews/intent-saved-recipe-menu-001.md`
 
@@ -46,7 +47,8 @@ other families have their own independent menus.
   does not archive its image bytes or promise permanent availability.
 - Opening the original source remains available from saved entries. Displayed
   recipe text remains text and source attribution remains visible.
-- A user can remove an entry from the menu and see the result. Removal affects
+- A user can request removal, confirm the selected recipe in a dialog, and see
+  the result. Canceling or dismissing leaves the recipe unchanged. Removal affects
   only the menu entry within the authorized ownership scope; later saving the
   recipe again remains possible.
 - Saved entries and removals persist across reloads and later authenticated
@@ -121,7 +123,8 @@ The owner selected one shared menu per family and explicitly rejected a maximum
 saved-recipe count. Design must bound individual reads/renders through navigation
 without limiting collection size. The owner clarified that photos must
 be retained when available, and fallback used only when missing or failed. This
-supersedes the architect's initial all-fallback proposal. Specification, plan,
+supersedes the architect's initial all-fallback proposal. The owner subsequently
+required a confirmation dialog before removal. Specification, plan,
 implementation, merge, and release retain their respective gates.
 
 ## Open questions for Design

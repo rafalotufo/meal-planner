@@ -60,3 +60,15 @@ mockup layout/interaction only; real photo delivery, production focus handling,
 full failure matrix, authorization and persistence remain Build/Test obligations.
 Independent visual review is recorded in
 `org/reviews/visual-saved-recipe-menu-001.md`.
+
+## Removal confirmation amendment QA
+
+Owner requested confirmation before removal. Root inspected the native dialog
+in the actual browser at1440px and320px. It names the selected recipe and
+initially focuses Cancel. Cancel closes it, leaves the recipe present, sets no
+pending removal, and restores focus to its original Remove action. Escape also
+closed it while retaining the recipe. Explicit confirmation alone started the
+existing simulated removal and then removed the selected card. At320px the
+dialog measured254px inside a288px content viewport (left17/right271), with
+readable wrapping and both actions visible. No console warnings/errors observed;
+viewport override reset. These checks concern the local Design simulation only.

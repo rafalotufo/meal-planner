@@ -11,5 +11,7 @@ acceptance:
 phases:
   intent: { role: architect, action: create_page_mockups, next: visual_review }
   visual_review: { role: reviewer, action: review_page_mockups, next: awaiting_visual_approval }
-  awaiting_visual_approval: { role: null, action: null, next: null }
+  awaiting_visual_approval: { role: architect, action: add_removal_confirmation, next: confirmation_review }
+  confirmation_review: { role: reviewer, action: review_removal_confirmation, next: awaiting_owner_visual_review }
+  awaiting_owner_visual_review: { role: null, action: null, next: null }
   done: { role: null, action: null, next: null }

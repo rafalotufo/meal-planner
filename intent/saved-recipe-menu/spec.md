@@ -3,7 +3,8 @@
 - Author: architect
 - Date: 2026-11-24
 - Status: Approved by owner; `org/messages/ceo-0050.md`.
-  Visual design preview remains separately proposed for review.
+  Owner subsequently required removal confirmation; this scoped amendment is
+  incorporated below. Visual preview remains separately proposed for review.
 - Input: accepted sibling `intent.md`; PM decision `org/reviews/intent-saved-recipe-menu-001.md`
 - Owner decisions: one shared menu per family; no maximum saved-recipe count;
   retain photos when available and use fallback only when missing or failed.
@@ -144,11 +145,22 @@ HTML/SVG payload, data URL, credentials or private-literal URL from saved input.
    Show `Older recipes` only when another row exists and always offer
    `Newest recipes` on an older page. These are accessible ordinary navigation
    links, each loading a replacement page with its heading focused/announced.
-4. Each menu card has a recipe-specific `Remove from menu` button. Disable it
-   while removing and leave the card visible until confirmed success. Then
-   remove it and update count/empty state; announce removal. Failure leaves the
-   card and a local retry message. No confirmation modal or undo is necessary:
-   re-adding from search is available and removal affects only the saved entry.
+4. Each menu card has a recipe-specific `Remove from menu` button. Activating
+   it opens a modal confirmation dialog before any pending state or removal
+   request: title `Remove recipe from menu?`, selected recipe title, an explanation
+   that removal affects the shared family menu, and `Cancel` / `Remove from menu`
+   buttons. Initially focus Cancel; keep keyboard focus within the dialog. Cancel,
+   Escape or backdrop dismissal closes it without a request/data change and
+   restores focus to the original remove control. Only explicit confirmation
+   starts removal. Every retry requires confirmation again.
+   After confirmation, disable the card's action while removing and leave the
+   card visible until server success. Then refresh the current page, update its
+   count/empty state and announce removal. Failure leaves the card and a local
+   retry message. Successful removal follows the next/previous/empty-state focus
+   rule below. No undo is introduced. A native accessible dialog is suitable;
+   its name/description must include the selected recipe and its opaque surface
+   and actions must fit 320px/mobile widths without clipping.
+
 5. Initial list failure renders a recoverable generic menu error with a full
    `/menu` reload link. It must not masquerade as an empty menu. Session loss
    during an action shows sign-in/onboarding guidance appropriate to 401/403.
@@ -354,7 +366,7 @@ Python workflow tests. No fake-user production bypass or hosted synthetic rows.
 | Concurrency | Concurrent add/remove commits follow lock order; repeated/missing deletion succeeds; delayed old-ID remove leaves new entry intact; transaction failure rolls back; DB unavailable/schema drift produces generic errors. |
 | Storage/security | Fresh + initial-schema upgrade migration; restricted runtime grants work only as required; no DDL/history write/TRUNCATE/UPDATE on menu table; metadata/catalog drift rejected; malformed stored row fails closed; more than 100 saved entries traverse 50/50/remainder with no missing/duplicate unchanged rows; malformed, duplicate-query and foreign-position cursors cannot bypass authorization; removal of boundary row remains traversable; each query/render stays bounded. |
 | No external effects | Save/list/remove and menu rendering never invoke provider/photo network paths; saved imageUrl retained; browser image loads alone are allowed under existing card behavior; server-only configuration absent from browser props/bundle/error evidence. |
-| Browser 390/1440 | Test-process search/OAuth fixtures; real Chrome save→navigate→reload→remove→reload, duplicate feedback, empty/older-page/error/retry states and older/newest navigation without accumulating cards, keyboard announcements/focus, source link, available saved photo after reload, null/failed-image fallback, long text, no horizontal overflow, no console/unexpected network errors. |
+| Browser 390/1440 | Test-process search/OAuth fixtures; real Chrome save→navigate→reload→confirm removal→reload; confirmation names selected recipe, Cancel initial focus, focus trap, Cancel/Escape/backdrop cause no request or pending state and restore trigger focus, confirm alone removes, retry reconfirms, 320px dialog bounds; duplicate feedback, empty/older-page/error/retry states and older/newest navigation without accumulating cards, keyboard announcements/focus, source link, available saved photo after reload, null/failed-image fallback, long text, no horizontal overflow, no console/unexpected network errors. |
 | Regression/package | Existing auth/family/search/photo/game/deployment checks; compiled menu page and APIs operate with runtime metadata but no migration/source files; upload excludes private/test material; strict typechecking includes new tests. |
 
 During Build record actual outputs for frozen install, Node24/pnpm10.33,
