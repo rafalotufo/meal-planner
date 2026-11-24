@@ -9,8 +9,8 @@ intent/weekly-meal-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: plan_review
+- turn: 3
+- phase: build
 - stop_reason: None
 
 ## Agents
@@ -19,7 +19,7 @@ intent/weekly-meal-planning/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (weekly-meal-planning-plan)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -145,6 +145,7 @@ intent/weekly-meal-planning/intent.md
 - reviewer-0039 reviewer -> orchestrator review: Shared layout spec and plan approved
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0041 reviewer -> orchestrator review: Shared layout final implementation approved
+- reviewer-0042 reviewer -> orchestrator review: Weekly meal planning spec and plan approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -162,11 +163,11 @@ intent/weekly-meal-planning/intent.md
 
 ## Recent decisions
 
-- mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
 - mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
 - mem-0127 product-manager: Accepted weekly meal planning intent: automatic configurable Thursday drafts for Sunday through Saturday from saved menu, family approvals/swaps and finalized history for variety. Local org loop only; merge/release separate. (org/reviews/intent-weekly-meal-planning-001.md)
 - mem-0128 architect: Drafted weekly meal planning spec and exact plan for independent review: local trusted CLI due scheduler plus uninstalled launchd template, no Vercel/hosted activation; immutable finalized planned history and source-URL recency. (intent/weekly-meal-planning/spec.md)
+- mem-0129 reviewer: Independently approved weekly meal planning specification and exact implementation plan. Preserve action-specific body validation and update schema assertions for the actual new tables; scheduling unactivated. (org/reviews/weekly-meal-planning-plan-001.md)
 
 ## Constraints
 
@@ -176,14 +177,15 @@ intent/weekly-meal-planning/intent.md
 
 - org/reviews/intent-weekly-meal-planning-001.md (6a175e5f6b12cf1b6ff75dc4e0fd67bdd864a345ce3198d9c42deb679ff53197)
 - intent/weekly-meal-planning/plan.md (73cfe860b42b808ab9badf18b6a8c25b5e04811d201d645065770db2dad2b8a4)
+- org/reviews/weekly-meal-planning-plan-001.md (9eb7d446efa4a27fc7a6cc729d7931cd80716439f34d210814d46fc9d79b0664)
 
 ## Next action
 
-architect:specify_and_plan_weekly_meal_planning
+reviewer:approve_weekly_meal_planning_plan
 
 ## Last digest source
 
-- mem-0128 from intent/weekly-meal-planning/spec.md
+- mem-0129 from org/reviews/weekly-meal-planning-plan-001.md
 
 <!-- machine:end -->
 

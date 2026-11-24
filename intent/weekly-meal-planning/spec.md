@@ -2,7 +2,7 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Draft for independent org peer review
+- Status: Approved by independent org peer review (`org/reviews/weekly-meal-planning-plan-001.md`)
 - Inputs: accepted `intent.md`, saved `brainstorm.md`, PM review
 
 ## Outcome and scope
