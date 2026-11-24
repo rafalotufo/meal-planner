@@ -1,18 +1,19 @@
 # T-Rex Runner — specification
 
-- Derived from: sibling intent.md, accepted for Design in caab317; org/reviews/intent-t-rex-runner-001.md.
+- Derived from: sibling intent.md, accepted base intent in caab317 and Rafael's automatic-lifecycle amendment dated 2026-11-24.
 - Author: architect
 - Status: Draft — ready for independent and human review; implementation is not authorized.
 - Date: 2026-11-24
 
 ## Product and interaction contract
 
-1. Replace Word Snack with optional inline “T-Rex Runner” between search status
-   and notebook. Show “Play T-Rex Runner” immediately on a valid pending search;
-   never open, animate or focus it automatically. Opening transfers launcher
-   focus to the named game surface and shows a static dinosaur/instructions.
-2. A single Space press on that focused surface starts running and jumps;
-   subsequent presses jump when grounded; after collision one fresh press
+1. Replace Word Snack with inline “T-Rex Runner” between search status and
+   notebook. Every actual valid search immediately opens a fresh game and
+   starts running as soon as local assets are ready, without a Play click or
+   waiting before fetch. Reduced-motion, visibility and pause rules below apply.
+   Users can pause or hide play; access to recipes never requires participation.
+2. A single Space press on the focused game surface jumps when grounded;
+   after collision one fresh press
    restarts and jumps. A native button labeled “Jump” provides the same action
    on mobile and desktop; instructions explain start/restart. Use a fixed jump
    arc, ignore key repeat and airborne jump attempts; no held-key advantage,
@@ -30,7 +31,7 @@
    Minimum cactus separation must exceed a complete jump plus 300ms of running;
    prove all generated patterns are jumpable. Score is elapsed running distance,
    stays local, stops on collision/pause and resets on explicit restart.
-5. Provide visible Pause/Resume and Close game controls, concise instructions,
+5. Provide visible Pause/Resume and Hide game controls, concise instructions,
    score as ordinary text, and polite game status for started/paused/collided.
    Never announce frames, every score change or game progress as search progress.
    Keep existing stone/white/emerald styling, serif heading, visible focus and
@@ -40,51 +41,57 @@
    active play and cancels its animation frame. Return/visibility/focus never
    resumes automatically. Explicit Resume continues the same state only while
    visible and focused inside the game; Jump does not bypass a paused state.
-   Reduced motion starts static like normal mode; explain that Start/Resume
-   opts into motion, and retain Pause and Close. Preference changes pause again.
+   Reduced motion opens a static paused game until explicit Resume opts into
+   motion; retain Pause and Hide. Hidden/blurred documents also start paused.
+   Preference changes pause again. No assets finishing later may undo a pause.
 
 ## Request association and focus
 
 7. RecipeSearch retains request generation, one-pending guard, validation and
    abort ownership. Each actual valid search discards prior play and creates a
-   fresh hidden round synchronously without delaying fetch. Invalid queries
+   fresh visible round synchronously without delaying fetch. Invalid queries
    preserve existing play and use existing validation focus; rejected duplicate
    pending submits create neither round nor request. Never derive game identity
-   from loading, readiness count or selected notebook entry.
-8. Pending Close cancels animation, preserves the round snapshot paused and
-   returns focus to the launcher. Reopening restores that snapshot paused
-   (initial unstarted rounds stay idle). Closing never cancels a recipe request.
-   Never-opened or closed rounds are discarded when their request succeeds;
-   success must not offer a new game. Preserve a focused launcher as “View
-   results” navigation until explicit activation so focus is not stranded.
-9. Successful and zero-result responses add notebook history immediately. Open
-   play retains component identity, dinosaur/obstacles/score/mode and exact
-   focus; completion never pauses/restarts play, scrolls or steals focus. Add a
-   non-live ready banner and update the existing single polite atomic search
-   status: “Recipes ready — [n] found. Keep playing or view results.” Zero uses
-   “Search finished — no matches. You can keep playing or view your search.”
-10. Keep existing add-without-select behavior when focus is inside an earlier
-    notebook result panel at completion. Preserve that panel, exact focused
-    control, filters and sort; otherwise newest opens. Explicit “Close game and
-    view results” (zero: “Close game and view search”) discards play, idempotently
-    opens its associated request ID, then focuses search-heading-ID and scrolls
-    without animation after commit, even after browsing another group.
+   from selected notebook entry. Retain a round only while its request is pending.
+8. At most once on the initial game commit for that user submission, focus the
+   named game surface only if focus still belongs to the initiating search form
+   and the user has not interacted elsewhere since submission. Invalidate this
+   focus intent on completion/error, replacement, unmount or later user action;
+   never defer autofocus to asset loading. If the user moved elsewhere, preserve
+   focus and leave the game paused. No subsequent callback may steal it back.
+9. Pending Hide cancels/releases mounted animation resources, retains a paused
+   snapshot and returns focus to “Show game”. Reopening restores it paused and
+   focuses the surface through that explicit action; collision state remains
+   crashed until restart. Hiding never cancels the search. The Show control and
+   retained snapshot exist only while that request is pending.
+10. Successful and zero-result responses immediately close/discard all game
+    state and Show controls and add notebook history in the same response
+    transition. Do not wait for a frame, jump, collision or asset. No continued
+    play, ready banner or post-result game launcher remains. Announce the
+    existing outcome through the single polite atomic search status, including
+    “No matching recipes found. Try a different description.” for zero results.
+    If focus was inside a removed game or its Show control, idempotently open
+    the associated request's group, focus search-heading-ID after commit and
+    scroll without animation. Otherwise preserve outside focus and avoid scroll.
+    When focus is in an earlier notebook panel, retain that selected/open panel,
+    exact control, filters and sort while adding the new group; otherwise newest
+    opens. Completion must never steal focus from the query or another control.
 11. Errors/malformed responses close and discard play, expose existing errors
     and retain notebook history. Restore query focus only if the removed game
-    or launcher held it; otherwise leave focus alone. Stale success/error IDs
+    or Show control held it; otherwise leave focus alone. Stale success/error IDs
     cannot change current play. Abort/navigation discard state and all game
     resources; navigation needs no focus restoration. Reload clears scores.
 
 ## Typed adaptation and resource ownership
 
-RecipeSearch owns round association/open/readiness and a retained snapshot. A small
+RecipeSearch owns pending round association/visibility and a retained snapshot. A small
 client runner component owns DOM events, canvas and the mounted animation loop;
 a client-safe pure TypeScript module owns immutable simulation state, jump,
 obstacle generation and collision. Define explicit idle/running/paused/crashed
 modes and pause reasons; paused carries its resumable state. Inject delta time
 and seeded randomness into pure transitions, never read Date/DOM/fetch/storage
-there. On pending close return the snapshot to the parent for reopening; parent
-discards it on completion while closed, failure or replacement. Keep recipe
+there. On pending Hide return the snapshot to the parent for reopening; parent
+discards it on every success/zero, failure or replacement. Keep recipe
 data, identity and queries out of the game interface.
 
 Adapt selected upstream calculations and sprite coordinates into strict TS;
@@ -101,16 +108,24 @@ only presentation/backing resolution. Resize/DPR changes redraw without reset
 or collision-coordinate changes. Keep pixel rendering crisp and controls/text
 outside canvas. Canvas has an accessible name/instructions and fallback text;
 DOM status exposes mode and actions without requiring pixel interpretation.
-Asset/context failure shows “Game unavailable” with Close/results usable;
+Asset/context failure shows “Game unavailable” with Hide/notebook usable;
 search continues and the failure schedules no animation.
+
+Fetch starts without awaiting sprite loading. Show a static loading surface
+until sprites are ready; the first frame starts only for the same still-pending,
+visible, eligible mounted generation. A pause/hide or outside interaction while
+assets load revokes automatic start; Resume remains available once ready. Late
+image callbacks after success/zero/error/abort/replacement/unmount are no-ops;
+they cannot recreate canvas, focus, listeners or animation. No zombie runner.
 
 Use one requestAnimationFrame at most while running, fixed physics substeps
 <=1000/60ms and a maximum accepted frame delta of 50ms; drop excess elapsed
 time, never catch up after suspension. Starting/resuming resets the previous
 frame timestamp. Collision immediately stops the loop. Cleanup is idempotent:
 cancel frame, disconnect resize observer, remove visibility/blur/media listeners,
-invalidate pending image callbacks and release canvas references on close,
-replacement or unmount. Strict Mode remounts cannot duplicate loops/listeners.
+invalidate pending image callbacks and release canvas references on Hide,
+completion, error, abort, replacement or unmount. Strict Mode remounts cannot
+duplicate loops/listeners.
 
 ## Upstream provenance and review gate
 
@@ -150,15 +165,15 @@ No backend, auth, provider, photo transport, persistence or deployment changes.
 
 | Area | Required evidence before completion |
 | --- | --- |
-| Pure TS/native Node tests | Start/jump/landing, airborne/repeat rejection, seeded obstacle gaps/jumpability, collision/restart, score, pause/resume, delta cap/substeps; immutable state; request-ID stale guards; pending close/reopen; success/zero continuation; invalid/new search; failure/discard. |
-| Real browser at 320/390/768/1024/1440px | Keyboard/touch start-jump-collision-restart, targets/focus/overflow and visible sprites; focused-surface rejected/held Space leaves page scroll unchanged; textarea Space unaffected; native button Space fires once; blur, visibility, manual and reduced-motion pause with explicit resume; resize/DPR continuity. |
-| Held-response browser fixtures | Same game/focus/score trajectory after success/zero; continued play then associated-results focus; focused old-panel retention; focused/unfocused failure; launcher completion handoff; closed/never-opened completion; new search/reset. |
-| Browser lifecycle/isolation | Instrument frames/listeners from test harness only: repeated open/close and navigation leave zero owned frames/listeners, remount leaves one loop, hidden/crashed/paused leave none. Count recipe POSTs: game actions make zero; pending duplicate remains one. No provider calls or production fixture endpoint. |
+| Pure TS/native Node tests | Automatic pending start/jump/landing, airborne/repeat rejection, seeded obstacle gaps/jumpability, collision/restart, score, pause/resume, delta cap/substeps; immutable state; stale-ID guards; pending Hide/Show; success/zero unconditional discard; invalid/duplicate/new search; failure/abort/discard. |
+| Real browser at 320/390/768/1024/1440px | Search auto-opens/runs without Play; keyboard/touch jump-collision-restart, targets/focus/overflow and visible sprites; rejected/held surface Space leaves scroll unchanged; textarea Space unaffected; native button Space fires once; blur, visibility, manual and reduced-motion pause with explicit resume; resize/DPR continuity. |
+| Held-response browser fixtures | Success/zero closes immediately mid-jump and while paused/crashed/hidden/loading assets; focus game/Show -> correct result heading; outside/query/old-panel focus preserved; success before mount/first frame never steals focus; subsequent clicks defeat pending autofocus; focused/unfocused errors; invalid/duplicate/new search and stale responses. |
+| Browser lifecycle/isolation | Harness-only frame/listener instrumentation: success/zero/error/abort/Hide/navigation leave zero owned resources, repeated Show/remount leaves at most one loop, hidden/crashed/paused leave none. Delay sprites past completion and prove no late mount/frame/focus. Count recipe POSTs: search starts before assets resolve; game actions make zero; pending duplicate remains one. No provider calls or production fixture endpoint. |
 | Source/license/security | Verify exact pinned assets/hashes, adapted-source mapping, all notices shipped and locally readable; no singleton/global input interception, external calls, storage or auth/provider/transport weakening; independent code/security/license review. |
 
 Use existing strict TypeScript application/browser helpers and native Node
 runner; label fixtures separately from live provider evidence. Capture and
-inspect mobile/desktop idle, running, paused, crashed, ready and dismissed UI.
+inspect mobile/desktop loading, running, paused, crashed and auto-dismissed UI.
 Run frozen install, pnpm test, lint, typecheck, build, test:auth after build,
 Python workflow tests, deployment smoke, staged secret scan, plan-sync and diff
 checks. Record actual exits and screen-reader verification limits. Existing
@@ -167,3 +182,11 @@ baseline cache issue; isolated unchanged-source types/build/auth already pass
 per progress.md. Do not change config or weaken checks to conceal it here.
 Independent spec review, human spec approval and an approved sibling plan are
 required before implementation; human merge/release gates remain in force.
+
+## Change note
+
+2026-11-24: Rafael requested automatic start with search and immediate close on
+results. This supersedes the optional Play launcher and continued-play/ready
+contracts. Pending Hide/Show, scoped input and reduced-motion opt-in remain;
+success/zero always discards the game. Amendment awaits independent recheck
+and human spec approval; it does not authorize implementation.

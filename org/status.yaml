@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: T-Rex selected to replace Word Snack; intent PM accepted and spec independently approved. Human spec approval pending. Original dev cache duplicate types documented; unchanged isolated baseline types/build/auth pass. No application changes. }
-  product-manager: { status: idle, assignment: null, last_report: T-Rex Runner intent accepted for Design; intent-t-rex-runner-001.md. Optional focused jump-only local runner replaces Word Snack; preserve results-ready play/focus and search boundaries. Spec/plan and human merge/release gates remain. }
-  architect: { status: idle, assignment: null, last_report: "T-Rex spec drafted and independently approved after scoped Space correction; human specification approval pending, no game implementation." }
+  orchestrator: { status: idle, assignment: null, last_report: "User-directed T-Rex auto-start/auto-close amendment captured in intent/spec; PM and independent spec review approved, human full-spec approval pending. No application changes." }
+  product-manager: { status: idle, assignment: null, last_report: T-Rex automatic-lifecycle amendment accepted for Design; intent-t-rex-runner-002.md. Valid search auto-starts runner; results including zero auto-close it. Reduced-motion opt-in and scoped focus retained; spec/plan and merge/release gates remain. }
+  architect: { status: idle, assignment: null, last_report: "T-Rex automatic-search lifecycle spec amended and independently approved in review003. Auto-start, immediate results cleanup and guarded focus specified; human spec approval pending, no code." }
   senior-developer: { status: idle, assignment: null, last_report: "Word Snack implemented and independently approved;74app12auth12smoke7workflow tests, lint/types/build and fivewidth Chrome passed.128puzzles; no merge/release authorized." }
   security-researcher: { status: idle, assignment: null, last_report: "Word Snack security assessment clear at 47a5878; security-recipe-waiting-game-001.md. No findings: bounded local React text, query-only requests, unchanged auth/provider/photo boundaries and isolated test fixtures. Merge/release remain human gates." }
-  reviewer: { status: idle, assignment: null, last_report: T-Rex specification focused recheck approved; spec-t-rex-runner-002.md resolves scoped-Space finding. Human spec approval pending; no code/cache changes. }
+  reviewer: { status: idle, assignment: null, last_report: T-Rex automatic-lifecycle amendment independently approved; spec-t-rex-runner-003.md. No required findings; human full-spec approval pending. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -45,3 +45,4 @@ review_queue:
   - { id: catalogue-recipe-waiting-game-001, artifact: lib/word-snack-puzzles.ts, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-recipe-waiting-game-001, artifact: recipe-waiting-game-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-t-rex-runner-001, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-t-rex-runner-002, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }

@@ -2,7 +2,7 @@
 
 - Author: Rafael (source); orchestrator (capture)
 - Source: this Codex chat, “replace word snack. search for existing implementations of something like this that we could reuse”, followed by “I like t-rex runner”.
-- Status: Accepted for Design — product-manager review org/reviews/intent-t-rex-runner-001.md
+- Status: Accepted for Design — product-manager reviews org/reviews/intent-t-rex-runner-001.md (base) and org/reviews/intent-t-rex-runner-002.md (automatic-lifecycle amendment)
 - Date: 2026-11-24
 
 ## Problem
@@ -18,14 +18,17 @@ Reuse and adapt wayou/t-rex-runner, the Chromium-derived browser runner Rafael
 selected. The dinosaur runs automatically; the player jumps over obstacles
 using Spacebar while the game has focus, or a clear touch control on mobile.
 Keep the recognizable T-Rex appearance and simple jump-only interaction.
-One action starts play and restarts after a collision. Play remains optional.
+Every actual valid search opens and starts the runner automatically; no Play
+click is required. One action restarts after a collision. Users can pause or
+close it while waiting, and recipe access never requires playing.
 
-Successful search completion makes recipes available immediately and announces
-that they are ready without ending, resetting or stealing focus from play.
-Users may continue playing and explicitly close the game to view the associated
-results. Keep previous searches usable and preserve the existing notebook
-behavior, including focus continuity. Errors must remain visible and must not
-be hidden behind the game.
+Successful search completion, including zero matches, immediately closes and
+discards the runner and makes the associated results available. Do not wait for
+a jump, collision or round to finish and do not offer continued play after
+completion. Announce the search outcome. If focus was in the removed game or
+its controls, move it to the completed search heading; otherwise preserve the
+user's current focus. Keep previous searches usable and preserve notebook
+behavior, including focused earlier panels. Errors must remain visible.
 
 ## Affected users and systems
 
@@ -46,8 +49,9 @@ unchanged. Word Snack's reviewed history and audit records remain preserved.
   animation frames on close/unmount; prevent orphaned singleton instances.
 - Responsive local game viewport and large touch controls; visible focus,
   accessible labels/status, pause/resume controls and no required sound.
-  Define reduced-motion and background-tab behavior in Design. The activity
-  is optional; access to recipes never depends on reflexes or game progress.
+  Define reduced-motion and background-tab behavior in Design, including a
+  static/paused presentation until explicit opt-in when reduced motion is
+  requested. Pause/close remain available; recipes never depend on game progress.
 - Keep game activity local and transient, with no game-related provider calls,
   analytics, persistent scores, identity data or database changes.
 - No search dispatch/result delay or simulated search-progress claims. Preserve
@@ -64,19 +68,22 @@ unchanged. Word Snack's reviewed history and audit records remain preserved.
 
 1. Word Snack's user-facing game is replaced by the selected local T-Rex runner.
    No word catalogue or word controls remain in the active game experience.
-2. Desktop users can start, jump and restart through a clear keyboard flow;
+2. A valid search automatically opens and starts play without delaying the
+   request. Invalid queries and rejected duplicate pending submissions do not
+   open or reset it. Desktop users can jump and restart through a clear keyboard flow;
    mobile users can do the same through a large labeled touch control.
    Obstacles must not require a second action such as ducking.
-3. Successful and zero-result searches preserve open play and focus, announce
-   completion, and offer explicit close/view-results navigation to the correct
-   search. Existing history stays interactive.
+3. Successful and zero-result searches automatically close the game, release
+   its resources and announce the result. Focus moves to the completed search
+   only when necessary because the focused game/control was removed. Existing
+   history stays interactive, and stale responses cannot close a newer game.
 4. Closing, navigation, errors and subsequent searches have defined cleanup,
    reset and focus behavior; no stale game/request can alter the next one.
 5. Space in the recipe query never triggers jumping or suppresses typing.
    Game actions do not create recipe requests, expose input or persist scores.
 6. Verify actual mobile/desktop rendering, keyboard/touch, collision/restart,
-   pause/resume, resize, repeated mounts, tab visibility and continued play
-   after recipes arrive. Run required tests, lint, types, build, auth and
+   pause/resume, resize, repeated mounts, tab visibility, automatic start and
+   immediate cleanup when results arrive mid-jump. Run required tests, lint, types, build, auth and
    independent security/code/license review; distinguish fixtures from live
    provider evidence.
 
@@ -114,3 +121,8 @@ new backend infrastructure, paid calls, push, merge or production release.
 Rafael selected this direction and previously requested replacement of Word
 Snack. This captures the selected intent for PM review; it does not approve an
 unwritten specification, implementation plan, code, merge or release.
+
+Rafael subsequently requested automatic start when search starts and automatic
+close when results arrive. This supersedes the earlier optional launcher and
+continued-play-on-success requirements; it is a lifecycle amendment, not
+approval of the full specification or an unwritten implementation plan.

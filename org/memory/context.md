@@ -31,6 +31,7 @@ intent/t-rex-runner/intent.md
 - architect-0004 architect -> orchestrator handoff: Word Snack catalogue revised to 128 distinct puzzles
 - architect-0005 architect -> orchestrator handoff: T-Rex Runner draft specification ready for review; architect idle
 - architect-0006 architect -> orchestrator handoff: T-Rex surface Space wording corrected; architect idle
+- architect-0007 architect -> orchestrator handoff: Automatic search/game lifecycle specification amended; architect idle
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -48,6 +49,7 @@ intent/t-rex-runner/intent.md
 - ceo-0020 ceo -> orchestrator decision: Use 128 Word Snack puzzles
 - ceo-0021 ceo -> orchestrator decision: Approve 128-puzzle Word Snack specification
 - ceo-0022 ceo -> orchestrator decision: Approve Word Snack plan and fresh bounded implementation cycle
+- ceo-0023 ceo -> orchestrator decision: Automatically start and close T-Rex with search
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0017 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0018 orchestrator -> product-manager handoff: Review Word Snack waiting-game intent
@@ -62,12 +64,15 @@ intent/t-rex-runner/intent.md
 - orchestrator-0028 orchestrator -> product-manager handoff: Review selected T-Rex replacement intent
 - orchestrator-0029 orchestrator -> architect handoff: Design selected T-Rex replacement
 - orchestrator-0030 orchestrator -> reviewer handoff: Review T-Rex replacement specification
+- orchestrator-0031 orchestrator -> architect handoff: Amend T-Rex automatic search lifecycle
+- orchestrator-0032 orchestrator -> reviewer handoff: Review automatic T-Rex search lifecycle amendment
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
 - product-manager-0005 product-manager -> orchestrator decision: Accepted Word Snack intent for Design
 - product-manager-0006 product-manager -> orchestrator answer: Re: Review user-directed completion behavior amendment
 - product-manager-0007 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
+- product-manager-0008 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -84,6 +89,7 @@ intent/t-rex-runner/intent.md
 - reviewer-0014 reviewer -> orchestrator review: Word Snack final code review approved
 - reviewer-0015 reviewer -> orchestrator review: T-Rex specification needs scoped Space scroll correction
 - reviewer-0016 reviewer -> orchestrator review: T-Rex specification correction approved
+- reviewer-0017 reviewer -> orchestrator review: T-Rex automatic lifecycle amendment approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
@@ -96,11 +102,11 @@ intent/t-rex-runner/intent.md
 
 ## Recent decisions
 
-- mem-0054 ceo: Rafael explicitly approved the amended Word Snack intent and Design. Successful searches preserve play with results-ready notice and explicit dismissal. Specification, plan, merge and release remain unapproved. (org/reviews/intent-recipe-waiting-game-human-approval-001.md)
 - mem-0056 ceo: Rafael directed128 Word Snack puzzles instead of12. Architect revised specification count/cycle, distinct letter multisets and64KiB serialized-data design budget; no implementation or blanket spec approval inferred. (org/messages/ceo-0020.md)
 - mem-0057 ceo: Rafael approved the128-puzzle Word Snack specification at6b660c1. Human approval recorded; implementation planning authorized. Plan, code, merge and release still gated. (org/reviews/spec-recipe-waiting-game-human-approval-001.md)
 - mem-0059 ceo: Rafael authorized reviewed Word Snack plan and fresh bounded six-turn cycle. Preserved design loop snapshot; new cycle carries forward existing approvals before implementation/security/review. Dependencies installed frozen on Node24.15.0/pnpm10.33.0; no merge/push/release authorized. (org/reviews/plan-recipe-waiting-game-human-approval-001.md)
 - mem-0061 product-manager: Rafael selected wayou/t-rex-runner to replace Word Snack. PM accepted captured intent for Design; preserve results-ready continued play, scoped Space/touch controls, pinned local upstream reuse and attribution. Prior WordSnack audit archived; no game code/assets changed. (org/reviews/intent-t-rex-runner-001.md)
+- mem-0063 ceo: Rafael changed T-Rex lifecycle to auto-open/start on valid search and auto-close immediately on success/zero results. Supersedes continued play and optional initial launch. PM and independent review approved amended artifacts; guarded focus/late-callback cleanup specified. Human spec approval pending; no code changes. (org/reviews/spec-t-rex-runner-003.md)
 
 ## Constraints
 
@@ -117,7 +123,7 @@ architect:draft_spec
 
 ## Last digest source
 
-- mem-0062 from org/reviews/spec-t-rex-runner-002.md
+- mem-0063 from org/reviews/spec-t-rex-runner-003.md
 
 <!-- machine:end -->
 

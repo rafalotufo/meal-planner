@@ -56,3 +56,27 @@ required findings; reviewer-0016 records approval. Both review records remain.
 The graph marks spec in_review, and org_loop.py next stops at
 product_owner_approve. No plan, game assets or implementation were written;
 no T-Rex gameplay, browser verification, merge or release is claimed.
+
+## Automatic search lifecycle amendment
+
+Rafael requested auto-start when search starts and auto-close as soon as results
+arrive, superseding optional initial launch and post-result continued play.
+PM accepted amended intent in intent-t-rex-runner-002.md (product-manager-0008;
+ledger product_owner_accept-014). Architect amended spec in architect-0007.
+
+Valid searches mount/start the runner without a Play click or delaying fetch;
+successful/zero-result completion discards it immediately, including during a
+jump, pause, hidden state or asset loading. Initial focus is guarded so Space
+works without stealing later user focus. Automatic removal focuses results
+only when the removed game/control held focus. Late asset/focus callbacks may
+not resurrect play. Reduced-motion opt-in and pending Pause/Hide remain.
+
+Seven Python workflow tests passed again; git diff --check passed. These are
+document changes only; no new game/runtime verification is claimed. Prior
+source baseline/cache limitations remain as recorded above. Focused independent
+spec amendment review is assigned as spec-t-rex-runner-002; earlier review
+records remain historical evidence.
+
+Focused review spec-t-rex-runner-003.md approved the amendment with no required
+findings (reviewer-0017). Human specification approval remains pending; no
+implementation plan or application code was written.
