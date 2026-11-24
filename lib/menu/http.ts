@@ -17,17 +17,8 @@ function protect(response: Response, origin?: string) {
   return response;
 }
 
-/** Exact menu APIs bypass Next's body-buffering Proxy, never authentication. */
-export async function menuApiResponse(request: NextRequest, allowedMethods: readonly string[], action: () => Promise<Response | object>) {
-  let configuration: ReturnType<typeof authConfiguration>;
-  try { configuration = authConfiguration(); }
-  catch { return protect(NextResponse.json({ error: 'Authentication unavailable' }, { status: 503 })); }
-  const { origin, secret } = configuration;
-  if (request.headers.get('host') !== new URL(origin).host) return protect(NextResponse.json({ error: 'Misdirected request' }, { status: 421 }), origin);
-  const response = await apiResponse(async () => {
-    // Better Auth can otherwise fall back to the callback process's in-memory
-    // adapter when a stateless cache is absent/invalid. Preserve fail-closed
-    // credential behavior independently of which process handles this request.
+export async function requireMenuAuthority(request: NextRequest) {
+  const { origin, secret } = authConfiguration();
     const cached = await getCookieCache(request, { secret, strategy: 'jwe', isSecure: origin.startsWith('https:'), version: '1' });
     const identity = cached ? verifiedIdentity(cached.user) : null;
     const expiry = cached ? new Date(cached.session.expiresAt).getTime() : NaN;
@@ -36,6 +27,21 @@ export async function menuApiResponse(request: NextRequest, allowedMethods: read
     const session = await readCryptographicSession(request.headers);
     if (!session || session.session.token !== cached.session.token || session.identity.googleSubject !== identity.googleSubject || session.identity.email !== identity.email) throw new FamilyError(401, 'Unauthorized');
     await requireFamilyContext(request.headers);
+    return { identity: session.identity, credentialExpiresAt: Math.min(expiry, jwtExpiry * 1000) };
+}
+
+/** Exact menu APIs bypass Next's body-buffering Proxy, never authentication. */
+export async function menuApiResponse(request: NextRequest, allowedMethods: readonly string[], action: () => Promise<Response | object>) {
+  let configuration: ReturnType<typeof authConfiguration>;
+  try { configuration = authConfiguration(); }
+  catch { return protect(NextResponse.json({ error: 'Authentication unavailable' }, { status: 503 })); }
+  const { origin } = configuration;
+  if (request.headers.get('host') !== new URL(origin).host) return protect(NextResponse.json({ error: 'Misdirected request' }, { status: 421 }), origin);
+  const response = await apiResponse(async () => {
+    // Better Auth can otherwise fall back to the callback process's in-memory
+    // adapter when a stateless cache is absent/invalid. Preserve fail-closed
+    // credential behavior independently of which process handles this request.
+    await requireMenuAuthority(request);
     if (!allowedMethods.includes(request.method)) return NextResponse.json({ error: 'Method not allowed' }, { status: 405, headers: { Allow: allowedMethods.join(', ') } });
     return action();
   });

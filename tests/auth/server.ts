@@ -5,7 +5,7 @@ import { testDatabase } from '../family/database.ts';
 
 type EnvironmentOverrides = Record<string, string> | ((origin: string) => Record<string, string>);
 
-export async function startServer(overrides: EnvironmentOverrides = {}, preload = false, development = false, workingDirectory?: string) {
+export async function startServer(overrides: EnvironmentOverrides = {}, preload = false, development = false, workingDirectory?: string, extraPreloads: readonly string[] = []) {
   const port = await new Promise<number>((resolve, reject) => {
     const listener = createServer();
     listener.once('error', reject);
@@ -25,7 +25,8 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
   const database = config.DATABASE_URL === undefined ? await testDatabase() : undefined;
   const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_URL: database?.url, ...config, OPENAI_API_KEY: '', RECIPE_SEARCH_PROVIDER: 'openai' };
   delete env.MIGRATION_DATABASE_URL; delete env.TEST_DATABASE_URL;
-  if (preload) env.NODE_OPTIONS = `--import=tsx --import=${new URL('./google-network.ts', import.meta.url).pathname}`;
+  const imports = [...(preload ? [new URL('./google-network.ts', import.meta.url).pathname] : []), ...extraPreloads];
+  if (imports.length) env.NODE_OPTIONS = ['--import=tsx', ...imports.map(path => '--import=' + path)].join(' ');
   else delete env.NODE_OPTIONS;
   let output = '';
   const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', ...(development ? ['dev', '--webpack'] : ['start']), '-H', '127.0.0.1', '-p', String(port)], { cwd: workingDirectory, env, stdio: ['ignore', 'pipe', 'pipe'] });
