@@ -1,7 +1,8 @@
 # Recipe URL menu — implementation plan
 
 - Author: senior-developer; date: 2026-11-24
-- Status: Approved by owner on 2026-11-24; local implementation authorized
+- Status: Approved
+- Owner approval: 2026-11-24; local implementation and bounded Build cycle authorized
 - Inputs: accepted amended `intent.md`, owner-approved asynchronous `spec.md`
   (approval `recipe-url-menu-spec-2026-11-24`, source commit `6101c79`).
 - Task list: the ordered checklist below is the sole feature task list.
