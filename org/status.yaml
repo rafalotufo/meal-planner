@@ -6,7 +6,7 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: "Saved family menu implemented,194Node/7Python+Chrome pass, independent security/code approved; awaiting human merge with schema cutover separate." }
   product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
   architect: { status: idle, assignment: null, last_report: "Owner-required removal confirmation designed and independently reviewed; Cancel/Escape preserve recipe, confirm alone removes." }
-  senior-developer: { status: idle, assignment: null, last_report: "Saved menu implementation complete and independently security/code approved;194Node/7Python+Chrome pass, cleanup failure paths corrected/rechecked. Awaiting human merge." }
+  senior-developer: { status: busy, assignment: "Fix automatic menu-title focus reported by owner", last_report: "Reproducing in real Chrome before a narrow focus fix; preserve user dev server/next-env and removal focus." }
   security-researcher: { status: idle, assignment: null, last_report: "Final application security approved; a0420ed helper-only cleanup correction independently rechecked, no new security issue." }
   reviewer: { status: idle, assignment: null, last_report: "review code-saved-recipe-menu-002: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

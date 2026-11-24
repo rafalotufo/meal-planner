@@ -143,7 +143,11 @@ HTML/SVG payload, data URL, credentials or private-literal URL from saved input.
    links to `Newest recipes`; it must not claim the whole menu is empty.
    Show `Older recipes` only when another row exists and always offer
    `Newest recipes` on an older page. These are accessible ordinary navigation
-   links, each loading a replacement page with its heading focused/announced.
+   links, each loading a replacement page with its heading focused/announced via
+   an explicit native heading target. Following owner feedback
+   `org/messages/ceo-0055.md`, do not automatically focus/select the heading on
+   direct load/reload or header navigation to `/menu`. Focus the heading only
+   when the user deliberately follows Older/Newest navigation.
 4. Each menu card has a recipe-specific `Remove from menu` button. Activating
    it opens a modal confirmation dialog before any pending state or removal
    request: title `Remove recipe from menu?`, selected recipe title, an explanation

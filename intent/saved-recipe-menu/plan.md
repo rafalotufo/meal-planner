@@ -356,6 +356,22 @@ Files: AGENTS.md, README.md, intent/saved-recipe-menu/verification.md and the
 existing feature plan; orchestrator-managed review/audit paths in manifest.
 Depends on task9. This is the final Build/Test checkpoint, not deployment.
 
+## Supplemental owner correction — menu title focus
+
+Owner report `org/messages/ceo-0055.md`: the menu title appears selected when
+opening the page. Remove unconditional mount focus while retaining native
+`#menu-heading` targets for deliberate Older/Newest navigation, including the
+empty older page. Keep confirmation and post-removal focus behavior unchanged.
+This is a narrow correction within the existing approved files/scope.
+
+- [x] Real-browser RED proves initial title focus; GREEN verifies direct load,
+  reload and header entry stay unfocused/unselected, normal keyboard navigation,
+  explicit pagination heading focus and all existing removal focus assertions.
+- [x] Run lint, strict typecheck, production build, recipes, menu and required
+  family regressions without touching the active user dev server or next-env.
+- [x] Independent focused code review of the correction; orchestrator owns
+  final audit/commit and the still-pending human merge gate.
+
 ## Verification commands and ownership
 
 Use Node24.x (baseline24.15.0) and pnpm10.33.0. Recheck installed pinned Next

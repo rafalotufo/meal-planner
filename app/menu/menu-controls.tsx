@@ -19,7 +19,6 @@ export default function MenuControls({ page, after }: { page: MenuPage; after?: 
   const interaction = useRef(0);
   const focusAfterRefresh = useRef<{ removed: string; next?: string; previous?: string; version: number } | null>(null);
   useEffect(() => {
-    document.getElementById('menu-heading')?.focus();
     const active = requests.current;
     return () => { for (const request of active.values()) request.abort(); active.clear(); };
   }, []);
@@ -68,10 +67,10 @@ export default function MenuControls({ page, after }: { page: MenuPage; after?: 
         {states[entry.id] === 'pending' ? 'Removing…' : states[entry.id] === 'error' ? 'Retry removing from menu' : 'Remove from menu'}
       </button>
       {states[entry.id] === 'error' ? <p role="alert" className="mt-2 text-sm text-red-800">Could not remove this recipe. Please try again.</p> : states[entry.id] === 'signin' ? <p role="alert" className="mt-2 text-sm text-stone-600">Your session ended. <a href="/sign-in" className="underline">Sign in again</a>.</p> : states[entry.id] === 'family' ? <p role="alert" className="mt-2 text-sm text-stone-600">Family access changed. <a href="/onboarding" className="underline">Check family access</a>.</p> : null}
-    </RecipeCard>)}</div> : <div className="rounded-xl border border-dashed border-stone-300 bg-white px-6 py-12 text-center"><h3 className="text-xl font-semibold text-stone-900">{after ? 'No recipes on this page' : 'Your menu is waiting'}</h3><p className="mt-3 text-sm text-stone-600">{after ? 'Return to the newest recipes to keep browsing.' : 'Find something delicious and add it to your shared menu from search.'}</p><a id="menu-empty-link" href={after ? '/menu' : '/'} className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-900 px-5 py-2 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-800">{after ? 'Newest recipes' : 'Find recipes'}</a></div>}
+    </RecipeCard>)}</div> : <div className="rounded-xl border border-dashed border-stone-300 bg-white px-6 py-12 text-center"><h3 className="text-xl font-semibold text-stone-900">{after ? 'No recipes on this page' : 'Your menu is waiting'}</h3><p className="mt-3 text-sm text-stone-600">{after ? 'Return to the newest recipes to keep browsing.' : 'Find something delicious and add it to your shared menu from search.'}</p><a id="menu-empty-link" href={after ? '/menu#menu-heading' : '/'} className="mt-5 inline-flex min-h-11 items-center rounded-lg bg-emerald-900 px-5 py-2 font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-800">{after ? 'Newest recipes' : 'Find recipes'}</a></div>}
     <nav aria-label="Menu pages" className="mt-8 flex flex-wrap justify-between gap-4 text-sm font-semibold text-emerald-900">
-      {after ? <a href="/menu" className="inline-flex min-h-11 items-center underline focus-visible:outline-2 focus-visible:outline-offset-4">Newest recipes</a> : <span />}
-      {page.nextCursor ? <a href={`/menu?after=${encodeURIComponent(page.nextCursor)}`} className="inline-flex min-h-11 items-center underline focus-visible:outline-2 focus-visible:outline-offset-4">Older recipes</a> : null}
+      {after ? <a href="/menu#menu-heading" className="inline-flex min-h-11 items-center underline focus-visible:outline-2 focus-visible:outline-offset-4">Newest recipes</a> : <span />}
+      {page.nextCursor ? <a href={`/menu?after=${encodeURIComponent(page.nextCursor)}#menu-heading`} className="inline-flex min-h-11 items-center underline focus-visible:outline-2 focus-visible:outline-offset-4">Older recipes</a> : null}
     </nav>
     {selected ? <RemoveRecipeDialog title={selected.recipe.title} onCancel={cancel} onConfirm={() => { void remove(selected); }} /> : null}
   </>;

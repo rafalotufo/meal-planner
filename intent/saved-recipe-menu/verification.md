@@ -391,3 +391,57 @@ The re-audit found zero remaining menu-schema test databases; five unrelated
 older no-menu test databases were left untouched. No development/hosted target
 or application source was changed. Fixed fixture cleanup and independent failure-
 path proofs cover future startup/cleanup failures.
+
+## Owner-reported menu-title focus correction
+
+Report ceo-0055: opening the menu makes its title appear selected. Real-browser
+RED (`node --import tsx tests/menu/browser.ts`) against the prior compiled app
+failed `opening a menu page must not automatically focus its title`, with actual
+activeElement.id `menu-heading`. The mount effect imperatively focused that
+heading. Desktop/mobile comparison screenshots use distinct `title-focus-before`
+and `title-focus-after` names; original approved screenshots remain unchanged.
+Chrome verifies the unwanted focus even where native OS/browser highlight styling
+differs from the owner's blue appearance; actual DOM text selection was empty.
+
+Removed only unconditional mount focus. Deliberate Older/Newest links now use
+native `#menu-heading` targets (including the empty older page), preserving the
+approved pagination accessibility behavior. Direct /menu load/reload and header
+entry no longer force title focus. No CSS focus suppression, button-label,
+authentication, storage/schema or removal-effect change. The spec now states
+this distinction explicitly; all confirmation/post-removal focus tests remain.
+Test readiness observes hydration of a real React control, independently of
+heading focus, with the repository's pinned React version. A test-only
+MENU_TEST_BUILD_DIRECTORY chooses the existing owned server fixture's working
+copy; application code never reads this variable.
+
+The user's active dev server and `.next/dev/types` were preserved. Because root
+next-env.d.ts points at those active dev types, used a private source/build copy
+with unchanged pinned dependencies and a private read-only link to the existing
+local fixture config. Original next-env.d.ts was checked byte-for-byte unchanged.
+No private credentials were copied into evidence or printed. Initial isolated
+commands selected the machine's broken global Node22 (missing ICU74), exit134
+before Next ran; explicitly selecting the already-approved Node24.15.0 PATH
+resolved this without changing system/repository configuration.
+
+GREEN actual results:
+
+- Root `pnpm run lint`: exit0, zero warnings.
+- Isolated `pnpm run typecheck`: exit0, strict checks including updated tests.
+- Isolated `pnpm run build`: exit0, reviewed runtime metadata verified.
+- Root `pnpm test`:82 passed,0 failed/skipped/cancelled.
+- Isolated `pnpm run test:menu`:32 passed,0 failed/skipped/cancelled.
+- Isolated `pnpm run test:family`:34 passed,0 failed/skipped/cancelled.
+- `MENU_TEST_BUILD_DIRECTORY=<private-copy> node --import tsx tests/menu/browser.ts`:
+  exit0. Direct/header/reload title stays unfocused/unselected; normal Tab reaches
+  navigation with visible focus and no trap; Older/Newest intentionally focus
+  heading. Full existing real-storage/photo/paging/cancel/retry/confirmation/
+  next/previous/empty-state focus matrix passes at390/1440, dialog320.
+- Orchestrator independently reran Python workflow regression:7 passed in2.077s,
+  exit0 (reported by root; not a new local invocation by this agent).
+
+Only owned temporary fixture services/databases were used. No active user server,
+private config, development/hosted schema/data, migration or deployment action was
+changed. Independent focused review approved this correction with no required
+findings in `org/reviews/code-saved-recipe-menu-title-focus-001.md`. The prior
+full-feature reviews are not represented as reviewing this fix. The human merge
+gate remains pending; subsequent saved-button changes require their own review.

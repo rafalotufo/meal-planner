@@ -22,7 +22,17 @@ try {
     await browser.click('dialog [data-confirm-removal]');
   }
   async function size(count: number) { await browser.waitFor(`document.querySelectorAll('article').length === ${count}`, `${count} real menu cards`); }
-  server = await startServer({ DATABASE_URL: fixture.runtimeUrl }, true);
+  async function menuReady() {
+    // Observe hydration of a real React control, without depending on title focus
+    // or adding a test signal to production. React's version is pinned here.
+    await browser.waitFor("(() => { const control=document.querySelector('[data-remove-recipe],#menu-empty-link'); return control && Object.keys(control).some(key=>key.startsWith('__reactProps$')); })()", 'menu controls hydrated');
+  }
+  async function unselectedTitle() {
+    await menuReady();
+    assert.notEqual(await browser.evaluate('document.activeElement.id'), 'menu-heading', 'opening a menu page must not automatically focus its title');
+    assert.equal(await browser.evaluate('getSelection()?.toString()'), '', 'menu title text is not selected');
+  }
+  server = await startServer({ DATABASE_URL: fixture.runtimeUrl }, true, false, process.env.MENU_TEST_BUILD_DIRECTORY);
   await browser.google(server.origin, 'test-code');
   await browser.recipes(server.origin);
   await browser.navigate(`${server.origin}/sign-in`);
@@ -30,6 +40,17 @@ try {
   await browser.waitFor("location.pathname === '/' && Boolean(document.querySelector('#recipe-query'))", 'member home');
   await browser.navigate(`${server.origin}/menu`);
   await browser.waitFor("Boolean(document.querySelector('#menu-empty-link'))", 'initial real empty menu');
+  await menuReady();
+  for (const width of [390, 1440]) {
+    await browser.viewport(width);
+    await browser.screenshot(`org/reviews/saved-recipe-menu-title-focus-after-${width}.png`);
+  }
+  await unselectedTitle();
+  await key('Tab', 'Tab', 9);
+  assert.equal(await browser.evaluate('document.activeElement.tagName'), 'A', 'normal Tab navigation reaches a link');
+  assert.equal(await browser.evaluate('document.activeElement.matches(":focus-visible")'), true, 'keyboard focus remains visible');
+  await key('Tab', 'Tab', 9);
+  assert.equal(await browser.evaluate('document.activeElement.getAttribute("href")'), '/menu', 'Tab continues through navigation without a trap');
   await browser.click('a[href="/"]');
   await browser.waitFor("Boolean(document.querySelector('#recipe-query'))");
   await browser.click('#recipe-query');
@@ -49,9 +70,11 @@ try {
   await browser.waitFor("!document.querySelector('[data-save-recipe]').disabled", 'safe duplicate save');
   await browser.click('a[href="/menu"]');
   await browser.waitFor("location.pathname === '/menu' && document.querySelectorAll('article').length === 1", 'fresh menu after save');
+  await unselectedTitle();
   assert.equal(await browser.evaluate("document.querySelector('article img')?.getAttribute('src')"), 'https://images.recipe-fixture.test/photo.svg');
   await browser.navigate(`${server.origin}/menu`);
   await browser.waitFor("document.querySelectorAll('article').length === 1", 'save survives reload');
+  await unselectedTitle();
   for (const width of [390, 1440]) {
     await browser.viewport(width);
     await browser.screenshot(`org/reviews/saved-recipe-menu-controls-${width}.png`);
@@ -141,7 +164,8 @@ try {
   await confirmFirst(); await browser.waitFor(`document.activeElement.getAttribute('data-remove-recipe') === ${JSON.stringify(second)}`, 'next remove control focus');
   await size(50);
   await browser.click('nav[aria-label="Menu pages"] a[href*="after="]'); await size(3);
-  await browser.waitFor("document.activeElement.id === 'menu-heading'", 'paged heading focused');
+  await browser.waitFor("document.activeElement.id === 'menu-heading'", 'explicit Older navigation targets heading');
+  await menuReady();
   const cursorUrl = await browser.evaluate<string>('location.href');
   const previous = await browser.evaluate<string>("document.querySelectorAll('[data-remove-recipe]')[1].getAttribute('data-remove-recipe')");
   await browser.click('article:last-child [data-remove-recipe]'); await browser.click('dialog [data-confirm-removal]'); await size(2);
@@ -152,7 +176,8 @@ try {
   assert.equal(await browser.evaluate("document.body.innerText.includes('No recipes on this page')"), true);
   assert.equal(await browser.evaluate("document.querySelector('#menu-empty-link').textContent"), 'Newest recipes');
   await browser.click('#menu-empty-link'); await size(50);
-  await browser.waitFor("document.activeElement.id === 'menu-heading'", 'newest page client controls ready');
+  await browser.waitFor("document.activeElement.id === 'menu-heading'", 'explicit Newest navigation targets heading');
+  await menuReady();
   const existing = await browser.evaluate<string>("document.querySelector('[data-remove-recipe]').getAttribute('data-remove-recipe')");
   browser.failNext(`/api/menu/${existing}/remove`, 403);
   await confirmFirst(); await browser.waitFor("document.body.innerText.includes('Family access changed')", 'family-loss guidance');
