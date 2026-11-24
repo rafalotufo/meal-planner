@@ -9,18 +9,18 @@ intent/saved-recipe-menu/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: security
+- turn: 4
+- phase: awaiting_spec_approval
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/saved-recipe-menu/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/saved-recipe-menu/intent.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/saved-recipe-menu/spec.md)
-- security-researcher: busy (intent/saved-recipe-menu/spec.md)
+- reviewer: idle (unassigned)
+- security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -86,9 +86,7 @@ intent/saved-recipe-menu/intent.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
-- orchestrator-0079 orchestrator -> product-manager handoff: Capture shared saved recipe menu intent
-- orchestrator-0080 orchestrator -> architect handoff: Specify shared family saved recipe menu
-- orchestrator-0081 orchestrator -> security-researcher handoff: Assess shared menu specification security
+- orchestrator-0083 orchestrator -> ceo handoff: Shared saved recipe menu specification ready for approval
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -133,6 +131,7 @@ intent/saved-recipe-menu/intent.md
 - reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
 - reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
 - reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
+- reviewer-0039 reviewer -> orchestrator review: Saved menu specification peer approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -143,16 +142,17 @@ intent/saved-recipe-menu/intent.md
 - security-researcher-0018 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
 - security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
 - security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
+- security-researcher-0023 security-researcher -> orchestrator review: Saved menu Design security clear
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0116 senior-developer: Refreshed the owner-authorized staging integration against main87482ed after concurrent T-Rex merge. All82 runtime/public/license/config files match that main; staging helper/tests/ignore match checkpointd284489. Original first integration remains archived and verified; main has not been updated by this task. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/reconciliation.json)
 - mem-0117 senior-developer: Root authorized bounded inbox curation of16 completed informational imported staging messages. Their original states remain in exact snapshots; current merge request ceo-0046, unanswered questions, blocking findings and response-required records remain open. No approval or release authority changed. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/message-triage.json)
 - mem-0118 senior-developer: Executed owner-authorized local main fast-forward from87482ed to3169dfd containing reviewed integration4a1e5bd. Current icons/T-Rex and staging source preserved, all8 checks passed162Node+7Python. Implementation merged; Production release not started. No push/deploy/hosted action. (intent/vercel-candidate-validation/merge.md)
 - mem-0119 orchestrator: Started saved-recipe-menu intake from owner request; owner confirmed one shared menu per family. Prior solved Preview loop/config/history/graph preserved verbatim in org/loop/archive/saved-recipe-menu-prior-2026-11-24. Design run retains human spec and plan gates; no implementation or hosted operation authorized. (org/messages/ceo-0047.md)
 - mem-0120 architect: Shared saved menu Design draft uses durable text/source/time snapshots, normalized URL identity with first-save-wins, 200 entries per family, no saved image targets, and existing family transaction/admission lock. New SQL/catalog/grants require separate explicit hosted cutover authority. Draft is not owner spec approval. (intent/saved-recipe-menu/spec.md)
+- mem-0121 orchestrator: Saved recipe menu Design completed: independent security and peer review approved without blockers; human specification approval is pending. Loop stops at product_owner_approve before build planning. Proposed cap200 and saved photo fallback are explicit owner-visible choices. Baseline lint/typecheck/build and82recipe+7workflow tests passed, no feature runtime/UI proof or schema effects. (org/reviews/spec-saved-recipe-menu-001.md)
 
 ## Constraints
 
@@ -162,14 +162,16 @@ intent/saved-recipe-menu/intent.md
 
 - intent/saved-recipe-menu/intent.md (52ffc050bd43bc9ad60790be8c595ec1a9300751bab0ba9506d774cdf703c975)
 - intent/saved-recipe-menu/spec.md (08cf05a35532f2cd863518db6b41dfbd24244248a59635bf7b5f2b340b392b9c)
+- org/reviews/security-saved-recipe-menu-design-001.md (e3772c352bf058267a3476725930d78fb510844db3775a8522fe41da3f6100e8)
+- org/reviews/spec-saved-recipe-menu-001.md (6da63370bc40f40fb6cbb663ce8e9136d57e66b48aa75d4a5f65e82eb0ed0ce5)
 
 ## Next action
 
-architect:specify_saved_recipe_menu
+reviewer:review_menu_spec
 
 ## Last digest source
 
-- mem-0120 from intent/saved-recipe-menu/spec.md
+- mem-0121 from org/reviews/spec-saved-recipe-menu-001.md
 
 <!-- machine:end -->
 

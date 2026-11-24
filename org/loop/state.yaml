@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/saved-recipe-menu/intent.md
 base_commit: fce96bffacfe1868e938ddcd213e0dce28458856
-turn: 2
+turn: 4
 no_progress: 0
-phase: security
+phase: awaiting_spec_approval
 status: in_progress
-last_input_hash: eb26855c7a5f2743db810f573ec0e99d33a11f020c71c03f635d5ff7b8589335
+last_input_hash: 30b7c6adb4691d13081c860f791d620c4b51e71a9c7b9b76bab75549819a1e02
 stop_reason: null
-last_action: "architect:specify_saved_recipe_menu"
-artifacts: [{"path": "intent/saved-recipe-menu/intent.md", "sha256": "52ffc050bd43bc9ad60790be8c595ec1a9300751bab0ba9506d774cdf703c975"}, {"path": "intent/saved-recipe-menu/spec.md", "sha256": "08cf05a35532f2cd863518db6b41dfbd24244248a59635bf7b5f2b340b392b9c"}]
+last_action: "reviewer:review_menu_spec"
+artifacts: [{"path": "intent/saved-recipe-menu/intent.md", "sha256": "52ffc050bd43bc9ad60790be8c595ec1a9300751bab0ba9506d774cdf703c975"}, {"path": "intent/saved-recipe-menu/spec.md", "sha256": "08cf05a35532f2cd863518db6b41dfbd24244248a59635bf7b5f2b340b392b9c"}, {"path": "org/reviews/security-saved-recipe-menu-design-001.md", "sha256": "e3772c352bf058267a3476725930d78fb510844db3775a8522fe41da3f6100e8"}, {"path": "org/reviews/spec-saved-recipe-menu-001.md", "sha256": "6da63370bc40f40fb6cbb663ce8e9136d57e66b48aa75d4a5f65e82eb0ed0ce5"}]
 acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T16:15:04Z"
+updated_at: "2026-11-24T16:17:46Z"
