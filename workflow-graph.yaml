@@ -17,7 +17,7 @@ nodes:
     stage: "build"
     artifact: "intent/recipe-url-menu/plan.md"
     gate: "engineer_approve"
-    status: not_started
+    status: pending
     done_status: "approved"
   implementation:
     stage: "build"

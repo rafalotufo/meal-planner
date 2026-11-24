@@ -5,10 +5,10 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: "Saved-menu merged main; Production9a7V/source1788143 live,15-minute health and final reconciliation pass; accepted hosted gaps explicit." }
   product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
-  architect: { status: busy, assignment: intent/recipe-url-menu/spec.md, last_report: Save-first async recipe curation specification revised }
-  senior-developer: { status: busy, assignment: intent/recipe-url-menu/plan.md, last_report: "Combined menu/main source verified:199Node/7Python, lint/type/build/frozen isolated install and menu/auth/family/shared-layout browser pass; userdev preserved." }
+  architect: { status: idle, assignment: null, last_report: Async specification approved by owner; design work complete }
+  senior-developer: { status: idle, assignment: null, last_report: Implementation plan independently reviewed; owner approval pending }
   security-researcher: { status: idle, assignment: null, last_report: security-saved-recipe-menu-production-handoff-001 approved; source/gates/backups/schema/grants/17samples/finalerrorcounts verified. }
-  reviewer: { status: idle, assignment: null, last_report: Async curation spec independently approved; expiry clarification confirmed }
+  reviewer: { status: idle, assignment: null, last_report: Recipe URL curation plan independently approved for owner review }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -83,3 +83,4 @@ review_queue:
   - { id: shared-site-layout-code-001, artifact: shared-site-layout-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-recipe-url-menu-001, artifact: intent/recipe-url-menu/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-recipe-url-menu-002, artifact: intent/recipe-url-menu/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-url-menu-001, artifact: intent/recipe-url-menu/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

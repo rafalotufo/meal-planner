@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/recipe-url-menu/intent.md
 base_commit: b9812311562a960d9475f219a85d38421e7ab6e0
-turn: 6
+turn: 8
 no_progress: 0
-phase: planning
-status: in_progress
-last_input_hash: 6cd6ac13c699b06a10d476740cd9f46479ba6eaa8b2fead14c726540a29a9089
-stop_reason: null
-last_action: "reviewer:answer_message"
-artifacts: [{"path": "org/reviews/intent-recipe-url-menu-001.md", "sha256": "fbf464212e3ac81bd2051a836abe61819e02a7f344077ac82cd3ee9fc2223f10"}, {"path": "org/reviews/spec-recipe-url-menu-001.md", "sha256": "3133f5c370831f267e6f0f5c8773dc8bdd79b56d94bc237440862a660f4d64c9"}, {"path": "org/reviews/intent-recipe-url-menu-002.md", "sha256": "df282d373356d1b4d01af80fc7b7ff4cb75210dea7aa4e1fdaab4b7160fa4f81"}, {"path": "intent/recipe-url-menu/spec.md", "sha256": "ab953eebcb5a10914486c9f6b35d9fa9dee88429574b33cbe1a6232db62b8cee"}]
+phase: build
+status: exhausted
+last_input_hash: 0cd789de0a6b9fbadf7fb30f7e153a84655c7d1d38b84202dd4b527c83b996b0
+stop_reason: exhausted
+last_action: "reviewer:review_recipe_url_menu_plan"
+artifacts: [{"path": "org/reviews/intent-recipe-url-menu-001.md", "sha256": "fbf464212e3ac81bd2051a836abe61819e02a7f344077ac82cd3ee9fc2223f10"}, {"path": "org/reviews/spec-recipe-url-menu-001.md", "sha256": "3133f5c370831f267e6f0f5c8773dc8bdd79b56d94bc237440862a660f4d64c9"}, {"path": "org/reviews/intent-recipe-url-menu-002.md", "sha256": "df282d373356d1b4d01af80fc7b7ff4cb75210dea7aa4e1fdaab4b7160fa4f81"}, {"path": "intent/recipe-url-menu/spec.md", "sha256": "ab953eebcb5a10914486c9f6b35d9fa9dee88429574b33cbe1a6232db62b8cee"}, {"path": "intent/recipe-url-menu/plan.md", "sha256": "50008c92aa712f162ada942f7b389e32e65d109c2195b2e4acc13c8e2e9f0069"}, {"path": "org/reviews/plan-recipe-url-menu-001.md", "sha256": "dd4c829bba3e98d726fc162a204d0e43d9d99fa34be21b53e962a016f9fda76b"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T22:17:44Z"
+updated_at: "2026-11-24T22:23:21Z"
