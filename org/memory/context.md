@@ -21,7 +21,7 @@ intent/recipe-url-menu/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/recipe-url-menu/plan.md)
 
 ## Open messages
 
@@ -61,6 +61,7 @@ intent/recipe-url-menu/intent.md
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0053 ceo -> orchestrator decision: Accept recipe URL menu intent
 - ceo-0054 ceo -> orchestrator decision: Amend recipe URL menu to save before curation
+- ceo-0055 ceo -> orchestrator decision: Approve asynchronous recipe URL menu specification
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -96,6 +97,7 @@ intent/recipe-url-menu/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
+- orchestrator-0095 orchestrator -> senior-developer handoff: Plan approved save-first URL curation feature
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -163,11 +165,11 @@ intent/recipe-url-menu/intent.md
 
 ## Recent decisions
 
-- mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
 - mem-0130 product-manager: Recipe URL menu PM scope accepted: owner confirmed reading the linked page for title, photo, summary and time when available. Written-intent owner acceptance is pending before Design; no code or release approval. (intent/recipe-url-menu/intent.md)
 - mem-0132 ceo: Owner approved the written recipe-url-menu intent in chat. Design is authorized; specification, plan, merge and release approval remain separate gates. (org/messages/ceo-0053.md)
 - mem-0133 ceo: Owner changed recipe URL menu to durable immediate URL save followed by background source-metadata curation of the same entry. Owner selected best-effort start with explicit Retry if interrupted; no independent scheduler or unattended recovery guarantee. Revised spec needs review and approval. (org/messages/ceo-0054.md)
 - mem-0134 reviewer: Revised save-first curation specification independently approved with explicit shorter-of-session/JWE delegation expiry. PostgreSQL task state, one bounded after callback, manual Retry, guarded same-entry completion and no-resurrection rules are specified. Owner specification approval is pending; no plan/code/migration execution. (org/reviews/spec-recipe-url-menu-002.md)
+- mem-0135 ceo: Owner approved revised async recipe URL menu specification from commit 6101c79. Implementation planning is authorized; plan, code and operational gates remain separate. (org/messages/ceo-0055.md)
 
 ## Constraints
 
@@ -186,7 +188,7 @@ reviewer:answer_message
 
 ## Last digest source
 
-- mem-0134 from org/reviews/spec-recipe-url-menu-002.md
+- mem-0135 from org/messages/ceo-0055.md
 
 <!-- machine:end -->
 

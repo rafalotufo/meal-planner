@@ -1,4 +1,4 @@
-# Save-first recipe URL curation; amended intent accepted, spec approval pending.
+# Save-first recipe URL curation; intent/spec approved, plan approval pending.
 version: 1
 nodes:
   intent:
@@ -11,7 +11,7 @@ nodes:
     stage: "design"
     artifact: "intent/recipe-url-menu/spec.md"
     gate: "product_owner_approve"
-    status: pending
+    status: approved
     done_status: "approved"
   plan:
     stage: "build"

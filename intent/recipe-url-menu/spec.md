@@ -1,7 +1,7 @@
 # Add a recipe URL to the menu — specification
 
 - Author: architect; date: 2026-11-24
-- Status: Revised draft for independent review and owner specification approval
+- Status: Approved by owner on 2026-11-24; implementation planning authorized
 - Input: sibling amended `intent.md`; PM review `org/reviews/intent-recipe-url-menu-002.md`
 - Owner reliability choice: “Keep it simple: save safely, start curation, and offer Retry if interrupted.”
 - Supersedes the unapproved synchronous draft preserved verbatim in `design-history/synchronous-spec.md`.
