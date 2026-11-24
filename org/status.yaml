@@ -3,12 +3,12 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Retained-results four-turn local loop solved; source 4f91e9c approved. Human merge and release pending. }
+  orchestrator: { status: idle, assignment: null, last_report: Integration source 87fc775 independently approved with 223 Node/7 Python tests and Chrome passing. Local merge authorized by code_owner_approve-017; release pending. }
   product-manager: { status: idle, assignment: null, last_report: "Searchable visual swap picker intentaccepted forDesign from ownerapprovedpreview; fullmenuboundedsearch, existingsemantics preserved." }
   architect: { status: idle, assignment: null, last_report: Searchable swap picker design independently approved; implementation gate open. }
-  senior-developer: { status: idle, assignment: null, last_report: "Retained search results approved at 4f91e9c; 223 Node and 7 Python tests, browser flows and strict checks pass." }
+  senior-developer: { status: busy, assignment: searchable-swap-picker-retained-results, last_report: "Retained search results approved at 4f91e9c; 223 Node and 7 Python tests, browser flows and strict checks pass." }
   security-researcher: { status: idle, assignment: null, last_report: "Retained results exact4f91e9c securityCLEAR;7paths independentlyequivalent, nofindings." }
-  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-retained-results-code-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review searchable-swap-picker-main-integration-code-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -95,3 +95,4 @@ review_queue:
   - { id: searchable-swap-picker-stable-frame-code-001, artifact: searchable-swap-picker-stable-frame, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: searchable-swap-picker-retained-results-plan-001, artifact: searchable-swap-picker-retained-results-plan, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: searchable-swap-picker-retained-results-code-001, artifact: searchable-swap-picker-retained-results, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: searchable-swap-picker-main-integration-code-001, artifact: searchable-swap-picker-retained-results, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

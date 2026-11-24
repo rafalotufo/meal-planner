@@ -431,3 +431,34 @@ all green. Root's165-path frozen-source check is unchanged except the four
 peer-approved literal test assertions; final-source-hashes.json is root-owned
 matching-source evidence in the integration QA parent. All eight audit conflicts
 are staged resolved, git diff --check passes, and no developer commit was made.
+
+
+### Root integration handoff
+
+Fixed combined source is merge commit
+`87fc77533691e8798b9eeec6ef2e706671122c82`, with exact parents main
+`b9812311562a960d9475f219a85d38421e7ab6e0` and feature
+`9fe0f42e467c6d13d5223f9f88877723981d7914`. Independent reviews verify all 165
+frozen source hashes, intended-parent runtime/configuration bytes, four exact
+copy assertions and preserved audit provenance. Fresh human local-merge authority
+is `org/messages/ceo-0061.md` and committed gate `code_owner_approve-017`;
+this authority does not authorize release, migration execution or hosted actions.
+
+All 223 Node tests and 7 workflow tests passed. Initial combined auth/family/
+packaging failures were exact stale-copy assertions; all affected suites passed
+after the peer-approved literal update. Lint/typecheck/build and planning Chrome
+passed, including retained results and55 unchanged-geometry samples. The legacy
+full auth browser script was not rerun; its literal copy assertion was synchronized
+and strict-checked. The dedicated planning Chrome flow and real auth HTTP suite
+were run on the combined source.
+
+The first root memory digest after recording merge authority exceeded its existing
+16KiB budget. Closing the completed prior handoff and trimming trailing whitespace
+restored memory/diff checks without changing limits or deleting historical files.
+Final independent reports are
+`org/reviews/searchable-swap-picker-main-integration-security-001.md` and
+`org/reviews/searchable-swap-picker-main-integration-final-001.md`.
+Later audit commits do not alter tested application source. Root updates local
+main only after clean-worktree/expected-tip checks. The original feature worktree,
+its uncommitted next-env bytes and running dev/cache remain preserved. Private QA
+logs/copy are temporary; result summaries, archives and reviews remain versioned.
