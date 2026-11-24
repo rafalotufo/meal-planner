@@ -125,10 +125,10 @@ export default function RecipeSearch() {
       onFocusCapture={() => { interactionVersion.current++; }}>
       <section aria-labelledby="recipe-search-title" className="pt-6 sm:pt-10">
         <p className="text-xs font-medium tracking-widest text-emerald-800 uppercase">Find your next meal</p>
-        <h2 id="recipe-search-title" className="mt-3 font-serif text-3xl leading-tight tracking-tight text-stone-900 sm:text-5xl">What sounds good tonight?</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed sm:text-base text-stone-600">A little inspiration. A dinner you’ll actually want to make.</p>
+        <h2 id="recipe-search-title" className="mt-3 font-serif text-3xl leading-tight tracking-tight text-stone-900 sm:text-5xl">What’s on your wish list this week?</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed sm:text-base text-stone-600">From comforting favorites to something new, find recipes you’ll want to eat.</p>
         <form onSubmit={search} noValidate className="mt-5">
-          <label htmlFor="recipe-query" className="block text-sm font-medium text-stone-800">What would you like to cook?</label>
+          <label htmlFor="recipe-query" className="block text-sm font-medium text-stone-800">What would you like to eat this week?</label>
           <p id="recipe-query-hint" className="sr-only sm:not-sr-only sm:mt-1 sm:text-sm sm:leading-relaxed sm:text-stone-600">Tell us about ingredients, a craving, or the time you have.</p>
           <div className="mt-3 flex flex-col gap-3 rounded-xl border border-stone-300 bg-white p-3 sm:flex-row sm:items-end">
             <textarea id="recipe-query" ref={textarea} value={query} onChange={event => { setQuery(event.target.value); setInputError(null); }}
