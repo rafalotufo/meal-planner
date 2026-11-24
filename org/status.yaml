@@ -3,10 +3,10 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Shared layout local org loop solved, final/security approved and full verification passed; human merge gate pending." }
+  orchestrator: { status: idle, assignment: null, last_report: "Shared layout merged into local main under owner approval; dev stopped, staging acceptance and release unstarted." }
   product-manager: { status: idle, assignment: null, last_report: Accepted shared site layout intent; no product ambiguity. }
   architect: { status: busy, assignment: shared-site-layout-plan, last_report: Drafted shared site layout spec and exact manifest plan; pinned docs read and frozen install passed. }
-  senior-developer: { status: busy, assignment: shared-site-layout-implementation, last_report: "Implemented shared layout/styling;164 Node and7 Python outcomes,3 Chrome helpers, lint/type/build passed. Historical screenshots restored." }
+  senior-developer: { status: idle, assignment: null, last_report: Executed authorized shared layout fast-forward into clean local main; no push or deployment. }
   security-researcher: { status: idle, assignment: null, last_report: "Shared layout security clear; static root, unchanged guards/handlers, no config exposure/effects, zero scoped secrets." }
   reviewer: { status: idle, assignment: null, last_report: "Final shared layout implementation independently approved; no blockers, screenshots and164 Node/7 Python evidence reviewed." }
   memory-keeper: { status: idle, assignment: null, last_report: null }

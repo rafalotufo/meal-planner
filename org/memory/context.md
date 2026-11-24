@@ -21,7 +21,7 @@ intent/shared-site-layout/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (shared-site-layout-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -58,7 +58,6 @@ intent/shared-site-layout/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
-- ceo-0049 ceo -> orchestrator decision: Authorize shared layout merge to local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -157,11 +156,11 @@ intent/shared-site-layout/intent.md
 
 ## Recent decisions
 
-- mem-0121 senior-developer: Executed owner-authorized docs-only local main fast-forward fce96bf to51c95c3 with reviewed staging-first release guidance3e79a5a. Implementation merged; future staging acceptance and Production release not started. No code, deployment, configuration or provider action. (org/reviews/staging-first-release-merge-001.md)
 - mem-0122 product-manager: Accepted owner-requested shared Next.js site layout and common header intent. Local org design/build/test authorized; merge and release remain human gates. Previous completed staging-first release loop archived intact. (org/reviews/intent-shared-site-layout-001.md)
 - mem-0123 reviewer: Approved shared-site-layout spec/plan. Shared header adds real keyboard stops; narrowly adapt two existing browser helpers with bounded Tab traversal while preserving focus/Enter assertions and historical screenshots. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
+- mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
 
 ## Constraints
 
@@ -182,7 +181,7 @@ reviewer:verify_shared_layout
 
 ## Last digest source
 
-- mem-0125 from org/reviews/shared-site-layout-final-001.md
+- mem-0126 from org/reviews/shared-site-layout-merge-001.md
 
 <!-- machine:end -->
 
