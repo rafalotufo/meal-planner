@@ -6,7 +6,7 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: Recorded isolated staging choice; completed Design specification and independent security/spec review. Await owner spec approval before Build; no application or external changes. }
   product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
   architect: { status: idle, assignment: null, last_report: "Isolated staging spec independently reviewed by security/reviewer with no blockers; metadata links recorded, owner Design approval pending." }
-  senior-developer: { status: idle, assignment: null, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
+  senior-developer: { status: busy, assignment: intent/vercel-candidate-validation/plan.md, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging Design security approved, no blockers; operational alias/configuration/identity preflight remains mandatory." }
   reviewer: { status: idle, assignment: null, last_report: Independent isolated staging spec review approved; no blockers. Owner spec decision and implementation plan pending; no external actions. }
   memory-keeper: { status: idle, assignment: null, last_report: null }

@@ -9,8 +9,8 @@ intent/vercel-candidate-validation/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 4
-- phase: awaiting_spec_approval
+- turn: 0
+- phase: intent
 - stop_reason: None
 
 ## Agents
@@ -21,7 +21,7 @@ intent/vercel-candidate-validation/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/vercel-candidate-validation/plan.md)
 
 ## Open messages
 
@@ -50,6 +50,7 @@ intent/vercel-candidate-validation/intent.md
 - ceo-0026 ceo -> orchestrator decision: Authorize single-call search merge into local main
 - ceo-0027 ceo -> orchestrator decision: Explore automated validation of staged Vercel deployments
 - ceo-0028 ceo -> orchestrator decision: Approve isolated staging approach
+- ceo-0029 ceo -> orchestrator decision: Continue approved isolated staging approach
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -64,7 +65,7 @@ intent/vercel-candidate-validation/intent.md
 - orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
-- orchestrator-0040 orchestrator -> ceo handoff: Reviewed isolated staging specification ready for Design approval
+- orchestrator-0041 orchestrator -> senior-developer handoff: Plan and implement approved isolated staging tooling
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -110,11 +111,11 @@ intent/vercel-candidate-validation/intent.md
 
 ## Recent decisions
 
-- mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
 - mem-0078 orchestrator: Opened research-only Vercel candidate-validation intent from Rafael request. Preserved completed single-call integration loop/graph under org/loop/archive/single-call-main-final-before-candidate-validation-2026-11-24. Comparing isolated stable staging with exact Production candidate stable alias; owner assurance choice pending. No application or external configuration authority. (org/messages/ceo-0027.md)
 - mem-0079 orchestrator: Independent reviewer approved Vercel candidate-validation research with no blockers. Google registration alone cannot bypass current canonical Host421. Stable isolated staging is smallest auth change; exact Production artifact alternative needs stable alias and reviewed finite-origin handling plus Production-data effects accounting. Owner assurance choice pending; bounded research loop stops gate_required, no intent/spec/plan/release approval. (org/reviews/options-vercel-candidate-validation-001.md)
 - mem-0080 orchestrator: Rafael approved isolated staging approach: existing Vercel Preview environment and manually controlled stable alias, separate staging auth and recorded Preview DB. PM accepted intent for Design. Preserved completed options loop and graph under org/loop/archive/vercel-candidate-validation-options-2026-11-24 before initializing bounded Design run. No external configuration or release authority inferred. (org/messages/ceo-0028.md)
 - mem-0081 orchestrator: Isolated staging specification drafted and independently approved for quality by security/reviewer with no blockers. Scope unchanged canonical-origin app plus future operator helper/runbook, Preview-only secrets/data, no paid provider key, stable alias safety preflight and separate Production build. Await owner Design approval; next org dispatch stops gate_required at product_owner_approve. No application or external changes. (org/reviews/spec-vercel-candidate-validation-001.md)
+- mem-0082 orchestrator: Rafael directed continuing isolated staging, already approved. Recorded specification approval and archived Design run before local Build. Apply org peer plan/code/security review gates; no repeat approach confirmation. Local operator helper/tests and runbook only, preserve application and separate hosted setup/release boundaries. (org/messages/ceo-0029.md)
 
 ## Constraints
 
@@ -122,18 +123,15 @@ intent/vercel-candidate-validation/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-vercel-candidate-validation-001.md (bc1ecdca911807728a02c9875f226bac0e0cefcfde58155d9fbd4e677599f683)
-- intent/vercel-candidate-validation/spec.md (9a198428f401b61bc3d4df18a509e2268f02e38cc35d5e52ac79d3b9c073868a)
-- org/reviews/security-vercel-candidate-validation-design-001.md (bac7d5aebd1251811874731d9a53f2f92065cd488d2da2345e8f5c9fbe107822)
-- org/reviews/spec-vercel-candidate-validation-001.md (d5f5681eaf7beba95c75cad1d1c6f0351bd45c8b977c806618d2df570278c2f7)
+(none)
 
 ## Next action
 
-reviewer:review_staging_spec
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0081 from org/reviews/spec-vercel-candidate-validation-001.md
+- mem-0082 from org/messages/ceo-0029.md
 
 <!-- machine:end -->
 
