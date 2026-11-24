@@ -12,8 +12,11 @@ Active guidance:
 
 - `intent/vercel-deployment/deployment-runbook.md`
 - `intent/vercel-candidate-validation/staging-runbook.md`
-- `README.md` — Vercel deployment section only
-- `AGENTS.md` — small future release-order/cross-reference paragraph only
+- `README.md`
+- `AGENTS.md`
+
+README changes stay within its Vercel deployment section; AGENTS changes stay
+within the small future release-order/cross-reference paragraph.
 
 New amendment artifacts:
 
@@ -23,11 +26,20 @@ New amendment artifacts:
 
 Orchestrator-owned audit, separate from writer changes:
 
-- `org/loop/{config.yaml,state.yaml,history.jsonl}` and a new archive of the
-  completed previous run, including its graph/config/history/state
-- `workflow-graph.yaml`, `org/status.yaml`, `org/messages/*.md`,
-  `org/reviews/*staging-first-release*.md`, `org/memory/{context.md,events.jsonl}`
-- `gates/ledger.jsonl` — only real role/owner approvals with actual evidence
+- `org/loop/config.yaml`
+- `org/loop/state.yaml`
+- `org/loop/history.jsonl`
+- `org/loop/archive/isolated-staging-ops-before-staging-first-release-2026-11-24/*`
+- `workflow-graph.yaml`
+- `org/status.yaml`
+- `org/messages/*.md`
+- `org/reviews/*staging-first-release*.md`
+- `org/memory/context.md`
+- `org/memory/events.jsonl`
+- `gates/ledger.jsonl`
+
+Archive only the completed previous graph/config/history/state. Ledger changes
+record only real role/owner approvals with actual evidence.
 
 No other files change. Do not rewrite original approved Vercel specs/plans,
 historical release/setup/results evidence, README's historical pause/database
