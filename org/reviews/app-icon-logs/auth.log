@@ -1,0 +1,26 @@
+
+> meal-planner@0.1.0 test:auth /Users/rafael/.codex/worktrees/ffff/meal-planner
+> node --import tsx --test tests/auth/*.test.ts
+
+✔ access requires a verified exact configured Gmail identity (0.657042ms)
+✔ empty policy denies everyone and malformed configuration is unavailable (0.32475ms)
+✔ configured addresses are absent from browser build assets (39.376917ms)
+✔ anonymous pages and direct endpoints require authentication (662.547584ms)
+✔ arbitrary cookies cannot grant access (5.255666ms)
+✔ missing or invalid authentication configuration fails closed (2135.551125ms)
+✔ HTTPS configuration issues Secure, host-only HttpOnly OAuth state cookies (722.154166ms)
+✔ anonymous recipe searches reject direct calls before request processing (6.408459ms)
+✔ only exact icon pathnames with GET or HEAD are public (0.647334ms)
+✔ compiled public metadata and icon reads work without a reachable database (623.858125ms)
+✔ Google OAuth completes with provider HTTP fixtures and creates bounded encrypted sessions (1302.39225ms)
+✔ provider, request-shape, destination and Origin restrictions cannot be overridden (30.019042ms)
+✔ Google signature/audience verification and OAuth state binding remain active (4325.853333ms)
+✔ only configured, verified Gmail identities create sessions (6153.910708ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12119.160125

@@ -4,7 +4,7 @@
 - Approver: Rafael (human owner)
 - Artifact: intent/t-rex-runner/plan.md at 040184b
 - Verdict: Approved; local implementation and verification authorized
-- Source: org/messages/ceo-0025.md
+- Source: org/messages/ceo-0035.md
 
 Exact instruction: “approved”, after the implementation plan and explicit
 confirmation of Word Snack deletion. This authorizes the reviewed typed T-Rex

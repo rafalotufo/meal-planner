@@ -13,7 +13,7 @@ review, every new application module, full RecipeSearch integration, simulation/
 session/asset tests, relevant browser harness and existing auth/static policy.
 Applied security-and-hardening: threat boundaries, STRIDE abuse cases, output
 sinks, privilege/data flow, resource bounds and dependency/provenance review.
-The full-width canvas amendment is explicitly authorized in ceo-0026 and does
+The full-width canvas amendment is explicitly authorized in ceo-0036 and does
 not change logical physics or introduce a data boundary.
 
 Direct read-only verification recomputed all 68 source/evidence hashes from

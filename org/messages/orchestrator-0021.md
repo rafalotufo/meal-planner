@@ -3,14 +3,14 @@ id: orchestrator-0021
 from: orchestrator
 to: reviewer
 kind: handoff
-subject: Independently review Word Snack specification
-artifact: intent/recipe-waiting-game/spec.md
+subject: PostgreSQL release candidate preparation
+artifact: intent/postgresql-persistence/production-release.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-23T21:07:03Z"
+created_at: "2026-11-23T20:36:36Z"
 ---
 
-Review architect draft against human-approved amended intent and existing notebook behavior. Check success persistence, explicit close/results navigation, optional inline layout, curated vocabulary disclosure/provenance and input rules, focus and stale lifecycle, scope and testability. Record evidence-ranked review and submit assigned review spec-recipe-waiting-game-001. Peer approval is not human spec approval. Do not implement.
+Fresh deploy request received; main7cbe321 integrated into release branch with exact audit archive and stronger family guards. Current Vercel/Neon state rechecked; candidate verification and independent reviews precede separate human PG/family merge gate and bounded paid-check authorization. No deployment made.

@@ -3,14 +3,16 @@ id: reviewer-0018
 from: reviewer
 to: orchestrator
 kind: review
-subject: T-Rex implementation plan and pinned provenance approved
-artifact: org/reviews/plan-t-rex-runner-001.md
+subject: Current-main single-call integration approved
+artifact: single-call-main-refresh-integration
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T14:25:05Z"
+created_at: "2026-11-23T21:40:31Z"
 ---
 
-Independent plan/provenance review approved for human plan review, no required findings. Recomputed all research hashes/dimensions and independently refetched pinned source/license/sprites plus historical Chromium lineage; exact matches. Both complete BSD notices and scoped adaptation/source-credit map are sufficient for selected reuse after human approval; actual shipped hashes/notices/access still need final review. Auto lifecycle, resources/focus, TDD/browser proof, clean-source QA and reversible generated-type runtime safeguards assessed. No code/cache/runtime changes or builds.
+Final current-source integration review approved without required findings. Recipe7144a0f and a38740c main application/config/test bytes exact;66recipe/7workflow/18deployment/12auth/34family/lint/types/preflightbuild and bothChrome helpers passed;228snapshots,chains,prefixes,12imports,1alias verified. Latefeb6d39 differs onlyledger+authdoc; preserveactualmain andverifiedsource snapshots/prefix/provenance underdocumentednarrowaudit-onlychecks. Any source/build/test/guarddelta requiresrenewedverification. Originalusermergeauthority only; no newownerinstruction/push/release.
+
+<!-- Merge provenance: original reviewer-0018 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/reviewer-0018.md. -->

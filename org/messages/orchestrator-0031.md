@@ -1,16 +1,18 @@
 ---
 id: orchestrator-0031
 from: orchestrator
-to: architect
-kind: handoff
-subject: Amend T-Rex automatic search lifecycle
-artifact: intent/t-rex-runner/spec.md
+to: ceo
+kind: status
+subject: Preserve concurrent current-main runtime correction during authorized merge
+artifact: intent/single-call-recipe-search/merge-refresh.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T14:11:01Z"
+created_at: "2026-11-23T21:33:20Z"
 ---
 
-User now requests auto-start on valid search, auto-close immediately on success/zero results. Intent updated. Revise all conflicting launcher/continued-play requirements and tests coherently; no fetch delay, no stale asset callback reopening after fast result, focus game at user search for Space without stealing later focus, reduced-motion static opt-in and pause/visibility controls, automatic cleanup/focus only if removed control held focus. Preserve old history and unrelated design. No code. Record amendment handoff for independent recheck.
+The original merge request remains the authority; no second owner instruction is attributed. Expected-tip check found main advanced from68e1931 to reviewed a38740c. Completed first integration9aadd83 is preserved and main has not been updated. Necessary current-main refresh preserves the newer bundled-runtime metadata, mandatory build preflight, full18 deploymenttests and invitation-document handoff. A fresh bounded one-turn verification uses current inputs and preserves all earlier snapshots. No push, release, migration, billing or credential action is authorized.
+
+<!-- Merge provenance: original orchestrator-0031 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/orchestrator-0031.md. -->

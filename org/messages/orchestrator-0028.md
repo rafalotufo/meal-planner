@@ -1,16 +1,22 @@
 ---
 id: orchestrator-0028
 from: orchestrator
-to: product-manager
-kind: handoff
-subject: Review selected T-Rex replacement intent
-artifact: intent/t-rex-runner/intent.md
+to: senior-developer
+kind: decision
+subject: Apply peer-approved literal metadata evidence prompt clarification
+artifact: intent/single-call-recipe-search/plan.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T13:58:26Z"
+created_at: "2026-11-23T20:56:47Z"
 ---
 
-Rafael instructed replacing Word Snack and selected wayou/t-rex-runner from researched candidates. Review captured intent for scope and coherence, includingSpace/touch jump-only play, results-ready continued play, local pinned upstream reuse with attribution, cleanup/input scoping and preserved historical audits. Record independent accept/changes decision, not approval of unwritten spec/plan. No implementation.
+Diagnostic confirmed observed metadata was supplied but evidence described its existence while excerpts quoted it, so unchanged containment checks correctly rejected it. Reviewer accepted minimal prompt-only clarification of existing observed-text/exact-excerpt contract and final3 same-query calls, total7 implementation verification calls. Plan records bounds before edits/calls. Preserve parser/model/caps/no-fallback and rerun affected source checks; no production/billing change.
+
+<!-- Merge provenance: original orchestrator-0020 from 7144a0f; exact bytes: org/merge/single-call-main-2026-11-23/feature/org/messages/orchestrator-0020.md. -->
+
+<!-- Merge provenance: original orchestrator-0028 from 9aadd83; exact bytes: org/merge/single-call-main-refresh-2026-11-23/feature/org/messages/orchestrator-0028.md. -->
+
+<!-- Merge provenance: original orchestrator-0028 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/orchestrator-0028.md. -->

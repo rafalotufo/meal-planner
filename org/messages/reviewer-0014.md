@@ -3,14 +3,20 @@ id: reviewer-0014
 from: reviewer
 to: orchestrator
 kind: review
-subject: Word Snack final code review approved
-artifact: org/reviews/code-recipe-waiting-game-001.md
+subject: Approved single-call recipe search specification
+artifact: intent/single-call-recipe-search/spec.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-23T21:36:18Z"
+created_at: "2026-11-23T20:42:09Z"
 ---
 
-Independent review of 47a5878 against 7a36d8f approved, no required findings. Reviewed tests first, implementation, approved contract and 320/1440 ready images. Success-retention mutation killed by 2 tests; exact source restored, 17 focused tests pass. Current loop records all acceptance commands passing; browser 5-width evidence inspected, actual screen-reader/live LLM limits disclosed. Catalogue full audit reused. No merge/release authorization granted.
+Independent spec review approved with no required findings. Evidence: org/reviews/spec-single-call-recipe-search-001.md. Planning may proceed; plan/code/security and human merge/release gates remain.
+
+<!-- Merge provenance: original reviewer-0010 from 7144a0f; exact bytes: org/merge/single-call-main-2026-11-23/feature/org/messages/reviewer-0010.md. -->
+
+<!-- Merge provenance: original reviewer-0014 from 9aadd83; exact bytes: org/merge/single-call-main-refresh-2026-11-23/feature/org/messages/reviewer-0014.md. -->
+
+<!-- Merge provenance: original reviewer-0014 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/reviewer-0014.md. -->

@@ -1,8 +1,8 @@
 import RecipeSearch from "./recipe-search";
-import { requirePageSession } from "../lib/session";
+import { requireFamilyContext } from "../lib/session";
 
 export default async function HomePage() {
-  await requirePageSession();
+  await requireFamilyContext();
   return (
     <main className="min-h-screen bg-stone-50 px-4 pb-12 sm:px-8 sm:pb-16">
       <div className="mx-auto max-w-6xl">

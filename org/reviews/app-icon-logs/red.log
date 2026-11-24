@@ -1,0 +1,49 @@
+✖ only exact icon pathnames with GET or HEAD are public (2.187ms)
+✖ compiled public metadata and icon reads work without a reachable database (680.606541ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 827.270209
+
+✖ failing tests:
+
+test at tests/auth/app-icon.test.ts:1:159
+✖ only exact icon pathnames with GET or HEAD are public (2.187ms)
+  AssertionError [ERR_ASSERTION]: GET /icon.svg
+  
+  false !== true
+  
+      at TestContext.<anonymous> (/Users/rafael/.codex/worktrees/ffff/meal-planner/tests/auth/app-icon.test.ts:8:50)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/auth/app-icon.test.ts:1:815
+✖ compiled public metadata and icon reads work without a reachable database (680.606541ms)
+  AssertionError [ERR_ASSERTION]: root metadata advertises both local icon formats
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (/Users/rafael/.codex/worktrees/ffff/meal-planner/tests/auth/app-icon.test.ts:28:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

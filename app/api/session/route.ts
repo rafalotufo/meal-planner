@@ -1,14 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import { noStore } from "../../../lib/auth-policy";
-import { readSession } from "../../../lib/session";
-
-export const dynamic = "force-dynamic";
-
+import { NextRequest } from 'next/server';
+import { requireFamilyContext } from '../../../lib/session';
+import { apiResponse } from '../../../lib/http';
+export const dynamic = 'force-dynamic';
 export async function GET(request: NextRequest) {
-  try {
-    if (!await readSession(request.headers)) return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: noStore });
-    return NextResponse.json({ authenticated: true }, { headers: noStore });
-  } catch {
-    return NextResponse.json({ error: "Authentication unavailable" }, { status: 503, headers: noStore });
-  }
+  return apiResponse(async () => { await requireFamilyContext(request.headers); return { authenticated: true }; });
 }

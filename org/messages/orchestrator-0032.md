@@ -1,16 +1,16 @@
 ---
 id: orchestrator-0032
 from: orchestrator
-to: reviewer
-kind: handoff
-subject: Review automatic T-Rex search lifecycle amendment
-artifact: intent/t-rex-runner/spec.md
+to: ceo
+kind: status
+subject: Single-call recipe search merged into current local main
+artifact: org/reviews/single-call-main-integration-refresh.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T14:12:31Z"
+created_at: "2026-11-23T21:42:37Z"
 ---
 
-User requested automatic start at search and immediate automatic close at results. PM accepted amended intent. Review architect-0007 spec changes only: coherent auto-open/running defaults, scoped/guarded focus, reducedmotion pause access, immediate success/zero/error cleanup, hidden/lateasset races and updated tests. Prior continued-play/launcher obligations must be fully superseded. No code/runtime changes. Record spec-t-rex-runner-003.md and submit assigned spec-t-rex-runner-002 review; human spec approval remains pending.
+Executed original user-authorized local merge using verified integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 and clean destinationfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8. Current application/configuration matched verifieda38740c plus reviewed recipe7144a0f; later audit-only records preserved. All combined8-command checks and independent integration review passed. Implementation merged; release not_started; no push or production operation.

@@ -3,14 +3,14 @@ id: reviewer-0020
 from: reviewer
 to: orchestrator
 kind: review
-subject: T-Rex corrected code review approved
-artifact: org/reviews/code-t-rex-runner-002.md
+subject: App icon implementation independently approved
+artifact: org/reviews/app-icon-code-001.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T15:05:03Z"
+created_at: "2026-11-24T14:55:21Z"
 ---
 
-Focused round 2 approves 0febee7: one shared first-commit eligibility predicate now controls both focus and motion; controller defaults paused without permit, preserving Strict Mode ordering. Prior fake-DOM repro now passes denied/explicit Resume and normal permit assertions. Real-browser revoked-focus regression and successful old-panel exact-node test inspected. 15 focused tests pass; all 68 snapshot/workspace hashes match. No remaining required finding, no source/cache mutations. Human merge/release remain gated.
+Reviewed b311ac6 code, tests, final security refresh2c864d4 and actual full-suite/browser evidence. No unresolved findings; independent focused HTTP tests2/2 and targeted broad-path mutation fails as expected, source restored. Spec/plan approval Status syntax normalized for deterministic plan-sync; run post-commit check. Evidence org/reviews/app-icon-code-001.md. Human merge/release gates remain.

@@ -4,7 +4,7 @@ import { CookieJar, startServer } from './server.ts';
 import { symmetricDecodeJWT, symmetricEncodeJWT } from 'better-auth/crypto';
 import { randomBytes } from 'node:crypto';
 import { request as httpRequest } from 'node:http';
-import { beginGoogle, signInWithGoogle } from './flow.ts';
+import { beginGoogle, signInWithGoogle, provision } from './flow.ts';
 
 let server: Awaited<ReturnType<typeof startServer>>;
 before(async () => { server = await startServer({}, true); });
@@ -27,7 +27,8 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
   assert.equal(authorization.searchParams.get('code_challenge_method'), 'S256');
   const callback = await jar.request(server.origin, `/api/auth/callback/google?code=test-code&state=${encodeURIComponent(authorization.searchParams.get('state') ?? '')}`);
   assert.equal(callback.status, 302);
-  assert.equal(callback.headers.get('location'), `${server.origin}/`);
+  assert.equal(callback.headers.get('location'), `${server.origin}/onboarding`);
+  assert.equal((await provision(server.origin, jar)).status, 200);
   const cookies = callback.headers.getSetCookie().filter((cookie) => !/max-age=0(?:;|$)/i.test(cookie));
   assert.ok(cookies.length >= 2);
   for (const cookie of cookies) {
@@ -68,6 +69,8 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
   const data = decodeURIComponent(dataCookie);
   const decoded = await symmetricDecodeJWT<{ session: Record<string, unknown> & { expiresAt: string }; user: Record<string, unknown> & { email: string; emailVerified: boolean }; exp: number; iat: number }>(data, server.secret, 'better-auth-session');
   assert.ok(decoded);
+  assert.equal(decoded.user.googleSubject, "fixture-user");
+  assert.notEqual(decoded.user.id, decoded.user.googleSubject);
   assert.equal(decoded.exp - decoded.iat, 3600);
   assert.ok(new Date(decoded.session.expiresAt).getTime() - Date.now() <= 3600000);
   for (const replacement of [
@@ -76,6 +79,7 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
     await symmetricEncodeJWT(decoded, server.secret, 'better-auth-session', -60),
     await symmetricEncodeJWT({ ...decoded, session: { ...decoded.session, expiresAt: new Date(Date.now() - 60000).toISOString() } }, server.secret, 'better-auth-session', 3600),
     await symmetricEncodeJWT({ ...decoded, user: { ...decoded.user, email: 'removed.member@gmail.com' } }, server.secret, 'better-auth-session', 3600),
+    await symmetricEncodeJWT({ ...decoded, user: { ...decoded.user, googleSubject: undefined } }, server.secret, 'better-auth-session', 3600),
     await symmetricEncodeJWT({ ...decoded, user: { ...decoded.user, emailVerified: false } }, server.secret, 'better-auth-session', 3600),
   ]) {
     const invalid = new CookieJar();
@@ -109,7 +113,7 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
 });
 
 test('provider, request-shape, destination and Origin restrictions cannot be overridden', async () => {
-  for (const changes of [{ provider: 'github' }, { callbackURL: 'https://evil.example' }, { errorCallbackURL: '//evil.example' }, { idToken: { token: 'forged' } }, { scopes: ['https://www.googleapis.com/auth/drive'] }, { additionalParams: { access_type: 'offline' } }]) {
+  for (const changes of [{ provider: 'github' }, { callbackURL: 'https://evil.example' }, { errorCallbackURL: '//evil.example' }, { idToken: { token: 'forged' } }, { googleSubject: 'injected' }, { familyId: 'injected' }, { scopes: ['https://www.googleapis.com/auth/drive'] }, { additionalParams: { access_type: 'offline' } }]) {
     assert.equal((await begin(new CookieJar(), changes)).status, 400);
   }
   assert.equal((await begin(new CookieJar(), {}, { Origin: 'https://evil.example' })).status, 403);

@@ -1,0 +1,83 @@
+[
+  {
+    "canonical_id": "import-single-call-intent-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "intent-recipe-search-notebook-001",
+    "hash": "9a80d4ed82a0517bd97b69e4018a7468e9b2f43b3e8824f1f33977596928e054",
+    "decided_at": "2026-11-23T19:40:20Z",
+    "original_commit": null,
+    "original_evidence": "intent/recipe-search-notebook/intent.md"
+  },
+  {
+    "canonical_id": "import-single-call-spec-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "spec-recipe-search-notebook-001",
+    "hash": "e46b10a6df794ae70bacb11c30bc9ecb4c6c8a6068a0fa2e2fc8c0e3e4be3477",
+    "decided_at": "2026-11-23T19:40:20Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/design-recipe-search-notebook-001.md"
+  },
+  {
+    "canonical_id": "import-single-call-plan-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "plan-recipe-search-notebook-001",
+    "hash": "b3553303f8725dee7906cd8b4475133068346e236b653a39a43678491e337016",
+    "decided_at": "2026-11-23T19:40:20Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/design-recipe-search-notebook-001.md"
+  },
+  {
+    "canonical_id": "import-single-call-merge-recipe-search-notebook-001",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "merge-recipe-search-notebook-001",
+    "hash": "72e1dc507d477e21acf0353e15f1b97b7eec989ca1da3274bfdbb578ddef036f",
+    "decided_at": "2026-11-23T19:57:52Z",
+    "original_commit": "6b94405",
+    "original_evidence": "org/messages/ceo-0018.md"
+  },
+  {
+    "canonical_id": "import-single-call-product_owner_accept-010",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "product_owner_accept-010",
+    "hash": "b3d36f05c391b35f2fc08bb2d5e9f678c27e9650aa30893ad59e949f0452ad38",
+    "decided_at": "2026-11-23T20:37:14Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/intent-single-call-recipe-search-001.md"
+  },
+  {
+    "canonical_id": "import-single-call-product_owner_approve-015",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "product_owner_approve-015",
+    "hash": "9d0902b9d852be9d188fc4cb039bc7b2d6d2e6825e3bb8c0ab8556c2c6c49c6e",
+    "decided_at": "2026-11-23T20:42:09Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/spec-single-call-recipe-search-001.md"
+  },
+  {
+    "canonical_id": "import-single-call-engineer_approve-017",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "engineer_approve-017",
+    "hash": "16649c6e7164d1086114214b53046d0adc9e57851d80f0a1d0f91947ddbf719a",
+    "decided_at": "2026-11-23T20:45:08Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/plan-single-call-recipe-search-001.md"
+  },
+  {
+    "canonical_id": "import-single-call-engineer_approve-018",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "engineer_approve-018",
+    "hash": "0f653740170913786d83696ea99b323bacc1fdb6b90e8cfe53f586940346bb80",
+    "decided_at": "2026-11-23T20:54:31Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/plan-single-call-recipe-search-001.md: bounded metadata diagnostic addendum"
+  },
+  {
+    "canonical_id": "import-single-call-engineer_approve-019",
+    "source": "org/merge/single-call-main-2026-11-23/feature/gates/ledger.jsonl",
+    "record": "engineer_approve-019",
+    "hash": "a1f9f05701d9e47f1fcbe792e9377586a7f7ee184b248c2a777f3047ef7a8037",
+    "decided_at": "2026-11-23T20:56:47Z",
+    "original_commit": null,
+    "original_evidence": "org/reviews/plan-single-call-recipe-search-001.md: prompt-only metadata remediation and final three calls"
+  }
+]

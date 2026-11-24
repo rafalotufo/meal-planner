@@ -4,7 +4,7 @@
 - Approver: Rafael (human owner)
 - Artifact: intent/recipe-waiting-game/plan.md at a678691
 - Verdict: Approved; local implementation and a fresh six-turn cycle authorized
-- Source: org/messages/ceo-0022.md
+- Source: org/messages/ceo-0032.md
 
 Rafael instructed “continue to run with with the sdlc org process skill” in
 response to the request to approve the reviewed plan and a fresh six-turn

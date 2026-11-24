@@ -2,7 +2,9 @@ import "server-only";
 import { betterAuth } from "better-auth";
 import { google, verifyGoogleIdToken } from "better-auth/social-providers";
 import allowedGoogleEmails from "./allowed-google-emails.json";
-import { isAllowedGoogleUser, validateGoogleAccessList } from "./google-access";
+import { validateGoogleAccessList } from "./google-access";
+import { classifyAccess, updateVerifiedEmail, verifiedIdentity } from "./identity-access";
+import { getDatabase } from "./db";
 
 export function authConfiguration() {
   validateGoogleAccessList(allowedGoogleEmails);
@@ -31,6 +33,7 @@ function createAuth() {
     baseURL: config.origin,
     secret: config.secret,
     trustedOrigins: [config.origin],
+    user: { additionalFields: { googleSubject: { type: "string", required: true, input: true, returned: true } } },
     telemetry: { enabled: false },
     logger: { disabled: true },
     socialProviders: {
@@ -41,8 +44,14 @@ function createAuth() {
           // Also require the library's signature/issuer/audience/expiry verifier.
           const claims = tokens.idToken ? await verifyGoogleIdToken({ token: tokens.idToken, audience: config.clientId }) : null;
           if (!claims || typeof claims.sub !== "string" || !claims.sub.trim() || typeof claims.email !== "string" || !claims.email.trim()) return null;
-          if (!isAllowedGoogleUser({ email: claims.email, emailVerified: claims.email_verified }, allowedGoogleEmails)) return null;
-          return provider.getUserInfo(tokens);
+          const identity = verifiedIdentity({ googleSubject: claims.sub, email: claims.email, emailVerified: claims.email_verified });
+          if (!identity) return null;
+          const access = await classifyAccess(await getDatabase(), identity, allowedGoogleEmails);
+          if (!access) return null;
+          const info = await provider.getUserInfo(tokens);
+          if (!info) return null;
+          if (access.kind === "member") await updateVerifiedEmail(await getDatabase(), identity, allowedGoogleEmails);
+          return { ...info, user: { ...info.user, googleSubject: identity.googleSubject, email: identity.email, emailVerified: true } };
         },
       },
     },

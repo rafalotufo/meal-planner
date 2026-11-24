@@ -1,0 +1,50 @@
+# Live org state: which agents are busy/idle and what is in the review queue.
+# Agents update this file when they accept or finish work; reviewers accept
+# reviews only when idle. Commit status changes with the artifact they describe.
+version: 1
+agents:
+  orchestrator: { status: idle, assignment: null, last_report: "T-Rex cycle solved6/6, all configured checks0, code/security rechecks approved. Fullwidth userdelta and WordSnackremoval complete; original dev files restored. Human merge/release pending; no push/deploy." }
+  product-manager: { status: idle, assignment: null, last_report: T-Rex automatic-lifecycle amendment accepted for Design; intent-t-rex-runner-002.md. Valid search auto-starts runner; results including zero auto-close it. Reduced-motion opt-in and scoped focus retained; spec/plan and merge/release gates remain. }
+  architect: { status: idle, assignment: null, last_report: "T-Rex automatic-search lifecycle spec amended and independently approved in review003. Auto-start, immediate results cleanup and guarded focus specified; human spec approval pending, no code." }
+  senior-developer: { status: idle, assignment: null, last_report: "T-Rex corrected0febee7 verified and independently approved;79app12auth12smoke7workflow, lint/types/build, expandedChrome5widths, fullwidth/autostart/autoclose and5WordSnackdeletions. Human merge/release pending." }
+  security-researcher: { status: idle, assignment: null, last_report: T-Rex focused security recheck clear at 0febee7; security-t-rex-runner-002.md. Revoked initial motion permission stays paused until explicit Resume. 68 refreshed hashes match; unchanged source/license/server boundaries retain assessment001. Human merge/release gates remain. }
+  reviewer: { status: idle, assignment: null, last_report: T-Rex final code recheck approved at 0febee7; code-t-rex-runner-002.md resolves initial-autostart P2. 15 focused tests and independent repro pass; 68-file snapshot match. Human merge/release remain gated. }
+  memory-keeper: { status: idle, assignment: null, last_report: null }
+review_queue:
+  - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-home-page-002, artifact: intent/home-page/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-home-page-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-search-001, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-recipe-search-002, artifact: intent/recipe-search/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-recipe-search-001, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-search-002, artifact: intent/recipe-search/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-001, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-search-002, artifact: recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-recipe-photos-001, artifact: intent/recipe-photos/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-photos-001, artifact: intent/recipe-photos/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-photos-001, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-recipe-photos-002, artifact: recipe-photos-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-pnpm-migration-001, artifact: intent/pnpm-migration/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-pnpm-migration-001, artifact: intent/pnpm-migration/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-pnpm-migration-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-authenticated-access-001, artifact: intent/authenticated-access/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-authenticated-access-001, artifact: intent/authenticated-access/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-authenticated-access-001, artifact: implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-merge-001, artifact: recipe-merge-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-vercel-deployment-001, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: spec-vercel-deployment-002, artifact: intent/vercel-deployment/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-vercel-deployment-001, artifact: intent/vercel-deployment/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-vercel-deployment-001, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
+  - { id: code-vercel-deployment-002, artifact: vercel-deployment-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: design-recipe-search-notebook-001, artifact: intent/recipe-search-notebook/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-search-notebook-001, artifact: recipe-search-notebook-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-recipe-waiting-game-002, artifact: intent/recipe-waiting-game/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-recipe-waiting-game-001, artifact: intent/recipe-waiting-game/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: catalogue-recipe-waiting-game-001, artifact: lib/word-snack-puzzles.ts, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-recipe-waiting-game-001, artifact: recipe-waiting-game-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: spec-t-rex-runner-001, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: spec-t-rex-runner-002, artifact: intent/t-rex-runner/spec.md, writer: architect, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: plan-t-rex-runner-001, artifact: intent/t-rex-runner/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-t-rex-runner-001, artifact: t-rex-runner-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }

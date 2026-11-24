@@ -1,0 +1,16 @@
+{
+  "preview": {
+    "name": "meal-planner-preview",
+    "projectId": "withered-night-50194672",
+    "branchId": "br-dark-term-bbqhnxi5",
+    "host": "ep-wandering-breeze-bbtscekj.c-15.us-east-1.aws.neon.tech",
+    "database": "meal_planner"
+  },
+  "production": {
+    "name": "meal-planner-production",
+    "projectId": "plain-pond-82425009",
+    "branchId": "br-wild-dust-bbr2mvzw",
+    "host": "ep-lively-tooth-bbi1n111.c-15.us-east-1.aws.neon.tech",
+    "database": "meal_planner"
+  }
+}

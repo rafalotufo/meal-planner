@@ -6,7 +6,7 @@ Date: 2026-11-23
 
 - Captured Rafael's selected Word Snack concept in intent.md.
 - Independent product-manager review accepted intent for Design; evidence:
-  org/reviews/intent-recipe-waiting-game-001.md and product-manager-0005.
+  org/reviews/intent-recipe-waiting-game-001.md and product-manager-0011.
 - Archived the completed notebook loop's state, history, config and graph at
   org/loop/archive/recipe-search-notebook-2026-11-23/ before reinitialization.
 - Aligned active graph paths with intent/recipe-waiting-game/; recorded intent
@@ -54,7 +54,7 @@ the original review and ledger decision as historical evidence; record PM
 amendment review separately. No specification or application code changed.
 
 PM accepted the amendment in org/reviews/intent-recipe-waiting-game-002.md,
-answered orchestrator-0019 through product-manager-0006, and returned idle.
+answered orchestrator-0044 through product-manager-0012, and returned idle.
 Acceptance is recorded as product_owner_accept-011. Bounded turn 2 records the
 consultation without advancing past Design. Seven workflow tests passed again;
 the loop acceptance suite continues to record application-check failures with
@@ -63,13 +63,13 @@ dependencies unavailable. No runtime verification is claimed.
 ## Human intent approval and Design
 
 Rafael explicitly approved the amended intent (“intent approved”). Evidence:
-org/reviews/intent-recipe-waiting-game-human-approval-001.md and ceo-0019;
+org/reviews/intent-recipe-waiting-game-human-approval-001.md and ceo-0029;
 ledger product_owner_accept-012 records that human decision against af0cdde.
 Architect dispatched for bounded turn 3 to produce spec.md, followed by
 independent review. This does not authorize implementation or approve the
 unwritten plan, merge or release.
 
-Architect produced spec.md and handoff architect-0003. Proposed Design uses
+Architect produced spec.md and handoff architect-0008. Proposed Design uses
 12 small authored racks, 3–6-letter words, optional inline play, explicit
 post-success dismissal, and focus-preserving results arrival. Bounded turn 3
 records draft_spec. Independent review assigned as spec-recipe-waiting-game-001.
@@ -81,12 +81,12 @@ remain failing with missing dependencies, as recorded by the loop; this is
 document-stage evidence, not runtime/game verification.
 
 Independent reviewer approved spec-recipe-waiting-game-001 with no required
-findings; evidence org/reviews/spec-recipe-waiting-game-001.md and reviewer-0010.
+findings; evidence org/reviews/spec-recipe-waiting-game-001.md and reviewer-0022.
 This is peer review only; specification approval from Rafael remains pending.
 
 ## Catalogue size amendment
 
-Rafael requested 128 puzzles instead of the proposed 12 (ceo-0020). Twelve was
+Rafael requested 128 puzzles instead of the proposed 12 (ceo-0030). Twelve was
 a conservative design default, not a technical limit. Revise the catalogue
 count, cycle and validation matrix consistently, require genuinely distinct
 letter multisets, and allow a 64 KiB serialized-data budget. This is a proposed
@@ -94,18 +94,18 @@ bound, not measured output; no puzzle data or application code is authored in
 this document-stage amendment. Preserve prior design review as historical
 evidence and obtain focused independent review of the amended specification.
 
-Architect handoff architect-0004 records the revision. Independent review
+Architect handoff architect-0009 records the revision. Independent review
 spec-recipe-waiting-game-002 approved the amendment with no required findings;
-reviewer-0011 records the result. Seven workflow tests passed again. Full-spec
+reviewer-0023 records the result. Seven workflow tests passed again. Full-spec
 human approval is still pending; no plan, puzzle data or application code was
 created. The existing spec gate remains in_review.
 
 ## Specification approval and implementation planning
 
 Rafael approved the 128-puzzle specification at 6b660c1. Evidence:
-org/reviews/spec-recipe-waiting-game-human-approval-001.md and ceo-0021;
+org/reviews/spec-recipe-waiting-game-human-approval-001.md and ceo-0031;
 ledger product_owner_approve-015 records that human decision. Graph spec is
-approved. Senior developer produced plan.md and handoff senior-developer-0005.
+approved. Senior developer produced plan.md and handoff senior-developer-0011.
 Bounded turn 4 records draft_plan; graph plan is in_review and the loop next
 action stops at engineer_approve. No implementation has started.
 
@@ -118,7 +118,7 @@ failing with missing dependencies. Setup is an explicit first implementation
 task, not waived verification.
 
 Independent review plan-recipe-waiting-game-001 approved with no required
-findings; evidence org/reviews/plan-recipe-waiting-game-001.md and reviewer-0012.
+findings; evidence org/reviews/plan-recipe-waiting-game-001.md and reviewer-0024.
 Human plan approval and authorization for a fresh bounded cycle remain pending.
 
 ## Implementation — 2026-11-23

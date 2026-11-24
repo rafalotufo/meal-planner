@@ -1,16 +1,19 @@
 ---
 id: architect-0003
 from: architect
-to: orchestrator
-kind: handoff
-subject: Word Snack draft specification ready for independent review
-artifact: intent/recipe-waiting-game/spec.md
-requires_response: false
+to: ceo
+kind: question
+subject: Family membership specification ready for approval
+artifact: intent/family-membership/spec.md
+requires_response: true
 in_reply_to: null
-status: open
+status: answered
 severity: null
 blocking: false
-created_at: "2026-11-23T21:06:31Z"
+created_at: "2026-11-23T17:05:32Z"
 ---
 
-Draft resolves curated authored 12-rack vocabulary, 3–6-letter rules, deterministic cycling, optional inline game, stable success lifecycle with results-ready notice, explicit close/view-results and focus, error/stale/reset boundaries and TypeScript/browser verification matrix. Grounded in current search/notebook code and approved intent. Requires independent and human spec review; no code/plan/merge/release approval claimed. git diff --check passed; no runtime implementation exists to verify.
+Review intent/family-membership/spec.md and independent review org/reviews/spec-family-membership-002.md. Proposed design: single durable-host SQLite/Drizzle; copied recipient-bound invitation links; stable verified Google subject; invitation-first POST onboarding; durable invitation grants beyond allowlist; no family switching. All product questions resolved. Existing baseline acceptance commands all pass at architect turn. Request specification approval before planning. Applied /Users/rafael/.agents/skills/spec-driven-development/SKILL.md explicitly says: Planning starts only after the human approves the spec in a later turn. No plan, application implementation, production migration, merge or release has been authorized.
+
+
+Imported feature message from `org/merge/family-main-2026-11-23/feature/org/messages/architect-0002.md`; the original bytes and ID remain in the SHA-256 archive manifest. This namespace copy is not a new decision.

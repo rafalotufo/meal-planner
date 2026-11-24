@@ -1,0 +1,16 @@
+---
+id: security-researcher-0007
+from: security-researcher
+to: orchestrator
+kind: review
+subject: T-Rex security and shipped provenance clear at 1017d39
+artifact: org/reviews/security-t-rex-runner-001.md
+requires_response: false
+in_reply_to: null
+status: open
+severity: null
+blocking: false
+created_at: "2026-11-24T14:54:24Z"
+---
+
+Completed independent security assessment: no security findings or required fixes; blocking false. Verified all 68 source evidence hashes before announced reviewer mutation, five removals, exact pinned sprite/license hashes and complete notices/source headers. Reviewed local input/timing/RNG bounds, fixed asset paths, React text, request generation/abort, one RAF and idempotent cleanup/late-image guards, protected notices/assets and fixture isolation. No app/cache/runtime mutation, build/server run, paid call or new dependency. Report scopes static/hash and recorded browser evidence; no legal/full-vulnerability certification or release audit claimed. Return security role idle; human merge/release gates remain.

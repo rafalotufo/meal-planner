@@ -6,7 +6,7 @@ Date: 2026-11-24
 
 Rafael requested replacement of Word Snack and selected wayou/t-rex-runner.
 Captured intent.md; independent PM review accepted it for Design with no
-blocking findings (org/reviews/intent-t-rex-runner-001.md, product-manager-0007).
+blocking findings (org/reviews/intent-t-rex-runner-001.md, product-manager-0013).
 Ledger product_owner_accept-013 records the PM decision. This is not human
 approval of an unwritten specification or implementation plan.
 
@@ -51,7 +51,7 @@ Independent review spec-t-rex-runner-001 required one correction: consume Space
 on the focused game surface even when a jump is ignored, preventing accidental
 page scrolling. Architect corrected it and added a browser assertion in
 architect-0006. Focused review spec-t-rex-runner-002 approved with no remaining
-required findings; reviewer-0016 records approval. Both review records remain.
+required findings; reviewer-0028 records approval. Both review records remain.
 
 The graph marks spec in_review, and org_loop.py next stops at
 product_owner_approve. No plan, game assets or implementation were written;
@@ -61,7 +61,7 @@ no T-Rex gameplay, browser verification, merge or release is claimed.
 
 Rafael requested auto-start when search starts and auto-close as soon as results
 arrive, superseding optional initial launch and post-result continued play.
-PM accepted amended intent in intent-t-rex-runner-002.md (product-manager-0008;
+PM accepted amended intent in intent-t-rex-runner-002.md (product-manager-0014;
 ledger product_owner_accept-014). Architect amended spec in architect-0007.
 
 Valid searches mount/start the runner without a Play click or delaying fetch;
@@ -78,23 +78,23 @@ spec amendment review is assigned as spec-t-rex-runner-002; earlier review
 records remain historical evidence.
 
 Focused review spec-t-rex-runner-003.md approved the amendment with no required
-findings (reviewer-0017). Human specification approval remains pending; no
+findings (reviewer-0029). Human specification approval remains pending; no
 implementation plan or application code was written.
 
 ## Human specification approval and implementation plan
 
 Rafael approved the automatic-lifecycle specification at 483d401. Human evidence
-is org/reviews/spec-t-rex-runner-human-approval-001.md and ceo-0024; ledger
+is org/reviews/spec-t-rex-runner-human-approval-001.md and ceo-0034; ledger
 product_owner_approve-016 records the approval. Spec status/graph are approved.
 
 Senior developer produced plan.md and provenance.md. Actual research downloads
 verified both pinned sprite hashes/dimensions and byte-identical sprites at a
 historical immutable Chromium v55 revision, plus both complete BSD notices.
-No application assets were vendored. Handoffs senior-developer-0006/0007 record
+No application assets were vendored. Handoffs senior-developer-0012/0007 record
 the plan and its reversible generated-type isolation procedure.
 
 Independent review org/reviews/plan-t-rex-runner-001.md approved the plan and
-documented reuse proposal with no required findings (reviewer-0018). Reviewer
+documented reuse proposal with no required findings (reviewer-0030). Reviewer
 independently fetched and hashed source/licenses/sprites, inspected sprite
 images, checked lineage and notice requirements, and reviewed the strict-check
 safeguards. Actual shipped assets/notices and source mapping still require

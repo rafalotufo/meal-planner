@@ -4,28 +4,37 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "node --import tsx lib/db/verify-runtime-metadata.ts && next build --webpack",
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "typecheck": "next typegen && tsc --noEmit",
+    "test:auth": "node --import tsx --test tests/auth/*.test.ts",
+    "db:migrate": "node --env-file=.env.local --import tsx scripts/migrate-db.ts",
+    "test:family": "node --import tsx --test tests/family/*.test.ts",
     "test": "tsc -p tsconfig.recipes-test.json && node --test build/recipe-tests/tests/recipe-*.test.js",
-    "test:auth": "node --import tsx --test tests/auth/*.test.ts"
+    "db:setup": "node --import tsx scripts/postgres-local.ts setup",
+    "db:start": "node --import tsx scripts/postgres-local.ts start",
+    "db:stop": "node --import tsx scripts/postgres-local.ts stop",
+    "db:status": "node --import tsx scripts/postgres-local.ts status"
   },
   "engines": {
     "node": "24.x"
   },
   "dependencies": {
+    "@vercel/functions": "3.11.3",
     "better-auth": "1.7.27",
     "drizzle-orm": "0.45.4",
     "htmlparser2": "10.1.0",
     "ipaddr.js": "2.5.0",
     "next": "16.4.6",
+    "pg": "8.23.1",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "bun-types": "1.4.5",

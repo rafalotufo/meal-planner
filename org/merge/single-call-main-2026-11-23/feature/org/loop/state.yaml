@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/single-call-recipe-search/intent.md
+base_commit: 7cbe321c432532316dd23d94598ee5e75f3ce309
+turn: 6
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 57c983fce952beac02e31bb5933be0ef7528009fadccaa2e932b2fea26b5bfaa
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/single-call-recipe-search/intent.md", "sha256": "6ad1a4bb8aff249c1490d9825685f2f4fc4de0d36fd008b5623022ff764bbad2"}, {"path": "intent/single-call-recipe-search/spec.md", "sha256": "ff32bbdb7363d2793be23b9b627a02e243dd8b48b5f23e2b5b7517ae67d3050a"}, {"path": "intent/single-call-recipe-search/plan.md", "sha256": "1bbf270912e2182bffe7d13134826149d7bb9df590e930eec1f01ba02caa4649"}, {"path": "org/reviews/single-call-recipe-search-verification.md", "sha256": "f0f81e6474707d85d99f4715d37e1f9d95e26d9b0e846e79b6027915128027e3"}, {"path": "org/reviews/security-single-call-recipe-search-001.md", "sha256": "a53a0b7391a4270294fe11501f62979813ef350fea58a38764efc02a409e4bba"}, {"path": "org/reviews/code-single-call-recipe-search-001.md", "sha256": "20c465d80d17214ca99e87ffb2a18eb8c5ef836e6d13ac790aeabca8692ad414"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/smoke.test.ts", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/auth/*.test.ts", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T21:03:39Z"

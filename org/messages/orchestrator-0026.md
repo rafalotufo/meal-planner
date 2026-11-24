@@ -1,16 +1,22 @@
 ---
 id: orchestrator-0026
 from: orchestrator
-to: reviewer
+to: senior-developer
 kind: handoff
-subject: Review verified Word Snack implementation
-artifact: intent/recipe-waiting-game/plan.md
+subject: Implement approved single-call recipe search plan
+artifact: intent/single-call-recipe-search/plan.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-23T21:34:34Z"
+created_at: "2026-11-23T20:46:54Z"
 ---
 
-Review completed feature through47a5878 against approved spec/plan and REVIEW.md. Full checks/browser5widths pass; content audit approved128rows. Root runtime acceptance rerun active: read-only review first, wait root confirmation before mutation experiment. Check meaningful test coverage, lifecycle/focus/duplicate handling, source boundaries, screenshots and scope. Record evidence and assigned code-recipe-waiting-game-001 verdict; no merge/release authorization.
+Approved plan ef6642a and org turn4 authorize implementation and full verification. Use one flattened response with source-local evidence/excerpts, preserve all limits and UI/auth/photo boundaries, prove red/green regressions and3 bounded actual-provider live searches, preserve historical browser captures. Evidence goes in feature progress and org/reviews/single-call-recipe-search-verification.md. Parent serializes commits/state. Merge and release remain human gates.
+
+<!-- Merge provenance: original orchestrator-0018 from 7144a0f; exact bytes: org/merge/single-call-main-2026-11-23/feature/org/messages/orchestrator-0018.md. -->
+
+<!-- Merge provenance: original orchestrator-0026 from 9aadd83; exact bytes: org/merge/single-call-main-refresh-2026-11-23/feature/org/messages/orchestrator-0026.md. -->
+
+<!-- Merge provenance: original orchestrator-0026 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/orchestrator-0026.md. -->

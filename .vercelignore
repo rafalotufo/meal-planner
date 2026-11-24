@@ -13,3 +13,11 @@ tests
 scripts
 hooks
 .worktreeinclude
+
+# Family branch private local state must never enter a CLI upload.
+.data/
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.backup

@@ -3,14 +3,18 @@ id: reviewer-0017
 from: reviewer
 to: orchestrator
 kind: review
-subject: T-Rex automatic lifecycle amendment approved
-artifact: org/reviews/spec-t-rex-runner-003.md
+subject: Single-call main integration independently approved
+artifact: single-call-main-integration
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T14:13:09Z"
+created_at: "2026-11-23T21:27:25Z"
 ---
 
-Focused amendment review approved, no required findings. Auto-open/start preserves reduced-motion and visibility pause exceptions, guarded initial focus, pending-only Hide/Show, immediate success/zero discard, conditional heading focus and old-panel continuity. Late assets/focus cannot revive ended play; verification replaces continued-play expectations. No code/runtime/cache changes. Human full-spec approval pending.
+Independent final integration review approved without required findings: app bytes preserve reviewed7144a0f recipes and main68e1931 family/PostgreSQL guards;190 exact snapshots, bothsourcechains, mainprefixes,9 decision imports,18 aliases and priorreviewqueues verified. Allcombinedtests and truefreshbrowsercaptures checked. New one-turn integration config retains8commands includingfamily; originalhistories remainimmutable. Evidence org/reviews/single-call-main-integration-review.md. Localmainmergeauthorizedbyuser; no push/release.
+
+<!-- Merge provenance: original reviewer-0017 from 9aadd83; exact bytes: org/merge/single-call-main-refresh-2026-11-23/feature/org/messages/reviewer-0017.md. -->
+
+<!-- Merge provenance: original reviewer-0017 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/reviewer-0017.md. -->

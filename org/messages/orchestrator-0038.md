@@ -14,3 +14,5 @@ created_at: "2026-11-24T14:58:15Z"
 ---
 
 Independent review found P2 revoked-initial-autofocus autostart race; source/controller reproduction confirmed. Add failing real-browser submit-then-outside-interaction-before-first-commit with delayed sprites; require paused until Resume. Propagate denied initial eligibility to controller state while retaining normal pointer/touch starts. Add promised old-panel successful completion focus/selection regression. Minimal approved-plan fix, reverify matching source snapshot and obtain independent recheck. No budget/gate/source-pin changes.
+
+Audit provenance: original feature message preserved at `org/merge/t-rex-main-2026-11-24/feature/org/messages/orchestrator-0038.md` (source d9245f98693020bf3f94bc646345705a211a94b3).

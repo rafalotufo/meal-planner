@@ -3,7 +3,7 @@
 - Date: 2026-11-23
 - Reviewer: product-manager (independent of orchestrator amendment)
 - Artifact: intent/recipe-waiting-game/intent.md
-- Consultation: org/messages/orchestrator-0019.md
+- Consultation: org/messages/orchestrator-0044.md
 - Verdict: Accepted for Design; supersedes automatic successful-completion dismissal in review 001
 - Authority: org/roles/product-manager.md; org/org-chart.yaml intent gate
 

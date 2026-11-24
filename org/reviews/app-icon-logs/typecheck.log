@@ -1,0 +1,6 @@
+
+> meal-planner@0.1.0 typecheck /Users/rafael/.codex/worktrees/ffff/meal-planner
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully

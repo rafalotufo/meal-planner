@@ -4,7 +4,7 @@
 - Approver: Rafael (human owner)
 - Artifact: intent/recipe-waiting-game/intent.md at af0cdde
 - Verdict: Intent approved; Design authorized
-- Source: org/messages/ceo-0019.md
+- Source: org/messages/ceo-0029.md
 
 Exact user instruction: “intent approved”. Approval follows the amendment
 requiring successful search completion to preserve play, announce available

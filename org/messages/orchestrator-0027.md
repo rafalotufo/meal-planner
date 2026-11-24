@@ -1,16 +1,22 @@
 ---
 id: orchestrator-0027
 from: orchestrator
-to: ceo
-kind: status
-subject: Word Snack verified and ready for human merge review
-artifact: org/reviews/recipe-waiting-game-verification.md
+to: senior-developer
+kind: decision
+subject: Record one bounded metadata diagnostic after observed null results
+artifact: intent/single-call-recipe-search/plan.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-23T21:38:41Z"
+created_at: "2026-11-23T20:54:31Z"
 ---
 
-Completed approved local Word Snack plan with128puzzles and continued play after successful search. Fresh cycle solved6/6; all acceptance commands pass. Independent full catalogue, code and security reviews approved with no required findings. Real Chrome320/390/768/1024/1440 including touch/focus/AX/contrast passed. Screen-reader audio and live provider grounding not claimed. Human merge/release gates remain; no push/merge/deploy performed.
+Initial3 actual-provider searches returned9 cards with null optional metadata. Peer reviewer accepted the plan addendum for exactly one additional unchanged mushroom query, original model/payload/bounds/cancellation, responseclone inspection, local ignored raw only and sanitized findings. This is necessary verification within user-authorized local implementation/testing; no model/production/billing change or implicit app fix. Record actual total4 live calls and findings.
+
+<!-- Merge provenance: original orchestrator-0019 from 7144a0f; exact bytes: org/merge/single-call-main-2026-11-23/feature/org/messages/orchestrator-0019.md. -->
+
+<!-- Merge provenance: original orchestrator-0027 from 9aadd83; exact bytes: org/merge/single-call-main-refresh-2026-11-23/feature/org/messages/orchestrator-0027.md. -->
+
+<!-- Merge provenance: original orchestrator-0027 from 8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4; exact bytes: org/merge/single-call-main-final-2026-11-23/feature/org/messages/orchestrator-0027.md. -->

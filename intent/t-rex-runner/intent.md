@@ -133,4 +133,4 @@ approval of the full specification or an unwritten implementation plan.
 During approved implementation Rafael also directed: “Display the game window
 as the full width that is available.” This explicitly authorizes the responsive
 width amendment; the fixed logical physics world and other approved behavior
-remain unchanged (org/messages/ceo-0026.md).
+remain unchanged (org/messages/ceo-0036.md).

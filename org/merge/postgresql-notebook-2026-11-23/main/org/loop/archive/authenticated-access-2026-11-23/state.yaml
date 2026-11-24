@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/authenticated-access/intent.md
+base_commit: b2e3266ae3be7997f1e3e050e40ab9496066f712
+turn: 6
+no_progress: 1
+phase: done
+status: solved
+last_input_hash: 32094973b5730b684a42fb41ed50068bc39ae04b24092f19e2081ff54d0966fb
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/authenticated-access/intent.md", "sha256": "304e9ae26a4700da4f6d256ed2f04cd21172ff1fbf5d6c38ca44354fdb86f89f"}, {"path": "intent/authenticated-access/spec.md", "sha256": "e216869c69ef64df5f352041947d4182fff803566c1454528d4d924d9223fade"}, {"path": "intent/authenticated-access/plan.md", "sha256": "cd143e78261bf2c473c6ea30e9b0bc71320ee36c53cfa23a6d2368ee2f3fb001"}, {"path": "org/reviews/authenticated-access-verification.md", "sha256": "367ce905302f2195a4b4351e251578f922dc4825770f77109b392372da85d728"}, {"path": "org/reviews/security-authenticated-access-001.md", "sha256": "8bbe2d63771281e462740f01036eb70446fb0a56ffaf3f441d3b8f3eda3a5db4"}, {"path": "org/reviews/code-authenticated-access-001.md", "sha256": "d42309366bbadb11a35f293e6d42faf3be0c3c592e2cd60ac5bba9a537388225"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "pnpm run test:auth", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T16:10:13Z"

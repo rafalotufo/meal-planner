@@ -1,16 +1,19 @@
 ---
 id: senior-developer-0006
 from: senior-developer
-to: orchestrator
-kind: handoff
-subject: T-Rex plan and pinned provenance ready for review
-artifact: intent/t-rex-runner/plan.md
-requires_response: false
+to: ceo
+kind: question
+subject: Family membership build plan ready for approval
+artifact: intent/family-membership/plan.md
+requires_response: true
 in_reply_to: null
-status: open
+status: answered
 severity: null
 blocking: false
-created_at: "2026-11-24T14:21:51Z"
+created_at: "2026-11-23T17:17:36Z"
 ---
 
-Draft plan/provenance ready from approved auto-start/auto-close spec. Downloaded selected5455bfa assets/source/license only into private temp research; original1x/2xsprites verified2645/3244bytes,1233x68/2441x130 and fullSHA256. Exact sprite bytes match immutable historicalChromium55 commit12203fa1bfc7f10c98bcbceaa11161fd1d1c17f8; historicalChromiumBSDlicense hash verified, original2014copyright/extractioncredit and2022wayouBSD preserved in proposednotices. Typed-symbol/range map and independentlicensegate precede anyreuse. Plan covers test-firstphysics/lifecycle, scopedcanvasinput/resourcecleanup, WordSnackremoval, immediateauto-dismiss/focus,5widthheldsprite/responsebrowserproof. Prefer fresh matching private-tmp source QA with unchanged strictcommands, preserve userdevcache/next-env and report originalfailures; no code/deps/config/cache changes. Sixturnplan3/implement4/security5/review6 fits. gitdiffcheck clean. No runtimeverification or vendoring performed.
+Review intent/family-membership/plan.md and independent review org/reviews/plan-family-membership-001.md. Fourteen tasks cover native/subject compatibility proofs, isolated migrated storage/test harness, stable admission, POST provisioning, invitation creation/context/acceptance, family isolation, browser QA and full verification. Baseline Python/lint/typecheck/build/auth commands all pass at turn3. Request human plan approval to begin implementation. Applied /Users/rafael/.agents/skills/planning-and-task-breakdown/SKILL.md requires before implementation: The human has reviewed and approved the plan. No application/dependency/schema changes made in planning; no production migration, merge, push or release approval implied.
+
+
+Imported feature message from `org/merge/family-main-2026-11-23/feature/org/messages/senior-developer-0004.md`; the original bytes and ID remain in the SHA-256 archive manifest. This namespace copy is not a new decision.

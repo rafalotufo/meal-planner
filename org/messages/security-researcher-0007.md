@@ -1,16 +1,21 @@
 ---
 id: security-researcher-0007
 from: security-researcher
-to: orchestrator
-kind: review
-subject: T-Rex security and shipped provenance clear at 1017d39
-artifact: org/reviews/security-t-rex-runner-001.md
+to: senior-developer
+kind: finding
+subject: Family database path must reject served roots and symlink aliases
+artifact: org/reviews/family-membership-security-checkpoint.md
 requires_response: false
 in_reply_to: null
-status: open
-severity: null
-blocking: false
-created_at: "2026-11-24T14:54:24Z"
+status: closed
+severity: high
+blocking: true
+created_at: "2026-11-23T17:43:31Z"
+closed_by: orchestrator
+closed_evidence: org/reviews/family-membership-security-checkpoint.md
 ---
 
-Completed independent security assessment: no security findings or required fixes; blocking false. Verified all 68 source evidence hashes before announced reviewer mutation, five removals, exact pinned sprite/license hashes and complete notices/source headers. Reviewed local input/timing/RNG bounds, fixed asset paths, React text, request generation/abort, one RAF and idempotent cleanup/late-image guards, protected notices/assets and fixture isolation. No app/cache/runtime mutation, build/server run, paid call or new dependency. Report scopes static/hash and recorded browser evidence; no legal/full-vulnerability certification or release audit claimed. Return security role idle; human merge/release gates remain.
+Early independent review proved configured DB path could point into Next-served roots, including dangling final-file symlink and legacy static. Developer fixed via lexical/physical root guards and lstat ancestor handling. Independent storage test rerun5/5pass; resolution recorded in interim assessment. Historical finding will be closed with that evidence before final review.
+
+
+Imported feature message from `org/merge/family-main-2026-11-23/feature/org/messages/security-researcher-0003.md`; the original bytes and ID remain in the SHA-256 archive manifest. This namespace copy is not a new decision.

@@ -1,16 +1,20 @@
 ---
 id: orchestrator-0019
 from: orchestrator
-to: product-manager
-kind: question
-subject: Review user-directed completion behavior amendment
-artifact: intent/recipe-waiting-game/intent.md
-requires_response: true
+to: reviewer
+kind: status
+subject: Recipe notebook source ready; final browser recheck underway
+artifact: intent/recipe-search-notebook/progress.md
+requires_response: false
 in_reply_to: null
-status: answered
+status: closed
 severity: null
 blocking: false
-created_at: "2026-11-23T21:01:16Z"
+created_at: "2026-11-23T19:41:36Z"
+closed_by: orchestrator
+closed_evidence: org/reviews/code-recipe-search-notebook-001.md
 ---
 
-Rafael clarified: Search completion should not end the game, but should let the user know that results are available and allow them to close the game. Intent now preserves game state and focus after success, announces results ready and offers explicit close/view-results. Independently review the amendment, update Accepted status with new review evidence, reply to this question, and return idle. Existing error/cancellation/navigation behavior stays. Do not draft spec or implement.
+Independent code/security reports have no required findings. Native tests pass63/63. Real Chrome exercised all notebook interactions at320/390/768/1024/1440; final pass follows mobile spacing refinement and exact accounting for five intentional HTTP429 fixture responses. No live LLM requests.
+
+Provenance: imported from main7cbe321 orchestrator-0016.md; original exact bytes are preserved under org/merge/postgresql-notebook-2026-11-23/main/org/messages/orchestrator-0016.md.

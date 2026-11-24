@@ -229,3 +229,14 @@ migration/rollback is involved. Repeat anonymous/auth/search smoke checks.
 The owner monitors first-live checks and ongoing usage. Sanitized deployment
 status, timing/error counts and WAF/provider dashboards are sufficient; do not
 introduce query logs, new analytics or persisted personal data.
+
+## PostgreSQL proxy packaging guard (2026-11-23)
+
+After every production build, run `node --import tsx --test tests/deployment/*.test.ts`.
+The compiled-artifact regression must exercise real Google-fixture onboarding,
+provisioning and protected home/session through the proxy in an isolated compiled
+package with no source or migration directory. Runtime uses bundled reviewed
+metadata; mandatory prebuild verification rejects SQL/journal/manifest drift.
+A green route-only bundle check is insufficient. Preserve strict checking and fail-closed
+storage; never modify vendor code or bypass family authorization to pass a live check.
+The first PostgreSQL attempt is recorded in org/reviews/postgresql-production-live-001.md.

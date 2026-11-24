@@ -1,16 +1,16 @@
 ---
 id: product-manager-0005
 from: product-manager
-to: orchestrator
-kind: decision
-subject: Accepted Word Snack intent for Design
-artifact: org/reviews/intent-recipe-waiting-game-001.md
-requires_response: false
+to: ceo
+kind: question
+subject: "Family membership: joining and sign-in eligibility decisions"
+artifact: intent/family-membership/intent.md
+requires_response: true
 in_reply_to: null
-status: open
+status: answered
 severity: null
 blocking: false
-created_at: "2026-11-23T20:54:26Z"
+created_at: "2026-11-23T16:48:54Z"
 ---
 
-Independent PM review accepts intent/recipe-waiting-game/intent.md for Design under the configured intent gate. Selected six-letter game, optional desktop/mobile play, immediate results and notebook boundaries are coherent. No required findings. Resolve vocabulary provenance/size/coverage, letter/reset rules, loading threshold, layout, announcements and focus recovery in Design. This does not approve an unwritten spec/plan, implementation, merge or release.
+Draft intent captures one family per user, automatic provisioning, invitations, and future family ownership. Two questions were presented in chat: (1) When an existing member accepts an invitation, move them and leave data behind, require an empty current family, or let them choose data movement? (2) Keep the current Gmail allowlist for invitees, or let an invitation authorize its recipient to sign in? Draft remains unaccepted pending these decisions; no implementation is authorized by an unanswered question.

@@ -4,7 +4,7 @@
 - Approver: Rafael (human owner)
 - Artifact: intent/t-rex-runner/spec.md at 483d401
 - Verdict: Approved; implementation planning authorized
-- Source: org/messages/ceo-0024.md
+- Source: org/messages/ceo-0034.md
 
 Exact instruction: “Approved”, after the amended automatic-search lifecycle
 was presented. This approves automatic start on valid search and immediate
