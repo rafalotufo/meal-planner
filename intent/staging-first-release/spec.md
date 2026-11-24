@@ -2,7 +2,7 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Draft — independent review pending
+- Status: Approved
 - Derived from: sibling accepted `intent.md`; existing isolated staging
   `intent/vercel-candidate-validation/spec.md`, `plan.md`, `staging-runbook.md`.
 - Scope: active documentation only; no external action or release approval.

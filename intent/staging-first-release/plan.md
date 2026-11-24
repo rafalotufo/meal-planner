@@ -2,7 +2,7 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Draft — independent review pending
+- Status: Approved
 - Inputs: sibling accepted intent and draft specification; owner requested a
   release-process change, not a deployment or credential/configuration action.
 
