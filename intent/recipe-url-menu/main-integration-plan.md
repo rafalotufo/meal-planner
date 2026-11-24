@@ -191,3 +191,9 @@ Manifest clarification: `.env.example` and the plan route are byte-identical
 imports from pinned main. The bracketed route uses a literal-bracket fnmatch
 escape so the existing manifest checker matches the actual `[id]` directory;
 this adds no route or configuration behavior beyond the approved main import.
+
+Subsequent owner gate: after confirming real sign-in works, the owner explicitly
+requested “Merge to main.” That separate local-main authority is recorded by
+`recipe-url-menu-local-main-merge-2026-11-24`; no push/deployment is implied.
+Native state reached compatible five migrations externally, so no root apply or
+pre-cutover backup is claimed; see `main-integration-local-result.md`.

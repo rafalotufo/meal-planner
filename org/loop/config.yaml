@@ -12,6 +12,6 @@ phases:
   implement: { role: senior-developer, action: integrate_and_verify, next: security }
   security: { role: security-researcher, action: assess_integration, next: code_review }
   code_review: { role: reviewer, action: review_integration_source, next: local_cutover }
-  local_cutover: { role: senior-developer, action: verify_compatible_native_and_restart, next: review }
+  local_cutover: { role: orchestrator, action: verify_compatible_native_and_restart, next: review }
   review: { role: reviewer, action: review, next: done }
   done: { role: null, action: null, next: null }

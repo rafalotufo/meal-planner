@@ -23,7 +23,7 @@ nodes:
     stage: "build"
     artifact: "recipe-url-menu-main-local-recovery"
     gate: "code_owner_approve"
-    status: not_started
+    status: in_review
     done_status: "merged"
   staging_acceptance:
     stage: "test"

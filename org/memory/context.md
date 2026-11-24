@@ -8,16 +8,16 @@ intent/recipe-url-menu/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 1
-- phase: implement
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (recipe-url-menu-main-local-recovery)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -126,10 +126,14 @@ intent/recipe-url-menu/intent.md
 ## Artifacts
 
 - org/reviews/recipe-url-menu-main-integration-plan-001.md (abea6f49e9f2dafba62e72a4ae495bc88c61dd57dbb30b8653bec95488999c1f)
+- intent/recipe-url-menu/main-integration-verification.md (1ec354559f0a86225957f784738b619e353fafc1a17cb1498317dfeade01d640)
+- org/reviews/recipe-url-menu-main-integration-security-001.md (bf0009c9022f61be7b1fbe6ec92c3baaa2424de1a42388436d42c59c417bcf54)
+- intent/recipe-url-menu/main-integration-local-result.md (6953e304d85b1271dfd66fd3f54bb8ddf6899578a09a5e45880f9120bc703d7f)
+- org/reviews/recipe-url-menu-main-integration-code-001.md (89270da32eceaffcd12f6ee804a123e198b20415263120f25d7ad745e4b20447)
 
 ## Next action
 
-reviewer:approve_integration_plan
+reviewer:review
 
 ## Last digest source
 
