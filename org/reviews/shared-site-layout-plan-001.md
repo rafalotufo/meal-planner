@@ -43,3 +43,22 @@ feature helper and filenames.
 
 No unresolved blocking findings. Approval opens local implementation under
 org protocol; human merge and release gates remain separate and unapproved.
+
+## QA amendment review — approved 2026-11-24
+
+[P2, Bugs; test-helper limitation] Independently inspected the developer's
+`org/reviews/shared-site-layout-family-debug.png`: the family form email is
+populated, while its submit control sits beneath the captured viewport.
+`tests/auth/chrome.ts:61` computes the target's viewport rectangle immediately
+and dispatches physical mouse coordinates without ensuring it is visible.
+The family flow clicks that control before setting a larger viewport
+(`tests/family/browser.ts:21`). Developer measured viewport469px and submit
+top478/bottom528, no application errors and no invitation API request. This
+supports the reported missed click, rather than an invitation behavior defect.
+
+Approved manifest addition of only `tests/auth/chrome.ts`, permitting scroll
+target into view before the same rectangle calculation and physical input
+events. Preserve all assertions and rerun existing family and focused Chrome
+QA. No production, auth, data or other helper semantics change is authorized.
+The plan's scope paragraph now explicitly describes all three bounded existing
+helper edits, resolving its stale blanket statement about existing tests.

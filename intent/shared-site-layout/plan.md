@@ -19,6 +19,7 @@
 - `app/onboarding/onboarding-controls.tsx`
 - `app/invite/page.tsx`
 - `tests/auth/browser.ts`
+- `tests/auth/chrome.ts`
 - `tests/family/browser.ts`
 - `tests/auth/shared-layout.test.ts`
 - `tests/auth/shared-layout-browser.ts`
@@ -55,8 +56,13 @@
    records decisions, stages/secret-scans and commits locally. Stop at human merge.
 
 Only listed application/test files change. No auth-policy/session/store/provider,
-photo/recipe components, existing tests, config, manifests/lockfile, migrations or
-assets change. Declare/review justified departures before applying them.
+photo/recipe components, other existing tests, config, manifests/lockfile,
+migrations or assets change. Existing browser helpers change only bounded
+keyboard traversal for added header links and scroll-before-bounds in the shared
+Chrome click helper. Preserve real input events and all original assertions.
+Historical helper screenshots are privately backed up and restored byte-for-byte;
+new feature evidence uses shared-layout filenames. Declare/review justified
+departures before applying them.
 
 ## Required commands
 
@@ -93,3 +99,18 @@ LayoutProps occurs after an owned dev server stops, use only AGENTS' inactive
 `.next/dev/types` private-backup procedure, never compiler/test suppression.
 Completion requires passing checks, genuine browser evidence, security clear and
 independent final approval. No release/staging action or human gate is implied.
+
+## Independently approved QA amendment — 2026-11-24
+
+The styled family page puts Create invitation below Chrome's default469px
+viewport (observed top478/bottom528). The existing shared click helper computes
+viewport coordinates without scrolling, so physical mouse events miss this
+control and no invitation request is sent. The developer recorded a populated
+valid email, no application errors and the clipped control in
+`org/reviews/shared-site-layout-family-debug.png`. The reviewer independently
+inspected that screenshot and `tests/auth/chrome.ts` click implementation.
+Permit only a `scrollIntoView({ block: 'center' })` before computing the same
+bounding rectangle, followed by the existing physical mouse events. This
+corrects viewport handling without bypassing controls or changing production
+behavior. Run the existing family browser flow and affected focused browser
+QA again; retain existing assertions and historical screenshot protection.

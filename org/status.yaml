@@ -8,7 +8,7 @@ agents:
   architect: { status: busy, assignment: shared-site-layout-plan, last_report: Drafted shared site layout spec and exact manifest plan; pinned docs read and frozen install passed. }
   senior-developer: { status: busy, assignment: intent/shared-site-layout/plan.md, last_report: Executed authorized staging-first release docs merge into clean local main; no runtime or hosted action. }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
-  reviewer: { status: idle, assignment: null, last_report: Approved shared layout spec/plan with narrow keyboard helper updates preserving original assertions. }
+  reviewer: { status: idle, assignment: null, last_report: Approved bounded scroll-aware test click helper amendment based on screenshot and coordinate evidence. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -79,3 +79,4 @@ review_queue:
   - { id: staging-first-release-plan-001, artifact: staging-first-release-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: staging-first-release-final-001, artifact: staging-first-release-docs, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: shared-site-layout-plan-001, artifact: shared-site-layout-plan, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: shared-site-layout-browser-amendment-001, artifact: shared-site-layout-browser-amendment, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
