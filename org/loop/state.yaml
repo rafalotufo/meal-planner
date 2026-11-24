@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/saved-recipe-menu/spec.md
 base_commit: c104a2529de01b154548b69b7716087d2493bf52
-turn: 0
+turn: 2
 no_progress: 0
-phase: intent
+phase: awaiting_visual_approval
 status: in_progress
-last_input_hash: null
+last_input_hash: 180f31ad38d96727df8967f3f7535ece26e26e24b15cc4d7e84477224e251fd3
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-24T16:24:15Z"
+last_action: "reviewer:review_page_mockups"
+artifacts: [{"path": "intent/saved-recipe-menu/visual-design.md", "sha256": "631dc470b279efd6cbf69f43d1b5375b0a4e6c73044e93e4687b80ea599cd56b"}, {"path": "org/reviews/visual-saved-recipe-menu-001.md", "sha256": "03231a9d5ff226ea4cdd43a412a797db06ff1aaecb0b35081bb7c4b931a97d0a"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T16:30:11Z"

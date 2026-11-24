@@ -34,3 +34,29 @@ reports describe the previous draft; the focused review
 `org/reviews/spec-saved-recipe-menu-002.md` assesses these changed contracts.
 Only documentation/audit files changed; baseline application checks above are
 not new menu or pagination/photo runtime evidence.
+
+## Interactive visual preview QA
+
+Owner approved the amended specification and requested visual Design previews.
+The preview changes only feature documentation, a self-contained conversation
+fragment and workflow records; no application UI/schema behavior was implemented.
+
+Root inspected the rendered preview in the real in-app browser:
+
+- Desktop1440×1100: three recipe-card columns, final desktop shell1200px,
+  current stone/emerald styling, readable menu layout and actions.
+- Mobile390×844: one-column cards and stacked search form; measured root
+  clientWidth358 and scrollWidth358, no horizontal overflow.
+- Search save showed disabled pending action and success feedback; menu link
+  showed the saved card. Older/Newest navigation replaced the displayed cards.
+- Removal kept the page populated from remaining sample entries and announced
+  success. Source links remained visible; external sample source links were not
+  opened. No console warnings/errors were captured.
+- Desktop final width correction was reloaded and inspected; viewport override
+  reset after QA. No real auth, provider, image, database or hosted effect.
+
+Images are clearly labeled sample illustrations. These checks establish local
+mockup layout/interaction only; real photo delivery, production focus handling,
+full failure matrix, authorization and persistence remain Build/Test obligations.
+Independent visual review is recorded in
+`org/reviews/visual-saved-recipe-menu-001.md`.

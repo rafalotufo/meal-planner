@@ -2,7 +2,8 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Draft for independent security/peer review, then human specification approval
+- Status: Approved by owner; `org/messages/ceo-0050.md`.
+  Visual design preview remains separately proposed for review.
 - Input: accepted sibling `intent.md`; PM decision `org/reviews/intent-saved-recipe-menu-001.md`
 - Owner decisions: one shared menu per family; no maximum saved-recipe count;
   retain photos when available and use fallback only when missing or failed.

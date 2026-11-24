@@ -17,7 +17,7 @@ nodes:
     stage: design
     artifact: intent/saved-recipe-menu/visual-design.md
     gate: visual_design_approval
-    status: in_progress
+    status: pending
     done_status: approved
   plan:
     stage: build
