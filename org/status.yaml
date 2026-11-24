@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: Recorded isolated staging choice; completed Design specification and independent security/spec review. Await owner spec approval before Build; no application or external changes. }
   product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
   architect: { status: idle, assignment: null, last_report: "Isolated staging spec independently reviewed by security/reviewer with no blockers; metadata links recorded, owner Design approval pending." }
-  senior-developer: { status: busy, assignment: intent/vercel-candidate-validation/plan.md, last_report: "PostgreSQL native17.11 setup, runtime, migrations and async family flows complete; strict checks and real-PG regressions pass." }
+  senior-developer: { status: busy, assignment: intent/vercel-candidate-validation/plan.md, last_report: Staging implementation plan drafted; awaiting independent plan review before code. }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging Design security approved, no blockers; operational alias/configuration/identity preflight remains mandatory." }
-  reviewer: { status: idle, assignment: null, last_report: Independent isolated staging spec review approved; no blockers. Owner spec decision and implementation plan pending; no external actions. }
+  reviewer: { status: busy, assignment: intent/vercel-candidate-validation/plan.md, last_report: Independent isolated staging spec review approved; no blockers. Owner spec decision and implementation plan pending; no external actions. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
@@ -56,3 +56,4 @@ review_queue:
   - { id: single-call-main-refresh-integration-001, artifact: single-call-main-refresh-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: options-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/solutions.md, writer: product-manager, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: spec-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: plan-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
