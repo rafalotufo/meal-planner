@@ -90,3 +90,23 @@ bind the assessment to the implementation; substantive changes require review.
 
 Human merge and release approval remain required. No push, merge, deployment
 or hosted data action was performed by this assessment.
+
+## Final committed-source addendum
+
+Reconfirmed approval against implementation commit
+`b311ac61a1d9512f932232b505b8a6fb21be9b11`. The four production source/asset
+hashes and focused HTTP test hash above still match exactly. The final Chrome
+helper hash supersedes its earlier working-tree value:
+
+`tests/auth/app-icon-browser.ts`:
+`12fdb3e8f05ab83ece8ed5d823a394fc542188490897b8ec5da042ce4fe28a92`.
+
+The helper's scoped corrections assert the existing sign-in heading separately
+from the unchanged `document.title === "Meal Planner"` assertion, give the
+inspection document explicit UTF-8 encoding, and raise contact-sheet viewport
+height to 1,100px. They add no production behavior, privileges, external
+requests or exposed fixture credentials. The final helper secret scan again
+reports zero findings. Developer verification in
+`org/reviews/app-icon-verification.md` and its committed logs records the full
+suite and refreshed Chrome evidence. No additional full-suite rerun is claimed
+by this security addendum. Approval and the separate human gates are unchanged.
