@@ -17,12 +17,21 @@ actual commands/results; unchecked later tasks are not claimed complete.
 - Task2 GREEN: `pnpm run test:menu` passed10 tests (exit0), including streamed
   UTF-8, exact limits, fake lengths, stalled cancellation and total deadlines.
   `pnpm run lint` passed with zero warnings (exit0).
+- Subsequent strict checking found an inferred union in the new body-test header
+  arrays. Explicit typed records fixed it; `pnpm run typecheck` and lint passed
+  again (exit0), without changing compiler settings.
 - Initial native db status/start failed because this worktree lacked private
   configuration. The orchestrator then validated/reused the existing private
   cluster configuration and started that cluster; no setup/development migration.
 - Task3 RED: `node --import tsx --test tests/menu/migration.test.ts` against owned
   random local databases failed3/3 (exit1): menu table absent, old schema still
   accepted, and separate menu rollback absent. Each fixture cleanup ran.
+- Task3 GREEN: prepared two-migration runtime metadata and75-entry full catalog
+  using the public loader and candidate SQL on one newly owned random database,
+  then cleaned it up. The three migration/upgrade/rollback tests passed (exit0).
+- Task4 RED: actual migration/grant tool on a separate owned random DB did not
+  allow runtime insertion into menu_recipes; focused privilege test failed with
+  PostgreSQL42501 as expected before the new narrow grant.
 
 No hosted operation, development schema change, provider request or UI behavior
 has been performed by this foundation increment. Runtime menu persistence and
