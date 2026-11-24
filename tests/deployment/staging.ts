@@ -221,7 +221,8 @@ export async function checkStaging(options: CheckOptions): Promise<Report> {
     return report;
   } catch (error) {
     const failed = failure(error);
-    return outcome(report, failed.reason, failed.exitCode);
+    report = outcome(report, failed.reason, failed.exitCode);
+    return report;
   } finally {
     clearTimeout(runTimer);
     run.abort();

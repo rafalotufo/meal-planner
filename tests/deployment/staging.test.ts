@@ -159,6 +159,21 @@ test("request and body stalls that ignore AbortSignal still reach the deadline",
   }
 });
 
+test("failed and inconclusive reports retain their actual completion timestamp", async () => {
+  for (const expectedExit of [1, 2]) {
+    let clock = now;
+    const report = await checkStaging({ ...options(), now: () => clock, fetchImpl: async (url, init) => {
+      clock += 1250;
+      if (expectedExit === 2) return new Response(null, { status: 502 });
+      if (url.endsWith("/sign-in")) return new Response("unexpected", { headers: { ...noStore, "content-type": "text/html" } });
+      return healthy(url, init);
+    } });
+    assert.equal(report.exitCode, expectedExit);
+    assert.equal(report.startedAt, new Date(now).toISOString());
+    assert.equal(report.endedAt, new Date(now + (expectedExit === 1 ? 2500 : 1250)).toISOString());
+  }
+});
+
 test("finalization rejects premature/stale evidence, target drift and missing owner evidence", async () => {
   const report = await checkStaging({ ...options(), mode: "member", readPrivate: async () => ({ sessionCookie: "session=x" }) });
   const post = { ...pre, capturedAt: new Date(now).toISOString() };

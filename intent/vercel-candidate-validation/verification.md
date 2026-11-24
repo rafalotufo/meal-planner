@@ -63,3 +63,39 @@ approved real staging identity/provisioning effects remain operational setup
 checks under the runbook. The helper consumes trusted operator snapshots and
 owner attestations; it neither authenticates those inputs nor establishes a
 live alias mapping by itself. No fabricated final hosted pass is recorded.
+
+## Orchestrator audit notes
+
+Plan-sync and staged zero-secret checks passed; the correct feature-specific
+committed plan approval was additionally verified with
+`gate_ledger.py verify --record plan-vercel-candidate-validation-001
+--require-committed --require-gate engineer_approve`. The plan status was
+normalized to the checker's exact `Approved` spelling without changing scope.
+
+All eight org acceptance commands passed at the implementation turn. The
+security-turn repeat reported auth exit1 while the other seven passed; the
+existing org runtime did not retain that command's output. A direct full
+authentication rerun then passed12/12 without code or test changes. The failure
+is not reproduced or root-caused; do not describe it as fixed. The final org
+auth command preserves its private log for diagnosis if it recurs. No check
+is skipped, suppressed or weakened. Final review/acceptance results follow.
+
+Read-only pinned CLI project inspection confirmed the recorded project ID/name,
+Next.js/Node24 and no Git integration. It did not expose paused state; that
+remains unverified. No account setting or deployment changed.
+
+## Independent-review timestamp correction
+
+The reviewer identified that failed/inconclusive check returns spread the report
+before `finally` set its completion time, retaining the start timestamp. Added
+a deterministic-clock regression first: the focused command failed (13 passed,
+one failed) because the returned end time was1250ms earlier than expected.
+The regression covers both an inconclusive transport response and a concrete
+app assertion failure after multiple requests. The fix stores the outcome back
+into the report before returning, so the existing `finally` updates that same
+returned object. Schema, HTTP/credential behavior and result codes are unchanged.
+
+After the fix, `node --import tsx --test tests/deployment/staging.test.ts`
+passed14/14; focused ESLint and `pnpm run typecheck` both passed (exit0).
+The earlier31-test deployment/143-Node totals above describe the pre-correction
+full run; the orchestrator records the final broadened verification separately.
