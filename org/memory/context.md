@@ -8,10 +8,10 @@ intent/searchable-swap-picker/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 1
-- phase: build
-- stop_reason: None
+- status: solved
+- turn: 4
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
@@ -21,7 +21,7 @@ intent/searchable-swap-picker/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (retained-search-results-plan)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -59,7 +59,6 @@ intent/searchable-swap-picker/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
-- ceo-0057 ceo -> orchestrator decision: Keep visible recipes while search updates
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,7 +93,7 @@ intent/searchable-swap-picker/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
-- orchestrator-0117 orchestrator -> ceo handoff: Search modal size flicker fixed and reviewed
+- orchestrator-0118 orchestrator -> ceo handoff: Recipes remain visible while search loads
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -160,11 +159,11 @@ intent/searchable-swap-picker/intent.md
 
 ## Recent decisions
 
-- mem-0136 reviewer: Owner swap retention implemented and independently approved at917b9ebf8e7915f415e873cfc4ecdd224ab48f59. Acceptance clears same-recipe competitors only; unrelated pending suggestions retain identity/content and remain actionable at new revision.214Node/7Python and Chrome pass;4turn loop solved, human merge/release still pending. (org/reviews/weekly-meal-planning-swap-final-001.md)
 - mem-0137 reviewer: Approved1-7unique weeklyrecipes and no duplicate swaps;0003will atomically compactduplicate drafts/remap feedback under migrationlock then FIRSTfamilylock beforeDDL. Finalhistoryrawimmutable, privateQA preserves next-env userdiff, localrepair onlyaftertests/source/security review. Owner laterstoppeddevserver. (org/reviews/weekly-meal-planning-unique-plan-001.md)
 - mem-0138 reviewer: Unique1-7weeklyrecipes approved at0f0b0c84792bb9947fe4ef0790d893973a21e01b,219Node/7Python/Chrome green. Root applied reviewedLOCAL0003 afterprecisetargetvalidation:1draft repaired to2unique, snapshots/order/proposals verified, runtime schema4valid. Usernext-env preserved/devleftstopped; no hosted/deploy/jobactivation, humanmerge pending. (intent/weekly-meal-planning/verification.md)
 - mem-0139 reviewer: Searchable thumbnail swap modal independently approved at b0627be7e2e65eed7061c4cbb1bb4182ed436a52;223Node/7Python/lint/typecheck/build/Chrome pass, exactcopybackverified, ownernext-env/dev preserved. Fullmenu boundsearch, explicitconfirmation, race/focus/image guards retained. Humanmerge/release pending; hostedICU remains prereleasecheck. (org/reviews/searchable-swap-picker-final-001.md)
 - mem-0140 reviewer: Searchmodal size flicker corrected at5e4dd69d4d07c0b6d1a034c79e4f5eafd4c23f4d with2CSS sizing attributes; actual500pxshrink reproduced then55geometrysamples0px at5viewports.223Node7Python/fullChrome/lint/typecheck/build pass, independentapproval. Ownernext-env/dev preserved, merge/release pending. (org/reviews/searchable-swap-picker-stable-frame-final-001.md)
+- mem-0141 reviewer: Retained search results approved at 4f91e9c2b833dddbe154a795c60cc869f4035366. Current cards remain visible until validated latest results arrive, without an updating label; stale actions stay disabled and current access failures clear snapshots. All 223 Node/7 Python tests, strict checks and Chrome pass, with zero geometry movement in 55 samples. Owner next-env/dev preserved. Human merge/release pending. (org/reviews/searchable-swap-picker-retained-results-final-001.md)
 
 ## Constraints
 
@@ -173,14 +172,17 @@ intent/searchable-swap-picker/intent.md
 ## Artifacts
 
 - org/reviews/searchable-swap-picker-retained-results-plan-001.md (2118ab75b67881603f37deeba469924a8adf38bde7019de7dfe1cb46260157ca)
+- intent/searchable-swap-picker/verification.md (42752f835c80f4fd3c8c97dc0cbfd86384746cd41f7f4e44405fb2b147654876)
+- org/reviews/searchable-swap-picker-retained-results-security-001.md (f2284810ad0ae157c3f619f35c73738e2b6dc287ba6d5a8e3f91b52d5459c138)
+- org/reviews/searchable-swap-picker-retained-results-final-001.md (708a2ba6402cf0c96dde86968bf1db2c07382441270d2213dddae3db466de9a1)
 
 ## Next action
 
-reviewer:approve_retained_results_change
+reviewer:verify_retained_results
 
 ## Last digest source
 
-- mem-0140 from org/reviews/searchable-swap-picker-stable-frame-final-001.md
+- mem-0141 from org/reviews/searchable-swap-picker-retained-results-final-001.md
 
 <!-- machine:end -->
 

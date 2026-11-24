@@ -180,7 +180,7 @@ the completed stable-frame loop. Existing manifest paths suffice.
 2. Update only `app/plans/swap-recipe-dialog.tsx` result lifecycle/rendering as
    necessary: retain a successful displayed snapshot with its query/cursor,
    requested query/page separate, and commit snapshot only after current validated
-   success. Show Updating/aria-busy without hiding the retained choices. Disable
+   success. Keep retained choices visible without an updating label; preserve aria-busy. Disable
    stale choices/paging/confirmation on pending/error; clear selection immediately.
    Current unauthorized/forbidden reads clear retained recipes. Preserve all
    cancellation/version/deadline/response-validation and mutation-instance guards.

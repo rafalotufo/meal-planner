@@ -341,3 +341,14 @@ and changed existing modal PNGs are eligible for guarded copy-back. No helper,
 dependency, schema, API/auth, provider, scheduler, deployment or hosted change.
 Root owns final source/security review, baseline-checked copy-back, Git/secret
 checks and separate human merge/release gates.
+
+
+Root retained-results handoff: fixed application source `4f91e9c` supersedes the
+prior immediate-clear behavior. All seven approved source/test/evidence paths
+passed original-baseline hash checks before copy-back and exact private/original
+byte comparisons afterward. The user's next-env SHA remains unchanged/unstaged;
+original dev process and .next remain untouched. Private QA logs are temporary;
+the owned copy is removed after exact-source independent reviews, while these
+summaries/screenshots remain versioned. Final review artifacts:
+`org/reviews/searchable-swap-picker-retained-results-security-001.md` and
+`org/reviews/searchable-swap-picker-retained-results-final-001.md`.

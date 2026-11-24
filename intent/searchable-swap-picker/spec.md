@@ -304,7 +304,7 @@ Retain the last successfully validated displayed snapshot through debounce and
 fetch: page entries, page query and page cursor position move together. A query
 change immediately clears selection and resets the requested cursor, aborts old
 work and disables old choice buttons, paging and confirmation. Keep the recipes
-visible with unobtrusive Updating status and aria-busy while the latest request
+visible without an updating label, retaining aria-busy while the latest request
 is outstanding. Initial loading with no prior successful snapshot still shows
 its loading state. Do not blank or replace the displayed entries with a spinner.
 
@@ -340,3 +340,9 @@ response-body loading, while old choices cannot be selected or confirmed; only
 the latest validated result then replaces the IDs. Cover ordinary error retention,
 401/403 clearing, retry, empty success, query/cursor metadata, request/close races
 and unchanged stable geometry. No new dependency/helper/API/schema is needed.
+
+
+Owner steering: do not display “Updating recipes” or a similar visible pending
+label when a prior page remains displayed. Keep that page quiet while searching;
+retain aria-busy and safe disabled stale actions. Initial loading without any
+snapshot may still use its existing loading message.
