@@ -9,6 +9,7 @@
 - `lib/recipes/openai.ts`
 - `intent/recipe-result-count/*`
 - `org/reviews/recipe-result-count-*.md`
+- `org/reviews/recipe-result-count-*.jpg`
 - `gates/ledger.jsonl`
 
 ## Ordered work

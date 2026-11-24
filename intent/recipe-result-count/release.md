@@ -49,3 +49,32 @@ exact source on isolated Preview. Actual staging results/gaps must be recorded
 and accepted by the owner before separate Production packaging/promotion.
 No Production release authorization is claimed by the earlier merge/deploy
 instruction alone before exact staging scope and gaps are reviewable.
+
+## Completed merge and staging
+
+Local main was clean at the expected base and fast-forwarded to exact reviewed
+release source `4e66fb7bf1e9887c6c88e89fae984005ff02f118`. Source correction
+commit80d92de is followed by a documentation-only plan-approval format correction;
+the initial plan-sync failure was a missing machine-readable Approved header,
+not an implementation departure. Final full-base plan-sync passed after the
+independently approved status/manifest and truthful engineer gate were recorded.
+Staged secret scanning reported zero findings. No remote is configured.
+
+A clean archive of pinned4e66fb7 produced100upload files/445277bytes. Every
+upload file's SHA1 matched the export; required runtime/SQL/config/lock assets
+were present and env/private/audit files excluded. A separate copy containing
+only those upload files passed frozen install and production build. Source
+export and private receipts remain ignored and owner-only for the pinned release.
+
+Preview deployment and actual staged checks are recorded in staging.md.
+Independent exact-source staging handoff approved in
+`org/reviews/recipe-result-count-staging.md`. Current environment metadata matched
+both the pre/post staging inspections and the previous saved-menu release;
+domain/project settings remained unchanged. Current Production9a7V readback
+confirmed READY/Production and its recorded saved-menu source1788143, with
+identical runtime/schema contract and only the prompt line differing in app code.
+
+Owner exact-source staging acceptance and concrete Production scope/recovery
+authority remain outstanding. No Production build or promotion has occurred.
+Later audit commits record evidence only; they must not replace pinned4e66fb7 as
+the source for this release.
