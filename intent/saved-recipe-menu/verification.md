@@ -61,3 +61,19 @@ DB or hosted URLs. Restricted-role fixture grants target only its random DB;
 no global role creation/alteration or development-data access was added.
 All owned fixtures ran cleanup. Menu store/API/UI/browser acceptance and final
 whole-feature regressions remain outstanding.
+
+## Store increment
+
+- Task5 RED: focused store/isolation tests failed before implementation because
+  lib/menu/store.ts did not exist (exit1). Initial synthetic test email values
+  were then correctly rejected by the existing strict Gmail allowlist validator;
+  only fixture addresses were corrected, with no authentication-code change.
+- Task5 GREEN: `node --import tsx --test tests/menu/store.test.ts
+  tests/menu/isolation.test.ts` passed5/5 (exit0), covering first-snapshot
+  retention/eight concurrent duplicates, fresh restricted-runtime connection,
+  two-family and joined-member access, foreign-ID/cursor isolation, lock-time
+  admission/member recheck,203 saves across50/50/50/50/3 pages, cursor-row deletion,
+  old-ID removal after re-add, rollback and corrupt persisted-row failure.
+- Strict typecheck and lint both passed (exit0). Store functions use the unchanged
+  common family lock and derive current family from requireMember inside writes.
+- No API/UI implementation is included in this checkpoint yet.

@@ -209,14 +209,14 @@ extend existing new migration test. Depends on task3.
 
 ### 5. Implement scoped store behavior — medium
 
-- [ ] RED in store.test.ts, then implement store.ts: current-member list,
+- [x] RED in store.test.ts, then implement store.ts: current-member list,
   first-save-wins under the existing transaction lock, family-scoped delete,
   missing/foreign-ID successful no-op, unchanged source/photo snapshot and time.
-- [ ] Prove reopen/restart durability, duplicate races, save beyond200 without
+- [x] Prove reopen/restart durability, duplicate races, save beyond200 without
   eviction, rollback and delayed old-ID deletion after re-add. More than100
   rows traverse50/50/remainder without omissions/duplicates in an unchanged
   dataset; deleting a cursor boundary does not invalidate later pages.
-- [ ] isolation.test.ts proves two families cannot cross read/write boundaries,
+- [x] isolation.test.ts proves two families cannot cross read/write boundaries,
   forged cursors still bind the caller family, and admission/membership changes
   between outer checks and transaction decision reject the write. A test-owned
   wrapper may coordinate before the transaction callback; add no production
