@@ -2,7 +2,8 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Proposed visual design for owner review; no visual approval claimed.
+- Status: Approved by owner, including removal confirmation;
+  `org/messages/ceo-0052.md`.
 - Preview: `mockups/menu-preview.html`
 - Based on: approved sibling specification and existing `app/page.tsx`,
   `app/recipe-search.tsx`, `app/search-notebook.tsx`, `app/recipe-card.tsx`.

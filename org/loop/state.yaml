@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/saved-recipe-menu/spec.md
-base_commit: c104a2529de01b154548b69b7716087d2493bf52
-turn: 4
+base_commit: 3da9c0a0ae0426e40422df6298d199a86f88ece6
+turn: 0
 no_progress: 0
-phase: awaiting_owner_visual_review
-status: exhausted
-last_input_hash: 11b23eb412932ff2c0e98d4eb06d621d85de278260f142138029533a48798f4d
-stop_reason: exhausted
-last_action: "reviewer:review_removal_confirmation"
-artifacts: [{"path": "org/reviews/visual-saved-recipe-menu-001.md", "sha256": "03231a9d5ff226ea4cdd43a412a797db06ff1aaecb0b35081bb7c4b931a97d0a"}, {"path": "intent/saved-recipe-menu/visual-design.md", "sha256": "185e71e278e665f7ba1c33964c018dbbb01c1266757e2e69f35fcf79852833e5"}, {"path": "org/reviews/visual-saved-recipe-menu-002.md", "sha256": "2496da3096067f1cb4562b574ed098b0b7d7ea627d3034244b3e83a85bdae2ac"}]
-acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T16:35:42Z"
+phase: intent
+status: in_progress
+last_input_hash: null
+stop_reason: null
+last_action: null
+artifacts: []
+acceptance: []
+updated_at: "2026-11-24T16:36:51Z"

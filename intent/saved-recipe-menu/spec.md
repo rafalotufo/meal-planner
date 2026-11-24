@@ -2,9 +2,8 @@
 
 - Author: architect
 - Date: 2026-11-24
-- Status: Approved by owner; `org/messages/ceo-0050.md`.
-  Owner subsequently required removal confirmation; this scoped amendment is
-  incorporated below. Visual preview remains separately proposed for review.
+- Status: Approved by owner, including removal confirmation;
+  `org/messages/ceo-0052.md` (initial approval: `org/messages/ceo-0050.md`).
 - Input: accepted sibling `intent.md`; PM decision `org/reviews/intent-saved-recipe-menu-001.md`
 - Owner decisions: one shared menu per family; no maximum saved-recipe count;
   retain photos when available and use fallback only when missing or failed.
