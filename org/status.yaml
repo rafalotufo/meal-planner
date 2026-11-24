@@ -3,10 +3,10 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Documentation-only staging-first process completed and independently reviewed. New merge/release authority remains separate; no deployment. }
+  orchestrator: { status: idle, assignment: null, last_report: Staging-first release guidance merged to local main; exact-source staging acceptance and Production release remain unstarted. }
   product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
   architect: { status: idle, assignment: null, last_report: Staging-first intent/spec/plan independently approved; docs-only scope ready. }
-  senior-developer: { status: idle, assignment: null, last_report: "Four staging-first release guidance documents completed; Python7,8 links and nine scenarios verified. No code or hosted effects." }
+  senior-developer: { status: idle, assignment: null, last_report: Executed authorized staging-first release docs merge into clean local main; no runtime or hosted action. }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
   reviewer: { status: idle, assignment: null, last_report: Staging-first process final review approved; full-baseline plan-sync passed after format-only manifest corrections. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
