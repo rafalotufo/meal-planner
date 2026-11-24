@@ -2,7 +2,7 @@
 
 - Author: product-manager, from Rafael's active chat request
 - Date: 2026-11-24
-- Status: PM scope accepted; awaiting owner intent acceptance before Design
+- Status: Accepted by owner on 2026-11-24; Design authorized
 - Source: “Lets add the ability to add to the menu a recipe from a url. So no search needed, this is the direct link to the recipe. Use sdlc org workflow for this intent”
 - PM assessment: `org/reviews/intent-recipe-url-menu-001.md`
 
@@ -23,8 +23,8 @@ persistence, pagination and confirmed-removal flows.
 The owner confirmed: “Read the linked page and save its title, photo, summary
 and time when available.” The flow therefore acquires available recipe metadata
 from the linked page. It does not run recipe discovery or require the user to
-enter a title manually. This product clarification is distinct from owner
-acceptance of this written intent; the latter remains pending.
+enter a title manually. The owner subsequently accepted this written intent with “approved” in the
+active chat on 2026-11-24. This authorizes Design; later gates remain separate.
 
 ## Acceptance criteria
 
@@ -65,7 +65,7 @@ The owner selected automatic page metadata acquisition: “Read the linked page
 and save its title, photo, summary and time when available.” The product manager
 accepts this scope as a narrow addition to the existing family menu.
 
-After owner intent acceptance, Design must define supported structured recipe
+Design must define supported structured recipe
 evidence, selection if a page contains multiple recipes, minimum required
 fields, missing-details presentation, inaccessible/non-recipe handling and the
 save interaction. It must define safe bounded page fetching, URL identity and
@@ -73,9 +73,9 @@ redirect/canonical handling without silently broadening existing deduplication
 or photo-fetch guarantees. It may reuse suitable existing parsing/transport only
 after assessing its contract. No paid AI or discovery call is implied.
 
-These are technical design questions, not unresolved product choices. The
-written intent still awaits the owner's acceptance under the invoked SDLC
-skill's intent-to-Design gate.
+These are technical design questions, not unresolved product choices. Owner
+acceptance opens Design under the invoked SDLC skill; specification approval
+and plan approval remain separate gates before implementation.
 
 ## Current grounding
 
@@ -112,9 +112,9 @@ human merge/release gates.
 
 ## Handoff
 
-The product manager recommends accepting this intent with the confirmed metadata
-acquisition scope. The orchestrator presents the concrete written intent for
-owner acceptance before Design, as required by the invoked SDLC skill. After
-that acceptance, the architect produces the sibling specification and plan for
-independent review. PM scope acceptance does not assert owner gate approval,
-authorize implementation or claim that runtime verification has occurred.
+The product manager accepted the confirmed metadata acquisition scope, and the
+owner accepted this written intent on 2026-11-24 with “approved” after the
+orchestrator requested intent acceptance. The architect now produces the sibling
+specification for independent review and owner approval. Build planning follows
+specification approval; code follows plan approval. No implementation or release
+approval is implied by intent acceptance.

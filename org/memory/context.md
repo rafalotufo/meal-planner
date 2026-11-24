@@ -15,7 +15,7 @@ intent/recipe-url-menu/intent.md
 
 ## Agents
 
-- architect: busy (shared-site-layout-plan)
+- architect: busy (intent/recipe-url-menu/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -58,6 +58,7 @@ intent/recipe-url-menu/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0053 ceo -> orchestrator decision: Accept recipe URL menu intent
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -93,6 +94,7 @@ intent/recipe-url-menu/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
+- orchestrator-0090 orchestrator -> architect handoff: Design accepted recipe URL menu intent
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -158,11 +160,11 @@ intent/recipe-url-menu/intent.md
 
 ## Recent decisions
 
-- mem-0123 reviewer: Approved shared-site-layout spec/plan. Shared header adds real keyboard stops; narrowly adapt two existing browser helpers with bounded Tab traversal while preserving focus/Enter assertions and historical screenshots. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
 - mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
 - mem-0130 product-manager: Recipe URL menu PM scope accepted: owner confirmed reading the linked page for title, photo, summary and time when available. Written-intent owner acceptance is pending before Design; no code or release approval. (intent/recipe-url-menu/intent.md)
+- mem-0132 ceo: Owner approved the written recipe-url-menu intent in chat. Design is authorized; specification, plan, merge and release approval remain separate gates. (org/messages/ceo-0053.md)
 
 ## Constraints
 
@@ -178,7 +180,7 @@ product-manager:review_recipe_url_menu_intent
 
 ## Last digest source
 
-- mem-0131 from org/loop/archive/shared-site-layout-before-recipe-url-menu-2026-11-24/README.md
+- mem-0132 from org/messages/ceo-0053.md
 
 <!-- machine:end -->
 

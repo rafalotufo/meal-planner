@@ -5,7 +5,7 @@ nodes:
     stage: "plan"
     artifact: "intent/recipe-url-menu/intent.md"
     gate: "product_owner_accept"
-    status: pending
+    status: accepted
     done_status: "accepted"
   spec:
     stage: "design"

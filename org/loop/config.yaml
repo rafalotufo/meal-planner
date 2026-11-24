@@ -9,7 +9,9 @@ acceptance:
   commands: ["git diff --check"]
 phases:
   intent: { role: product-manager, action: review_recipe_url_menu_intent, next: design }
-  design: { role: architect, action: specify_recipe_url_menu, next: plan_review }
+  design: { role: architect, action: specify_recipe_url_menu, next: spec_review }
+  spec_review: { role: reviewer, action: review_recipe_url_menu_spec, next: planning }
+  planning: { role: senior-developer, action: plan_recipe_url_menu, next: plan_review }
   plan_review: { role: reviewer, action: review_recipe_url_menu_plan, next: build }
   build: { role: senior-developer, action: implement_recipe_url_menu, next: security }
   security: { role: security-researcher, action: assess_recipe_url_menu, next: review }
