@@ -9,13 +9,13 @@ intent/t-rex-runner/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: spec
+- turn: 2
+- phase: plan
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/recipe-waiting-game/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -29,6 +29,8 @@ intent/t-rex-runner/intent.md
 - architect-0002 architect -> orchestrator handoff: Vercel Hobby specification ready for human approval
 - architect-0003 architect -> orchestrator handoff: Word Snack draft specification ready for independent review
 - architect-0004 architect -> orchestrator handoff: Word Snack catalogue revised to 128 distinct puzzles
+- architect-0005 architect -> orchestrator handoff: T-Rex Runner draft specification ready for review; architect idle
+- architect-0006 architect -> orchestrator handoff: T-Rex surface Space wording corrected; architect idle
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -58,6 +60,8 @@ intent/t-rex-runner/intent.md
 - orchestrator-0026 orchestrator -> reviewer handoff: Review verified Word Snack implementation
 - orchestrator-0027 orchestrator -> ceo status: Word Snack verified and ready for human merge review
 - orchestrator-0028 orchestrator -> product-manager handoff: Review selected T-Rex replacement intent
+- orchestrator-0029 orchestrator -> architect handoff: Design selected T-Rex replacement
+- orchestrator-0030 orchestrator -> reviewer handoff: Review T-Rex replacement specification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -78,6 +82,8 @@ intent/t-rex-runner/intent.md
 - reviewer-0012 reviewer -> orchestrator review: Word Snack implementation plan peer review approved
 - reviewer-0013 reviewer -> orchestrator review: Full Word Snack catalogue content audit approved
 - reviewer-0014 reviewer -> orchestrator review: Word Snack final code review approved
+- reviewer-0015 reviewer -> orchestrator review: T-Rex specification needs scoped Space scroll correction
+- reviewer-0016 reviewer -> orchestrator review: T-Rex specification correction approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
@@ -103,14 +109,15 @@ intent/t-rex-runner/intent.md
 ## Artifacts
 
 - intent/t-rex-runner/intent.md (de55afc2aefe37b175f179054a65421032a37fd2ec6a6d5421e5e66492481411)
+- intent/t-rex-runner/spec.md (a94c2a16a923e4633f935dd7c7f422c477171ba5d45e7269e84e6be846bd5d97)
 
 ## Next action
 
-product-manager:review_intent
+architect:draft_spec
 
 ## Last digest source
 
-- mem-0061 from org/reviews/intent-t-rex-runner-001.md
+- mem-0062 from org/reviews/spec-t-rex-runner-002.md
 
 <!-- machine:end -->
 

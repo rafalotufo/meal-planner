@@ -27,6 +27,32 @@ records intent review; no application code or assets have changed.
   untracked work/ and earlier brainstorm notes. No check/config was weakened.
 - Verifying the unchanged committed application in an isolated temporary
   source snapshot with existing pinned node_modules, separate generated types
-  and no copied local environment files. Results recorded when complete.
+  and no copied local environment files: typecheck exit 0, production build
+  exit 0 and auth exit 0 (12/12 tests). Snapshot:
+  /private/tmp/trex-intent-baseline-g4j6t7cg. This verifies unchanged baseline
+  source, not the unimplemented T-Rex game or the original dev cache state.
 - License/source inspected through the upstream links in intent.md. This is
   source research, not integration, browser or T-Rex gameplay verification.
+
+## Design handoff
+
+Accepted intent committed caab317; architect dispatched to draft spec.md.
+The source must be local/pinned with preserved notices, strictly typed at its
+integration boundary, focus-scoped and cleaned up on unmount. Existing
+Word Snack code remains until specification and implementation-plan approval.
+
+Architect drafted spec.md using verified candidate revision
+5455bfa408ec6b707c7300ff194b7390733a766d; asset hashes/dimensions and applicable
+original Chromium notice must be resolved in planning before reuse. Bounded
+turn 2 records draft_spec. Original-cache acceptance failures remain recorded;
+isolated unchanged-source checks above are separate baseline evidence.
+
+Independent review spec-t-rex-runner-001 required one correction: consume Space
+on the focused game surface even when a jump is ignored, preventing accidental
+page scrolling. Architect corrected it and added a browser assertion in
+architect-0006. Focused review spec-t-rex-runner-002 approved with no remaining
+required findings; reviewer-0016 records approval. Both review records remain.
+
+The graph marks spec in_review, and org_loop.py next stops at
+product_owner_approve. No plan, game assets or implementation were written;
+no T-Rex gameplay, browser verification, merge or release is claimed.
