@@ -13,6 +13,18 @@ const bowl = recipe("Lemony chickpea bowls", { kind: "total", text: "20 minutes"
 const pasta = recipe("Spinach pasta", { kind: "total", text: "25 mins" });
 const soup = recipe("Lentil soup", { kind: "cook", text: "10 minutes" });
 
+test("results can retain an earlier selected panel and explicit open never toggles it shut", () => {
+  const first = notebookReducer(initialNotebook, { type: "add", id: 1, query: "First", recipes: [bowl] });
+  const second = notebookReducer(first, { type: "add", id: 2, query: "Second", recipes: [pasta], selectNew: false });
+  assert.deepEqual(second.entries.map(entry => entry.id), [2, 1]);
+  assert.equal(second.selectedId, 1);
+  const opened = notebookReducer(second, { type: "open", id: 2 });
+  assert.equal(opened.selectedId, 2);
+  assert.equal(notebookReducer(opened, { type: "open", id: 2 }).selectedId, 2);
+  assert.equal(notebookReducer(opened, { type: "open", id: 999 }), opened);
+  assert.equal(first.entries.length, 1);
+});
+
 // Each new submission is a separate group; per-group choices survive navigation.
 test("notebook retains searches newest first, including repeated queries and empty results", () => {
   const first = notebookReducer(initialNotebook, { type: "add", id: 1, query: "Dinner", recipes: [bowl, soup] });

@@ -1,0 +1,30 @@
+version: 1
+max_turns: 6
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: true
+review_artifact: t-rex-runner-implementation
+human_gates: [product_owner_approve, engineer_approve, code_owner_approve, release_authorization]
+acceptance:
+  commands:
+    - python3 -m unittest discover -s tests
+    - pnpm test
+    - node --import tsx --test tests/deployment/smoke.test.ts
+    - pnpm run lint
+    - pnpm run typecheck
+    - pnpm run build
+    - node --import tsx --test tests/auth/*.test.ts
+roles:
+  product: product-manager
+  design: architect
+  implement: senior-developer
+  security: security-researcher
+  review: reviewer
+phases:
+  intent: { role: product-manager, action: review_intent, next: spec }
+  spec: { role: architect, action: draft_spec, next: plan }
+  plan: { role: senior-developer, action: draft_plan, next: implement }
+  implement: { role: senior-developer, action: implement, next: security }
+  security: { role: security-researcher, action: assess_security, next: review }
+  review: { role: reviewer, action: review, next: done }
+  done: { role: null, action: null, next: null }

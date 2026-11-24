@@ -9,7 +9,7 @@ round: 1
 # PM scope decision — isolated Vercel staging validation
 
 Accepted for Design under `org/protocol.md`. Rafael explicitly selected the
-isolated staging approach in `org/messages/ceo-0028.md`, resolving the assurance
+isolated staging approach in `org/messages/ceo-0038.md`, resolving the assurance
 choice from the initial research. This is a PM scope acceptance, not independent
 peer review of PM-authored text or implementation approval.
 

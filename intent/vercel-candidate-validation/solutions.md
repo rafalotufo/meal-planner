@@ -6,7 +6,7 @@
 
 ## Selected approach — 2026-11-24
 
-Rafael approved isolated staging (`org/messages/ceo-0028.md`): use the existing
+Rafael approved isolated staging (`org/messages/ceo-0038.md`): use the existing
 Vercel project's Preview environment, a manually controlled stable staging
 alias, independent staging auth secret and Google OAuth client/callback, and the
 recorded Preview database. Keep distinct Production builds and smoke checks.

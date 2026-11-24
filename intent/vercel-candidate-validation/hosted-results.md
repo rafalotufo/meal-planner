@@ -1,7 +1,7 @@
 # Preview-only hosted setup — execution evidence
 
 Date: 2026-11-24. Scope: owner-authorized worktree Preview setup under
-`org/messages/ceo-0030.md`, reviewed in
+`org/messages/ceo-0040.md`, reviewed in
 `org/reviews/hosted-vercel-candidate-validation-001.md`. Production release,
 merge, paid usage, migrations and project resumption are excluded.
 
@@ -20,7 +20,7 @@ merge, paid usage, migrations and project resumption are excluded.
 - Google project `meal-planner-515616` had no OAuth clients/consent configuration.
   Created **Meal Planner Staging** in External/Testing mode and the dedicated
   **Meal Planner Staging Web** Web client. User explicitly approved Google's
-  User Data Policy and this scoped client in `org/messages/ceo-0031.md`.
+  User Data Policy and this scoped client in `org/messages/ceo-0041.md`.
 - Saved client details were independently re-opened in Google Console and show
   exactly one redirect URI:
   `https://meal-planner-staging-rafalotufos.vercel.app/api/auth/callback/google`.
@@ -45,7 +45,7 @@ merge, paid usage, migrations and project resumption are excluded.
 ## Approved test user saved
 
 Rafael explicitly approved the sole staging Google test user in
-`org/messages/ceo-0032.md`. Google Console now shows one saved test-user row
+`org/messages/ceo-0042.md`. Google Console now shows one saved test-user row
 for that approved account, with publishing status still Testing. No other users
 were added. The earlier automatic approval rejection caused no mutation; the
 specific approval was obtained before the successful action. Production access
@@ -105,7 +105,7 @@ DEPLOYMENT_NOT_FOUND; it sent no credentials and is not a validation pass.
 
 ## Owner reconciliation
 
-Rafael confirmed in `org/messages/ceo-0033.md` that he added
+Rafael confirmed in `org/messages/ceo-0043.md` that he added
 `lotufo-meals.vercel.app` and intends it as the Production URL. Preserve that
 owner-added domain, its current redirect and deployment mapping, together with
 both original Production aliases. The original baseline remains intact; a fresh
@@ -176,7 +176,7 @@ empty lane directory were removed. No unrelated lock/state was removed.
 ## Owner acceptance
 
 Rafael subsequently confirmed: “staging is working as expected. approved.”
-Recorded in `org/messages/ceo-0034.md` on2026-11-24 for the current stable
+Recorded in `org/messages/ceo-0044.md` on2026-11-24 for the current stable
 staging deployment `dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi`, source
 `9fc13ff27a636483fdf3503d5c8bf9f149550e45`. Staging is owner-validated and
 approved. This owner-reported functional result supplements the agent's evidence;

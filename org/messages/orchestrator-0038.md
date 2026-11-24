@@ -1,18 +1,20 @@
 ---
 id: orchestrator-0038
 from: orchestrator
-to: security-researcher
+to: senior-developer
 kind: handoff
-subject: Assess isolated staging specification
-artifact: intent/vercel-candidate-validation/spec.md
+subject: Resolve T-Rex code-review focus race
+artifact: org/reviews/code-t-rex-runner-001.md
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T13:33:32Z"
+created_at: "2026-11-24T14:58:15Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/security-vercel-candidate-validation-design-001.md
+closed_evidence: org/merge/vercel-candidate-validation-main-refresh-2026-11-24/main/org/loop/state.yaml
 ---
 
-Independent security assessment requested. Check unchanged auth/admission/family boundaries, Preview versus Production secret/data isolation, staging alias production-domain safety, platform credential confinement, genuine Google evidence, metadata/session handling and scope of operations. No external actions or implementation. Record scoped findings and review evidence.
+Independent review found P2 revoked-initial-autofocus autostart race; source/controller reproduction confirmed. Add failing real-browser submit-then-outside-interaction-before-first-commit with delayed sprites; require paused until Resume. Propagate denied initial eligibility to controller state while retaining normal pointer/touch starts. Add promised old-panel successful completion focus/selection regression. Minimal approved-plan fix, reverify matching source snapshot and obtain independent recheck. No budget/gate/source-pin changes.
+
+Audit provenance: original feature message preserved at `org/merge/t-rex-main-2026-11-24/feature/org/messages/orchestrator-0038.md` (source d9245f98693020bf3f94bc646345705a211a94b3).

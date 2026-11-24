@@ -3,7 +3,7 @@
 - Author: product-manager
 - Date: 2026-11-24
 - Status: Accepted — isolated staging selected; local tooling implementation approved
-- Decision: `org/messages/ceo-0028.md`; PM acceptance in
+- Decision: `org/messages/ceo-0038.md`; PM acceptance in
   `org/reviews/intent-vercel-candidate-validation-001.md`
 - Source: Rafael requested the SDLC org workflow and exploration of solutions
   for Google OAuth preventing validation after a `--skip-domain` deployment.
@@ -37,7 +37,7 @@ single canonical origin per environment. Production remains a distinct build
 and deployment with its own candidate and post-promotion smoke checks.
 
 The owner selected this approach on 2026-11-24 and directed continuation in
-`org/messages/ceo-0029.md`. The reviewed specification and independently approved
+`org/messages/ceo-0039.md`. The reviewed specification and independently approved
 implementation plan authorize the local helper/tests and runbook. See sibling
 `solutions.md` for comparison and proof limits. Deployment, promotion, external
 configuration, credential changes, migrations and paid-provider calls remain
@@ -84,7 +84,7 @@ synthetic identity endpoints or transport interception into hosted production.
 
 ## Resolved product choice and Design handoff
 
-The owner approved isolated staging in `org/messages/ceo-0028.md`. It catches
+The owner approved isolated staging in `org/messages/ceo-0038.md`. It catches
 hosted failures before release while retaining actual Production authentication
 checks after promotion. Exact `--prod --skip-domain` artifact authentication
 before promotion is not a requirement of this approach. Do not implement the

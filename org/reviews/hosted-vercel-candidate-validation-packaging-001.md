@@ -11,7 +11,7 @@ round: 1
 ## Verdict
 
 Approved. The `.vercelignore` tightening is necessary packaging preparation
-within `ceo-0030` Preview-only authority and does not require repeated owner
+within `ceo-0040` Preview-only authority and does not require repeated owner
 permission. This review does not authorize a Production operation or expand the
 one Preview deployment and prerequisite domain/OAuth scope.
 

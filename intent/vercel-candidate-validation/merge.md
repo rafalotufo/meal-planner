@@ -87,3 +87,50 @@ No new live Google/provider check was required or performed for this local merge
 Existing feature-specific browser evidence from both reviewed inputs is preserved.
 The destination main update still waits for the orchestrator's recorded gate,
 independent final evidence handoff and captured-tip/clean-checkout checks.
+
+## Concurrent-main T-Rex refresh
+
+Before the first destination update, the expected-tip check found main had
+advanced to `87482edff21fadb8445209ee6195044c48c3c52e`, including reviewed T-Rex
+runtime/public-asset/test changes. That source delta was not treated as audit-only
+or overwritten. The first integration and its146-Node/7-Python proof were saved
+as clean checkpoint `d28448909467bf433642f7f72766c57a73996281`; it was not merged
+into main. The existing owner merge instruction covers this necessary refresh.
+
+The distinct archive
+`org/merge/vercel-candidate-validation-main-refresh-2026-11-24/` contains454 new
+exact snapshots with executable sources stored as `.snapshot` from the start.
+It does not recursively copy old `org/merge` namespaces. All378 files in the
+first374-snapshot archive remain byte-identical to the checkpoint. The refreshed
+82 runtime/public/third-party-license/configuration files match latest main
+exactly, and staging helper/test/ignore match the checkpoint. No application
+conflict or additional runtime change was required.
+
+The new main ledger and memory raw byte streams remain canonical exact prefixes.
+All81 decoded common memory objects match the common base entirely; prior T-Rex
+main serialization had changed formatting only. Six prior staging decisions and
+13 prior staging memory events are imported with original archived provenance;
+34 conflicting feature message IDs receive unique names and live feature links
+are remapped. The current human merge request is now `org/messages/ceo-0046.md`.
+No new release approval is inferred. Root-authorized inbox curation closes only
+16 completed imported informational records and10 completed main informational
+handoffs, with exact IDs/evidence in `message-triage.json`. Original statuses
+remain in snapshots; current merge authority, unanswered questions, blocking
+findings and response-required messages remain open. Memory/message/loop/graph
+checks pass without changing any tool threshold.
+
+All eight commands passed on this refreshed tree: lint, strict typecheck,
+production build,82 recipe tests,32 deployment regressions,14 auth regressions,
+34 family regressions and7 Python workflow tests. Total162 Node tests plus7
+Python tests. The three real-HTTP/database suites used the already established
+localhost-binding permission from the start; no application/test assertion was
+changed or skipped. Private0600 logs and stage summaries are under
+`.data/staging-merge-refresh/verification/`. This new proof is separate from the
+first integration's actual results. Independent refresh review approved the
+resolved source boundaries, original snapshots/chains, ID maps and inbox curation.
+
+The active destination expected tip is now
+`87482edff21fadb8445209ee6195044c48c3c52e`, not the earlier captured main tip.
+Before updating main, require the exact reviewed final branch SHA, a clean
+destination at this tip, recorded human merge authority and no further source
+movement. No hosted or provider operation was performed by this refresh.

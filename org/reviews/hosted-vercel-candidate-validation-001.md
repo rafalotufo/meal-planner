@@ -10,7 +10,7 @@ round: 1
 
 ## Verdict
 
-Approved within the explicit scope recorded in `org/messages/ceo-0030.md`:
+Approved within the explicit scope recorded in `org/messages/ceo-0040.md`:
 necessary Preview-only domain/OAuth setup, then one reviewed-worktree Preview
 deployment without merge. No new owner confirmation is requested for those
 already authorized actions. This review does not expand authority to Production,

@@ -25,9 +25,6 @@ intent/vercel-candidate-validation/hosted-setup.md
 
 ## Open messages
 
-- architect-0001 architect -> orchestrator handoff: Draft pnpm migration specification ready for independent review
-- architect-0002 architect -> orchestrator handoff: Vercel Hobby specification ready for human approval
-- architect-0004 architect -> orchestrator handoff: App icon specification and plan ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -50,15 +47,17 @@ intent/vercel-candidate-validation/hosted-setup.md
 - ceo-0025 ceo -> orchestrator decision: Implement single-call recipe research and curation
 - ceo-0026 ceo -> orchestrator decision: Authorize single-call search merge into local main
 - ceo-0027 ceo -> orchestrator decision: Approve reviewed app icon merge into local main
-- ceo-0028 ceo -> orchestrator decision: Approve isolated staging approach
-- ceo-0029 ceo -> orchestrator decision: Continue approved isolated staging approach
-- ceo-0030 ceo -> orchestrator decision: Authorize Preview deployment from worktree after OAuth domains
-- ceo-0031 ceo -> orchestrator decision: Approve Google staging policy and dedicated client
-- ceo-0032 ceo -> orchestrator decision: Approve the specified sole staging OAuth test user
-- ceo-0033 ceo -> orchestrator decision: Confirm owner-added Production URL and preserve during staging
-- ceo-0034 ceo -> orchestrator decision: Approve working staging deployment
-- ceo-0035 ceo -> orchestrator decision: Explore automated validation of staged Vercel deployments
-- ceo-0036 ceo -> orchestrator decision: Authorize merging approved isolated staging into main
+- ceo-0028 ceo -> orchestrator decision: Approve recipe notebook merge to main
+- ceo-0029 ceo -> orchestrator decision: Approve amended Word Snack intent
+- ceo-0030 ceo -> orchestrator decision: Use 128 Word Snack puzzles
+- ceo-0031 ceo -> orchestrator decision: Approve 128-puzzle Word Snack specification
+- ceo-0032 ceo -> orchestrator decision: Approve Word Snack plan and fresh bounded implementation cycle
+- ceo-0033 ceo -> orchestrator decision: Automatically start and close T-Rex with search
+- ceo-0034 ceo -> orchestrator decision: Approve automatic-lifecycle T-Rex specification
+- ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
+- ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
+- ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0046 ceo -> orchestrator decision: Authorize merging approved isolated staging into main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -75,14 +74,28 @@ intent/vercel-candidate-validation/hosted-setup.md
 - orchestrator-0033 orchestrator -> architect handoff: Design browser tab app icon
 - orchestrator-0034 orchestrator -> ceo handoff: Reviewed app icon ready for merge approval
 - orchestrator-0035 orchestrator -> ceo status: App icon merged into local main
-- orchestrator-0047 orchestrator -> ceo handoff: Reviewed isolated staging tooling ready for merge and hosted setup
-- orchestrator-0053 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
+- orchestrator-0042 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
+- orchestrator-0050 orchestrator -> security-researcher handoff: Assess verified Word Snack implementation
+- orchestrator-0051 orchestrator -> reviewer handoff: Review verified Word Snack implementation
+- orchestrator-0052 orchestrator -> ceo status: Word Snack verified and ready for human merge review
+- orchestrator-0053 orchestrator -> product-manager handoff: Review selected T-Rex replacement intent
+- orchestrator-0054 orchestrator -> architect handoff: Design selected T-Rex replacement
+- orchestrator-0055 orchestrator -> reviewer handoff: Review T-Rex replacement specification
+- orchestrator-0056 orchestrator -> architect handoff: Amend T-Rex automatic search lifecycle
+- orchestrator-0057 orchestrator -> reviewer handoff: Review automatic T-Rex search lifecycle amendment
+- orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
+- orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
+- orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
 - product-manager-0008 product-manager -> orchestrator decision: Accepted family membership intent
 - product-manager-0009 product-manager -> orchestrator decision: Accepted single-call recipe search intent
 - product-manager-0010 product-manager -> orchestrator decision: Accepted app icon intent
+- product-manager-0011 product-manager -> orchestrator decision: Accepted Word Snack intent for Design
+- product-manager-0012 product-manager -> orchestrator answer: Re: Review user-directed completion behavior amendment
+- product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
+- product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -103,39 +116,39 @@ intent/vercel-candidate-validation/hosted-setup.md
 - reviewer-0018 reviewer -> orchestrator review: Current-main single-call integration approved
 - reviewer-0019 reviewer -> orchestrator review: App icon specification and plan independently approved
 - reviewer-0020 reviewer -> orchestrator review: App icon implementation independently approved
-- reviewer-0021 reviewer -> orchestrator review: Staging implementation plan approved
-- reviewer-0023 reviewer -> orchestrator review: Isolated staging implementation approved after timestamp correction
-- reviewer-0024 reviewer -> orchestrator review: Approved candidate validation options research
-- reviewer-0025 reviewer -> orchestrator review: Isolated staging specification independently reviewed
-- security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
-- security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
-- security-researcher-0005 security-researcher -> orchestrator status: pnpm migration security clear
-- security-researcher-0006 security-researcher -> orchestrator status: Authenticated access security clear
-- security-researcher-0008 security-researcher -> orchestrator status: Family membership security clear
+- reviewer-0021 reviewer -> orchestrator review: Independent recipe notebook code review approved
+- reviewer-0022 reviewer -> orchestrator review: Word Snack specification peer review approved
+- reviewer-0023 reviewer -> orchestrator review: Word Snack 128-puzzle amendment approved
+- reviewer-0024 reviewer -> orchestrator review: Word Snack implementation plan peer review approved
+- reviewer-0025 reviewer -> orchestrator review: Full Word Snack catalogue content audit approved
+- reviewer-0026 reviewer -> orchestrator review: Word Snack final code review approved
+- reviewer-0027 reviewer -> orchestrator review: T-Rex specification needs scoped Space scroll correction
+- reviewer-0028 reviewer -> orchestrator review: T-Rex specification correction approved
+- reviewer-0029 reviewer -> orchestrator review: T-Rex automatic lifecycle amendment approved
+- reviewer-0030 reviewer -> orchestrator review: T-Rex implementation plan and pinned provenance approved
+- reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
+- reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
+- reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
 - security-researcher-0014 security-researcher -> orchestrator review: App icon implementation security clear
 - security-researcher-0015 security-researcher -> orchestrator review: App icon final committed source security reconfirmed
-- security-researcher-0016 security-researcher -> orchestrator review: Isolated staging design security clear
-- security-researcher-0017 security-researcher -> orchestrator review: Isolated staging implementation security clear
-- senior-developer-0001 senior-developer -> orchestrator handoff: pnpm migration draft plan ready
-- senior-developer-0002 senior-developer -> orchestrator handoff: pnpm migration implemented and verified
-- senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
-- senior-developer-0004 senior-developer -> orchestrator handoff: Vercel implementation plan ready for human approval
-- senior-developer-0005 senior-developer -> orchestrator handoff: Family membership implemented and verified
-- senior-developer-0007 senior-developer -> orchestrator handoff: Single-call implementation verified and ready for final review
+- security-researcher-0016 security-researcher -> orchestrator review: Independent recipe notebook security review clear
+- security-researcher-0017 security-researcher -> orchestrator review: Word Snack security review clear at 47a5878
+- security-researcher-0018 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
+- security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
+- security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
-- senior-developer-0010 senior-developer -> orchestrator handoff: App icon implemented and verified locally
 
 ## Recent decisions
 
-- mem-0087 orchestrator: Imported prior staging event mem-0083 (not a new decision; original timestamp 2026-11-24T14:16:52Z): Completed isolated staging local tooling and tests under approved plan. f3ef526 fixes independently found P2 failed-report timestamp issue with RED/GREEN regression. Security and code round2 approved; final org turn5 solved all8commands,144Node+7Python, realChrome5widths. One prior auth repeat exit1 unroot-caused/nonreproduced is disclosed, direct/final reruns pass. No app/auth/config/dependency or hosted changes. Await human merge and concrete Preview-only setup/deployment authority per staging runbook; actual alias/private config/Git/paused-state preflights remain. Original source in archived feature namespace: intent/vercel-candidate-validation/verification.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
-- mem-0088 orchestrator: Imported prior staging event mem-0084 (not a new decision; original timestamp 2026-11-24T14:33:06Z): Rafael explicitly authorized Preview-only deployment from current worktree branch and OAuth domains first (ceo-0030), overriding prior merge prerequisite for this Preview operation only. Scoped hosted-setup approved by independent review; same Hobby project, safe branch-qualified free hostname before callback, dedicated Preview auth, existing Preview DB and no paid key. Production untouched. Google meal-planner-515616 has no OAuth client/consent; minimal staging brand form prepared, not submitted. Actual Chrome tool access denied; authenticated in-app browser works. Preserved completed Build loop before bounded ops run. Original source in archived feature namespace: org/messages/ceo-0030.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
-- mem-0091 orchestrator: Imported prior staging event mem-0087 (not a new decision; original timestamp 2026-11-24T15:20:13Z): Rafael confirmed lotufo-meals.vercel.app is his owner-added intended Production URL; preserve its current redirect/mapping. Staging stablealias now maps READY Preview9fc13ff;390/1440 public sign-in visible nooverflow. Freshpost allProduction/Previewenv/DB metadata unchanged. CLI302VercelSSO remainsinconclusive, no bypass/Googlelogin/memberdata/paidcalls; fullauthcertification not claimed. Original source in archived feature namespace: org/messages/ceo-0033.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
-- mem-0093 orchestrator: Imported prior staging event mem-0089 (not a new decision; original timestamp 2026-11-24T15:22:41Z): Rafael confirmed staging is working as expected and approved it. Current stable staging deployment dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi/source9fc13ff is owner-validated; exact unspecified checks are not inferred. CLI automation historical inconclusive result preserved. Merge and Production release remain separate pending gates. Original source in archived feature namespace: org/messages/ceo-0034.md (org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl)
-- mem-0094 orchestrator: Rafael explicitly authorized merge to local main. Prepared integration ef18951 preserves current main37b appicons/runtime and reviewed staging7bb helper,374 exact audit snapshots and canonical main prefixes. Independent integration review approved; combined8commands and clean expected destination tip must pass before senior-developer executes main update. No remote or Production action. (org/messages/ceo-0036.md)
+- mem-0112 orchestrator: Imported prior staging event mem-0091 (not new decision; source timestamp 2026-11-24T15:29:13Z): Imported prior staging event mem-0108 (not a new decision; original timestamp 2026-11-24T15:20:13Z): Rafael confirmed lotufo-meals.vercel.app is his owner-added intended Production URL; preserve its current redirect/mapping. Staging stablealias now maps READY Preview9fc13ff;390/1440 public sign-in visible nooverflow. Freshpost allProduction/Previewenv/DB metadata unchanged. CLI302VercelSSO remainsinconclusive, no bypass/Googlelogin/memberdata/paidcalls; fullauthcertification not claimed. Original source in archived feature namespace: org/messages/ceo-0043.md Original source in archived feature namespace: org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0114 orchestrator: Imported prior staging event mem-0093 (not new decision; source timestamp 2026-11-24T15:29:13Z): Imported prior staging event mem-0110 (not a new decision; original timestamp 2026-11-24T15:22:41Z): Rafael confirmed staging is working as expected and approved it. Current stable staging deployment dpl_ALHqB6jCB6emyBNHTTbBzmfsV5Hi/source9fc13ff is owner-validated; exact unspecified checks are not inferred. CLI automation historical inconclusive result preserved. Merge and Production release remain separate pending gates. Original source in archived feature namespace: org/messages/ceo-0044.md Original source in archived feature namespace: org/merge/vercel-candidate-validation-main-2026-11-24/feature/org/memory/events.jsonl (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0115 orchestrator: Imported prior staging event mem-0094 (not new decision; source timestamp 2026-11-24T15:31:25Z): Rafael explicitly authorized merge to local main. Prepared integration ef18951 preserves current main37b appicons/runtime and reviewed staging7bb helper,374 exact audit snapshots and canonical main prefixes. Independent integration review approved; combined8commands and clean expected destination tip must pass before senior-developer executes main update. No remote or Production action. Original source in archived feature namespace: org/messages/ceo-0036.md (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0116 senior-developer: Refreshed the owner-authorized staging integration against main87482ed after concurrent T-Rex merge. All82 runtime/public/license/config files match that main; staging helper/tests/ignore match checkpointd284489. Original first integration remains archived and verified; main has not been updated by this task. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/reconciliation.json)
+- mem-0117 senior-developer: Root authorized bounded inbox curation of16 completed informational imported staging messages. Their original states remain in exact snapshots; current merge request ceo-0046, unanswered questions, blocking findings and response-required records remain open. No approval or release authority changed. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/message-triage.json)
 
 ## Constraints
 
@@ -153,7 +166,7 @@ reviewer:verify_preview_setup
 
 ## Last digest source
 
-- mem-0094 from org/messages/ceo-0036.md
+- mem-0117 from org/merge/vercel-candidate-validation-main-refresh-2026-11-24/message-triage.json
 
 <!-- machine:end -->
 

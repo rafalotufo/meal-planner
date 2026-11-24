@@ -1,16 +1,18 @@
 ---
 id: orchestrator-0053
 from: orchestrator
-to: ceo
+to: product-manager
 kind: handoff
-subject: Candidate validation options ready for assurance choice
-artifact: intent/vercel-candidate-validation/solutions.md
+subject: Review selected T-Rex replacement intent
+artifact: intent/t-rex-runner/intent.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-24T13:15:26Z"
+created_at: "2026-11-24T13:58:26Z"
 ---
 
-Independent research review approved. Recommend stable isolated staging for smallest authentication change; if exact Production skip-domain artifact must be validated before promotion, prefer one stable validation alias with reviewed finite-origin/callback/effects handling. Candidate alias still uses Production credentials/data and real Google callback can update verified email. OAuth Proxy is a more complex alternative for many trusted previews. Await owner assurance choice before intent acceptance/Design. Seven Python workflow tests pass, no application/external settings changed.
+Rafael instructed replacing Word Snack and selected wayou/t-rex-runner from researched candidates. Review captured intent for scope and coherence, includingSpace/touch jump-only play, results-ready continued play, local pinned upstream reuse with attribution, cleanup/input scoping and preserved historical audits. Record independent accept/changes decision, not approval of unwritten spec/plan. No implementation.
+
+Audit provenance: original feature message preserved at `org/merge/t-rex-main-2026-11-24/feature/org/messages/orchestrator-0028.md` (source d9245f98693020bf3f94bc646345705a211a94b3).

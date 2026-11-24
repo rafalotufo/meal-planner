@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0044
 from: orchestrator
-to: security-researcher
-kind: handoff
-subject: Review isolated staging implementation security
-artifact: tests/deployment/staging.ts
-requires_response: false
+to: product-manager
+kind: question
+subject: Review user-directed completion behavior amendment
+artifact: intent/recipe-waiting-game/intent.md
+requires_response: true
 in_reply_to: null
-status: closed
+status: answered
 severity: null
 blocking: false
-created_at: "2026-11-24T14:05:31Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/security-vercel-candidate-validation-implementation-001.md
+created_at: "2026-11-23T21:01:16Z"
 ---
 
-Review stable implementation d61d3a0 (helper321lines,13TDD tests, runbook/verification) against approved spec/plan. All8 mandatory acceptance commands pass;143Node+7Python, realChrome5widths, stagedsecret0/plan-sync and correct committed plan gate verified. No application/external changes. Assess exact-target-before-private-input, credentials/no redirects, deadline/body bounds, strict finalization/metadata trust, locking and operational authority. Root serializes audit/commits; send evidence-backed blockers promptly.
+Rafael clarified: Search completion should not end the game, but should let the user know that results are available and allow them to close the game. Intent now preserves game state and focus after success, announces results ready and offers explicit close/view-results. Independently review the amendment, update Accepted status with new review evidence, reply to this question, and return idle. Existing error/cancellation/navigation behavior stays. Do not draft spec or implement.
+
+Audit provenance: original feature message preserved at `org/merge/t-rex-main-2026-11-24/feature/org/messages/orchestrator-0019.md` (source d9245f98693020bf3f94bc646345705a211a94b3).

@@ -25,8 +25,8 @@ post-operation evidence resolve that operational hold, as recorded below.
 
 ## Initial deployment evidence inspected
 
-Read `org/messages/orchestrator-0049.md`, `hosted-results.md`, owner decisions
-`ceo-0030` through `ceo-0032`, and only the named sanitized private deployment and
+Read `org/messages/orchestrator-0074.md`, `hosted-results.md`, owner decisions
+`ceo-0040` through `ceo-0042`, and only the named sanitized private deployment and
 pre-alias result files. Verified the recorded source commit exists and contains
 the independently reviewed packaging exclusions. No secret files or raw logs
 were opened and no hosted account/API/browser action was performed.
@@ -71,7 +71,7 @@ project, Git integration, resume or Production release.
 ## Initial hold and final resolution
 
 The initial hold required reconciliation of the externally added domain and fresh
-mapping/Production evidence. `org/messages/ceo-0033.md` now confirms the owner added
+mapping/Production evidence. `org/messages/ceo-0043.md` now confirms the owner added
 `lotufo-meals.vercel.app` as the intended Production URL and directs preservation
 of its existing mapping while completing authorized staging-only work. The
 historical baseline remains distinct from the reconciled baseline.

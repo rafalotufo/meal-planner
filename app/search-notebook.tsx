@@ -43,7 +43,7 @@ export default function SearchNotebook({ entries, selectedId, onSelect, onFilter
                   <span aria-hidden="true" className="flex size-9 shrink-0 items-center justify-center rounded-full border border-stone-200 bg-white text-xl text-emerald-900">{open ? "−" : "+"}</span>
                 </button>
               </h3>
-              <div id={panelId} hidden={!open}>
+              <div id={panelId} data-search-panel={entry.id} hidden={!open}>
                 {open ? <div className="pb-8">
                   {entry.recipes.length > 0 ? <>
                     <div role="group" aria-label={`Filter results for ${entry.query}`} className="flex flex-wrap gap-2">

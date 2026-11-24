@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/recipe-waiting-game/intent.md
+base_commit: 7cbe321c432532316dd23d94598ee5e75f3ce309
+turn: 4
+no_progress: 0
+phase: implement
+status: in_progress
+last_input_hash: 29857f8e41f80d8d3f6906506a206b9437b50988b1ab20ad8b98eb78ccecc557
+stop_reason: null
+last_action: "senior-developer:draft_plan"
+artifacts: [{"path": "intent/recipe-waiting-game/intent.md", "sha256": "aa0c6468234bf4f69e411058cc0ac8f3d486cfe3da084dac1bc342dfc73bd70d"}, {"path": "intent/recipe-waiting-game/spec.md", "sha256": "90522b73910a8baf1c3d1b69ffee7b4f1b8fc10f861db474cff3da63350d7471"}, {"path": "intent/recipe-waiting-game/plan.md", "sha256": "a11e920cb53dd5509e70293828016f5cda573bdd0911c7bcaf3de5771a50745b"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 1, "pass": false}, {"command": "node --import tsx --test tests/deployment/smoke.test.ts", "exit": 1, "pass": false}, {"command": "pnpm run lint", "exit": 1, "pass": false}, {"command": "pnpm run typecheck", "exit": 1, "pass": false}, {"command": "pnpm run build", "exit": 1, "pass": false}, {"command": "node --import tsx --test tests/auth/*.test.ts", "exit": 1, "pass": false}]
+updated_at: "2026-11-23T21:18:31Z"

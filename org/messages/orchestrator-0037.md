@@ -1,18 +1,20 @@
 ---
 id: orchestrator-0037
 from: orchestrator
-to: architect
+to: reviewer
 kind: handoff
-subject: Specify approved isolated staging approach
-artifact: intent/vercel-candidate-validation/spec.md
+subject: Review verified full-width T-Rex replacement
+artifact: intent/t-rex-runner/plan.md
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T13:31:27Z"
+created_at: "2026-11-24T14:52:05Z"
 closed_by: orchestrator
-closed_evidence: intent/vercel-candidate-validation/spec.md
+closed_evidence: org/merge/vercel-candidate-validation-main-refresh-2026-11-24/main/org/loop/state.yaml
 ---
 
-Accepted intent8c36d8a selects existing-project Preview lane with stable manual alias and independent auth/Preview DB. Specify bounded automation, exact alias/deployment identity and staging data authority. Verify stable alias lifecycle does not enter production promotion domain set. No app auth broadening, external configuration, migration, deployment, paid usage or release authority. Security and independent reviews follow.
+Read finalcandidate1017d39 against approvedspec/plan plususerwidthceo0026. Verifytests/lifecycle/physics/resource/focus/fullwidth/WordSnackdeletion/provenance/notices and actualfivewidth/screens evidence. Allchecks pass cleanhashmatchedQA. Root strict acceptance active: read-only review first, holdmutation until rootconfirmscomplete. Assignedcode-t-rex-runner-001; peerreviewnotmerge/releaseapproval.
+
+Audit provenance: original feature message preserved at `org/merge/t-rex-main-2026-11-24/feature/org/messages/orchestrator-0037.md` (source d9245f98693020bf3f94bc646345705a211a94b3).

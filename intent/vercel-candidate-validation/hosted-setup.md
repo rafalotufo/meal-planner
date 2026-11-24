@@ -4,7 +4,7 @@
 - Date: 2026-11-24
 - Status: Approved operational scope — owner authority and independent review
 - Review: `org/reviews/hosted-vercel-candidate-validation-001.md`
-- Authority: `org/messages/ceo-0030.md` — Rafael: “Run the preview-only deployment
+- Authority: `org/messages/ceo-0040.md` — Rafael: “Run the preview-only deployment
   from this worktree branch. Lets configure the domains for the oauth client first.”
 - Reviewed local baseline: `d485897`; sibling approved `spec.md`, `plan.md`,
   `staging-runbook.md` and verification evidence remain the implementation contract.

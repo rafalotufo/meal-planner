@@ -1,0 +1,36 @@
+{
+  "scope": "Root-authorized closure of imported completed informational records; original states in exact snapshots",
+  "evidence": "org/merge/vercel-candidate-validation-main-refresh-2026-11-24/feature/org/loop/state.yaml",
+  "closed": [
+    "ceo-0038",
+    "ceo-0039",
+    "ceo-0040",
+    "ceo-0041",
+    "ceo-0042",
+    "ceo-0043",
+    "ceo-0044",
+    "ceo-0045",
+    "orchestrator-0072",
+    "orchestrator-0078",
+    "reviewer-0034",
+    "reviewer-0036",
+    "reviewer-0037",
+    "reviewer-0038",
+    "security-researcher-0021",
+    "security-researcher-0022"
+  ],
+  "currentMergeAuthorityRetainedOpen": "ceo-0046",
+  "mainCompletedInformationalClosures": [
+    "orchestrator-0036",
+    "orchestrator-0037",
+    "orchestrator-0038",
+    "orchestrator-0039",
+    "orchestrator-0043",
+    "orchestrator-0045",
+    "orchestrator-0046",
+    "orchestrator-0047",
+    "orchestrator-0048",
+    "orchestrator-0049"
+  ],
+  "mainCompletedEvidence": "org/merge/vercel-candidate-validation-main-refresh-2026-11-24/main/org/loop/state.yaml"
+}

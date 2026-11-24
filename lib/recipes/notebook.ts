@@ -14,8 +14,9 @@ export type SearchEntry = {
 };
 type NotebookState = { entries: SearchEntry[]; selectedId: number | null };
 type NotebookAction =
-  | { type: "add"; id: number; query: string; recipes: Recipe[] }
+  | { type: "add"; id: number; query: string; recipes: Recipe[]; selectNew?: boolean }
   | { type: "select"; id: number }
+  | { type: "open"; id: number }
   | { type: "filter"; id: number; filter: RecipeFilter }
   | { type: "sort"; id: number; sort: RecipeSort };
 
@@ -24,12 +25,13 @@ export const initialNotebook: NotebookState = { entries: [], selectedId: null };
 export function notebookReducer(state: NotebookState, action: NotebookAction): NotebookState {
   if (action.type === "add") {
     const entry: SearchEntry = { id: action.id, query: action.query, recipes: action.recipes, filter: "all", sort: "match" };
-    return { entries: [entry, ...state.entries], selectedId: entry.id };
+    return { entries: [entry, ...state.entries], selectedId: action.selectNew === false ? state.selectedId : entry.id };
   }
   if (!state.entries.some(entry => entry.id === action.id)) return state;
   if (action.type === "select") {
     return { ...state, selectedId: state.selectedId === action.id ? null : action.id };
   }
+  if (action.type === "open") return { ...state, selectedId: action.id };
   return { ...state, entries: state.entries.map(entry => {
     if (entry.id !== action.id) return entry;
     return action.type === "filter" ? { ...entry, filter: action.filter } : { ...entry, sort: action.sort };
