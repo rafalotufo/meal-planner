@@ -9,7 +9,10 @@ acceptance:
   commands: ["git diff --check"]
 phases:
   intent: { role: senior-developer, action: verify_build_readiness, next: implement }
-  implement: { role: senior-developer, action: implement, next: security }
+  # Initial implementation/security assessment are complete. The narrow enum
+  # correction returns to review; that final review requires independent
+  # security reconfirmation as a reviewer->security consultation before approval.
+  implement: { role: senior-developer, action: implement, next: review }
   security: { role: security-researcher, action: assess_curation_security, next: review }
   review: { role: reviewer, action: review, next: done }
   done: { role: null, action: null, next: null }

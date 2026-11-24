@@ -6,6 +6,8 @@
 - Inputs: accepted amended `intent.md`, owner-approved asynchronous `spec.md`
   (approval `recipe-url-menu-spec-2026-11-24`, source commit `6101c79`).
 - Task list: the ordered checklist below is the sole feature task list.
+- Implementation evidence: `verification.md`; reviewed source `7a7668d`. Independent
+  security and final code reviews are clear. Human merge/release remain open.
 
 ## Delivery and boundaries
 
@@ -73,41 +75,41 @@ require explicit plan amendment and peer review before the change.
 
 ### 1. Establish the local Build baseline
 
-- [ ] Confirm Node24/pnpm10.33.0, frozen-install dependencies, and read this
+- [x] Confirm Node24/pnpm10.33.0, frozen-install dependencies, and read this
   worktree's installed Next route-handler, `after`, server/client and caching
   guides before source edits. Read applicable implementation/security/UI skills.
-- [ ] Capture baseline checks and verify dedicated restricted test role/private
+- [x] Capture baseline checks and verify dedicated restricted test role/private
   cluster availability without opening development or hosted application data.
   Missing local setup is a reported prerequisite, not permission to weaken tests.
 
 ### 2. Prove safe parser behavior first
 
-- [ ] Write parser regressions, show expected baseline failure, then implement
+- [x] Write parser regressions, show expected baseline failure, then implement
   pure `lib/menu/recipe-metadata.ts` with existing htmlparser2 and safe URL helpers.
   Keep the existing photo parser and native HTML loader byte-for-byte unchanged.
-- [ ] Cover exact static Recipe types, root/array/@graph traversal, unique source
+- [x] Cover exact static Recipe types, root/array/@graph traversal, unique source
   association and ambiguous/mismatched nodes; all HTML/script/JSON/depth/value
   limits; invalid names; hostile text; description fallback/truncation; exact
   supported duration components; safe image ordering and page-bound OG fallback.
   No OG/title-only recipe, remote context/reference or metadata/image fetch.
-- [ ] Keep import-specific image selection small and faithful to the existing
+- [x] Keep import-specific image selection small and faithful to the existing
   dimension/ordering policy; duplicate no network logic. Run focused parser tests
   and existing recipe/photo regressions before persistence work.
 
 ### 3. Add compatible durable state with restricted privileges
 
-- [ ] First add failing migration/catalog/grant and legacy-entry assertions.
+- [x] First add failing migration/catalog/grant and legacy-entry assertions.
   Add `0002` and one journal entry; preserve historical SQL/journal entries.
   Companion table references entry ID ON DELETE CASCADE and constrains state,
   UUID generation/lease combinations, normalized identity and safe timestamps.
-- [ ] In owned temporary databases, apply migrations through the public loader,
+- [x] In owned temporary databases, apply migrations through the public loader,
   inspect the full catalog, review it and commit its exact signature plus loader-
   derived hashes/timestamps. Never substitute an incomplete catalog or runtime DDL.
-- [ ] Extend `scripts/migrate-db.ts` grants: companion SELECT/INSERT/UPDATE only;
+- [x] Extend `scripts/migrate-db.ts` grants: companion SELECT/INSERT/UPDATE only;
   menu column UPDATE only for title, summary, image_url, time_kind, time_text.
   Prove other menu columns, companion DELETE/TRUNCATE, DDL and ledger writes fail.
   Preserve existing menu SELECT/INSERT/DELETE and restricted-role assertions.
-- [ ] Update two-migration/table-list assertions deliberately, using current
+- [x] Update two-migration/table-list assertions deliberately, using current
   reviewed metadata where appropriate. Test 0001-to-0002 data preservation,
   repeated migration, missing/stale catalog/history rejection and dump/restore.
   New disposable-only rollback drops companion first, then existing rollback
@@ -115,18 +117,18 @@ require explicit plan amendment and peer review before the change.
 
 ### 4. Make save/retry/read and fenced completion correct
 
-- [ ] Extend public entry types/strict parsing with exactly curation state and
+- [x] Extend public entry types/strict parsing with exactly curation state and
   retryable. Left-join companion state for list/save/duplicate reads; legacy and
   search entries remain ready. Missing/malformed persisted task fields fail closed.
-- [ ] Add test-first store operations in `lib/menu/store.ts`: atomic URL save,
+- [x] Add test-first store operations in `lib/menu/store.ts`: atomic URL save,
   retry, claim, conditional completion/failure. Reuse common-lock transactions,
   bound SQL and requireMember; compare the stored original email to the current
   subject's verified email and require the same owning family at both effect gates.
-- [ ] Preserve first-save ID/order/snapshot, including search-versus-pending URL
+- [x] Preserve first-save ID/order/snapshot, including search-versus-pending URL
   collisions. Insert placeholder+task only for a new URL entry. Retry rotates
   generation only for failed/expired work, captures fresh authority, and returns
   started:false for active/ready entries without rescheduling/resetting expiry.
-- [ ] Prove failed insert rolls back both rows, restart retains status, read-time
+- [x] Prove failed insert rolls back both rows, restart retains status, read-time
   interruption writes nothing, and simultaneous retries/saves are deterministic.
   Claim/completion check deadline after acquiring the common lock. Completion
   updates only matching existing entry+generation+lease and task atomically;
@@ -135,35 +137,35 @@ require explicit plan amendment and peer review before the change.
 
 ### 5. Wire one bounded post-response attempt behind existing guards
 
-- [ ] Refactor only the internal verified-authority extraction in `lib/menu/http.ts`
+- [x] Refactor only the internal verified-authority extraction in `lib/menu/http.ts`
   so the guard and post-body recheck share current JWE/session-token identity
   binding and yield server-only identity plus min(session expiry,JWE exp*1000).
   Preserve protected405/Host/security headers and never expose tokens to clients
   or task records. Keep all other auth/session/public policy unchanged.
-- [ ] Extend exact bounded body/query parsing for import and retry. Recheck current
+- [x] Extend exact bounded body/query parsing for import and retry. Recheck current
   authority after body completion before save/retry; store rechecks membership in
   its transaction. Retain the exact endpoint/Proxy behavior and all other modes.
-- [ ] `lib/menu/curation.ts` owns two non-waiting process slots and a finally-cleaned
+- [x] `lib/menu/curation.ts` owns two non-waiting process slots and a finally-cleaned
   independent deadline signal. Route registers `after()` with entry ID/generation
   only, after successful commit, once for new saves/started retries. Registration
   failure keeps the saved link and fails matching work when possible. Background
   failure never changes the already-successful save response into a failed save.
-- [ ] Worker claims current authority, releases DB before one safe HTML load,
+- [x] Worker claims current authority, releases DB before one safe HTML load,
   propagates its own abort, parses/validates, then uses fenced completion. Delegate
   no longer than30s and effective credential expiry. Busy capacity fails safely;
   no in-memory queue, credential retention or hidden automatic retry.
-- [ ] Prove early response while publisher response is stalled, registration and
+- [x] Prove early response while publisher response is stalled, registration and
   process interruption, slots released on every outcome, both credential-expiry
   orders on save/retry, auth loss during fetch, and no fetch under a write lock.
 
 ### 6. Deliver visible save-first and Retry interaction
 
-- [ ] Add small scoped URL form and Retry button components; place form only on
+- [x] Add small scoped URL form and Retry button components; place form only on
   valid loaded menu. Strictly validate responses, use15s client deadlines and
   request cleanup, retain input/errors and announce durable-save versus curation
   outcomes. Pending/failed/interrupted cards keep the source and confirmed removal;
   ready cards retain current RecipeCard presentation. Preserve removal focus.
-- [ ] Add read-only current-page polling in menu controls:5s, max8 requests/40s,
+- [x] Add read-only current-page polling in menu controls:5s, max8 requests/40s,
   one in flight, fixed wall-clock budget per mount or explicit save/retry. Stop
   hidden/unmounted/settled/capped; refresh only validated changed state/content.
   Preserve focus and cursor; offer Newest recipes/Refresh rather than accumulating
@@ -171,17 +173,17 @@ require explicit plan amendment and peer review before the change.
 
 ### 7. Prove actual protected HTTP, browser and compiled operation
 
-- [ ] Extend `tests/auth/server.ts` only with optional explicit test preload paths,
+- [x] Extend `tests/auth/server.ts` only with optional explicit test preload paths,
   preserving existing call behavior. `curation-server.ts` composes existing Google
   fixture with `curation-network.ts` native DNS/HTTPS interception before app import.
   Use strict TS real request/response streams, fixed fixture hosts, owned local
   control server and event barriers; reject unexpected external traffic. Production
   imports no fixture or fake-user/recipe switch. API success is never intercepted.
-- [ ] Exercise real parser/store/after transitions over HTTP and compiled isolated
+- [x] Exercise real parser/store/after transitions over HTTP and compiled isolated
   packaging without source/migration files. Test methods/query combinations,
   protected headers, slow/lying/unfinished bodies, all credential/admission cases,
   actual early durable response, manual recovery and races. Keep existing tests.
-- [ ] New Chrome helper covers320/390/1440 widths, immediate link during stalled
+- [x] New Chrome helper covers320/390/1440 widths, immediate link during stalled
   publisher, ready/fallback/failed/interrupted/Retry, duplicate/pagination/removal,
   keyboard/live status, bounded polling and console/network/overflow. Save new
   feature screenshots; privately back up/restore historical screenshots byte-for-
