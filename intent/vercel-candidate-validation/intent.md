@@ -92,5 +92,6 @@ finite-multiple-origin or OAuth Proxy alternatives as part of this selection.
 Design must specify manual alias targeting and validation serialization,
 environment/secret/database isolation, approved staging identities and data
 lifecycle, real Google login versus short-lived session reuse, platform
-protection handling, evidence binding and production proof limits. No spec or
-implementation plan exists yet; their review gates remain.
+protection handling, evidence binding and production proof limits. The draft
+[specification](spec.md) is under independent review; the implementation plan
+has not yet been drafted. Their review gates remain.

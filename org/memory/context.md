@@ -9,18 +9,18 @@ intent/vercel-candidate-validation/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 2
+- phase: security
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/vercel-candidate-validation/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/vercel-candidate-validation/spec.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
+- security-researcher: busy (intent/vercel-candidate-validation/spec.md)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -64,7 +64,7 @@ intent/vercel-candidate-validation/intent.md
 - orchestrator-0031 orchestrator -> ceo status: Preserve concurrent current-main runtime correction during authorized merge
 - orchestrator-0032 orchestrator -> ceo status: Single-call recipe search merged into current local main
 - orchestrator-0035 orchestrator -> ceo handoff: Candidate validation options ready for assurance choice
-- orchestrator-0037 orchestrator -> architect handoff: Specify approved isolated staging approach
+- orchestrator-0038 orchestrator -> security-researcher handoff: Assess isolated staging specification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -121,10 +121,11 @@ intent/vercel-candidate-validation/intent.md
 ## Artifacts
 
 - org/reviews/intent-vercel-candidate-validation-001.md (bc1ecdca911807728a02c9875f226bac0e0cefcfde58155d9fbd4e677599f683)
+- intent/vercel-candidate-validation/spec.md (9a198428f401b61bc3d4df18a509e2268f02e38cc35d5e52ac79d3b9c073868a)
 
 ## Next action
 
-product-manager:accept_isolated_staging_intent
+architect:specify_isolated_staging
 
 ## Last digest source
 
