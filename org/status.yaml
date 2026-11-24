@@ -4,7 +4,7 @@
 version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: "Word Snack bounded cycle solved6/6:128puzzles, verified fivewidth UI, all required tests/build/lint/types pass, independent content/code/security approved. Human merge/release pending; no push/deploy." }
-  product-manager: { status: idle, assignment: null, last_report: "Accepted Word Snack completion amendment; review intent-recipe-waiting-game-002.md. Preserve playable state/focus after success, announce results ready, explicit dismissal; Design details remain." }
+  product-manager: { status: idle, assignment: null, last_report: "T-Rex Runner intent accepted for Design; intent-t-rex-runner-001.md. Optional focused jump-only local runner replaces Word Snack; preserve results-ready play/focus and search boundaries. Spec/plan and human merge/release gates remain." }
   architect: { status: busy, assignment: intent/recipe-waiting-game/spec.md, last_report: Revised Word Snack draft to 128 distinct letter-multiset puzzles and 64 KiB data design budget at Rafael request. Rules and provenance preserved; no code/data creation or blanket spec approval. Diff check passed. }
   senior-developer: { status: idle, assignment: null, last_report: "Word Snack implemented and independently approved;74app12auth12smoke7workflow tests, lint/types/build and fivewidth Chrome passed.128puzzles; no merge/release authorized." }
   security-researcher: { status: idle, assignment: null, last_report: "Word Snack security assessment clear at 47a5878; security-recipe-waiting-game-001.md. No findings: bounded local React text, query-only requests, unchanged auth/provider/photo boundaries and isolated test fixtures. Merge/release remain human gates." }

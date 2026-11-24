@@ -4,14 +4,14 @@
 
 ## Goal
 
-intent/recipe-waiting-game/intent.md
+intent/t-rex-runner/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: spec
+- stop_reason: None
 
 ## Agents
 
@@ -57,11 +57,13 @@ intent/recipe-waiting-game/intent.md
 - orchestrator-0025 orchestrator -> security-researcher handoff: Assess verified Word Snack implementation
 - orchestrator-0026 orchestrator -> reviewer handoff: Review verified Word Snack implementation
 - orchestrator-0027 orchestrator -> ceo status: Word Snack verified and ready for human merge review
+- orchestrator-0028 orchestrator -> product-manager handoff: Review selected T-Rex replacement intent
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
 - product-manager-0005 product-manager -> orchestrator decision: Accepted Word Snack intent for Design
 - product-manager-0006 product-manager -> orchestrator answer: Re: Review user-directed completion behavior amendment
+- product-manager-0007 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -88,11 +90,11 @@ intent/recipe-waiting-game/intent.md
 
 ## Recent decisions
 
-- mem-0053 ceo: Rafael clarified Word Snack success must preserve the open playable game and focus, announce available recipes, and let users explicitly close to view results. PM accepted amendment for Design; supersedes automatic dismissal on success. Error/cancellation/navigation behavior unchanged. (org/reviews/intent-recipe-waiting-game-002.md)
 - mem-0054 ceo: Rafael explicitly approved the amended Word Snack intent and Design. Successful searches preserve play with results-ready notice and explicit dismissal. Specification, plan, merge and release remain unapproved. (org/reviews/intent-recipe-waiting-game-human-approval-001.md)
 - mem-0056 ceo: Rafael directed128 Word Snack puzzles instead of12. Architect revised specification count/cycle, distinct letter multisets and64KiB serialized-data design budget; no implementation or blanket spec approval inferred. (org/messages/ceo-0020.md)
 - mem-0057 ceo: Rafael approved the128-puzzle Word Snack specification at6b660c1. Human approval recorded; implementation planning authorized. Plan, code, merge and release still gated. (org/reviews/spec-recipe-waiting-game-human-approval-001.md)
 - mem-0059 ceo: Rafael authorized reviewed Word Snack plan and fresh bounded six-turn cycle. Preserved design loop snapshot; new cycle carries forward existing approvals before implementation/security/review. Dependencies installed frozen on Node24.15.0/pnpm10.33.0; no merge/push/release authorized. (org/reviews/plan-recipe-waiting-game-human-approval-001.md)
+- mem-0061 product-manager: Rafael selected wayou/t-rex-runner to replace Word Snack. PM accepted captured intent for Design; preserve results-ready continued play, scoped Space/touch controls, pinned local upstream reuse and attribution. Prior WordSnack audit archived; no game code/assets changed. (org/reviews/intent-t-rex-runner-001.md)
 
 ## Constraints
 
@@ -100,20 +102,15 @@ intent/recipe-waiting-game/intent.md
 
 ## Artifacts
 
-- intent/recipe-waiting-game/intent.md (aa0c6468234bf4f69e411058cc0ac8f3d486cfe3da084dac1bc342dfc73bd70d)
-- intent/recipe-waiting-game/spec.md (df5cb5b6cb587d73028c183fe1378ead24fc124945a5b479d01fae9a8c1af6cd)
-- intent/recipe-waiting-game/plan.md (53248b158e9100623ad61c58972317098c36e7c5ddd5f86ea0821ac016ec0fcd)
-- intent/recipe-waiting-game/progress.md (a69fc08d0f74d061e8407635048c2b95288e0b813a7850782bb9b6420843966c)
-- org/reviews/security-recipe-waiting-game-001.md (83665549a573b3d48035d3945d4d0b9a3b08ed6f4bb7ba73a017d7d129aac301)
-- org/reviews/code-recipe-waiting-game-001.md (a1b7b5b00f1b9f9e575ae43fe2342736e8815876218eb1122d963a8853ccf0d9)
+- intent/t-rex-runner/intent.md (de55afc2aefe37b175f179054a65421032a37fd2ec6a6d5421e5e66492481411)
 
 ## Next action
 
-reviewer:review
+product-manager:review_intent
 
 ## Last digest source
 
-- mem-0060 from org/reviews/recipe-waiting-game-verification.md
+- mem-0061 from org/reviews/intent-t-rex-runner-001.md
 
 <!-- machine:end -->
 

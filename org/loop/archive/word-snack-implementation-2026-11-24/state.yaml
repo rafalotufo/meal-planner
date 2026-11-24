@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/recipe-waiting-game/intent.md
+base_commit: a67869135db5f3ebeb29a9a8c704fc4355b72ec9
+turn: 6
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 02702ab6f2637c6109f3854327a422a66b046093e076cd3e0cf13366cae2db1f
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/recipe-waiting-game/intent.md", "sha256": "aa0c6468234bf4f69e411058cc0ac8f3d486cfe3da084dac1bc342dfc73bd70d"}, {"path": "intent/recipe-waiting-game/spec.md", "sha256": "df5cb5b6cb587d73028c183fe1378ead24fc124945a5b479d01fae9a8c1af6cd"}, {"path": "intent/recipe-waiting-game/plan.md", "sha256": "53248b158e9100623ad61c58972317098c36e7c5ddd5f86ea0821ac016ec0fcd"}, {"path": "intent/recipe-waiting-game/progress.md", "sha256": "a69fc08d0f74d061e8407635048c2b95288e0b813a7850782bb9b6420843966c"}, {"path": "org/reviews/security-recipe-waiting-game-001.md", "sha256": "83665549a573b3d48035d3945d4d0b9a3b08ed6f4bb7ba73a017d7d129aac301"}, {"path": "org/reviews/code-recipe-waiting-game-001.md", "sha256": "a1b7b5b00f1b9f9e575ae43fe2342736e8815876218eb1122d963a8853ccf0d9"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/smoke.test.ts", "exit": 0, "pass": true}, {"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/auth/*.test.ts", "exit": 0, "pass": true}]
+updated_at: "2026-11-23T21:38:13Z"
