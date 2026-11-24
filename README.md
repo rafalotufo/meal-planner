@@ -43,6 +43,31 @@ Original source links, reported time labels and optional-photo fallback remain
 available on every card.
 
 
+## Shared recipe menu
+
+Choose **Add to menu** on a search result to save its text, source link, time and
+available publisher photo URL for your family. **Menu** opens `/menu`; every
+current family member can save, browse or remove recipes. Repeated saves of the
+same normalized source URL retain the first saved snapshot. There is no maximum
+collection size; **Older recipes** replaces each 50-entry page and **Newest
+recipes** returns to the beginning. Reload to see another device's changes.
+
+**Remove from menu** first asks for confirmation and names the recipe. Cancel,
+Escape or clicking the backdrop keeps it saved. Failed actions can be retried;
+each removal retry asks again. Images remain direct browser-loaded publisher
+URLs with **Photo unavailable** only for absent/failed images. They are saved
+links, not archived photos. Saving and browsing do not trigger another search
+or fetch a recipe/photo on the server.
+
+This feature adds PostgreSQL migration `0001_saved_recipe_menu` and its narrow
+runtime SELECT/INSERT/DELETE grant. Runtime never migrates schema. Apply reviewed
+migrations explicitly through the existing operator workflow before running a
+new build against an older database; the exact runtime catalog fails closed
+until schema/history match. This branch's local tests migrate only disposable
+test databases. Development and hosted migrations, deployment and promotion
+remain separate authorized operations. The original hosted provisioning verifier
+expects empty targets and is not a populated-data upgrade runbook.
+
 ## Local development
 
 Use Node.js 24.x and pnpm 10.33.0 (pinned in `package.json`).
@@ -193,6 +218,7 @@ pnpm run typecheck
 pnpm run build
 pnpm run test:auth
 pnpm run test:family
+pnpm run test:menu
 node --import tsx --test tests/deployment/*.test.ts
 pnpm run start
 ```
@@ -212,6 +238,9 @@ perform that with a dedicated Google test account in the configured environment.
 Optional isolated macOS Chrome QA after build: `node --import tsx tests/auth/browser.ts`
 and `node --import tsx tests/family/browser.ts`. These use test-only Google/recipe/image
 fixtures and a temporary browser profile, with no paid calls or production DB.
+Menu QA: `node --import tsx tests/menu/browser.ts` checks the actual compiled menu
+API/store in an owned database, with Google/search/photo and deliberate one-shot
+failure fixtures only; it captures mobile/desktop/confirmation screenshots.
 
 Recipe behavior tests and fixtures use TypeScript compiled into ignored
 `build/recipe-tests/` by `pnpm test`, then run with Node's native runner.

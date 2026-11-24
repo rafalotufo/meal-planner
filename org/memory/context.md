@@ -9,19 +9,19 @@ intent/saved-recipe-menu/plan.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: frontend
+- turn: 3
+- phase: security
 - stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/saved-recipe-menu/plan.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/saved-recipe-menu/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -86,7 +86,6 @@ intent/saved-recipe-menu/plan.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
-- orchestrator-0099 orchestrator -> senior-developer handoff: Implement approved menu UI and complete verification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -140,16 +139,17 @@ intent/saved-recipe-menu/plan.md
 - security-researcher-0018 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
 - security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
 - security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
+- security-researcher-0026 security-researcher -> orchestrator review: Stable menu backend source provisionally clear
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0131 orchestrator: Saved menu foundation tasks1-4 implemented RED/GREEN and verified:14menu and8family-storage tests,lint/typecheck/build pass. New additive schema/catalog/grants tested only on owned random local databases; original migration/SQLite/rollback evidence preserved. Test configuration reused existing native cluster privately without setup or dev/hosted migration. (intent/saved-recipe-menu/verification.md)
 - mem-0132 architect: Pinned Next16.4.6 Proxy clones POST bodies and awaits original EOF before RouteHandler, preventing its5second parser timer from starting. Architect source diagnosis and independent security consultation approve implementing exact menuAPI dispatch exclusion with equivalent all-method protected handler boundary; mandatory compiled matcher/header/auth/unfinished-body regressions preserve protections. No vendor or global timeout change. (intent/saved-recipe-menu/request-timeout-note.md)
 - mem-0133 security-researcher: Moving exact menu API dispatch from Next Proxy exposes BetterAuth same-process memory fallback for missing/expired cache. Independent follow-on review approves menu-only mandatory public JWE cookie-cache verification/expiry/identity/token binding before session helpers; preserve current onehour/no-refresh and all admission/write checks, with realHTTP regression proof. No sharedauth/vendor mutation or deadline/test weakening. (org/reviews/security-saved-recipe-menu-timeout-001.md)
 - mem-0134 orchestrator: Saved menu backend tasks5-6 verified:32menu,34family,14auth,32deployment tests and lint/typecheck/build pass. Scoped exact API matcher+equivalent all-method guard resolves Next body EOF buffering; mandatory public BetterAuth JWE cache/expiry/token/identity precheck preserves stateless denial. Unreleased0001 flatAND checks now round-trip exactly through pg_dump/restore with restricted runtime proof. OriginalSQL/SQLite and dev/hosted data untouched. (intent/saved-recipe-menu/verification.md)
 - mem-0135 orchestrator: Corrected workflow context budget after backend checkpoint by closing17 completed feature informational decision/review/answer/handoff records. Original bodies, ledger and histories remain; current Build authority ceo-0053 and active UI handoff orchestrator-0099 stay open. No question/finding or application behavior changed. (intent/saved-recipe-menu/memory-curation.json)
+- mem-0136 orchestrator: Saved menu full implementation and checks complete pending independent final reviews:82recipe+32menu+34family+14auth+32deployment Node tests,7Python,lint/typecheck/build/frozeninstall,realChrome390/1440/dialog320. Actual compiled package save/list/page/remove works without source/SQL. Root inspected desktop/mobile/control/dialog/literaltext-photo screenshots. All owned fixture services/databases cleaned; no dev/hosted migration or paid calls. (intent/saved-recipe-menu/verification.md)
 
 ## Constraints
 
@@ -157,15 +157,15 @@ intent/saved-recipe-menu/plan.md
 
 ## Artifacts
 
-- intent/saved-recipe-menu/verification.md (6fc5ea6565ffb4d107ae29b3e7fa63e3fa43befb9d30d600f9c5b9c21ad8f7b6)
+- intent/saved-recipe-menu/verification.md (8bde09f93a49f36485425a7f9349d0917cb11a56fa31f84b64ae97cd2ddb3812)
 
 ## Next action
 
-senior-developer:implement_menu_store_and_http
+senior-developer:implement_menu_ui_and_verify
 
 ## Last digest source
 
-- mem-0135 from intent/saved-recipe-menu/memory-curation.json
+- mem-0136 from intent/saved-recipe-menu/verification.md
 
 <!-- machine:end -->
 

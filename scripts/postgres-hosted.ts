@@ -58,7 +58,7 @@ async function main() {
     try {
       tls(admin);
       const tables = await admin.query<{ tablename: string }>("SELECT tablename FROM pg_tables WHERE schemaname='public'");
-      assert.ok(tables.rows.every(r => ['families','app_users','family_invitations','__drizzle_migrations'].includes(r.tablename)));
+      assert.ok(tables.rows.every(r => ['families','app_users','family_invitations','menu_recipes','__drizzle_migrations'].includes(r.tablename)));
       if (fresh) assert.equal(tables.rowCount, 0);
       await admin.query('BEGIN');
       try {
@@ -81,6 +81,7 @@ async function main() {
     try {
       await owner.execute('GRANT SELECT ON __drizzle_migrations TO mp_runtime');
       await owner.execute('GRANT SELECT,INSERT,UPDATE,DELETE ON families,app_users,family_invitations TO mp_runtime');
+      await owner.execute('GRANT SELECT,INSERT,DELETE ON menu_recipes TO mp_runtime');
     } finally { await owner.close(); }
   }
   stage = 'verify'; const runtime = new Client({connectionString:runtimeUrl.href,connectionTimeoutMillis:10000,query_timeout:15000}); await runtime.connect();
@@ -95,17 +96,21 @@ async function main() {
       has_database_privilege(current_user,current_database(),'CREATE') AS database_create,
       has_table_privilege(current_user,'__drizzle_migrations','INSERT,UPDATE,DELETE,TRUNCATE') AS history_write,
       (SELECT bool_and(has_table_privilege(current_user,t,p)) FROM unnest(ARRAY['families','app_users','family_invitations']) t CROSS JOIN unnest(ARRAY['SELECT','INSERT','UPDATE','DELETE']) p) AS domain_access,
+      (SELECT bool_and(has_table_privilege(current_user,'menu_recipes',p)) FROM unnest(ARRAY['SELECT','INSERT','DELETE']) p) AS menu_access,
+      has_table_privilege(current_user,'menu_recipes','UPDATE,TRUNCATE') AS menu_forbidden,
       pg_has_role(current_user,'neon_superuser','USAGE') AS neon_admin,
       pg_has_role(current_user,'mp_migrator','MEMBER') AS migrator_member`);
-    assert.deepEqual(privilege.rows[0],{schema_create:false,database_create:false,history_write:false,domain_access:true,neon_admin:false,migrator_member:false});
+    assert.deepEqual(privilege.rows[0],{schema_create:false,database_create:false,history_write:false,domain_access:true,menu_access:true,menu_forbidden:false,neon_admin:false,migrator_member:false});
     const memberships = await runtime.query("SELECT count(*)::int AS n FROM pg_auth_members m JOIN pg_roles r ON r.oid=m.member WHERE r.rolname IN ('mp_runtime','mp_migrator')");
     assert.equal(memberships.rows[0].n,0);
     const migrationAdmin = await runtime.query("SELECT pg_has_role('mp_migrator','neon_superuser','USAGE') AS neon_admin,pg_has_role('mp_migrator','neondb_owner','MEMBER') AS bootstrap_member");
     assert.deepEqual(migrationAdmin.rows[0],{neon_admin:false,bootstrap_member:false});
     const ownership = await runtime.query("SELECT tablename,tableowner FROM pg_tables WHERE schemaname='public' ORDER BY tablename");
-    assert.deepEqual(Object.fromEntries(ownership.rows.map(row=>[row.tablename,row.tableowner])),Object.fromEntries(['__drizzle_migrations','app_users','families','family_invitations'].map(tablename=>[tablename,'mp_migrator'])));
-    const counts = await runtime.query("SELECT (SELECT count(*) FROM families)::int AS families,(SELECT count(*) FROM app_users)::int AS users,(SELECT count(*) FROM family_invitations)::int AS invitations");
-    assert.deepEqual(counts.rows[0],{families:0,users:0,invitations:0});
+    assert.deepEqual(Object.fromEntries(ownership.rows.map(row=>[row.tablename,row.tableowner])),Object.fromEntries(['__drizzle_migrations','app_users','families','family_invitations','menu_recipes'].map(tablename=>[tablename,'mp_migrator'])));
+    // This original provisioning verifier expects empty targets. It is not a
+    // future populated-data migration runbook and requires separate authority.
+    const counts = await runtime.query("SELECT (SELECT count(*) FROM families)::int AS families,(SELECT count(*) FROM app_users)::int AS users,(SELECT count(*) FROM family_invitations)::int AS invitations,(SELECT count(*) FROM menu_recipes)::int AS recipes");
+    assert.deepEqual(counts.rows[0],{families:0,users:0,invitations:0,recipes:0});
     console.log(JSON.stringify({environment,projectId:resource.projectId,tls:'verified',restrictedRole:true,emptyDomainTables:true}));
   } finally { await runtime.end(); }
   for (const connection of [ownerUrl.href, runtimeUrl.href]) { const db=await openDatabase(connection); await db.close(); }

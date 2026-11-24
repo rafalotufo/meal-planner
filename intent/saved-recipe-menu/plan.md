@@ -321,15 +321,15 @@ Verify browser flows at390/1440 and dialog bounds at320, plus focused HTTP tests
 
 ### 9. Verify compiled packaging and operator-tool compatibility — small
 
-- [ ] Extend postgres-packaging.test.ts to save/list/read `/menu`/remove using
+- [x] Extend postgres-packaging.test.ts to save/list/read `/menu`/remove using
   only compiled `.next`, package manifest and node_modules, with no repository
   SQL/source directory. Its fixture owns migrations outside the packaged app.
-- [ ] Update postgres-hosted.ts's explicit table/ownership/privilege expectations
+- [x] Update postgres-hosted.ts's explicit table/ownership/privilege expectations
   and grants for the new table, including denial of menu UPDATE/TRUNCATE. This
   is source compatibility work only: never run its provision/verify commands
   against hosted targets in this task. Old empty-data assertions are not a
   general future populated-data migration runbook.
-- [ ] Run compiled deployment and metadata regressions and inspect upload/tracing
+- [x] Run compiled deployment and metadata regressions and inspect upload/tracing
   boundaries. Keep the mandatory metadata verifier and strict exact catalog;
   no packaging fallback may import migrator/source SQL at runtime.
 
@@ -341,12 +341,12 @@ migrations; explicit malformed/reordered fixtures remain unchanged.
 
 ### 10. Documentation, full verification and independent handoff — medium
 
-- [ ] Update AGENTS.md only to document the approved narrow saved-menu exception
+- [x] Update AGENTS.md only to document the approved narrow saved-menu exception
   and `test:menu`; update README with menu/confirmation/pagination/photo behavior
   and explicit migration effects. Write verification.md with actual evidence and
   a future migration handoff naming strict catalog incompatibility, not an
   executable hosted authorization. Preserve approved visual artifacts.
-- [ ] Run the commands below on final code, inspect browser screenshots and
+- [x] Run the commands below on final code, inspect browser screenshots and
   satisfy all acceptance rows in spec.md. Fix failures without lowering checks.
 - [ ] Hand stable changes/evidence to independent security and code reviewers;
   resolve required findings and repeat only affected plus required final checks.

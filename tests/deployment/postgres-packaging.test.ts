@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { test } from 'node:test';
 import { CookieJar, startServer } from '../auth/server.ts';
 import { provision, signInWithGoogle } from '../auth/flow.ts';
+import { post } from '../family/http.ts';
 
 test('compiled protected proxy and routes work without source or migration files', async () => {
   const directory = await mkdtemp(resolve(tmpdir(), 'meal-packaged-runtime-'));
@@ -24,6 +25,18 @@ test('compiled protected proxy and routes work without source or migration files
       assert.equal(home.status, 200);
       assert.match(await home.text(), /What would you like to cook/);
       assert.equal((await owner.request(server.origin, '/api/session')).status, 200);
+      const recipe = { title: 'Packaged lemon pasta', sourceUrl: 'https://example.test/pasta', imageUrl: null, summary: 'Toss pasta with lemon.', time: null };
+      const saved = await post(server.origin, owner, '/api/menu', recipe);
+      assert.equal(saved.status, 200);
+      const { entry } = await saved.json();
+      const listed = await owner.request(server.origin, '/api/menu');
+      assert.equal(listed.status, 200);
+      assert.deepEqual(await listed.json(), { entries: [entry], nextCursor: null });
+      const menu = await owner.request(server.origin, '/menu');
+      assert.equal(menu.status, 200);
+      assert.match(await menu.text(), /Packaged lemon pasta/);
+      assert.equal((await post(server.origin, owner, `/api/menu/${entry.id}/remove`)).status, 200);
+      assert.deepEqual(await (await owner.request(server.origin, '/api/menu')).json(), { entries: [], nextCursor: null });
     } finally { await server.stop(); }
   } finally { await rm(directory, { recursive: true, force: true }); }
 });

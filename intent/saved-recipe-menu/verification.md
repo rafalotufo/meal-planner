@@ -263,3 +263,64 @@ already up to date, pnpm10.33.0, exit0. No lock/dependency changes.
 
 Task8 and complete-flow checkpoint are complete; final full suites and
 independent whole-feature reviews remain below/next, not inferred from browser QA.
+
+## Tasks9–10 — packaging, operator compatibility and final Build/Test evidence
+
+Extended compiled packaging regression now actually saves a snapshot, lists it,
+reads the server-rendered `/menu`, removes it and lists empty, using only copied
+`.next`, package.json and node_modules. Assertions still prove no repository
+`lib` or `drizzle` directory exists in the packaged working directory. Migration
+setup belongs to the external owned fixture. Focused packaging test:1 passed;
+full deployment regression including this test:32 passed. No source-SQL/runtime
+migration fallback, upload-boundary or mandatory metadata-verifier change.
+
+`scripts/postgres-hosted.ts` is source-only compatibility: includes menu table
+ownership, SELECT/INSERT/DELETE grants, UPDATE/TRUNCATE denial and initial empty
+menu expectations. It was typechecked/linted, never invoked. Its unchanged
+initial-empty-target requirement is explicitly documented as unsuitable for a
+future populated-data upgrade runbook. AGENTS documents the narrow saved-menu
+scope, menu test command and equivalent protected-handler rationale. README
+explains shared snapshots, confirmation, pages, photos and explicit migrations.
+
+Final implementation verification, Node24.15.0/pnpm10.33.0:
+
+| Command | Actual result |
+| --- | --- |
+| `pnpm install --frozen-lockfile` | exit0; already up to date; no lock diff |
+| `pnpm run lint` | exit0; zero warnings |
+| `pnpm run typecheck` | exit0; all app/tests strict; no exclusions/suppressions |
+| `pnpm test` |82 passed,0 failed/skipped/cancelled |
+| `pnpm run build` | exit0; reviewed SQL/journal metadata verified; `/menu` and menu APIs compiled |
+| `pnpm run test:menu` |32 passed,0 failed/skipped/cancelled |
+| `pnpm run test:family` |34 passed,0 failed/skipped/cancelled |
+| `pnpm run test:auth` |14 passed,0 failed/skipped/cancelled |
+| `node --import tsx --test tests/deployment/*.test.ts` |32 passed,0 failed/skipped/cancelled |
+| `node --import tsx tests/menu/browser.ts` | exit0; production Chrome full matrix described above |
+| `python3 -m unittest discover -s tests` |7 passed, exit0 |
+| `python3 scripts/scan_secrets.py --staged` |0 findings, exit0 at current index |
+| Explicit candidate-path secrets scan |0 findings, exit0; includes pending task9/docs source |
+| `python3 scripts/check_plan_sync.py --hook --plan intent/saved-recipe-menu/plan.md` | exit0 at current index |
+| `python3 scripts/check_plan_sync.py --base 4bbe71f --head HEAD --plan intent/saved-recipe-menu/plan.md` | exit0 through committed UI checkpoint |
+| `git diff --check` | exit0 |
+
+The orchestrator owns final staging/commit and must repeat staged-secret/plan-sync
+against that exact staged/final revision. Exact Approved plan status and committed
+engineer authority remain preserved. Independent whole-feature security/code
+reviews are pending; their task10 checkbox remains unchecked rather than claiming
+self-review acceptance. The prior source-only backend security consultation is
+provisionally clear and does not substitute for whole-feature review.
+
+All owned test HTTP servers, browser profiles and disposable databases were
+cleaned in fixture finally blocks. No development QA server was started for this
+increment, so no generated dev/types workaround was needed. The parent-started
+private native PostgreSQL cluster remains running under its existing lifecycle;
+no development schema/data/config changes, hosted migrations, deployments,
+provider calls or dependency changes occurred.
+
+Future operator handoff: strict exact catalog/hash/history coupling means both
+old-runtime/new-schema and new-runtime/old-schema combinations fail closed.
+A hosted rollout requires separate target-specific owner authority, backup,
+maintenance/cutover and recovery planning before migration/runtime activation.
+Disposable rollback SQL is not production recovery authorization. Publisher URLs
+remain mutable links rather than archived photos; application body deadlines
+are verified locally before EOF and do not certify upstream hosted buffering.

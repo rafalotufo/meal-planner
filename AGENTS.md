@@ -8,6 +8,8 @@
 - Develop: `pnpm run dev`.
 - Verify: `pnpm run lint`, `pnpm run typecheck`, `pnpm run build`; all must pass.
 - Family regression: `pnpm run test:family` after build (owns temporary migrated databases).
+- Menu regression: `pnpm run test:menu` after build; real Chrome menu QA:
+  `node --import tsx tests/menu/browser.ts` (owned test database/server/profile).
 - Local explicit migration: `pnpm run db:migrate` after `pnpm run db:setup` (separate owner/runtime URLs).
 - Recipe/photo regressions: `pnpm test` (compiled TypeScript and native Node runner).
 - Deployment regression after build: `node --import tsx --test tests/deployment/*.test.ts` (includes isolated compiled proxy/page/API operation without migration/source files).
@@ -50,7 +52,15 @@ and metadata writes use single-connection READ COMMITTED transactions with a com
 transaction advisory lock acquired before decision reads and bounded local timeouts.
 GET/HEAD/proxy/render/session reads never provision or consume.
 Only verified Google callback admission may update an existing subject's email.
-Keep future shared entities scoped by required family owner; no recipe/meal CRUD.
+Keep shared entities scoped by required family owner. The approved saved-menu
+exception permits validated search-result snapshot save/list/remove only;
+general recipe creation/editing and meal CRUD remain outside scope.
+Exact `/api/menu` and `/api/menu/[id]/remove` paths use the equivalent menu
+handler guard because pinned Next Proxy buffers unfinished request bodies before
+dispatch. Keep canonical Host, mandatory current JWE/session-token identity
+binding, family/admission checks and private/security headers on every method,
+including protected405. These are not public auth-policy exceptions; retain
+Proxy for all other shapes and `/menu`. See the feature request-timeout note.
 
 Recipe search/provider/photos remain as approved on main, with Node24 runtime,
 90-second Vercel route duration and cancellation configuration unchanged. Require
