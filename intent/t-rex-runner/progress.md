@@ -111,3 +111,113 @@ Graph plan is in_review; org_loop.py next stops at engineer_approve. Human plan
 approval is pending. Turns 4/5/6 remain available for implementation/security/
 final review without resetting or extending the cycle. No application code,
 game assets, deployment, merge or release was performed.
+
+## Implementation and clean-source verification — 2026-11-24
+
+Rafael approved the plan/reuse and explicitly authorized removal of Word Snack.
+The subsequent full-available-width instruction was applied to the canvas CSS
+and current spec/plan: rendering fills game content width while physics stays
+600×150. The five obsolete Word Snack application/catalogue/test files were
+removed after replacement tests were working; historical intent/vocabulary,
+reviews, archives and screenshot evidence were retained.
+
+### Test-first slices and ownership
+
+- Asset tests first failed with ENOENT for missing sprites/notices; they then
+  passed against exact pinned bytes and both complete license texts. A third
+  test checks original running/jump/crash/ground/cactus crop bounds at 1×/2×.
+- Named bounded physics author t_rex_physics_author owned only
+  lib/t-rex-runner.ts and tests/recipe-t-rex-runner.test.ts. Nine tests passed
+  after initial missing-module RED; strict focused tsc and lint also passed.
+  All 121 integer empty gaps from 300–420px were simulated as jumpable, plus
+  24 seeded 60-second paths. Fixed arc is ~555.56ms; gap 300px exceeds the
+  full-arc-plus-300ms travel requirement of ~205.33px at 240px/s.
+- Request session tests first failed with missing session module, then three
+  passed: visible request start, paused Hide/Show snapshot, fresh replacement,
+  stale IDs and unconditional end across running/jumping/paused/crashed/idle.
+- Single integration owner implemented the instance-owned canvas/controller,
+  React controls, generation/focus association and browser harness. No vendor
+  singleton, document-level game key/touch handler, new dependency, external
+  game fetch, persistence, provider call or production test endpoint was added.
+
+### Source isolation and exact match
+
+All strict final candidate commands ran in
+`/private/tmp/trex-implementation-zl6ygyld`, created from current source including
+new files and removals, excluding generated .next/build/node_modules, .env*
+and unrelated work/. It links the existing pinned node_modules. Node 24.15.0
+was selected with explicit PATH because an unconfigured private/tmp login shell
+initially selected a broken unrelated Homebrew Node 22 binary. No repository
+or system dependency/configuration change was made to address that shell issue.
+
+A post-verification hash comparison confirmed 68 application/library/test/
+asset/notice and package/config source files match the workspace byte for byte,
+plus confirmed absence of all five removed files in both locations. Sorted
+path/hash JSON aggregate SHA-256:
+`eabe3669700717adcff2153bdcd4bec350076ff201bb84ae742318033747ad3a`.
+The complete temporary hash map/removal record is
+`/private/tmp/trex-implementation-zl6ygyld/.implementation-evidence.json`.
+Root's pre-existing next-env.d.ts and dev cache were not edited by this work.
+Normal-root runtime acceptance remains the orchestrator's separate approved
+reversible generated-type-isolation step; clean-source results are not forged
+into loop state and do not erase earlier root-cache failures.
+
+### Command results
+
+Each command below exited 0 for the matching candidate:
+
+- pnpm test: 79 compiled application/native Node tests, all pass; no skips.
+- pnpm run lint: eslint --max-warnings 0, clean.
+- pnpm run typecheck: Next type generation and strict tsc pass.
+- pnpm run build: production compilation, TypeScript and page generation pass.
+- pnpm run test:auth after build: 12 tests, all pass, isolated fixture servers.
+- python3 -m unittest discover -s tests: 7 tests, OK.
+- node --import tsx --test tests/deployment/smoke.test.ts: 12 tests, all pass.
+- node --import tsx tests/auth/browser.ts: all five widths pass; ten deliberate
+  HTTP 429 fixture responses, zero unexpected console/network errors.
+- git diff --check: clean. Root owns staged secret/plan-sync checks and commits.
+
+HTTP/browser tools required localhost/network execution permission; no live LLM
+request was made. Browser recipe responses and Google transport are fixtures.
+The retained pre-existing photo check loads a real HTTPS publisher image.
+
+### Browser evidence and limitations
+
+Real isolated Chrome covered 320/390/768/1024/1440px, including actual touch at
+320/390, real pointer Find activation on desktop and keyboard submissions.
+Auto-open/focus/run, fixed jump/held Space scroll prevention, native Jump Space,
+collision/restart, manual pause/resume, outside textarea Space, Hide/Show,
+reduced-motion opt-in/change, window blur and visibility pauses were exercised.
+An actual background-tab/return transition was additionally checked at 1440;
+other visibility scenarios use browser-dispatched controlled events.
+
+Held search/sprite fixtures prove fetch starts before assets resolve, no game
+POSTs, no duplicate pending search, terminal-before-assets cleanup, pause while
+loading, and no late image callback/frame/focus resurrection. Success mid-jump,
+zero hidden/paused/jumping/loading, success crashed, context failure and focused/
+unfocused errors discard play. Page navigation aborts a pending round; the next
+page starts clean. Scoped harness-only RAF/listener/ResizeObserver instrumentation
+returns to baseline after terminal/Hide states and permits at most one running
+frame. Resize and fresh 2× sprite loading preserve logical coordinates and
+correct backing resolution. Native AX names and controls were inspected;
+actual screen-reader listening was not performed.
+
+All new captures use org/reviews/t-rex-*; no old Word Snack/notebook audit images
+were overwritten. Mobile/desktop running screenshots were visually inspected:
+original dinosaur is recognizable, desktop canvas fills the available width,
+controls wrap and no horizontal overflow/clipping occurs. Loading, running,
+paused, crashed and auto-dismissed captures are retained at 320 and 1440.
+
+Two observed harness issues were corrected without removing checks: media
+preference changes needed a render/event settling interval to avoid CDP change
+coalescing, and retina/terminal-jump assertions needed to wait for actual sprite
+readiness rather than the initial simulation mode attribute. The application
+has no test-mode bypass or deferred-focus callback.
+
+Official API grounding checked during implementation:
+https://react.dev/reference/react/useLayoutEffect,
+https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame,
+https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia.
+Pinned adapted source mapping and notices are documented in provenance.md.
+Independent final code/security/license review is still required; this report
+is implementation evidence, not self-approval or merge/release authorization.

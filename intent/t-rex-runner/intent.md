@@ -47,6 +47,9 @@ unchanged. Word Snack's reviewed history and audit records remain preserved.
 - Scope keyboard/pointer handling to the game. Space must still work in the
   recipe textarea and ordinary page controls. Release listeners, timers and
   animation frames on close/unmount; prevent orphaned singleton instances.
+- The game window/canvas fills the available page-content width on desktop
+  and mobile. Scale the fixed logical world uniformly without a 600px CSS cap;
+  do not alter physics or reset play on resize.
 - Responsive local game viewport and large touch controls; visible focus,
   accessible labels/status, pause/resume controls and no required sound.
   Define reduced-motion and background-tab behavior in Design, including a
@@ -126,3 +129,8 @@ Rafael subsequently requested automatic start when search starts and automatic
 close when results arrive. This supersedes the earlier optional launcher and
 continued-play-on-success requirements; it is a lifecycle amendment, not
 approval of the full specification or an unwritten implementation plan.
+
+During approved implementation Rafael also directed: “Display the game window
+as the full width that is available.” This explicitly authorizes the responsive
+width amendment; the fixed logical physics world and other approved behavior
+remain unchanged (org/messages/ceo-0026.md).

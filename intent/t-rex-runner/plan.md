@@ -35,6 +35,7 @@ Chromium license evidence; independent license clearance precedes reuse.
 - third_party/t-rex/LICENSE.chromium.txt
 - README.md
 - intent/t-rex-runner/plan.md
+- intent/t-rex-runner/spec.md
 - intent/t-rex-runner/provenance.md
 - intent/t-rex-runner/progress.md
 - org/messages/*.md
@@ -113,7 +114,8 @@ Dependencies: 2. Verify lifecycle tests red/green, including success in every mo
   frames, 1×/2× source offsets and ground/cactus regions; test crop bounds.
 - [ ] Mount it in app/t-rex-runner.tsx with named focusable canvas/fallback,
   DOM mode/status, score (not live), Jump, Pause/Resume, Hide and notice link.
-  Reserve >=128px canvas area, center uniformly scaled <=600px world, account
+  Reserve >=128px canvas area, fill available content width with the uniformly
+  scaled 600×150 logical world (Rafael's approved implementation amendment), account
   for DPR without changing physics, >=44px controls and existing visual style.
 
 Dependencies: 2, 3. Verify local asset/context failure shows Game unavailable,

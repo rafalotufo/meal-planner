@@ -3,10 +3,10 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "T-Rex specification approved by Rafael; implementation plan and provenance independently approved. Human plan approval pending; loop3/6 at implement gate. No application changes, dev cache preserved." }
+  orchestrator: { status: busy, assignment: t-rex-runner-implementation, last_report: "T-Rex specification approved by Rafael; implementation plan and provenance independently approved. Human plan approval pending; loop3/6 at implement gate. No application changes, dev cache preserved." }
   product-manager: { status: idle, assignment: null, last_report: T-Rex automatic-lifecycle amendment accepted for Design; intent-t-rex-runner-002.md. Valid search auto-starts runner; results including zero auto-close it. Reduced-motion opt-in and scoped focus retained; spec/plan and merge/release gates remain. }
   architect: { status: idle, assignment: null, last_report: "T-Rex automatic-search lifecycle spec amended and independently approved in review003. Auto-start, immediate results cleanup and guarded focus specified; human spec approval pending, no code." }
-  senior-developer: { status: idle, assignment: null, last_report: "T-Rex plan and pinned provenance independently approved; exact sprite/license research verified, no app vendoring/code. Human plan approval pending." }
+  senior-developer: { status: idle, assignment: null, last_report: "T-Rex replacement candidate verified:79app12auth12smoke7workflow, lint/types/build, expandedChrome5widths and68sourcehashes match. Fullwidth, autostart/autoclose, fiveWordSnackdeletions done; independent reviews pending." }
   security-researcher: { status: idle, assignment: null, last_report: "Word Snack security assessment clear at 47a5878; security-recipe-waiting-game-001.md. No findings: bounded local React text, query-only requests, unchanged auth/provider/photo boundaries and isolated test fixtures. Merge/release remain human gates." }
   reviewer: { status: idle, assignment: null, last_report: T-Rex plan/provenance approved for human plan review; plan-t-rex-runner-001.md. Exact pinned source/sprite/license hashes and historical lineage independently verified. No code/cache changes; final ship review still required. }
   memory-keeper: { status: idle, assignment: null, last_report: null }

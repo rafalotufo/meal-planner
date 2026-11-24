@@ -118,3 +118,28 @@ has been vendored yet. Independent code/security/license review must confirm
 the proposed notices and mapping before reuse, then recheck actual shipped
 files/hashes/notice access at final review. Any missing required notice or
 unresolved origin blocks vendoring; never silently fall back to mutable main.
+
+## Implemented adaptation — 2026-11-24
+
+Following plan/reuse approval, the two exact original PNGs and both full notices
+were copied to the proposed destinations. Native asset tests verify hashes,
+dimensions, entire license texts in the shipped notice and original extraction
+credit. No upstream JavaScript, HTML, audio or bootstrap was executed or shipped.
+
+- `lib/t-rex-runner.ts`: `RUNNING_BOXES`, `CACTUS_BOXES` and `hasCollision`
+  adapt the mapped collision helpers/boxes; `jumpRunner`/`tickRunner` adapt jump
+  integration and landing. Intentional constants are 240px/s, -600px/s initial
+  jump velocity and 2160px/s² gravity, with fixed-arc integration, 50ms cap and
+  <=1000/60ms substeps. A seeded local generator replaces upstream randomness;
+  300–420px empty cactus gaps are each simulated as jumpable in tests.
+- `lib/t-rex-canvas.ts`: `SPRITE_LAYOUT` retains original LDPI/HDPI offsets;
+  `draw` uses mapped Trex frames (0/88/132/220), small cactus and HorizonLine
+  source regions/wrapping. `mountRunnerCanvas` replaces global singleton,
+  listeners and images with one disposable instance. CSS fills available width
+  per Rafael's amendment; logical world and collision stay 600×150.
+- `lib/t-rex-session.ts` and `app/t-rex-runner.tsx` contain new request/state and
+  React integration rather than copied upstream lifecycle or page code.
+
+Both adapted upstream-derived modules retain the original four-line header,
+full source pin and local full-notice reference. Final independent review must
+assess the shipped mapping/notices as well as the already-cleared proposal.

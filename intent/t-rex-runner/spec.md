@@ -103,7 +103,10 @@ index.js. A source map in the provenance note must identify retained upstream
 symbols/ranges and intentional changes. No upstream HTML/CSS/scripts execute.
 
 Use a fixed 600×150 logical world, uniformly scaled and centered within a
-responsive canvas container up to 600px wide with >=128px reserved height.
+responsive canvas container filling the available game content width, with
+>=128px reserved height. Rafael explicitly requested the full available width
+during implementation; this supersedes the proposed 600px CSS width cap while
+retaining the 600×150 logical physics world and uniform scale.
 Rendering and collision share logical coordinates; CSS sizing and DPR affect
 only presentation/backing resolution. Resize/DPR changes redraw without reset
 or collision-coordinate changes. Keep pixel rendering crisp and controls/text

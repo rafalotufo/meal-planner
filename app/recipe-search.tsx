@@ -5,17 +5,16 @@ import type { Recipe } from "../lib/recipes/types";
 import { initialNotebook, notebookReducer } from "../lib/recipes/notebook";
 import { isRecord, validateQuery } from "../lib/recipes/validation";
 import SearchNotebook from "./search-notebook";
-import WordSnack from "./word-snack";
-import { initialWordSnack, wordSnackReducer } from "../lib/word-snack";
-import { WORD_SNACK_PUZZLES } from "../lib/word-snack-puzzles";
+import TRexRunner from "./t-rex-runner";
+import { createRunner, type RunnerState } from "../lib/t-rex-runner";
+import { runnerSessionReducer } from "../lib/t-rex-session";
 
 const FAILURE = "We couldn’t finish the search. Please try again.";
 
 export default function RecipeSearch() {
   const [query, setQuery] = useState("");
   const [notebook, dispatch] = useReducer(notebookReducer, initialNotebook);
-  const [game, gameAction] = useReducer(wordSnackReducer, initialWordSnack);
-  const [readyLauncherId, setReadyLauncherId] = useState<number | null>(null);
+  const [runner, runnerAction] = useReducer(runnerSessionReducer, null);
   const [loading, setLoading] = useState(false);
   const [inputError, setInputError] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -23,33 +22,42 @@ export default function RecipeSearch() {
   const generation = useRef(0);
   const pending = useRef<AbortController | null>(null);
   const textarea = useRef<HTMLTextAreaElement>(null);
+  const interactionVersion = useRef(0);
+  const initialFocus = useRef<{ id: number; version: number; form: HTMLFormElement } | null>(null);
   const gameRegion = useRef<HTMLDivElement>(null);
   const notebookRegion = useRef<HTMLDivElement>(null);
   const focusAfterCommit = useRef<string | null>(null);
 
-  // Focus DOM targets after React commits the corresponding close/open changes.
+  // Commit-time focus is never deferred to asset callbacks.
   // https://react.dev/learn/manipulating-the-dom-with-refs
   useLayoutEffect(() => {
+    const intent = initialFocus.current;
+    initialFocus.current = null;
+    if (intent && runner?.visible && runner.requestId === intent.id && generation.current === intent.id
+      && pending.current && !pending.current.signal.aborted && intent.version === interactionVersion.current
+      && intent.form.contains(document.activeElement)) {
+      document.getElementById("t-rex-surface")?.focus({ preventScroll: true });
+    }
     const id = focusAfterCommit.current;
-    if (!id) return;
     focusAfterCommit.current = null;
+    if (!id) return;
     const target = document.getElementById(id);
     target?.focus({ preventScroll: true });
     if (id.startsWith("search-heading-")) target?.scrollIntoView({ behavior: "instant", block: "start" });
-  }, [game.round?.open, notebook.selectedId, readyLauncherId]);
+  }, [runner?.requestId, runner?.visible, notebook.selectedId]);
 
-  function closeGame() {
-    if (!game.round) return;
-    if (game.round.readyCount !== null) {
-      dispatch({ type: "open", id: game.round.requestId });
-      focusAfterCommit.current = `search-heading-${game.round.requestId}`;
-    } else focusAfterCommit.current = "word-snack-play";
-    gameAction({ type: "close" });
+  function hideRunner(snapshot: RunnerState) {
+    if (!runner) return;
+    focusAfterCommit.current = "t-rex-show";
+    runnerAction({ type: "hide", requestId: runner.requestId, snapshot });
   }
 
-  function discardGame(id: number) {
-    if (gameRegion.current?.contains(document.activeElement) || document.activeElement?.id === "word-snack-play") focusAfterCommit.current = "recipe-query";
-    gameAction({ type: "discard", requestId: id });
+  function discardRunner(id: number, success: boolean) {
+    initialFocus.current = null;
+    if (gameRegion.current?.contains(document.activeElement)) {
+      focusAfterCommit.current = success ? `search-heading-${id}` : "recipe-query";
+    }
+    runnerAction({ type: "end", requestId: id });
   }
 
   // Cleanup and generation checks prevent an older request from updating a newer view.
@@ -68,10 +76,10 @@ export default function RecipeSearch() {
     setInputError(null);
     setError(null);
     setStatus("");
-    setReadyLauncherId(null);
     setLoading(true);
     const id = ++generation.current;
-    gameAction({ type: "start", requestId: id, puzzles: WORD_SNACK_PUZZLES });
+    initialFocus.current = { id, version: interactionVersion.current, form: event.currentTarget };
+    runnerAction({ type: "start", requestId: id, snapshot: createRunner(id) });
     const controller = new AbortController();
     pending.current = controller;
     try {
@@ -80,7 +88,7 @@ export default function RecipeSearch() {
       const data: unknown = await response.json();
       if (id !== generation.current || controller.signal.aborted) return;
       if (!response.ok) {
-        discardGame(id);
+        discardRunner(id, false);
         const code = isRecord(data) && isRecord(data.error) ? data.error.code : null;
         setError(code === "SEARCH_UNAVAILABLE" ? "Recipe search is not available yet. Please try again later."
           : code === "SEARCH_BUSY" ? "Recipe search is busy. Please try again shortly." : FAILURE);
@@ -89,14 +97,12 @@ export default function RecipeSearch() {
         const focusedPanel = document.activeElement?.closest("[data-search-panel]");
         const retainPanel = Boolean(focusedPanel && notebookRegion.current?.contains(focusedPanel));
         dispatch({ type: "add", id, query: description, recipes, selectNew: !retainPanel });
-        // Preserve a focused launcher as results navigation instead of removing it.
-        if (document.activeElement?.id === "word-snack-play") setReadyLauncherId(id);
-        gameAction({ type: "ready", requestId: id, count: recipes.length });
+        discardRunner(id, true);
         setStatus(recipes.length ? `${recipes.length} ${recipes.length === 1 ? "recipe" : "recipes"} found. Added to your searches.`
           : "No matching recipes found. Try a different description.");
-      } else { discardGame(id); setError(FAILURE); }
+      } else { discardRunner(id, false); setError(FAILURE); }
     } catch {
-      if (id === generation.current && !controller.signal.aborted) { discardGame(id); setError(FAILURE); }
+      if (id === generation.current && !controller.signal.aborted) { discardRunner(id, false); setError(FAILURE); }
     } finally {
       if (id === generation.current) {
         pending.current = null;
@@ -106,7 +112,9 @@ export default function RecipeSearch() {
   }
 
   return (
-    <>
+    <div onPointerDownCapture={() => { interactionVersion.current++; }}
+      onKeyDownCapture={() => { interactionVersion.current++; }}
+      onFocusCapture={() => { interactionVersion.current++; }}>
       <section aria-labelledby="recipe-search-title" className="pt-6 sm:pt-10">
         <p className="text-xs font-medium tracking-widest text-emerald-800 uppercase">Find your next meal</p>
         <h2 id="recipe-search-title" className="mt-3 font-serif text-3xl leading-tight tracking-tight text-stone-900 sm:text-5xl">What sounds good tonight?</h2>
@@ -127,23 +135,16 @@ export default function RecipeSearch() {
           {inputError ? <p id="recipe-query-error" role="alert" className="mt-3 text-sm text-red-800">{inputError}</p> : null}
         </form>
         <p role="status" aria-live="polite" aria-atomic="true" className="mt-3 min-h-5 text-sm text-stone-600">
-          {loading ? "Searching for recipes… Your earlier searches are still here." : game.round?.readyCount !== null && game.round?.open
-            ? game.round.readyCount === 0 ? "Search finished — no matches. You can keep playing or view your search."
-              : `Recipes ready — ${game.round.readyCount} found. Keep playing or view results.` : status}
+          {loading ? "Searching for recipes… Your earlier searches are still here." : status}
         </p>
         {error ? <p role="alert" className="mt-3 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900">{error}</p> : null}
       </section>
-      {(loading && !game.round?.open) || readyLauncherId !== null ? <button id="word-snack-play" type="button"
-        onClick={() => {
-          if (readyLauncherId !== null) {
-            focusAfterCommit.current = `search-heading-${readyLauncherId}`;
-            dispatch({ type: "open", id: readyLauncherId });
-            setReadyLauncherId(null);
-          } else { focusAfterCommit.current = "word-snack-title"; gameAction({ type: "open" }); }
-        }}
-        className="mt-3 min-h-11 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-emerald-900 hover:bg-stone-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800">{readyLauncherId === null ? "Play Word Snack" : "View results"}</button> : null}
       <div ref={gameRegion}>
-        {game.round?.open ? <WordSnack round={game.round} onAction={gameAction} onClose={closeGame} /> : null}
+        {runner?.visible ? <TRexRunner key={runner.requestId} initial={runner.snapshot} onHide={hideRunner} />
+          : runner ? <button id="t-rex-show" type="button" onClick={() => {
+            focusAfterCommit.current = "t-rex-surface";
+            runnerAction({ type: "show", requestId: runner.requestId });
+          }} className="mt-3 min-h-11 min-w-11 rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-medium text-emerald-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800">Show game</button> : null}
       </div>
       <div ref={notebookRegion}>
       {notebook.entries.length ? <SearchNotebook entries={notebook.entries} selectedId={notebook.selectedId}
@@ -156,6 +157,6 @@ export default function RecipeSearch() {
           <p className="mt-4 text-xs text-stone-500">Searches stay on this page until you refresh.</p>
         </section> : null}
       </div>
-    </>
+    </div>
   );
 }

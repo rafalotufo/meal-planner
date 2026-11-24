@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import { SPRITE_LAYOUT } from "../lib/t-rex-canvas";
 
 test("T-Rex sprites retain verified pinned Chromium bytes and dimensions", () => {
   for (const [name, bytes, width, height, hash] of [
@@ -13,6 +14,20 @@ test("T-Rex sprites retain verified pinned Chromium bytes and dimensions", () =>
     assert.equal(data.readUInt32BE(16), width);
     assert.equal(data.readUInt32BE(20), height);
     assert.equal(createHash("sha256").update(data).digest("hex"), hash);
+  }
+});
+
+test("original 1x/2x running, jumping, crash, ground and cactus crops fit their sheets", () => {
+  for (const scale of [1, 2] as const) {
+    const sprite = SPRITE_LAYOUT[scale];
+    for (const frame of [0, 88, 132, 220]) {
+      assert.ok(sprite.trexX + (frame + 44) * scale <= sprite.width);
+      assert.ok(sprite.trexY + 47 * scale <= sprite.height);
+    }
+    assert.ok(sprite.cactusX + 17 * scale <= sprite.width);
+    assert.ok(sprite.cactusY + 35 * scale <= sprite.height);
+    assert.ok(sprite.groundX + 600 * scale <= sprite.width);
+    assert.ok(sprite.groundY + 12 * scale <= sprite.height);
   }
 });
 

@@ -7,7 +7,6 @@ import { join } from 'node:path';
 import { CookieJar, startServer } from './server.ts';
 import { signInWithGoogle } from './flow.ts';
 import type { Recipe } from '../../lib/recipes/types.ts';
-import { WORD_SNACK_PUZZLES } from '../../lib/word-snack-puzzles.ts';
 
 interface CdpEvent {
   id?: number;
@@ -59,6 +58,8 @@ let heldRequest: string | undefined;
 let searchRequests = 0;
 const searchBodies: string[] = [];
 let malformedSearch = false;
+let holdSprites = false;
+const heldSprites: string[] = [];
 try {
   let port;
   for (let attempt = 0; attempt < 100; attempt++) {
@@ -66,7 +67,7 @@ try {
     catch { await new Promise((resolve) => setTimeout(resolve, 100)); }
   }
   assert.ok(port, 'isolated Chrome started');
-  const target: { webSocketDebuggerUrl: string } = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
+  const target: { id: string; webSocketDebuggerUrl: string } = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
   socket = new WebSocket(target.webSocketDebuggerUrl);
   const connection = socket;
   await new Promise<void>((resolve, reject) => { connection.addEventListener('open', () => resolve(), { once: true }); connection.addEventListener('error', reject, { once: true }); });
@@ -94,6 +95,9 @@ try {
         searchBodies.push(params.request.postData ?? '');
         if (holdSearch) heldRequest = params.requestId;
         else fulfillSearch(params.requestId).catch((error: unknown) => errors.push(String(error)));
+      } else if (target.pathname.startsWith('/games/t-rex/')) {
+        if (holdSprites) heldSprites.push(params.requestId);
+        else send('Fetch.continueRequest', { requestId: params.requestId }).catch((error: unknown) => errors.push(String(error)));
       } else {
         const location = `${server.origin}/api/auth/callback/google?code=test-code&state=${encodeURIComponent(target.searchParams.get('state') ?? '')}`;
         send('Fetch.fulfillRequest', { requestId: params.requestId, responseCode: 302, responseHeaders: [{ name: 'Location', value: location }] }).catch((error: unknown) => errors.push(String(error)));
@@ -134,19 +138,26 @@ try {
     throw new Error(`Navigation did not settle: ${url}`);
   }
   async function waitFor(expression: string) {
-    for (let attempt = 0; attempt < 100; attempt++) {
+    for (let attempt = 0; attempt < 220; attempt++) {
       if (await evaluate(expression)) return;
       await new Promise(resolve => setTimeout(resolve, 50));
     }
     throw new Error(`Browser condition did not settle: ${expression}`);
   }
-  async function submitQuery(query: string) {
+  async function submitQuery(query: string, activation?: "touch" | "mouse" | "keyboard") {
     await evaluate(`(() => {
       const input = document.querySelector('#recipe-query');
+      input.focus();
       Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set.call(input, ${JSON.stringify(query)});
       input.dispatchEvent(new Event('input', { bubbles: true }));
     })()`);
-    await evaluate('document.querySelector("form").requestSubmit()');
+    if (activation === "touch" || activation === "keyboard") await activate('button[type=submit]', activation === "touch");
+    else if (activation === "mouse") {
+      await evaluate('document.querySelector("button[type=submit]").scrollIntoView({block:"center"})');
+      const point = await evaluate('(() => {const r=document.querySelector("button[type=submit]").getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()') as {x:number;y:number};
+      await send('Input.dispatchMouseEvent',{type:'mousePressed',...point,button:'left',clickCount:1});
+      await send('Input.dispatchMouseEvent',{type:'mouseReleased',...point,button:'left',clickCount:1});
+    } else await evaluate('document.querySelector("form").requestSubmit()');
   }
   async function capture(filename: string) {
     const metrics = await send<{ contentSize: { width: number; height: number } }>('Page.getLayoutMetrics');
@@ -169,178 +180,293 @@ try {
     await send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ ...point, radiusX: 1, radiusY: 1 }] });
     await send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
   }
-  async function typeWord(value: string) {
-    await evaluate(`(() => {const input=document.querySelector('#word-snack-word');input.focus();input.select();})()`);
-    await send('Input.insertText', { text: value });
-  }
-  async function holdQuery(query: string) {
+  async function holdQuery(query: string, activation: "touch" | "mouse" | "keyboard" = "keyboard") {
     holdSearch = true;
-    await submitQuery(query);
-    await waitFor('Boolean(document.querySelector("#word-snack-play"))');
-    assert.ok(heldRequest, 'fixture captured pending recipe request');
+    await submitQuery(query, activation);
+    await waitFor('Boolean(document.querySelector("#t-rex-surface"))');
+    assert.ok(heldRequest);
   }
   async function finishQuery() {
     assert.ok(heldRequest);
     await fulfillSearch(heldRequest);
-    heldRequest = undefined;
-    holdSearch = false;
+    heldRequest = undefined; holdSearch = false;
     await waitFor('!document.querySelector("button[type=submit]").disabled');
+    await waitFor('!document.querySelector("#t-rex-surface") && !document.querySelector("#t-rex-show")');
   }
-  async function wordSnackFlow(width: number) {
+  async function releaseSprites() {
+    holdSprites = false;
+    for (const requestId of heldSprites.splice(0)) await send('Fetch.continueRequest', { requestId });
+  }
+  async function resources() {
+    return await evaluate('window.__runnerProbe.counts()') as { frames: number; listeners: number; observers: number };
+  }
+  async function runnerFlow(width: number) {
     const touch = width <= 390;
     await send('Emulation.setTouchEmulationEnabled', { enabled: touch, maxTouchPoints: 1 });
+    const baseline = await resources();
+    assert.equal(baseline.frames, 0);
     fixtureRecipes = dinnerRecipes;
     const requestsBefore = searchRequests;
-    await holdQuery('Dinner while playing Word Snack');
-    const inputBeforePlay = await evaluate('document.activeElement.id');
-    assert.notEqual(inputBeforePlay, 'word-snack-word', 'optional game never steals focus on arrival');
-    if (width === 320 || width === 1440) await capture(`org/reviews/word-snack-pending-${width}.png`);
-    await activate('#word-snack-play', touch);
-    await waitFor('Boolean(document.querySelector("#word-snack-word"))');
-    assert.equal(await evaluate('document.activeElement.id'), 'word-snack-title', 'opening transfers removed launcher focus');
-    const letters = await evaluate(`[...document.querySelectorAll('[aria-label="Available letters"] button')].map(x=>x.textContent.trim().toLowerCase()).join("")`) as string;
-    const puzzle = WORD_SNACK_PUZZLES.find(item => item.letters === letters);
-    assert.ok(puzzle);
-    const acceptedWord = puzzle.words[1];
-    const continuedWord = puzzle.words[0];
-    await typeWord(acceptedWord);
-    await key('Enter', 'Enter', 13, '\r');
-    await waitFor('document.querySelector("#word-snack-feedback").textContent.includes("Added")');
-    assert.equal(await evaluate('document.activeElement.id'), 'word-snack-word');
-    await typeWord(acceptedWord);
-    await key('Enter', 'Enter', 13, '\r');
-    await waitFor('document.querySelector("#word-snack-feedback").textContent.includes("already found")');
-    await typeWord(continuedWord.slice(0, 2));
-    // Close pending via its labeled action, then reopen the same round.
-    await evaluate('[...document.querySelectorAll("button")].find(x=>x.textContent==="Close game").click()');
-    await waitFor('Boolean(document.querySelector("#word-snack-play"))');
-    assert.equal(await evaluate('document.activeElement.id'), 'word-snack-play');
-    await activate('#word-snack-play', touch);
-    await waitFor('Boolean(document.querySelector("#word-snack-word"))');
-    assert.equal(await evaluate('document.querySelector("#word-snack-word").value'), continuedWord.slice(0, 2));
-    await evaluate('document.querySelector("#word-snack-word").focus()');
-    if (width === 320 || width === 1440) await capture(`org/reviews/word-snack-playing-${width}.png`);
-    await finishQuery();
-    await waitFor('Boolean(document.querySelector("#word-snack-ready"))');
-    assert.equal(await evaluate('document.activeElement.id'), 'word-snack-word', 'success retains exact input focus');
-    assert.equal(await evaluate('document.querySelector("#word-snack-word").value'), continuedWord.slice(0, 2));
-    assert.equal(await evaluate(`[...document.querySelectorAll('[aria-label="Available letters"] button')].map(x=>x.textContent.trim().toLowerCase()).join("")`), letters);
-    assert.equal(await evaluate(`document.querySelector('[aria-label="Found words"]').textContent`), acceptedWord);
-    assert.ok(await evaluate('document.querySelector("p[role=status]").textContent.includes("Keep playing")'));
-    assert.equal(await evaluate('document.querySelector("#word-snack-ready").getAttribute("role")'), null, 'ready banner does not duplicate live announcement');
-    assert.ok(await evaluate('document.querySelectorAll("article").length > 0'), 'results render without dismissing game');
-    await typeWord(continuedWord);
-    await key('Enter', 'Enter', 13, '\r');
-    await waitFor(`document.querySelector('[aria-label="Found words"]').textContent.includes(${JSON.stringify(continuedWord)})`);
-    // Keyboard tile entry exhausts supply without leaving focus on a disabled control.
-    for (const letter of puzzle.letters) {
-      const index = puzzle.letters.indexOf(letter);
-      await activate(`[aria-label="Available letters"] button:nth-child(${index + 1})`);
-    }
-    assert.equal(await evaluate('document.activeElement.id'), 'word-snack-word');
-    assert.equal(await evaluate('document.querySelector("#word-snack-word").value'), puzzle.letters);
-    await evaluate('[...document.querySelectorAll("button")].find(x=>x.textContent==="Clear word").click()');
-    const ax = await send<{ nodes: { role?: { value?: string }; name?: { value?: string } }[] }>('Accessibility.getFullAXTree');
-    assert.ok(ax.nodes.some(node => node.role?.value === 'textbox' && node.name?.value === 'Your word'));
-    assert.ok(ax.nodes.some(node => node.role?.value === 'button' && node.name?.value === 'Submit word'));
-    assert.ok(ax.nodes.some(node => node.role?.value === 'region' && node.name?.value === 'Word Snack'));
-    assert.ok(await evaluate(`(() => {
-      const canvas=document.createElement('canvas');canvas.width=canvas.height=1;
-      const ctx=canvas.getContext('2d',{willReadFrequently:true});
-      function rgb(color){ctx.clearRect(0,0,1,1);ctx.fillStyle=color;ctx.fillRect(0,0,1,1);return [...ctx.getImageData(0,0,1,1).data];}
-      function lum(color){return rgb(color).slice(0,3).map(v=>{v/=255;return v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4;}).reduce((n,v,i)=>n+v*[0.2126,0.7152,0.0722][i],0);}
-      return [...document.querySelectorAll('[aria-labelledby=word-snack-title] p,[aria-labelledby=word-snack-title] label,[aria-labelledby=word-snack-title] h2,[aria-labelledby=word-snack-title] button:not(:disabled),[aria-labelledby=word-snack-title] input')].every(el=>{
-        let bg=el;while(bg&&rgb(getComputedStyle(bg).backgroundColor)[3]===0)bg=bg.parentElement;
-        const foreground=lum(getComputedStyle(el).color),background=lum(bg?getComputedStyle(bg).backgroundColor:'white');
-        return (Math.max(foreground,background)+0.05)/(Math.min(foreground,background)+0.05)>=4.5;
-      });
-    })()`), 'game text and enabled controls meet 4.5:1 contrast');
+    await holdQuery('Dinner while running T-Rex', touch ? 'touch' : 'mouse');
+    await waitFor('document.querySelector("#t-rex-status").textContent.startsWith("Running")');
+    assert.equal(await evaluate('document.activeElement.id'), 't-rex-surface');
+    assert.equal(await evaluate('document.querySelector("#word-snack-title")'), null);
+    const runningResources = await resources();
+    assert.equal(runningResources.frames, 1);
+    assert.equal(runningResources.observers, baseline.observers + 1);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
-    assert.ok(await evaluate('[...document.querySelectorAll("[aria-labelledby=word-snack-title] button,[aria-labelledby=word-snack-title] input")].every(x=>x.getBoundingClientRect().width>=44&&x.getBoundingClientRect().height>=44)'));
-    assert.equal(await evaluate('getComputedStyle(document.querySelector("#word-snack-word")).fontSize'), '16px');
-    if (width === 320 || width === 1440) await capture(`org/reviews/word-snack-ready-${width}.png`);
-    const latestHeading = await evaluate('document.querySelector("button[aria-expanded]").id');
-    await evaluate('document.querySelectorAll("button[aria-expanded]")[1].click()');
-    await activate('[aria-labelledby=word-snack-title] button', touch);
-    await waitFor('!document.querySelector("#word-snack-title")');
-    assert.equal(await evaluate('document.activeElement.id'), latestHeading);
-    assert.equal(await evaluate('document.activeElement.getAttribute("aria-expanded")'), 'true');
-    if (width === 320 || width === 1440) await capture(`org/reviews/word-snack-dismissed-${width}.png`);
-    assert.equal(searchRequests, requestsBefore + 1, 'game controls never issue recipe requests');
-    assert.deepEqual(JSON.parse(searchBodies.at(-1) ?? '{}'), { query: 'Dinner while playing Word Snack' });
-
-    // Zero results preserve play, invalid queries preserve the completed round.
-    fixtureRecipes = [];
-    await holdQuery('No matches while playing');
-    await activate('#word-snack-play', touch);
+    assert.ok(await evaluate('Math.abs(document.querySelector("#t-rex-surface").getBoundingClientRect().width-document.querySelector("#t-rex-surface").parentElement.getBoundingClientRect().width)<1'), 'game fills available content width');
+    assert.ok(await evaluate('[...document.querySelectorAll("[aria-labelledby=t-rex-title] button")].every(x=>x.getBoundingClientRect().width>=44&&x.getBoundingClientRect().height>=44)'));
+    const pixels = await evaluate(`(() => {const c=document.querySelector('#t-rex-surface');return [...c.getContext('2d').getImageData(0,0,c.width,c.height).data].filter((x,i)=>i%4===3&&x>0).length;})()`);
+    assert.ok(Number(pixels) > 100, 'actual original sprites draw visible pixels');
+    const ax = await send<{nodes:{role?:{value?:string};name?:{value?:string}}[]}>('Accessibility.getFullAXTree');
+    assert.ok(ax.nodes.some(n=>n.name?.value==='T-Rex jumping game'));
+    assert.ok(ax.nodes.some(n=>n.role?.value==='button'&&n.name?.value==='Jump'));
+    if (width===320||width===1440) await capture(`org/reviews/t-rex-running-${width}.png`);
+    // Scoped Space consumes both fresh and held presses, without scrolling.
+    await evaluate('document.querySelector("#t-rex-surface").focus();window.scrollTo(0,0)');
+    const scrollBefore = await evaluate('scrollY');
+    await key(' ', 'Space', 32, ' ');
+    await waitFor('Number(document.querySelector("#t-rex-surface").dataset.y)<93');
+    const jumpingY = await evaluate('Number(document.querySelector("#t-rex-surface").dataset.y)');
+    await send('Input.dispatchKeyEvent', {type:'keyDown',key:' ',code:'Space',windowsVirtualKeyCode:32,autoRepeat:true,text:' '});
+    await send('Input.dispatchKeyEvent', {type:'keyUp',key:' ',code:'Space',windowsVirtualKeyCode:32});
+    assert.equal(await evaluate('scrollY'), scrollBefore);
+    assert.ok(Number(jumpingY)<93);
+    await activate('#t-rex-pause',touch);
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="paused"');
+    assert.equal((await resources()).frames,0);
+    const pausedScore=await evaluate('document.querySelector("#t-rex-score").textContent');
+    await new Promise(resolve=>setTimeout(resolve,120));
+    assert.equal(await evaluate('document.querySelector("#t-rex-score").textContent'),pausedScore);
+    if(width===320||width===1440)await capture(`org/reviews/t-rex-paused-${width}.png`);
+    await evaluate('document.querySelector("#t-rex-surface").focus()');
+    await key(' ','Space',32,' ');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+    await activate('#t-rex-pause',touch);
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    await activate('#t-rex-jump',touch);
+    await waitFor('Number(document.querySelector("#t-rex-surface").dataset.y)<93');
+    // Completion mid-jump closes and cancels immediately, no continued play.
     await finishQuery();
-    await waitFor('Boolean(document.querySelector("#word-snack-ready"))');
-    assert.ok(await evaluate('document.querySelector("#word-snack-ready").textContent.includes("no matches")'));
-    const beforeInvalid = searchRequests;
-    await submitQuery(' ');
-    assert.equal(searchRequests, beforeInvalid);
-    assert.ok(await evaluate('Boolean(document.querySelector("#word-snack-title"))'));
-    await activate('[aria-labelledby=word-snack-title] button');
-
-    // Completion while browsing an older panel leaves that panel and focus intact.
-    fixtureRecipes = dinnerRecipes;
-    await holdQuery('Keep earlier controls focused');
-    await evaluate('document.querySelectorAll("button[aria-expanded]")[1].click()');
-    await evaluate('document.querySelector("select").focus()');
-    const oldHeading = await evaluate('document.querySelector("[data-search-panel]:not([hidden])").id');
-    await finishQuery();
-    assert.equal(await evaluate('document.activeElement.tagName'), 'SELECT');
-    assert.equal(await evaluate('document.querySelector("[data-search-panel]:not([hidden])").id'), oldHeading);
-    assert.equal(await evaluate('document.querySelector("#word-snack-play")'), null, 'never-opened completion does not offer a new game');
-
-    // Malformed success closes focused game and restores query; no history added.
-    await holdQuery('Malformed fixture while playing');
-    await activate('#word-snack-play');
-    await typeWord('abc');
-    const historyBeforeError = await evaluate('document.querySelectorAll("button[aria-expanded]").length');
-    malformedSearch = true;
-    await finishQuery();
-    malformedSearch = false;
-    await waitFor('!document.querySelector("#word-snack-title")');
-    assert.equal(await evaluate('document.activeElement.id'), 'recipe-query');
-    assert.equal(await evaluate('document.querySelectorAll("button[aria-expanded]").length'), historyBeforeError);
-    assert.ok(await evaluate('Boolean(document.querySelector("[role=alert]"))'));
-    // A closed pending round stays closed on success.
-    await holdQuery('Closed game can finish quietly');
-    await activate('#word-snack-play');
-    await evaluate('[...document.querySelectorAll("button")].find(x=>x.textContent==="Close game").click()');
-    await finishQuery();
-    assert.equal(await evaluate('document.querySelector("#word-snack-play").textContent'), 'View results');
-    assert.equal(await evaluate('document.querySelector("#word-snack-title")'), null);
-    assert.notEqual(await evaluate('document.activeElement.tagName'), 'BODY', 'closed-game completion does not strand launcher focus');
-    await activate('#word-snack-play');
     assert.ok(await evaluate('document.activeElement.id.startsWith("search-heading-")'));
-    assert.equal(await evaluate('document.querySelector("#word-snack-title")'), null);
-    // HTTP failure closes the game and restores focus only when it was inside.
-    await holdQuery('Busy fixture while playing');
-    await activate('#word-snack-play');
-    await typeWord('abc');
-    fixtureStatus = 429;
+    assert.deepEqual(await resources(),baseline);
+    assert.equal(searchRequests,requestsBefore+1);
+    assert.deepEqual(JSON.parse(searchBodies.at(-1)??'{}'),{query:'Dinner while running T-Rex'});
+    if(width===320||width===1440)await capture(`org/reviews/t-rex-dismissed-${width}.png`);
+
+    // Show restores paused state, owns one loop at most, and zero results discard it.
+    await holdQuery('Hidden runner and zero matches');
+    await waitFor('!document.querySelector("#t-rex-jump").disabled');
+    await activate('#t-rex-hide',touch);
+    await waitFor('Boolean(document.querySelector("#t-rex-show"))');
+    assert.equal(await evaluate('document.activeElement.id'),'t-rex-show');
+    assert.deepEqual(await resources(),baseline);
+    for(let cycle=0;cycle<3;cycle++){
+      await activate('#t-rex-show',touch);
+      await waitFor('!document.querySelector("#t-rex-jump").disabled');
+      assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+      assert.equal((await resources()).frames,0);
+      await activate('#t-rex-hide',touch);
+      assert.deepEqual(await resources(),baseline);
+    }
+    fixtureRecipes=[];
     await finishQuery();
-    fixtureStatus = 200;
-    assert.equal(await evaluate('document.activeElement.id'), 'recipe-query');
-    assert.equal(await evaluate('document.querySelector("#word-snack-title")'), null);
-    // Error arrival must not steal focus from an earlier search control.
-    await holdQuery('Unfocused game error fixture');
-    await activate('#word-snack-play');
+    assert.ok(await evaluate('document.activeElement.id.startsWith("search-heading-")'));
+    assert.ok(await evaluate('document.querySelector("p[role=status]").textContent.includes("No matching recipes")'));
+    assert.deepEqual(await resources(),baseline);
+
+    // Reduced motion and changing preference require explicit opt-in, never Jump.
+    await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+    fixtureRecipes=dinnerRecipes;
+    await holdQuery('Reduced motion runner');
+    await waitFor('!document.querySelector("#t-rex-jump").disabled');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+    await activate('#t-rex-jump',touch);
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+    await activate('#t-rex-pause',touch);
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});
+    await new Promise(resolve=>setTimeout(resolve,60));
+    await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="paused"');
+    await finishQuery();
+    await send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'no-preference'}]});
+    assert.deepEqual(await resources(),baseline);
+
+    // Textarea Space still types; outside focus never resumes or is stolen on success.
+    await holdQuery('Outside focus and ordinary keys');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    await evaluate('document.querySelector("#recipe-query").focus()');
+    const valueBefore=await evaluate('document.querySelector("#recipe-query").value');
+    await key(' ','Space',32,' ');
+    assert.equal(await evaluate('document.querySelector("#recipe-query").value'),String(valueBefore)+' ');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="paused"');
+    await finishQuery();
+    assert.equal(await evaluate('document.activeElement.id'),'recipe-query');
+    assert.deepEqual(await resources(),baseline);
+
+    // Delayed sprite cannot defer the POST, steal focus, or revive a completed game.
+    await send('Network.setCacheDisabled',{cacheDisabled:true});
+    holdSprites=true;
+    await holdQuery('Complete before the sprites load');
+    await waitFor('document.querySelector("#t-rex-status").textContent.includes("Loading")');
+    await waitFor('window.__runnerProbe.counts().observers>0');
+    if(width===320||width===1440)await capture(`org/reviews/t-rex-loading-${width}.png`);
+    assert.ok(heldRequest,'search POST already dispatched while assets are held');
+    const beforeDuplicate=searchRequests;
+    await evaluate('document.querySelector("form").requestSubmit()');
+    assert.equal(searchRequests,beforeDuplicate,'pending duplicate cannot create another game/request');
+    await finishQuery();
+    const focusAfterFinish=await evaluate('document.activeElement.id');
+    await releaseSprites();
+    await new Promise(resolve=>setTimeout(resolve,100));
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface")'),null);
+    assert.equal(await evaluate('document.activeElement.id'),focusAfterFinish);
+    assert.deepEqual(await resources(),baseline);
+
+    // A pause while loading survives asset completion; later outside interaction defeats start.
+    holdSprites=true;
+    await holdQuery('Pause while sprites load');
+    await activate('#t-rex-pause',touch);
+    await releaseSprites();
+    await waitFor('!document.querySelector("#t-rex-jump").disabled');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+    await finishQuery();
+    await send('Network.setCacheDisabled',{cacheDisabled:false});
+
+    // Normal collision stops the frame; one native Space on Jump restarts once.
+    await holdQuery('Collision and restart');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="crashed"');
+    assert.equal((await resources()).frames,0);
+    if(width===320||width===1440)await capture(`org/reviews/t-rex-crashed-${width}.png`);
+    await evaluate('document.querySelector("#t-rex-jump").focus()');
+    await key(' ','Space',32,' ');
+    await waitFor('Number(document.querySelector("#t-rex-surface").dataset.y)<93');
+    assert.ok(Number(await evaluate('document.querySelector("#t-rex-score").textContent'))<5);
+    // Resize / DPR changes redraw backing pixels, not logical physics position.
+    await activate('#t-rex-pause');
+    const yBefore=await evaluate('document.querySelector("#t-rex-surface").dataset.y');
+    await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:2,mobile:false});
+    await evaluate('window.dispatchEvent(new Event("resize"))');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.y'),yBefore);
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").width'),Math.round(Number(await evaluate('document.querySelector("#t-rex-surface").getBoundingClientRect().width'))*2));
+    await finishQuery();
+    await holdQuery('Retina runner sprite');
+    await waitFor('!document.querySelector("#t-rex-jump").disabled');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").width'),Math.round(Number(await evaluate('document.querySelector("#t-rex-surface").getBoundingClientRect().width'))*2));
+    await finishQuery();
+    await send('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});
+    assert.deepEqual(await resources(),baseline);
+
+    // Window blur and a hidden document pause; returning never auto-resumes.
+    await holdQuery('Blur and visibility pauses');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+    await evaluate('window.dispatchEvent(new Event("blur"))');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="paused"');
+    assert.equal((await resources()).frames,0);
+    await activate('#t-rex-pause',touch);
+    await evaluate('Object.defineProperty(document,"hidden",{configurable:true,value:true});document.dispatchEvent(new Event("visibilitychange"))');
+    await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="paused"');
+    await evaluate('delete document.hidden;document.dispatchEvent(new Event("visibilitychange"))');
+    assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+    assert.equal((await resources()).frames,0);
+    await finishQuery();
+    assert.deepEqual(await resources(),baseline);
+    if(width===1440){
+      // Actual background-tab transition in this isolated Chrome profile.
+      await holdQuery('Actual tab visibility');
+      await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="running"');
+      await send('Emulation.setFocusEmulationEnabled',{enabled:false});
+      const background = await send<{targetId:string}>('Target.createTarget',{url:'about:blank'});
+      await send('Target.activateTarget',{targetId:background.targetId});
+      await waitFor('document.hidden&&document.querySelector("#t-rex-surface").dataset.mode==="paused"');
+      assert.equal((await resources()).frames,0);
+      await send('Target.activateTarget',{targetId:target.id});
+      await send('Page.bringToFront');
+      await send('Emulation.setFocusEmulationEnabled',{enabled:true});
+      await waitFor('!document.hidden');
+      assert.equal(await evaluate('document.querySelector("#t-rex-surface").dataset.mode'),'paused');
+      await send('Target.closeTarget',{targetId:background.targetId});
+      await finishQuery();assert.deepEqual(await resources(),baseline);
+      // Terminal-state matrix beyond the five-width smoke: zero also discards
+      // jumping, paused and asset-loading states; success discards a crash.
+      fixtureRecipes=[];
+      for(const mode of ['jumping','paused','loading']){
+        holdSprites=mode==='loading';
+        await send('Network.setCacheDisabled',{cacheDisabled:true});
+        await holdQuery('Zero results in '+mode);
+        if(mode!=='loading')await waitFor('!document.querySelector("#t-rex-jump").disabled&&document.querySelector("#t-rex-surface").dataset.mode==="running"');
+        if(mode==='jumping'){await key(' ','Space',32,' ');await waitFor('Number(document.querySelector("#t-rex-surface").dataset.y)<93');}
+        if(mode==='paused')await activate('#t-rex-pause');
+        await finishQuery();await releaseSprites();
+        assert.deepEqual(await resources(),baseline);
+      }
+      await send('Network.setCacheDisabled',{cacheDisabled:false});
+      fixtureRecipes=dinnerRecipes;
+      await holdQuery('Results while crashed');
+      await waitFor('document.querySelector("#t-rex-surface").dataset.mode==="crashed"');
+      await finishQuery();assert.deepEqual(await resources(),baseline);
+      // Context failure is injected only by this browser harness.
+      await evaluate('window.__runnerProbe.failContext=true');
+      await holdQuery('Unavailable canvas still searches');
+      await waitFor('document.querySelector("#t-rex-status").textContent.includes("Game unavailable")');
+      assert.equal((await resources()).frames,0);
+      await finishQuery();assert.deepEqual(await resources(),baseline);
+      await evaluate('window.__runnerProbe.failContext=false');
+    }
+    if(width===1440){
+      // Navigation aborts pending request and all old resources; the next page
+      // gets a fresh runner without timers or late input from the old instance.
+      await holdQuery('Navigate away while running');
+      await send('Page.reload');
+      heldRequest=undefined;holdSearch=false;
+      await waitFor('Boolean(document.querySelector("#recipe-query"))&&!document.querySelector("#t-rex-surface")');
+      await waitFor('window.__runnerProbe.counts().frames===0&&window.__runnerProbe.counts().observers===0');
+      await waitFor('document.readyState==="complete"');
+      await new Promise(resolve=>setTimeout(resolve,150));
+      await submitQuery('Rebuild history after navigation');
+      await waitFor('Boolean(document.querySelector("select"))');
+    }
+    // Focused error returns query focus, outside error retains prior notebook control.
+    await holdQuery('Busy search while running');fixtureStatus=429;
+    await finishQuery();fixtureStatus=200;
+    assert.equal(await evaluate('document.activeElement.id'),'recipe-query');
+    await holdQuery('Malformed success while browsing history');
     await evaluate('document.querySelector("select").focus()');
-    malformedSearch = true;
-    await finishQuery();
-    malformedSearch = false;
-    assert.equal(await evaluate('document.activeElement.tagName'), 'SELECT');
-    await send('Emulation.setTouchEmulationEnabled', { enabled: false });
+    malformedSearch=true;await finishQuery();malformedSearch=false;
+    assert.equal(await evaluate('document.activeElement.tagName'),'SELECT');
+    assert.deepEqual(await resources(),baseline);
+    await send('Emulation.setTouchEmulationEnabled',{enabled:false});
   }
+  await send('Page.addScriptToEvaluateOnNewDocument', { source: `(() => {
+    const frames=new Set(),observers=new Set(),listeners=new Map();
+    const raf=window.requestAnimationFrame.bind(window),cancel=window.cancelAnimationFrame.bind(window);
+    window.requestAnimationFrame=cb=>{let id=raf(t=>{frames.delete(id);cb(t);});frames.add(id);return id;};
+    window.cancelAnimationFrame=id=>{frames.delete(id);cancel(id);};
+    const Base=window.ResizeObserver;
+    window.ResizeObserver=class extends Base{constructor(cb){super(cb);observers.add(this);}disconnect(){observers.delete(this);super.disconnect();}};
+    const add=EventTarget.prototype.addEventListener,remove=EventTarget.prototype.removeEventListener;
+    function key(target,type){return target===window&&['blur','resize'].includes(type)?'window:'+type:target===document&&type==='visibilitychange'?'document:'+type:target instanceof MediaQueryList&&type==='change'?target:null;}
+    EventTarget.prototype.addEventListener=function(type,listener,options){const k=key(this,type);if(k){if(!listeners.has(k))listeners.set(k,new Set());listeners.get(k).add(listener);}return add.call(this,type,listener,options);};
+    EventTarget.prototype.removeEventListener=function(type,listener,options){const k=key(this,type);if(k)listeners.get(k)?.delete(listener);return remove.call(this,type,listener,options);};
+    const getContext=HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext=function(...args){if(this.id==='t-rex-surface'&&window.__runnerProbe?.failContext)return null;return getContext.apply(this,args);};
+    window.__runnerProbe={counts:()=>({frames:frames.size,observers:observers.size,listeners:[...listeners.values()].reduce((n,set)=>n+set.size,0)})};
+  })()` });
   const app = await startServer({}, true);
   server = app;
   const jar = new CookieJar();
   const { callback } = await signInWithGoogle(app.origin, jar);
   assert.equal(callback.status, 302);
-  await send('Fetch.enable', { patterns: [{ urlPattern: `${app.origin}/api/recipes/search`, requestStage: 'Request' }] });
+  await send('Fetch.enable', { patterns: [{ urlPattern: `${app.origin}/api/recipes/search`, requestStage: 'Request' }, { urlPattern: `${app.origin}/games/t-rex/*.png`, requestStage: 'Request' }] });
+  const notice = await jar.request(app.origin,'/games/t-rex/THIRD-PARTY-NOTICES.txt');
+  assert.equal(notice.status,200);
+  assert.match(await notice.text(),/Copyright 2015 The Chromium Authors/);
+  const anonymousSprite = await fetch(`${app.origin}/games/t-rex/100-offline-sprite.png`,{redirect:'manual'});
+  assert.equal(anonymousSprite.status,307,'game assets retain authenticated access');
   const results = [];
   for (const width of [320, 390, 768, 1024, 1440]) {
     await send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: false });
@@ -355,7 +481,7 @@ try {
     await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     assert.equal(await evaluate('document.activeElement.tagName'), 'BUTTON');
     let screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
-    if (width === 320 || width === 1440) await writeFile(`org/reviews/word-snack-integration-sign-in-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+    if (width === 320 || width === 1440) await writeFile(`org/reviews/t-rex-integration-sign-in-${width}.png`, Buffer.from(screenshot.data, 'base64'));
     await send('Network.setCookies', { cookies: [...jar.values].map(([name, value]) => ({ name, value, url: app.origin, httpOnly: true, sameSite: 'Lax' })) });
     await navigate(`${app.origin}/`);
     assert.equal(await evaluate('document.querySelector("h1").textContent'), 'Meal Planner');
@@ -374,7 +500,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("h1").length'), 1);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
     screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
-    if (width === 320 || width === 1440) await writeFile(`org/reviews/word-snack-integration-results-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+    if (width === 320 || width === 1440) await writeFile(`org/reviews/t-rex-integration-results-${width}.png`, Buffer.from(screenshot.data, 'base64'));
     const initialRequests = searchRequests;
     fixtureRecipes = dinnerRecipes;
     await submitQuery('Easy vegetarian dinners');
@@ -384,7 +510,7 @@ try {
     assert.equal(gridColumns, width < 640 ? 1 : width < 1024 ? 2 : 3);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
     assert.ok(await evaluate('[...document.querySelectorAll("button,select,article a")].filter(x => x.getBoundingClientRect().width).every(x => x.getBoundingClientRect().height >= 44)'));
-    await capture(`org/reviews/word-snack-notebook-${width}.png`);
+    await capture(`org/reviews/t-rex-notebook-${width}.png`);
     await evaluate('[...document.querySelectorAll("button[aria-pressed]")].find(x => x.textContent.includes("Chickpeas")).click()');
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 1);
     assert.equal(await evaluate('document.querySelector("article h4").textContent'), 'Lemony chickpea bowls');
@@ -413,7 +539,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 1, 'earlier recipes survive loading');
     assert.equal(await evaluate('document.querySelectorAll("button[aria-expanded]").length'), 2);
     await waitFor('document.querySelector("p[role=status]").textContent.includes("Searching")');
-    await capture(`org/reviews/word-snack-notebook-loading-${width}.png`);
+    await capture(`org/reviews/t-rex-notebook-loading-${width}.png`);
     fixtureStatus = 429;
     assert.ok(heldRequest);
     await fulfillSearch(heldRequest);
@@ -424,7 +550,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("button[aria-expanded]").length'), 2, 'errors do not create history');
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 1, 'earlier recipes survive error');
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
-    await capture(`org/reviews/word-snack-notebook-error-${width}.png`);
+    await capture(`org/reviews/t-rex-notebook-error-${width}.png`);
     fixtureStatus = 200;
     fixtureRecipes = [];
     await submitQuery('No matching dinners');
@@ -440,12 +566,12 @@ try {
     await waitFor('Boolean(document.querySelector("#recipe-query-error"))');
     assert.equal(searchRequests, beforeValidation, 'invalid query does not call search');
     assert.equal(await evaluate('document.activeElement.id'), 'recipe-query');
-    await wordSnackFlow(width);
+    await runnerFlow(width);
     await send('Page.reload');
     await waitFor('Boolean(document.querySelector("#recipe-query")) && !document.querySelector("#notebook-title")');
     assert.equal(await evaluate('document.querySelectorAll("article").length'), 0, 'reload clears transient history');
     assert.ok(await evaluate(`Boolean(document.querySelector('[aria-label="Getting started"]'))`));
-    results.push({ width, signIn: 'passed', authenticatedRecipeForm: 'passed', httpsRecipePhoto: 'passed', keyboardButton: 'passed', history: 'passed', localFiltersAndSort: 'passed', loadingAndErrorRetention: 'passed', emptyAndLongContent: 'passed', wordSnack: 'passed', reloadClearsHistory: 'passed', overflow: false });
+    results.push({ width, signIn: 'passed', authenticatedRecipeForm: 'passed', httpsRecipePhoto: 'passed', keyboardButton: 'passed', history: 'passed', localFiltersAndSort: 'passed', loadingAndErrorRetention: 'passed', emptyAndLongContent: 'passed', tRex: 'passed', reloadClearsHistory: 'passed', overflow: false });
   }
   await navigate(`${app.origin}/sign-out`);
   await evaluate('document.querySelector("button").click()');
@@ -457,7 +583,7 @@ try {
   await send('Page.navigate', { url: `${app.origin}/` });
   await new Promise((resolve) => setTimeout(resolve, 300));
   assert.equal(await evaluate('location.pathname'), '/sign-in');
-  await send('Fetch.enable', { patterns: [{ urlPattern: 'https://accounts.google.com/o/oauth2/*', requestStage: 'Request' }, { urlPattern: `${app.origin}/api/recipes/search`, requestStage: 'Request' }] });
+  await send('Fetch.enable', { patterns: [{ urlPattern: 'https://accounts.google.com/o/oauth2/*', requestStage: 'Request' }, { urlPattern: `${app.origin}/api/recipes/search`, requestStage: 'Request' }, { urlPattern: `${app.origin}/games/t-rex/*.png`, requestStage: 'Request' }] });
   await evaluate('document.querySelector("button").click()');
   for (let attempt = 0; attempt < 100; attempt++) {
     if (await evaluate('location.pathname') === '/' && await evaluate('Boolean(document.querySelector("#recipe-query"))')) break;
