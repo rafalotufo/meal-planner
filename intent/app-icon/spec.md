@@ -1,7 +1,7 @@
 # App icon — specification
 
 - Author: architect
-- Status: Draft for independent peer review
+- Status: Approved by independent reviewer; see `org/reviews/app-icon-design-001.md`
 - Date: 2026-11-24
 - Derived from: sibling `intent.md`, accepted by PM in
   `org/reviews/intent-app-icon-001.md`

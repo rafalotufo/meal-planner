@@ -1,9 +1,9 @@
 # App icon — implementation plan
 
 - Author: architect (proposal for senior-developer adoption)
-- Status: Draft for independent peer review before implementation
+- Status: Approved by independent reviewer for senior-developer adoption; see `org/reviews/app-icon-design-001.md`
 - Date: 2026-11-24
-- Derived from: sibling accepted `intent.md` and draft `spec.md`
+- Derived from: sibling accepted `intent.md` and approved `spec.md`
 
 ## Files that change
 
@@ -12,7 +12,7 @@
 - app/layout.tsx
 - lib/auth-policy.ts
 - tests/auth/app-icon.test.ts
-- tests/auth/browser.ts
+- tests/auth/app-icon-browser.ts
 - intent/app-icon/**
 - org/loop/**
 - org/messages/**
@@ -37,7 +37,8 @@
 4. Build and run the focused regression to confirm the failures are fixed.
    Confirm admitted-page metadata using the existing authentication/browser
    fixtures, without adding production identity shortcuts.
-5. Extend existing strict TypeScript Chrome QA only as needed to capture icon
+5. Add narrow strict TypeScript Chrome QA in `tests/auth/app-icon-browser.ts`
+   reusing existing fixture/CDP patterns as needed to capture icon
    links/loading at desktop/mobile widths and small-size asset inspection.
    Keep helper code in strict checking and use isolated test resources. If the
    existing helper already proves the required facts, reuse it and record the
