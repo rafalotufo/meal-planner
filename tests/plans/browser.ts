@@ -18,6 +18,11 @@ try{
  const user=await db.one<{googleSubject:string;email:string}>('SELECT google_subject AS "googleSubject",verified_email AS email FROM app_users LIMIT 1');assert.ok(user);
  const identity={...user,emailVerified:true as const};const allowed=[user.email];
  for(let n=0;n<54;n++)await saveMenuRecipe(db,identity,allowed,{title:n===53?'Long saved dinner '+ 'hearty'.repeat(23):'Family supper '+n,sourceUrl:'https://example.test/weekly/'+n,imageUrl:null,summary:'A saved family dinner.',time:null});
+ async function recipeCards(expectedWeek: string) {
+  assert.equal(await browser!.evaluate("document.querySelectorAll('article').length===7 && document.querySelectorAll('article h2').length===7 && !document.querySelector('article time,article [datetime]')"),true,'seven recipe-title cards without date elements');
+  assert.equal(await browser!.evaluate("Array.from(document.querySelectorAll('article')).every(card=>!(/Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|\\d{4}-\\d{2}-\\d{2}/.test(card.innerText)))"),true,'recipe cards have no weekday/date assignment labels');
+  assert.equal(await browser!.evaluate(`Array.from(document.querySelectorAll('main > div time')).some(time=>time.getAttribute('datetime')===${JSON.stringify(expectedWeek)})`),true,'week range stays above cards');
+ }
  const local=torontoClock(new Date());const due=new Date(local.date+'T23:00:00Z');
  await generateDuePlans(db,allowed,local.day,due);
  let view=await readPlans(db,identity,allowed,{},due);const id=view.plan!.id;const week=view.plan!.weekStart;
@@ -25,10 +30,12 @@ try{
  await browser.waitFor("Boolean(document.querySelector('[data-plan-approve]')) && Object.keys(document.querySelector('[data-plan-approve]')).some(k=>k.startsWith('__reactProps$'))",'hydrated weekly controls');
  assert.equal(await browser.evaluate("document.querySelectorAll('main').length===1 && document.querySelectorAll('h1').length===1 && document.querySelectorAll('article').length===7"),true);
  assert.equal(await browser.evaluate("/away|attendance/i.test(document.querySelector('main').innerText)"),false);
+ await recipeCards(week);
  for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-draft-${width}.png`);}
  await browser.click('[data-plan-approve]');await browser.waitFor("document.querySelector('[data-plan-approve]')?.textContent==='You approved'",'persisted approval');
  assert.equal((await readPlans(db,identity,allowed,{},due)).approvals,1);
- assert.equal(await browser.evaluate("document.querySelector('label[for=swap-0]').textContent"),'Saved dinner for Sunday');
+ assert.equal(await browser.evaluate("document.querySelector('label[for=swap-0]').textContent"),`Replacement recipe for ${view.plan!.meals[0].title}`);
+ assert.equal(await browser.evaluate("Array.from(document.querySelectorAll('article select')).every(control=>control.labels.length===1 && control.labels[0].htmlFor===control.id)"),true,'unique accessible recipe-oriented select labels');
  await browser.waitFor("!document.querySelector('#swap-0').disabled",'swap enabled after refresh');
  await browser.click('#swap-0');
  for(const event of [{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyDown',key:'l',code:'KeyL',text:'l',unmodifiedText:'l',windowsVirtualKeyCode:76},{type:'keyUp',key:'l',code:'KeyL',windowsVirtualKeyCode:76}])await browser.send('Input.dispatchKeyEvent',event);
@@ -52,6 +59,7 @@ try{
  await browser.click('[data-plan-confirm]');await browser.waitFor("document.body.innerText.includes('Final · Planned meals') && !document.querySelector('[data-plan-finalize]')",'confirmed immutable week');
  await browser.navigate(server.origin+'/plans?week='+week);await browser.waitFor("document.body.innerText.includes('Final · Planned meals')",'final survives reload');
  assert.equal((await readPlans(db,identity,allowed,{week},due)).plan?.status,'final');
+ await recipeCards(week);
  // Genuine retained planned history created only in this owned fixture/process.
  const pastDate=addDays(local.date,-70);const past=new Date(pastDate+'T23:00:00Z');await generateDuePlans(db,allowed,torontoClock(past).day,past);
  const old=(await db.one<{id:string;week:string}>('SELECT id,week_start::text AS week FROM meal_plan_weeks WHERE week_start<$1::date ORDER BY week_start LIMIT 1',[week]))!;
@@ -59,6 +67,7 @@ try{
  await browser.navigate(server.origin+'/plans');await browser.waitFor(`Boolean(document.querySelector('a[href="/plans?week=${old.week}"]'))`,'finalized history link');
  await browser.click(`a[href="/plans?week=${old.week}"]`);await browser.waitFor(`location.search.includes('${old.week}') && document.querySelectorAll('article').length===7`,'retained planned history');
  assert.equal(await browser.evaluate("Boolean(document.querySelector('[data-plan-suggest]'))"),false);
+ await recipeCards(old.week);
  for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-history-${width}.png`);}
  await browser.click('#history-week');await browser.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});await browser.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});
  assert.equal(await browser.evaluate("document.activeElement.matches(':focus-visible')"),true,'native keyboard focus remains visible');

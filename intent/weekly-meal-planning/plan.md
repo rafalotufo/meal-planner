@@ -152,7 +152,7 @@ an explained spec/plan amendment and independent review before implementation.
 
 Source: `org/messages/ceo-0051.md`.
 
-Pending independent review before source changes. Owner requested that the draft
+Independently approved before source changes: `org/reviews/weekly-meal-planning-presentation-001.md`. Owner requested that the draft
 show seven recipes without recipe date labels. Keep the Sunday–Saturday range
 above the grid and all existing calendar/storage/action semantics.
 

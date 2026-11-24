@@ -28,6 +28,8 @@ repeats. Keep the interaction small enough that participation saves effort.
 - Draft creation is automatic; its day is configurable by an environment
   variable whose default is Thursday.
 - The draft covers the upcoming Sunday through Saturday.
+- Present **seven weekly recipe choices**, without assigning weekday/date labels
+  to individual recipes. Retain the Sunday–Saturday range as weekly context.
 - Family participation includes approval and suggested recipe swaps.
 - There is no “I'll be away” option.
 - Preserve weekly history and use it to discourage repetitive weekly menus.
@@ -35,8 +37,9 @@ repeats. Keep the interaction small enough that participation saves effort.
 
 ## Acceptance criteria
 
-- A protected weekly-planning screen presents the seven dated days, draft/final
-  status, saved recipe choices, family feedback and actionable empty/error states.
+- A protected weekly-planning screen presents seven recipe choices without
+  individual weekday/date assignments, the Sunday–Saturday weekly range,
+  draft/final status, family feedback and actionable empty/error states.
   Existing shared navigation makes the screen discoverable.
 - An explicit trusted scheduler operation creates at most one draft per family
   and target week, using the configured day and a documented timezone/time.
@@ -47,7 +50,7 @@ repeats. Keep the interaction small enough that participation saves effort.
   recently. A small or empty menu is handled honestly and repeatably; repetition
   is allowed rather than blocking planning.
 - Current eligible family members can approve a draft or suggest a concrete
-  saved-recipe replacement for a dated meal. The screen distinguishes suggestions
+  saved-recipe replacement for a recipe choice. The screen distinguishes suggestions
   from accepted changes, and accepted changes cannot silently retain misleading
   approvals of an older draft.
 - A clear confirmation action settles the plan without needing every family
@@ -72,8 +75,9 @@ repeats. Keep the interaction small enough that participation saves effort.
 These are proposed product defaults, not claims of additional owner approval.
 The architect and independent reviewer may refine them within the outcome above:
 
-- Start with **one dinner per day**, seven dinners per week. Other meal types
-  and multiple courses are outside this first increment.
+- Start with **seven dinner recipe choices per week**, without assigning each
+  recipe to a day. Other meal types and multiple courses are outside this first
+  increment. This replaces the initial one-dinner-per-day presentation proposal.
 - Use the owner's known **America/Toronto** timezone as the proposed application
   default and choose/document a precise generation time. Calendar dates must
   remain correct across daylight-saving transitions. Avoid per-family timezone
@@ -106,6 +110,12 @@ exception to the existing committed deployment-config constraint, present the
 concrete conflict to the owner rather than silently changing that contract.
 
 ## Handoff
+
+Owner refinement recorded in `org/messages/ceo-0051.md`: “No need to label recipes
+with dates. Lets just have 7 recipes for the draft.” The independently reviewed
+presentation amendment is `org/reviews/weekly-meal-planning-presentation-001.md`.
+This removes per-recipe weekday/date assignments while retaining weekly range,
+scheduling, history and actions.
 
 Architect: specify the calendar, scheduler trust boundary, draft algorithm,
 history lifecycle, feedback/confirmation model, persistence and UI; produce a

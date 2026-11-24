@@ -46,3 +46,30 @@ No launchd job was installed or activated. No deployment, hosted migration, prom
 Saved feature screenshots: `org/reviews/weekly-plan-{draft,swap,history}-{320,1440}.png`. Visually inspected the320px accepted long-title swap (text wraps within card, no overflow),1440px draft (seven-day grid, clear native controls), and320px finalized retained history (read-only recipe links and dated final label). Historical screenshots were preserved.
 
 The CLI was aligned with the no-work contract: validate day/allowlist/URL, use one actual clock, then skip successfully before opening storage on an off-day/before09:00. The new real off-day test uses a valid unreachable loopback URL and passes without connecting. No test clock override/environment bypass was introduced. The final13-test plans suite and strict typecheck both exited0 after this change. No Next rebuild was needed for this unbundled CLI-only change; browser evidence used the final compiled page/route copy.
+
+## Owner presentation amendment verification
+
+Owner request `org/messages/ceo-0051.md` was captured in spec/plan and independently
+approved in `org/reviews/weekly-meal-planning-presentation-001.md` before source
+changes. Added browser assertions first; running the old compiled UI exited1
+with the expected “seven recipe-title cards without date elements” failure.
+
+Changed only shared recipe-card presentation: title headings replace weekday/date
+headings; selects visibly say “Replacement recipe” and include the recipe title
+in their uniquely associated accessible label. Draft, final and history cards
+have no assigned weekday/date labels or date elements. The top-level week range
+and all scheduling/storage/action behavior remain unchanged.
+
+After correction: `pnpm run lint` exit0; `pnpm run typecheck` exit0; final
+`pnpm run build` exit0 including strict TypeScript. `pnpm run test:plans` exit0,
+13/13 passed. `node --import tsx tests/plans/browser.ts` exit0 on that final
+build, preserving all prior interaction checks and additionally asserting seven
+recipe-title cards, no card dates/weekday labels, associated recipe-oriented
+select labels and retained top-level range in draft/final/history.
+
+Recaptured all six feature screenshots at320/1440. Visually inspected the1440px
+draft (seven recipe-title cards, no date labels),320px accepted long-title swap
+(wrapping within the card, clear replacement control), and320px finalized history
+(undated recipe cards with the separate week range). No horizontal overflow or
+unexpected console errors. Owned test server/profile/database cleaned up. No
+DB/auth/scheduler/deployment changes were made for this amendment.

@@ -2,7 +2,6 @@
 import { useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import type { PlanAction, PlanView } from '../../lib/plans/types';
-import { addDays, weekdays } from '../../lib/plans/calendar';
 const button = 'inline-flex min-h-11 items-center justify-center rounded-lg border border-emerald-800 px-3 py-2 text-sm font-medium text-emerald-950 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 disabled:cursor-wait disabled:opacity-50';
 export default function PlanControls({ view }: { view: PlanView }) {
   const router = useRouter();
@@ -42,11 +41,10 @@ export default function PlanControls({ view }: { view: PlanView }) {
     </div>
     <div className="mt-6 grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {plan.meals.map((meal, day) => <article key={day} className="min-w-0 rounded-xl border border-stone-200 bg-white p-4">
-        <h2 className="text-sm font-semibold text-emerald-900">{weekdays[day]} <time className="font-normal text-stone-600" dateTime={addDays(plan.weekStart, day)}>{addDays(plan.weekStart, day)}</time></h2>
-        <h3 className="mt-3 font-serif text-xl wrap-anywhere text-stone-900">{meal.title}</h3>
+        <h2 className="font-serif text-xl wrap-anywhere text-stone-900">{meal.title}</h2>
         <a href={meal.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-11 items-center text-sm text-emerald-900 underline focus-visible:outline-2 focus-visible:outline-emerald-700">Open recipe<span className="sr-only">: {meal.title} (new tab)</span></a>
         {view.editable && view.menu.entries.length ? <form className="mt-3 border-t border-stone-100 pt-3" onSubmit={event => { event.preventDefault(); const value = new FormData(event.currentTarget).get('recipe'); if (typeof value === 'string') void submit({ action: 'suggest', revision: plan.revision, day, menuRecipeId: value }); }}>
-          <label className="block text-sm font-medium" htmlFor={`swap-${day}`}>Saved dinner for {weekdays[day]}</label>
+          <label className="block text-sm font-medium" htmlFor={`swap-${day}`}>Replacement recipe<span className="sr-only"> for {meal.title}</span></label>
           <select id={`swap-${day}`} name="recipe" required disabled={disabled} defaultValue="" className="mt-2 min-h-11 w-full min-w-0 max-w-full rounded-lg border border-stone-400 bg-white px-2 text-sm focus-visible:outline-2 focus-visible:outline-emerald-700">
             <option value="" disabled>Choose a replacement</option>
             {view.menu.entries.filter(entry => entry.recipe.sourceUrl !== meal.sourceUrl).map(entry => <option key={entry.id} value={entry.id}>{entry.recipe.title}</option>)}

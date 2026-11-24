@@ -67,6 +67,12 @@ work, and whether silence should count as delegation.
   exact same meals do not recur every week. Repeating a meal is allowed.
 - The owner then asked to save this brainstorm and implement through the SDLC
   org workflow, beginning with an intent.
+- During implementation, the owner refined the presentation: “No need to label
+  recipes with dates. Lets just have 7 recipes for the draft.” Present seven
+  weekly recipe choices without individual weekday/date assignments; retain the
+  Sunday–Saturday weekly range, scheduling, history and family actions. Source:
+  `org/messages/ceo-0051.md`; independent amendment review:
+  `org/reviews/weekly-meal-planning-presentation-001.md`.
 
 ## Design decisions still to make
 
