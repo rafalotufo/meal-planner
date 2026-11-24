@@ -2,8 +2,8 @@
 
 - Derived from: sibling approved spec.md; human approval at org/reviews/spec-t-rex-runner-human-approval-001.md.
 - Author: senior-developer
-- Status: Draft
-- Approval: awaiting independent review and human plan approval
+- Status: Approved
+- Approval: Rafael; org/reviews/plan-t-rex-runner-human-approval-001.md
 - Date: 2026-11-24
 
 Replace Word Snack with the pinned, typed T-Rex adaptation. Every valid search

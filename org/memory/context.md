@@ -51,6 +51,7 @@ intent/t-rex-runner/intent.md
 - ceo-0022 ceo -> orchestrator decision: Approve Word Snack plan and fresh bounded implementation cycle
 - ceo-0023 ceo -> orchestrator decision: Automatically start and close T-Rex with search
 - ceo-0024 ceo -> orchestrator decision: Approve automatic-lifecycle T-Rex specification
+- ceo-0025 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0017 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
 - orchestrator-0018 orchestrator -> product-manager handoff: Review Word Snack waiting-game intent
@@ -108,11 +109,11 @@ intent/t-rex-runner/intent.md
 
 ## Recent decisions
 
-- mem-0057 ceo: Rafael approved the128-puzzle Word Snack specification at6b660c1. Human approval recorded; implementation planning authorized. Plan, code, merge and release still gated. (org/reviews/spec-recipe-waiting-game-human-approval-001.md)
 - mem-0059 ceo: Rafael authorized reviewed Word Snack plan and fresh bounded six-turn cycle. Preserved design loop snapshot; new cycle carries forward existing approvals before implementation/security/review. Dependencies installed frozen on Node24.15.0/pnpm10.33.0; no merge/push/release authorized. (org/reviews/plan-recipe-waiting-game-human-approval-001.md)
 - mem-0061 product-manager: Rafael selected wayou/t-rex-runner to replace Word Snack. PM accepted captured intent for Design; preserve results-ready continued play, scoped Space/touch controls, pinned local upstream reuse and attribution. Prior WordSnack audit archived; no game code/assets changed. (org/reviews/intent-t-rex-runner-001.md)
 - mem-0063 ceo: Rafael changed T-Rex lifecycle to auto-open/start on valid search and auto-close immediately on success/zero results. Supersedes continued play and optional initial launch. PM and independent review approved amended artifacts; guarded focus/late-callback cleanup specified. Human spec approval pending; no code changes. (org/reviews/spec-t-rex-runner-003.md)
 - mem-0064 ceo: Rafael approved amended T-Rex specification at483d401: auto-start with valid search, immediate close on success/zero. Planning authorized, provenance prerequisites unresolved until planning; plan/code/merge/release not approved. (org/reviews/spec-t-rex-runner-human-approval-001.md)
+- mem-0066 ceo: Rafael approved reviewed T-Rex implementation plan at040184b, including deleting obsolete Word Snack code/tests, pinned reuse/notices, automatic search lifetime and reversible verification safeguards. Local implement/test/reviews authorized; no push/merge/release or loop budget extension. (org/reviews/plan-t-rex-runner-human-approval-001.md)
 
 ## Constraints
 
@@ -130,7 +131,7 @@ senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0065 from org/reviews/plan-t-rex-runner-001.md
+- mem-0066 from org/reviews/plan-t-rex-runner-human-approval-001.md
 
 <!-- machine:end -->
 

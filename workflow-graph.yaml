@@ -26,7 +26,7 @@ nodes:
     stage: build
     artifact: intent/t-rex-runner/plan.md
     gate: engineer_approve
-    status: in_review
+    status: approved
     done_status: approved
   implementation:
     stage: build
