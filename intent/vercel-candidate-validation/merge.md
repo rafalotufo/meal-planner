@@ -146,3 +146,22 @@ this reviewed source. The destination must remain clean at
 `87482edff21fadb8445209ee6195044c48c3c52e` immediately before the fast-forward.
 The following gate/audit-only commit changes no tested source. Actual execution
 is recorded after the destination update; no Production action is included.
+
+## Executed local main merge
+
+The executor verified clean main at expected
+`87482edff21fadb8445209ee6195044c48c3c52e`, matching committed human gate
+`vercel-candidate-validation-main-merge-001` (`code_owner_approve`, evidence
+`org/messages/ceo-0046.md`). Main was fast-forwarded without overwrite to
+`3169dfdc15f2b0670f345ffdc47c8a4ccba9d01b`, which contains reviewed/tested
+source `4a1e5bdfb3c74dfbd7f7d24a4d94123b0868538b` plus audit-only approval
+changes. The immediate post-merge main checkout was clean. Icons, T-Rex runtime/
+assets/licenses, staging tooling and configuration retain the exact reviewed
+source bytes; no application conflict or extra runtime change was introduced.
+
+This completion update changes audit records only: implementation is merged,
+CEO merge request is fulfilled, and Production release remains `not_started`.
+No push, remote action, deployment, promotion, hosted setting, migration,
+provider call or other production operation was performed by the local merge.
+The separate completed staging deployment/evidence remains historical and was
+not redeployed as part of merging.
