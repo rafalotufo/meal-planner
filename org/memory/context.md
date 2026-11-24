@@ -9,8 +9,8 @@ intent/t-rex-runner/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: plan
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -67,6 +67,8 @@ intent/t-rex-runner/intent.md
 - orchestrator-0030 orchestrator -> reviewer handoff: Review T-Rex replacement specification
 - orchestrator-0031 orchestrator -> architect handoff: Amend T-Rex automatic search lifecycle
 - orchestrator-0032 orchestrator -> reviewer handoff: Review automatic T-Rex search lifecycle amendment
+- orchestrator-0033 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
+- orchestrator-0034 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -91,6 +93,7 @@ intent/t-rex-runner/intent.md
 - reviewer-0015 reviewer -> orchestrator review: T-Rex specification needs scoped Space scroll correction
 - reviewer-0016 reviewer -> orchestrator review: T-Rex specification correction approved
 - reviewer-0017 reviewer -> orchestrator review: T-Rex automatic lifecycle amendment approved
+- reviewer-0018 reviewer -> orchestrator review: T-Rex implementation plan and pinned provenance approved
 - security-researcher-0003 security-researcher -> orchestrator status: pnpm migration security clear
 - security-researcher-0004 security-researcher -> orchestrator status: Authenticated access security clear
 - security-researcher-0005 security-researcher -> orchestrator review: Independent recipe notebook security review clear
@@ -100,6 +103,8 @@ intent/t-rex-runner/intent.md
 - senior-developer-0003 senior-developer -> orchestrator handoff: Gmail allowlist authentication implemented and verified
 - senior-developer-0004 senior-developer -> orchestrator handoff: Vercel implementation plan ready for human approval
 - senior-developer-0005 senior-developer -> orchestrator handoff: Word Snack implementation plan ready for review
+- senior-developer-0006 senior-developer -> orchestrator handoff: T-Rex plan and pinned provenance ready for review
+- senior-developer-0007 senior-developer -> orchestrator handoff: T-Rex plan adds guarded runtime type isolation
 
 ## Recent decisions
 
@@ -117,14 +122,15 @@ intent/t-rex-runner/intent.md
 
 - intent/t-rex-runner/intent.md (de55afc2aefe37b175f179054a65421032a37fd2ec6a6d5421e5e66492481411)
 - intent/t-rex-runner/spec.md (a94c2a16a923e4633f935dd7c7f422c477171ba5d45e7269e84e6be846bd5d97)
+- intent/t-rex-runner/plan.md (39495a52ab89c1708f16a33a6f01986232938f16b79b34e35273036220f1148e)
 
 ## Next action
 
-architect:draft_spec
+senior-developer:draft_plan
 
 ## Last digest source
 
-- mem-0064 from org/reviews/spec-t-rex-runner-human-approval-001.md
+- mem-0065 from org/reviews/plan-t-rex-runner-001.md
 
 <!-- machine:end -->
 

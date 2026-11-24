@@ -80,3 +80,34 @@ records remain historical evidence.
 Focused review spec-t-rex-runner-003.md approved the amendment with no required
 findings (reviewer-0017). Human specification approval remains pending; no
 implementation plan or application code was written.
+
+## Human specification approval and implementation plan
+
+Rafael approved the automatic-lifecycle specification at 483d401. Human evidence
+is org/reviews/spec-t-rex-runner-human-approval-001.md and ceo-0024; ledger
+product_owner_approve-016 records the approval. Spec status/graph are approved.
+
+Senior developer produced plan.md and provenance.md. Actual research downloads
+verified both pinned sprite hashes/dimensions and byte-identical sprites at a
+historical immutable Chromium v55 revision, plus both complete BSD notices.
+No application assets were vendored. Handoffs senior-developer-0006/0007 record
+the plan and its reversible generated-type isolation procedure.
+
+Independent review org/reviews/plan-t-rex-runner-001.md approved the plan and
+documented reuse proposal with no required findings (reviewer-0018). Reviewer
+independently fetched and hashed source/licenses/sprites, inspected sprite
+images, checked lineage and notice requirements, and reviewed the strict-check
+safeguards. Actual shipped assets/notices and source mapping still require
+implementation verification; this is not gameplay or legal certification.
+
+Bounded turn 3 records draft_plan. Original checkout acceptance again records
+the known generated-type/build/auth failures, not passes; Python/application/
+smoke/lint passed. The pre-existing next-env.d.ts bytes were restored after the
+check run; dev cache was not moved. Seven Python workflow tests also passed
+separately. Temporary generated-type isolation is proposed in the plan and
+has not been executed; it requires plan approval. No check/config was weakened.
+
+Graph plan is in_review; org_loop.py next stops at engineer_approve. Human plan
+approval is pending. Turns 4/5/6 remain available for implementation/security/
+final review without resetting or extending the cycle. No application code,
+game assets, deployment, merge or release was performed.
