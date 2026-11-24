@@ -3,9 +3,9 @@
 # reviews only when idle. Commit status changes with the artifact they describe.
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Isolated staging work merged into current local main with icons/T-Rex preserved; 162 Node and 7 Python checks passed, release not started." }
-  product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
-  architect: { status: idle, assignment: null, last_report: Preview-only operational scope approved; explicit user worktree deployment authority preserves Production/no-merge boundaries. }
+  orchestrator: { status: busy, assignment: intent/saved-recipe-menu/intent.md, last_report: "Isolated staging work merged into current local main with icons/T-Rex preserved; 162 Node and 7 Python checks passed, release not started." }
+  product-manager: { status: idle, assignment: null, last_report: Accepted shared-family saved recipe menu for Design; PM decision recorded. }
+  architect: { status: busy, assignment: intent/saved-recipe-menu/spec.md, last_report: Preview-only operational scope approved; explicit user worktree deployment authority preserves Production/no-merge boundaries. }
   senior-developer: { status: idle, assignment: null, last_report: "Executed authorized local main fast-forward to reviewed staging integration; audit completion only, no hosted/Production action." }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
   reviewer: { status: idle, assignment: null, last_report: "review vercel-candidate-validation-main-refresh-001: approved" }

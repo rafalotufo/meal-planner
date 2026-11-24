@@ -1,16 +1,17 @@
-# Separate owner-authorized Preview-only operation, preserving completed local Build.
+# Saved recipe menu: bounded Design run; implementation awaits human spec/plan gates.
 version: 1
-max_turns: 4
+max_turns: 6
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: vercel-candidate-validation-hosted-setup
-human_gates: [release_authorization]
+review_artifact: intent/saved-recipe-menu/spec.md
+human_gates: [product_owner_approve, engineer_approve, code_owner_approve, release_authorization]
 acceptance:
   commands: ["python3 -m unittest discover -s tests", "git diff --check"]
 phases:
-  intent: { role: architect, action: scope_preview_setup, next: scope_review }
-  scope_review: { role: reviewer, action: review_preview_scope, next: configure }
-  configure: { role: senior-developer, action: configure_and_deploy_preview, next: review }
-  review: { role: reviewer, action: verify_preview_setup, next: done }
+  intent: { role: product-manager, action: accept_saved_recipe_menu, next: design }
+  design: { role: architect, action: specify_saved_recipe_menu, next: security }
+  security: { role: security-researcher, action: assess_menu_design, next: spec_review }
+  spec_review: { role: reviewer, action: review_menu_spec, next: awaiting_spec_approval }
+  awaiting_spec_approval: { role: null, action: null, next: null }
   done: { role: null, action: null, next: null }
