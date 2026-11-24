@@ -2,7 +2,8 @@
 
 - Derived from: sibling intent.md, accepted base intent in caab317 and Rafael's automatic-lifecycle amendment dated 2026-11-24.
 - Author: architect
-- Status: Draft — ready for independent and human review; implementation is not authorized.
+- Status: Approved
+- Approval: Rafael; org/reviews/spec-t-rex-runner-human-approval-001.md
 - Date: 2026-11-24
 
 ## Product and interaction contract

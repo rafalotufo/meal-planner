@@ -20,7 +20,7 @@ nodes:
     stage: design
     artifact: intent/t-rex-runner/spec.md
     gate: product_owner_approve
-    status: in_review
+    status: approved
     done_status: approved
   plan:
     stage: build
