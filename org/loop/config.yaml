@@ -8,12 +8,8 @@ human_gates: [product_owner_accept, product_owner_approve, engineer_approve, cod
 acceptance:
   commands: ["git diff --check"]
 phases:
-  intent: { role: product-manager, action: review_recipe_url_menu_intent, next: design }
-  design: { role: architect, action: specify_recipe_url_menu, next: spec_review }
-  spec_review: { role: reviewer, action: review_recipe_url_menu_spec, next: planning }
-  planning: { role: senior-developer, action: plan_recipe_url_menu, next: plan_review }
-  plan_review: { role: reviewer, action: review_recipe_url_menu_plan, next: build }
-  build: { role: senior-developer, action: implement_recipe_url_menu, next: security }
-  security: { role: security-researcher, action: assess_recipe_url_menu, next: review }
-  review: { role: reviewer, action: verify_recipe_url_menu, next: done }
+  intent: { role: senior-developer, action: verify_build_readiness, next: implement }
+  implement: { role: senior-developer, action: implement, next: security }
+  security: { role: security-researcher, action: assess_curation_security, next: review }
+  review: { role: reviewer, action: review, next: done }
   done: { role: null, action: null, next: null }

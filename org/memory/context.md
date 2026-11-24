@@ -8,10 +8,10 @@ intent/recipe-url-menu/intent.md
 
 ## Loop
 
-- status: exhausted
-- turn: 8
-- phase: build
-- stop_reason: exhausted
+- status: in_progress
+- turn: 0
+- phase: intent
+- stop_reason: None
 
 ## Agents
 
@@ -21,7 +21,7 @@ intent/recipe-url-menu/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/recipe-url-menu/plan.md)
 
 ## Open messages
 
@@ -58,6 +58,7 @@ intent/recipe-url-menu/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0056 ceo -> orchestrator decision: Approve recipe URL curation plan and bounded Build cycle
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -93,6 +94,7 @@ intent/recipe-url-menu/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
+- orchestrator-0097 orchestrator -> senior-developer handoff: Implement approved recipe URL curation plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -158,11 +160,11 @@ intent/recipe-url-menu/intent.md
 
 ## Recent decisions
 
-- mem-0132 ceo: Owner approved the written recipe-url-menu intent in chat. Design is authorized; specification, plan, merge and release approval remain separate gates. (org/messages/ceo-0053.md)
 - mem-0133 ceo: Owner changed recipe URL menu to durable immediate URL save followed by background source-metadata curation of the same entry. Owner selected best-effort start with explicit Retry if interrupted; no independent scheduler or unattended recovery guarantee. Revised spec needs review and approval. (org/messages/ceo-0054.md)
 - mem-0134 reviewer: Revised save-first curation specification independently approved with explicit shorter-of-session/JWE delegation expiry. PostgreSQL task state, one bounded after callback, manual Retry, guarded same-entry completion and no-resurrection rules are specified. Owner specification approval is pending; no plan/code/migration execution. (org/reviews/spec-recipe-url-menu-002.md)
 - mem-0135 ceo: Owner approved revised async recipe URL menu specification from commit 6101c79. Implementation planning is authorized; plan, code and operational gates remain separate. (org/messages/ceo-0055.md)
 - mem-0136 reviewer: Implementation plan independently approved for owner review; no blockers. Original bounded planning loop completed its eighth turn and is exhausted without code. Owner plan approval must authorize the next bounded Build cycle; no implementation or operational approval is inferred. (org/reviews/plan-recipe-url-menu-001.md)
+- mem-0137 ceo: Owner approved recipe URL menu implementation plan at 2513046 and a fresh bounded local Build cycle. Archived exhausted planning loop; no old budget extended. No development/hosted migration, push, merge or release authorized. (org/messages/ceo-0056.md)
 
 ## Constraints
 
@@ -170,20 +172,15 @@ intent/recipe-url-menu/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-recipe-url-menu-001.md (fbf464212e3ac81bd2051a836abe61819e02a7f344077ac82cd3ee9fc2223f10)
-- org/reviews/spec-recipe-url-menu-001.md (3133f5c370831f267e6f0f5c8773dc8bdd79b56d94bc237440862a660f4d64c9)
-- org/reviews/intent-recipe-url-menu-002.md (df282d373356d1b4d01af80fc7b7ff4cb75210dea7aa4e1fdaab4b7160fa4f81)
-- intent/recipe-url-menu/spec.md (ab953eebcb5a10914486c9f6b35d9fa9dee88429574b33cbe1a6232db62b8cee)
-- intent/recipe-url-menu/plan.md (50008c92aa712f162ada942f7b389e32e65d109c2195b2e4acc13c8e2e9f0069)
-- org/reviews/plan-recipe-url-menu-001.md (dd4c829bba3e98d726fc162a204d0e43d9d99fa34be21b53e962a016f9fda76b)
+(none)
 
 ## Next action
 
-reviewer:review_recipe_url_menu_plan
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0136 from org/reviews/plan-recipe-url-menu-001.md
+- mem-0137 from org/messages/ceo-0056.md
 
 <!-- machine:end -->
 
