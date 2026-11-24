@@ -5,20 +5,23 @@ import { startServer } from '../auth/server.ts';
 import { restrictedMenuDatabase } from './database.ts';
 
 const fixture = await restrictedMenuDatabase();
-const browser = await openChrome();
+let ownedBrowser: Awaited<ReturnType<typeof openChrome>> | undefined;
+let failed = false;
 let server: Awaited<ReturnType<typeof startServer>> | undefined;
 let owner: Awaited<ReturnType<typeof fixture.open>> | undefined;
-async function key(key: string, code: string, windowsVirtualKeyCode: number, modifiers = 0) {
-  await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key, code, windowsVirtualKeyCode, modifiers });
-  await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code, windowsVirtualKeyCode, modifiers });
-}
-async function confirmFirst() {
-  await browser.click('[data-remove-recipe]');
-  await browser.waitFor("Boolean(document.querySelector('dialog[open]'))", 'confirmed-removal dialog');
-  await browser.click('dialog [data-confirm-removal]');
-}
-async function size(count: number) { await browser.waitFor(`document.querySelectorAll('article').length === ${count}`, `${count} real menu cards`); }
 try {
+  const browser = await openChrome();
+  ownedBrowser = browser;
+  async function key(key: string, code: string, windowsVirtualKeyCode: number, modifiers = 0) {
+    await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key, code, windowsVirtualKeyCode, modifiers });
+    await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code, windowsVirtualKeyCode, modifiers });
+  }
+  async function confirmFirst() {
+    await browser.click('[data-remove-recipe]');
+    await browser.waitFor("Boolean(document.querySelector('dialog[open]'))", 'confirmed-removal dialog');
+    await browser.click('dialog [data-confirm-removal]');
+  }
+  async function size(count: number) { await browser.waitFor(`document.querySelectorAll('article').length === ${count}`, `${count} real menu cards`); }
   server = await startServer({ DATABASE_URL: fixture.runtimeUrl }, true);
   await browser.google(server.origin, 'test-code');
   await browser.recipes(server.origin);
@@ -161,11 +164,13 @@ try {
   console.log('Chrome: actual read-error/reload, invalid cursor, literal text, retained/missing/failed photos, 50-entry refill/older-empty pages, next/previous/empty focus, session/family loss passed.');
   console.log('Production Chrome: search → real save → fresh menu → reload; retained photo, 390/1440 no overflow or console errors.');
 } catch (error) {
-  console.error(error);
+  failed = true;
   throw error;
 } finally {
-  await server?.stop();
-  await browser.close();
-  await owner?.close();
-  await fixture.cleanup();
+  const services = await Promise.allSettled([server?.stop(), ownedBrowser?.close(), owner?.close()]);
+  const database = await Promise.allSettled([fixture.cleanup()]);
+  if ([...services, ...database].some(result => result.status === 'rejected')) {
+    if (!failed) throw new Error('Menu browser fixture cleanup failed');
+    console.error('Menu browser fixture cleanup failed after the primary test failure.');
+  }
 }

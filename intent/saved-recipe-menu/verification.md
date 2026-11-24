@@ -324,3 +324,31 @@ maintenance/cutover and recovery planning before migration/runtime activation.
 Disposable rollback SQL is not production recovery authorization. Publisher URLs
 remain mutable links rather than archived photos; application body deadlines
 are verified locally before EOF and do not certify upstream hosted buffering.
+
+## Independent review correction — browser-fixture cleanup
+
+Code review found Chrome startup outside the browser helper's protected try:
+if startup rejected after allocating the owned random database, its finally never
+ran. RED control-flow proof executed the actual TypeScript helper via in-memory
+`typescript.transpileModule` and a data-module import, replacing only its three
+fixture imports with local throwing/recording objects. It retained the exact
+primary startup error but failed `owned database cleanup attempted` (false).
+No native database/server/browser was allocated by this fault-injection proof.
+
+Moved Chrome initialization into the protected try, retained a narrowed const
+browser for all tests and an optional owned cleanup handle. Service cleanup uses
+allSettled, followed by an independent database cleanup attempt. A cleanup failure
+cannot replace the primary test failure; cleanup-only failure is reported as a
+fixed error, without private configuration or raw service diagnostics.
+
+The same actual-helper fault injection now passes both scenarios: Chrome startup
+throws; and normal startup followed by a primary failure plus both server.stop
+and browser.close rejections. In both cases database cleanup is attempted and
+the original primary error survives; the latter prints only the fixed cleanup
+warning. `pnpm run lint`, `pnpm run typecheck` and
+`node --import tsx tests/menu/browser.ts` all exit0 after this test-only fix.
+The full production browser matrix again passed every phase, with no screenshot
+diff and all owned services/profile/database cleaned. `git diff --check`: exit0.
+Application/runtime behavior is unchanged. Focused independent reviewer recheck
+and final exact-revision audit remain orchestrator-owned; no review acceptance
+checkbox is marked by this correction.

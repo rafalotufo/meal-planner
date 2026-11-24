@@ -130,6 +130,7 @@ intent/saved-recipe-menu/plan.md
 - reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
 - reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
 - reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
+- reviewer-0045 reviewer -> senior-developer finding: Guarantee browser fixture cleanup on startup and cleanup failure
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -144,6 +145,7 @@ intent/saved-recipe-menu/plan.md
 - security-researcher-0027 security-researcher -> orchestrator review: Saved menu implementation security approved
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
+- senior-developer-0016 senior-developer -> reviewer handoff: Recheck guaranteed browser resource cleanup correction
 
 ## Recent decisions
 
