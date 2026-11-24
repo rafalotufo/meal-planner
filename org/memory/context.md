@@ -4,14 +4,14 @@
 
 ## Goal
 
-intent/single-call-recipe-search/merge-refresh.md
+intent/app-icon/intent.md
 
 ## Loop
 
-- status: solved
+- status: in_progress
 - turn: 1
-- phase: done
-- stop_reason: solved
+- phase: design
+- stop_reason: None
 
 ## Agents
 
@@ -66,6 +66,7 @@ intent/single-call-recipe-search/merge-refresh.md
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
 - product-manager-0008 product-manager -> orchestrator decision: Accepted family membership intent
 - product-manager-0009 product-manager -> orchestrator decision: Accepted single-call recipe search intent
+- product-manager-0010 product-manager -> orchestrator decision: Accepted app icon intent
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -115,11 +116,11 @@ intent/single-call-recipe-search/merge-refresh.md
 
 ## Artifacts
 
-- org/reviews/single-call-main-integration-refresh-review.md (1f331517be9ce27bb327a2ec868029894e8d5f9140d64600618b636541f2e742)
+- intent/app-icon/intent.md (ffda28f37bb768e498ec935c8b6224185431b7da5a201d2d38abe792c55e76a7)
 
 ## Next action
 
-reviewer:verify_current_integration
+product-manager:review_intent
 
 ## Last digest source
 
