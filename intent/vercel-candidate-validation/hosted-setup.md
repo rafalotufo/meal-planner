@@ -15,6 +15,15 @@ It does not authorize Production changes/promotion, schema migration, data impor
 provider calls, billing changes, a new project, Git integration, or project resume.
 No additional application change is proposed. Preserve the completed Build loop.
 
+The first read-only CLI payload inventory exposed a packaging-only omission:
+nonruntime gate/workflow/eval/instruction records, generated `*.tsbuildinfo`
+cache and an empty `.data` directory entry were still included. The necessary
+Preview preparation amendment narrows `.vercelignore` to exclude those items
+and the `.data` root. No private file content was included in that dry run, and
+no application, dependency, runtime/build configuration or SQL/runtime metadata
+input changes. Recheck the complete dry payload before the single deployment;
+the orchestrator records independent delta review and clean source SHA.
+
 ## Recorded preflight and scope
 
 The orchestrator's complete account preflight reported the following; read it

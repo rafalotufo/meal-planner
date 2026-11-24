@@ -11,6 +11,7 @@
 
 ## Files that change
 
+- .vercelignore
 - tests/deployment/staging.ts
 - tests/deployment/staging.test.ts
 - intent/vercel-candidate-validation/staging-runbook.md
@@ -36,8 +37,13 @@
 The orchestrator owns all global audit mutations and serialized commits. Only
 the new helper/test and runbook link affect operator behavior. Keep existing
 `smoke.ts`, application/auth/proxy/configuration/dependencies, lockfile, schema,
-strict compiler and test inclusion unchanged. Existing `.vercelignore` already
-excludes tests, intent and org records from uploads; no upload change is needed.
+strict compiler and test inclusion unchanged. The hosted preparation dry run
+subsequently showed that `.vercelignore` excluded private contents but retained
+nonruntime gate/workflow/eval/instruction records, generated TypeScript cache,
+and an empty `.data` directory entry. A scoped packaging amendment excludes those
+items and the `.data` root itself; all application, dependency/build configuration,
+CSS and reviewed migration/runtime metadata inputs remain included. This
+supersedes the earlier assumption that no upload change was needed.
 
 ## Operator contract
 
@@ -224,7 +230,8 @@ python3 scripts/scan_secrets.py --staged
 ```
 
 Run plan-sync against this plan and preserve strict inclusion/vendor types. New
-helper/test paths remain excluded from uploads by unchanged `.vercelignore`.
+helper/test paths remain excluded from uploads by `.vercelignore`; the hosted
+preparation amendment additionally excludes only nonruntime audit/cache state.
 Run existing real-browser auth QA at390/1440 using owned fixture servers and
 distinct staging-feature screenshot evidence; preserve existing screenshot bytes
 by backing up/restoring historical names if the helper cannot choose an output

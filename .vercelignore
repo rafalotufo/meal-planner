@@ -15,7 +15,15 @@ hooks
 .worktreeinclude
 
 # Family branch private local state must never enter a CLI upload.
-.data/
+.data
+*.tsbuildinfo
+gates
+workflow-graph.yaml
+bands.yaml
+evals
+AGENTS.md
+CLAUDE.md
+REVIEW.md
 *.sqlite
 *.sqlite-*
 *.db

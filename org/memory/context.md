@@ -21,7 +21,7 @@ intent/vercel-candidate-validation/hosted-setup.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (.vercelignore)
 
 ## Open messages
 
@@ -52,6 +52,8 @@ intent/vercel-candidate-validation/hosted-setup.md
 - ceo-0028 ceo -> orchestrator decision: Approve isolated staging approach
 - ceo-0029 ceo -> orchestrator decision: Continue approved isolated staging approach
 - ceo-0030 ceo -> orchestrator decision: Authorize Preview deployment from worktree after OAuth domains
+- ceo-0031 ceo -> orchestrator decision: Approve Google staging policy and dedicated client
+- ceo-0032 ceo -> orchestrator decision: Approve the specified sole staging OAuth test user
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -136,7 +138,7 @@ reviewer:review_preview_scope
 
 ## Last digest source
 
-- mem-0084 from org/messages/ceo-0030.md
+- mem-0085 from intent/vercel-candidate-validation/hosted-results.md
 
 <!-- machine:end -->
 

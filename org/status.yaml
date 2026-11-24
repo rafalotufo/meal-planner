@@ -6,9 +6,9 @@ agents:
   orchestrator: { status: busy, assignment: intent/vercel-candidate-validation/hosted-setup.md, last_report: Bounded local Build solved turn5 with final all8commands green and independent reviews. No app/hosted changes; awaiting human merge and Preview-only hosted setup authorization. }
   product-manager: { status: idle, assignment: null, last_report: Accepted isolated staging intent for Design following explicit owner selection; external setup and implementation remain separate. }
   architect: { status: idle, assignment: null, last_report: Preview-only operational scope approved; explicit user worktree deployment authority preserves Production/no-merge boundaries. }
-  senior-developer: { status: idle, assignment: null, last_report: "Local isolated staging tooling and timestamp regression complete; final144Node+7Python, lint/typecheck/build and realChrome passed; independent reviews approved." }
+  senior-developer: { status: busy, assignment: .vercelignore, last_report: "Local isolated staging tooling and timestamp regression complete; final144Node+7Python, lint/typecheck/build and realChrome passed; independent reviews approved." }
   security-researcher: { status: idle, assignment: null, last_report: "Isolated staging implementation security approved, no blockers;13tests and adversarial input timeout independently pass." }
-  reviewer: { status: idle, assignment: null, last_report: Scoped Preview operation reviewed and approved; exact branch-qualified domain/readback guard required before Google callback. }
+  reviewer: { status: idle, assignment: null, last_report: Operational packaging amendment independently approved; clean payload build required before actual authorized Preview deployment. }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: postgresql-proxy-packaging-001, artifact: postgresql-proxy-correction, writer: orchestrator, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
@@ -60,3 +60,4 @@ review_queue:
   - { id: code-vercel-candidate-validation-001, artifact: vercel-candidate-validation-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
   - { id: code-vercel-candidate-validation-002, artifact: vercel-candidate-validation-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: hosted-vercel-candidate-validation-001, artifact: intent/vercel-candidate-validation/hosted-setup.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: hosted-vercel-candidate-validation-packaging-001, artifact: .vercelignore, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
