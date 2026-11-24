@@ -213,3 +213,39 @@ Preserve the live owner dev server and preexisting `next-env.d.ts` diff. Build/
 verify in a private source-equivalent copy with pinned dependencies and owner-only
 fixture configuration; do not overwrite the owner's `.next`. No development or
 hosted data/schema writes, paid calls, scheduler activation, push/merge/deployment.
+
+## Implementation clarification — explicit Unicode lowercase locale
+
+Approved by orchestrator during implementation, pending independent final source
+review. An owned native PostgreSQL17 fixture uses a default C locale: plain
+`lower('CRÈME')` returned `crÈme`, so default-locale lower() does not satisfy the
+intended accented-title case behavior. The same fixture exposes the predefined
+ICU root collation and `lower(... COLLATE "und-x-icu")` returned `crème`.
+
+Use a static schema-qualified existing collation on **both** lowercase operands:
+
+```sql
+strpos(
+  lower(title COLLATE pg_catalog."und-x-icu"),
+  lower($query COLLATE pg_catalog."und-x-icu")
+) > 0
+```
+
+The query remains a bound literal substring search using ICU root lowercase
+mapping, without accent folding, Unicode normalization or full Unicode casefold
+claims. This clarifies the illustrative plain lower() predicate above; q limits,
+family ownership, cursor bounds and response shape stay unchanged. Keep existing
+saved_at/id ordering and cursor semantics; do not apply the search collation to
+those comparisons. No CREATE COLLATION, extension, migration or runtime schema
+change is authorized. Do not fall back silently to default/ASCII matching or
+post-filter a bounded result page in JavaScript, which could miss older matches.
+
+The observed native fixture supports this exact collation. Hosted Neon availability
+has not been checked here: an exact schema-qualified collation/lowercase smoke
+query is a required **read-only pre-release compatibility check** on each approved
+hosted release target. No hosted access or deployment is authorized by this note.
+Absent support must be reported before release for a reviewed compatibility
+choice; it must not trigger automatic hosted/schema configuration changes.
+
+PostgreSQL17 documents collation-sensitive case conversion and the predefined
+ICU root collation in its official [collation support reference](https://www.postgresql.org/docs/17/collation.html).

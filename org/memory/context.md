@@ -15,7 +15,7 @@ intent/searchable-swap-picker/intent.md
 
 ## Agents
 
-- architect: busy (searchable-swap-picker-plan)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -26,7 +26,6 @@ intent/searchable-swap-picker/intent.md
 ## Open messages
 
 - architect-0010 architect -> orchestrator handoff: Shared layout spec and plan ready
-- architect-0013 architect -> orchestrator handoff: Searchable swap picker design ready
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -95,11 +94,8 @@ intent/searchable-swap-picker/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
-- orchestrator-0109 orchestrator -> ceo handoff: Unique weekly plans complete and local draft repaired
-- orchestrator-0110 orchestrator -> product-manager handoff: Capture searchable swap picker intent
-- orchestrator-0111 orchestrator -> architect handoff: Design approved searchable swap modal
-- orchestrator-0112 orchestrator -> reviewer handoff: Review searchable swap picker design
 - orchestrator-0113 orchestrator -> senior-developer handoff: Implement approved searchable swap picker
+- orchestrator-0114 orchestrator -> senior-developer decision: Keep async browser fixtures within approved test file
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

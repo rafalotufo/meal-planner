@@ -24,3 +24,28 @@ The plan keeps domain actions in their existing owner and adds one focused clien
 Required tests meaningfully address parser/store/HTTP behavior, Unicode/literal punctuation, full-menu pagination/isolation/read-only guards, invalid network payloads and async races. Real-browser tests must demonstrate physical search/selection/explicit confirmation, no POST from search Enter/selection/dismissal, one POST on repeated confirmation, pending-state behavior, retry/access/stale recovery, request supersession including post-fetch parsing and close/reopen races, saved/null/broken thumbnails, focus containment/return and320/1440 scrolling/no overflow. Existing planning assertions must be adapted rather than removed. Full strict/build/regression commands and fresh visually inspected screenshots remain required.
 
 This is design approval only. Implementation, actual red/green evidence, independent security/final source review and root source-equivalence checks remain outstanding. No merge, deployment or other release authority is granted.
+
+## Peer check — explicit Unicode lowercase locale
+
+Reviewed the appended implementation clarification on2026-11-24. **Approve; no
+required finding.** Reported owned PostgreSQL17 C-locale behavior explains why
+plain lower() did not match accented CRÈME/crème. Static schema-qualified
+`pg_catalog."und-x-icu"` on both bound lowercase operands makes the intended
+ICU-root lowercase substring semantics explicit without interpolation, wildcard
+matching, accent folding or a full-casefold claim. It does not affect saved_at/id
+ordering/cursors, family predicates, result bounds or response shape.
+
+Independently consulted PostgreSQL17's official
+[collation support reference](https://www.postgresql.org/docs/17/collation.html):
+case conversion uses input collation; predefined collations reside in pg_catalog;
+ICU availability depends on server build/encoding. Therefore the native fixture
+observation supports local implementation, while hosted portability remains a
+concrete unresolved release prerequisite rather than a claimed verified fact.
+The clarification correctly requires the exact read-only collation/lowercase
+smoke query on each separately authorized hosted release target, with failure
+reported for review and no silent fallback or automatic schema change. No hosted
+access, dependency, migration, deployment or new product capability is authorized.
+
+This peer check is design-level approval. Exact SQL and accented/literal-title
+regressions still require source review and actual green evidence. No source or
+other artifact was edited by this reviewer.
