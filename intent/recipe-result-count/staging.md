@@ -1,7 +1,9 @@
 # Recipe result count — exact-source staging result
 
-Status: merged to local main and deployed to isolated staging; awaiting owner
-acceptance of this exact source/profile and named coverage gaps before Production.
+Status: owner accepted this exact source/profile and all named coverage gaps in
+the subsequent explicit Production approval in this chat. Acceptance and scoped
+release authority are recorded in production.md and the committed gate ledger.
+Actual observations below remain unchanged; missing checks are not passes.
 
 ## Attribution
 
