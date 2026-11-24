@@ -4,18 +4,18 @@
 
 ## Goal
 
-intent/staging-first-release/intent.md
+intent/shared-site-layout/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 4
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/shared-site-layout/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -85,6 +85,8 @@ intent/staging-first-release/intent.md
 - orchestrator-0058 orchestrator -> senior-developer handoff: Plan approved T-Rex automatic search runner
 - orchestrator-0059 orchestrator -> reviewer handoff: Review T-Rex implementation plan and provenance
 - orchestrator-0060 orchestrator -> senior-developer handoff: Implement approved automatic T-Rex replacement
+- orchestrator-0081 orchestrator -> product-manager handoff: Capture shared site layout intent
+- orchestrator-0082 orchestrator -> architect handoff: Design shared root layout and styling
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -95,6 +97,7 @@ intent/staging-first-release/intent.md
 - product-manager-0012 product-manager -> orchestrator answer: Re: Review user-directed completion behavior amendment
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
+- product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -143,11 +146,11 @@ intent/staging-first-release/intent.md
 
 ## Recent decisions
 
-- mem-0116 senior-developer: Refreshed the owner-authorized staging integration against main87482ed after concurrent T-Rex merge. All82 runtime/public/license/config files match that main; staging helper/tests/ignore match checkpointd284489. Original first integration remains archived and verified; main has not been updated by this task. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/reconciliation.json)
 - mem-0117 senior-developer: Root authorized bounded inbox curation of16 completed informational imported staging messages. Their original states remain in exact snapshots; current merge request ceo-0046, unanswered questions, blocking findings and response-required records remain open. No approval or release authority changed. (org/merge/vercel-candidate-validation-main-refresh-2026-11-24/message-triage.json)
 - mem-0118 senior-developer: Executed owner-authorized local main fast-forward from87482ed to3169dfd containing reviewed integration4a1e5bd. Current icons/T-Rex and staging source preserved, all8 checks passed162Node+7Python. Implementation merged; Production release not started. No push/deploy/hosted action. (intent/vercel-candidate-validation/merge.md)
 - mem-0119 orchestrator: Rafael requested staging-first release policy. Independent spec/plan review approved exact-source staging validation/owner acceptance before a separate authorized Production build; retain minimal Production config/readiness/canonical health/recovery. Docs-only implementation; no runtime/helper/hook/hosted/paid action. One explicit scoped approval may cover acceptance and release records. (org/messages/ceo-0047.md)
 - mem-0121 senior-developer: Executed owner-authorized docs-only local main fast-forward fce96bf to51c95c3 with reviewed staging-first release guidance3e79a5a. Implementation merged; future staging acceptance and Production release not started. No code, deployment, configuration or provider action. (org/reviews/staging-first-release-merge-001.md)
+- mem-0122 product-manager: Accepted owner-requested shared Next.js site layout and common header intent. Local org design/build/test authorized; merge and release remain human gates. Previous completed staging-first release loop archived intact. (org/reviews/intent-shared-site-layout-001.md)
 
 ## Constraints
 
@@ -155,18 +158,15 @@ intent/staging-first-release/intent.md
 
 ## Artifacts
 
-- intent/staging-first-release/plan.md (092977916ed45223831f81d9a201ceb9381d283ab0a8043093d5ce21d92e67f1)
-- org/reviews/staging-first-release-plan-001.md (3c326a368def3b794d0b10b02ea747183c58133b6ff65d0ab8acae0adcd988f3)
-- intent/vercel-deployment/deployment-runbook.md (89e5927714d505cbb8fbc1a9cccf9b3d995737c476428b7ac0f9f9113593cc23)
-- org/reviews/staging-first-release-final-001.md (cf86455c0ee0ab75cb4d4cb287c40c0ea3fb3c69e813a1f09ae4d5171669134e)
+- org/reviews/intent-shared-site-layout-001.md (92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b)
 
 ## Next action
 
-reviewer:verify_release_process
+product-manager:accept_shared_layout_intent
 
 ## Last digest source
 
-- mem-0121 from org/reviews/staging-first-release-merge-001.md
+- mem-0122 from org/reviews/intent-shared-site-layout-001.md
 
 <!-- machine:end -->
 
