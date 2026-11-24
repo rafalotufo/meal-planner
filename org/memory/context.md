@@ -4,14 +4,14 @@
 
 ## Goal
 
-intent/shared-site-layout/intent.md
+intent/recipe-url-menu/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
@@ -104,6 +104,7 @@ intent/shared-site-layout/intent.md
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
+- product-manager-0016 product-manager -> orchestrator decision: Recipe URL menu scope reviewed
 - reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
 - reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
 - reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
@@ -157,11 +158,11 @@ intent/shared-site-layout/intent.md
 
 ## Recent decisions
 
-- mem-0122 product-manager: Accepted owner-requested shared Next.js site layout and common header intent. Local org design/build/test authorized; merge and release remain human gates. Previous completed staging-first release loop archived intact. (org/reviews/intent-shared-site-layout-001.md)
 - mem-0123 reviewer: Approved shared-site-layout spec/plan. Shared header adds real keyboard stops; narrowly adapt two existing browser helpers with bounded Tab traversal while preserving focus/Enter assertions and historical screenshots. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0124 reviewer: Approved bounded shared browser test helper scrollIntoView before physical click, based on existing helper clicking below viewport after styled cards. Same real mouse events/assertions preserved; no runtime behavior change. (org/reviews/shared-site-layout-plan-001.md)
 - mem-0125 reviewer: Shared site layout implementation independently approved and security clear: shared root header/shell, coherent all-page styling,164 Node outcomes,7 Python,lint/typecheck/build and3 Chrome helpers passed. Local work complete; human merge gate pending, no push/deployment/release. (org/reviews/shared-site-layout-final-001.md)
 - mem-0126 senior-developer: Executed Rafael-authorized shared layout local main fast-forward from d1b11652 to97436b7, with independently reviewed implementation f4ccdae and committed human merge approval. Main clean. Owner also requested dev shutdown; port3000 listener terminated and closure verified. No push/deployment/release. (org/reviews/shared-site-layout-merge-001.md)
+- mem-0130 product-manager: Recipe URL menu PM scope accepted: owner confirmed reading the linked page for title, photo, summary and time when available. Written-intent owner acceptance is pending before Design; no code or release approval. (intent/recipe-url-menu/intent.md)
 
 ## Constraints
 
@@ -169,20 +170,15 @@ intent/shared-site-layout/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-shared-site-layout-001.md (92f96b77c2bc020effd96f88ea154d30b18f971c95cb82c3ad1c35ad789c120b)
-- intent/shared-site-layout/plan.md (0c7253aefc37a2306d8876e860f685975967a7039429f24e4c8e09a56eb041fa)
-- org/reviews/shared-site-layout-plan-001.md (44c5e5ba2f637613504309b84ef0eca5154273781cababc8bf8784d0c7441663)
-- intent/shared-site-layout/verification.md (279d4ba0ce4a65f0dc4d5c7df87ceafbadaa3bbe57931fbca8881897dfe2264d)
-- org/reviews/shared-site-layout-security-001.md (995b26a6e0faf339d998b7707954ace473c4c266e73d4edc4b7e4a03e2319bf9)
-- org/reviews/shared-site-layout-final-001.md (e9737485868f21fafaaec6d06e04b9c55e3736dac6e239c5178aeb04601fba94)
+- org/reviews/intent-recipe-url-menu-001.md (fbf464212e3ac81bd2051a836abe61819e02a7f344077ac82cd3ee9fc2223f10)
 
 ## Next action
 
-reviewer:verify_shared_layout
+product-manager:review_recipe_url_menu_intent
 
 ## Last digest source
 
-- mem-0129 from intent/saved-recipe-menu/production-result-2026-11-24.md
+- mem-0131 from org/loop/archive/shared-site-layout-before-recipe-url-menu-2026-11-24/README.md
 
 <!-- machine:end -->
 
