@@ -8,10 +8,10 @@ intent/weekly-meal-planning/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 2
-- phase: review
-- stop_reason: None
+- status: solved
+- turn: 3
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
@@ -19,9 +19,9 @@ intent/weekly-meal-planning/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (weekly-plan-header-implementation)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (weekly-plan-header-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -94,10 +94,10 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0084 orchestrator -> senior-developer handoff: Implement approved shared layout plan
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
-- orchestrator-0093 orchestrator -> ceo handoff: Weekly meal planning ready for human merge review
 - orchestrator-0094 orchestrator -> reviewer handoff: Review removal of visible plan header dates
 - orchestrator-0095 orchestrator -> senior-developer handoff: Remove remaining plan header date range
 - orchestrator-0096 orchestrator -> reviewer handoff: Final review of undated plan header
+- orchestrator-0097 orchestrator -> ceo handoff: Final undated weekly planning ready for merge review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -146,6 +146,7 @@ intent/weekly-meal-planning/intent.md
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0041 reviewer -> orchestrator review: Shared layout final implementation approved
 - reviewer-0045 reviewer -> orchestrator decision: Approved plan header date removal
+- reviewer-0046 reviewer -> orchestrator review: Undated plan header final approval
 - security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
 - security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
@@ -164,11 +165,11 @@ intent/weekly-meal-planning/intent.md
 
 ## Recent decisions
 
-- mem-0129 reviewer: Independently approved weekly meal planning specification and exact implementation plan. Preserve action-specific body validation and update schema assertions for the actual new tables; scheduling unactivated. (org/reviews/weekly-meal-planning-plan-001.md)
 - mem-0130 ceo: Owner requests seven recipe choices in each draft without per-recipe weekday/date labels. Preserve Sun-Sat weekly context, automatic Thursday scheduling, variety and family feedback; bounded presentation amendment before final review. (intent/weekly-meal-planning/spec.md)
 - mem-0131 reviewer: Independently approved owner-requested undated seven-recipe-card presentation amendment before code; week context and storage/action/scheduler boundaries unchanged. (org/reviews/weekly-meal-planning-presentation-001.md)
 - mem-0132 reviewer: Weekly meal planning independently approved at fixed source9694aeedc5757431320f56fd6f8b4b264c157b75: seven undated weekly recipe cards, approvals/swaps/history, configurable due worker,212 Node/7Python and real Chrome320/1440. Local loop solved; merge/release/migration/activation remain separate. (org/reviews/weekly-meal-planning-final-001.md)
 - mem-0133 reviewer: Owner clarified visible header dates must also go. Independently approved seven-recipes main header without numeric range, history controls alone keep weekdates; prior completed6turn loop preserved in archive and new bounded correction cycle opened. (org/reviews/weekly-meal-planning-header-001.md)
+- mem-0134 reviewer: Final weekly planning source9f6f8c6ff0c868472926e42d186648309fc4f62f independently approved: no numeric dates in main header/cards; history controls retain week identifiers.13plans/lint/typecheck/build/Chrome rerun green, original212Node/7Python evidence retained. Header correction3turn loop solved; human merge/release and activation pending. (org/reviews/weekly-meal-planning-header-final-001.md)
 
 ## Constraints
 
@@ -178,14 +179,15 @@ intent/weekly-meal-planning/intent.md
 
 - org/reviews/weekly-meal-planning-header-001.md (85d5bbc04baa54d499ba580c30f809685cf5a43a64a7605fcffc9854d3674c21)
 - intent/weekly-meal-planning/verification.md (d51c2449efa1f34c16939b12a5dcb958296e855545b8576eb08edc40792a83ae)
+- org/reviews/weekly-meal-planning-header-final-001.md (956e5f8a81c1c19b06e5375ba2a4ccc4b1e65c3e746f1ab2dcfb137a37cadd19)
 
 ## Next action
 
-senior-developer:remove_plan_header_dates
+reviewer:verify_undated_plan_header
 
 ## Last digest source
 
-- mem-0133 from org/reviews/weekly-meal-planning-header-001.md
+- mem-0134 from org/reviews/weekly-meal-planning-header-final-001.md
 
 <!-- machine:end -->
 

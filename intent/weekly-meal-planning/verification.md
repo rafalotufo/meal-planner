@@ -116,3 +116,16 @@ mobile accepted long-title swap and mobile finalized history: all show “Seven
 recipes for the week” and no actual dates near the header or recipe cards.
 These latest images supersede earlier header-range screenshots. The owned server,
 Chrome profile and disposable database were cleaned up. `git diff --check` exit0.
+
+
+The final header correction is independently approved at fixed source
+`9f6f8c6ff0c868472926e42d186648309fc4f62f` in
+`org/reviews/weekly-meal-planning-header-final-001.md`. Updated draft, swap and
+history screenshots have no date range in the main header and no dates on
+individual recipe cards. Dates remain only in history controls. The distinct
+latest preview is `org/reviews/weekly-plan-final-undated-1440.png`; earlier chat
+images are historical and do not represent the corrected view. The header
+correction loop completed in three turns; original six-turn completion remains
+in its archive. Python workflow regressions reran7/7, full feature plan-sync and
+workflow checks passed. Remaining audit commits do not change this fixed source.
+Human merge/release, hosted migration and scheduler activation remain pending.
