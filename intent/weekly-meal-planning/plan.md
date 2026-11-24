@@ -147,3 +147,26 @@ private-backup procedure; never suppress or exclude types/tests.
 
 Any new source path, altered invariant or expanded product behavior requires
 an explained spec/plan amendment and independent review before implementation.
+
+## Owner presentation amendment — seven unassigned recipe cards
+
+Source: `org/messages/ceo-0051.md`.
+
+Pending independent review before source changes. Owner requested that the draft
+show seven recipes without recipe date labels. Keep the Sunday–Saturday range
+above the grid and all existing calendar/storage/action semantics.
+
+Within the existing manifest, update `app/plans/plan-controls.tsx` to remove each
+card's weekday/date heading, promote its recipe title to the card heading and
+replace weekday-based saved-menu labels with recipe-oriented accessible labels.
+Apply this shared rendering to drafts, final plans and retained history. Keep
+slot indices only as internal stable identities for suggestions/actions.
+
+Update `tests/plans/browser.ts` within its existing owned-fixture flow to assert
+the recipe-oriented label/heading and absence of weekday/date labels or date
+elements inside all seven cards, while preserving the page's week range and
+all existing approve/suggest/accept/reset/stale/confirm/history checks. Re-run
+lint, strict typecheck, build, planning tests and real Chrome320/1440, visually
+inspect updated feature screenshots, and append actual results to verification.
+No additional source paths, schema migration, scheduling changes or deployment
+are part of this amendment.

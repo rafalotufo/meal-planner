@@ -242,3 +242,24 @@ process. Exercise approve, suggest, accept (approval reset), stale conflict,
 confirm and history at320/1440px, check focus/labels/no overflow/no attendance,
 and save/visually inspect representative screenshots. No fake-user production
 bypass or paid keys. Full required command list and manifest are in plan.md.
+
+## Owner presentation amendment — seven recipes without assigned dates
+
+Source: `org/messages/ceo-0051.md`.
+
+Owner steering on2026-11-24: “No need to label recipes with dates. Lets just have
+7 recipes for the draft.” This amendment changes presentation only. The week
+remains the Sunday–Saturday scheduling/history context, with its date range at
+the top. The draft, final plan and retained history each display seven recipe
+cards without individual weekday or date labels and without date elements in
+cards. A recipe title is each card's heading; remove the separate weekday/date
+heading. Saved-menu select labels identify the recipe being replaced rather than
+Sunday/Monday/etc, retaining a unique accessible association with each control.
+
+Existing zero-based slot indices continue to identify the seven stored entries
+and action targets internally; the UI does not promise a particular weekday
+assignment. Scheduling, Toronto calendar logic, schema, seven-snapshot ordering,
+variety/recency, revisions, approvals, suggestions, finalization and the top-level
+week range remain unchanged. Apply the same presentation to immutable final
+and historical plans. This narrowly supersedes the individual dated dinner
+presentation described above; it adds no new behavior or source paths.
