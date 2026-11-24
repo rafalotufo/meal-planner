@@ -22,7 +22,7 @@ export function OnboardingControls({ automatic = false, join = false }: { automa
     return () => { active = false; };
   }, [automatic, router]);
   return <>
-    {automatic && !failed ? <p role="status" className="mt-6">Setting up your family…</p> : <button onClick={complete} disabled={pending} className="mt-6 rounded border border-gray-500 px-4 py-3 font-medium focus-visible:outline-2 focus-visible:outline-offset-4 disabled:opacity-60">{pending ? 'Working…' : failed ? 'Try again' : 'Join family'}</button>}
+    {automatic && !failed ? <p role="status" className="mt-6">Setting up your family…</p> : <button onClick={complete} disabled={pending} className="mt-6 rounded-md border border-emerald-900 bg-emerald-900 px-4 py-3 font-medium text-white hover:bg-emerald-950 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-700 disabled:cursor-wait disabled:opacity-60">{pending ? 'Working…' : failed ? 'Try again' : 'Join family'}</button>}
     {failed ? <p role="alert" className="mt-4">Unable to continue. Please try again or sign out.</p> : null}
   </>;
 }

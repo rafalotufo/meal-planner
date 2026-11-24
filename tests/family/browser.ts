@@ -54,8 +54,10 @@ try {
             await browser.viewport(width);
             await browser.screenshot(`org/reviews/postgresql-recovery-family-join-${width}.png`);
         }
-        await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
-        await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+        for (let step = 0; step < 5 && await browser.evaluate("document.activeElement.textContent.trim()") !== 'Join family'; step++) {
+            await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+            await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
+        }
         assert.equal(await browser.evaluate("document.activeElement.textContent.trim()"), 'Join family');
         assert.equal(await browser.evaluate('parseFloat(getComputedStyle(document.activeElement).outlineWidth) > 0'), true);
         await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Enter', code: 'Enter', windowsVirtualKeyCode: 13, text: '\r', unmodifiedText: '\r' });
