@@ -15,15 +15,15 @@ nodes:
     done_status: "approved"
   plan:
     stage: "build"
-    artifact: "intent/recipe-url-menu/plan.md"
+    artifact: "intent/recipe-url-menu/main-integration-plan.md"
     gate: "engineer_approve"
     status: approved
     done_status: "approved"
   implementation:
     stage: "build"
-    artifact: "recipe-url-menu-implementation"
+    artifact: "recipe-url-menu-main-local-recovery"
     gate: "code_owner_approve"
-    status: in_review
+    status: not_started
     done_status: "merged"
   staging_acceptance:
     stage: "test"

@@ -18,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <nav aria-label="Primary" className="flex flex-wrap items-center gap-1 text-sm font-medium">
                 <Link href="/" prefetch={false} className="rounded px-3 py-2 text-stone-600 hover:bg-stone-100 hover:text-emerald-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">Recipes</Link>
                 <a href="/menu" className="inline-flex min-h-11 items-center rounded px-3 py-2 text-stone-600 hover:bg-stone-100 hover:text-emerald-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">Menu</a>
+                <Link href="/plans" prefetch={false} className="inline-flex min-h-11 items-center rounded px-3 py-2 text-stone-600 hover:bg-stone-100 hover:text-emerald-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">Plan</Link>
                 <Link href="/family" prefetch={false} className="rounded px-3 py-2 text-stone-600 hover:bg-stone-100 hover:text-emerald-950 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">Family</Link>
               </nav>
             </header>

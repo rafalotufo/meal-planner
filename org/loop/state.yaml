@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/recipe-url-menu/intent.md
-base_commit: 2513046010a5e125c7835ad736d246623232f310
-turn: 8
+base_commit: c9316dce75daa7bcd4b56250b89442a3fc135e78
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 53ca70d366969385adf1d8ba098117abca678ed001ed32b7a74768d91935a8ea
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/recipe-url-menu/build-readiness.md", "sha256": "8f853c9aeca2cd01cd8ef62cde64af02a3e1ae77f07869947e283dc762777077"}, {"path": "org/reviews/recipe-url-menu-copy-scope-001.md", "sha256": "3bbe5254b88ba9024e9a2906ce6b2c88b311583bec667e09046f54ce5d3341af"}, {"path": "org/reviews/security-recipe-url-menu-001.md", "sha256": "fff7688a7fbff777157731875c7d4a3ab646fa38132ec2fdba5bb0ba06b1f780"}, {"path": "org/reviews/code-recipe-url-menu-001.md", "sha256": "01f542819538b58660bed3ce8ac56246fd9b84ae23a091d8614576086fb99d93"}, {"path": "intent/recipe-url-menu/verification.md", "sha256": "39229a631a553a3eb5b1175291a7a77a15b0863592a9d4fc0e2b97188b9c19da"}, {"path": "org/reviews/code-recipe-url-menu-002.md", "sha256": "e14a8ad85b2e863601938cc3fb85ef6385f458ff30c3260e2c040101e6716fad"}]
+phase: implement
+status: in_progress
+last_input_hash: 80c1a3a06c01b8227f83cdea97a345134ff8c6e7bb8f6b284b1447ece87d20aa
+stop_reason: null
+last_action: "reviewer:approve_integration_plan"
+artifacts: [{"path": "org/reviews/recipe-url-menu-main-integration-plan-001.md", "sha256": "abea6f49e9f2dafba62e72a4ae495bc88c61dd57dbb30b8653bec95488999c1f"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T23:01:40Z"
+updated_at: "2026-11-24T23:28:08Z"

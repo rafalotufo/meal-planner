@@ -3,16 +3,16 @@ id: orchestrator-0101
 from: orchestrator
 to: reviewer
 kind: handoff
-subject: Final review of verified recipe URL curation implementation
-artifact: intent/recipe-url-menu/verification.md
+subject: Final review of verified swap retention
+artifact: weekly-plan-swap-retention-implementation
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:54:22Z"
+created_at: "2026-11-24T20:14:51Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/code-recipe-url-menu-001.md
+closed_evidence: org/reviews/weekly-meal-planning-swap-final-001.md
 ---
 
-Exact implementation source742ce99492868f1e3ec9bb223c6afc4532fc6ea8 is frozen and security-clear. All required checks plus real menu/auth/curation Chrome QA passed. Independently review code against spec/plan, approved narrow copy-scope amendments and actual proof. Write org/reviews/code-recipe-url-menu-001.md with findings/verdict and exact source. No merge/release approval implied.
+All214Node/7Python, lint/typecheck/build/Chrome pass; security independently clear at917b9eb. Final exactsource917b9ebf8e7915f415e873cfc4ecdd224ab48f59; source frozen. Preserve human merge/release and activation gates.

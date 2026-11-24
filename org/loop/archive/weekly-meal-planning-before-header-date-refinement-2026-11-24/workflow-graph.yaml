@@ -1,0 +1,53 @@
+# Weekly meal planning; local org work only, human merge/release gates preserved.
+version: 1
+nodes:
+  intent:
+    stage: "plan"
+    artifact: "intent/weekly-meal-planning/intent.md"
+    gate: "product_owner_accept"
+    status: accepted
+    done_status: "accepted"
+  spec:
+    stage: "design"
+    artifact: "intent/weekly-meal-planning/spec.md"
+    gate: "product_owner_approve"
+    status: approved
+    done_status: "approved"
+  plan:
+    stage: "build"
+    artifact: "intent/weekly-meal-planning/plan.md"
+    gate: "engineer_approve"
+    status: approved
+    done_status: "approved"
+  implementation:
+    stage: "build"
+    artifact: "weekly-meal-planning-implementation"
+    gate: "code_owner_approve"
+    status: in_review
+    done_status: "merged"
+  staging_acceptance:
+    stage: "test"
+    artifact: "release-specific staging acceptance"
+    gate: "staging_acceptance"
+    status: "not_started"
+    done_status: "approved"
+  release:
+    stage: "deploy"
+    artifact: "authorized weekly meal planning release"
+    gate: "release_authorization"
+    status: "not_started"
+    done_status: "done"
+  diagnosis:
+    stage: "maintain"
+    artifact: "new intent.md"
+    gate: "on_call_triage"
+    status: "not_started"
+    done_status: "done"
+edges:
+  - {"from": "intent", "to": "spec", "trigger": "acceptance"}
+  - {"from": "spec", "to": "plan", "trigger": "approval"}
+  - {"from": "plan", "to": "implementation", "trigger": "plan_accepted"}
+  - {"from": "implementation", "to": "staging_acceptance", "trigger": "reviewed_release_revision"}
+  - {"from": "staging_acceptance", "to": "release", "trigger": "exact_source_staging_accepted"}
+  - {"from": "release", "to": "diagnosis", "trigger": "band_breach_or_incident"}
+  - {"from": "diagnosis", "to": "intent", "trigger": "written_back"}

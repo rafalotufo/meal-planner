@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0089
 from: orchestrator
-to: product-manager
+to: reviewer
 kind: handoff
-subject: Capture direct recipe URL menu intent
-artifact: intent/recipe-url-menu/intent.md
+subject: Independently review weekly meal planning design
+artifact: intent/weekly-meal-planning/plan.md
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:02:27Z"
+created_at: "2026-11-24T19:11:23Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/intent-recipe-url-menu-001.md
+closed_evidence: org/reviews/weekly-meal-planning-final-001.md
 ---
 
-Owner requests adding a recipe from a direct URL without search, using the SDLC org workflow. Owner confirmed reading the linked page for title, photo, summary and time when available. Review scope against saved family menu; preserve auth, SSRF protections and human merge/release gates. Capture grounded intent and PM verdict before Design.
+Assess accepted intent, spec and plan before implementation. Check automatic scheduling activation boundary, family/admission isolation, safe snapshots and recency, migrations/catalog/grants, concurrency, history and feasible meaningful tests. Record findings and verdict; writer cannot self-approve.

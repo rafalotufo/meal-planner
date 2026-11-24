@@ -8,10 +8,10 @@ intent/recipe-url-menu/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 8
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: implement
+- stop_reason: None
 
 ## Agents
 
@@ -25,7 +25,6 @@ intent/recipe-url-menu/intent.md
 
 ## Open messages
 
-- architect-0010 architect -> orchestrator handoff: Shared layout spec and plan ready
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -58,6 +57,8 @@ intent/recipe-url-menu/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0066 ceo -> orchestrator decision: Authorize feature-branch main refresh and native local recovery
+- ceo-0067 ceo -> orchestrator decision: Authorize verified recipe URL integration merge to local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -104,65 +105,19 @@ intent/recipe-url-menu/intent.md
 - product-manager-0013 product-manager -> orchestrator decision: T-Rex Runner intent accepted for Design
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
-- product-manager-0016 product-manager -> orchestrator decision: Recipe URL menu scope reviewed
-- reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
-- reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
-- reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
-- reviewer-0004 reviewer -> orchestrator review: Authenticated access specification approved
-- reviewer-0005 reviewer -> orchestrator review: Authenticated access build plan approved
-- reviewer-0006 reviewer -> orchestrator review: Server-code Gmail allowlist specification and plan approved
-- reviewer-0007 reviewer -> orchestrator review: Authenticated access implementation approved
-- reviewer-0008 reviewer -> orchestrator review: Vercel deployment local implementation approved
-- reviewer-0009 reviewer -> orchestrator decision: Approved strict SQLite storage compatibility amendment
-- reviewer-0010 reviewer -> orchestrator review: Family membership implementation approved
-- reviewer-0011 reviewer -> orchestrator review: Family membership draft needs product clarification
-- reviewer-0012 reviewer -> orchestrator review: Independent recipe notebook code review approved
-- reviewer-0013 reviewer -> orchestrator review: Independent recipe notebook code review approved
-- reviewer-0014 reviewer -> orchestrator review: Approved single-call recipe search specification
-- reviewer-0015 reviewer -> orchestrator review: Approved single-call recipe search implementation plan
-- reviewer-0016 reviewer -> orchestrator review: Independent single-call implementation code review approved
-- reviewer-0017 reviewer -> orchestrator review: Single-call main integration independently approved
-- reviewer-0018 reviewer -> orchestrator review: Current-main single-call integration approved
-- reviewer-0019 reviewer -> orchestrator review: App icon specification and plan independently approved
-- reviewer-0020 reviewer -> orchestrator review: App icon implementation independently approved
-- reviewer-0021 reviewer -> orchestrator review: Independent recipe notebook code review approved
-- reviewer-0022 reviewer -> orchestrator review: Word Snack specification peer review approved
-- reviewer-0023 reviewer -> orchestrator review: Word Snack 128-puzzle amendment approved
-- reviewer-0024 reviewer -> orchestrator review: Word Snack implementation plan peer review approved
-- reviewer-0025 reviewer -> orchestrator review: Full Word Snack catalogue content audit approved
-- reviewer-0026 reviewer -> orchestrator review: Word Snack final code review approved
-- reviewer-0027 reviewer -> orchestrator review: T-Rex specification needs scoped Space scroll correction
-- reviewer-0028 reviewer -> orchestrator review: T-Rex specification correction approved
-- reviewer-0029 reviewer -> orchestrator review: T-Rex automatic lifecycle amendment approved
-- reviewer-0030 reviewer -> orchestrator review: T-Rex implementation plan and pinned provenance approved
-- reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
-- reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
-- reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
-- reviewer-0039 reviewer -> orchestrator review: Shared layout spec and plan approved
+- product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
-- reviewer-0041 reviewer -> orchestrator review: Shared layout final implementation approved
-- security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
-- security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
-- security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
-- security-researcher-0014 security-researcher -> orchestrator review: App icon implementation security clear
-- security-researcher-0015 security-researcher -> orchestrator review: App icon final committed source security reconfirmed
-- security-researcher-0016 security-researcher -> orchestrator review: Independent recipe notebook security review clear
-- security-researcher-0017 security-researcher -> orchestrator review: Word Snack security review clear at 47a5878
-- security-researcher-0018 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
-- security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
-- security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
-- security-researcher-0023 security-researcher -> orchestrator review: Shared layout security clear
+- reviewer-0056 reviewer -> orchestrator review: Main integration recovery plan approved
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
-- senior-developer-0015 senior-developer -> orchestrator handoff: Shared layout implementation verified
 
 ## Recent decisions
 
-- mem-0135 ceo: Owner approved revised async recipe URL menu specification from commit 6101c79. Implementation planning is authorized; plan, code and operational gates remain separate. (org/messages/ceo-0055.md)
-- mem-0136 reviewer: Implementation plan independently approved for owner review; no blockers. Original bounded planning loop completed its eighth turn and is exhausted without code. Owner plan approval must authorize the next bounded Build cycle; no implementation or operational approval is inferred. (org/reviews/plan-recipe-url-menu-001.md)
-- mem-0137 ceo: Owner approved recipe URL menu implementation plan at 2513046 and a fresh bounded local Build cycle. Archived exhausted planning loop; no old budget extended. No development/hosted migration, push, merge or release authorized. (org/messages/ceo-0056.md)
-- mem-0138 orchestrator: Final code review requested one narrow enum-type correction. Keep max8 turns: correction7 returns to final review8, whose approval requires independent security reconfirmation of the exact corrected source via the committed reviewer-to-security consultation route. Initial security assessment already completed; no security review, tests or human gate removed. (org/reviews/code-recipe-url-menu-001.md)
-- mem-0139 orchestrator: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/reviews/code-recipe-url-menu-002.md)
+- mem-0153 ceo: Historical mem-0137 import from feature tip: Owner approved recipe URL menu implementation plan at 2513046 and a fresh bounded local Build cycle. Archived exhausted planning loop; no old budget extended. No development/hosted migration, push, merge or release authorized. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0154 orchestrator: Historical mem-0138 import from feature tip: Final code review requested one narrow enum-type correction. Keep max8 turns: correction7 returns to final review8, whose approval requires independent security reconfirmation of the exact corrected source via the committed reviewer-to-security consultation route. Initial security assessment already completed; no security review, tests or human gate removed. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0155 orchestrator: Historical mem-0139 import from feature tip: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
+- mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 
 ## Constraints
 
@@ -170,20 +125,15 @@ intent/recipe-url-menu/intent.md
 
 ## Artifacts
 
-- intent/recipe-url-menu/build-readiness.md (8f853c9aeca2cd01cd8ef62cde64af02a3e1ae77f07869947e283dc762777077)
-- org/reviews/recipe-url-menu-copy-scope-001.md (3bbe5254b88ba9024e9a2906ce6b2c88b311583bec667e09046f54ce5d3341af)
-- org/reviews/security-recipe-url-menu-001.md (fff7688a7fbff777157731875c7d4a3ab646fa38132ec2fdba5bb0ba06b1f780)
-- org/reviews/code-recipe-url-menu-001.md (01f542819538b58660bed3ce8ac56246fd9b84ae23a091d8614576086fb99d93)
-- intent/recipe-url-menu/verification.md (39229a631a553a3eb5b1175291a7a77a15b0863592a9d4fc0e2b97188b9c19da)
-- org/reviews/code-recipe-url-menu-002.md (e14a8ad85b2e863601938cc3fb85ef6385f458ff30c3260e2c040101e6716fad)
+- org/reviews/recipe-url-menu-main-integration-plan-001.md (abea6f49e9f2dafba62e72a4ae495bc88c61dd57dbb30b8653bec95488999c1f)
 
 ## Next action
 
-reviewer:review
+reviewer:approve_integration_plan
 
 ## Last digest source
 
-- mem-0139 from org/reviews/code-recipe-url-menu-002.md
+- mem-0158 from intent/recipe-url-menu/main-integration-verification.md
 
 <!-- machine:end -->
 

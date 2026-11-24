@@ -1,0 +1,26 @@
+[
+  {
+    "original_id": "recipe-url-menu-intent-2026-11-24",
+    "original_hash": "928efde4d0cd567f32578c2959b04aaff57318dbba16a682e61aaec1bd590ab6",
+    "import_id": "recipe-url-menu-intent-2026-11-24",
+    "import_hash": "deffa9656903e7311165aaf40e4d7b59cf3f1ab9998379f05657e1bcf8a63b40"
+  },
+  {
+    "original_id": "recipe-url-menu-save-first-intent-2026-11-24",
+    "original_hash": "404386bab5b8efc87d7c9e7c1ab762a0c84204ad71f4f2b79b1c1080d475bb00",
+    "import_id": "recipe-url-menu-save-first-intent-2026-11-24",
+    "import_hash": "9e1252d100d3e6fbfb95b4ec1547eb4b1278d855eedeeffd04a586259c6ca6bd"
+  },
+  {
+    "original_id": "recipe-url-menu-spec-2026-11-24",
+    "original_hash": "1e7ef92dfddb81be1de8c51c60697e17feba5758b0766197537337823fac0c27",
+    "import_id": "recipe-url-menu-spec-2026-11-24",
+    "import_hash": "42aac4a486518e989596746a2b80cbdc2a24f938a2ac9e86e94e4ebb899359c1"
+  },
+  {
+    "original_id": "recipe-url-menu-plan-2026-11-24",
+    "original_hash": "27a1966d7c842394b826bb3e44476338be60292b3e45d4127426d77f8e319eb6",
+    "import_id": "recipe-url-menu-plan-2026-11-24",
+    "import_hash": "88301f50e8507de31c41c2d6755f4566909841e7057e612875586c091bb3abdd"
+  }
+]

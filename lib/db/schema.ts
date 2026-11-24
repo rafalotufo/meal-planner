@@ -37,3 +37,6 @@ export interface MenuCurationRow {
   scheduledAt: number; expiresAt: number; lease: string | null; googleSubject: string;
   verifiedEmail: string; credentialExpiresAt: number;
 }
+
+export interface MealPlanWeekRow { id: string; familyId: string; weekStart: string; revision: number; status: 'draft' | 'final'; meals: unknown; createdAt: number; finalizedAt: number | null }
+export interface MealPlanSuggestionRow { id: string; planId: string; userId: string; baseRevision: number; day: number; menuRecipeId: string; recipe: unknown; status: 'pending' | 'accepted' | 'rejected' | 'stale'; createdAt: number }

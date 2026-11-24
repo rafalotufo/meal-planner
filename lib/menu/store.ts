@@ -3,7 +3,7 @@ import type { FamilyDatabase } from '../db/connection';
 import type { MenuRecipeRow, MenuCurationRow } from '../db/schema';
 import { FamilyError, requireMember, verifiedIdentity, type VerifiedIdentity } from '../identity-access';
 import type { MenuPage, MenuRecipe } from './types';
-import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrl, parseMenuSourceUrls } from './validation';
+import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrl, parseMenuSourceUrls, parseMenuSearch } from './validation';
 
 const columns = 'm.id, m.family_id AS "familyId", m.source_url AS "sourceUrl", m.image_url AS "imageUrl", m.title, m.summary, m.time_kind AS "timeKind", m.time_text AS "timeText", m.saved_at AS "savedAt", c.state AS "curationState", c.expires_at AS "curationExpiresAt"';
 const relation = 'menu_recipes m LEFT JOIN menu_recipe_curations c ON c.entry_id=m.id';
@@ -18,11 +18,14 @@ export async function lookupMenuRecipes(db: FamilyDatabase, identity: VerifiedId
   const rows = await db.all<{sourceUrl: string}>('SELECT source_url AS "sourceUrl" FROM menu_recipes WHERE family_id=$1 AND source_url=ANY($2::text[]) LIMIT 6', [user.familyId, sources]);
   return { savedSourceUrls: rows.map(row => row.sourceUrl) };
 }
-export async function listMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, after?: unknown): Promise<MenuPage> {
+export async function listMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, after?: unknown, query?: unknown): Promise<MenuPage> {
   const position = after === undefined ? null : parseMenuCursor(after);
-  if (after !== undefined && !position) throw invalid();
+  const search = parseMenuSearch(query);
+  if (after !== undefined && !position || search === null) throw invalid();
   const user = await requireMember(db, identity, allowedEmails);
-  const rows = await db.all<MenuRecipeRow>(`SELECT ${columns} FROM ${relation} WHERE m.family_id=$1${position ? ' AND (m.saved_at,m.id) < ($2,$3)' : ''} ORDER BY m.saved_at DESC,m.id DESC LIMIT 51`, position ? [user.familyId, position.savedAt, position.id] : [user.familyId]);
+  const values: unknown[] = position ? [user.familyId, position.savedAt, position.id] : [user.familyId];
+  if (search) values.push(search);
+  const rows = await db.all<MenuRecipeRow>(`SELECT ${columns} FROM ${relation} WHERE m.family_id=$1${position ? ' AND (m.saved_at,m.id) < ($2,$3)' : ''}${search ? ` AND strpos(lower(m.title COLLATE pg_catalog."und-x-icu"),lower($${values.length}::text COLLATE pg_catalog."und-x-icu"))>0` : ''} ORDER BY m.saved_at DESC,m.id DESC LIMIT 51`, values);
   const entries = rows.map(menuEntryFromRow), visible = entries.slice(0, 50);
   return { entries: visible, nextCursor: entries.length > 50 ? encodeMenuCursor(visible[49]) : null };
 }

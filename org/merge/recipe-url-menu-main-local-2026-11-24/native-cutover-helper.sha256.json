@@ -1,0 +1,6 @@
+{
+  "helper": "org/merge/recipe-url-menu-main-local-2026-11-24/native-cutover-helper.mjs",
+  "sha256": "0952712550288485eed299f15a22f221eb1b0feb5d39f7efdeac4ac67130de1f",
+  "scope": "historical reviewed guard/helper only; do not run apply against the already candidate-compatible five-migration native state",
+  "observedPrepareOutcome": "refused native-prefix-drift before backup or DB writes; no pre-cutover backup exists from this run"
+}

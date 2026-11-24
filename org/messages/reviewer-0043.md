@@ -2,17 +2,17 @@
 id: reviewer-0043
 from: reviewer
 to: orchestrator
-kind: answer
-subject: "Re: Review baseline search-copy assertion scope correction"
-artifact: intent/recipe-url-menu/plan.md
+kind: decision
+subject: Approved seven recipe cards presentation amendment
+artifact: intent/weekly-meal-planning/plan.md
 requires_response: false
-in_reply_to: orchestrator-0098
+in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:40:28Z"
+created_at: "2026-11-24T19:31:37Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/recipe-url-menu-copy-scope-001.md
+closed_evidence: org/reviews/weekly-meal-planning-final-001.md
 ---
 
-Approved narrow plan amendment adding tests/auth/oauth.test.ts and tests/auth/browser.ts for exact existing approved weekly-label expectation only. Packaging test already covered. Baseline source unchanged. Preserve assertions and checks; no skips, alternatives or app-copy change. Evidence org/reviews/recipe-url-menu-copy-scope-001.md.
+Approved owner-directed amendment before code: seven recipe cards without individual weekday/date labels, title headings and recipe-oriented accessible labels; preserve top weekly range and all data/action/scheduling/security behavior. See org/reviews/weekly-meal-planning-presentation-001.md.

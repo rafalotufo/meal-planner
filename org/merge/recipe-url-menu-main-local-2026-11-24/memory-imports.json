@@ -1,0 +1,52 @@
+[
+  {
+    "original": "mem-0130",
+    "import": "mem-0146",
+    "source": "intent/recipe-url-menu/intent.md"
+  },
+  {
+    "original": "mem-0131",
+    "import": "mem-0147",
+    "source": "org/loop/archive/shared-site-layout-before-recipe-url-menu-2026-11-24/README.md"
+  },
+  {
+    "original": "mem-0132",
+    "import": "mem-0148",
+    "source": "org/messages/ceo-0053.md"
+  },
+  {
+    "original": "mem-0133",
+    "import": "mem-0149",
+    "source": "org/messages/ceo-0054.md"
+  },
+  {
+    "original": "mem-0134",
+    "import": "mem-0150",
+    "source": "org/reviews/spec-recipe-url-menu-002.md"
+  },
+  {
+    "original": "mem-0135",
+    "import": "mem-0151",
+    "source": "org/messages/ceo-0055.md"
+  },
+  {
+    "original": "mem-0136",
+    "import": "mem-0152",
+    "source": "org/reviews/plan-recipe-url-menu-001.md"
+  },
+  {
+    "original": "mem-0137",
+    "import": "mem-0153",
+    "source": "org/messages/ceo-0056.md"
+  },
+  {
+    "original": "mem-0138",
+    "import": "mem-0154",
+    "source": "org/reviews/code-recipe-url-menu-001.md"
+  },
+  {
+    "original": "mem-0139",
+    "import": "mem-0155",
+    "source": "org/reviews/code-recipe-url-menu-002.md"
+  }
+]

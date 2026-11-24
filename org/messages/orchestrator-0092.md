@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0092
 from: orchestrator
-to: product-manager
-kind: question
-subject: Amend intent for owner-directed save-first curation
-artifact: intent/recipe-url-menu/intent.md
-requires_response: true
+to: reviewer
+kind: handoff
+subject: Review owner presentation amendment then final weekly implementation
+artifact: weekly-meal-planning-implementation
+requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:12:22Z"
+created_at: "2026-11-24T19:30:49Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/intent-recipe-url-menu-002.md
+closed_evidence: org/reviews/weekly-meal-planning-final-001.md
 ---
 
-Owner changed the flow before spec approval: save immediately, then curate details and update the same entry. Owner selected simple delivery: save safely, start curation, offer Retry if interrupted. Amend intent and PM assessment accordingly; no independent recovery scheduler or paid AI. Preserve prior approval history and separate spec/plan/hosted gates.
+First independently approve bounded owner amendment in spec/plan (ceo-0059): seven recipe cards without individual weekday/date labels, retain weekly range/scheduling/data/actions. Source not yet changed. Then independently review full final implementation and verification after developer applies approved label correction and reruns relevant checks/Chrome. No self-review; security already clear at d7e3734.

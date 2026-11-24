@@ -3,16 +3,16 @@ id: orchestrator-0096
 from: orchestrator
 to: reviewer
 kind: handoff
-subject: Review recipe URL curation implementation plan
-artifact: intent/recipe-url-menu/plan.md
+subject: Final review of undated plan header
+artifact: weekly-plan-header-implementation
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:22:03Z"
+created_at: "2026-11-24T19:39:53Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/plan-recipe-url-menu-001.md
+closed_evidence: org/reviews/weekly-meal-planning-header-final-001.md
 ---
 
-Independently review plan against approved async spec and actual source. Check file manifest completeness, migration/catalog/restricted-grant changes, session/JWE delegation, fenced updates, parser/transport bounds, fixture feasibility and full verification. Record evidence and verdict in org/reviews/plan-recipe-url-menu-001.md. No code or owner plan approval.
+Header correction and evidence green; inspect newest screenshots and exact source SHA to follow. Prior full feature core/security approval unchanged. Dates only in history controls. No merge/release/activation authority.

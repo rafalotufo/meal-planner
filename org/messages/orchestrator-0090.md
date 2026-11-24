@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0090
 from: orchestrator
-to: architect
+to: senior-developer
 kind: handoff
-subject: Design accepted recipe URL menu intent
-artifact: intent/recipe-url-menu/intent.md
+subject: Implement approved weekly meal planning
+artifact: intent/weekly-meal-planning/plan.md
 requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:06:00Z"
+created_at: "2026-11-24T19:12:48Z"
 closed_by: orchestrator
-closed_evidence: intent/recipe-url-menu/spec.md
+closed_evidence: org/reviews/weekly-meal-planning-final-001.md
 ---
 
-Owner accepted the written intent. Produce a grounded sibling specification only, not implementation or build plan. Cover supported recipe metadata, missing fields, redirects/URL identity, SSRF-safe bounded transport, auth/body/timeout guards, persistence races and accessible menu flow. Independent spec review follows; owner spec approval precedes planning.
+Spec and plan independently approved by reviewer, ledger committed. Implement exact slices with test-first evidence, native disposable databases, full regression and real Chrome QA. Preserve schema/grants/auth constraints and unactivated scheduler boundary. Report needed amendments before departures.

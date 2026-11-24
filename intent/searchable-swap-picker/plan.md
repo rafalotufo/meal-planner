@@ -1,0 +1,291 @@
+# Searchable recipe swap picker — implementation plan
+
+- Author: architect
+- Date: 2026-11-24
+- Status: Approved
+- Approval: independent reviewer, `org/reviews/searchable-swap-picker-plan-001.md`
+- Inputs: accepted intent.md, sibling spec.md and approved visual prototype
+
+## Files that change
+
+- `intent/searchable-swap-picker/intent.md`
+- `intent/searchable-swap-picker/spec.md`
+- `intent/searchable-swap-picker/plan.md`
+- `intent/searchable-swap-picker/verification.md`
+- `intent/weekly-meal-planning/preview/swap-picker-preview.html`
+- `app/plans/swap-recipe-dialog.tsx`
+- `app/plans/plan-controls.tsx`
+- `app/plans/page.tsx`
+- `app/api/menu/route.ts`
+- `lib/menu/store.ts`
+- `lib/menu/validation.ts`
+- `lib/menu/types.ts`
+- `tests/menu/validation.test.ts`
+- `tests/menu/store.test.ts`
+- `tests/menu/http.test.ts`
+- `tests/plans/browser.ts`
+- `org/loop/config.yaml`
+- `org/loop/state.yaml`
+- `org/loop/history.jsonl`
+- `org/loop/archive/unique-weekly-recipes-before-searchable-swap-picker-2026-11-24/*`
+- `org/loop/archive/searchable-swap-picker-before-stable-frame-2026-11-24/*`
+- `org/loop/archive/stable-frame-before-retained-results-2026-11-24/*`
+- `org/status.yaml`
+- `org/messages/*.md`
+- `org/reviews/*searchable-swap-picker*`
+- `org/reviews/swap-picker-*.png`
+- `org/reviews/weekly-plan-*.png`
+- `org/memory/context.md`
+- `org/memory/events.jsonl`
+- `workflow-graph.yaml`
+- `gates/ledger.jsonl`
+
+- `intent/weekly-meal-planning/brainstorm.md`
+- `intent/weekly-meal-planning/intent.md`
+- `intent/weekly-meal-planning/spec.md`
+- `intent/weekly-meal-planning/plan.md`
+- `intent/weekly-meal-planning/scheduler-runbook.md`
+- `intent/weekly-meal-planning/weekly-meal-plans.plist.example`
+- `intent/weekly-meal-planning/verification.md`
+- `lib/plans/types.ts`
+- `lib/plans/calendar.ts`
+- `lib/plans/validation.ts`
+- `lib/plans/store.ts`
+- `lib/plans/generate.ts`
+- `lib/db/schema.ts`
+- `drizzle/postgresql/0002_weekly_meal_planning.sql`
+- `drizzle/postgresql/0003_unique_weekly_recipes.sql`
+- `drizzle/postgresql/meta/_journal.json`
+- `drizzle/postgresql/runtime-migrations.json`
+- `drizzle/postgresql/catalog.json`
+- `drizzle/postgresql/rollback-plans-test.sql`
+- `drizzle/postgresql/rollback-unique-plans-test.sql`
+- `scripts/migrate-db.ts`
+- `scripts/generate-meal-plans.ts`
+- `app/api/plans/[[]id]/route.ts`
+- `app/layout.tsx`
+- `.env.example`
+- `package.json`
+- `tests/plans/package.json`
+- `tests/plans/calendar.test.ts`
+- `tests/plans/validation.test.ts`
+- `tests/plans/generate.test.ts`
+- `tests/plans/store.test.ts`
+- `tests/plans/http.test.ts`
+- `tests/plans/migration.test.ts`
+- `tests/menu/migration.test.ts`
+- `tests/family/storage.test.ts`
+- `tests/auth/shared-layout.test.ts`
+- `org/loop/archive/shared-site-layout-before-weekly-meal-planning-2026-11-24/*`
+- `org/loop/archive/weekly-meal-planning-before-header-date-refinement-2026-11-24/*`
+- `org/loop/archive/weekly-plan-header-before-swap-retention-2026-11-24/*`
+- `org/loop/archive/weekly-swap-retention-before-unique-recipes-2026-11-24/*`
+- `org/reviews/*weekly-meal-planning*`
+- `org/merge/searchable-swap-main-2026-11-24/**`
+
+- `tests/deployment/postgres-packaging.test.ts`
+- `tests/family/main-integration.test.ts`
+- `tests/auth/oauth.test.ts`
+- `tests/auth/browser.ts`
+
+The existing prototype path remains the approved reference, not application
+source; do not move it or copy its sample images into runtime. No thumbnail
+helper file is necessary: keep the small saved-image/fallback rendering inside
+the dialog. No changes to migration SQL/catalog, planning store/action contracts,
+photo/provider code, auth policy/Proxy, dependencies or deployment configuration.
+`next-env.d.ts` is excluded; preserve the user's existing bytes and live server.
+
+## Ordered slices
+
+1. Independent reviewer approves this spec and exact manifest. Root owns all
+   workflow/ledger/status/commits and archived prior-loop evidence. Developer
+   reads installed Next Image/client-component guides before implementation.
+2. Write failing menu validation/store/HTTP tests before source edits. Cover
+   omitted/blank q compatibility, trimmed bounded well-formed strings, literal
+   wildcards/quotes/Unicode, duplicate/unknown URL params, full-menu matches past
+   entry50, stable filtered cursor pages, current-family/admission guards,
+   private/security headers and unchanged read-only effects. Add pure response
+   validator failures for >50, malformed entries/cursors/order/duplicates/keys.
+   Record actual red output without changing old unrelated assertions.
+3. Extend existing guarded GET and store with optional bounded literal title
+   search using bound SQL. Keep old signatures/default behavior and POST query
+   contracts. Implement strict MenuPage parser for new network data. Run focused
+   menu tests through real owned restricted databases; no schema change.
+4. Add native dialog with approved visual treatment, saved validated thumbnails,
+   native focus/dismissal/return, selected-card state and explicit confirmation.
+   Implement debounced paged GET, bounded response reader, deadline/abort and
+   request-instance supersession guards. Modal always opens from any editable
+   card, regardless of initial server page's available choices. No new asset or
+   retrieval mechanism. Verify this read/selection slice before enabling POST.
+5. Integrate with existing PlanControls single mutation guard. Capture opened
+   plan/revision/slot; preserve failure details and correct modal instance across
+   close/reopen/prop changes. On success announce and refresh. Remove obsolete
+   per-card selects/main-page menu pagination instructions while preserving
+   `/menu`, accepted legacy plan query parameters and planning behavior.
+6. Adapt existing real Chrome planning flow to physical modal/card/search/confirm
+   actions in place of select interactions. Preserve its prior state/storage
+   assertions. Add >50 title-search and modal paging, all-planned first page,
+   counts/null/broken image fallback, search focus/Tab containment/Escape/backdrop/
+   cancel/no-selection POST, double-click one-POST guard, delayed request abort/
+   supersession/reopen, invalid payload/retry and stale409/access recovery. Test
+   mobile320 and desktop1440, long titles and scrollable footer. Use existing
+   test-only CDP image/network fixtures; no production bypass/helper changes.
+7. Run required checks below in a private source-equivalent QA copy, inspect
+   screenshots, record exact outputs/limitations in feature verification.md.
+   Independent security and final source reviews follow; resolve findings and
+   rerun affected checks. Root commits reviewed result and stops at human merge.
+
+## Required commands
+
+```sh
+pnpm run lint
+pnpm run typecheck
+pnpm run build
+pnpm test
+pnpm run test:family
+pnpm run test:menu
+pnpm run test:auth
+pnpm run test:plans
+node --import tsx --test tests/deployment/*.test.ts
+node --import tsx tests/plans/browser.ts
+python3 -m unittest discover -s tests
+git diff --check
+python3 scripts/scan_secrets.py --staged
+```
+
+Run every command with the explicit pinned Node24/pnpm10.33.0 PATH in the private
+QA cwd (its default shell may otherwise select Node22). Run build/typegen
+serially and required DB/server suites after build. Keep
+Google/provider/photo calls fixture-only and paid keys empty in owned test
+servers. Root runs plan-sync over the whole feature baseline plus message,
+memory, workflow, loop and hash-chained ledger checks; secret-scan each commit.
+
+## Evidence and limits
+
+- Preserve all prior unique1–7, retained pending swaps, duplicate409/reject,
+  approval reset/stale revision, singular/plural/no-dates, final/history and
+  cross-family assertions. Replace obsolete dropdown/pager mechanics with their
+  stronger equivalent modal/full-menu-search assertions, not deletion of coverage.
+- Search results contain at most50 per page. Counts describe only visible
+  unplanned choices on that page; no inferred global totals. A filtered page with
+  no choices must still allow older results where nextCursor is available.
+- Response validation and instance guards are correctness boundaries, not merely
+  UI polish: meaningful tests must expose malformed or stale data failing to win.
+- The owner dev server and `.next` are untouched. Root prepares an owner-only
+  private tracked+pending-source copy, links pinned installed node_modules and
+  private isolated fixture configuration, checks source equivalence, and copies
+  only reviewed source changes/evidence back. Record QA path/source equivalence;
+  never publish credentials or commit the owner's next-env diff.
+- No new app configuration, infrastructure, migration, hosted access, deployment,
+  scheduling activation, push or merge is authorized. A needed extra source/helper
+  path requires a reviewed manifest amendment before implementation.
+
+
+## Follow-up fix plan — stable search-modal geometry
+
+Status: Approved by independent review `org/reviews/searchable-swap-picker-stable-frame-plan-001.md`. Same feature and existing
+runtime/test manifest; the added archive path preserves the completed prior loop.
+
+1. In a fresh root-owned private source copy, add an actual Chrome geometry
+   regression to existing `tests/plans/browser.ts` before CSS edits. At widths
+   320/768/1024/1440 (height1000) and320×568, record dialog x/y/width/height while
+   populated, typing successive characters, delayed/debounced loading, no matches,
+   populated matches, load failure and selected state. Compare within1 CSS pixel
+   at each fixed viewport. Demonstrate an actual failure on the current CSS.
+2. Change only frame sizing in `app/plans/swap-recipe-dialog.tsx`: explicit height
+   bounded by viewport and a desktop cap (e.g. min(52rem,100dvh minus2rem)), inner
+   wrapper filling the frame, existing min-height-zero flex result scroll region
+   and outer short-viewport scroll fallback retained. No request/state/selection,
+   API, database, parent mutation, image or focus-contract change. No JS geometry
+   freeze, stale-result retention, extra helper path or dependency.
+3. Run lint, strict typecheck and production build privately, then existing full
+   Chrome flow including geometry regression. Keep original protected search and
+   planning behavior assertions. Inspect fresh browse/selected mobile/desktop
+   screenshots and short-mobile frame/footer access. Root coordinates affected
+   broad/compiled checks without concurrent builds; append actual red/green and
+   private-source correspondence to feature verification.md.
+4. Independent final reviewer checks the bounded CSS correction and evidence,
+   including unchanged security/network boundaries. Root owns workflow, commits,
+   exact-source copy-back and human merge/release gates. Preserve original live
+   server, next-env.d.ts bytes and .next cache throughout; no deployment or data
+   effects are authorized.
+
+
+## Owner follow-up plan — retain results until replacement is ready
+
+Status: Approved in `org/reviews/searchable-swap-picker-retained-results-plan-001.md`. Supersedes the prior
+clear-page/loading-only/no-stale-display directions while preserving immediate
+selection invalidation and disabled stale choices. The archive path above retains
+the completed stable-frame loop. Existing manifest paths suffice.
+
+1. In a fresh root-owned private QA copy, add browser regressions first to
+   `tests/plans/browser.ts`. Capture actual displayed choice IDs before physical
+   typing; sample through successive characters, debounce and a delayed body.
+   IDs must remain identical/nonempty with choices/paging/confirmation disabled
+   and selection cleared. Old behavior must fail by removing the choices. Verify
+   an atomic latest-response replacement, accurate displayed-query metadata,
+   fresh query cursors, ordinary-error retention/Retry and401/403 display clearing.
+2. Update only `app/plans/swap-recipe-dialog.tsx` result lifecycle/rendering as
+   necessary: retain a successful displayed snapshot with its query/cursor,
+   requested query/page separate, and commit snapshot only after current validated
+   success. Keep retained choices visible without an updating label; preserve aria-busy. Disable
+   stale choices/paging/confirmation on pending/error; clear selection immediately.
+   Current unauthorized/forbidden reads clear retained recipes. Preserve all
+   cancellation/version/deadline/response-validation and mutation-instance guards.
+   No API/store/schema/dependency/helper or stable-frame CSS change.
+3. Adapt prior browser assertions to this explicitly changed UX rather than
+   weaken safety checks. Preserve malformed/oversized/UTF8, stale-response,
+   close/reopen, explicit one-POST/captured revision, native focus, unique planning,
+   full-menu paging, no-dates and55 stable-geometry checks. Exercise320/1440 and
+   short-mobile behavior; inspect refreshed existing modal screenshots.
+4. Run private lint/typecheck/build and full Chrome; freeze final build before
+   root's broad/compiled suites, record actual red/green and exact paths in
+   verification.md. Independent review assesses this scoped state/presentation
+   change and unchanged security boundaries. Root owns workflow/git/guarded
+   copy-back; preserve original dev server, next-env.d.ts and .next. No data,
+   hosted, scheduler, paid, merge or deployment action is authorized.
+
+
+## Authorized local-main integration amendment
+
+The owner authorized merging the searchable swap modal into local main. It
+requires the reviewed weekly-planning dependency not yet present on main. The
+exact manifest above therefore includes that feature's explicit source, SQL,
+rollback, scheduler-template, test and artifact paths, plus the bounded audit
+archive `org/merge/searchable-swap-main-2026-11-24/**`; no broad application glob
+or additional product behavior is authorized.
+
+Integrate main b9812311562a960d9475f219a85d38421e7ab6e0 with feature
+9fe0f42e467c6d13d5223f9f88877723981d7914, common ancestor
+17881438e3c68f0099e063e714560682c93bd0fb, in the root-prepared private clone.
+Runtime merges cleanly. Resolve only divergent audit streams following the
+single-call/T-Rex main-integration precedent: preserve main's exact ledger/memory
+prefixes, archive both immutable original chains/messages/loops/status/context,
+append historical feature decisions/events with fresh IDs and explicit source
+commit/hash provenance, alias four colliding feature messages and remap only
+feature-owned references. Retain main's message originals and hosted-release
+facts, feature's solved workflow, and both review histories. AGENTS.md must stay
+byte-identical to current main, including the saved-menu Production cutover and
+incompatible-old-catalog rollback caveat. Imported historical release decisions
+do not authorize this integration or a new release.
+
+Root records the fresh human local-merge authority and owns candidate commit,
+combined verification/independent integration review and expected-tip fast-forward
+of local main. No migration execution, hosted action, deployment, provider call,
+paid feature, job activation, push or release is authorized. The developer resolves
+audit conflicts privately, documents exact source/provenance and leaves all work
+uncommitted for root; original app/.next/next-env/main worktrees remain untouched.
+
+
+### Integration-only test synchronization for newer main's approved prompt
+
+Combined candidate regression exposed stale copy assertions: deployment31/32,
+auth15/16 and family33/34, each expecting “What would you like to cook” although
+current main's reviewed label is exactly “What would you like to eat this week?”.
+The same stale assertion exists in the auth browser flow. Independently approved
+in `org/reviews/searchable-swap-picker-main-integration-plan-001.md`; update only those exact assertions at the four explicit test paths
+above to the new main label, using an escaped literal question mark. Keep all
+other assertions/scenarios and runtime source unchanged; no alternative-pattern
+or weaker existence-only assertion. Root reruns affected auth/family/deployment,
+lint/typecheck and applicable browser QA on the existing matching runtime build.
+This is test synchronization for cleanly merged main behavior, not a copy change.

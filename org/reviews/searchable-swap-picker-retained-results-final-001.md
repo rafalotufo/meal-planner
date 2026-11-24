@@ -1,0 +1,24 @@
+# Quiet retained results — independent final review 001
+
+- Independent reviewer; writer: senior-developer. Date:2026-11-24.
+- Scope: baseline `76ffba0f921f6cf6d9076348f5e87f911bda7336` through exact source `4f91e9c2b833dddbe154a795c60cc869f4035366`.
+- Inputs: approved retained-results amendment, latest owner instruction to omit visible updating copy, verification.md, private source/browser logs, fresh screenshots, independent security clearance, org role/protocol, REVIEW.md and code-review-and-quality skill.
+- Verdict: **Approve local implementation. No material bug, security or compliance findings; no required changes.** Human merge/release remain separate.
+
+**Bugs:** The successful displayed snapshot carries validated page, trimmed query and cursor together; requested query/cursor remain separate. Only current-instance/current-request fully validated success replaces the snapshot. Reset aborts/invalidates older work, clears selection and enters loading without deleting displayed cards. The unavailable predicate includes pending/error/missing snapshot/query-cursor mismatch and protects native choice buttons, handler, paging and confirmation. No old selection is restored on success. Ordinary failures retain disabled prior display with Retry; current401/403 clears retained recipes. Counts, empty/no-match descriptions and previous-results label refer to displayed metadata; changed query resets its requested cursor. Fresh keyed openings contain no old display. No correctness finding.
+
+**Security:** Existing byte/UTF8/JSON/page validation,12-second deadline, cancellation and alive/version success/error/finally guards are unchanged. Retaining display confers no actionable selection, and authorization failures clear it. Captured mutation target/global submission ownership, native dismissal/focus and server family/admission/uniqueness checks remain unchanged. No API/schema/provider/image/auth/dependency change occurs. Independent security review is clear for the same exact source. No security finding.
+
+**Compliance:** The owner-requested visible retention explicitly supersedes previous blank-loading-page behavior. During pending updates, no visible Updating copy is rendered; aria-busy remains and initial no-snapshot loading retains its message. Stable-frame CSS/scrolling is unchanged. Existing modal/planning assertions are retained alongside actual-ID retention, disabled-action, accurate metadata/cursor and error/access tests. Scope remains inside existing dialog/test/evidence paths. No policy, architectural or performance finding warrants a required change; one snapshot replaces rather than accumulates bounded pages.
+
+## Independent checks and supplied evidence
+
+- Independently inspected the actual dialog/browser delta and exact committed source. Compared both changed runtime/test files with `/private/tmp/meal-planner-retained-results-0he__gw5/project`: byte-identical.
+- `git diff --check 76ffba0f921f6cf6d9076348f5e87f911bda7336 4f91e9c2b833dddbe154a795c60cc869f4035366`: exit0.
+- Independently computed original next-env.d.ts SHA256 `0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc`, matching preserved owner bytes.
+- Read actual supplied browser-red.log:43 populated choice IDs become0 while typing F and the exact retained-array assertion fails. Read browser-final.log:43 remain43; all five stable-frame viewport summaries report0px maximum rectangle delta. Browser source additionally asserts identical IDs/order during successive typing and pending body, immediately absent selection/disabled choices-paging-confirmation, latest atomic replacement, ordinary error retention/Retry,401/403 clearing, fresh query cursor and empty success.
+- Independently opened refreshed browse320 and selected320×568 screenshots: accurate snapshot metadata, visible rows/photo fallback, wrapped selection and reachable Cancel/Suggest footer. These are supplied real-browser captures, visually inspected here.
+
+Reviewed supplied final execution: private lint/typecheck/build exit0, current223 Node tests and7Python passed, complete Chrome flow including retained results, access/errors/cursors, prior request/instance/mutation races, full-menu search, native focus/keyboard, planning uniqueness/history and55 geometry samples passed. Root reports baseline-guarded seven-path copy-back; security reviewer independently bound all seven paths to this exact source. Full build/test/browser commands were not rerun by this reviewer; own work was source/equivalence/diff/hash/log/visual assessment, distinguished from supplied execution.
+
+No source/process/ledger edits, commits, original server/cache operations, development/hosted data effects or deployment were performed by this reviewer. Only new review artifacts were written. Root owns audit/gate closure; no hosted operation or release is authorized. Earlier hosted ICU compatibility prerequisite remains unaffected.

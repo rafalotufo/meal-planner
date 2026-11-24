@@ -2,17 +2,17 @@
 id: orchestrator-0094
 from: orchestrator
 to: reviewer
-kind: question
-subject: Review save-first curation specification amendment
-artifact: intent/recipe-url-menu/spec.md
-requires_response: true
+kind: handoff
+subject: Review removal of visible plan header dates
+artifact: intent/weekly-meal-planning/plan.md
+requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:14:30Z"
+created_at: "2026-11-24T19:36:55Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/spec-recipe-url-menu-002.md
+closed_evidence: org/reviews/weekly-meal-planning-header-final-001.md
 ---
 
-Owner changed from fetch-before-save to immediate durable URL save followed by bounded best-effort curation and explicit Retry if interrupted. Independently review revised spec, including new migration/grants, job authority/lease/generation, removal-resave fencing, after semantics, safe transport, pending display and polling. Prior synchronous review is historical only. Produce org/reviews/spec-recipe-url-menu-002.md with evidence and verdict; do not approve owner gate.
+New owner correction ceo-0060 supersedes retained top weekrange assumption. Review bounded doc amendment before code, then developer removes header range and reruns relevant checks/Chrome; core and history controls unchanged. New bounded4turn cycle preserves prior completed6turn loop archive.

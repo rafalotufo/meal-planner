@@ -1,0 +1,121 @@
+# Weekly family meal planning — brainstorm
+
+- Date: 2026-11-24
+- Source: Rafael's active chat, using `ai-native-sdlc:old-eg-brainstorm`
+- Stage: Feature ideation for the existing app
+- Breadth: Five deeper concepts
+- Research: Off
+- Status: Direction selected; saved at the owner's request
+
+## Seed
+
+Build a weekly meal plan from the saved menu, with family members helping shape
+it. Share the work of deciding what to eat and give everyone a voice. Use saved
+recipes as the starting pool, keep participation within the existing family,
+and make contributing quick and easy. Success means a useful weekly plan with
+less coordination work for one person. Implementation, grocery ordering,
+nutrition optimization and new recipe discovery were outside the brainstorm.
+The owner confirmed this seed before the independent rounds.
+
+## Independent rounds
+
+Three fresh thinkers produced nine proposals through these lenses:
+
+- Family experience: Everyone Gets a Pick; A Draft to React To; Claim a Dinner
+  Night.
+- First principles and practical coordination: The Weekly Shortlist; Claim a
+  Night; A Draft with Easy Swaps.
+- Contrarian and participation pre-mortem: Silence Means “Plan for Me”; Own One
+  Dinner; One Objection, One Alternative.
+
+## Five synthesized concepts
+
+| Concept | Interaction and bet | Main risk |
+| --- | --- | --- |
+| Everyone gets a pick | Each member requests one saved recipe; a coordinator schedules the choices and fills gaps. Small contributions give everyone a voice. | Scheduling still falls to one person; requests can feel like promises. |
+| Claim a night | Members own a dinner decision for a day; choosing and cooking are separate commitments. | Unclaimed nights may repeatedly fall to one person. |
+| React to a draft | Start with a proposed week; family members approve or suggest a replacement from the saved menu. Concrete proposals make participation easy. | Creating the draft still takes work, and silence can be ambiguous. |
+| Family shortlist | Members nominate a few recipes before scheduling. Shared preferences guide the plan. | A coordinator must reconcile the input; popular choices can dominate. |
+| An input window | Contributions close at a cutoff and a coordinator settles the week. Planning can finish without chasing everyone. | Deadlines can feel formal and quiet members can feel overlooked. |
+
+## Original ranked picks
+
+1. Everyone gets a pick: easiest contribution to validate for one week.
+2. Claim a night: strongest when sharing decision responsibility is the goal.
+3. React to a draft: strongest when family members respond more readily than
+   they initiate.
+
+The owner selected **React to a draft**, superseding the original ranking.
+
+## Agreement and disagreement
+
+Recurring signals were to keep contributions small and specific, separate
+choosing from cooking, finish planning without requiring everyone to participate,
+and distinguish requests from confirmed meals. The thinkers differed on whether
+participation should express preferences, own a dinner, or review someone else's
+work, and whether silence should count as delegation.
+
+## Selected direction and owner refinements
+
+- Automatically create a draft every Thursday. The draft day is configurable
+  through an environment variable, defaulting to Thursday.
+- Each draft covers the **upcoming Sunday through Saturday**.
+- Choose from the family's saved recipe menu.
+- Family members approve the draft or suggest recipe swaps.
+- **Do not offer “I'll be away.”** That brainstorm option was explicitly rejected.
+- Preserve weekly meal history and use it when creating future drafts so the
+  exact same meals do not recur every week. Repeating a meal across different
+  weeks is allowed; the later within-week uniqueness correction below narrows
+  the original repetition allowance.
+- The owner then asked to save this brainstorm and implement through the SDLC
+  org workflow, beginning with an intent.
+- During implementation, the owner refined the presentation: “No need to label
+  recipes with dates. Lets just have 7 recipes for the draft.” Present seven
+  weekly recipe choices without individual weekday/date assignments. The initial
+  retained-header-range interpretation was superseded by the follow-up below. Source:
+  `org/messages/ceo-0059.md`; independent amendment review:
+  `org/reviews/weekly-meal-planning-presentation-001.md`.
+
+## Design decisions still to make
+
+The owner did not explicitly settle meal types, the generation time/timezone,
+who resolves swaps and confirms a plan, or whether history records plans or
+actual consumption. The intent identifies bounded proposed defaults for these;
+they are not represented as additional owner-approved requirements.
+
+
+## Owner follow-up — remove the header date range
+
+Source: `org/messages/ceo-0060.md`. The owner still saw dates in the screenshots.
+The main plan header must present seven recipes without a numeric date range;
+individual recipe cards remain undated. Week dates appear only in history controls
+to distinguish retained plans. The Sunday–Saturday calendar remains internal
+scheduling/history context; the schedule explanation may retain weekday words.
+All generation, persistence, family feedback and finalization behavior stays as
+previously approved. This supersedes the first amendment's retained-header-range
+assumption, rather than adding another planning capability.
+
+## Owner refinement — independent recipe suggestions survive a swap
+
+Accepting a suggested swap should settle that recipe's competing proposals while
+keeping proposals for other recipe choices. This reduces repeated coordination
+when the family is reviewing several recipes at once. Approval renewal still
+applies to the changed draft, and concurrent clients refresh before acting again.
+
+## Owner refinement — no repeated recipes within a week
+
+Source: `org/messages/ceo-0054.md`. The owner reported repeated recipes and
+required: “There should never be repeated recipes.” Asked about a menu smaller
+than seven recipes, the owner selected “Draft the available unique recipes.”
+The current direction is therefore **up to seven unique weekly recipes**: one
+to six when that is all the menu offers, seven when enough are available, and
+no draft for an empty menu. Neither generation nor swaps may introduce a
+within-week duplicate. Repeating a recipe in a different week remains allowed,
+with existing recency preferences encouraging variety.
+
+This refines the selected React to a draft concept; it does not restore recipe
+date labels or change scheduling, history, approvals or family participation.
+Unrelated swap suggestions must still survive a swap, changed meals still reset
+approvals, and stale clients still refresh before further actions. Legacy draft
+handling is delegated to reviewed Design, with any repair explicit and local
+and finalized raw history preserved.

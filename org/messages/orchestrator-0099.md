@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0099
 from: orchestrator
-to: reviewer
-kind: question
-subject: Extend exact weekly-copy scope to family integration assertion
-artifact: intent/recipe-url-menu/plan.md
-requires_response: true
+to: senior-developer
+kind: handoff
+subject: Implement recipe-scoped swap retention
+artifact: intent/weekly-meal-planning/plan.md
+requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:43:01Z"
+created_at: "2026-11-24T20:08:11Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/recipe-url-menu-copy-scope-001.md
+closed_evidence: org/reviews/weekly-meal-planning-swap-final-001.md
 ---
 
-Full family suite33/34 passed; remaining old home-label assertion is tests/family/main-integration.test.ts:18. Same unchanged approved source copy as previously reviewed. Independently verify and approve narrow manifest addition+exact expected-label correction only, preserve all family/provider-boundary assertions. Amend existing recipe-url-menu-copy-scope-001 review evidence; no code edits.
+Amendment independently approved and committed. Write regression proving unrelated pending suggestions survive accepted swap and remain actionable at new revision; implement minimal locked same-slot invalidation and other-slot revision carry. Keep approval reset/stale checks/family bounds. Run required checks and Chrome two-card flow.

@@ -1,18 +1,18 @@
 ---
 id: orchestrator-0093
 from: orchestrator
-to: architect
-kind: question
-subject: Revise design for accepted asynchronous curation amendment
-artifact: intent/recipe-url-menu/spec.md
-requires_response: true
+to: ceo
+kind: handoff
+subject: Weekly meal planning ready for human merge review
+artifact: intent/weekly-meal-planning/verification.md
+requires_response: false
 in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:12:40Z"
+created_at: "2026-11-24T19:35:10Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/spec-recipe-url-menu-002.md
+closed_evidence: org/reviews/weekly-meal-planning-header-final-001.md
 ---
 
-Owner chose durable immediate link save plus one bounded best-effort background source-curation attempt and explicit Retry if interrupted. Revise spec, preserve synchronous predecessor verbatim, define durable state/migration/grants, after() semantics, task authority, lease/generation race fencing and owner-visible limits. No implementation or infrastructure execution.
+Saved brainstorm and completed local org workflow, independently approved source9694aeedc5757431320f56fd6f8b4b264c157b75. Seven undated recipe choices; Thursday env-configurable due worker; Sun-Sat history/variety; family approvals/swaps/finalization. Required checks212Node/7Python and Chrome320/1440 passed. No push/merge/deployment/hosted migration/job activation. Scheduler activation runbook is prepared for separate authorization.

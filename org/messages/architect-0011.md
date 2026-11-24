@@ -2,17 +2,17 @@
 id: architect-0011
 from: architect
 to: orchestrator
-kind: answer
-subject: "Re: Revise design for accepted asynchronous curation amendment"
-artifact: intent/recipe-url-menu/spec.md
+kind: handoff
+subject: Weekly meal planning spec and plan ready
+artifact: intent/weekly-meal-planning/plan.md
 requires_response: false
-in_reply_to: orchestrator-0093
+in_reply_to: null
 status: closed
 severity: null
 blocking: false
-created_at: "2026-11-24T22:14:30Z"
+created_at: "2026-11-24T19:11:22Z"
 closed_by: orchestrator
-closed_evidence: org/reviews/spec-recipe-url-menu-002.md
+closed_evidence: org/reviews/weekly-meal-planning-final-001.md
 ---
 
-Revised save-first async specification complete at intent/recipe-url-menu/spec.md. Preserved synchronous predecessor verbatim in design-history/synchronous-spec.md. Atomic pending save, Next after one bounded attempt, durable state/manual Retry, guarded same-ID updates and no resurrection; local reviewed migration/catalog/grants required, no hosted execution. See revised spec for owner-visible limits.
+Prepared CLI due scheduler and uninstalled launchd template, Toronto weekday/time, Sunday-Saturday plans, deterministic source-URL recency, family feedback/revisions, immutable final history, reviewed migration strategy and strict tests/browser verification. No hosted activation or source edits.

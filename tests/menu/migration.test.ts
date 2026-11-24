@@ -55,6 +55,8 @@ test('disposable menu rollback precedes preserved initial rollback and permits f
   try {
     await db.transaction(async tx => {
       await tx.execute(await readFile('drizzle/postgresql/rollback-curation-test.sql', 'utf8'));
+      await tx.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));
+      await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql', 'utf8'));
       await tx.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql', 'utf8'));
       await tx.execute(await readFile('drizzle/postgresql/rollback-initial.sql', 'utf8'));
     });

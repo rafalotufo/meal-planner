@@ -305,3 +305,18 @@ test('malformed stored rows and failed database writes produce generic private f
     assert.equal((await s.db.one<{ n: number }>('SELECT count(*) AS n FROM menu_recipes'))?.n, 1);
   } finally { await s.close(); }
 });
+
+
+test('protected title query searches beyond50 with bounded literal pages and unchanged guards/read-only effects',async()=>{
+ const s=await setup();try{
+  const member=await s.db.one<{family:string}>('SELECT family_id AS family FROM app_users WHERE google_subject=$1',['fixture-user']);assert.ok(member);
+  await s.db.execute("INSERT INTO menu_recipes (id,family_id,source_url,title,summary,saved_at) SELECT gen_random_uuid()::text,$1,'https://example.test/modal/'||n::text,CASE WHEN n<=55 THEN 'Older Lemon '||n::text ELSE 'Unrelated recent '||n::text END,'Saved dinner.',n::bigint FROM generate_series(1,110) n",[member.family]);
+  const first=await s.jar.request(s.server.origin,'/api/menu?q=%20older%20LEMON%20');assert.equal(first.status,200);securityHeaders(first.headers);const page=await first.json();assert.equal(page.entries.length,50);assert.ok(page.nextCursor);
+  const second=await (await s.jar.request(s.server.origin,'/api/menu?q=older%20lemon&after='+encodeURIComponent(page.nextCursor))).json();assert.equal(second.entries.length,5);assert.equal(second.nextCursor,null);
+  assert.deepEqual(await (await s.jar.request(s.server.origin,'/api/menu?q=')).json(),await (await s.jar.request(s.server.origin,'/api/menu')).json());
+  for(const query of ['?q=a&q=b','?q='+encodeURIComponent('x'.repeat(101)),'?q=%00','?q=a&after=bad','?q=a&familyId=forged'])await errorResponse(await s.jar.request(s.server.origin,'/api/menu'+query),400,'Invalid request');
+  assert.equal((await s.jar.request(s.server.origin,'/api/menu?q=lemon',{method:'HEAD'})).status,200);await errorResponse(await new CookieJar().request(s.server.origin,'/api/menu?q=lemon'),401,'Unauthorized');
+  const pending=new CookieJar();await signInWithGoogle(s.server.origin,pending,'second-member');await errorResponse(await pending.request(s.server.origin,'/api/menu?q=lemon'),403,'Family membership required');await provision(s.server.origin,pending);assert.deepEqual(await (await pending.request(s.server.origin,'/api/menu?q=lemon')).json(),{entries:[],nextCursor:null});
+  await errorResponse(await post(s.server.origin,s.jar,'/api/menu?q=lemon',recipe),400,'Invalid request');assert.equal((await s.db.one<{n:number}>('SELECT count(*) AS n FROM menu_recipes'))?.n,110);assert.equal((await s.db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions'))?.n,0);
+ }finally{await s.close();}
+});

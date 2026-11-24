@@ -126,7 +126,7 @@ try {
   await db.execute("INSERT INTO menu_recipes (id,family_id,source_url,title,summary,saved_at) SELECT gen_random_uuid()::text,$1,'https://example.test/seed/'||n,'Seed recipe '||n,'A seed recipe.',n FROM generate_series(1,52) n", [pending.familyId]);
   await chrome.navigate(`${server.origin}/menu`);
   await chrome.click('nav[aria-label="Menu pages"] a[href*="after="]');
-  await chrome.waitFor("location.search.includes('after=') && document.body.textContent.includes('Seed recipe 1')", 'older page navigation settled');
+  await chrome.waitFor("location.search.includes('after=') && document.readyState === 'complete' && Array.from(document.querySelectorAll('link[rel=stylesheet]')).every(link => Boolean(link.sheet)) && Array.from(document.querySelectorAll('[data-menu-entry] h4')).some(heading => heading.textContent === 'Seed recipe 1')", 'older page navigation settled');
   const cursor = await chrome.evaluate<string>('location.href');
   const older = await add('/older-browser');
   assert.equal(await chrome.evaluate('location.href'), cursor, 'URL save preserves older page');

@@ -5,7 +5,7 @@ Date: 2026-11-24
 The owner accepted the original intent, then explicitly amended it to save first
 and curate asynchronously. The owner selected a best-effort start plus explicit
 Retry if interrupted. Intent approvals are recorded in the gate ledger and
-`org/messages/ceo-0053.md` / `ceo-0054.md`; specification approval remains pending.
+`org/messages/ceo-0062.md` / `ceo-0054.md`; specification approval remains pending.
 
 The architect drafted the synchronous specification, independently reviewed in
 `org/reviews/spec-recipe-url-menu-001.md`, then revised it for the owner's new
