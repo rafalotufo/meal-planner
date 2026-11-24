@@ -11,6 +11,7 @@
     "test:auth": "node --import tsx --test tests/auth/*.test.ts",
     "db:migrate": "node --env-file=.env.local --import tsx scripts/migrate-db.ts",
     "test:family": "node --import tsx --test tests/family/*.test.ts",
+    "test:menu": "node --import tsx --test tests/menu/*.test.ts",
     "test": "tsc -p tsconfig.recipes-test.json && node --test build/recipe-tests/tests/recipe-*.test.js",
     "db:setup": "node --import tsx scripts/postgres-local.ts setup",
     "db:start": "node --import tsx scripts/postgres-local.ts start",
