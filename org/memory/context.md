@@ -49,6 +49,7 @@ intent/app-icon/intent.md
 - ceo-0024 ceo -> orchestrator decision: Approve recipe notebook merge to main
 - ceo-0025 ceo -> orchestrator decision: Implement single-call recipe research and curation
 - ceo-0026 ceo -> orchestrator decision: Authorize single-call search merge into local main
+- ceo-0027 ceo -> orchestrator decision: Approve reviewed app icon merge into local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -112,11 +113,11 @@ intent/app-icon/intent.md
 
 ## Recent decisions
 
-- mem-0075 architect: Imported prior feature event mem-0075: Imported prior feature event mem-0074: Imported prior feature event mem-0053: Single-call recipe search uses one flattened per-source observed-evidence/card record with exact method and optional metadata excerpts. Remove duplicated IDs/joins and separate strict-schema curator request; retain native exact-URL citation and output bounds. Same-response structural evidence is not independent factual verification. Original source: intent/single-call-recipe-search/spec.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0076 orchestrator: Imported prior feature event mem-0076: Imported prior feature event mem-0075: Imported prior feature event mem-0054: Completed single-call recipe search local implementation3bdc763 through six-turn org loop with passing acceptance and independent code/security approvals. Final live3 queries each1call19.774/26.652/17.739s with10 validated times; metadata prompt clarification preserves literal containment, no validator weakening. Ready for human merge, release not started. Original source: org/reviews/code-single-call-recipe-search-001.md Original source: org/merge/single-call-main-2026-11-23/feature/org/memory/events.jsonl Original source: org/merge/single-call-main-refresh-2026-11-23/feature/org/memory/events.jsonl (org/merge/single-call-main-final-2026-11-23/feature/org/memory/events.jsonl)
 - mem-0077 orchestrator: Merged verified single-call search integration8a09a1efeb85adbc4a2969dbde7b9313d3a1c4a4 into local mainfeb6d396c3990d93d83cfa0020ffbe9c3017bbd8 under original user request; current application and family/PostgreSQL guards preserved, late audit-only records archived/imported. Combined checks/review passed; no push/release. (org/reviews/single-call-main-integration-refresh.md)
 - mem-0078 architect: App icon design proposes static root SVG plus ICO fallback with exact GET/HEAD public asset exceptions; preserve proxy Host/configuration checks and remove blank data URL metadata. (intent/app-icon/spec.md)
 - mem-0079 orchestrator: App icon local design/build/test/security/code review complete; human merge and release remain separate. See final verification and code approval. (org/reviews/app-icon-code-001.md)
+- mem-0080 orchestrator: Rafael approved local app icon merge of reviewed a72e0ad into clean unchanged main 2ee77aa. Approval recorded as code_owner_approve-011; no push or release authorized. (org/messages/ceo-0027.md)
 
 ## Constraints
 
@@ -137,7 +138,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0079 from org/reviews/app-icon-code-001.md
+- mem-0080 from org/messages/ceo-0027.md
 
 <!-- machine:end -->
 

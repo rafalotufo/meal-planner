@@ -21,6 +21,7 @@
 - org/memory/**
 - org/status.yaml
 - workflow-graph.yaml
+- gates/ledger.jsonl
 
 ## Ordered work
 
@@ -101,3 +102,11 @@ not author it reviews the spec/plan and later code; security assessment may
 share the independent review for this static change if it explicitly covers
 the auth exception and inert SVG. Orchestrator records each bounded turn,
 messages, memory and gates. No parallel code changes are needed.
+
+## Human merge approval audit
+
+On 2026-11-24 Rafael approved the reviewed local merge in the active chat.
+`org/messages/ceo-0027.md` and gate record `code_owner_approve-011` capture
+the scope. Adding the gate ledger to this manifest accounts for approval-only
+audit changes; the reviewed application and tests remain byte-identical.
+No remote push or release is authorized.
