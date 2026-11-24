@@ -101,6 +101,7 @@ Hosted schema/cutover/recovery authorization remains a separate operation.
 - tests/menu/isolation.test.ts
 - tests/menu/http.test.ts
 - tests/menu/browser.ts
+- tests/auth/chrome.ts
 - tests/family/storage.test.ts
 - tests/deployment/postgres-packaging.test.ts
 - tests/deployment/postgres-metadata.test.ts
@@ -121,6 +122,11 @@ addition is planned; retain exact pins and the lockfile unchanged. The current
 root tsconfig already includes all TypeScript tests; keep its strict inclusion
 and vendor checks unchanged. A material departure or extra application/test
 file requires an explicit plan amendment before implementation.
+
+Browser-fixture amendment: reuse the existing test-only Chrome fixture with
+bounded profile-cleanup retries (Chrome helpers can finish writing after the
+main process exits), configurable search/photo responses and deliberate one-shot
+HTTP failures. Actual menu success paths continue to use real storage/HTTP.
 
 `next.config.ts` already traces `drizzle/postgresql/**`; `.vercelignore` excludes
 tests, scripts, intent/org/private files. Preserve both unless an actual failing
@@ -268,15 +274,15 @@ parity, raw unfinished save/remove deadlines and focused HTTP suite after build.
 
 ### 7. Save from search and open the real menu — medium
 
-- [ ] Add the optional RecipeCard action slot and focused save button; wire it
+- [x] Add the optional RecipeCard action slot and focused save button; wire it
   in the notebook and add home Menu navigation without changing search/game
   state or provider code. Success/pending/error/session guidance stays local to
   the selected action; duplicates are safe and saving remains available.
-- [ ] Add the authenticated server `/menu` page with the shared store, approved
+- [x] Add the authenticated server `/menu` page with the shared store, approved
   header, source/time/photo cards, empty/error/invalid-page states and accessible
   Older/Newest links. Handle promised searchParams; accept no client family.
   Server render replaces50-entry pages and keeps existing photo fallback.
-- [ ] Add the initial strict TypeScript browser helper and verify one complete
+- [x] Add the initial strict TypeScript browser helper and verify one complete
   local fixture save→menu→reload path before adding removal controls. Check
   photo retention and no stale prefetched menu after saving/navigating back.
 

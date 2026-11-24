@@ -190,3 +190,30 @@ development/hosted schema/data/configuration effect occurred. New menu page/UI,
 confirmation browser acceptance, extended compiled menu packaging checks and
 final feature-wide verification remain later tasks. Local request deadlines
 begin at the application boundary and do not claim a tested hosted ingress SLA.
+
+## UI task7 — browser-first save/list slice
+
+RED: `node --import tsx tests/menu/browser.ts` against the committed backend
+failed with `Browser condition timed out: Add to menu action`, before UI code.
+The first attempt also exposed an existing Chrome profile cleanup ENOTEMPTY race;
+a bounded test-only cleanup retry now preserves the primary failure. The plan
+manifest was amended before changing that shared fixture. Clicks scroll controls
+into view, matching actual browser interaction rather than DOM `.click()`.
+
+Read the pinned Next page/searchParams and useRouter/Link guides and the frontend/
+React skills. Tailwind's downloaded source snapshot is uninitialized; used its
+explicit limited engineering-playbook/gotchas fallback and existing utilities,
+without downloading licensed sources or changing dependencies. Product UI uses
+real publisher URLs; fixture artwork remains test-only.
+
+`pnpm run typecheck`: exit0 after task7 UI, including the strict browser helper.
+Production build, lint and browser GREEN follow below.
+
+Task7 GREEN: `pnpm run lint`, `pnpm run build`, and
+`node --import tsx tests/menu/browser.ts` all exit0. Lint first rejected two
+root-navigation anchors; replaced those with prefetch-disabled Next Link,
+keeping fresh ordinary menu navigation. Browser output:
+`Production Chrome: search → real save → fresh menu → reload; retained photo,
+390/1440 no overflow or console errors.` Screenshots saved as
+`org/reviews/saved-recipe-menu-saved-{390,1440}.png` for independent inspection.
+No removal controls are claimed by this checkpoint.

@@ -58,6 +58,7 @@ export async function openChrome() {
   async function viewport(width: number) { await send('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: false }); await evaluate('document.fonts.ready'); await new Promise((resolve) => setTimeout(resolve, 150)); assert.equal(await evaluate('document.documentElement.scrollWidth <= innerWidth'), true, 'no horizontal overflow'); }
   async function click(selector: string) {
     await waitFor(`Boolean(document.querySelector(${JSON.stringify(selector)}))`, `control ${selector}`);
+    await evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'center'})`);
     const point = await evaluate<{ x: number; y: number }>(`(() => { const r=document.querySelector(${JSON.stringify(selector)}).getBoundingClientRect(); return { x:r.x+r.width/2, y:r.y+r.height/2 }; })()`);
     await send('Input.dispatchMouseEvent', { type: 'mousePressed', ...point, button: 'left', clickCount: 1 }); await send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...point, button: 'left', clickCount: 1 });
   }
@@ -72,7 +73,7 @@ export async function openChrome() {
   async function close() {
     socket.close();
     if (chrome.exitCode === null && chrome.signalCode === null) { const exited = new Promise<void>((resolve) => chrome.once('exit', () => resolve())); chrome.kill('SIGTERM'); await exited; }
-    await rm(profile, { recursive: true, force: true });
+    await rm(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   }
   return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, errors, requests, close };
 }

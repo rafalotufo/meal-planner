@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { Recipe } from "../lib/recipes/types";
 
-export default function RecipeCard({ recipe }: { recipe: Recipe }) {
+export default function RecipeCard({ recipe, children }: { recipe: Recipe; children?: ReactNode }) {
   const [failedPhotoUrl, setFailedPhotoUrl] = useState<string | null>(null);
   return (
     <article className="flex min-w-0 flex-col overflow-hidden rounded-xl border border-stone-200 bg-white">
@@ -33,6 +33,7 @@ export default function RecipeCard({ recipe }: { recipe: Recipe }) {
             View recipe<span className="sr-only">: {recipe.title} (opens in a new tab)</span>
             <span aria-hidden="true">↗</span>
           </a>
+          {children}
         </div>
       </div>
     </article>

@@ -5,6 +5,7 @@ import {
   type RecipeFilter, type RecipeSort, type SearchEntry,
 } from "../lib/recipes/notebook";
 import RecipeCard from "./recipe-card";
+import SaveRecipeButton from "./menu/save-recipe-button";
 
 type Props = {
   entries: SearchEntry[];
@@ -72,7 +73,7 @@ export default function SearchNotebook({ entries, selectedId, onSelect, onFilter
                       </label>
                     </div>
                     {visible.length ? <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                      {visible.map(recipe => <RecipeCard key={recipe.sourceUrl} recipe={recipe} />)}
+                      {visible.map(recipe => <RecipeCard key={recipe.sourceUrl} recipe={recipe}><SaveRecipeButton recipe={recipe} /></RecipeCard>)}
                     </div> : <p className="rounded-lg bg-white p-5 text-sm text-stone-600">No recipes match this filter. Choose All recipes to see this search again.</p>}
                   </> : <div className="rounded-lg border border-dashed border-stone-300 bg-white px-5 py-8 text-center">
                     <p className="font-medium text-stone-900">No matching recipes found.</p>
