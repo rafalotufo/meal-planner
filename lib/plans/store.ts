@@ -67,7 +67,10 @@ export async function actOnPlan(db: FamilyDatabase, identity: VerifiedIdentity, 
         plan.meals[suggestion.day] = replacement;
         await tx.execute('UPDATE meal_plan_weeks SET meals=$2,revision=revision+1 WHERE id=$1', [id, JSON.stringify(plan.meals)]);
         await tx.execute('DELETE FROM meal_plan_approvals WHERE plan_id=$1', [id]);
-        await tx.execute("UPDATE meal_plan_suggestions SET status=CASE WHEN id=$2 THEN 'accepted' ELSE 'stale' END WHERE plan_id=$1 AND status='pending'", [id, suggestion.id]);
+        await tx.execute(`UPDATE meal_plan_suggestions
+          SET status=CASE WHEN id=$2 THEN 'accepted' WHEN day_index=$3 THEN 'stale' ELSE status END,
+              base_revision=CASE WHEN day_index<>$3 THEN $4 ELSE base_revision END
+          WHERE plan_id=$1 AND base_revision=$5 AND status='pending'`, [id, suggestion.id, suggestion.day, plan.revision + 1, plan.revision]);
       }
     }
     return { ok: true as const };

@@ -50,6 +50,7 @@
 - `org/loop/history.jsonl`
 - `org/loop/archive/shared-site-layout-before-weekly-meal-planning-2026-11-24/*`
 - `org/loop/archive/weekly-meal-planning-before-header-date-refinement-2026-11-24/*`
+- `org/loop/archive/weekly-plan-header-before-swap-retention-2026-11-24/*`
 - `org/status.yaml`
 - `org/messages/*.md`
 - `org/reviews/*weekly-meal-planning*`
@@ -198,7 +199,7 @@ preserved under the added process archive path in this plan manifest.
 
 ## Owner behavior amendment — retain suggestions for other recipes
 
-Pending independent review before source changes. Source is the owner's active
+Independently approved before source changes: `org/reviews/weekly-meal-planning-swap-plan-001.md`. Source: `org/messages/ceo-0053.md`, the owner's
 request that accepting a swap clear only competing suggestions for that recipe.
 Supersedes the all-other-pending-stale rule, without broadening the existing
 source manifest.

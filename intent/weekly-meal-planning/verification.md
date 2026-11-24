@@ -129,3 +129,56 @@ correction loop completed in three turns; original six-turn completion remains
 in its archive. Python workflow regressions reran7/7, full feature plan-sync and
 workflow checks passed. Remaining audit commits do not change this fixed source.
 Human merge/release, hosted migration and scheduler activation remain pending.
+
+## Swap-suggestion retention amendment — final feature evidence
+
+Owner requirement `org/messages/ceo-0053.md`; independently approved before source
+changes in `org/reviews/weekly-meal-planning-swap-plan-001.md`.
+
+Test-first `node --import tsx --test tests/plans/store.test.ts` exited1: existing
+3 tests passed,2 new regressions failed. The old implementation marked an
+unrelated proposal stale at base_revision1 instead of preserving it pending at2;
+concurrent different-slot acceptance likewise left no retained proposal.
+
+The runtime correction is one scoped SQL UPDATE in the existing locked accept
+transaction: the chosen current-revision proposal becomes accepted, same-slot
+pending competitors stale, and unrelated current pending slots update only their
+base_revision. All unrelated IDs/users/menu IDs/snapshots/status/timestamps remain
+unchanged. Approval reset, plan revision increment and overall stale-request409
+remain unchanged. The WHERE clause is bound to plan, old revision and pending
+status; tests additionally compare complete foreign-plan and historical-pending
+rows before/after to prove they are untouched. No migration/API/UI/auth/scheduler
+or dependency changes.
+
+Focused store suite then exited0,5/5. Final `pnpm run lint` exit0;
+`pnpm run typecheck` exit0; `pnpm run build` exit0. `pnpm run test:plans` exit0,
+15/15 (previous13 plus2 new multiuser/concurrency regressions). The previous
+212-test total above belongs to the prior presentation revision; the current
+planning suite contains15 tests, making214 Node tests when combined with the
+existing199-suite regression set. Root is recording that set's current rerun.
+Root's current Python workflow run passed7/7.
+
+`node --import tsx tests/plans/browser.ts` exited0 on the stable final build:
+“Chrome320/1440: seven dinners, labels/focus/no overflow, real approve/two-card
+suggest/accept/retain/resolve/reset, stale conflict refresh, paged menu,
+confirmation, immutable retained history passed.” Both proposals were submitted
+through physical native controls and real HTTP; accepting the first retained the
+second on its card with identical stored proposal identity/content, and a later
+physical accept resolved it through refreshed real HTTP. All undated header/card,
+history-selector and prior interaction checks remain.
+
+Recaptured the six feature screenshots; the swap images now show the meaningful
+retained-proposal state. Visually inspected `weekly-plan-swap-1440.png`: the first
+recipe is replaced, the second still visibly has its proposed replacement and
+Accept/Reject controls. Inspected the320px long-title swap: no numeric header/card
+dates, text wraps inside the recipe card and no horizontal overflow. Owned
+server/Chrome profile/test database were cleaned up. `git diff --check` exit0.
+
+
+Root completed the full existing regression rerun after the stable swap-retention
+build: `pnpm test`82/82; `pnpm run test:family`34/34; `pnpm run test:menu`35/35;
+`pnpm run test:auth`16/16; and `node --import tsx --test tests/deployment/*.test.ts`
+32/32. Every command exited0. With the15 planning tests, the updated Node total
+is214 passed. `python3 -m unittest discover -s tests` reran7/7, exit0.
+Owned isolated resources only; no source changes or concurrent rebuilds during
+these checks. Independent swap-retention security and final review follow.

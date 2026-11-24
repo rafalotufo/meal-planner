@@ -6,8 +6,8 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: "Weekly planning and header correction loops solved; finalsource9f6f8c6 awaits human merge/release, scheduler unactivated." }
   product-manager: { status: idle, assignment: null, last_report: Accepted weekly meal planning intent for Design; saved brainstorm and explicit defaults. }
   architect: { status: idle, assignment: null, last_report: "Weekly design complete, later owner presentation clarifications peer-reviewed and implemented." }
-  senior-developer: { status: busy, assignment: weekly-meal-planning-swap-plan, last_report: Final undated header refinement independently approved at9f6f8c6; affected checks/Chrome green. }
-  security-researcher: { status: idle, assignment: null, last_report: Weekly meal planning security clear at d7e3734; owner subsequently requested removal of per-recipe date labels. }
+  senior-developer: { status: idle, assignment: null, last_report: "Recipe-scoped swap retention implemented;214Node/7Python and Chrome320/1440 pass, source frozen." }
+  security-researcher: { status: busy, assignment: weekly-plan-swap-retention-security, last_report: Weekly meal planning security clear at d7e3734; owner subsequently requested removal of per-recipe date labels. }
   reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-swap-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

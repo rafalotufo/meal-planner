@@ -42,15 +42,25 @@ try{
  for(const event of [{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyDown',key:'l',code:'KeyL',text:'l',unmodifiedText:'l',windowsVirtualKeyCode:76},{type:'keyUp',key:'l',code:'KeyL',windowsVirtualKeyCode:76}])await browser.send('Input.dispatchKeyEvent',event);
  await browser.waitFor("Boolean(document.querySelector('#swap-0').value)",'physical saved dinner selection');
  await browser.click('[data-plan-suggest="0"]');await browser.waitFor("Boolean(document.querySelector('[data-plan-accept]'))",'saved suggestion');
+ await browser.waitFor("!document.querySelector('#swap-1').disabled",'second recipe swap enabled');
+ await browser.click('#swap-1');
+ for(const event of [{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyUp',key:'Escape',code:'Escape',windowsVirtualKeyCode:27},{type:'keyDown',key:'l',code:'KeyL',text:'l',unmodifiedText:'l',windowsVirtualKeyCode:76},{type:'keyUp',key:'l',code:'KeyL',windowsVirtualKeyCode:76}])await browser.send('Input.dispatchKeyEvent',event);
+ await browser.waitFor("Boolean(document.querySelector('#swap-1').value)",'second physical replacement selection');
+ await browser.click('[data-plan-suggest="1"]');await browser.waitFor("document.querySelectorAll('[data-plan-accept]').length===2",'two recipe suggestions saved');
+ view=await readPlans(db,identity,allowed,{},due);const retained=view.suggestions.find(suggestion=>suggestion.day===1)!;assert.ok(retained);
  await browser.click('[data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 2') && document.querySelector('[data-plan-approve]')?.textContent==='Looks good'",'accepted swap clears approvals');
  assert.equal((await readPlans(db,identity,allowed,{},due)).approvals,0);
+ await browser.waitFor("document.querySelectorAll('[data-plan-accept]').length===1 && Boolean(document.querySelector('article:nth-of-type(2) [data-plan-accept]'))",'other recipe suggestion survives accepted swap');
+ assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
  for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-swap-${width}.png`);}
- // Another device accepts a real stored suggestion while this browser holds revision2.
+ await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 3') && !document.querySelector('[data-plan-accept]')",'retained suggestion resolved through refreshed real HTTP');
+ view=await readPlans(db,identity,allowed,{},due);assert.equal(view.plan?.meals[1].sourceUrl,retained.recipe.sourceUrl);
+ // Another device accepts a real stored suggestion while this browser holds revision3.
  view=await readPlans(db,identity,allowed,{},due);const replacement=view.menu.entries.find(entry=>entry.recipe.sourceUrl!==view.plan!.meals[1].sourceUrl)!;
- await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:2,day:1,menuRecipeId:replacement.id},due);
- view=await readPlans(db,identity,allowed,{},due);await actOnPlan(db,identity,allowed,id,{action:'accept',revision:2,suggestionId:view.suggestions[0].id},due);
+ await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:3,day:1,menuRecipeId:replacement.id},due);
+ view=await readPlans(db,identity,allowed,{},due);await actOnPlan(db,identity,allowed,id,{action:'accept',revision:3,suggestionId:view.suggestions[0].id},due);
  await browser.click('[data-plan-approve]');await browser.waitFor("document.querySelector('[role=alert]')?.textContent.includes('Refresh')",'real stale conflict guidance');
- await browser.click('[role=alert] button');await browser.waitFor("document.body.innerText.includes('revision 3')",'refresh current revision');
+ await browser.click('[role=alert] button');await browser.waitFor("document.body.innerText.includes('revision 4')",'refresh current revision');
  // Saved-menu pagination keeps the selected week and reaches older saved entries.
  await browser.click('nav[aria-label="Saved dinner pages"] a[href*="menuAfter="]');
  await browser.waitFor("location.search.includes('menuAfter=') && document.querySelectorAll('#swap-0 option').length <= 5",'older saved dinner choices');
@@ -73,5 +83,5 @@ try{
  await browser.click('#history-week');await browser.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});await browser.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});
  assert.equal(await browser.evaluate("document.activeElement.matches(':focus-visible')"),true,'native keyboard focus remains visible');
  assert.deepEqual(browser.errors.filter(error=>!/Failed to load resource: the server responded with a status of 409\b/.test(error)),[]);
- console.log('Chrome320/1440: seven dinners, labels/focus/no overflow, real approve/suggest/accept/reset, stale conflict refresh, paged menu, confirmation, immutable retained history passed.');
+ console.log('Chrome320/1440: seven dinners, labels/focus/no overflow, real approve/two-card suggest/accept/retain/resolve/reset, stale conflict refresh, paged menu, confirmation, immutable retained history passed.');
 }catch(error){if(browser)console.error('Weekly browser diagnostic:',await browser.evaluate("({feedback:document.querySelector('[role=alert],[role=status]')?.textContent,active:document.activeElement?.outerHTML?.slice(0,300),selection:document.querySelector('#swap-0')?.value})"));throw error;}finally{await browser?.close();await server?.stop();await db?.close();await fixture.cleanup();}

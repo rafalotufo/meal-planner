@@ -9,8 +9,8 @@ intent/weekly-meal-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: build
+- turn: 2
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -20,8 +20,8 @@ intent/weekly-meal-planning/intent.md
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
-- senior-developer: busy (weekly-meal-planning-swap-plan)
+- security-researcher: busy (weekly-plan-swap-retention-security)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -95,6 +95,8 @@ intent/weekly-meal-planning/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0098 orchestrator -> reviewer handoff: Review swap suggestion retention amendment
+- orchestrator-0099 orchestrator -> senior-developer handoff: Implement recipe-scoped swap retention
+- orchestrator-0100 orchestrator -> security-researcher handoff: Assess transactional swap retention change
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -157,6 +159,7 @@ intent/weekly-meal-planning/intent.md
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 - senior-developer-0015 senior-developer -> orchestrator handoff: Shared layout implementation verified
+- senior-developer-0018 senior-developer -> orchestrator handoff: Swap retention implemented and verified
 
 ## Recent decisions
 
@@ -173,10 +176,11 @@ intent/weekly-meal-planning/intent.md
 ## Artifacts
 
 - org/reviews/weekly-meal-planning-swap-plan-001.md (0ce309c529b2e7539c8d82af58752ea424441ddbb461c23444496aff58be4646)
+- intent/weekly-meal-planning/verification.md (41521cdfb0543ce1e7a7fbd8ba3895c0fd076ea894379619142a322508507bb7)
 
 ## Next action
 
-reviewer:approve_swap_retention_amendment
+senior-developer:preserve_other_recipe_suggestions
 
 ## Last digest source
 
