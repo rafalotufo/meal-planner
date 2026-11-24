@@ -6,8 +6,8 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: "Shared layout merged into local main under owner approval; dev stopped, staging acceptance and release unstarted." }
   product-manager: { status: idle, assignment: null, last_report: Accepted weekly meal planning intent for Design; saved brainstorm and explicit defaults. }
   architect: { status: busy, assignment: weekly-meal-planning-plan, last_report: Drafted weekly meal planning spec and exact manifest plan; ready for independent peer review. }
-  senior-developer: { status: busy, assignment: weekly-meal-planning-build, last_report: Executed authorized shared layout fast-forward into clean local main; no push or deployment. }
-  security-researcher: { status: idle, assignment: null, last_report: "Shared layout security clear; static root, unchanged guards/handlers, no config exposure/effects, zero scoped secrets." }
+  senior-developer: { status: idle, assignment: null, last_report: Weekly meal planning implemented; required checks and real Chrome320/1440 passed; ready independent security/final review. }
+  security-researcher: { status: busy, assignment: weekly-meal-planning-security, last_report: "Shared layout security clear; static root, unchanged guards/handlers, no config exposure/effects, zero scoped secrets." }
   reviewer: { status: idle, assignment: null, last_report: "review weekly-meal-planning-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

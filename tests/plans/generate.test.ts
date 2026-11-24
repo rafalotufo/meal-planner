@@ -42,3 +42,19 @@ test('one recipe cycles across seven dates and snapshots survive removal', async
     assert.deepEqual(view.plan?.meals, Array(7).fill(recipe(1)));
   } finally { await db.close(); await fixture.cleanup(); }
 });
+
+test('CLI rejects invalid configuration/overrides and unavailable credentials without exposing their values',async()=>{
+ const {spawnSync}=await import('node:child_process');
+ for(const [args,extra] of [[[],{MEAL_PLAN_DRAFT_DAY:''}],[['--date=2026-11-26'],{}],[[],{DATABASE_URL:'not-a-valid-database-url-sensitive-fixture-password',MEAL_PLAN_DRAFT_DAY:'Thursday'}]] as const){
+  const child=spawnSync(process.execPath,['--import','tsx','scripts/generate-meal-plans.ts',...args],{env:{...process.env,...extra,OPENAI_API_KEY:''},encoding:'utf8'});
+  assert.equal(child.status,1);assert.equal(child.stdout,'');assert.equal(child.stderr.trim(),'Meal planning failed; no credentials printed.');assert.doesNotMatch(child.stderr,/sensitive|fixture-password|postgresql:/);
+ }
+});
+
+
+test('off-day CLI succeeds without connecting to a valid unreachable database URL',async()=>{
+ const {spawnSync}=await import('node:child_process');const {torontoClock,weekdays}=await import('../../lib/plans/calendar.ts');
+ const local=torontoClock(new Date());const offday=weekdays[(weekdays.indexOf(local.day)+1)%7];
+ const child=spawnSync(process.execPath,['--import','tsx','scripts/generate-meal-plans.ts'],{env:{...process.env,MEAL_PLAN_DRAFT_DAY:offday,DATABASE_URL:'postgresql://sensitive:fixture-password@127.0.0.1:1/unavailable',OPENAI_API_KEY:''},encoding:'utf8'});
+ assert.equal(child.status,0);assert.equal(child.stderr,'');assert.deepEqual(JSON.parse(child.stdout),{skipped:true,created:0,existing:0,empty:0,ineligible:0});
+});

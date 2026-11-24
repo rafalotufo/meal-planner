@@ -30,7 +30,7 @@
 - `scripts/generate-meal-plans.ts`
 - `app/plans/page.tsx`
 - `app/plans/plan-controls.tsx`
-- `app/api/plans/[id]/route.ts`
+- `app/api/plans/[[]id]/route.ts`
 - `app/layout.tsx`
 - `.env.example`
 - `package.json`
@@ -57,6 +57,9 @@
 - `org/memory/events.jsonl`
 - `workflow-graph.yaml`
 - `gates/ledger.jsonl`
+
+The dynamic-route entry escapes the literal opening bracket for the plan-sync
+checker's fnmatch syntax; it still names only `app/api/plans/[id]/route.ts`.
 
 ## Ordered slices
 
