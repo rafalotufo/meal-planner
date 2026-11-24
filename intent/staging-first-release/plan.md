@@ -6,7 +6,7 @@
 - Inputs: sibling accepted intent and draft specification; owner requested a
   release-process change, not a deployment or credential/configuration action.
 
-## Exact implementation manifest
+## Files that change
 
 Active guidance:
 
