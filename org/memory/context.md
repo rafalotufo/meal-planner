@@ -8,10 +8,10 @@ intent/searchable-swap-picker/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: build
+- stop_reason: None
 
 ## Agents
 
@@ -21,7 +21,7 @@ intent/searchable-swap-picker/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (searchable-swap-picker-stable-frame-plan)
 
 ## Open messages
 
@@ -59,6 +59,7 @@ intent/searchable-swap-picker/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0050 ceo -> orchestrator decision: Merge saved recipe menu and deploy production
+- ceo-0056 ceo -> orchestrator finding: Search modal size flickers while typing
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -94,6 +95,7 @@ intent/searchable-swap-picker/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0115 orchestrator -> ceo handoff: Searchable recipe swap modal ready for merge review
+- orchestrator-0116 orchestrator -> senior-developer handoff: Diagnose and plan stable modal frame fix
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -171,16 +173,11 @@ intent/searchable-swap-picker/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-searchable-swap-picker-001.md (9b9adcb8e8b786c35c4a15508e03c72793a3850f61a7f68984d141bb3978eee7)
-- intent/searchable-swap-picker/plan.md (73948f35e7cd39bc9925cfa79bd1d8172cba0de055dbcf84510613325f11ca98)
-- org/reviews/searchable-swap-picker-plan-001.md (eb9a4dc8ed9300344b15af4afdb3e675654acdd8fd68a1c992acdcb09311be39)
-- intent/searchable-swap-picker/verification.md (d653b38e7f93ca5b74ade4ee4195445cdc762b2970d60c4831d0982d6e098584)
-- org/reviews/searchable-swap-picker-security-001.md (9890bc69b3db35be0860cb399adb251b38121fe725cd4c6d37b7ea1bfc1acce5)
-- org/reviews/searchable-swap-picker-final-001.md (eca0b4a72522b5ff21d8297578a902ec9bb0ce783f928efb5f415d3cab27b2cc)
+- org/reviews/searchable-swap-picker-stable-frame-plan-001.md (18fe140fdd23bf403c13c6169b0b4f351b7ee6d42dadd9c145c6aca24e72b17b)
 
 ## Next action
 
-reviewer:verify_searchable_swap_picker
+reviewer:approve_stable_frame_fix
 
 ## Last digest source
 

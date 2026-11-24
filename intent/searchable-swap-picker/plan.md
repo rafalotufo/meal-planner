@@ -28,6 +28,7 @@
 - `org/loop/state.yaml`
 - `org/loop/history.jsonl`
 - `org/loop/archive/unique-weekly-recipes-before-searchable-swap-picker-2026-11-24/*`
+- `org/loop/archive/searchable-swap-picker-before-stable-frame-2026-11-24/*`
 - `org/status.yaml`
 - `org/messages/*.md`
 - `org/reviews/*searchable-swap-picker*`
@@ -129,3 +130,33 @@ memory, workflow, loop and hash-chained ledger checks; secret-scan each commit.
 - No new app configuration, infrastructure, migration, hosted access, deployment,
   scheduling activation, push or merge is authorized. A needed extra source/helper
   path requires a reviewed manifest amendment before implementation.
+
+
+## Follow-up fix plan — stable search-modal geometry
+
+Status: Approved by independent review `org/reviews/searchable-swap-picker-stable-frame-plan-001.md`. Same feature and existing
+runtime/test manifest; the added archive path preserves the completed prior loop.
+
+1. In a fresh root-owned private source copy, add an actual Chrome geometry
+   regression to existing `tests/plans/browser.ts` before CSS edits. At widths
+   320/768/1024/1440 (height1000) and320×568, record dialog x/y/width/height while
+   populated, typing successive characters, delayed/debounced loading, no matches,
+   populated matches, load failure and selected state. Compare within1 CSS pixel
+   at each fixed viewport. Demonstrate an actual failure on the current CSS.
+2. Change only frame sizing in `app/plans/swap-recipe-dialog.tsx`: explicit height
+   bounded by viewport and a desktop cap (e.g. min(52rem,100dvh minus2rem)), inner
+   wrapper filling the frame, existing min-height-zero flex result scroll region
+   and outer short-viewport scroll fallback retained. No request/state/selection,
+   API, database, parent mutation, image or focus-contract change. No JS geometry
+   freeze, stale-result retention, extra helper path or dependency.
+3. Run lint, strict typecheck and production build privately, then existing full
+   Chrome flow including geometry regression. Keep original protected search and
+   planning behavior assertions. Inspect fresh browse/selected mobile/desktop
+   screenshots and short-mobile frame/footer access. Root coordinates affected
+   broad/compiled checks without concurrent builds; append actual red/green and
+   private-source correspondence to feature verification.md.
+4. Independent final reviewer checks the bounded CSS correction and evidence,
+   including unchanged security/network boundaries. Root owns workflow, commits,
+   exact-source copy-back and human merge/release gates. Preserve original live
+   server, next-env.d.ts bytes and .next cache throughout; no deployment or data
+   effects are authorized.

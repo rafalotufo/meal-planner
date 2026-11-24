@@ -21,9 +21,9 @@ nodes:
     done_status: "approved"
   implementation:
     stage: "build"
-    artifact: "searchable-swap-picker-implementation"
+    artifact: "searchable-swap-picker-stable-frame"
     gate: "code_owner_approve"
-    status: in_review
+    status: not_started
     done_status: "merged"
   staging_acceptance:
     stage: "test"

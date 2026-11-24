@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/searchable-swap-picker/intent.md
-base_commit: cbc9b1edf7217103fe4dc872c08b59fb7191d752
-turn: 6
+base_commit: 2aad34fc7093d3d0648f58645cc42c044fe1a3b0
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 245674e16d0d478d4ecf5c19833e466d45e67e07feee9eef01d7bc5679f2b58b
-stop_reason: solved
-last_action: "reviewer:verify_searchable_swap_picker"
-artifacts: [{"path": "org/reviews/intent-searchable-swap-picker-001.md", "sha256": "9b9adcb8e8b786c35c4a15508e03c72793a3850f61a7f68984d141bb3978eee7"}, {"path": "intent/searchable-swap-picker/plan.md", "sha256": "73948f35e7cd39bc9925cfa79bd1d8172cba0de055dbcf84510613325f11ca98"}, {"path": "org/reviews/searchable-swap-picker-plan-001.md", "sha256": "eb9a4dc8ed9300344b15af4afdb3e675654acdd8fd68a1c992acdcb09311be39"}, {"path": "intent/searchable-swap-picker/verification.md", "sha256": "d653b38e7f93ca5b74ade4ee4195445cdc762b2970d60c4831d0982d6e098584"}, {"path": "org/reviews/searchable-swap-picker-security-001.md", "sha256": "9890bc69b3db35be0860cb399adb251b38121fe725cd4c6d37b7ea1bfc1acce5"}, {"path": "org/reviews/searchable-swap-picker-final-001.md", "sha256": "eca0b4a72522b5ff21d8297578a902ec9bb0ce783f928efb5f415d3cab27b2cc"}]
+phase: build
+status: in_progress
+last_input_hash: e42d4ba7153e095f1dd56fe945ef3b40329d52937928ab291158133f51800de1
+stop_reason: null
+last_action: "reviewer:approve_stable_frame_fix"
+artifacts: [{"path": "org/reviews/searchable-swap-picker-stable-frame-plan-001.md", "sha256": "18fe140fdd23bf403c13c6169b0b4f351b7ee6d42dadd9c145c6aca24e72b17b"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T22:18:34Z"
+updated_at: "2026-11-24T22:22:47Z"

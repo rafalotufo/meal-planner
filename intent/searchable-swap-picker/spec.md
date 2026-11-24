@@ -249,3 +249,44 @@ choice; it must not trigger automatic hosted/schema configuration changes.
 
 PostgreSQL17 documents collation-sensitive case conversion and the predefined
 ICU root collation in its official [collation support reference](https://www.postgresql.org/docs/17/collation.html).
+
+
+## Follow-up bug amendment — stable dialog frame during search
+
+Status: Pending independent approval before source edits. Source: owner's report
+that the modal size flickers while typing a search. This changes presentation
+geometry only; all search/network/selection/mutation/access behavior stays intact.
+
+Code-grounded diagnosis: `reset()` correctly removes stale page choices and
+selection immediately on query changes. The dialog and its flex wrapper currently
+have only maximum-height constraints, so their intrinsic height collapses to the
+short loading/no-match/error content and expands when result cards return. Native
+centering also moves the top edge when that height changes. The response lifecycle
+must continue clearing stale choices; retaining old results to mask resizing would
+violate the existing correctness contract. Real-browser red geometry measurements
+must confirm this diagnosis before the CSS correction is applied.
+
+Use a stable, explicitly viewport-bounded dialog frame for the current viewport,
+with the existing capped width and a concrete height such as
+`min(52rem, calc(100dvh - 2rem))`. Make the inner flex wrapper fill that frame so
+the min-height-zero, flexing result region owns remaining space and scrolls.
+Preserve the existing outer vertical-scroll escape for very short viewports or
+long header/footer content; search, close, Cancel and confirmation remain reachable.
+Do not add JavaScript height measurement/state, delay stale-data clearing, keep
+old results confirmable, or add an animation that hides intrinsic resizing.
+
+At a fixed viewport, the dialog's x/y/width/height remain stable (within1 CSS pixel)
+while typing, debouncing, loading, showing populated/empty/no-match/error pages,
+and selecting a recipe. Viewport changes may resize the frame normally. Retain
+320px compact rows, desktop grid,44px close target, long-title wrapping, internal
+scrolling and all native focus/dismissal behavior. Main-page/history semantics,
+protected API, response bounds, request guards and explicit one-POST confirmation
+remain unchanged.
+
+Regression proof uses actual dialog bounding rectangles at widths320/768/1024/
+1440 with ordinary height1000, plus320×568. Start with populated results, type a
+query with a controlled delayed GET, sample successive typing/loading frames,
+then no matches and populated matches; also compare error and selected states.
+Old intrinsic-height CSS must fail this regression. After the CSS correction,
+geometry remains stable without horizontal overflow and all modal actions remain
+reachable. Preserve existing search/race/mutation/planning browser assertions.
