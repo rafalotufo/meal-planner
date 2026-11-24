@@ -3,7 +3,7 @@ import type { FamilyDatabase } from '../db/connection';
 import type { MenuRecipeRow } from '../db/schema';
 import { FamilyError, requireMember, type VerifiedIdentity } from '../identity-access';
 import type { MenuPage } from './types';
-import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrls } from './validation';
+import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrls, parseMenuSearch } from './validation';
 
 const columns = 'id, family_id AS "familyId", source_url AS "sourceUrl", image_url AS "imageUrl", title, summary, time_kind AS "timeKind", time_text AS "timeText", saved_at AS "savedAt"';
 const invalid = () => new FamilyError(400, 'Invalid request');
@@ -16,11 +16,14 @@ export async function lookupMenuRecipes(db: FamilyDatabase, identity: VerifiedId
   return { savedSourceUrls: rows.map(row => row.sourceUrl) };
 }
 
-export async function listMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, after?: unknown): Promise<MenuPage> {
+export async function listMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, after?: unknown, query?: unknown): Promise<MenuPage> {
   const position = after === undefined ? null : parseMenuCursor(after);
-  if (after !== undefined && !position) throw invalid();
+  const search = parseMenuSearch(query);
+  if (after !== undefined && !position || search === null) throw invalid();
   const user = await requireMember(db, identity, allowedEmails);
-  const rows = await db.all<MenuRecipeRow>(`SELECT ${columns} FROM menu_recipes WHERE family_id=$1${position ? ' AND (saved_at,id) < ($2,$3)' : ''} ORDER BY saved_at DESC,id DESC LIMIT 51`, position ? [user.familyId, position.savedAt, position.id] : [user.familyId]);
+  const values: unknown[] = position ? [user.familyId, position.savedAt, position.id] : [user.familyId];
+  if (search) values.push(search);
+  const rows = await db.all<MenuRecipeRow>(`SELECT ${columns} FROM menu_recipes WHERE family_id=$1${position ? ' AND (saved_at,id) < ($2,$3)' : ''}${search ? ` AND strpos(lower(title COLLATE pg_catalog."und-x-icu"),lower($${values.length}::text COLLATE pg_catalog."und-x-icu"))>0` : ''} ORDER BY saved_at DESC,id DESC LIMIT 51`, values);
   const entries = rows.map(menuEntryFromRow);
   const visible = entries.slice(0, 50);
   return { entries: visible, nextCursor: entries.length > 50 ? encodeMenuCursor(visible[49]) : null };

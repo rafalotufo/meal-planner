@@ -74,3 +74,21 @@ test('invalid positions/snapshots cannot write and a transaction failure rolls r
     await assert.rejects(listMenuRecipes(db, identity, allowed), /Storage unavailable/);
   } finally { await db.close(); await fixture.cleanup(); }
 });
+
+
+test('bounded title search reaches older recipes and paginates literal case-insensitive matches within the family',async()=>{
+ const fixture=await restrictedMenuDatabase();const db=await fixture.open();
+ try{
+  await provisionFamily(db,identity,allowed,false);
+  for(let n=0;n<107;n++)await saveMenuRecipe(db,identity,allowed,{...recipe,title:n<55?`Hidden Lemon ${n}`:`Recent unrelated ${n}`,sourceUrl:`https://example.test/search/${n}`});
+  for(const title of ["Literal 50%_Lemon's 🍋",'Literal 50xxLemon s','Unicode crème'])await saveMenuRecipe(db,identity,allowed,{...recipe,title,sourceUrl:'https://example.test/literal/'+randomUUID()});
+  const newest=await listMenuRecipes(db,identity,allowed);assert.equal(newest.entries.some(row=>row.recipe.title==='Hidden Lemon 0'),false);
+  assert.deepEqual(await listMenuRecipes(db,identity,allowed,undefined,'  '),newest);
+  const first=await listMenuRecipes(db,identity,allowed,undefined,'  hidden LEMON ');assert.equal(first.entries.length,50);assert.ok(first.nextCursor);assert.equal(first.entries.every(row=>row.recipe.title.startsWith('Hidden Lemon')),true);
+  const second=await listMenuRecipes(db,identity,allowed,first.nextCursor,'hidden lemon');assert.equal(second.entries.length,5);assert.equal(second.nextCursor,null);assert.equal(second.entries.some(row=>row.recipe.title==='Hidden Lemon 0'),true);assert.equal(new Set([...first.entries,...second.entries].map(row=>row.id)).size,55);
+  assert.equal((await listMenuRecipes(db,identity,allowed,undefined,"50%_lemon's")).entries.length,1);assert.equal((await listMenuRecipes(db,identity,allowed,undefined,'CRÈME')).entries.length,1);
+  await assert.rejects(listMenuRecipes(db,identity,allowed,undefined,'x'.repeat(101)),{status:400});await assert.rejects(listMenuRecipes(db,identity,[],undefined,'lemon'),{status:403});
+  const other={googleSubject:'foreign-title-search',email:'foreign.title.search@gmail.com',emailVerified:true as const};await provisionFamily(db,other,[other.email],false);await saveMenuRecipe(db,other,[other.email],{...recipe,title:'Hidden Lemon foreign'});
+  assert.equal((await listMenuRecipes(db,identity,allowed,undefined,'foreign')).entries.length,0);assert.equal((await listMenuRecipes(db,other,[other.email],first.nextCursor,'lemon')).entries.length<=1,true);
+ }finally{await db.close();await fixture.cleanup();}
+});
