@@ -4,20 +4,20 @@
 
 ## Goal
 
-intent/vercel-candidate-validation/intent.md
+intent/vercel-candidate-validation/hosted-setup.md
 
 ## Loop
 
-- status: solved
-- turn: 5
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 2
+- phase: configure
+- stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/vercel-candidate-validation/hosted-setup.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -51,6 +51,7 @@ intent/vercel-candidate-validation/intent.md
 - ceo-0027 ceo -> orchestrator decision: Explore automated validation of staged Vercel deployments
 - ceo-0028 ceo -> orchestrator decision: Approve isolated staging approach
 - ceo-0029 ceo -> orchestrator decision: Continue approved isolated staging approach
+- ceo-0030 ceo -> orchestrator decision: Authorize Preview deployment from worktree after OAuth domains
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -114,11 +115,11 @@ intent/vercel-candidate-validation/intent.md
 
 ## Recent decisions
 
-- mem-0079 orchestrator: Independent reviewer approved Vercel candidate-validation research with no blockers. Google registration alone cannot bypass current canonical Host421. Stable isolated staging is smallest auth change; exact Production artifact alternative needs stable alias and reviewed finite-origin handling plus Production-data effects accounting. Owner assurance choice pending; bounded research loop stops gate_required, no intent/spec/plan/release approval. (org/reviews/options-vercel-candidate-validation-001.md)
 - mem-0080 orchestrator: Rafael approved isolated staging approach: existing Vercel Preview environment and manually controlled stable alias, separate staging auth and recorded Preview DB. PM accepted intent for Design. Preserved completed options loop and graph under org/loop/archive/vercel-candidate-validation-options-2026-11-24 before initializing bounded Design run. No external configuration or release authority inferred. (org/messages/ceo-0028.md)
 - mem-0081 orchestrator: Isolated staging specification drafted and independently approved for quality by security/reviewer with no blockers. Scope unchanged canonical-origin app plus future operator helper/runbook, Preview-only secrets/data, no paid provider key, stable alias safety preflight and separate Production build. Await owner Design approval; next org dispatch stops gate_required at product_owner_approve. No application or external changes. (org/reviews/spec-vercel-candidate-validation-001.md)
 - mem-0082 orchestrator: Rafael directed continuing isolated staging, already approved. Recorded specification approval and archived Design run before local Build. Apply org peer plan/code/security review gates; no repeat approach confirmation. Local operator helper/tests and runbook only, preserve application and separate hosted setup/release boundaries. (org/messages/ceo-0029.md)
 - mem-0083 orchestrator: Completed isolated staging local tooling and tests under approved plan. f3ef526 fixes independently found P2 failed-report timestamp issue with RED/GREEN regression. Security and code round2 approved; final org turn5 solved all8commands,144Node+7Python, realChrome5widths. One prior auth repeat exit1 unroot-caused/nonreproduced is disclosed, direct/final reruns pass. No app/auth/config/dependency or hosted changes. Await human merge and concrete Preview-only setup/deployment authority per staging runbook; actual alias/private config/Git/paused-state preflights remain. (intent/vercel-candidate-validation/verification.md)
+- mem-0084 orchestrator: Rafael explicitly authorized Preview-only deployment from current worktree branch and OAuth domains first (ceo-0030), overriding prior merge prerequisite for this Preview operation only. Scoped hosted-setup approved by independent review; same Hobby project, safe branch-qualified free hostname before callback, dedicated Preview auth, existing Preview DB and no paid key. Production untouched. Google meal-planner-515616 has no OAuth client/consent; minimal staging brand form prepared, not submitted. Actual Chrome tool access denied; authenticated in-app browser works. Preserved completed Build loop before bounded ops run. (org/messages/ceo-0030.md)
 
 ## Constraints
 
@@ -126,19 +127,16 @@ intent/vercel-candidate-validation/intent.md
 
 ## Artifacts
 
-- intent/vercel-candidate-validation/plan.md (3e13ce01bd1695a4d491a7410ac427b1f2358263f23c7e778af99bce83f74139)
-- org/reviews/plan-vercel-candidate-validation-001.md (9894bfad6cf3991a631fb625ce1cfeb2806202783fdf663651f10a2b1b7b286a)
-- intent/vercel-candidate-validation/verification.md (08e0be1c07ed38ce991d5fb6fee25997c28649b5d517fc98d40a20ed730b03a6)
-- org/reviews/security-vercel-candidate-validation-implementation-001.md (dd5c06033bf038757387b86c97a61d8178d73c376235eb64cb296ee683521b4c)
-- org/reviews/code-vercel-candidate-validation-002.md (209e1b9be3067728385cce90634033ddf90acdeb32b64a8c80644aece0729393)
+- intent/vercel-candidate-validation/hosted-setup.md (c43a759ce7f8de79d4b22ea60cc23f952bd531e88a6269e042c2fac27d7a00f1)
+- org/reviews/hosted-vercel-candidate-validation-001.md (9d14349c70bcd2772ecba0822e417f73131b35e23f1b97002072eed17d540fd3)
 
 ## Next action
 
-reviewer:review_staging_implementation
+reviewer:review_preview_scope
 
 ## Last digest source
 
-- mem-0083 from intent/vercel-candidate-validation/verification.md
+- mem-0084 from org/messages/ceo-0030.md
 
 <!-- machine:end -->
 

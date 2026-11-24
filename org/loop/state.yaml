@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/vercel-candidate-validation/intent.md
-base_commit: 3f88bc0d0d866bb462ae433b2cd6215f6ff29934
-turn: 5
+work_item: intent/vercel-candidate-validation/hosted-setup.md
+base_commit: d485897c51c43fd36526b9db12a9edb081376f24
+turn: 2
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 1ec552627ffb0bb3f42edc94005a912c301efdd7aea627d58a82b2f7b6e40f43
-stop_reason: solved
-last_action: "reviewer:review_staging_implementation"
-artifacts: [{"path": "intent/vercel-candidate-validation/plan.md", "sha256": "3e13ce01bd1695a4d491a7410ac427b1f2358263f23c7e778af99bce83f74139"}, {"path": "org/reviews/plan-vercel-candidate-validation-001.md", "sha256": "9894bfad6cf3991a631fb625ce1cfeb2806202783fdf663651f10a2b1b7b286a"}, {"path": "intent/vercel-candidate-validation/verification.md", "sha256": "08e0be1c07ed38ce991d5fb6fee25997c28649b5d517fc98d40a20ed730b03a6"}, {"path": "org/reviews/security-vercel-candidate-validation-implementation-001.md", "sha256": "dd5c06033bf038757387b86c97a61d8178d73c376235eb64cb296ee683521b4c"}, {"path": "org/reviews/code-vercel-candidate-validation-002.md", "sha256": "209e1b9be3067728385cce90634033ddf90acdeb32b64a8c80644aece0729393"}]
-acceptance: [{"command": "pnpm run lint", "exit": 0, "pass": true}, {"command": "pnpm run typecheck", "exit": 0, "pass": true}, {"command": "pnpm test", "exit": 0, "pass": true}, {"command": "pnpm run build", "exit": 0, "pass": true}, {"command": "node --import tsx --test tests/deployment/*.test.ts", "exit": 0, "pass": true}, {"command": "(umask 077 && mkdir -p .data/staging-verification && pnpm run test:auth > .data/staging-verification/org-auth.log 2>&1)", "exit": 0, "pass": true}, {"command": "pnpm run test:family", "exit": 0, "pass": true}, {"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T14:15:56Z"
+phase: configure
+status: in_progress
+last_input_hash: 682d986b633e32ce9f08e7c6fef18c22d717af634510df36674c547f8bf82831
+stop_reason: null
+last_action: "reviewer:review_preview_scope"
+artifacts: [{"path": "intent/vercel-candidate-validation/hosted-setup.md", "sha256": "c43a759ce7f8de79d4b22ea60cc23f952bd531e88a6269e042c2fac27d7a00f1"}, {"path": "org/reviews/hosted-vercel-candidate-validation-001.md", "sha256": "9d14349c70bcd2772ecba0822e417f73131b35e23f1b97002072eed17d540fd3"}]
+acceptance: [{"command": "python3 -m unittest discover -s tests", "exit": 0, "pass": true}, {"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-24T14:31:18Z"

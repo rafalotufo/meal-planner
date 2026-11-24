@@ -47,6 +47,19 @@ nodes:
     status: not_started
     done_status: done
 
+  preview_setup_authorization:
+    stage: deploy
+    artifact: intent/vercel-candidate-validation/hosted-setup.md
+    gate: preview_deployment_authorization
+    status: in_review
+    done_status: approved
+  preview_verification:
+    stage: deploy
+    artifact: intent/vercel-candidate-validation/hosted-results.md
+    gate: preview_verification
+    status: not_started
+    done_status: done
+
 edges:
   - { from: intent, to: spec, trigger: acceptance }
   - { from: spec, to: plan, trigger: approval }
@@ -54,3 +67,4 @@ edges:
   - { from: implementation, to: release, trigger: pr_merged }
   - { from: release, to: diagnosis, trigger: band_breach_or_incident }
   - { from: diagnosis, to: intent, trigger: written_back }
+  - { from: preview_setup_authorization, to: preview_verification, trigger: explicit_preview_authority }
