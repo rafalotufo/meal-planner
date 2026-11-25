@@ -30,6 +30,10 @@ with verified TLS and change its data; it never deploys application code.
   uses `fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql` instead of the descriptive suffix
   placeholder. Identity/dependencies/scope are unchanged; no validator is relaxed.
 
+- The generic deadline transaction primitive (slice5) is proved in parallel with
+  schema work because its rollback/lock tests do not depend on verification tables.
+  Exchange integration still requires the schema and typed-admission checkpoints.
+
 ## Implementation order and task checklist
 
 Write each slice's meaningful strict TypeScript regression first, record its
