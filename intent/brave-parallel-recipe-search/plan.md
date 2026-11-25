@@ -1,7 +1,7 @@
 # Brave parallel recipe search — implementation plan
 
 Author: architect, planning draft delegated by orchestrator.
-- Status: Draft
+- Status: Approved
 Inputs: accepted `intent.md`, sibling `spec.md`, recorded live benchmark evidence.
 Senior developer owns execution and verification after peer approval.
 
