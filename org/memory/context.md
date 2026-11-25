@@ -25,9 +25,6 @@ intent/brave-parallel-recipe-search/intent.md
 
 ## Open messages
 
-- architect-0016 architect -> orchestrator handoff: Brave parallel search spec and plan ready for independent review
-- architect-0017 architect -> orchestrator handoff: Review narrow principal-heading correction and one live follow-up
-- architect-0018 architect -> orchestrator handoff: Review owner-directed eight-second per-item curation timeout
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -117,18 +114,6 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
 - orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
 - orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
-- orchestrator-0155 orchestrator -> product-manager handoff: Review Brave parallel recipe search intent
-- orchestrator-0156 orchestrator -> architect handoff: Design bounded Brave discovery and parallel per-page curation
-- orchestrator-0157 orchestrator -> security-researcher handoff: Early threat consultation for Brave parallel recipe search
-- orchestrator-0158 orchestrator -> reviewer handoff: Review Brave search specification and implementation plan
-- orchestrator-0159 orchestrator -> senior-developer handoff: Implement approved Brave parallel recipe search plan
-- orchestrator-0160 orchestrator -> reviewer handoff: Review bounded heading correction and one corrective live smoke
-- orchestrator-0161 orchestrator -> security-researcher handoff: Formal security review of verified Brave implementation
-- orchestrator-0162 orchestrator -> senior-developer decision: Run one approved corrective broad-query smoke
-- orchestrator-0163 orchestrator -> reviewer handoff: Formal review of verified Brave search implementation
-- orchestrator-0164 orchestrator -> architect handoff: Document owner-directed eight-second item timeout
-- orchestrator-0165 orchestrator -> reviewer handoff: Review owner-directed eight-second curation amendment
-- orchestrator-0166 orchestrator -> senior-developer decision: Implement independently approved eight-second item timeout
 - orchestrator-0167 orchestrator -> security-researcher handoff: Refresh final security review for parser and timeout corrections
 - orchestrator-0168 orchestrator -> reviewer handoff: Second-round final Brave implementation review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
@@ -147,14 +132,12 @@ intent/brave-parallel-recipe-search/intent.md
 - product-manager-0022 product-manager -> orchestrator decision: Accepted Brave parallel recipe search intent for Design
 - product-manager-0023 product-manager -> orchestrator decision: Local Brave scope met with disclosed broad recall limitation
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
-- reviewer-0057 reviewer -> orchestrator review: Approve Brave parallel search specification and plan
-- reviewer-0058 reviewer -> orchestrator review: Approve principal-H1 correction and one bounded broad-query follow-up
 - reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
-- reviewer-0060 reviewer -> orchestrator review: Approve owner per-item curation timeout design
 - security-researcher-0031 security-researcher -> orchestrator status: Early Brave parallel recipe search threat consultation
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
 - security-researcher-0035 security-researcher -> orchestrator review: Brave parallel source security approved locally
+- security-researcher-0036 security-researcher -> orchestrator review: Final Brave timeout/parser source security approved
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
