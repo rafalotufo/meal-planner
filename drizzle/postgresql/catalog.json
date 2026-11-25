@@ -817,7 +817,7 @@
   {
     "kind": "constraint",
     "name": "verification_runs.verification_runs_origin_check",
-    "definition": "CHECK ((((length(origin) >= 9) AND (length(origin) <= 300)) AND (origin ~ '^https://[^/?#[:space:]]+$'::text)))"
+    "definition": "CHECK (((length(origin) >= 9) AND (length(origin) <= 300) AND (origin ~ '^https://[^/?#[:space:]]+$'::text)))"
   },
   {
     "kind": "constraint",

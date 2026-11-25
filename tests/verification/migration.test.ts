@@ -12,9 +12,9 @@ import { restrictedMenuDatabase } from '../menu/database.ts';
 const migrationId = 'fe5c2ee0-bf7f-464e-93be-2d654b4001e8';
 function historicalManifest() {
   const old = structuredClone(compatibility);
-  old.migrations = old.migrations.filter(row => row.id !== migrationId);
-  old.required = old.required.filter(id => id !== migrationId);
-  old.profiles = old.profiles.filter(row => !row.applied.includes(migrationId));
+  old.migrations = old.migrations.filter(row => row.legacy);
+  old.required = old.migrations.map(row => row.id);
+  old.profiles = old.profiles.filter(row => row.applied.every(id => old.required.includes(id)));
   return old;
 }
 async function seedRun(db: ReturnType<typeof connectDatabase>) {
@@ -30,6 +30,7 @@ test('verification migration is one immutable native descriptor after both termi
   assert.ok(row, 'approved verification migration must be present');
   assert.equal(row.file, `${migrationId}.sql`);
   assert.equal(row.legacy, undefined);
+  assert.equal(row.hash, '0fc9a5dce9ebd7a6ee339b6e45a97fa49242c70496a1c19217bcc46016529f83', 'initial verification SQL stays immutable');
   assert.deepEqual([...row.dependsOn].sort(), ['1f2a959a-4e7b-44dd-bc5a-6c6f2361cb07', 'e81c2de0-8b02-4136-b06b-a13b31ea304e'].sort());
   assert.equal(createHash('sha256').update(await readFile(`drizzle/postgresql/${row.file}`)).digest('hex'), row.hash);
 });
@@ -99,4 +100,26 @@ test('failed native verification execution preserves pre-upgrade catalog and his
     assert.equal((await db.one<{ absent: boolean }>("SELECT to_regclass('public.verification_runs') IS NULL AS absent"))?.absent, true);
     const opened = await openDatabase(fixture.url, { manifest: old, ownerTooling: true }); await opened.close();
   } finally { await db.close(); await fixture.cleanup(); }
+});
+
+test('an additive native correction makes verification catalog stable across PostgreSQL dump/restore', async () => {
+  const correction = compatibility.migrations.find(row => row.id === '557e80b6-f30b-452e-b563-12cff07158a5');
+  assert.ok(correction, 'catalog correction has its own immutable migration identity');
+  assert.deepEqual(correction.dependsOn, [migrationId]);
+  const source = await testDatabase(), sourceDb = await source.open();
+  let target: Awaited<ReturnType<typeof restrictedMenuDatabase>> | undefined;
+  try {
+    const run = await seedRun(sourceDb);
+    const preservedRun = await sourceDb.one('SELECT * FROM verification_runs WHERE id=$1', [run.runId]);
+    for (const origin of ['https://', 'http://example.test', 'https://example.test/path', 'https://example.test?query', 'https://example.test#fragment', 'https://example .test', 'https://' + 'a'.repeat(293)]) await assert.rejects(sourceDb.execute('UPDATE verification_runs SET origin=$1 WHERE id=$2', [origin, run.runId]), { code: '23514' });
+    const original = await sourceDb.one<{ hash: string; descriptor_hash: string }>('SELECT hash,descriptor_hash FROM __app_migrations WHERE id=$1', [migrationId]);
+    assert.equal(original?.hash, compatibility.migrations.find(row => row.id === migrationId)?.hash);
+    target = await restrictedMenuDatabase(source.url);
+    const restored = await openDatabase(target.runtimeUrl);
+    try {
+      assert.deepEqual(await restored.one('SELECT hash,descriptor_hash FROM __app_migrations WHERE id=$1', [migrationId]), original);
+      assert.deepEqual(await restored.one('SELECT * FROM verification_runs WHERE id=$1', [run.runId]), preservedRun);
+      assert.equal((await restored.one<{ n: number }>('SELECT count(*)::integer AS n FROM __app_migrations WHERE id=$1', [correction.id]))?.n, 1);
+    } finally { await restored.close(); }
+  } finally { await sourceDb.close(); await source.cleanup(); await target?.cleanup(); }
 });

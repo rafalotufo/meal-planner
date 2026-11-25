@@ -32,7 +32,7 @@ test('reviewed independent legacy migrations in either order converge without re
     await migrateDatabase(right.url);
     assert.deepEqual(await catalogSignature(a), await catalogSignature(b));
     assert.deepEqual(await a.all('SELECT * FROM __drizzle_migrations WHERE id IN (0,1,4) ORDER BY id'), before);
-    assert.deepEqual(await a.all('SELECT * FROM families'), [{ id: 'retained-family', created_at: 1 }]);
+    assert.deepEqual(await a.all('SELECT * FROM families'), [{ id: 'retained-family', created_at: 1, identity_kind: 'google' }]);
     assert.deepEqual(await a.all('SELECT * FROM __drizzle_migrations ORDER BY id'), await b.all('SELECT * FROM __drizzle_migrations ORDER BY id'));
     await Promise.all([migrateDatabase(left.url), migrateDatabase(left.url), migrateDatabase(left.url)]);
     assert.equal((await a.one<{ n: number }>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n, 5);

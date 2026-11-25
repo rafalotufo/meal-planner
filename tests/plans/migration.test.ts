@@ -6,6 +6,7 @@ import { testDatabase } from '../family/database.ts';
 import { restrictedMenuDatabase } from '../menu/database.ts';
 import { connectDatabase, openDatabase } from '../../lib/db/connection.ts';
 import { migrateDatabase } from '../../lib/db/migrate.ts';
+import { rollbackEmptyVerificationFixture } from '../verification/rollback.ts';
 test('weekly schema constraints, exact runtime privileges and disposable rollback', async()=>{
  const fixture=await restrictedMenuDatabase();const db=await fixture.open();const runtime=await openDatabase(fixture.runtimeUrl);
  try{
@@ -19,7 +20,7 @@ test('weekly schema constraints, exact runtime privileges and disposable rollbac
   for(const sql of ['DELETE FROM meal_plan_weeks','TRUNCATE meal_plan_weeks','DELETE FROM meal_plan_suggestions','CREATE TABLE public.denied_weekly (id text)',"UPDATE __drizzle_migrations SET hash='bad'"]) await assert.rejects(runtime.execute(sql),{code:'42501'});
  }finally{await runtime.close();await db.close();await fixture.cleanup();}
  const rollback=await testDatabase();const owner=connectDatabase(rollback.url);
- try{await owner.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-curation-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-initial.sql','utf8'));assert.deepEqual(await owner.all("SELECT tablename FROM pg_tables WHERE schemaname='public'"),[]);await migrateDatabase(rollback.url);}
+ try{await owner.transaction(tx=>rollbackEmptyVerificationFixture(tx));await owner.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-curation-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-initial.sql','utf8'));assert.deepEqual(await owner.all("SELECT tablename FROM pg_tables WHERE schemaname='public'"),[]);await migrateDatabase(rollback.url);}
  finally{await owner.close();await rollback.cleanup();}
 });
 

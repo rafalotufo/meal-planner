@@ -7,6 +7,7 @@ import { testDatabase } from '../family/database.ts';
 import { connectDatabase, openDatabase } from '../../lib/db/connection.ts';
 import { migrateDatabase } from '../../lib/db/migrate.ts';
 import { restrictedMenuDatabase } from './database.ts';
+import { rollbackEmptyVerificationFixture } from '../verification/rollback.ts';
 
 test('menu migration enforces ownership, deduplication, snapshot bounds and complete time pairs', async () => {
   const fixture = await testDatabase(); const db = await fixture.open();
@@ -55,6 +56,7 @@ test('disposable menu rollback precedes preserved initial rollback and permits f
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     await db.transaction(async tx => {
+      await rollbackEmptyVerificationFixture(tx);
       await tx.execute(await readFile('drizzle/postgresql/rollback-curation-test.sql', 'utf8'));
       await tx.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));
       await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql', 'utf8'));
