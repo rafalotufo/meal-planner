@@ -1,7 +1,7 @@
 # Google-free deployment verification — alternatives
 
 - Author: product-manager; date: 2026-11-25
-- Status: Exploratory recommendation; no architecture selected or change authorized
+- Status: Option A direction accepted for Design by Rafael on 2026-11-25; architecture and implementation remain unapproved
 - Parent: [intent.md](intent.md)
 
 The useful target is a fresh browser that can inspect the actual deployed app

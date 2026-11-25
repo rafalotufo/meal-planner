@@ -1,0 +1,15 @@
+version: 1
+max_turns: 6
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: true
+review_artifact: intent/agent-deployment-verification/options.md
+human_gates: [intent_acceptance, pr_merge_approval, release_authorization]
+acceptance:
+  commands: ["git diff --check"]
+phases:
+  intent: {role: product-manager, action: capture_intent_and_options, next: security}
+  security: {role: security-researcher, action: assess_options, next: peer}
+  peer: {role: reviewer, action: review_intent_options, next: owner_decision}
+  owner_decision: {role: null, action: null, next: null}
+  done: {role: null, action: null, next: null}

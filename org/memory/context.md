@@ -9,13 +9,13 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: owner_decision
+- turn: 0
+- phase: intent
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/agent-deployment-verification/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -57,6 +57,7 @@ intent/agent-deployment-verification/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0068 ceo -> orchestrator answer: Re: Select Google-free verification direction before Design
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -107,7 +108,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0148 orchestrator -> product-manager handoff: Explore Google-free deployment verification
 - orchestrator-0149 orchestrator -> security-researcher handoff: Assess Google-free verification alternatives
 - orchestrator-0150 orchestrator -> reviewer handoff: Peer review Google-free verification intent and alternatives
-- orchestrator-0151 orchestrator -> ceo question: Select Google-free verification direction before Design
+- orchestrator-0152 orchestrator -> architect handoff: Design approved staging-only Google-free verification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -128,11 +129,11 @@ intent/agent-deployment-verification/intent.md
 
 ## Recent decisions
 
-- mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 - mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 - mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
 - mem-0164 orchestrator: Owner requested Google-free ordinary-browser deployment-verification intent exploration. Preserve completed dependency-aware-migrations loop and graph under org/loop/archive/dependency-aware-migrations-before-agent-verification-2026-11-25; new work item is intent/agent-deployment-verification/intent.md. No runtime, hosted, paid or release actions authorized. (org/messages/orchestrator-0148.md)
 - mem-0165 orchestrator: Agent deployment verification remains intent exploration only. PM recommends staging-only synthetic principal plus single-use short-lived capability, retains local fixture coverage, and escalates staging/Production and issuance scope before Design. Independent security assessment finds no exploration blockers; no authentication design, hosted setup or release is approved. (org/reviews/agent-deployment-verification-security-001.md)
+- mem-0166 orchestrator: Rafael approved staging-only Google-free verification direction for Design in active chat. Intent gate recorded; prior intent loop archived under agent-verification-intent-before-design-2026-11-25 and new bounded Design loop initialized. Implementation/hosted/release remain unapproved. (org/messages/orchestrator-0151.md)
 
 ## Constraints
 
@@ -140,17 +141,15 @@ intent/agent-deployment-verification/intent.md
 
 ## Artifacts
 
-- intent/agent-deployment-verification/options.md (cfdaf750c6871bfad149b6a4620ecdaee7b161ee17d444ed099b5b61eafb85c1)
-- org/reviews/agent-deployment-verification-security-001.md (0f93a1f1a47c234429ddd32c2003eb27163d2fbd1341d6dfde372e67d1674564)
-- org/reviews/agent-deployment-verification-intent-001.md (288cdb5b91a600f4957317cca17a515a01d7d2e10269cc3681d0fb7a281901e1)
+(none)
 
 ## Next action
 
-reviewer:review_intent_options
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0165 from org/reviews/agent-deployment-verification-security-001.md
+- mem-0166 from org/messages/orchestrator-0151.md
 
 <!-- machine:end -->
 

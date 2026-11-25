@@ -1,11 +1,36 @@
-# Agent deployment verification: exploration only; owner selects scope before Design.
+# Agent deployment verification: owner accepted intent; Design only until spec approval.
 version: 1
 nodes:
-  intent: {stage: plan, artifact: intent/agent-deployment-verification/intent.md, gate: intent_acceptance, status: in_review, done_status: accepted}
-  spec: {stage: design, artifact: intent/agent-deployment-verification/spec.md, gate: peer_review, status: not_started, done_status: approved}
-  plan: {stage: build, artifact: intent/agent-deployment-verification/plan.md, gate: peer_review, status: not_started, done_status: approved}
-  implementation: {stage: build, artifact: agent-deployment-verification, gate: pr_merge_approval, status: not_started, done_status: merged}
-  release: {stage: deploy, artifact: separately authorized release, gate: release_authorization, status: not_started, done_status: done}
+  intent:
+    stage: plan
+    artifact: intent/agent-deployment-verification/intent.md
+    gate: intent_acceptance
+    status: accepted
+    done_status: accepted
+  spec:
+    stage: design
+    artifact: intent/agent-deployment-verification/spec.md
+    gate: spec_approval
+    status: in_progress
+    done_status: approved
+  plan:
+    stage: build
+    artifact: intent/agent-deployment-verification/plan.md
+    gate: peer_review
+    status: not_started
+    done_status: approved
+  implementation:
+    stage: build
+    artifact: agent-deployment-verification
+    gate: pr_merge_approval
+    status: not_started
+    done_status: merged
+  release:
+    stage: deploy
+    artifact: separately authorized release
+    gate: release_authorization
+    status: not_started
+    done_status: done
 edges:
   - {from: intent, to: spec, trigger: acceptance}
   - {from: spec, to: plan, trigger: approval}

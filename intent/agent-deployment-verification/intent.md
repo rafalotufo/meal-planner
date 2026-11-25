@@ -2,7 +2,7 @@
 
 - Owner: Rafael; date: 2026-11-25
 - Author: product-manager
-- Status: Draft; pending owner acceptance of scope and preferred direction
+- Status: Accepted for Design by Rafael on 2026-11-25 (active chat: “approved”)
 - Source: owner's request in the active chat to explore deployment verification
   from any browser without giving agents access to a real Google account
 - Alternatives and evidence: [options.md](options.md)
@@ -31,8 +31,7 @@ The path should be repeatable across browser tools and should not expose real
 family data or credentials for a human account.
 
 Start with an isolated staging deployment and synthetic verification household.
-This is an explicit working assumption: the owner said “deployments” without
-choosing whether authenticated Production verification is required. Keep routine
+The owner accepted this staging-only first scope on 2026-11-25. Keep routine
 Production verification at the existing anonymous health/configuration scope
 unless the owner separately requests and approves a broader intent.
 
@@ -91,17 +90,15 @@ promotion, merge or release. No anonymous access to private application behavior
 public demo of real households, permanent shared password, Production test bypass,
 or handing agents personal Google/Vercel accounts.
 
-## Owner decisions needed before Design
+## Decision record and remaining Design choice
 
-1. Accept staging-only authenticated verification as the first scope, with
-   Production retaining anonymous health checks, or state the required Production
-   use case so its risks can be designed separately.
-2. Select the synthetic identity plus short-lived capability direction for Design,
-   or choose another option in [options.md](options.md).
-3. Confirm whether automatic per-run access issuance is required, or an owner-issued
-   run credential is sufficient initially. Both avoid Google-account access; they
-   differ in unattended operation and control-plane scope.
+Rafael accepted the staging-only scope and synthetic identity plus short-lived,
+single-use capability direction in the active chat on 2026-11-25. Production
+retains anonymous health/configuration checks. Gate record:
+`agent-verification-intent-2026-11-25`; source reply: `org/messages/ceo-0068.md`.
 
-The PM finds the problem coherent and the staging-first direction appropriate for
-Design, but escalates these scope/authority choices to the owner. This draft does
-not record acceptance or approval on the owner's behalf.
+Design must propose the least-authority issuance mechanism. Owner/operator-issued
+per-run access is sufficient for the first design proposal; unattended issuance
+must not imply browser-agent possession of reusable control-plane credentials.
+The exact issuance choice remains reviewable in the specification. Approval of
+this intent does not approve implementation, hosted changes or a release.

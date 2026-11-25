@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/agent-deployment-verification/intent.md
-base_commit: e4b8c954f6e2cab63c39216cef794187a227d79e
-turn: 3
+base_commit: 69f6816232572db9aaad4a54290ebee1c61cd859
+turn: 0
 no_progress: 0
-phase: owner_decision
+phase: intent
 status: in_progress
-last_input_hash: 7c1b87e7d0e6664233a1c5d3b549c1c11bc342be0d07b8718db37cb160e95475
+last_input_hash: null
 stop_reason: null
-last_action: "reviewer:review_intent_options"
-artifacts: [{"path": "intent/agent-deployment-verification/options.md", "sha256": "cfdaf750c6871bfad149b6a4620ecdaee7b161ee17d444ed099b5b61eafb85c1"}, {"path": "org/reviews/agent-deployment-verification-security-001.md", "sha256": "0f93a1f1a47c234429ddd32c2003eb27163d2fbd1341d6dfde372e67d1674564"}, {"path": "org/reviews/agent-deployment-verification-intent-001.md", "sha256": "288cdb5b91a600f4957317cca17a515a01d7d2e10269cc3681d0fb7a281901e1"}]
-acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T13:12:57Z"
+last_action: null
+artifacts: []
+acceptance: []
+updated_at: "2026-11-25T13:21:20Z"
