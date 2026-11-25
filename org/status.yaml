@@ -3,8 +3,8 @@ agents:
   orchestrator: { status: idle, assignment: intent/dependency-aware-migrations/staging-result.md, last_report: Owner-approved main merge done; exact25 staged READY3XbA and stable alias attributed; browser pass but HTTP/OAuth/member/provider gaps explicit; review2882c0f ready for owner staging acceptance and concrete Production decision; Production unchanged }
   product-manager: { status: idle, assignment: null, last_report: Accepted Brave parallel search intent; clarified bounded discovery/curation and broad-query relevance; no owner escalation }
   architect: { status: busy, assignment: intent/brave-parallel-recipe-search/plan.md, last_report: Spec/plan f09624c ready for independent review }
-  senior-developer: { status: idle, assignment: null, last_report: "Exact25 verified328Node+7Python, lint/typecheck/build, both Chrome and126-file upload-only build; evidence155d00a; no main or deployment effects" }
-  security-researcher: { status: busy, assignment: intent/brave-parallel-recipe-search/threat-model.md, last_report: Exact25 approved6c70e99 with strict platform and upstream attribute contracts; no hosted mutation }
+  senior-developer: { status: busy, assignment: intent/brave-parallel-recipe-search/plan.md, last_report: "Exact25 verified328Node+7Python, lint/typecheck/build, both Chrome and126-file upload-only build; evidence155d00a; no main or deployment effects" }
+  security-researcher: { status: idle, assignment: null, last_report: Early threat consultation a1b78ca; formal source review pending Build }
   reviewer: { status: idle, assignment: null, last_report: Approved Brave parallel search design f09624c; no blocking findings; implementation/security verification pending }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

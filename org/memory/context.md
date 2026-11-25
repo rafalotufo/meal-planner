@@ -9,8 +9,8 @@ intent/brave-parallel-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: design_review
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/brave-parallel-recipe-search/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/brave-parallel-recipe-search/plan.md)
-- security-researcher: busy (intent/brave-parallel-recipe-search/threat-model.md)
-- senior-developer: idle (unassigned)
+- reviewer: idle (unassigned)
+- security-researcher: idle (unassigned)
+- senior-developer: busy (intent/brave-parallel-recipe-search/plan.md)
 
 ## Open messages
 
@@ -118,6 +118,7 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0156 orchestrator -> architect handoff: Design bounded Brave discovery and parallel per-page curation
 - orchestrator-0157 orchestrator -> security-researcher handoff: Early threat consultation for Brave parallel recipe search
 - orchestrator-0158 orchestrator -> reviewer handoff: Review Brave search specification and implementation plan
+- orchestrator-0159 orchestrator -> senior-developer handoff: Implement approved Brave parallel recipe search plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -133,6 +134,7 @@ intent/brave-parallel-recipe-search/intent.md
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - product-manager-0022 product-manager -> orchestrator decision: Accepted Brave parallel recipe search intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
+- reviewer-0057 reviewer -> orchestrator review: Approve Brave parallel search specification and plan
 - security-researcher-0031 security-researcher -> orchestrator status: Early Brave parallel recipe search threat consultation
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
@@ -153,10 +155,11 @@ intent/brave-parallel-recipe-search/intent.md
 
 - org/reviews/intent-brave-parallel-recipe-search-001.md (f72e1b562954897b5904e335a46e79a15ffea2d1ed21d5b96cfee247d37f1bc2)
 - intent/brave-parallel-recipe-search/plan.md (31c7f6167b96e0702c4e741de63ccd2c4ae8e748f68adf017a9e15d49fdd977e)
+- org/reviews/design-brave-parallel-001.md (5eb8503d2a1509b57e76c3fa8d343cab0f679abede8649036d87e8354b373ca3)
 
 ## Next action
 
-architect:design_and_plan
+reviewer:review_design_and_plan
 
 ## Last digest source
 
