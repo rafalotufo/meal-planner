@@ -9,18 +9,18 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: implement
+- turn: 3
+- phase: security
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/agent-deployment-verification/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/agent-deployment-verification/spec.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
+- security-researcher: busy (intent/agent-deployment-verification/spec.md)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -111,6 +111,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0152 orchestrator -> architect handoff: Design approved staging-only Google-free verification
 - orchestrator-0153 orchestrator -> security-researcher handoff: Security review staged verification design
 - orchestrator-0154 orchestrator -> architect handoff: Revise exchange dispatch and security clarifications
+- orchestrator-0155 orchestrator -> security-researcher handoff: Recheck exact exchange guard correction
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -144,12 +145,12 @@ intent/agent-deployment-verification/intent.md
 
 ## Artifacts
 
-- intent/agent-deployment-verification/spec.md (2a89faedaf2a5b2105a1d4b1ed4bf394ddba938f721ef3c32905400573e88543)
 - org/reviews/agent-deployment-verification-spec-security-001.md (d6206ab7f8cec9ed641b31b2a406f9ec27fb3bd129f14811e57d70d7662060fc)
+- intent/agent-deployment-verification/spec.md (4889232cf62c05ecfe8a4f63be2a871907f294738d18ea0461bfdcc0c34533db)
 
 ## Next action
 
-security-researcher:assess_verification_spec
+architect:revise_verification_spec
 
 ## Last digest source
 

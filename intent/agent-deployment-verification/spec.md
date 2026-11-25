@@ -1,7 +1,7 @@
 # Agent deployment verification — specification
 
 - Author: architect; date: 2026-11-25
-- Status: Design proposal; independent security/peer review and owner spec approval pending
+- Status: Revised for security review; independent peer review and owner spec approval pending
 - Inputs: accepted sibling intent/options; security assessment `org/reviews/agent-deployment-verification-security-001.md`
 - Approval boundary: local implementation needs an approved plan; hosted schema/configuration/data/deployment changes need separate exact-scope authority.
 
@@ -124,7 +124,13 @@ Require all of: Vercel Preview at build and runtime, recorded project ID and
 exact deployment ID, fixed staging HTTPS origin, expected source SHA and reviewed
 configuration-profile digest, Preview database identity, and live run binding to
 those same values. Missing/mismatched metadata denies verification. Build an
-immutable verification manifest from trusted build inputs; it contains no secrets.
+immutable verification manifest containing build-known source SHA, profile digest,
+Preview build target and project/origin policy from trusted build inputs, with no
+secrets. The exact deployment ID is bound at runtime using trusted platform
+metadata and the issuer's independently checked deployment record; it need not
+be present during build. Never substitute a generated placeholder or alias for
+missing deployment evidence. Runtime metadata must match both manifest policy
+and the run record before exchange or session admission.
 Ordinary Production builds omit an enabled manifest. Production runtime target
 always denies verification even if Preview settings, capability/session digests
 or database credentials are copied. Noncanonical Host still421 before entry.
@@ -139,10 +145,29 @@ security against that authority. Capability/session digest lookup and all checks
 bind the actual deployment/source/profile; alias movement invalidates the run.
 
 Proxy keeps canonical Host/security headers and consults the shared typed session
-adapter. Entry exceptions are exact GET/HEAD `/verification` and POST
-`/api/verification/session` only when the staging guard succeeds; disabled targets
-return404 without provisioning. Unsupported methods retain guarded405; malformed
-path shapes receive no exception. Pages, API handlers and stores still authorize.
+adapter. The exact GET/HEAD `/verification` entry exception remains behind Proxy
+and requires the staging target guard. Exclude exactly `/api/verification/session`
+from the Proxy matcher for **all methods**, preserving the existing exact menu
+exclusions. Do not exclude trailing-slash/child/encoded lookalike path shapes;
+they retain normal Proxy protection. This avoids Next16.4.6's documented wait for
+unfinished request-body EOF before handler dispatch, recorded in
+`intent/saved-recipe-menu/request-timeout-note.md`.
+
+The direct exchange handler supplies the complete equivalent guard: target and
+canonical Host validation, private/no-store and all existing security headers,
+explicit POST-only method policy, exact Origin/fetch-site/nonce checks, shared
+PostgreSQL throttle and the bounded5s/2KiB parser. Start the deadline on handler
+entry before reading any body; race/cancel body reading and any throttle/storage
+work against it. Check target/Host before method rejection, returning421 for
+noncanonical Host and404 for disabled targets; permitted staging unsupported
+methods return405 with Allow: POST and the same headers without reading the body.
+For POST, cheap target/Host/Origin/content-type checks and the shared deployment
+throttle precede bounded body parsing; run throttling and nonce validation follow
+validated parsing. Incomplete body at the deadline returns408 without awaiting
+EOF or consuming credentials. No issuance transaction starts until the full
+validated body, nonce and both throttle checks pass. Storage failure503 and
+throttle429 remain bounded by the same deadline. Never trust forwarded identity
+headers. Pages, API handlers and stores still authorize independently.
 
 Proposed amendment to the mandatory menu JWE contract: Google continues the exact
 current `getCookieCache` JWE/current session-token/subject/email equality checks.
@@ -164,7 +189,11 @@ Explicit cleanup first revokes the run, then deletes only its proven-owned rows
 in FK order with counts/rollback on ownership mismatch. No GET reset, broad
 TRUNCATE, global test-data deletion or Production access. Retain sanitized run
 results, not credential material; remove expired capability/session/throttle rows
-with the separately authorized targeted cleanup command.
+with the separately authorized targeted cleanup command. Global operator or
+background plan-generation scans must exclude verification families by default,
+even before run expiry. A dedicated invocation may include only the exact family
+of a live run whose approved scope explicitly authorizes that work, after current
+target/run checks; expired/revoked runs never remain eligible for provider jobs.
 
 For V1, an operator supplies a scoped Vercel Shareable Link if protection blocks
 ordinary navigation. Never give the browser a project-wide automation-bypass
@@ -197,7 +226,8 @@ Keyless provider errors, blocked ingress and unexecuted curation remain named ga
 | Replay, concurrent exchange, expiry, revocation | One winner; generic rejection thereafter; revoked sessions fail current reads/effects |
 | Copied settings/cookies/DB credentials on Production; origin/source/profile/alias drift | Verification rejected before private reads/provider effects; Google path unaffected |
 | Foreign family/member/run or client-selected identity | Denied in handlers/stores/transactions; no data/provisioning side effects |
-| Menu direct request and unsupported methods | Current credential binding and headers enforced; no unfinished-body timeout regression |
+| Menu/exchange direct requests and unsupported methods | Complete equivalent guards/headers remain; exact matcher exemptions only |
+| Raw HTTP exchange with partial chunked body and no EOF |408 reaches client within5s plus measured transport tolerance; no consumed capability/session/issuance transaction; test valid-looking and unknown run prefixes |
 | Synthetic invitations/provision/curation delegation | Server-side403 without invitation, membership, task or paid effect |
 | Cookie conflicts, missing DB, malformed/oversized/slow input, CSRF, throttle | Fail closed with defined bounded response and no leaked credential |
 | Browser QA | Current stable Chrome, Firefox and Safari at390px and1440px; actual versions/results recorded, unavailable browsers are gaps |
