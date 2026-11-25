@@ -47,6 +47,18 @@ the setter: it removes the marker instead. Reject duplicate markers, malformed
 arrays/elements, leading zeros, signs, whitespace, exponent/hex/LSN notation,
 overflow, unknown options and arbitrary pg_-prefixed names. No environment,
 database/provider label or caller-supplied bypass activates normalization.
+The production query also derives whether the owning relation has a row type
+(`pg_class.reltype<>0`), independently of the option value. Require that binding
+before accepting a marker; a marker on an index/non-row-typed relation remains
+unsupported. Native NULL/empty options remain valid on either relation class.
+Bound input to20decimal digits before BigInt conversion; do not round through
+JavaScript Number. Strict input-shape tests include sparse/nested/non-string
+arrays and unexpected array properties.
+
+Immutable primary implementation evidence is pinned to PostgreSQL upstream
+commit `2a9b6b5d4af701bb0c1ad2fd827bdefb25364782`, notably
+[reloptions.c](https://github.com/postgres/postgres/blob/2a9b6b5d4af701bb0c1ad2fd827bdefb25364782/src/backend/access/common/reloptions.c)
+and [README.attver.md](https://github.com/postgres/postgres/blob/2a9b6b5d4af701bb0c1ad2fd827bdefb25364782/src/backend/catalog/README.attver.md).
 
 This validates a documented physical safety marker without making its
 instance-specific WAL position a migration checksum or schema identity. Keep
