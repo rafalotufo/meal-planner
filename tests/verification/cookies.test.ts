@@ -5,7 +5,7 @@ test('opaque credentials reject duplicates, malformed bytes and simultaneous Goo
   const token = newCredential();
   assert.equal(token.length, 43); assert.equal(capabilityDigest(token).length, 64);
   assert.equal(readVerificationCookie(`__Host-mp-verification=${token}`), token);
-  for (const cookie of [`__Host-mp-verification=${token}; __Host-mp-verification=${token}`, `__Host-mp-verification=${token}; better-auth.session_data=copied`, '__Host-mp-verification=short']) assert.throws(() => readVerificationCookie(cookie), /Unauthorized/);
+  for (const cookie of [`__Host-mp-verification=${token}; __Host-mp-verification=${token}`, `__Host-mp-verification=${token}; better-auth.session_data=copied`, `__Host-mp-verification=${token}; __Secure-better-auth.session_data.0=copied`, '__Host-mp-verification=short']) assert.throws(() => readVerificationCookie(cookie), /Unauthorized/);
 });
 test('preflight nonce is bounded and bound to the server secret and matching cookie', () => {
   const nonce = createNonce('a'.repeat(32), 1000);

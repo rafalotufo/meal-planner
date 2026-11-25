@@ -14,7 +14,7 @@ export function cookieValues(header: string | null, name: string): string[] {
 export function readVerificationCookie(header: string | null): string | null {
   const values = cookieValues(header, VERIFICATION_COOKIE);
   if (!values.length) return null;
-  if (values.length !== 1 || !credentialPattern.test(values[0]) || /(?:^|;)\s*(?:__Secure-)?better-auth\.(?:session_data|session_token)=/.test(header ?? '')) throw new Error('Unauthorized');
+  if (values.length !== 1 || !credentialPattern.test(values[0]) || /(?:^|;)\s*(?:__Secure-)?better-auth\.(?:session_data|session_token)(?:\.\d+)?=/.test(header ?? '')) throw new Error('Unauthorized');
   return values[0];
 }
 export function createNonce(secret: string, now = Date.now()) {
