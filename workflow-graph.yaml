@@ -4,8 +4,8 @@ nodes:
   intent: {stage: plan, artifact: intent/dependency-aware-migrations/intent.md, gate: product_manager_review, status: accepted, done_status: accepted}
   spec: {stage: design, artifact: intent/dependency-aware-migrations/spec.md, gate: peer_review, status: approved, done_status: approved}
   plan: {stage: build, artifact: intent/dependency-aware-migrations/hosted-permission-correction.md, gate: peer_review, status: approved, done_status: approved}
-  implementation: {stage: build, artifact: dependency-aware-migrations-production-release, gate: code_owner_approve, status: in_review, done_status: merged}
-  staging_acceptance: {stage: test, artifact: intent/dependency-aware-migrations/staging-result.md, gate: staging_acceptance, status: not_started, done_status: approved}
+  implementation: {stage: build, artifact: dependency-aware-migrations-production-release, gate: code_owner_approve, status: merged, done_status: merged}
+  staging_acceptance: {stage: test, artifact: intent/dependency-aware-migrations/staging-result.md, gate: staging_acceptance, status: in_progress, done_status: approved}
   release: {stage: deploy, artifact: separately authorized release, gate: release_authorization, status: not_started, done_status: done}
 edges:
   - {from: intent, to: spec, trigger: acceptance}

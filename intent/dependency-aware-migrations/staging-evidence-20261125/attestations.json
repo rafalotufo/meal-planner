@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "runId": "dependency-20261125-25aaa9b",
+  "capturedAt": "2026-11-25T13:49:38.901360+00:00",
+  "googleAllowed": false,
+  "googleDenied": false,
+  "browser390": true,
+  "browser1440": true,
+  "keyboard": true,
+  "signOutAndFreshSignIn": false,
+  "stagingSessionProvenance": false
+}

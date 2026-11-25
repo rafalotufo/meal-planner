@@ -1,0 +1,258 @@
+{
+  "checkedAt": "2026-11-25T13:49:20.880Z",
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "teamId": "team_2c0O29FMb91g7L6sUChc9v6J",
+  "scope": "rafalotufos-projects",
+  "plan": "hobby",
+  "paused": false,
+  "autoAssignCustomDomains": false,
+  "nodeVersion": "24.x",
+  "framework": "nextjs",
+  "gitIntegration": null,
+  "resourceConfig": {
+    "fluid": true,
+    "functionDefaultRegions": [
+      "iad1"
+    ],
+    "buildMachineSelection": "fixed",
+    "buildMachineType": "basic"
+  },
+  "production": {
+    "id": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a",
+    "url": "meal-planner-nmtunwe73-rafalotufos-projects.vercel.app",
+    "target": "production",
+    "readyState": "READY",
+    "sourceSha": "d26ea59742f904f399128477bfeb369a0049ba62",
+    "metaKeys": [
+      "releaseSourceSha",
+      "gitCommitRef",
+      "gitCommitSha",
+      "actor",
+      "lambdaRuntimeStats"
+    ]
+  },
+  "domains": [
+    {
+      "name": "lotufo-meals.vercel.app",
+      "gitBranch": null,
+      "redirect": null,
+      "redirectStatusCode": null,
+      "verified": true
+    },
+    {
+      "name": "meal-planner-staging-rafalotufos.vercel.app",
+      "gitBranch": "main",
+      "redirect": null,
+      "redirectStatusCode": null,
+      "verified": true
+    },
+    {
+      "name": "meal-planner-delta-six-55.vercel.app",
+      "gitBranch": null,
+      "redirect": null,
+      "redirectStatusCode": null,
+      "verified": true
+    }
+  ],
+  "aliases": [
+    {
+      "alias": "meal-planner-staging-rafalotufos.vercel.app",
+      "deploymentId": "dpl_3XbAs9EpUCmiu4QU6D1oX6He4fcH",
+      "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V"
+    },
+    {
+      "alias": "lotufo-meals.vercel.app",
+      "deploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a",
+      "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V"
+    },
+    {
+      "alias": "meal-planner-rafalotufos-projects.vercel.app",
+      "deploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a",
+      "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V"
+    },
+    {
+      "alias": "meal-planner-delta-six-55.vercel.app",
+      "deploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a",
+      "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V"
+    }
+  ],
+  "environmentMetadata": [
+    {
+      "id": "3LzbjDpkI1eEQFH3",
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "type": "encrypted",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795455771852,
+      "updatedAt": 1795455771852
+    },
+    {
+      "id": "5cmL542mUDbHmRLE",
+      "key": "BETTER_AUTH_URL",
+      "type": "encrypted",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795531716378,
+      "updatedAt": 1795531716378
+    },
+    {
+      "id": "79q55TJ0mQpOez5D",
+      "key": "BETTER_AUTH_URL",
+      "type": "encrypted",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795455768507,
+      "updatedAt": 1795537658971
+    },
+    {
+      "id": "ci3nVN3yayKfBTzM",
+      "key": "GOOGLE_CLIENT_SECRET",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795456477373,
+      "updatedAt": 1795456477373
+    },
+    {
+      "id": "Empkp5vFLIs7P6Q4",
+      "key": "BETTER_AUTH_SECRET",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795456669422,
+      "updatedAt": 1795456669422
+    },
+    {
+      "id": "LpALMbrDd9ofIpxl",
+      "key": "OPENAI_API_KEY",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795456622507,
+      "updatedAt": 1795456622507
+    },
+    {
+      "id": "p2Z1SH7cMLFzZW2s",
+      "key": "RECIPE_SEARCH_PROVIDER",
+      "type": "encrypted",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795455769571,
+      "updatedAt": 1795455769571
+    },
+    {
+      "id": "pN63ajycny5Idgop",
+      "key": "DATABASE_URL",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795464981874,
+      "updatedAt": 1795464981874
+    },
+    {
+      "id": "Qp63CSDxLYrnxcnh",
+      "key": "OPENAI_RECIPE_MODEL",
+      "type": "encrypted",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795455770737,
+      "updatedAt": 1795455770737
+    },
+    {
+      "id": "RlDbETYwo2NkSJli",
+      "key": "GOOGLE_CLIENT_ID",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795456460601,
+      "updatedAt": 1795456460601
+    },
+    {
+      "id": "RvnMxcTUzEgVCGZ7",
+      "key": "DATABASE_URL",
+      "type": "sensitive",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795464980777,
+      "updatedAt": 1795464980777
+    },
+    {
+      "id": "TNqnf5WU79vYQTyd",
+      "key": "RECIPE_SEARCH_PROVIDER",
+      "type": "encrypted",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795531911491,
+      "updatedAt": 1795531911491
+    },
+    {
+      "id": "wcyL1drvSjSDoMAC",
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "type": "encrypted",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795531912343,
+      "updatedAt": 1795531912343
+    },
+    {
+      "id": "wrWnIVujwU31THYI",
+      "key": "GOOGLE_CLIENT_SECRET",
+      "type": "sensitive",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795531910571,
+      "updatedAt": 1795531910571
+    },
+    {
+      "id": "yqv928Rws2ORSkyE",
+      "key": "BETTER_AUTH_SECRET",
+      "type": "sensitive",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795531908847,
+      "updatedAt": 1795531908847
+    },
+    {
+      "id": "ZX9yhZA6Soqr8wfn",
+      "key": "GOOGLE_CLIENT_ID",
+      "type": "sensitive",
+      "target": [
+        "preview"
+      ],
+      "gitBranch": null,
+      "createdAt": 1795531909715,
+      "updatedAt": 1795531909715
+    }
+  ],
+  "environmentMetadataSha256": "90ad795dfc14c4915b4f9a2ae8b67d624194b6fbc79fd5db5bb0ef76bebee59e"
+}
