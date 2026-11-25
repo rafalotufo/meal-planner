@@ -61,6 +61,7 @@ intent/brave-parallel-recipe-search/intent.md
 - ceo-0069 ceo -> orchestrator decision: Merge verification to main and prepare Production using new flow
 - ceo-0070 ceo -> orchestrator answer: Re: Accept exact197 staging gaps and scoped Production cutover recovery
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
+- ceo-0072 ceo -> orchestrator decision: Owner approves Brave search local main merge
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -115,16 +116,12 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
 - orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
 - orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
-- orchestrator-0155 orchestrator -> senior-developer handoff: Integrate reviewed main compatibility and correct upload packaging
-- orchestrator-0156 orchestrator -> reviewer handoff: Review combined main and verification packaging candidate
-- orchestrator-0157 orchestrator -> security-researcher handoff: Security recheck combined hosted validators and upload policy
 - orchestrator-0158 orchestrator -> security-researcher handoff: Diagnose failed Preview migration without effects
 - orchestrator-0159 orchestrator -> senior-developer handoff: Prepare isolated hosted Chrome verification helper
 - orchestrator-0160 orchestrator -> reviewer handoff: Review helper-only native Enter correction
 - orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
-- orchestrator-0169 orchestrator -> ceo handoff: Reviewed Brave parallel search and timeout ready for merge review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -155,11 +152,11 @@ intent/brave-parallel-recipe-search/intent.md
 
 ## Recent decisions
 
-- mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
 - mem-0166 orchestrator: Currentowner requests verification mainmerge andnewProductionrelease. Maincd60divergedwithreviewedhosted fixes; integrationrequired. Bothimmutableauditbranches preserved under agent-verification-before-main-integration-20261125, canonicalmainledgerprefixunchanged,3existingfeatureownerapprovals append-transcribed withoriginalevidence. No new/backdatedapproval; exact-sourcefuturestaging/releasegatespreserved. (intent/agent-deployment-verification/main-audit-reconciliation.md)
 - mem-0169 orchestrator: Owner requested one-month login expiration through org workflow. PM accepted fixed30day Google sessions without renewal; independent reviewer approved spec/plan. Preserve one-hour provider account data, existing issued expiries and short staging credentials. Local implementation/isolated verification only; human merge and release gates remain. (intent/login-session-expiration/spec.md)
 - mem-0170 orchestrator: Login-session-expiration implementation851c255 passes lint/typecheck/build,189 Node regressions,7 Python tests and Chrome390/1440. Independent code and security reviews approved with no findings. Local scope complete; human merge/release pending, no hosted/deployment effects. (intent/login-session-expiration/verification.md)
 - mem-0171 orchestrator: Owner-approved login expiration local main fast-forward from4f25732 to187bf43 completed without conflicts; reviewed runtime851c255 unchanged. Completion audit also merged; no push/restart/deployment/hosted effects, release remains gated. (intent/login-session-expiration/main-merge-result.md)
+- mem-0173 ceo: Owner approved local main merge of Brave parallel search and eight-second timeout. Integrated source73bb7f3 preserves main1f7cf8b; combined verification and independent review precede final main fast-forward. No push/deployment/paid or hosted changes. (org/messages/ceo-0072.md)
 
 ## Constraints
 
@@ -182,7 +179,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0172 from intent/brave-parallel-recipe-search/main-integration.md
+- mem-0173 from org/messages/ceo-0072.md
 
 <!-- machine:end -->
 
