@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/recipe-url-menu/intent.md
-base_commit: c9316dce75daa7bcd4b56250b89442a3fc135e78
-turn: 6
+work_item: intent/dependency-aware-migrations/intent.md
+base_commit: 956e0510e8bb0ddd4ccaf3b535d2281d95408c46
+turn: 0
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: f6cee170e5e4628d5d0a21b2f42295fc942e099de5cf71a719c752dc51c717ad
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "org/reviews/recipe-url-menu-main-integration-plan-001.md", "sha256": "abea6f49e9f2dafba62e72a4ae495bc88c61dd57dbb30b8653bec95488999c1f"}, {"path": "intent/recipe-url-menu/main-integration-verification.md", "sha256": "1ec354559f0a86225957f784738b619e353fafc1a17cb1498317dfeade01d640"}, {"path": "org/reviews/recipe-url-menu-main-integration-security-001.md", "sha256": "bf0009c9022f61be7b1fbe6ec92c3baaa2424de1a42388436d42c59c417bcf54"}, {"path": "intent/recipe-url-menu/main-integration-local-result.md", "sha256": "6953e304d85b1271dfd66fd3f54bb8ddf6899578a09a5e45880f9120bc703d7f"}, {"path": "org/reviews/recipe-url-menu-main-integration-code-001.md", "sha256": "89270da32eceaffcd12f6ee804a123e198b20415263120f25d7ad745e4b20447"}]
-acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-24T23:50:02Z"
+phase: intent
+status: in_progress
+last_input_hash: null
+stop_reason: null
+last_action: null
+artifacts: []
+acceptance: []
+updated_at: "2026-11-25T00:07:08Z"

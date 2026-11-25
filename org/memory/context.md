@@ -4,18 +4,18 @@
 
 ## Goal
 
-intent/recipe-url-menu/intent.md
+intent/dependency-aware-migrations/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 0
+- phase: intent
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (dependency-aware-migrations-design)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (recipe-url-menu-main-local-recovery)
 - product-manager: idle (unassigned)
@@ -92,6 +92,7 @@ intent/recipe-url-menu/intent.md
 - orchestrator-0085 orchestrator -> security-researcher handoff: Review shared layout auth and privacy boundaries
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
+- orchestrator-0136 orchestrator -> architect handoff: Design dependency-aware migrations and evaluate Drizzle
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -104,17 +105,18 @@ intent/recipe-url-menu/intent.md
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
+- product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0154 orchestrator: Historical mem-0138 import from feature tip: Final code review requested one narrow enum-type correction. Keep max8 turns: correction7 returns to final review8, whose approval requires independent security reconfirmation of the exact corrected source via the committed reviewer-to-security consultation route. Initial security assessment already completed; no security review, tests or human gate removed. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0155 orchestrator: Historical mem-0139 import from feature tip: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
 - mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 - mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
+- mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
 
 ## Constraints
 
@@ -122,19 +124,15 @@ intent/recipe-url-menu/intent.md
 
 ## Artifacts
 
-- org/reviews/recipe-url-menu-main-integration-plan-001.md (abea6f49e9f2dafba62e72a4ae495bc88c61dd57dbb30b8653bec95488999c1f)
-- intent/recipe-url-menu/main-integration-verification.md (1ec354559f0a86225957f784738b619e353fafc1a17cb1498317dfeade01d640)
-- org/reviews/recipe-url-menu-main-integration-security-001.md (bf0009c9022f61be7b1fbe6ec92c3baaa2424de1a42388436d42c59c417bcf54)
-- intent/recipe-url-menu/main-integration-local-result.md (6953e304d85b1271dfd66fd3f54bb8ddf6899578a09a5e45880f9120bc703d7f)
-- org/reviews/recipe-url-menu-main-integration-code-001.md (89270da32eceaffcd12f6ee804a123e198b20415263120f25d7ad745e4b20447)
+(none)
 
 ## Next action
 
-reviewer:review
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0159 from intent/recipe-url-menu/main-merge-result-2026-11-24.md
+- mem-0160 from intent/dependency-aware-migrations/intent.md
 
 <!-- machine:end -->
 
