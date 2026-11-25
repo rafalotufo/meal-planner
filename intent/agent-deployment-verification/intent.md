@@ -95,7 +95,7 @@ or handing agents personal Google/Vercel accounts.
 Rafael accepted the staging-only scope and synthetic identity plus short-lived,
 single-use capability direction in the active chat on 2026-11-25. Production
 retains anonymous health/configuration checks. Gate record:
-`agent-verification-intent-2026-11-25`; source reply: `org/messages/ceo-0068.md`.
+`agent-verification-intent-2026-11-25`; source reply: `org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/ceo-0068.md`.
 
 Design must propose the least-authority issuance mechanism. Owner/operator-issued
 per-run access is sufficient for the first design proposal; unattended issuance

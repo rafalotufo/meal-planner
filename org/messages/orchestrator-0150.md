@@ -3,14 +3,14 @@ id: orchestrator-0150
 from: orchestrator
 to: reviewer
 kind: handoff
-subject: Peer review Google-free verification intent and alternatives
-artifact: intent/agent-deployment-verification/options.md
+subject: Review documented PostgreSQL internal attribute metadata normalization
+artifact: intent/dependency-aware-migrations/attribute-options-amendment.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T13:11:47Z"
+created_at: "2026-11-25T13:15:44Z"
 ---
 
-Independently review intent/options and security assessment for exploration readiness. Owner decision before Design, no runtime/hosted changes. Check problem coverage, honest evidence, alternatives, no premature approval. Write bounded review with file/line evidence.
+Bothhosted exactcatalog matches; only61singletonpg_attver markers rejected byblanketattoptions guard. OfficialPG17docs/coreimplementation/securitybackpatch establish internalWALLSN metadata; exactpositiveuint64shapevalidation proposed, allordinaryoptions/securitychecksremainfailclosed. No hostedmutation; require review+redtests beforebehavior.

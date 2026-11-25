@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/agent-deployment-verification/intent.md
-base_commit: 7e6b3478694375e672a6e2b696f1d29f5e0021df
+base_commit: f01407aa158f48efb6fa769b555642e3255d079b
 turn: 3
 no_progress: 0
 phase: done
 status: solved
-last_input_hash: f994c313056f121908638a25edcce9f57ca330bbc0eebd2c0d553e97940bccc1
+last_input_hash: 1e7c96fd5999ed7d76d2321f1c5dca7ff93a8bfcfba21082c0a043aaa1bba68e
 stop_reason: solved
 last_action: "reviewer:review"
-artifacts: [{"path": "intent/agent-deployment-verification/verification.md", "sha256": "4ebcbb48e2590354f4880bb46ad73bb04d3fbf5aa08247d8162d96b86a1f03b4"}, {"path": "org/reviews/agent-deployment-verification-code-security-001.md", "sha256": "c404590ec66fa4729f0b662ab6a95199421f9de6cc005a46ed8d752a70b72981"}, {"path": "org/reviews/agent-deployment-verification-code-001.md", "sha256": "1e7c64146a485890324b7695021e630876b765f6f907f75f2adaa1ec2879c35a"}]
+artifacts: [{"path": "intent/agent-deployment-verification/main-release-verification.md", "sha256": "ff6633aa92da99d80b96c91127ce4a7a87a31d15fdeacfbc8a9a08a2f85b723e"}, {"path": "org/reviews/agent-verification-main-integration-security-001.md", "sha256": "71e33b0e107d3921659d3fde65718c69cb602036a89a9121ec7a0ba2bf47b71a"}, {"path": "org/reviews/agent-verification-main-integration-001.md", "sha256": "508e0f91214fcd81ee02dd8661e655d655296c887e9ab9d88ef5086931f0a18d"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T15:06:57Z"
+updated_at: "2026-11-25T15:35:09Z"

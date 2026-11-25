@@ -50,7 +50,7 @@ Google behavior must remain usable at each checkpoint. Slices target at most
 five implementation/test files; metadata updates form their own adjacent slice.
 
 1. [x] **Bind the build and runtime target** (depends: none).
-   Add `lib/verification/target.ts`, `scripts/build-verification-manifest.ts` and
+   Add `lib/verification/target.ts`, `lib/verification/build-manifest.ts` and
    `tests/verification/target.test.ts`; wire package scripts and ignore the
    generated `.verification/build-manifest.json`. Generate a disabled manifest
    for normal/dev/Production builds; enabled generation requires explicit trusted
@@ -283,9 +283,19 @@ No browser/application/build passes are claimed by this docs-only plan.
 
 ## Files that change
 
+- `tests/migrations/platform-permissions.test.ts`
+
+- `tests/migrations/attribute-options.test.ts`
+
+- `lib/db/platform-permissions.ts`
+
+- `lib/db/attribute-options.ts`
+
+- `.vercelignore`
+
 - `intent/agent-deployment-verification/**`
 - `lib/verification/**`
-- `scripts/build-verification-manifest.ts`
+- `lib/verification/build-manifest.ts`
 - `scripts/verification-access.ts`
 - `lib/db/connection.ts`
 - `lib/db/schema.ts`
@@ -371,3 +381,14 @@ the Firefox/Safari and hosted-readiness limits. Serial test-file execution keeps
 owned Preview builds bounded without omitting tests. Hosted use still requires
 separate approval of both new native migrations, grants, data/issuance scope,
 platform ingress and deployment; no shared or hosted database was migrated.
+
+Release source packaging refinement: the manifest generator lives under uploaded lib/verification, while scripts/operator tooling remains excluded. Local .verification state is excluded and regenerated from trusted inputs during the clean upload build. See main-release-plan.md and the upload regression proof.
+
+## Main integration scope refinement
+
+The owner requested merge and release using this flow. Integration with reviewed
+main `cd60db4` preserves its finite platform-permission and attribute-option helpers
+and tests; they are inherited fixes, not widened verification authority. The
+separately peer-reviewed `main-release-plan.md` covers the generator move, generated
+policy upload exclusion and clean upload build proof. The explicit manifest now
+includes those inherited files and `.vercelignore`; no plan-sync bypass is used.

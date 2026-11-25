@@ -1,0 +1,80 @@
+{
+  "recipeResults": "browser response fixture; real HTTPS publisher image; no LLM calls",
+  "browser": "isolated headless Google Chrome",
+  "results": [
+    {
+      "width": 320,
+      "signIn": "passed",
+      "authenticatedRecipeForm": "passed",
+      "httpsRecipePhoto": "passed",
+      "keyboardButton": "passed",
+      "history": "passed",
+      "localFiltersAndSort": "passed",
+      "loadingAndErrorRetention": "passed",
+      "emptyAndLongContent": "passed",
+      "tRex": "passed",
+      "reloadClearsHistory": "passed",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "signIn": "passed",
+      "authenticatedRecipeForm": "passed",
+      "httpsRecipePhoto": "passed",
+      "keyboardButton": "passed",
+      "history": "passed",
+      "localFiltersAndSort": "passed",
+      "loadingAndErrorRetention": "passed",
+      "emptyAndLongContent": "passed",
+      "tRex": "passed",
+      "reloadClearsHistory": "passed",
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "signIn": "passed",
+      "authenticatedRecipeForm": "passed",
+      "httpsRecipePhoto": "passed",
+      "keyboardButton": "passed",
+      "history": "passed",
+      "localFiltersAndSort": "passed",
+      "loadingAndErrorRetention": "passed",
+      "emptyAndLongContent": "passed",
+      "tRex": "passed",
+      "reloadClearsHistory": "passed",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "signIn": "passed",
+      "authenticatedRecipeForm": "passed",
+      "httpsRecipePhoto": "passed",
+      "keyboardButton": "passed",
+      "history": "passed",
+      "localFiltersAndSort": "passed",
+      "loadingAndErrorRetention": "passed",
+      "emptyAndLongContent": "passed",
+      "tRex": "passed",
+      "reloadClearsHistory": "passed",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "signIn": "passed",
+      "authenticatedRecipeForm": "passed",
+      "httpsRecipePhoto": "passed",
+      "keyboardButton": "passed",
+      "history": "passed",
+      "localFiltersAndSort": "passed",
+      "loadingAndErrorRetention": "passed",
+      "emptyAndLongContent": "passed",
+      "tRex": "passed",
+      "reloadClearsHistory": "passed",
+      "overflow": false
+    }
+  ],
+  "logout": "passed",
+  "googleButtonThroughMockedProvider": "passed",
+  "intentionalFixtureHttp429s": 10,
+  "consoleAndNetworkErrors": []
+}

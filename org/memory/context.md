@@ -17,11 +17,11 @@ intent/agent-deployment-verification/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (agent-verification-main-integration)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- reviewer: busy (agent-verification-main-integration)
+- security-researcher: busy (agent-verification-main-integration)
+- senior-developer: busy (agent-verification-main-integration)
 
 ## Open messages
 
@@ -57,9 +57,8 @@ intent/agent-deployment-verification/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
-- ceo-0068 ceo -> orchestrator answer: Re: Select Google-free verification direction before Design
-- ceo-0069 ceo -> orchestrator answer: Re: Approve reviewed verification specification before implementation planning
-- ceo-0070 ceo -> orchestrator answer: Re: Approve reviewed local implementation plan
+- ceo-0068 ceo -> orchestrator decision: Approve reviewed hosted correction main merge and exact-source staging
+- ceo-0069 ceo -> orchestrator decision: Merge verification to main and prepare Production using new flow
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -107,22 +106,16 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0145 orchestrator -> reviewer handoff: Review verified combined main integration source
 - orchestrator-0146 orchestrator -> reviewer handoff: Review completed approved local main adoption
 - orchestrator-0147 orchestrator -> ceo status: Local main merged and running with dependency-aware migrations
-- orchestrator-0148 orchestrator -> product-manager handoff: Explore Google-free deployment verification
-- orchestrator-0149 orchestrator -> security-researcher handoff: Assess Google-free verification alternatives
-- orchestrator-0150 orchestrator -> reviewer handoff: Peer review Google-free verification intent and alternatives
-- orchestrator-0152 orchestrator -> architect handoff: Design approved staging-only Google-free verification
-- orchestrator-0153 orchestrator -> security-researcher handoff: Security review staged verification design
-- orchestrator-0154 orchestrator -> architect handoff: Revise exchange dispatch and security clarifications
-- orchestrator-0155 orchestrator -> security-researcher handoff: Recheck exact exchange guard correction
-- orchestrator-0156 orchestrator -> reviewer handoff: Peer review revised Google-free verification specification
-- orchestrator-0158 orchestrator -> senior-developer handoff: Plan approved Google-free staging verification specification
-- orchestrator-0159 orchestrator -> security-researcher handoff: Security review staging verification implementation plan
-- orchestrator-0160 orchestrator -> reviewer handoff: Peer review concrete verification implementation plan
-- orchestrator-0162 orchestrator -> senior-developer handoff: Implement approved Google-free verification plan locally
-- orchestrator-0163 orchestrator -> security-researcher handoff: Implementation checkpoint: review actual schema and deadline primitives
-- orchestrator-0164 orchestrator -> security-researcher handoff: Review full verification implementation candidate while regressions finish
-- orchestrator-0165 orchestrator -> reviewer handoff: Independent full verification code review
-- orchestrator-0166 orchestrator -> ceo handoff: Reviewed local verification implementation ready for merge review
+- orchestrator-0148 orchestrator -> reviewer handoff: Review exact hosted permission correction and staging-first release plan
+- orchestrator-0149 orchestrator -> senior-developer handoff: Implement approved exact Neon permission compatibility correction
+- orchestrator-0150 orchestrator -> reviewer handoff: Review documented PostgreSQL internal attribute metadata normalization
+- orchestrator-0151 orchestrator -> senior-developer handoff: Implement approved internal attribute-version normalization
+- orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
+- orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
+- orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
+- orchestrator-0155 orchestrator -> senior-developer handoff: Integrate reviewed main compatibility and correct upload packaging
+- orchestrator-0156 orchestrator -> reviewer handoff: Review combined main and verification packaging candidate
+- orchestrator-0157 orchestrator -> security-researcher handoff: Security recheck combined hosted validators and upload policy
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -137,21 +130,16 @@ intent/agent-deployment-verification/intent.md
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
-- reviewer-0057 reviewer -> orchestrator review: Verification implementation peer review approved
-- security-researcher-0031 security-researcher -> orchestrator review: Google-free verification intent security assessment
-- security-researcher-0033 security-researcher -> senior-developer review: Schema and deadline checkpoint approved with remaining proof obligations
-- security-researcher-0036 security-researcher -> orchestrator review: Verification implementation security approved
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
-- senior-developer-0021 senior-developer -> orchestrator status: Local verification implementation complete
 
 ## Recent decisions
 
-- mem-0167 orchestrator: Staging-only verification Design is independently security/peer-reviewed for owner spec consideration. Proxy-buffering deadline blocker0032 resolved at Design level; exact guarded API exemption/no-EOF test required. Malformed Google allowlist fail-closed, strict SQL/grants, current token binding, platform ingress and private handoff obligations remain. No code/hosted authority; owner spec decision required before implementation planning. (org/reviews/agent-deployment-verification-spec-001.md)
-- mem-0168 orchestrator: Rafael approved reviewed Google-free verification specification after issuance clarification. Local operator CLI will write to approved remote staging DB over verified TLS; no redeploy. Plan stage begins with new bounded loop; prior Design audit archived. No implementation or hosted execution authorization yet. (org/messages/orchestrator-0157.md)
-- mem-0169 orchestrator: Implementation plan independently security/peer-reviewed with no blockers;15test-first slices and49entrymanifest cover approved staging verification. Owner plan decision required before code. All hosted migration/grants/setup/issuance/config/paid/release remain separately gated; remote handoff and platform ingress unproven. (org/reviews/agent-deployment-verification-plan-001.md)
-- mem-0170 orchestrator: Owner approved reviewed verification implementation plan in active chat. Local implementation and owned disposable regressions authorized; previous planning audit archived. No shared/hosted migrations, remote issuance/config/data, paid calls, push/merge or release. Begin bounded implementation/review loop. (org/messages/orchestrator-0161.md)
-- mem-0171 orchestrator: Google-free staging verification local implementation complete and independently code/security reviewed.330Node+7Python/lint/typecheck/build andfinalChrome390/1440+legacybrowser+packaging proof pass. Bothcleanup/logoutfindingsresolved. Firefoxabsent/Safariautomationdisabled remainexplicitgaps. Humanmergegatepending; 2nativeSQL/grants andallhosted/setup/issuance/deploy authority remainseparate. (intent/agent-deployment-verification/verification.md)
+- mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
+- mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
+- mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
+- mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
+- mem-0166 orchestrator: Currentowner requests verification mainmerge andnewProductionrelease. Maincd60divergedwithreviewedhosted fixes; integrationrequired. Bothimmutableauditbranches preserved under agent-verification-before-main-integration-20261125, canonicalmainledgerprefixunchanged,3existingfeatureownerapprovals append-transcribed withoriginalevidence. No new/backdatedapproval; exact-sourcefuturestaging/releasegatespreserved. (intent/agent-deployment-verification/main-audit-reconciliation.md)
 
 ## Constraints
 
@@ -159,9 +147,9 @@ intent/agent-deployment-verification/intent.md
 
 ## Artifacts
 
-- intent/agent-deployment-verification/verification.md (4ebcbb48e2590354f4880bb46ad73bb04d3fbf5aa08247d8162d96b86a1f03b4)
-- org/reviews/agent-deployment-verification-code-security-001.md (c404590ec66fa4729f0b662ab6a95199421f9de6cc005a46ed8d752a70b72981)
-- org/reviews/agent-deployment-verification-code-001.md (1e7c64146a485890324b7695021e630876b765f6f907f75f2adaa1ec2879c35a)
+- intent/agent-deployment-verification/main-release-verification.md (ff6633aa92da99d80b96c91127ce4a7a87a31d15fdeacfbc8a9a08a2f85b723e)
+- org/reviews/agent-verification-main-integration-security-001.md (71e33b0e107d3921659d3fde65718c69cb602036a89a9121ec7a0ba2bf47b71a)
+- org/reviews/agent-verification-main-integration-001.md (508e0f91214fcd81ee02dd8661e655d655296c887e9ab9d88ef5086931f0a18d)
 
 ## Next action
 
@@ -169,7 +157,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0171 from intent/agent-deployment-verification/verification.md
+- mem-0166 from intent/agent-deployment-verification/main-audit-reconciliation.md
 
 <!-- machine:end -->
 

@@ -1,0 +1,26 @@
+{
+  "id": "dpl_3XbAs9EpUCmiu4QU6D1oX6He4fcH",
+  "url": "meal-planner-387imkotd-rafalotufos-projects.vercel.app",
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "teamId": null,
+  "ownerId": "team_2c0O29FMb91g7L6sUChc9v6J",
+  "target": null,
+  "readyState": "READY",
+  "alias": [],
+  "createdAt": 1795614325033,
+  "ready": 1795614395980,
+  "regions": [
+    "iad1"
+  ],
+  "meta": {
+    "releaseSourceSha": "25aaa9b0d8b948bc6f24710214c9eaefe0ee8dcb",
+    "gitCommitSha": "25aaa9b0d8b948bc6f24710214c9eaefe0ee8dcb",
+    "gitCommitRef": "main"
+  },
+  "projectSettings": {
+    "framework": "nextjs",
+    "nodeVersion": "24.x",
+    "buildCommand": "pnpm run build",
+    "installCommand": "pnpm install --frozen-lockfile"
+  }
+}

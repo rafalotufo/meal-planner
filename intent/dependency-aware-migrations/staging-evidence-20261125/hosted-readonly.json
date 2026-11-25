@@ -1,0 +1,18 @@
+[
+  {
+    "environment": "preview",
+    "checkedAt": "2026-11-25T13:44:50.378Z",
+    "strictRuntimeCompatibility": "pass",
+    "legacyMigrations": 5,
+    "nativeLedgerPresent": false,
+    "historyCatalogSha256": "86c04604798d247bef5abb4d11310f12f8239d86afdf242e2a245d86fb9ee740"
+  },
+  {
+    "environment": "production",
+    "checkedAt": "2026-11-25T13:44:53.984Z",
+    "strictRuntimeCompatibility": "pass",
+    "legacyMigrations": 5,
+    "nativeLedgerPresent": false,
+    "historyCatalogSha256": "86c04604798d247bef5abb4d11310f12f8239d86afdf242e2a245d86fb9ee740"
+  }
+]

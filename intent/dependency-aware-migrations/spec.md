@@ -142,7 +142,9 @@ runtime role), never unknown grantees/privileges. The supported local/hosted
 runtime is `mp_runtime`; object owner is the dedicated migrator or owned test
 role. Runtime must have the reviewed required table/column DML and ledger SELECT,
 and no DDL/schema CREATE, TRUNCATE, REFERENCES, TRIGGER, migration-ledger write,
-unreviewed function EXECUTE, grant option or privileged role attributes/membership.
+unreviewed function EXECUTE, grant option, privileged runtime role attributes or
+unreviewed role membership. The exact hosted creator exception below does not
+waive actual object grants or runtime role flags.
 PUBLIC and unrelated-role grants on managed data objects must be rejected.
 Fresh PostgreSQL17's PUBLIC schema USAGE is permitted in empty/owner tooling
 states (it conveys neither data access nor CREATE); PUBLIC/runtime schema CREATE
@@ -235,3 +237,50 @@ existing generic error messages; restarts against a tampered ledger exercise
 session, home and both menu surfaces without exposing reason codes or repairing
 history. Denied-write privilege probes run only on owned disposable databases;
 shared diagnosis uses only read-only connections.
+
+## Reviewed hosted creator/default-ACL correction
+
+The hosted permission correction in `hosted-permission-correction.md` supersedes
+blanket rejection of every runtime-related membership and every non-owner
+platform default ACL. It does not change SQL, ledgers, migration descriptors,
+actual grants, runtime role flags or application authorization.
+
+The validator derives actual database name/owner, bound managed owner and the
+actual cloud_admin SUPERUSER flag from catalogs. An actual neondb_owner database
+owner or actual cloud_admin SUPERUSER is a provider indicator: it requires the
+full recorded Neon binding and exact one creator/nine default rows, even when
+arrays are empty. No partial binding can select the normal empty policy.
+Ordinary non-provider contexts retain the previous empty-set requirement without
+an unrelated database-name whitelist; a generic meal_planner name alone is not
+provider authority. No environment flag or caller-supplied validator context
+can activate the production exception.
+
+The only accepted hosted membership is mp_runtime granted to neondb_owner by
+cloud_admin with ADMIN=true, INHERIT=false and SET=false. The only accepted
+non-owner defaults are the nine reviewed cloud_admin-owned/granted public-schema
+entries to neon_superuser, all grantable=true. They concern cloud_admin-created
+objects, never managed mp_migrator objects. Every field and complete set is
+validated; malformed, extra, missing, duplicate, outward or altered entries
+fail closed. Creator administration and existing SUPERUSER powers remain within
+the trusted platform-administrator boundary; false SET/INHERIT options are not
+claimed to contain that administrator. Normal runtime and actual object/effective
+privilege checks remain independent and mandatory.
+
+## Reviewed internal attribute-version normalization
+
+`attribute-options-amendment.md` documents the upstream PostgreSQL security
+backpatch and exact approved normalization. NULL/empty attribute-option arrays
+are accepted with a known boolean relation binding. Otherwise only one canonical
+positive decimal pg_attver within unsigned64 is accepted, and only when the
+actual catalog relation has a row type. The marker is physical tuple-version
+safety metadata, not schema identity; its instance-specific WAL value is not
+compared across databases or migration orders.
+
+The shared production helper validates array shape, exact full-string grammar
+and20-digit/range bounds using BigInt. It rejects zero, signs, leading zeros,
+line terminators/whitespace, unknown keys (including other pg_ names), mixed or
+duplicate options, malformed array/property shapes and non-row-type markers.
+All ordinary options such as n_distinct remain unsupported. Identity/generated
+and collation guards remain unchanged alongside all catalog/permission checks.
+No provider/environment bypass, system-catalog edit or DDL clearing this safety
+marker is introduced or needed.

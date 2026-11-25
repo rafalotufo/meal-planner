@@ -1,12 +1,18 @@
 import type { FamilyDatabase } from './connection';
+import { validateAttributeOptions } from './attribute-options';
 import { StorageDiagnostic, type SchemaProfile } from './migration-graph';
+import { validatePlatformPermissions, type PermissionContext, type RuntimeMembership, type NonOwnerDefaultPrivilege } from './platform-permissions';
 
 const denied = () => { throw new StorageDiagnostic('permission-failure'); };
 export async function checkSecurity(db: FamilyDatabase, profile: SchemaProfile, presence: { legacy: boolean; native: boolean }, ownerTooling: boolean, requireGrants: boolean) {
-  const identity = await db.one<{ actor: string; owner: string }>("SELECT current_user AS actor, CASE WHEN current_database() ~ '^mp_test_[a-f0-9]{24}$' AND pg_get_userbyid(datdba)='mp_test' THEN 'mp_test' ELSE 'mp_migrator' END AS owner FROM pg_database WHERE datname=current_database()");
+  const identity = await db.one<{ actor: string; owner: string; database: string; databaseOwner: string; cloudAdminSuperuser: boolean }>("SELECT current_user AS actor, current_database() AS database, pg_get_userbyid(datdba) AS \"databaseOwner\", coalesce((SELECT rolsuper FROM pg_roles WHERE rolname='cloud_admin'),false) AS \"cloudAdminSuperuser\", CASE WHEN current_database() ~ '^mp_test_[a-f0-9]{24}$' AND pg_get_userbyid(datdba)='mp_test' THEN 'mp_test' ELSE 'mp_migrator' END AS owner FROM pg_database WHERE datname=current_database()");
   if (!identity || (ownerTooling ? identity.actor !== identity.owner : identity.actor !== 'mp_runtime' || identity.actor === identity.owner)) denied();
-  const role = await db.one<{ unsafe: boolean }>(`SELECT rolsuper OR rolcreatedb OR rolcreaterole OR rolreplication OR rolbypassrls OR EXISTS (SELECT 1 FROM pg_auth_members WHERE member=r.oid OR roleid=r.oid) AS unsafe FROM pg_roles r WHERE rolname='mp_runtime'`);
+  const role = await db.one<{ unsafe: boolean }>(`SELECT rolsuper OR rolcreatedb OR rolcreaterole OR rolreplication OR rolbypassrls AS unsafe FROM pg_roles r WHERE rolname='mp_runtime'`);
   if (!role || role.unsafe) denied();
+  const memberships = await db.all<RuntimeMembership>(`SELECT pg_get_userbyid(roleid) AS role, pg_get_userbyid(member) AS member, pg_get_userbyid(grantor) AS grantor, admin_option AS admin, inherit_option AS inherit, set_option AS "set" FROM pg_auth_members WHERE roleid=(SELECT oid FROM pg_roles WHERE rolname='mp_runtime') OR member=(SELECT oid FROM pg_roles WHERE rolname='mp_runtime')`);
+  const defaults = await db.all<NonOwnerDefaultPrivilege>(`SELECT pg_get_userbyid(d.defaclrole) AS owner, pg_get_userbyid(a.grantor) AS grantor, n.nspname AS schema, d.defaclobjtype::text AS "objectType", CASE WHEN a.grantee=0 THEN 'PUBLIC' ELSE pg_get_userbyid(a.grantee) END AS grantee, a.privilege_type AS privilege, a.is_grantable AS grantable FROM pg_default_acl d CROSS JOIN LATERAL aclexplode(d.defaclacl) a LEFT JOIN pg_namespace n ON n.oid=d.defaclnamespace WHERE a.grantee<>d.defaclrole`);
+  const context: PermissionContext = { database: identity!.database, databaseOwner: identity!.databaseOwner, managedOwner: identity!.owner, cloudAdminSuperuser: identity!.cloudAdminSuperuser };
+  validatePlatformPermissions(context, memberships, defaults);
   // Unsupported security-bearing objects are forbidden by this finite contract.
   // A future reviewed function/trigger/policy profile requires validator support.
   const unexpected = await db.one<{ bad: boolean }>(`SELECT
@@ -29,8 +35,10 @@ export async function checkSecurity(db: FamilyDatabase, profile: SchemaProfile, 
     EXISTS (SELECT 1 FROM pg_constraint co JOIN pg_class c ON c.oid=co.conrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (NOT co.convalidated OR co.condeferrable OR co.condeferred)) OR
     EXISTS (SELECT 1 FROM pg_index i JOIN pg_class c ON c.oid=i.indrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (NOT i.indisvalid OR NOT i.indisready OR NOT i.indislive)) OR
     EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (pg_get_userbyid(c.relowner)<>$1 OR c.relrowsecurity OR c.relforcerowsecurity OR c.relpersistence<>'p' OR c.reloptions IS NOT NULL)) OR
-    EXISTS (SELECT 1 FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_type typ ON typ.oid=a.atttypid WHERE n.nspname='public' AND a.attnum>0 AND NOT a.attisdropped AND (a.attidentity<>'' OR a.attgenerated<>'' OR a.attoptions IS NOT NULL OR a.attcollation<>typ.typcollation)) AS bad`, [identity!.owner]);
+    EXISTS (SELECT 1 FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_type typ ON typ.oid=a.atttypid WHERE n.nspname='public' AND a.attnum>0 AND NOT a.attisdropped AND (a.attidentity<>'' OR a.attgenerated<>'' OR a.attcollation<>typ.typcollation)) AS bad`, [identity!.owner]);
   if (unexpected?.bad) throw new StorageDiagnostic('incompatible-schema');
+  const attributeOptions = await db.all<{ options: unknown; hasRowType: boolean }>(`SELECT a.attoptions AS options, (c.reltype<>0) AS "hasRowType" FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND a.attnum>0 AND NOT a.attisdropped`);
+  for (const row of attributeOptions) validateAttributeOptions(row.options, row.hasRowType);
   const grants = { ...profile.grants };
   if (presence.legacy) grants.__drizzle_migrations = ['SELECT'];
   if (presence.native) grants.__app_migrations = ['SELECT'];
@@ -43,7 +51,7 @@ export async function checkSecurity(db: FamilyDatabase, profile: SchemaProfile, 
     if (acl.grantee === identity!.owner) continue;
     if (acl.grantee !== 'mp_runtime' || acl.grantable || !grants[acl.name]?.includes(acl.privilege)) denied();
   }
-  const schema = await db.one<{ unsafe: boolean }>(`SELECT has_database_privilege('mp_runtime',current_database(),'CREATE') OR has_schema_privilege('mp_runtime','public','CREATE') OR EXISTS (SELECT 1 FROM pg_namespace n CROSS JOIN LATERAL aclexplode(n.nspacl) a WHERE n.nspname='public' AND a.grantee<>n.nspowner AND NOT (pg_get_userbyid(a.grantee)=$1 AND a.privilege_type IN ('USAGE','CREATE') AND NOT a.is_grantable) AND NOT (a.grantee=0 AND a.privilege_type='USAGE' AND NOT a.is_grantable) AND NOT (a.grantee=(SELECT oid FROM pg_roles WHERE rolname='mp_runtime') AND a.privilege_type='USAGE' AND NOT a.is_grantable)) OR EXISTS (SELECT 1 FROM pg_default_acl d CROSS JOIN LATERAL aclexplode(d.defaclacl) a WHERE a.grantee<>d.defaclrole) AS unsafe`, [identity!.owner]);
+  const schema = await db.one<{ unsafe: boolean }>(`SELECT has_database_privilege('mp_runtime',current_database(),'CREATE') OR has_schema_privilege('mp_runtime','public','CREATE') OR EXISTS (SELECT 1 FROM pg_namespace n CROSS JOIN LATERAL aclexplode(n.nspacl) a WHERE n.nspname='public' AND a.grantee<>n.nspowner AND NOT (pg_get_userbyid(a.grantee)=$1 AND a.privilege_type IN ('USAGE','CREATE') AND NOT a.is_grantable) AND NOT (a.grantee=0 AND a.privilege_type='USAGE' AND NOT a.is_grantable) AND NOT (a.grantee=(SELECT oid FROM pg_roles WHERE rolname='mp_runtime') AND a.privilege_type='USAGE' AND NOT a.is_grantable)) AS unsafe`, [identity!.owner]);
   if (schema?.unsafe) denied();
   const namespace = await db.one<{ ok: boolean }>("SELECT (pg_get_userbyid(nspowner)='pg_database_owner' OR nspowner=(SELECT datdba FROM pg_database WHERE datname=current_database())) AS ok FROM pg_namespace WHERE nspname='public'");
   if (!namespace?.ok) denied();

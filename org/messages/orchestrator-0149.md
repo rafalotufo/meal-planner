@@ -1,16 +1,16 @@
 ---
 id: orchestrator-0149
 from: orchestrator
-to: security-researcher
+to: senior-developer
 kind: handoff
-subject: Assess Google-free verification alternatives
-artifact: intent/agent-deployment-verification/options.md
+subject: Implement approved exact Neon permission compatibility correction
+artifact: intent/dependency-aware-migrations/hosted-permission-correction.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T13:10:43Z"
+created_at: "2026-11-25T01:57:09Z"
 ---
 
-Assess intent/options only, especially synthetic staging auth boundary, credential and data isolation, browser usability, Production rejection and evidence limits. No code or hosted operations. Produce independent bounded assessment with file/line evidence.
+Plan f7d5e1c andsecuritydesigna630fa8 approve daaad23. Redtests first, realcatalog-backed puretypedpolicy exactknownNeon1+9contract; emptyothercontexts retain preexisting restrictivebaseline. Preserve actualgrants/runtimeflags/SQL/auth/UI, no hostedmutations. Fullverification+newexactsource+freshpackaging before staging.
