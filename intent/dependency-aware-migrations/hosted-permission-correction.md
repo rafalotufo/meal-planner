@@ -3,6 +3,9 @@
 - Date:2026-11-24; author:orchestrator, from owner request “Deploy main to production”.
 - Status:approved by independent plan review `f7d5e1c` and security design
   review `a630fa8`; provider-indicator clarification below agreed by both reviewers.
+- Subsequent read-only attribute-version blocker and its separate narrow
+  amendment: `attribute-options-amendment.md`; no release is ready until the
+  complete corrected validator passes both hosted targets.
 - Requested main at intake:`e4b8c954f6e2cab63c39216cef794187a227d79e`.
 - Existing live Production:`dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a`, source`d26ea59`.
 - Governing release policy:`intent/staging-first-release/spec.md` and Vercel runbooks.
