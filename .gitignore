@@ -23,3 +23,6 @@ out/
 *.db
 *.db-*
 *.backup
+
+# Generated server-only verification build policy
+.verification/

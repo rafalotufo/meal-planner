@@ -6,6 +6,8 @@ import { validateGoogleAccessList } from "./google-access";
 import { classifyAccess, updateVerifiedEmail, verifiedIdentity } from "./identity-access";
 import { getDatabase } from "./db";
 
+const GOOGLE_SESSION_SECONDS = 30 * 24 * 60 * 60;
+
 export function authConfiguration() {
   validateGoogleAccessList(allowedGoogleEmails);
   const { BETTER_AUTH_URL, BETTER_AUTH_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
@@ -57,12 +59,16 @@ function createAuth() {
     },
     // Source: https://better-auth.com/docs/concepts/session-management#stateless-session-management
     session: {
-      expiresIn: 3600,
+      expiresIn: GOOGLE_SESSION_SECONDS,
       disableSessionRefresh: true,
-      cookieCache: { enabled: true, maxAge: 3600, strategy: "jwe", refreshCache: false },
+      cookieCache: { enabled: true, maxAge: GOOGLE_SESSION_SECONDS, strategy: "jwe", refreshCache: false },
     },
     account: { storeStateStrategy: "cookie", storeAccountCookie: true, accountLinking: { enabled: false } },
-    advanced: { useSecureCookies: config.origin.startsWith("https:") },
+    advanced: {
+      useSecureCookies: config.origin.startsWith("https:"),
+      // Account data otherwise inherits the longer session cache lifetime.
+      cookies: { account_data: { attributes: { maxAge: 3600 } } },
+    },
     onAPIError: { errorURL: `${config.origin}/sign-in` },
   });
 }

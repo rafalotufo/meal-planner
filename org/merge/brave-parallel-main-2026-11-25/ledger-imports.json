@@ -1,0 +1,37 @@
+[
+  {
+    "id": "brave-parallel-intent-001",
+    "original_hash": "197dffe87791c5019a5e3618862ec26fb5443725eff19deff4f498570a91b2f3",
+    "original_decided_at": "2026-11-25T17:10:47Z"
+  },
+  {
+    "id": "brave-parallel-spec-001",
+    "original_hash": "c378295399b6d453d9430c15c241b7f2dad14821bc5e8a05fe304d11e41fc8a5",
+    "original_decided_at": "2026-11-25T17:19:12Z"
+  },
+  {
+    "id": "brave-parallel-plan-001",
+    "original_hash": "2c51fb0cdde9487dfd7185ca7a78bec2fc4765619f94952413ce2d0f908ee13f",
+    "original_decided_at": "2026-11-25T17:19:12Z"
+  },
+  {
+    "id": "brave-parallel-spec-amend-001",
+    "original_hash": "f2563394d68427711d4a252ece1fe2a7255caef32bcc4ecba16376559ffcfb62",
+    "original_decided_at": "2026-11-25T17:42:32Z"
+  },
+  {
+    "id": "brave-parallel-plan-amend-001",
+    "original_hash": "253a4c86e5fef4e63883277768e7667930bc44acdacafa83e1dcfe4041dc106b",
+    "original_decided_at": "2026-11-25T17:42:32Z"
+  },
+  {
+    "id": "brave-parallel-spec-timeout-001",
+    "original_hash": "a974302238c3b1dae56886382554755b4dc44038bc51957fe13814b604a2b4be",
+    "original_decided_at": "2026-11-25T17:51:05Z"
+  },
+  {
+    "id": "brave-parallel-plan-timeout-001",
+    "original_hash": "b18566e57ac8ab4d09b1ce5453b61eda4afda149c609d361a3c8890d7ffb9905",
+    "original_decided_at": "2026-11-25T17:51:05Z"
+  }
+]

@@ -72,6 +72,8 @@ function privateInput(input: unknown): PrivateInput {
   for (const [key, limit] of [["sessionCookie", 16384], ["protectionBypass", 4096]] as const) {
     if (value[key] !== undefined && (typeof value[key] !== "string" || !value[key].length || Buffer.byteLength(value[key]) > limit || /[^\x20-\x7e]/.test(value[key]))) invalid();
   }
+  // This legacy checker certifies real Google-session provenance only.
+  if (typeof value.sessionCookie === "string" && /(?:^|;\s*)__Host-mp-verification=/.test(value.sessionCookie)) invalid();
   return value as PrivateInput;
 }
 function duration(value: number | undefined, limit: number): number {
@@ -271,6 +273,64 @@ export function finalizeStaging(options: { expected: unknown; pre: unknown; repo
   }
 }
 
+
+type SyntheticTarget = Expected & { profileSha256: string; verificationRunId: string; memberIds: string[] };
+type SyntheticObservation = { memberId: string; browser: string; version: string; width: number; check: string; result: string };
+type SyntheticReport = {
+  version: 1; proofClass: "synthetic-app"; target: SyntheticTarget | null;
+  startedAt: string | null; endedAt: string | null; observations: SyntheticObservation[]; gaps: string[];
+  appResult: "pass" | "fail" | "inconclusive"; releaseAccepted: false;
+  reason: "SYNTHETIC_APP_ONLY" | "SYNTHETIC_APP_FAILED" | "SYNTHETIC_APP_INCOMPLETE" | "INVALID_INPUT"; exitCode: 0 | 1 | 2;
+};
+const syntheticTargetKeys = [...expectedKeys, "profileSha256", "verificationRunId", "memberIds"];
+const syntheticBrowsers = ["Chrome", "Firefox", "Safari"];
+const syntheticChecks = ["form-entry", "home", "session", "family", "menu", "plans", "logout"];
+const syntheticGapNames = ["google-oauth-unchecked", "provider-unchecked", "invitations-excluded", "url-curation-excluded", "platform-protection-bypassed", "chrome-unavailable", "firefox-unavailable", "safari-unavailable"];
+function syntheticTarget(input: unknown): SyntheticTarget {
+  const value = object(input, syntheticTargetKeys);
+  const target = expectedTarget(Object.fromEntries(expectedKeys.map(key => [key, value[key]])));
+  const uuid = (input: unknown): string => {
+    if (typeof input !== "string" || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/.test(input)) invalid();
+    return input;
+  };
+  if (typeof value.profileSha256 !== "string" || !/^[a-f0-9]{64}$/.test(value.profileSha256) || !Array.isArray(value.memberIds) || value.memberIds.length < 1 || value.memberIds.length > 2) invalid();
+  const memberIds = value.memberIds.map(uuid).sort();
+  if (new Set(memberIds).size !== memberIds.length) invalid();
+  return { ...target, profileSha256: value.profileSha256, verificationRunId: uuid(value.verificationRunId), memberIds };
+}
+
+/** Operator-attested synthetic app evidence only; neither OAuth proof nor release acceptance. */
+export function validateSyntheticStagingEvidence(options: { expected: unknown; evidence: unknown; now?: number }): SyntheticReport {
+  const empty: SyntheticReport = { version: 1, proofClass: "synthetic-app", target: null, startedAt: null, endedAt: null, observations: [], gaps: [], appResult: "inconclusive", releaseAccepted: false, reason: "INVALID_INPUT", exitCode: 1 };
+  try {
+    const now = options.now ?? Date.now();
+    if (!Number.isSafeInteger(now) || now < 0) invalid();
+    const target = syntheticTarget(options.expected);
+    const value = object(options.evidence, ["version", "proofClass", "target", "startedAt", "endedAt", "observations", "gaps"]);
+    if (value.version !== 1 || value.proofClass !== "synthetic-app" || JSON.stringify(syntheticTarget(value.target)) !== JSON.stringify(target)) invalid();
+    const start = timestamp(value.startedAt), end = timestamp(value.endedAt);
+    if (start > end || end > now || now - start > 30 * minute || !Array.isArray(value.observations) || value.observations.length === 0 || value.observations.length > 100 || !Array.isArray(value.gaps) || value.gaps.length > syntheticGapNames.length) invalid();
+    const gaps = value.gaps.map(gap => {
+      if (typeof gap !== "string" || !syntheticGapNames.includes(gap)) invalid();
+      return gap;
+    });
+    if (new Set(gaps).size !== gaps.length || syntheticGapNames.slice(0, 4).some(gap => !gaps.includes(gap))) invalid();
+    const seen = new Set<string>(), versions = new Map<string, string>();
+    const observations = value.observations.map(input => {
+      const row = object(input, ["memberId", "browser", "version", "width", "check", "result"]);
+      if (typeof row.memberId !== "string" || !target.memberIds.includes(row.memberId) || typeof row.browser !== "string" || !syntheticBrowsers.includes(row.browser) || typeof row.version !== "string" || !/^\d{1,4}(?:\.\d{1,6}){0,3}$/.test(row.version) || ![390, 1440].includes(Number(row.width)) || typeof row.width !== "number" || typeof row.check !== "string" || !syntheticChecks.includes(row.check) || typeof row.result !== "string" || !["pass", "fail", "blocked", "not-run"].includes(row.result)) invalid();
+      const key = `${row.memberId}:${row.browser}:${row.width}:${row.check}`;
+      if (seen.has(key) || versions.has(row.browser) && versions.get(row.browser) !== row.version || gaps.includes(`${row.browser.toLowerCase()}-unavailable`)) invalid();
+      seen.add(key); versions.set(row.browser, row.version);
+      return { memberId: row.memberId, browser: row.browser, version: row.version, width: row.width, check: row.check, result: row.result };
+    });
+    for (const browser of syntheticBrowsers) if (!versions.has(browser) && !gaps.includes(`${browser.toLowerCase()}-unavailable`)) invalid();
+    const failed = observations.some(row => row.result === "fail");
+    const complete = observations.every(row => row.result === "pass") && target.memberIds.every(member => syntheticBrowsers.every(browser => [390, 1440].every(width => syntheticChecks.every(check => seen.has(`${member}:${browser}:${width}:${check}`)))));
+    return { ...empty, target, startedAt: value.startedAt as string, endedAt: value.endedAt as string, observations, gaps: gaps.sort(), appResult: failed ? "fail" : complete ? "pass" : "inconclusive", reason: failed ? "SYNTHETIC_APP_FAILED" : complete ? "SYNTHETIC_APP_ONLY" : "SYNTHETIC_APP_INCOMPLETE", exitCode: failed ? 1 : complete ? 0 : 2 };
+  } catch { return empty; }
+}
+
 async function readBounded(stream: AsyncIterable<Buffer | string>, maximum: number): Promise<string> {
   let bytes = 0;
   const chunks: Buffer[] = [];
@@ -303,9 +363,11 @@ async function main() {
   try { await mkdir(lock, { mode: 0o700 }); }
   catch { throw new CheckError("LOCKED", 2); }
   try {
-    let result: Report;
+    let result: Report | SyntheticReport;
     if (args[0] === "check" && (args.length === 3 || args.length === 4)) {
       result = await checkStaging({ expected: await publicFile(args[1]), pre: await publicFile(args[2]), mode: args[3], readPrivate });
+    } else if (args[0] === "synthetic" && args.length === 3) {
+      result = validateSyntheticStagingEvidence({ expected: await publicFile(args[1]), evidence: await publicFile(args[2]) });
     } else if (args[0] === "finalize" && args.length === 6) {
       result = finalizeStaging({ expected: await publicFile(args[1]), pre: await publicFile(args[2]), report: await publicFile(args[3]), post: await publicFile(args[4]), attestations: await publicFile(args[5]) });
     } else invalid();

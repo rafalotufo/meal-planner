@@ -1,14 +1,19 @@
 import type { FamilyDatabase } from './db/connection';
 import type { UserRow } from './db/schema';
+import type { VerificationPrincipal } from './verification/types';
+import { verificationMember } from './verification/store';
 import { isAllowedGoogleUser } from './google-access';
 export interface VerifiedIdentity {
     googleSubject: string;
     email: string;
     emailVerified: true;
 }
+export type Principal = VerifiedIdentity | VerificationPrincipal;
+export function isVerificationIdentity(identity: Principal): identity is VerificationPrincipal { return 'kind' in identity && identity.kind === 'verification'; }
+export function requireGoogleIdentity(identity: Principal): VerifiedIdentity { if (isVerificationIdentity(identity)) throw new FamilyError(403, 'Forbidden'); return identity; }
 export type Access = {
     kind: 'member';
-    user: UserRow;
+    user: UserRow | import('./verification/types').VerificationMemberRow;
 } | {
     kind: 'invited';
 } | {
@@ -29,7 +34,7 @@ export function verifiedIdentity(value: unknown): VerifiedIdentity | null {
     const email = normalizeEmail(value.email);
     return email ? { googleSubject: value.googleSubject, email, emailVerified: true } : null;
 }
-export const userColumns = 'id, google_subject AS "googleSubject", verified_email AS "verifiedEmail", family_id AS "familyId", created_at AS "createdAt", invitation_granted_at AS "invitationGrantedAt"';
+export const userColumns = 'identity_kind AS "identityKind", verification_run_id AS "verificationRunId", id, google_subject AS "googleSubject", verified_email AS "verifiedEmail", family_id AS "familyId", created_at AS "createdAt", invitation_granted_at AS "invitationGrantedAt"';
 export async function findUser(db: FamilyDatabase, subject: string) {
     return (await db.one<UserRow>(`SELECT ${userColumns} FROM app_users WHERE google_subject=$1`, [subject]));
 }
@@ -52,7 +57,8 @@ export async function classifyAccess(db: FamilyDatabase, identity: VerifiedIdent
         return { kind: 'invited' };
     return allowed ? { kind: 'provision' } : null;
 }
-export async function requireMember(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown) {
+export async function requireMember(db: FamilyDatabase, identity: Principal, allowedEmails: unknown) {
+    if (isVerificationIdentity(identity)) { const user = await verificationMember(db, identity, allowedEmails); if (!user) throw new FamilyError(403, 'Family membership required'); return user; }
     const access = (await classifyAccess(db, identity, allowedEmails));
     if (access?.kind !== 'member')
         throw new FamilyError(403, 'Family membership required');

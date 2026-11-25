@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0158
 from: orchestrator
-to: reviewer
+to: security-researcher
 kind: handoff
-subject: Review Brave search specification and implementation plan
-artifact: intent/brave-parallel-recipe-search/plan.md
+subject: Diagnose failed Preview migration without effects
+artifact: intent/agent-deployment-verification/hosted-execution.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:15:23Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/design-brave-parallel-001.md
+created_at: "2026-11-25T15:43:01Z"
 ---
 
-Review f09624c spec/plan against PM accepted intent, actual source and REVIEW.md. Focus bounded queues, source/metadata association, collection expansion, failure/abort semantics, encoded-input budgets and twelve-card UI integration. No app code until verdict. Early security consultation forthcoming.
+Actual source19774c7 Preview migration exited1 generic execution-failure at15:42:22. Fresh read-only counts remain families1/users1/menu0/weeks0, legacy5/nativefalse; alias unmoved. Diagnose current preflight and private connection; no migration retry or DDL; production unchanged.

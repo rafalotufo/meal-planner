@@ -1,5 +1,7 @@
 // Domain rows for the reviewed SQL migrations; SQL is the schema source of truth.
 export interface UserRow {
+  identityKind: 'google';
+  verificationRunId: null;
   id: string;
   googleSubject: string;
   verifiedEmail: string;

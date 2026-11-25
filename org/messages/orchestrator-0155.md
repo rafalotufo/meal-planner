@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0155
 from: orchestrator
-to: product-manager
+to: senior-developer
 kind: handoff
-subject: Review Brave parallel recipe search intent
-artifact: intent/brave-parallel-recipe-search/intent.md
+subject: Integrate reviewed main compatibility and correct upload packaging
+artifact: intent/agent-deployment-verification/main-release-plan.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:09:18Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/intent-brave-parallel-recipe-search-001.md
+created_at: "2026-11-25T15:23:39Z"
 ---
 
-Review the concrete implementation request, scope, candidate/result/usage bounds and broad-query behavior. Accept or identify blocking ambiguity. Existing role card org/roles/product-manager.md applies.
+Userauthorizedmainmerge/releasepreparation; integrationplanpeer002approved. Preserveallmainhostedvalidators/securityassertions andfeatureSQL. ProveactualcleanpackagingRED/GREEN, fullcombinedownedlocalchecks andfreshbrowser; rootwillindependentlyreviewandperformauthorizedmainmerge afterproof. No hostedmutationsbyworker.

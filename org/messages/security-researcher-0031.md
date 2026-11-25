@@ -2,15 +2,15 @@
 id: security-researcher-0031
 from: security-researcher
 to: orchestrator
-kind: status
-subject: Early Brave parallel recipe search threat consultation
-artifact: intent/brave-parallel-recipe-search/threat-model.md
+kind: review
+subject: Login session expiration local security approval
+artifact: org/reviews/login-session-expiration-security-001.md
 requires_response: false
 in_reply_to: null
 status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:15:04Z"
+created_at: "2026-11-25T17:54:22Z"
 ---
 
-Design constraints recorded for SSRF-safe source expansion, process/request fanout, cancellation/queue cleanup, recipe-vs-collection identity, source evidence and twelve-card menu chunks. This is design advice, not clearance of unimplemented code. User has already authorized the integration; no new permission request is needed within accepted scope.
+Approved local source and verification scope with no blocking findings. Fixed30day Google session and JWE lifetimes preserve no-refresh, HTTPS cookie defaults, current admission/family and token binding. Account-data remains3600seconds; synthetic credentials unchanged. Longer copied-cookie replay window and browser-local logout are documented. Reviewed recorded passing auth16/family35/menu69/verification29/deployment40/Python7 and Chrome390/1440 evidence. No hosted, merge or release approval.

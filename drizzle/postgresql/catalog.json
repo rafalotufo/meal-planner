@@ -12,7 +12,7 @@
   {
     "kind": "column",
     "name": "app_users.google_subject",
-    "definition": "text:true:"
+    "definition": "text:false:"
   },
   {
     "kind": "column",
@@ -21,13 +21,23 @@
   },
   {
     "kind": "column",
+    "name": "app_users.identity_kind",
+    "definition": "text:true:'google'::text"
+  },
+  {
+    "kind": "column",
     "name": "app_users.invitation_granted_at",
     "definition": "bigint:false:"
   },
   {
     "kind": "column",
+    "name": "app_users.verification_run_id",
+    "definition": "text:false:"
+  },
+  {
+    "kind": "column",
     "name": "app_users.verified_email",
-    "definition": "text:true:"
+    "definition": "text:false:"
   },
   {
     "kind": "column",
@@ -38,6 +48,11 @@
     "kind": "column",
     "name": "families.id",
     "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "families.identity_kind",
+    "definition": "text:true:'google'::text"
   },
   {
     "kind": "column",
@@ -290,14 +305,174 @@
     "definition": "text:true:"
   },
   {
+    "kind": "column",
+    "name": "verification_capabilities.consumed_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_capabilities.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_capabilities.digest",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_capabilities.expires_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_capabilities.member_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_capabilities.run_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.database_identity",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.deployment_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.expires_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.family_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.family_kind",
+    "definition": "text:true:'verification'::text"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.origin",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.profile_sha256",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.project_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.revoked_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.scope",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_runs.source_sha",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_sessions.created_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_sessions.digest",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_sessions.expires_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_sessions.member_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_sessions.revoked_at",
+    "definition": "bigint:false:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_sessions.run_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_throttles.attempts",
+    "definition": "integer:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_throttles.bucket",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "verification_throttles.window_start",
+    "definition": "bigint:true:"
+  },
+  {
     "kind": "constraint",
     "name": "app_users.app_users_family_id_fkey",
     "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
   },
   {
     "kind": "constraint",
+    "name": "app_users.app_users_family_kind",
+    "definition": "FOREIGN KEY (family_id, identity_kind) REFERENCES families(id, identity_kind) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.app_users_identity_branch",
+    "definition": "CHECK ((((identity_kind = 'google'::text) AND (google_subject IS NOT NULL) AND (verified_email IS NOT NULL) AND (verification_run_id IS NULL) AND (length(TRIM(BOTH FROM google_subject)) > 0) AND (verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)) OR ((identity_kind = 'verification'::text) AND (google_subject IS NULL) AND (verified_email IS NULL) AND (invitation_granted_at IS NULL) AND (verification_run_id IS NOT NULL) AND (id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$'::text))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.app_users_member_run_unique",
+    "definition": "UNIQUE (id, verification_run_id)"
+  },
+  {
+    "kind": "constraint",
     "name": "app_users.app_users_pkey",
     "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "app_users.app_users_run_family",
+    "definition": "FOREIGN KEY (verification_run_id, family_id) REFERENCES verification_runs(id, family_id) ON DELETE RESTRICT"
   },
   {
     "kind": "constraint",
@@ -308,6 +483,16 @@
     "kind": "constraint",
     "name": "app_users.subject_nonempty",
     "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+  },
+  {
+    "kind": "constraint",
+    "name": "families.families_id_kind_unique",
+    "definition": "UNIQUE (id, identity_kind)"
+  },
+  {
+    "kind": "constraint",
+    "name": "families.families_identity_kind",
+    "definition": "CHECK ((identity_kind = ANY (ARRAY['google'::text, 'verification'::text])))"
   },
   {
     "kind": "constraint",
@@ -550,9 +735,174 @@
     "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
   },
   {
+    "kind": "constraint",
+    "name": "verification_capabilities.verification_capabilities_check",
+    "definition": "CHECK (((expires_at > created_at) AND (expires_at <= (created_at + 300000)) AND (expires_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_capabilities.verification_capabilities_check1",
+    "definition": "CHECK (((consumed_at >= created_at) AND (consumed_at <= expires_at)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_capabilities.verification_capabilities_created_at_check",
+    "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_capabilities.verification_capabilities_digest_check",
+    "definition": "CHECK ((digest ~ '^[a-f0-9]{64}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_capabilities.verification_capabilities_member_id_run_id_fkey",
+    "definition": "FOREIGN KEY (member_id, run_id) REFERENCES app_users(id, verification_run_id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_capabilities.verification_capabilities_pkey",
+    "definition": "PRIMARY KEY (digest)"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_check",
+    "definition": "CHECK (((expires_at > created_at) AND (expires_at <= (created_at + 1800000)) AND (expires_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_check1",
+    "definition": "CHECK (((revoked_at >= created_at) AND (revoked_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_created_at_check",
+    "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_database_identity_check",
+    "definition": "CHECK ((database_identity ~ '^[a-f0-9]{64}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_deployment_id_check",
+    "definition": "CHECK ((deployment_id ~ '^[A-Za-z0-9_-]{1,128}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_family_id_family_kind_fkey",
+    "definition": "FOREIGN KEY (family_id, family_kind) REFERENCES families(id, identity_kind) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_family_id_key",
+    "definition": "UNIQUE (family_id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_family_kind_check",
+    "definition": "CHECK ((family_kind = 'verification'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_id_check",
+    "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_id_family_id_key",
+    "definition": "UNIQUE (id, family_id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_origin_check",
+    "definition": "CHECK (((length(origin) >= 9) AND (length(origin) <= 300) AND (origin ~ '^https://[^/?#[:space:]]+$'::text)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_pkey",
+    "definition": "PRIMARY KEY (id)"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_profile_sha256_check",
+    "definition": "CHECK ((profile_sha256 ~ '^[a-f0-9]{64}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_project_id_check",
+    "definition": "CHECK ((project_id ~ '^[A-Za-z0-9_-]{1,128}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_scope_check",
+    "definition": "CHECK ((scope = ANY (ARRAY['app'::text, 'collaboration'::text])))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_runs.verification_runs_source_sha_check",
+    "definition": "CHECK ((source_sha ~ '^[a-f0-9]{40}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_sessions.verification_sessions_check",
+    "definition": "CHECK (((expires_at > created_at) AND (expires_at <= (created_at + 900000)) AND (expires_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_sessions.verification_sessions_check1",
+    "definition": "CHECK (((revoked_at >= created_at) AND (revoked_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_sessions.verification_sessions_created_at_check",
+    "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_sessions.verification_sessions_digest_check",
+    "definition": "CHECK ((digest ~ '^[a-f0-9]{64}$'::text))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_sessions.verification_sessions_member_id_run_id_fkey",
+    "definition": "FOREIGN KEY (member_id, run_id) REFERENCES app_users(id, verification_run_id) ON DELETE RESTRICT"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_sessions.verification_sessions_pkey",
+    "definition": "PRIMARY KEY (digest)"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_throttles.verification_throttles_attempts_check",
+    "definition": "CHECK (((attempts >= 1) AND (attempts <= 1000000)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_throttles.verification_throttles_bucket_check",
+    "definition": "CHECK (((length(bucket) >= 1) AND (length(bucket) <= 250)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_throttles.verification_throttles_pkey",
+    "definition": "PRIMARY KEY (bucket)"
+  },
+  {
+    "kind": "constraint",
+    "name": "verification_throttles.verification_throttles_window_start_check",
+    "definition": "CHECK (((window_start >= 0) AND (window_start <= '9007199254740991'::bigint)))"
+  },
+  {
     "kind": "index",
     "name": "app_users_google_subject_unique",
     "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+  },
+  {
+    "kind": "index",
+    "name": "app_users_member_run_unique",
+    "definition": "CREATE UNIQUE INDEX app_users_member_run_unique ON public.app_users USING btree (id, verification_run_id)"
   },
   {
     "kind": "index",
@@ -563,6 +913,11 @@
     "kind": "index",
     "name": "app_users_verified_email_unique",
     "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+  },
+  {
+    "kind": "index",
+    "name": "families_id_kind_unique",
+    "definition": "CREATE UNIQUE INDEX families_id_kind_unique ON public.families USING btree (id, identity_kind)"
   },
   {
     "kind": "index",
@@ -650,6 +1005,36 @@
     "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
   },
   {
+    "kind": "index",
+    "name": "verification_capabilities_pkey",
+    "definition": "CREATE UNIQUE INDEX verification_capabilities_pkey ON public.verification_capabilities USING btree (digest)"
+  },
+  {
+    "kind": "index",
+    "name": "verification_runs_family_id_key",
+    "definition": "CREATE UNIQUE INDEX verification_runs_family_id_key ON public.verification_runs USING btree (family_id)"
+  },
+  {
+    "kind": "index",
+    "name": "verification_runs_id_family_id_key",
+    "definition": "CREATE UNIQUE INDEX verification_runs_id_family_id_key ON public.verification_runs USING btree (id, family_id)"
+  },
+  {
+    "kind": "index",
+    "name": "verification_runs_pkey",
+    "definition": "CREATE UNIQUE INDEX verification_runs_pkey ON public.verification_runs USING btree (id)"
+  },
+  {
+    "kind": "index",
+    "name": "verification_sessions_pkey",
+    "definition": "CREATE UNIQUE INDEX verification_sessions_pkey ON public.verification_sessions USING btree (digest)"
+  },
+  {
+    "kind": "index",
+    "name": "verification_throttles_pkey",
+    "definition": "CREATE UNIQUE INDEX verification_throttles_pkey ON public.verification_throttles USING btree (bucket)"
+  },
+  {
     "kind": "relation",
     "name": "app_users",
     "definition": "r:false:false"
@@ -657,6 +1042,11 @@
   {
     "kind": "relation",
     "name": "app_users_google_subject_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "app_users_member_run_unique",
     "definition": "i:false:false"
   },
   {
@@ -673,6 +1063,11 @@
     "kind": "relation",
     "name": "families",
     "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "families_id_kind_unique",
+    "definition": "i:false:false"
   },
   {
     "kind": "relation",
@@ -787,6 +1182,56 @@
   {
     "kind": "relation",
     "name": "users_family",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_capabilities",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_capabilities_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_runs",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_runs_family_id_key",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_runs_id_family_id_key",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_runs_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_sessions",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_sessions_pkey",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_throttles",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "verification_throttles_pkey",
     "definition": "i:false:false"
   }
 ]

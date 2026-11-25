@@ -22,6 +22,8 @@ test('native runtime is DML-only and test credentials cannot access development 
     await assert.rejects(() => runtime.query('CREATE DATABASE mp_test_forbidden'), {code:'42501'});
     const permission = await runtime.query<{ ok: boolean }>("SELECT has_table_privilege(current_user, 'app_users', 'SELECT, INSERT, UPDATE, DELETE') AS ok");
     assert.equal(permission.rows[0].ok, true);
+    const narrow = await runtime.query("SELECT has_table_privilege(current_user, 'app_users', 'INSERT') AS broad_insert,has_table_privilege(current_user, 'app_users', 'UPDATE') AS broad_update,has_column_privilege(current_user, 'app_users', 'google_subject', 'INSERT') AS google_insert,has_column_privilege(current_user, 'app_users', 'verified_email', 'UPDATE') AS email_update,has_column_privilege(current_user, 'app_users', 'identity_kind', 'INSERT') AS kind_insert");
+    assert.deepEqual(narrow.rows[0], {broad_insert:false,broad_update:false,google_insert:true,email_update:true,kind_insert:false});
   } finally { await runtime.end(); await fixture.cleanup(); }
   const testUrl = await testAdminUrl(); testUrl.pathname='/meal_planner_dev';
   const denied = new Client({connectionString:testUrl.href});

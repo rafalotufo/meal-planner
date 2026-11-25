@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { FamilyDatabase } from '../db/connection';
 import type { MealPlanWeekRow, MealPlanSuggestionRow, MenuRecipeRow } from '../db/schema';
-import { FamilyError, requireMember, type VerifiedIdentity } from '../identity-access';
+import { FamilyError, requireMember, isVerificationIdentity, type Principal } from '../identity-access';
 import { listMenuRecipes } from '../menu/store';
 import { menuEntryFromRow, parseMenuId, parseMenuRecipe } from '../menu/validation';
 import { currentWeek, parseWeek } from './calendar';
@@ -17,7 +17,7 @@ function planFromRow(row: MealPlanWeekRow): PlanWeek {
   if (!meals || !parseMenuId(row.id) || !parseWeek(row.weekStart) || !validRevision(row.revision) || !['draft','final'].includes(row.status) || !Number.isSafeInteger(row.createdAt) || row.createdAt < 0 || (row.status === 'draft' ? row.finalizedAt !== null : !Number.isSafeInteger(row.finalizedAt) || row.finalizedAt! < 0)) throw new Error('Storage unavailable');
   return { id: row.id, weekStart: row.weekStart, revision: row.revision, status: row.status, meals, originalRecipeCount: storedMeals!.length, createdAt: row.createdAt, finalizedAt: row.finalizedAt };
 }
-export async function readPlans(db: FamilyDatabase, identity: VerifiedIdentity, allowed: unknown, queryValue: Record<string, unknown> = {}, now = new Date()): Promise<PlanView> {
+export async function readPlans(db: FamilyDatabase, identity: Principal, allowed: unknown, queryValue: Record<string, unknown> = {}, now = new Date()): Promise<PlanView> {
   const query = parsePlanQuery(queryValue); if (!query) throw invalid();
   // Use the same lock for a coherent read across revision, approvals and suggestions.
   return db.transaction(async tx => {
@@ -31,9 +31,10 @@ export async function readPlans(db: FamilyDatabase, identity: VerifiedIdentity, 
     return { plan, history: history.map(row => row.week), approvals: approvals.length, approved: approvals.some(row => row.userId === user.id), suggestions, menu: await listMenuRecipes(tx, identity, allowed, query.menuAfter), editable: Boolean(plan && plan.status === 'draft' && plan.weekStart >= currentWeek(now)) };
   });
 }
-export async function actOnPlan(db: FamilyDatabase, identity: VerifiedIdentity, allowed: unknown, idValue: unknown, actionValue: unknown, now = new Date()) {
+export async function actOnPlan(db: FamilyDatabase, identity: Principal, allowed: unknown, idValue: unknown, actionValue: unknown, now = new Date()) {
   const id = parseMenuId(idValue), action = parsePlanAction(actionValue);
   if (!id || !action) throw invalid();
+  if (isVerificationIdentity(identity) && !['approve','suggest'].includes(action.action)) throw new FamilyError(403, 'Forbidden');
   return db.transaction(async tx => {
     const user = await requireMember(tx, identity, allowed);
     const row = await tx.one<MealPlanWeekRow>(`SELECT ${columns} FROM meal_plan_weeks WHERE id=$1 AND family_id=$2`, [id, user.familyId]);

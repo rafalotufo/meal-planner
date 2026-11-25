@@ -1,0 +1,8 @@
+{
+  "mode": "candidate",
+  "status": null,
+  "elapsedMs": 338,
+  "pass": null,
+  "exitCode": 2,
+  "scope": "actual initial direct candidate smoke; platform interception preserved as inconclusive"
+}

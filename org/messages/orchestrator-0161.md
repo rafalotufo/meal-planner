@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0161
 from: orchestrator
-to: security-researcher
+to: reviewer
 kind: handoff
-subject: Formal security review of verified Brave implementation
-artifact: intent/brave-parallel-recipe-search/verification.md
+subject: Review exact-source staging evidence and final release proposal
+artifact: intent/agent-deployment-verification/hosted-staging-result.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:41:35Z"
-closed_by: orchestrator
-closed_evidence: org/reviews/security-brave-parallel-001.md
+created_at: "2026-11-25T16:03:30Z"
 ---
 
-Review exact source2989467 against accepted/amended design and actualverification. All required fixture/browser checks pass. First namedlive8cards9.7s; originalbroadfailed502, correctedheadingregressionoffline9candidates, onecorrectivequeryawaitingreview. Do not fabricate broadsuccess; source securityreview can proceed while narrow evidenceapprovalfinalizes. No paidcalls, appedits, merge or deployment.
+Actual Chrome390/1440 selected app checks passed; formal per-run synthetic matrix reports2/incomplete and releaseAccepted:false preserved. All owned synthetic runs cleaned, link revoked/denied, original9 tables preserved and final7 runtime catalog valid. Exact197/8sa/profile4f postinspection; ProductionAeQV unchanged. Review truthful evidence and concrete gap/interruption/pause proposal before owner decision. No hosted effects by reviewer.

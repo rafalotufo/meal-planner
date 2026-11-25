@@ -153,8 +153,11 @@ is also mandatory for the recipe home/search endpoint, before any paid provider
 work; pending onboarding identities cannot search.
 
 Sessions use encrypted HttpOnly, SameSite=Lax, host-only cookies, Secure on HTTPS.
-They expire after one hour without refresh. Logout clears the current browser's
-auth and invitation-context cookies, including after admission loss; it cannot revoke a previously copied cookie before expiry. Rotate
+New Google sessions expire after a fixed 30 days without refresh. Existing sessions
+keep their original signed expiry; sign in again to obtain the longer lifetime.
+The separate Google account-data cookie remains limited to one hour and is not
+required to keep the application session active. Logout clears the current browser's
+auth and invitation-context cookies, including after admission loss; it cannot revoke a previously copied cookie before expiry, potentially up to 30 days for new sessions, subject to current admission checks. Rotate
 `BETTER_AUTH_SECRET` to invalidate all sessions in an emergency. Google access
 uses identity scopes only; no offline/refresh-token access is requested.
 
@@ -554,3 +557,57 @@ runtime metadata together; never skip the verifier or regenerate it at startup.
 The deployment regression runs the compiled app without source/migration files
 against an isolated PostgreSQL database, so local filesystem availability cannot
 hide a missing production dependency.
+
+
+## Google-free staging verification
+
+The local implementation supports a dedicated verification member on isolated
+staging. It does not enable a deployed target by itself. Ordinary and Production
+builds generate a disabled policy; Preview requires an explicitly reviewed build
+manifest and exact runtime project/deployment/source/profile/origin/database
+binding. The entry page is `/verification`, using an ordinary password-style form,
+with a five-minute single-use credential and a revocable fifteen-minute session
+capped by the thirty-minute run. Google authentication remains separate.
+
+A trusted operator, under separately approved hosted scope, uses a private
+`VERIFICATION_OPERATOR_DATABASE_URL` for the recorded Preview Neon target. The
+CLI validates the recorded project/origin/database and a recent operator inspection
+record, then changes staging data directly over verified TLS; it does not deploy.
+The record has `environment: "preview"`, `inspectedAt` in epoch milliseconds and
+`target` containing `projectId`, `deploymentId`, `sourceSha`, `profileSha256`,
+`origin` and `databaseIdentity` (the nonsecret canonical host/port/database SHA256).
+It is an operator attestation of independent exact-deployment inspection, not a
+platform signature. The record must be inspected within ten minutes of use.
+
+```sh
+node --env-file=/absolute/private/operator.env --import tsx scripts/verification-access.ts issue --record /absolute/private/target.json --output /absolute/private/run.json --scope app
+node --env-file=/absolute/private/operator.env --import tsx scripts/verification-access.ts revoke --record /absolute/private/target.json --run RUN_UUID
+node --env-file=/absolute/private/operator.env --import tsx scripts/verification-access.ts cleanup --record /absolute/private/target.json --run RUN_UUID
+```
+
+The output directory must be canonical and owner-only. Issuance writes a new0600
+handoff file, refuses symlinks/overwrite, and prints only sanitized run/member
+identifiers. Give a local agent the file path and run ID, never the raw credential
+in chat. Delete the handoff after use/expiry. Password masking does not redact
+browser-tool arguments or traces: private tool-session handling is a prerequisite.
+Remote-agent transfer and scoped Vercel Shareable Link/canonical-origin access
+remain separately verified hosted prerequisites. Never give the browser database
+credentials, a Vercel account or project-wide protection-bypass credentials.
+
+V1 permits family summary, saved-result menu snapshots and plan read/approve/
+suggest; invitations, provisioning, plan finalization/resolution and URL curation
+are denied for synthetic members. Local tests use owned random PostgreSQL databases,
+isolated Preview-like builds and empty provider keys. Synthetic app evidence stays
+separate from real Google OAuth, provider success and release acceptance. See the
+[feature specification](intent/agent-deployment-verification/spec.md) and
+[local implementation evidence](intent/agent-deployment-verification/implementation.md).
+
+The issuer defaults to an empty household. An operator inspection record with
+`allowFixtureSeed: true` plus the explicit `--seed-fixture` flag permits only the
+fixed reviewed v1 seed: two clearly labeled synthetic menu snapshots under
+`https://example.com/verification-fixture-v1/`, no images/provider work, and one
+current-week draft containing the first snapshot. The second snapshot supports
+a suggestion check. Setup is atomic with the new run and touches no other family.
+This is not arbitrary recipe input or a general recipe-creation endpoint. Cleanup
+revokes first and refuses cross-family approvals/suggestions before deleting only
+that run's owned rows.

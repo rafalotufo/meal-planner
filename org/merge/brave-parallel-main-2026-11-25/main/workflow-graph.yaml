@@ -1,0 +1,38 @@
+# Login session expiration; org peer gates, human merge and release gates.
+version: 1
+nodes:
+  intent:
+    stage: plan
+    artifact: intent/login-session-expiration/intent.md
+    gate: intent_acceptance
+    status: accepted
+    done_status: accepted
+  spec:
+    stage: design
+    artifact: intent/login-session-expiration/spec.md
+    gate: spec_approval
+    status: approved
+    done_status: approved
+  plan:
+    stage: build
+    artifact: intent/login-session-expiration/plan.md
+    gate: engineer_approve
+    status: approved
+    done_status: approved
+  implementation:
+    stage: build
+    artifact: login-session-expiration-implementation
+    gate: pr_merge_approval
+    status: merged
+    done_status: merged
+  release:
+    stage: deploy
+    artifact: intent/login-session-expiration/release.md
+    gate: release_authorization
+    status: draft
+    done_status: done
+edges:
+  - {from: intent, to: spec, trigger: acceptance}
+  - {from: spec, to: plan, trigger: approval}
+  - {from: plan, to: implementation, trigger: plan_accepted}
+  - {from: implementation, to: release, trigger: merge}

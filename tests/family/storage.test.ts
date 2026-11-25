@@ -3,12 +3,14 @@ import { test } from 'node:test';
 import { testDatabase } from './database.ts';
 import { connectDatabase, openDatabase } from '../../lib/db/connection.ts';
 import { migrateDatabase } from '../../lib/db/migrate.ts';
+import { rollbackEmptyVerificationFixture } from '../verification/rollback.ts';
+import { restrictedMenuDatabase } from '../menu/database.ts';
 
 test('committed PostgreSQL schema enforces membership and invitation integrity', async () => {
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     const tables = await db.all<{ name: string }>("SELECT tablename AS name FROM pg_tables WHERE schemaname='public' AND tablename <> '__drizzle_migrations' ORDER BY name");
-    assert.deepEqual(tables, [{name:'app_users'},{name:'families'},{name:'family_invitations'},{name:'meal_plan_approvals'},{name:'meal_plan_suggestions'},{name:'meal_plan_weeks'},{name:'menu_recipe_curations'},{name:'menu_recipes'}]);
+    assert.deepEqual(tables, [{name:'__app_migrations'},{name:'app_users'},{name:'families'},{name:'family_invitations'},{name:'meal_plan_approvals'},{name:'meal_plan_suggestions'},{name:'meal_plan_weeks'},{name:'menu_recipe_curations'},{name:'menu_recipes'},{name:'verification_capabilities'},{name:'verification_runs'},{name:'verification_sessions'},{name:'verification_throttles'}]);
     await db.execute('INSERT INTO families VALUES ($1,$2)', ['family', 1]);
     const insert = (values: unknown[]) => db.execute('INSERT INTO app_users (id,google_subject,verified_email,family_id,created_at) VALUES ($1,$2,$3,$4,$5)', values);
     await insert(['user','subject','member@gmail.com','family',1]);
@@ -74,6 +76,7 @@ test('concurrent explicit migrations serialize and disposable initial rollback i
     try {
       const { readFile } = await import('node:fs/promises');
       await db.transaction(async (tx) => {
+        await rollbackEmptyVerificationFixture(tx);
         await tx.execute(await readFile('drizzle/postgresql/rollback-curation-test.sql','utf8'));
         await tx.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));
         await tx.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));
@@ -111,4 +114,13 @@ test('unreviewed triggers, functions and row-security changes fail closed', asyn
     await db.execute('ALTER TABLE app_users ENABLE ROW LEVEL SECURITY');
     await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
   } finally { await db.close(); await fixture.cleanup(); }
+});
+
+
+test('verification fixture rollback refuses restricted runtime before any schema effect', async () => {
+  const fixture = await restrictedMenuDatabase(), runtime = connectDatabase(fixture.runtimeUrl);
+  try {
+    await assert.rejects(runtime.transaction(tx => rollbackEmptyVerificationFixture(tx)), { message: 'Owned disposable fixture required' });
+    assert.equal((await runtime.one<{ present: boolean }>("SELECT to_regclass('public.verification_runs') IS NOT NULL AS present"))?.present, true);
+  } finally { await runtime.close(); await fixture.cleanup(); }
 });

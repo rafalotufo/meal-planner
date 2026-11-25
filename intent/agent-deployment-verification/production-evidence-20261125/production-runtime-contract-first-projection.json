@@ -1,0 +1,1 @@
+{"capturedAt":"2026-11-25T16:27:35.669Z","deploymentId":"dpl_E8Nn1S5i7aqmGiWrZGjcBV15LhwN","target":"production","readyState":"READY","search":[{"path":"api/recipes/search","runtime":"nodejs24.x","lambdaKeys":["functionName","deployedTo","runtime","memorySize","timeout","layers"]}]}

@@ -29,3 +29,6 @@ REVIEW.md
 *.db
 *.db-*
 *.backup
+
+# Regenerated from trusted build inputs, never uploaded from local state.
+.verification

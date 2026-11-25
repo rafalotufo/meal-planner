@@ -11,6 +11,129 @@ artifact. Future releases follow the
 staging validation and owner scope/gap acceptance precede a separate Production
 build, manual promotion and minimal anonymous health/recovery.
 
+## Google-free synthetic verification lane
+
+The approved [verification specification](../agent-deployment-verification/spec.md)
+and [implementation plan](../agent-deployment-verification/plan.md) add a distinct
+synthetic-app evidence lane. Local implementation approval does not authorize a
+hosted migration, grants, configuration, issuance, data creation, cleanup, paid
+provider request or deployment. Actual first hosted Chrome evidence and separately approved Production execution are now recorded in [the verification release result](../agent-deployment-verification/production-release-result.md); this is not standing authority or a full browser/OAuth/provider pass.
+The real-Google lane and its existing `check`/`finalize` assertions below remain
+available and unchanged in meaning; synthetic evidence cannot satisfy them.
+
+Before hosted use, obtain exact-scope authority covering the Preview source and
+deployment/profile, native verification migration and grants, operator credentials,
+run/data/write/cleanup scope, duration and provider budget. Verify scoped Vercel
+Shareable Link availability, canonical-origin access/cookie continuity, exact
+source/deployment binding and link revocation. Serialize alias changes during the
+run. These are per-run prerequisites; the recorded Chrome proof is bounded to its source/profile/browser/private channel. Never substitute a project-wide protection
+bypass credential, a real account handoff or public protection removal. Verify a
+private credential/automation-trace channel too; password masking does not hide
+tool arguments. A remote-agent transfer mechanism is not approved by this runbook.
+
+The browser entry is
+`https://meal-planner-staging-rafalotufos.vercel.app/verification`. An authorized
+operator uses the explicit CLI on the operator's machine. It connects over verified
+TLS to the separately recorded Preview database and writes the run/member/digest
+records; it does not change deployment code or redeploy. Keep
+`VERIFICATION_OPERATOR_DATABASE_URL` only in private operator configuration, never
+in Vercel, the browser agent, command arguments, chat or audit artifacts.
+
+After the separate hosted authority and inspection, command shapes are:
+
+```text
+node --import tsx scripts/verification-access.ts issue --record <private-record.json> --output <absolute-private-output-path> --scope app
+node --import tsx scripts/verification-access.ts issue --record <private-record.json> --output <absolute-private-output-path> --scope collaboration
+node --import tsx scripts/verification-access.ts revoke --record <private-record.json> --run <verification-run-UUID>
+node --import tsx scripts/verification-access.ts cleanup --record <private-record.json> --run <verification-run-UUID>
+```
+
+The private inspected record names the approved Preview target/source/profile and
+has a fresh inspection timestamp; it is an operator attestation, not a platform
+signature. `app` creates one synthetic member; `collaboration` permits two. The
+issuer stores only SHA256 credential digests and writes raw credentials exclusively
+to a new mode0600 file under an owner-only directory, refusing overwrite/symlinks.
+Give a local agent the path and run ID through the private channel. The agent reads
+the file privately and enters the credential in the form; no cookie injection,
+Google account or operator database credential is needed. Delete the file after
+use/expiry. Entry credentials last five minutes and redeem once; resulting sessions
+last at most fifteen minutes and the run at most thirty minutes. Logout revokes a
+session; operator revocation ends the run. Lost successful exchange responses need
+fresh operator issuance, not a retry of the consumed credential. Explicit cleanup
+revokes first and deletes only proven-owned run data; no automatic read/reset exists.
+
+### Recorded first hosted use and scope limits
+
+Release source19774c7/Preview8sa demonstrated account-free native form entry,
+server-cookie session, selected page reads and logout in fresh Chrome profiles at
+390/1440. The owner accepted the explicit missing browser/Google/provider/write/
+platform coverage; formal per-run matrix results remained incomplete. See
+[the actual staging result](../agent-deployment-verification/hosted-staging-result.md).
+Firefox/Safari and remote-agent private transfer remain unproved; inspect access,
+configuration, exact deployment and scope again for every future run.
+
+The observed alias-scoped Shareable Link uses private `_vercel_share` query
+navigation to establish the platform cookie at the canonical Host. It is distinct
+from the project-wide automation bypass. The first revocation was visible in the
+API before edge denial propagated; retain actual denied-access evidence, keep
+capabilities private and never infer immediate revocation from the API alone.
+No public protection removal or real account handoff was used. Temporary links,
+capabilities and owned synthetic runs were explicitly revoked/cleaned afterward.
+
+The first CLI deployment needed truthful explicit per-deployment
+`VERCEL_GIT_COMMIT_SHA` at build/runtime because the existing project has no Git
+integration. Bind it to verified upload Git blobs and exact inspected deployment;
+metadata is not provider-signed source proof. The source guard remains unchanged.
+Operator connection URLs normalize only known connector options to the reviewed
+`sslmode=verify-full` contract; never weaken TLS or silently drop unknown options.
+
+The excluded release-specific hosted-browser.ts helper uses private owner-only
+input/handoff files, normal TLS, fresh Chrome and native keyboard submission;
+raw capabilities never enter shared tool arguments or trace logs. Its expected
+source label is fixed to19774c7 and must be reviewed for another release; it is
+not an automatic verifier of future deployments or a substitute for inspection.
+Both hosted databases now require the seven-identity catalog. Old five-migration
+artifacts are incompatible; no new grant/migration/issuance/release permission or
+backup restore follows from this operational history.
+
+### Synthetic evidence artifact and validator
+
+Record a sanitized, operator-attested artifact with exact fields:
+
+- `version: 1`, `proofClass: "synthetic-app"`, ISO `startedAt` and `endedAt` within
+  one thirty-minute run, and `target` exactly matching the expected record.
+- The expected target includes the existing helper's target fields plus
+  `profileSha256` (64 lowercase hex characters), `verificationRunId` (UUIDv4),
+  and `memberIds` (one or two UUIDv4 values). Its `runId` remains the validation
+  label; `verificationRunId` identifies the authentication run.
+- `observations`: one record per actual member/browser/width/check with exactly
+  `memberId`, `browser` (`Chrome`, `Firefox` or `Safari`), numeric dotted `version`,
+  `width` (390 or1440), `check` and `result`. Check names are `form-entry`, `home`,
+  `session`, `family`, `menu`, `plans` and `logout`; results are `pass`, `fail`,
+  `blocked` or `not-run`. Never invent a version or a pass for unavailable tools.
+- `gaps` always includes `google-oauth-unchecked`, `provider-unchecked`,
+  `invitations-excluded` and `url-curation-excluded`. Optional finite gap names are
+  `platform-protection-bypassed`, `chrome-unavailable`, `firefox-unavailable` and
+  `safari-unavailable`. Absent browsers require their unavailable gap. Platform
+  bypass is application evidence with that boundary skipped, not WAF/bot proof.
+
+Validate the artifact without network or private credential input:
+
+```text
+node --import tsx tests/deployment/staging.ts synthetic <synthetic-expected.json> <synthetic-evidence.json>
+```
+
+This invokes `validateSyntheticStagingEvidence`; it validates shape, exact target
+and proof attribution, not the truth of a fabricated operator report. A complete
+synthetic browser matrix yields exit0/`appResult: "pass"`; an actual failed check
+exit1, blocked/missing coverage exit2. Invalid input is exit1 with sanitized generic
+output. Every result has `proofClass: "synthetic-app"` and `releaseAccepted: false`.
+The old Google-session checker rejects verification cookies, and old `finalize`
+rejects synthetic reports. No synthetic artifact contains `googleAllowed` or
+`googleDenied`. Separate real OAuth/provider evidence or explicit release-specific
+owner gap acceptance remains necessary under the accepted release scope; synthetic
+app success grants neither that gap acceptance nor a Production release.
+
 ## Keyless staging profile and one-time setup authority
 
 The following is the existing keyless helper profile. New setup/configuration,
@@ -52,8 +175,10 @@ no domain/key change is authorized here.
    Keep the server-only allowlist unchanged. Select an already eligible real
    staging identity privately, with explicit authority for callback verified-email
    writes and, if needed, one normal UI household provisioning on Preview.
-   Retain that owner-controlled staging household; validation never deletes or
+   Retain that owner-controlled staging household; the real-Google lane never deletes or
    resets data, creates invitations or hosts fake identities/transport fixtures.
+   The separately scoped synthetic lane above is the only proposed exception for
+   synthetic household setup/cleanup; it does not alter Google identity checks.
 
 Approval of local tooling is not approval of those settings or a deployment.
 After authorization, record actual alias/client/configuration verification and

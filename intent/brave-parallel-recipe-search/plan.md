@@ -32,6 +32,7 @@ Senior developer owns execution and verification after peer approval.
 - `tests/auth/server.ts`
 - `tests/auth/chrome.ts`
 - `tests/menu/brave-search-browser.ts`
+- `tests/verification/server.ts` (local main integration fixture-only key clearing; see `main-integration.md`)
 - `tests/deployment/*.test.ts`
 
 ## File responsibilities and evidence

@@ -99,11 +99,23 @@ authority. This completed scope grants no future release/migration permission.
 The separately approved latest-main cutover on 2026-11-24 applied 0002–0004
 on both recorded hosted targets; see intent/t-rex-refinements/production-release.md
 for fixed source d26ea59, Production AeQV, preservation and observation evidence.
-The hosted runtime contract now requires all five migrations. Older two-migration
+The 2026-11-24 hosted runtime contract required all five historical migrations. Older two-migration
 Production artifacts are incompatible; preserve the current schema/data. Migration
 0003 uses temporary tables: its approved execution temporarily granted database
 TEMP only to mp_migrator, then restored the original ACL; runtime TEMP stays denied.
 This operational history provides no authority for a future migration or grant.
+The separately approved2026-11-25 agent verification cutover applied native identities
+fe5c2ee0-bf7f-464e-93be-2d654b4001e8 and557e80b6-f30b-452e-b563-12cff07158a5
+and their exact final grants on both recorded hosted targets. The current contract
+requires seven identities. Release source19774c7 is ProductionE8Nn; staging8sa
+retains its separate enabled Preview build. See
+intent/agent-deployment-verification/production-release-result.md for source,
+owner acceptance, actual evidence and preservation. Production verification stays
+disabled and has no synthetic data. Older five-migration artifacts reject the
+new catalog and are unsafe rollback targets. Preserve current schema/data; use
+only a reviewed compatible correction or explicitly authorized scoped pause.
+No DROP, ledger rewrite, backup restore, future migration/grant or standing release/
+issuance authority follows from this completed release.
 Future releases follow intent/staging-first-release/spec.md and the staging/
 Production runbooks: validate and obtain owner scope/gap acceptance for the exact
 release SHA on isolated staging before a separate Production build, manual
@@ -125,8 +137,11 @@ independent review, and human merge/release gates. Report actual command output
 and verify visible UI in a real browser at mobile and desktop widths. Python
 unittest covers workflow tooling. Node's built-in runner covers authentication
 through real HTTP and a test-process-only Google transport fixture; production
-code must never import it or add a fake-user bypass. Sessions expire after one
-hour without refresh; browser logout cannot revoke copied cookies before expiry.
+code must never import it or add a fake-user bypass. New Google sessions expire
+after a fixed 30 days without refresh; existing sessions retain their signed expiry.
+The separate Google account-data cookie remains one hour; staging verification
+durations stay unchanged. Browser logout cannot revoke copied cookies before expiry,
+potentially up to 30 days for new Google sessions, subject to current admission checks.
 The dev-only `bun-types/sqlite` ambient declaration supports Better Auth's public
 types; keep Node/React types and strict checks. Never suppress
 checks or remove failing tests to get a passing run. After fixture development QA has
@@ -155,6 +170,26 @@ New application tests and test helpers must use TypeScript, including HTTP,
 provider-fixture and browser helpers. Use the pinned tsx loader with Node's
 built-in test runner and keep them in strict TypeScript checking. Preserve
 the existing Python workflow regression tests; do not migrate or weaken them.
+
+## Staging verification identities
+
+The approved agent-deployment-verification feature adds a distinct synthetic
+principal and revocable opaque cookie for explicitly enabled Preview builds only.
+Google identities retain verified Google subjects and exact Better Auth JWE/token
+binding; exact menu handlers independently bind verification cookies to current
+run/member admission. Never forge Google claims or widen the Google allowlist.
+Malformed Google allowlist configuration fails closed for every admission path.
+Exact `/api/verification/session` bypasses body-buffering Proxy only because its
+handler supplies canonical Host, target, method, Origin/nonce, throttle, deadline
+and security-header checks. `/verification` stays behind Proxy; only its exact
+GET/HEAD uses a Proxy-generated signed nonce and matching HttpOnly cookie.
+Ordinary/Production manifests stay disabled; runtime Production always denies.
+Synthetic members may use approved snapshot menu and plan read/approve/suggest
+flows, never provisioning/invitations/URL curation or unrelated background jobs.
+Operator CLI issuance/revocation/cleanup changes only the exact approved staging
+database over verified TLS; browser agents receive only a private short-lived
+handoff. No runtime migration or new hosted authority is implied. See
+`intent/agent-deployment-verification/spec.md`, `plan.md` and `implementation.md`.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

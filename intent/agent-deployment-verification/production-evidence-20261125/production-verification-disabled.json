@@ -1,0 +1,1 @@
+{"capturedAt":"2026-11-25T16:30:14.050Z","checks":[{"path":"/verification","method":"GET","status":404,"noStore":true,"cookieAbsent":true},{"path":"/api/verification/session","method":"GET","status":404,"noStore":true,"cookieAbsent":true},{"path":"/api/verification/session","method":"POST","status":404,"noStore":true,"cookieAbsent":true}],"passed":true}

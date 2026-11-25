@@ -9,6 +9,7 @@ import { invitationForRecipient } from '../../lib/invitations';
 import { OnboardingControls } from './onboarding-controls';
 export default async function OnboardingPage() {
   const session = await requirePageSession();
+  if (session.kind === 'verification') redirect('/');
   const context = invitationContext(await headers(), authConfiguration().origin);
   if (session.access.kind === 'member' && !context.present) redirect('/');
   const invitation = session.access.kind !== 'member' ? await invitationForRecipient(await getDatabase(), session.identity, context.token) : null;

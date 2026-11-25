@@ -1,0 +1,38 @@
+# Agent deployment verification: owner-accepted exact staging and authorized Production release complete; actual scope/gaps preserved.
+version: 1
+nodes:
+  intent:
+    stage: plan
+    artifact: intent/agent-deployment-verification/intent.md
+    gate: intent_acceptance
+    status: accepted
+    done_status: accepted
+  spec:
+    stage: design
+    artifact: intent/agent-deployment-verification/spec.md
+    gate: spec_approval
+    status: approved
+    done_status: approved
+  plan:
+    stage: build
+    artifact: intent/agent-deployment-verification/plan.md
+    gate: engineer_approve
+    status: approved
+    done_status: approved
+  implementation:
+    stage: build
+    artifact: agent-deployment-verification
+    gate: pr_merge_approval
+    status: merged
+    done_status: merged
+  release:
+    stage: deploy
+    artifact: intent/agent-deployment-verification/production-release-decision.md
+    gate: release_authorization
+    status: done
+    done_status: done
+edges:
+  - {from: intent, to: spec, trigger: acceptance}
+  - {from: spec, to: plan, trigger: approval}
+  - {from: plan, to: implementation, trigger: plan_accepted}
+  - {from: implementation, to: release, trigger: merge}

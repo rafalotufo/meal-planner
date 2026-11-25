@@ -12,10 +12,10 @@ export async function generateDuePlans(db: FamilyDatabase, allowedEmails: unknow
   if (!week) return result;
   let after = '';
   for (;;) {
-    const families = await db.all<{ id: string }>('SELECT id FROM families WHERE id>$1 ORDER BY id LIMIT 100', [after]);
+    const families = await db.all<{ id: string }>("SELECT id FROM families WHERE identity_kind='google' AND id>$1 ORDER BY id LIMIT 100", [after]);
     for (const family of families) {
       const outcome = await db.transaction(async tx => {
-        const eligible = await tx.one(`SELECT f.id FROM families f WHERE f.id=$1 AND EXISTS (SELECT 1 FROM app_users u WHERE u.family_id=f.id AND (u.invitation_granted_at IS NOT NULL OR lower(btrim(u.verified_email))=ANY($2::text[])))`, [family.id, allowed]);
+        const eligible = await tx.one(`SELECT f.id FROM families f WHERE f.id=$1 AND f.identity_kind='google' AND EXISTS (SELECT 1 FROM app_users u WHERE u.family_id=f.id AND (u.invitation_granted_at IS NOT NULL OR lower(btrim(u.verified_email))=ANY($2::text[])))`, [family.id, allowed]);
         if (!eligible) return 'ineligible';
         if (await tx.one('SELECT id FROM meal_plan_weeks WHERE family_id=$1 AND week_start=$2::date', [family.id, week])) return 'existing';
         const rows = await tx.all<MenuRecipeRow>(`WITH recent AS MATERIALIZED (

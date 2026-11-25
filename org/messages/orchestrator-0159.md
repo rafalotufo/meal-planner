@@ -3,16 +3,14 @@ id: orchestrator-0159
 from: orchestrator
 to: senior-developer
 kind: handoff
-subject: Implement approved Brave parallel recipe search plan
-artifact: intent/brave-parallel-recipe-search/plan.md
+subject: Prepare isolated hosted Chrome verification helper
+artifact: intent/agent-deployment-verification/hosted-browser-plan.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:19:12Z"
-closed_by: orchestrator
-closed_evidence: intent/brave-parallel-recipe-search/verification.md
+created_at: "2026-11-25T15:44:00Z"
 ---
 
-Independent design/plan approval eb1deb0 and matching peer ledger records now recorded; graph spec/plan approved, loop implement. Execute approved plan in test-first slices, full required verification, real Chrome12-card QA and at most two labeled live pipeline smoke queries. Root handles workflow/gates. No merge/push/hosted/deployment.
+Root approved hosted-browser-plan.md: fresh account-free owned Chrome profile, canonical HTTPS only plus exact scoped link bootstrap, private local file handoff, native form/session/home/family/menu/plans/logout at separate390/1440 runs, no app-cookie injection or provider/Google calls. Strict TypeScript and pure refusal checks then independent helper review before root hosted execution; no child hosted/DB/Git effects.

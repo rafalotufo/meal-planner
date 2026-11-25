@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { authConfiguration, getAuth } from "../../../../lib/auth";
 import { contextCookie } from "../../../../lib/invitation-context";
 import { noStore } from "../../../../lib/auth-policy";
+import { cookieValues, VERIFICATION_COOKIE, clearVerificationCookie, verificationLogoutCookie } from "../../../../lib/verification/cookies";
+import { revokeVerificationSession } from "../../../../lib/verification/store";
+import { currentVerificationTarget } from "../../../../lib/verification/runtime";
+import { getDatabase } from "../../../../lib/db";
 import { readCryptographicSession } from "../../../../lib/session";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +23,7 @@ async function handle(request: NextRequest) {
       if (request.headers.get("origin") !== origin || request.headers.get("sec-fetch-site") === "cross-site") {
         return NextResponse.json({ error: "Forbidden" }, { status: 403, headers: noStore });
       }
-      if (logout && !await readCryptographicSession(request.headers)) return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: noStore });
+      if (logout && !cookieValues(request.headers.get("cookie"), VERIFICATION_COOKIE).length && !await readCryptographicSession(request.headers)) return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: noStore });
       if (request.headers.get("content-type")?.split(";")[0] !== "application/json" || Number(request.headers.get("content-length")) > 4096) {
         return NextResponse.json({ error: "Invalid request" }, { status: 400, headers: noStore });
       }
@@ -42,6 +46,19 @@ async function handle(request: NextRequest) {
         headers: request.headers,
         body: JSON.stringify(social ? { provider: "google", callbackURL: `${origin}/onboarding`, errorCallbackURL: `${origin}/sign-in`, newUserCallbackURL: `${origin}/onboarding` } : {}),
       });
+    }
+    if (logout && cookieValues(request.headers.get("cookie"), VERIFICATION_COOKIE).length) {
+      const target = currentVerificationTarget();
+      const token = verificationLogoutCookie(request.headers.get("cookie"));
+      if (token && target) await revokeVerificationSession(await getDatabase(), token, target);
+      // Clear Google library cookies too when conflicting credentials are present;
+      // cookie clearing is the only effect permitted without current admission.
+      const cleared = await getAuth().handler(forwarded);
+      const headers = new Headers(noStore);
+      for (const cookie of cleared.headers.getSetCookie()) headers.append("Set-Cookie", cookie);
+      headers.append("Set-Cookie", clearVerificationCookie());
+      headers.append("Set-Cookie", contextCookie(origin, null));
+      return NextResponse.json({ success: true }, { headers });
     }
     // Use the HTTP handler so the library also enforces its origin/CSRF/OAuth checks.
     const response = await getAuth().handler(forwarded);

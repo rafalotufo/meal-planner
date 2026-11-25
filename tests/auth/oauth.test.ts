@@ -25,7 +25,9 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
   assert.notEqual(authorization.searchParams.get('access_type'), 'offline');
   assert.ok(authorization.searchParams.get('code_challenge'));
   assert.equal(authorization.searchParams.get('code_challenge_method'), 'S256');
+  const issuedAfter = Date.now();
   const callback = await jar.request(server.origin, `/api/auth/callback/google?code=test-code&state=${encodeURIComponent(authorization.searchParams.get('state') ?? '')}`);
+  const issuedBefore = Date.now();
   assert.equal(callback.status, 302);
   assert.equal(callback.headers.get('location'), `${server.origin}/onboarding`);
   assert.equal((await provision(server.origin, jar)).status, 200);
@@ -37,8 +39,22 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
     assert.match(cookie, /Path=\//i);
     assert.doesNotMatch(cookie, /Domain=/i);
     const age = /Max-Age=(\d+)/i.exec(cookie)?.[1];
-    if (age) assert.ok(Number(age) <= 3600);
+    if (/^better-auth\.session_(token|data)=/.test(cookie)) assert.equal(Number(age), 2_592_000);
+    else if (age) assert.ok(Number(age) <= 3600, 'unrelated cookies retain their short lifetime');
   }
+  for (const name of ['session_token', 'session_data', 'account_data']) {
+    assert.ok(cookies.some(cookie => cookie.startsWith(`better-auth.${name}=`)), `${name} cookie is issued`);
+  }
+  const accountCookie = jar.values.get('better-auth.account_data');
+  assert.ok(accountCookie);
+  const account = await symmetricDecodeJWT<{ exp: number; iat: number }>(decodeURIComponent(accountCookie), server.secret, 'better-auth-account');
+  assert.ok(account);
+  assert.equal(account.exp - account.iat, 3600, 'Google account data retains its one-hour encrypted lifetime');
+  assert.match(cookies.find(cookie => cookie.startsWith('better-auth.account_data='))!, /Max-Age=3600(?:;|$)/i);
+  const withoutAccount = new CookieJar();
+  withoutAccount.values = new Map(jar.values);
+  withoutAccount.values.delete('better-auth.account_data');
+  assert.equal((await withoutAccount.request(server.origin, '/api/session')).status, 200, 'account-data expiry does not truncate login');
   const home = await jar.request(server.origin, '/');
   assert.equal(home.status, 200);
   const homeHtml = await home.text();
@@ -71,8 +87,30 @@ test('Google OAuth completes with provider HTTP fixtures and creates bounded enc
   assert.ok(decoded);
   assert.equal(decoded.user.googleSubject, "fixture-user");
   assert.notEqual(decoded.user.id, decoded.user.googleSubject);
-  assert.equal(decoded.exp - decoded.iat, 3600);
-  assert.ok(new Date(decoded.session.expiresAt).getTime() - Date.now() <= 3600000);
+  assert.equal(decoded.exp - decoded.iat, 2_592_000);
+  const expiresAt = new Date(decoded.session.expiresAt).getTime();
+  assert.ok(expiresAt >= issuedAfter + 2_592_000_000 - 1000, 'inner session lasts the full thirty days');
+  assert.ok(expiresAt <= issuedBefore + 2_592_000_000 + 1000, 'inner session is bounded at thirty days');
+  const originalCredentials = new Map(jar.values);
+  for (const path of ['/api/session', '/', '/api/session']) {
+    const read = await jar.request(server.origin, path);
+    assert.equal(read.status, 200);
+    await read.arrayBuffer();
+    assert.equal(read.headers.getSetCookie().length, 0, 'protected reads never renew credentials');
+    assert.deepEqual(jar.values, originalCredentials);
+  }
+  // An already issued one-hour session must keep its own signed deadline.
+  const legacy = new CookieJar();
+  legacy.values = new Map(jar.values);
+  const legacyData = await symmetricEncodeJWT({ ...decoded, session: { ...decoded.session, expiresAt: new Date(Date.now() + 3_600_000).toISOString() } }, server.secret, 'better-auth-session', 3600);
+  legacy.values.set('better-auth.session_data', legacyData);
+  for (const path of ['/api/session', '/']) {
+    const read = await legacy.request(server.origin, path);
+    assert.equal(read.status, 200);
+    await read.arrayBuffer();
+    assert.equal(read.headers.getSetCookie().length, 0, 'legacy sessions are not reissued');
+    assert.equal(legacy.values.get('better-auth.session_data'), legacyData);
+  }
   for (const replacement of [
     `${data.slice(0, -6)}tamper`,
     await symmetricEncodeJWT(decoded, randomBytes(48).toString('base64url'), 'better-auth-session', 3600),

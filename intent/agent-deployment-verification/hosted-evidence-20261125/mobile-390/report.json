@@ -1,0 +1,96 @@
+{
+  "proofClass": "hosted-synthetic-browser",
+  "expectedSourceSha": "19774c7cd8ae301682003838f083b9d825d5e56d",
+  "startedAt": "2026-11-25T15:54:52.323Z",
+  "endedAt": "2026-11-25T15:55:03.556Z",
+  "passed": false,
+  "stage": "post-logout",
+  "width": 390,
+  "browser": "Chrome/158.0.8127.88",
+  "checks": {
+    "platformReachable": true,
+    "entry": true,
+    "keyboardEntry": true,
+    "preSubmit_runLength": true,
+    "preSubmit_credentialLength": true,
+    "preSubmit_formValid": true,
+    "preSubmit_canonicalAction": true,
+    "preSubmit_canonicalPage": true,
+    "preSubmit_documentFocus": true,
+    "preSubmit_submitFocused": true,
+    "nativeExchange": true,
+    "session": true,
+    "home": true,
+    "family": true,
+    "menu": true,
+    "plans": true,
+    "keyboardLogout": true,
+    "logout": true,
+    "sessionDeniedAfterLogout": true,
+    "privateRedirectAfterLogout": true
+  },
+  "statuses": {
+    "platformBootstrap": 200,
+    "exchange": 303,
+    "logout": 200
+  },
+  "counts": {
+    "nativeExchanges": 1,
+    "blockedPlatformAssets": 9,
+    "forbiddenRequests": 0,
+    "browserErrors": 10
+  },
+  "diagnostics": {
+    "errors": {
+      "network-csp": 9,
+      "log-network": 1
+    },
+    "httpFailures": [],
+    "csp": [
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      },
+      {
+        "directive": "script-src",
+        "origin": "vercel-live"
+      }
+    ]
+  },
+  "gaps": [
+    "Real Google OAuth not exercised",
+    "Paid providers not exercised",
+    "Firefox not exercised",
+    "Safari not exercised",
+    "Vercel live assets blocked; platform behavior not certified"
+  ],
+  "releaseAccepted": false
+}

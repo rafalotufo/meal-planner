@@ -3,16 +3,14 @@ id: reviewer-0057
 from: reviewer
 to: orchestrator
 kind: review
-subject: Approve Brave parallel search specification and plan
-artifact: intent/brave-parallel-recipe-search/plan.md
+subject: Approve login expiration design and plan
+artifact: org/reviews/login-session-expiration-design-001.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:17:27Z"
-closed_by: orchestrator
-closed_evidence: gates/ledger.jsonl
+created_at: "2026-11-25T17:47:17Z"
 ---
 
-Independent design review of f09624c plus f9cd9d6 plan-format correction with threat-model a1b78ca approves local implementation. No blocking findings; concrete implementation checkpoints and verification limits recorded in org/reviews/design-brave-parallel-001.md. Not code, merge or release approval.
+Approved sibling specification and plan for local implementation under org peer gates. No findings. Exact30day session layers, explicit3600second account cookie/JWE override, nonrenewal, signed legacy expiry compatibility and independent HTTP/browser verification remain mandatory. See review evidence. No merge, hosted or release approval.

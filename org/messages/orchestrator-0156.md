@@ -1,18 +1,16 @@
 ---
 id: orchestrator-0156
 from: orchestrator
-to: architect
+to: reviewer
 kind: handoff
-subject: Design bounded Brave discovery and parallel per-page curation
-artifact: intent/brave-parallel-recipe-search/intent.md
+subject: Review combined main and verification packaging candidate
+artifact: intent/agent-deployment-verification/main-release-plan.md
 requires_response: false
 in_reply_to: null
-status: closed
+status: open
 severity: null
 blocking: false
-created_at: "2026-11-25T17:10:47Z"
-closed_by: orchestrator
-closed_evidence: intent/brave-parallel-recipe-search/plan.md
+created_at: "2026-11-25T15:28:06Z"
 ---
 
-PM accepted scope and exact budgets. Produce spec and implementation plan for independent peer gate; read current source and benchmark evidence. Include broad collection expansion, global queues, precise cancellation/errors/evidence binding, twelve-card menu-status chunks, and executable verification. No application edits before peer approval.
+Actualmaincd60mergeintegratedwithfeaturea886 plusgeneratorlibmove/packageprefixes/.verificationexclude. Clean139fileinventorydigest50a6ada840fc087920bc84cf62cb3f99cb890aafb5392e20aa634b6de831cadf; actualuploadRED/GREEN2pass; fullcombinedchecksnearlycomplete. Reviewactualstagedsource plusauditreconciliation preservingcanonicalmainledgerprefix+originalfeatureledger/messagesarchive and3existingownerapprovaltranscriptions. No hostedmutation/deployment occurred. No scope/gate bypass.
