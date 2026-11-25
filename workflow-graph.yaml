@@ -1,4 +1,4 @@
-# Agent deployment verification: owner approved specification; implementation planning only.
+# Agent deployment verification: owner approved plan; local implementation, review and verification only.
 version: 1
 nodes:
   intent:
@@ -17,13 +17,13 @@ nodes:
     stage: build
     artifact: intent/agent-deployment-verification/plan.md
     gate: engineer_approve
-    status: in_review
+    status: approved
     done_status: approved
   implementation:
     stage: build
     artifact: agent-deployment-verification
     gate: pr_merge_approval
-    status: not_started
+    status: in_progress
     done_status: merged
   release:
     stage: deploy

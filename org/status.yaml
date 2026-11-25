@@ -1,9 +1,9 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Reviewed implementation plan complete; owner plan approval required before local code; no implementation/hosted effects }
+  orchestrator: { status: busy, assignment: agent-deployment-verification-implementation, last_report: Reviewed implementation plan complete; owner plan approval required before local code; no implementation/hosted effects }
   product-manager: { status: idle, assignment: null, last_report: Intent/options peer-reviewed for owner consideration; scope and issuance decisions pending }
   architect: { status: idle, assignment: null, last_report: Revised specification independently security/peer-reviewed; pending owner spec approval }
-  senior-developer: { status: idle, assignment: null, last_report: "Concrete plan3d7e5fc independently security/peer-reviewed, pending owner plan approval" }
+  senior-developer: { status: busy, assignment: agent-deployment-verification-implementation, last_report: "Concrete plan3d7e5fc independently security/peer-reviewed, pending owner plan approval" }
   security-researcher: { status: idle, assignment: null, last_report: "Plan3d7e5fc security-reviewed, no blockers; exact proof and hosted readiness obligations assigned" }
   reviewer: { status: idle, assignment: null, last_report: "review agent-deployment-verification-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

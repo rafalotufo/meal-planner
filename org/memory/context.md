@@ -9,19 +9,19 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: owner_decision
+- turn: 0
+- phase: intent
 - stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (agent-deployment-verification-implementation)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (agent-deployment-verification-implementation)
 
 ## Open messages
 
@@ -59,6 +59,7 @@ intent/agent-deployment-verification/intent.md
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0068 ceo -> orchestrator answer: Re: Select Google-free verification direction before Design
 - ceo-0069 ceo -> orchestrator answer: Re: Approve reviewed verification specification before implementation planning
+- ceo-0070 ceo -> orchestrator answer: Re: Approve reviewed local implementation plan
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -117,7 +118,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0158 orchestrator -> senior-developer handoff: Plan approved Google-free staging verification specification
 - orchestrator-0159 orchestrator -> security-researcher handoff: Security review staging verification implementation plan
 - orchestrator-0160 orchestrator -> reviewer handoff: Peer review concrete verification implementation plan
-- orchestrator-0161 orchestrator -> ceo question: Approve reviewed local implementation plan
+- orchestrator-0162 orchestrator -> senior-developer handoff: Implement approved Google-free verification plan locally
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -138,11 +139,11 @@ intent/agent-deployment-verification/intent.md
 
 ## Recent decisions
 
-- mem-0165 orchestrator: Agent deployment verification remains intent exploration only. PM recommends staging-only synthetic principal plus single-use short-lived capability, retains local fixture coverage, and escalates staging/Production and issuance scope before Design. Independent security assessment finds no exploration blockers; no authentication design, hosted setup or release is approved. (org/reviews/agent-deployment-verification-security-001.md)
 - mem-0166 orchestrator: Rafael approved staging-only Google-free verification direction for Design in active chat. Intent gate recorded; prior intent loop archived under agent-verification-intent-before-design-2026-11-25 and new bounded Design loop initialized. Implementation/hosted/release remain unapproved. (org/messages/orchestrator-0151.md)
 - mem-0167 orchestrator: Staging-only verification Design is independently security/peer-reviewed for owner spec consideration. Proxy-buffering deadline blocker0032 resolved at Design level; exact guarded API exemption/no-EOF test required. Malformed Google allowlist fail-closed, strict SQL/grants, current token binding, platform ingress and private handoff obligations remain. No code/hosted authority; owner spec decision required before implementation planning. (org/reviews/agent-deployment-verification-spec-001.md)
 - mem-0168 orchestrator: Rafael approved reviewed Google-free verification specification after issuance clarification. Local operator CLI will write to approved remote staging DB over verified TLS; no redeploy. Plan stage begins with new bounded loop; prior Design audit archived. No implementation or hosted execution authorization yet. (org/messages/orchestrator-0157.md)
 - mem-0169 orchestrator: Implementation plan independently security/peer-reviewed with no blockers;15test-first slices and49entrymanifest cover approved staging verification. Owner plan decision required before code. All hosted migration/grants/setup/issuance/config/paid/release remain separately gated; remote handoff and platform ingress unproven. (org/reviews/agent-deployment-verification-plan-001.md)
+- mem-0170 orchestrator: Owner approved reviewed verification implementation plan in active chat. Local implementation and owned disposable regressions authorized; previous planning audit archived. No shared/hosted migrations, remote issuance/config/data, paid calls, push/merge or release. Begin bounded implementation/review loop. (org/messages/orchestrator-0161.md)
 
 ## Constraints
 
@@ -150,17 +151,15 @@ intent/agent-deployment-verification/intent.md
 
 ## Artifacts
 
-- intent/agent-deployment-verification/plan.md (08523be18b801f52180d3c44551bf5b70ecf31944c56dbc97f0d53d3f2b7726d)
-- org/reviews/agent-deployment-verification-plan-security-001.md (5cce61b7bc9fa2a72315ba155a3c75e254508c440d0fcfe950bec068089c50dc)
-- org/reviews/agent-deployment-verification-plan-001.md (8dd4e2ad479d296c0a27f4bfa71c939506c8ed4e4d01da623d5b4c2b2c4ce86a)
+(none)
 
 ## Next action
 
-reviewer:review_verification_plan
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0169 from org/reviews/agent-deployment-verification-plan-001.md
+- mem-0170 from org/messages/orchestrator-0161.md
 
 <!-- machine:end -->
 
