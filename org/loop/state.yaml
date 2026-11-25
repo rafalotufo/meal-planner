@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/agent-deployment-verification/intent.md
-base_commit: f01407aa158f48efb6fa769b555642e3255d079b
-turn: 3
+work_item: intent/login-session-expiration/intent.md
+base_commit: 5899ad3d948a0fcf2cbb3dc887ea272e0b0caff2
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 1e7c96fd5999ed7d76d2321f1c5dca7ff93a8bfcfba21082c0a043aaa1bba68e
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/agent-deployment-verification/main-release-verification.md", "sha256": "ff6633aa92da99d80b96c91127ce4a7a87a31d15fdeacfbc8a9a08a2f85b723e"}, {"path": "org/reviews/agent-verification-main-integration-security-001.md", "sha256": "71e33b0e107d3921659d3fde65718c69cb602036a89a9121ec7a0ba2bf47b71a"}, {"path": "org/reviews/agent-verification-main-integration-001.md", "sha256": "508e0f91214fcd81ee02dd8661e655d655296c887e9ab9d88ef5086931f0a18d"}]
+phase: design
+status: in_progress
+last_input_hash: fa6dfc060bd83bbad0b49f19f443a64c24a22fea48bab46fda3c7434f94864ee
+stop_reason: null
+last_action: "product-manager:accept_intent"
+artifacts: [{"path": "intent/login-session-expiration/intent.md", "sha256": "c9df3257a7b92e27b493fa1c4fc87ee3862e9008065e8fb3fc030b7287b5ed67"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T15:35:09Z"
+updated_at: "2026-11-25T17:45:22Z"

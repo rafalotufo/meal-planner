@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Completed owner-approved release19774c7 to ProductionE8Nn; native7/data preserved/menu7, anonymous health and logs pass, verification disabled, staging8sa retained; review002 clear; no recovery needed or future authority" }
-  product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
-  architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
-  senior-developer: { status: idle, assignment: null, last_report: "Hosted helper Enter RED/GREEN and precise diagnostic classification completed;3 pure tests plus strict lint/typecheck pass; excluded tooling only" }
-  security-researcher: { status: idle, assignment: null, last_report: "Combined source approved; hosted cutover plan and strict URL/preflight diagnosis complete; root applied only Preview migrations" }
-  reviewer: { status: idle, assignment: null, last_report: "Production release receipt review001 and completion002 approved; exact authority/source/grants/data/health/limits consistent; no remaining blocker" }
+  orchestrator: { status: busy, assignment: intent/login-session-expiration/intent.md, last_report: "Completed owner-approved release19774c7 to ProductionE8Nn; native7/data preserved/menu7, anonymous health and logs pass, verification disabled, staging8sa retained; review002 clear; no recovery needed or future authority" }
+  product-manager: { status: idle, assignment: null, last_report: "Intent accepted, commit 5899ad3" }
+  architect: { status: busy, assignment: intent/login-session-expiration/spec.md, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
+  senior-developer: { status: idle, assignment: null, last_report: Hosted helper Enter RED/GREEN and precise diagnostic classification completed;3 pure tests plus strict lint/typecheck pass; excluded tooling only }
+  security-researcher: { status: idle, assignment: null, last_report: Combined source approved; hosted cutover plan and strict URL/preflight diagnosis complete; root applied only Preview migrations }
+  reviewer: { status: idle, assignment: null, last_report: Production release receipt review001 and completion002 approved; exact authority/source/grants/data/health/limits consistent; no remaining blocker }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

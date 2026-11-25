@@ -1,35 +1,35 @@
-# Agent deployment verification: owner-accepted exact staging and authorized Production release complete; actual scope/gaps preserved.
+# Login session expiration; org peer gates, human merge and release gates.
 version: 1
 nodes:
   intent:
     stage: plan
-    artifact: intent/agent-deployment-verification/intent.md
+    artifact: intent/login-session-expiration/intent.md
     gate: intent_acceptance
     status: accepted
     done_status: accepted
   spec:
     stage: design
-    artifact: intent/agent-deployment-verification/spec.md
+    artifact: intent/login-session-expiration/spec.md
     gate: spec_approval
-    status: approved
+    status: draft
     done_status: approved
   plan:
     stage: build
-    artifact: intent/agent-deployment-verification/plan.md
+    artifact: intent/login-session-expiration/plan.md
     gate: engineer_approve
-    status: approved
+    status: draft
     done_status: approved
   implementation:
     stage: build
-    artifact: agent-deployment-verification
+    artifact: login-session-expiration-implementation
     gate: pr_merge_approval
-    status: merged
+    status: draft
     done_status: merged
   release:
     stage: deploy
-    artifact: intent/agent-deployment-verification/production-release-decision.md
+    artifact: intent/login-session-expiration/release.md
     gate: release_authorization
-    status: done
+    status: draft
     done_status: done
 edges:
   - {from: intent, to: spec, trigger: acceptance}

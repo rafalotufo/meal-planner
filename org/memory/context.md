@@ -4,20 +4,20 @@
 
 ## Goal
 
-intent/agent-deployment-verification/intent.md
+intent/login-session-expiration/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 3
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/login-session-expiration/spec.md)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/login-session-expiration/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -136,6 +136,7 @@ intent/agent-deployment-verification/intent.md
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
+- product-manager-0022 product-manager -> orchestrator decision: Accepted 30-day Google login expiration intent
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
@@ -154,13 +155,11 @@ intent/agent-deployment-verification/intent.md
 
 ## Artifacts
 
-- intent/agent-deployment-verification/main-release-verification.md (ff6633aa92da99d80b96c91127ce4a7a87a31d15fdeacfbc8a9a08a2f85b723e)
-- org/reviews/agent-verification-main-integration-security-001.md (71e33b0e107d3921659d3fde65718c69cb602036a89a9121ec7a0ba2bf47b71a)
-- org/reviews/agent-verification-main-integration-001.md (508e0f91214fcd81ee02dd8661e655d655296c887e9ab9d88ef5086931f0a18d)
+- intent/login-session-expiration/intent.md (c9df3257a7b92e27b493fa1c4fc87ee3862e9008065e8fb3fc030b7287b5ed67)
 
 ## Next action
 
-reviewer:review
+product-manager:accept_intent
 
 ## Last digest source
 
