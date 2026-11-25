@@ -9,15 +9,15 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: implement
+- turn: 4
+- phase: staging
 - stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/dependency-aware-migrations/hosted-permission-correction.md)
+- orchestrator: idle (intent/dependency-aware-migrations/hosted-runtime-preflight.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -106,6 +106,9 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0147 orchestrator -> ceo status: Local main merged and running with dependency-aware migrations
 - orchestrator-0148 orchestrator -> reviewer handoff: Review exact hosted permission correction and staging-first release plan
 - orchestrator-0149 orchestrator -> senior-developer handoff: Implement approved exact Neon permission compatibility correction
+- orchestrator-0150 orchestrator -> reviewer handoff: Review documented PostgreSQL internal attribute metadata normalization
+- orchestrator-0151 orchestrator -> senior-developer handoff: Implement approved internal attribute-version normalization
+- orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -138,14 +141,17 @@ intent/dependency-aware-migrations/intent.md
 ## Artifacts
 
 - org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md (193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086)
+- intent/dependency-aware-migrations/attribute-options-verification.md (49fdd86da27166378df1022be069ac72aff36ceae2da4be50b5c9e580e40804b)
+- org/reviews/dependency-aware-migrations-attribute-source-security-001.md (6b54db58d4cf98169d3411c4a4de72ae52e5c7fdbab4a87bcb824c8e74027ddd)
+- org/reviews/dependency-aware-migrations-hosted-source-001.md (b2f22c6cf6b5ca02bdc745240a08a4646ac90852f4255c5d3adaf17528a7d657)
 
 ## Next action
 
-reviewer:approve_hosted_correction_plan
+reviewer:review_corrected_source
 
 ## Last digest source
 
-- mem-0163 from intent/dependency-aware-migrations/local-main-result.md
+- mem-0164 from intent/dependency-aware-migrations/hosted-runtime-preflight.md
 
 <!-- machine:end -->
 

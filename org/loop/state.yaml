@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/dependency-aware-migrations/intent.md
 base_commit: 4a3623916b9ca4204c48baf0823a7ce0f9fd1f8e
-turn: 1
+turn: 4
 no_progress: 0
-phase: implement
+phase: staging
 status: in_progress
-last_input_hash: bf0d810107a973ff6e237fda17e9b8cfb0e945985ffe8930b2f1bf94c25f7c47
+last_input_hash: 94863b165f725de13d68a27ff93b7e07b37325660decc0241a6df4947a78721c
 stop_reason: null
-last_action: "reviewer:approve_hosted_correction_plan"
-artifacts: [{"path": "org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md", "sha256": "193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086"}]
+last_action: "reviewer:review_corrected_source"
+artifacts: [{"path": "org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md", "sha256": "193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086"}, {"path": "intent/dependency-aware-migrations/attribute-options-verification.md", "sha256": "49fdd86da27166378df1022be069ac72aff36ceae2da4be50b5c9e580e40804b"}, {"path": "org/reviews/dependency-aware-migrations-attribute-source-security-001.md", "sha256": "6b54db58d4cf98169d3411c4a4de72ae52e5c7fdbab4a87bcb824c8e74027ddd"}, {"path": "org/reviews/dependency-aware-migrations-hosted-source-001.md", "sha256": "b2f22c6cf6b5ca02bdc745240a08a4646ac90852f4255c5d3adaf17528a7d657"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T01:57:08Z"
+updated_at: "2026-11-25T13:40:04Z"

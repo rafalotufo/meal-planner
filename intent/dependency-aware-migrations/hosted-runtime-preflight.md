@@ -92,3 +92,22 @@ Proposed compatible recovery remains current AeQV/d26 only, subject to fresh
 configuration/schema/readiness verification and explicit release authority.
 No old two-migration artifact, database rollback/reset/restore or project pause
 is implied. Main merge and release authorizations remain separate human gates.
+
+## Final reviewable handoff
+
+Final evidence155d00a records328 passing Node tests,7 Python tests, clean lint,
+typecheck/build and both real-Chrome suites. Exact-source packaging verifies
+126 files/738556 bytes and an upload-only frozen install/build with every source
+hash unchanged. Independent final readiness54f7481 approves source25 for the
+new human main-merge decision, followed by truthful same-SHA staging. The fresh
+dependency audit retains one reviewed moderate tooling advisory and zero high/
+critical findings; it is not a zero-finding audit.
+
+Final workflow checking initially found three missing ledger entries for existing
+PM/peer approvals. Independent reconciliation75b2762 appends their documented
+decisions at the current transcription time, without backdating or adding human
+authority. Strict workflow consistency now passes (6 nodes,151 records); loop,
+message and memory checks report zero violations and seven Python tests pass.
+`org_loop.py next` stops at `gate_required` for the new main-merge decision.
+Main remains e4b8c954; Production remains AeQV/d26. No staging deployment,
+Production candidate, promotion, database mutation or Git push has occurred.
