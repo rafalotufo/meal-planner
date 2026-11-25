@@ -4,13 +4,13 @@
 
 ## Goal
 
-intent/dependency-aware-migrations/intent.md
+intent/brave-parallel-recipe-search/intent.md
 
 ## Loop
 
 - status: in_progress
-- turn: 6
-- phase: production
+- turn: 0
+- phase: intent
 - stop_reason: None
 
 ## Agents
@@ -18,7 +18,7 @@ intent/dependency-aware-migrations/intent.md
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
-- product-manager: idle (unassigned)
+- product-manager: busy (intent/brave-parallel-recipe-search/intent.md)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
@@ -58,6 +58,7 @@ intent/dependency-aware-migrations/intent.md
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0068 ceo -> orchestrator decision: Approve reviewed hosted correction main merge and exact-source staging
+- ceo-0069 ceo -> orchestrator decision: Implement Brave discovery and parallel per-result recipe curation
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -112,6 +113,7 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
 - orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
 - orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
+- orchestrator-0155 orchestrator -> product-manager handoff: Review Brave parallel recipe search intent
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -131,11 +133,11 @@ intent/dependency-aware-migrations/intent.md
 
 ## Recent decisions
 
-- mem-0155 orchestrator: Historical mem-0139 import from feature tip: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
 - mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 - mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 - mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
+- mem-0166 ceo: Owner selected Brave Web Search with parallel tool-free per-result curation for local org implementation; previous migration release workflow archived without completion. Human merge/release remain separate. (intent/brave-parallel-recipe-search/intent.md)
 
 ## Constraints
 
@@ -143,20 +145,15 @@ intent/dependency-aware-migrations/intent.md
 
 ## Artifacts
 
-- org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md (193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086)
-- intent/dependency-aware-migrations/attribute-options-verification.md (49fdd86da27166378df1022be069ac72aff36ceae2da4be50b5c9e580e40804b)
-- org/reviews/dependency-aware-migrations-attribute-source-security-001.md (6b54db58d4cf98169d3411c4a4de72ae52e5c7fdbab4a87bcb824c8e74027ddd)
-- org/reviews/dependency-aware-migrations-hosted-source-001.md (b2f22c6cf6b5ca02bdc745240a08a4646ac90852f4255c5d3adaf17528a7d657)
-- intent/dependency-aware-migrations/staging-result.md (e7a9b5185017efaac2c9adaaab447d837ce4070dcccfd840378acc0f7e3b744d)
-- org/reviews/dependency-aware-migrations-staging-evidence-001.md (4faf922934826630fa33aaef39ceb2b121dd725c141df767f91ba4de117be3d3)
+(none)
 
 ## Next action
 
-reviewer:review_staging_readiness
+(run org_loop.py next)
 
 ## Last digest source
 
-- mem-0165 from intent/dependency-aware-migrations/staging-result.md
+- mem-0166 from intent/brave-parallel-recipe-search/intent.md
 
 <!-- machine:end -->
 
