@@ -6,7 +6,7 @@ test('NULL and exact empty arrays remain valid with either known relation class'
   for(const hasRowType of [true,false]) for(const options of [null,[]]) assert.doesNotThrow(()=>validateAttributeOptions(options,hasRowType));
 });
 test('only canonical positive unsigned64 marker values are accepted on row-typed relations',()=>{
-  for(const value of ['1','2','9007199254740992','18446744073709551615']) assert.doesNotThrow(()=>validateAttributeOptions([`pg_attver=${value}`],true));
+  for(const value of ['1','2','9007199254740992','9007199254740993','18446744073709551615']) assert.doesNotThrow(()=>validateAttributeOptions([`pg_attver=${value}`],true));
   assert.throws(()=>validateAttributeOptions(['pg_attver=1'],false),/incompatible-schema/);
 });
 test('marker parsing rejects malformed, noncanonical, overflowing or unbounded strings',()=>{

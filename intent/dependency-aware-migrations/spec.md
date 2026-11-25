@@ -265,3 +265,22 @@ fail closed. Creator administration and existing SUPERUSER powers remain within
 the trusted platform-administrator boundary; false SET/INHERIT options are not
 claimed to contain that administrator. Normal runtime and actual object/effective
 privilege checks remain independent and mandatory.
+
+## Reviewed internal attribute-version normalization
+
+`attribute-options-amendment.md` documents the upstream PostgreSQL security
+backpatch and exact approved normalization. NULL/empty attribute-option arrays
+are accepted with a known boolean relation binding. Otherwise only one canonical
+positive decimal pg_attver within unsigned64 is accepted, and only when the
+actual catalog relation has a row type. The marker is physical tuple-version
+safety metadata, not schema identity; its instance-specific WAL value is not
+compared across databases or migration orders.
+
+The shared production helper validates array shape, exact full-string grammar
+and20-digit/range bounds using BigInt. It rejects zero, signs, leading zeros,
+line terminators/whitespace, unknown keys (including other pg_ names), mixed or
+duplicate options, malformed array/property shapes and non-row-type markers.
+All ordinary options such as n_distinct remain unsupported. Identity/generated
+and collation guards remain unchanged alongside all catalog/permission checks.
+No provider/environment bypass, system-catalog edit or DDL clearing this safety
+marker is introduced or needed.

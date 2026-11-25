@@ -1,4 +1,5 @@
 import type { FamilyDatabase } from './connection';
+import { validateAttributeOptions } from './attribute-options';
 import { StorageDiagnostic, type SchemaProfile } from './migration-graph';
 import { validatePlatformPermissions, type PermissionContext, type RuntimeMembership, type NonOwnerDefaultPrivilege } from './platform-permissions';
 
@@ -34,8 +35,10 @@ export async function checkSecurity(db: FamilyDatabase, profile: SchemaProfile, 
     EXISTS (SELECT 1 FROM pg_constraint co JOIN pg_class c ON c.oid=co.conrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (NOT co.convalidated OR co.condeferrable OR co.condeferred)) OR
     EXISTS (SELECT 1 FROM pg_index i JOIN pg_class c ON c.oid=i.indrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (NOT i.indisvalid OR NOT i.indisready OR NOT i.indislive)) OR
     EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND (pg_get_userbyid(c.relowner)<>$1 OR c.relrowsecurity OR c.relforcerowsecurity OR c.relpersistence<>'p' OR c.reloptions IS NOT NULL)) OR
-    EXISTS (SELECT 1 FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_type typ ON typ.oid=a.atttypid WHERE n.nspname='public' AND a.attnum>0 AND NOT a.attisdropped AND (a.attidentity<>'' OR a.attgenerated<>'' OR a.attoptions IS NOT NULL OR a.attcollation<>typ.typcollation)) AS bad`, [identity!.owner]);
+    EXISTS (SELECT 1 FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_type typ ON typ.oid=a.atttypid WHERE n.nspname='public' AND a.attnum>0 AND NOT a.attisdropped AND (a.attidentity<>'' OR a.attgenerated<>'' OR a.attcollation<>typ.typcollation)) AS bad`, [identity!.owner]);
   if (unexpected?.bad) throw new StorageDiagnostic('incompatible-schema');
+  const attributeOptions = await db.all<{ options: unknown; hasRowType: boolean }>(`SELECT a.attoptions AS options, (c.reltype<>0) AS "hasRowType" FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND a.attnum>0 AND NOT a.attisdropped`);
+  for (const row of attributeOptions) validateAttributeOptions(row.options, row.hasRowType);
   const grants = { ...profile.grants };
   if (presence.legacy) grants.__drizzle_migrations = ['SELECT'];
   if (presence.native) grants.__app_migrations = ['SELECT'];

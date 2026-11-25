@@ -424,6 +424,13 @@ no grant or migration operation. See the
 Do not revoke platform creator grants or change default privileges to repair a
 validator failure; inspect the sanitized category and use reviewed source.
 
+Patched PostgreSQL may add its internal `pg_attver` safety marker to row-type
+columns. Validation accepts only its documented canonical positive unsigned64
+shape; NULL/empty arrays remain valid for older installations. Other column
+options (including `n_distinct`) still fail closed. Do not clear or modify
+internal safety metadata. See the reviewed
+[attribute-options amendment](intent/dependency-aware-migrations/attribute-options-amendment.md).
+
 Typed native `pg` queries and the public Drizzle migration loader preserve strict
 checking. The pinned ORM's PostgreSQL entry point independently reproduced 70
 strict declaration failures; see
