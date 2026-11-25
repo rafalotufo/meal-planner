@@ -9,8 +9,8 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -20,8 +20,8 @@ intent/agent-deployment-verification/intent.md
 - orchestrator: busy (intent/agent-deployment-verification/plan.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
-- senior-developer: busy (intent/agent-deployment-verification/plan.md)
+- security-researcher: busy (intent/agent-deployment-verification/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -115,6 +115,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0155 orchestrator -> security-researcher handoff: Recheck exact exchange guard correction
 - orchestrator-0156 orchestrator -> reviewer handoff: Peer review revised Google-free verification specification
 - orchestrator-0158 orchestrator -> senior-developer handoff: Plan approved Google-free staging verification specification
+- orchestrator-0159 orchestrator -> security-researcher handoff: Security review staging verification implementation plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -147,11 +148,11 @@ intent/agent-deployment-verification/intent.md
 
 ## Artifacts
 
-(none)
+- intent/agent-deployment-verification/plan.md (08523be18b801f52180d3c44551bf5b70ecf31944c56dbc97f0d53d3f2b7726d)
 
 ## Next action
 
-(run org_loop.py next)
+senior-developer:draft_verification_plan
 
 ## Last digest source
 
