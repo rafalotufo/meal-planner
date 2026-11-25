@@ -119,6 +119,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0159 orchestrator -> security-researcher handoff: Security review staging verification implementation plan
 - orchestrator-0160 orchestrator -> reviewer handoff: Peer review concrete verification implementation plan
 - orchestrator-0162 orchestrator -> senior-developer handoff: Implement approved Google-free verification plan locally
+- orchestrator-0163 orchestrator -> security-researcher handoff: Implementation checkpoint: review actual schema and deadline primitives
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -134,6 +135,7 @@ intent/agent-deployment-verification/intent.md
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - security-researcher-0031 security-researcher -> orchestrator review: Google-free verification intent security assessment
+- security-researcher-0033 security-researcher -> senior-developer review: Schema and deadline checkpoint approved with remaining proof obligations
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 

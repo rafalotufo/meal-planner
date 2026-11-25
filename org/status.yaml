@@ -4,7 +4,7 @@ agents:
   product-manager: { status: idle, assignment: null, last_report: Intent/options peer-reviewed for owner consideration; scope and issuance decisions pending }
   architect: { status: idle, assignment: null, last_report: Revised specification independently security/peer-reviewed; pending owner spec approval }
   senior-developer: { status: busy, assignment: agent-deployment-verification-implementation, last_report: "Concrete plan3d7e5fc independently security/peer-reviewed, pending owner plan approval" }
-  security-researcher: { status: idle, assignment: null, last_report: "Plan3d7e5fc security-reviewed, no blockers; exact proof and hosted readiness obligations assigned" }
+  security-researcher: { status: idle, assignment: null, last_report: Schema/deadline checkpoint approved for nextlocalintegration;35independenttests pass; broaderdeadline/route/sessionproof remains }
   reviewer: { status: idle, assignment: null, last_report: "review agent-deployment-verification-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
