@@ -1,0 +1,475 @@
+{
+  "countOnly": {
+    "localSource": "intent/recipe-result-count/latency-2026-11-25.jsonl",
+    "data": [
+      {
+        "query": "chilli",
+        "requested": 6,
+        "status": "success",
+        "returned": 6,
+        "withPhotos": 6,
+        "providerMs": 44212,
+        "photoMs": 1444,
+        "totalMs": 45656,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 30817,
+          "input_tokens_details": {
+            "cache_write_tokens": 4322,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 4322
+            },
+            "cached_tokens": 0
+          },
+          "output_tokens": 2459,
+          "output_tokens_details": {
+            "reasoning_tokens": 512
+          },
+          "total_tokens": 33276
+        },
+        "webSearchCalls": 5
+      },
+      {
+        "query": "chilli",
+        "requested": 10,
+        "status": "success",
+        "returned": 10,
+        "withPhotos": 5,
+        "providerMs": 43489,
+        "photoMs": 880,
+        "totalMs": 44369,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 26138,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 0
+            },
+            "cached_tokens": 4322
+          },
+          "output_tokens": 2896,
+          "output_tokens_details": {
+            "reasoning_tokens": 395
+          },
+          "total_tokens": 29034
+        },
+        "webSearchCalls": 4
+      },
+      {
+        "query": "chilli",
+        "requested": 20,
+        "status": "timeout",
+        "error": "SEARCH_TIMEOUT",
+        "providerMs": null,
+        "photoMs": null,
+        "totalMs": 60011
+      },
+      {
+        "query": "pizza",
+        "requested": 10,
+        "status": "success",
+        "returned": 8,
+        "withPhotos": 5,
+        "providerMs": 53988,
+        "photoMs": 2014,
+        "totalMs": 56002,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 34512,
+          "input_tokens_details": {
+            "cache_write_tokens": 9,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 9
+            },
+            "cached_tokens": 4312
+          },
+          "output_tokens": 3355,
+          "output_tokens_details": {
+            "reasoning_tokens": 475
+          },
+          "total_tokens": 37867
+        },
+        "webSearchCalls": 5
+      },
+      {
+        "query": "pizza",
+        "requested": 20,
+        "status": "timeout",
+        "error": "SEARCH_TIMEOUT",
+        "providerMs": null,
+        "photoMs": null,
+        "totalMs": 60007
+      },
+      {
+        "query": "pizza",
+        "requested": 6,
+        "status": "success",
+        "returned": 6,
+        "withPhotos": 6,
+        "providerMs": 35181,
+        "photoMs": 1254,
+        "totalMs": 36435,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 27952,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 0
+            },
+            "cached_tokens": 4321
+          },
+          "output_tokens": 2276,
+          "output_tokens_details": {
+            "reasoning_tokens": 382
+          },
+          "total_tokens": 30228
+        },
+        "webSearchCalls": 4
+      },
+      {
+        "query": "quick vegetarian weeknight dinner",
+        "requested": 20,
+        "status": "success",
+        "returned": 8,
+        "withPhotos": 4,
+        "providerMs": 52772,
+        "photoMs": 2015,
+        "totalMs": 54787,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 34182,
+          "input_tokens_details": {
+            "cache_write_tokens": 13,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 13
+            },
+            "cached_tokens": 4312
+          },
+          "output_tokens": 3514,
+          "output_tokens_details": {
+            "reasoning_tokens": 532
+          },
+          "total_tokens": 37696
+        },
+        "webSearchCalls": 4
+      },
+      {
+        "query": "quick vegetarian weeknight dinner",
+        "requested": 6,
+        "status": "success",
+        "returned": 5,
+        "withPhotos": 2,
+        "providerMs": 29029,
+        "photoMs": 1128,
+        "totalMs": 30157,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 21730,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 0
+            },
+            "cached_tokens": 4325
+          },
+          "output_tokens": 1912,
+          "output_tokens_details": {
+            "reasoning_tokens": 328
+          },
+          "total_tokens": 23642
+        },
+        "webSearchCalls": 3
+      },
+      {
+        "query": "quick vegetarian weeknight dinner",
+        "requested": 10,
+        "status": "success",
+        "returned": 5,
+        "withPhotos": 5,
+        "providerMs": 41883,
+        "photoMs": 1297,
+        "totalMs": 43181,
+        "httpStatus": 200,
+        "providerStatus": "completed",
+        "incompleteDetails": null,
+        "usage": {
+          "input_tokens": 21640,
+          "input_tokens_details": {
+            "cache_write_tokens": 0,
+            "cache_write_tokens_details": {
+              "ttl_12h_tokens": 0,
+              "ttl_30m_tokens": 0
+            },
+            "cached_tokens": 4325
+          },
+          "output_tokens": 2496,
+          "output_tokens_details": {
+            "reasoning_tokens": 278
+          },
+          "total_tokens": 24136
+        },
+        "webSearchCalls": 3
+      }
+    ]
+  },
+  "perItem": {
+    "localSource": "build/brave-search-benchmark/per-item-2026-11-25T16-51-03.867Z/analysis.json",
+    "data": {
+      "method": "Two real Brave Web Search requests; first three hits each. Six publisher pages fetched in batches of two using existing safe loader. Four fetched pages curated once sequentially and again with two concurrent requests, reusing identical evidence. Two failed-fetch pages skipped. No search snippets treated as sufficient cooking evidence.",
+      "model": "gpt-6.2-sol",
+      "reasoning": "low",
+      "outputTokenCapPerCall": 1200,
+      "maxModelConcurrency": 2,
+      "modelSearchTools": false,
+      "actualBraveCalls": 2,
+      "actualModelCalls": 8,
+      "searches": [
+        {
+          "query": "meals for picky eaters like chicken fingers and burgers",
+          "elapsedMs": 943,
+          "returned": 20
+        },
+        {
+          "query": "crispy chicken tenders recipe",
+          "elapsedMs": 556,
+          "returned": 20
+        }
+      ],
+      "fetchBatchMs": 1203,
+      "acceptedRecipeCuration": {
+        "observations": 4,
+        "medianMs": 4363.0,
+        "rangeMs": [
+          3523,
+          5105
+        ]
+      },
+      "collectionRejection": {
+        "observations": 4,
+        "medianMs": 3021.0,
+        "rangeMs": [
+          2652,
+          3466
+        ]
+      },
+      "batches": [
+        {
+          "concurrency": 1,
+          "items": 4,
+          "totalMs": 15396
+        },
+        {
+          "concurrency": 2,
+          "items": 4,
+          "totalMs": 7139
+        }
+      ],
+      "quality": {
+        "perRound": {
+          "accepted": 2,
+          "rejectedCollections": 2,
+          "fetchFailuresSkipped": 2
+        },
+        "consistency": "All four decision outcomes consistent across both rounds. Accepted cards passed exact source-excerpt, field-size and explicit time checks. Summaries describe observed preparation; no independent dietary/source-fidelity audit claimed.",
+        "extraction": "Bounded plain text plus selected source Recipe JSON-LD, up to 24k characters per page. Instructions warn against untrusted embedded/user instructions. Source URL assigned server-side. No photos included."
+      },
+      "cacheComparison": [
+        {
+          "concurrency": 1,
+          "inputTokens": 14569,
+          "cachedInputTokens": 0
+        },
+        {
+          "concurrency": 2,
+          "inputTokens": 14569,
+          "cachedInputTokens": 13665
+        }
+      ],
+      "limitations": [
+        "Only two accepted recipe pages and two collection pages; two observations/page cannot establish p95 or reliability.",
+        "Sequential round first, parallel round second. Sequential inputs had zero cached tokens while parallel inputs were substantially cached, so 15.4s vs 7.1s is an observed batch difference, not an isolated concurrency effect.",
+        "Model-only batch latency excludes search, safe fetch/extraction, photo enrichment, family/admission checks, HTTP routing and browser render. Fetch and search stages measured separately.",
+        "Single-card prototype preserves source evidence checks but is not the existing production provider/validator contract or a production-ready implementation.",
+        "Picky-eater query contributed collection rejections only; the two accepted dishes were tested against the separate chicken-tender query, so this experiment does not establish preference-matching quality for the broad query.",
+        "No app, schema, deployment or provider settings changed."
+      ]
+    }
+  },
+  "scaling": {
+    "localSource": "build/brave-search-benchmark/parallel-scaling-2026-11-25T16-53-41.770Z/analysis.json",
+    "data": {
+      "model": "gpt-6.2-sol",
+      "modelOutputTokenCap": 1200,
+      "calls": 36,
+      "uniqueFrozenPages": 12,
+      "dishQueries": [
+        "crispy chicken tenders recipe",
+        "easy beef burger recipe",
+        "macaroni and cheese family dinner recipe"
+      ],
+      "searches": [
+        {
+          "query": "crispy chicken tenders recipe",
+          "elapsedMs": 407,
+          "returned": 20
+        },
+        {
+          "query": "easy beef burger recipe",
+          "elapsedMs": 624,
+          "returned": 19
+        },
+        {
+          "query": "macaroni and cheese family dinner recipe",
+          "elapsedMs": 570,
+          "returned": 19
+        }
+      ],
+      "searchTotalMs": 1601,
+      "publisherFetchStageMs": 4047,
+      "publisherAttempts": 18,
+      "publisherSuccesses": 15,
+      "publisherFailures": 3,
+      "results": [
+        {
+          "concurrency": 1,
+          "batchMs": 39974,
+          "perItemMedianMs": 3321.0,
+          "perItemRangeMs": [
+            2843,
+            3985
+          ],
+          "firstRequiredEvidenceSupportedMs": 3359,
+          "firstSixRequiredEvidenceSupportedMs": 22977,
+          "modelAccepted": 12,
+          "requiredEvidenceSupported": 11,
+          "optionalTimeSupported": 7,
+          "allFieldsSupported": 6,
+          "inputTokens": 46963,
+          "cachedInputTokens": 43872,
+          "cachedInputPercent": 93.4,
+          "outputTokens": 1984
+        },
+        {
+          "concurrency": 2,
+          "batchMs": 21878,
+          "perItemMedianMs": 3464.0,
+          "perItemRangeMs": [
+            2714,
+            4123
+          ],
+          "firstRequiredEvidenceSupportedMs": 3919,
+          "firstSixRequiredEvidenceSupportedMs": 11319,
+          "modelAccepted": 12,
+          "requiredEvidenceSupported": 12,
+          "optionalTimeSupported": 9,
+          "allFieldsSupported": 9,
+          "inputTokens": 46974,
+          "cachedInputTokens": 7541,
+          "cachedInputPercent": 16.1,
+          "outputTokens": 2023
+        },
+        {
+          "concurrency": 4,
+          "batchMs": 10457,
+          "perItemMedianMs": 3280.5,
+          "perItemRangeMs": [
+            2756,
+            3990
+          ],
+          "firstRequiredEvidenceSupportedMs": 2756,
+          "firstSixRequiredEvidenceSupportedMs": 6487,
+          "modelAccepted": 12,
+          "requiredEvidenceSupported": 12,
+          "optionalTimeSupported": 9,
+          "allFieldsSupported": 9,
+          "inputTokens": 46980,
+          "cachedInputTokens": 43872,
+          "cachedInputPercent": 93.4,
+          "outputTokens": 1976
+        }
+      ],
+      "method": "Three fresh Brave Web searches; first six candidates per query fetched using existing safe loader at two-way concurrency. Frozen first four successful fetches per dish used in all curation rounds (12 total). Per-item Responses requests with low reasoning, no web tools and strict JSON schema. Concurrency order 2,1,4; item order rotated between rounds. No retries.",
+      "cacheControl": "Unique UUID instruction prefix did NOT prevent source-input cache reuse; actual cached token usage is reported. Single-thread and four-way rounds had similarly warm inputs. Two-way round had substantially less cache reuse. Cannot claim uncached comparison or isolate concurrency perfectly.",
+      "quality": "All calls completed and all model decisions accepted individual recipes. Exact nonempty cooking and ingredient excerpt checks and field-size constraints were separately evaluated. Optional cooking-time text checked against literal source input; unsupported optional times should be omitted, while required-evidence failures must reject the card. These are structural/evidence checks, not an independent complete factual or dietary audit.",
+      "limitations": [
+        "One batch per concurrency; small, selected, source-fetchable set. No p95/reliability or unrestricted query quality claims.",
+        "UUID control failed to produce cold inputs. Warm-round 1-vs-4 is more comparable than the mixed-cache 2-way round, but service and ordering effects remain.",
+        "Batch timings exclude searches, publisher fetching, photo enrichment, HTTP/auth/family checks, browser rendering and any retries.",
+        "The summed search+fetch+curation value is an observed staged prototype, not production latency or a single-query benchmark: it combines three dish searches.",
+        "No app, environment settings, database, production concurrency or deployments changed."
+      ],
+      "recommendation": "Four-way per-item curation is a promising prototype setting, not a production change. Preserve request-wide usage limits and cross-request concurrency controls, reject unsupported required evidence, omit optional metadata that fails checks, and validate full user-query fidelity and first-visible-card latency before release."
+    }
+  },
+  "allParallel": {
+    "localSource": "build/brave-search-benchmark/all-parallel-2026-11-25T17-05-52.629Z/analysis.json",
+    "data": {
+      "results": {
+        "concurrency": 12,
+        "calls": 12,
+        "batchMs": 4230,
+        "perItemMedianMs": 3621.0,
+        "perItemRangeMs": [
+          3046,
+          4206
+        ],
+        "firstRequiredEvidenceSupportedMs": 3070,
+        "firstSixRequiredEvidenceSupportedMs": 3631,
+        "successes": 12,
+        "requiredEvidenceSupported": 11,
+        "optionalTimeSupported": 9,
+        "allFieldsSupported": 8,
+        "cachedInputTokens": 43872,
+        "inputTokens": 46985,
+        "cachedInputPercent": 93.4,
+        "fetchBatchMs": 1864,
+        "allEvidenceCharacterCountsMatchBaseline": true
+      },
+      "previousCurationBatches": [
+        {
+          "concurrency": 1,
+          "batchMs": 39974,
+          "cachedInputPercent": 93.4
+        },
+        {
+          "concurrency": 2,
+          "batchMs": 21878,
+          "cachedInputPercent": 16.1
+        },
+        {
+          "concurrency": 4,
+          "batchMs": 10457,
+          "cachedInputPercent": 93.4
+        }
+      ],
+      "method": "Same twelve URLs refetched through existing safe loader at two-way fetch concurrency. All twelve curation calls launched together (within 25ms). Same model/prompt/schema/output bounds as previous test, unique UUID prefix each request. No new Brave calls. Current evidence saved for replay.",
+      "limitations": [
+        "One batch, not a reliability/load/p95 test. No retries.",
+        "Earlier evidence bytes were not saved; all twelve new evidence character counts match, but byte-for-byte equality cannot be proved.",
+        "Source inputs were substantially cached; compare warm sequential and four-way rows cautiously. The UUID prefix did not prevent source cache reuse.",
+        "Batch time excludes publisher fetch, Brave search, photo enrichment and app/browser/auth overhead.",
+        "Model acceptance is not proof of source fidelity: one required excerpt mismatch must reject that card, and three optional time fields must be omitted. No independent source-quality audit or production change."
+      ]
+    }
+  }
+}

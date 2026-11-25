@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/brave-parallel-recipe-search/intent.md
 base_commit: ce07559f8a60b25cb5026edc3cdb03acc1fa0b55
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: design
 status: in_progress
-last_input_hash: null
+last_input_hash: 9d73af2a41071d5f176b36e5d68ae488d26fce17a672e2f5191781bdb06672c2
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-25T17:09:18Z"
+last_action: "product-manager:review_intent"
+artifacts: [{"path": "org/reviews/intent-brave-parallel-recipe-search-001.md", "sha256": "f72e1b562954897b5904e335a46e79a15ffea2d1ed21d5b96cfee247d37f1bc2"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-25T17:10:47Z"

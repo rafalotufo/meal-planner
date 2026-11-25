@@ -9,16 +9,16 @@ intent/brave-parallel-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: design
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/brave-parallel-recipe-search/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
-- product-manager: busy (intent/brave-parallel-recipe-search/intent.md)
+- product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
@@ -114,6 +114,7 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
 - orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
 - orchestrator-0155 orchestrator -> product-manager handoff: Review Brave parallel recipe search intent
+- orchestrator-0156 orchestrator -> architect handoff: Design bounded Brave discovery and parallel per-page curation
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -127,6 +128,7 @@ intent/brave-parallel-recipe-search/intent.md
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
+- product-manager-0022 product-manager -> orchestrator decision: Accepted Brave parallel recipe search intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
@@ -145,11 +147,11 @@ intent/brave-parallel-recipe-search/intent.md
 
 ## Artifacts
 
-(none)
+- org/reviews/intent-brave-parallel-recipe-search-001.md (f72e1b562954897b5904e335a46e79a15ffea2d1ed21d5b96cfee247d37f1bc2)
 
 ## Next action
 
-(run org_loop.py next)
+product-manager:review_intent
 
 ## Last digest source
 
