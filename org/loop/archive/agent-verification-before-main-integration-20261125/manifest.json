@@ -1,0 +1,197 @@
+{
+  "featureSource": "a8867b47989d499dcec83f85b116ab8edc6bd8be",
+  "mainSource": "cd60db410ab28897f0d8e7ab54daa0b8821a6248",
+  "mergeBase": "e4b8c954f6e2cab63c39216cef794187a227d79e",
+  "files": [
+    {
+      "source": "gates/ledger.jsonl",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/gates/ledger.jsonl",
+      "sha256": "d82fd37f5587a6f19551b344408c42617d7c925bb6874d618b6cc398865b839b"
+    },
+    {
+      "source": "workflow-graph.yaml",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/workflow-graph.yaml",
+      "sha256": "5a17cf76b963483f8df1ffbe29a97b7e3eba67fa7785d646c7d9ae4c5b5d8ce8"
+    },
+    {
+      "source": "org/status.yaml",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/status.yaml",
+      "sha256": "6bb00fba854cb45480272c66e8cbfccae15adfd6b4d345db57ab65952a697b42"
+    },
+    {
+      "source": "org/loop/state.yaml",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/loop/state.yaml",
+      "sha256": "f0b7cac59dd7ae6e268ec356ca867eacf96e7e62fa29d55655463c6d8107dedf"
+    },
+    {
+      "source": "org/loop/config.yaml",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/loop/config.yaml",
+      "sha256": "2d608b34d64af2d506d6959d01cfd384267f417786469e15976cd57de18e78a0"
+    },
+    {
+      "source": "org/loop/history.jsonl",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/loop/history.jsonl",
+      "sha256": "27ee7534b5c0ab0d1d9d5db7e03e063380430cabd83949615ec556a4823a56f8"
+    },
+    {
+      "source": "org/memory/context.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/memory/context.md",
+      "sha256": "451a8bfe113ab9632452204cf0583dae8e3badce5d271200a140ac87c451209f"
+    },
+    {
+      "source": "org/memory/events.jsonl",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/memory/events.jsonl",
+      "sha256": "08a998c15f04599481ba81821a2352a1927593d4cd2d32163fdcc108e8a4d7a2"
+    },
+    {
+      "source": "org/messages/ceo-0068.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/ceo-0068.md",
+      "sha256": "84ebe250869fb4af4460a56f8d579fb19afe05d4d3900948c0be01aa8cbce41d"
+    },
+    {
+      "source": "org/messages/ceo-0069.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/ceo-0069.md",
+      "sha256": "276e9258c561e9e6be26f03cd5715cd575e912b8a846e54318745cf0d1e8ca22"
+    },
+    {
+      "source": "org/messages/ceo-0070.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/ceo-0070.md",
+      "sha256": "e4eb65d3b8355ea549464f680698864129655e5468b728b0e82fda156634c53e"
+    },
+    {
+      "source": "org/messages/orchestrator-0148.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0148.md",
+      "sha256": "2e372f89b4dc590fce68b08d5258f85996b3d941ccc4b35039d294accc8e3766"
+    },
+    {
+      "source": "org/messages/orchestrator-0149.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0149.md",
+      "sha256": "cb7afe71d6fc436631fe2509f5887a0ec28894d7482cd1184de63163e31f8953"
+    },
+    {
+      "source": "org/messages/orchestrator-0150.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0150.md",
+      "sha256": "6e93c2409c06b6d80bf32e6c29d4d2f9c26eb822158517cfa1d4ec87de22fe9f"
+    },
+    {
+      "source": "org/messages/orchestrator-0151.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0151.md",
+      "sha256": "3614f8fca82a76a3ac5a373a9081e765cbaeffc3eb96fb956c70d2656fa70f7c"
+    },
+    {
+      "source": "org/messages/orchestrator-0152.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0152.md",
+      "sha256": "3cc2c61a3adf9c144d86d6b85b08158e152f3d1b481f765d27209671f6db4a35"
+    },
+    {
+      "source": "org/messages/orchestrator-0153.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0153.md",
+      "sha256": "803c4da2f20c77b7f808484de9fcbb78ac10dd7ea8a4a35d3ce5082e1291c980"
+    },
+    {
+      "source": "org/messages/orchestrator-0154.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0154.md",
+      "sha256": "2226dcdf6d05186d9cddb0f0b9d5d4135caea17e9553c1173e29b96d5ef6e8fa"
+    },
+    {
+      "source": "org/messages/orchestrator-0155.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0155.md",
+      "sha256": "74f79ef4b98b4aa3b56e9fcd25a93de81841b0275bec63d82c823e014c0318cf"
+    },
+    {
+      "source": "org/messages/orchestrator-0156.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0156.md",
+      "sha256": "aa0b73535e1e34410fa49aecaed6a8f0c557daf39a71a1ae8b983b012701bdde"
+    },
+    {
+      "source": "org/messages/orchestrator-0157.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0157.md",
+      "sha256": "25b9c8e3bcc370b85b9641b21ad1e3560493133db456cd339cbb7b57f0fed665"
+    },
+    {
+      "source": "org/messages/orchestrator-0158.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0158.md",
+      "sha256": "e23a1ced9900732e8b0e9af1c415055e60c9b5cf8384e94ae69fc467409a9b47"
+    },
+    {
+      "source": "org/messages/orchestrator-0159.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0159.md",
+      "sha256": "d0d22eee90e564e6537807cfd1cf8e17b879365fea45d7779f7aacfd1463134c"
+    },
+    {
+      "source": "org/messages/orchestrator-0160.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0160.md",
+      "sha256": "d847eb7b29231fb830637b1c0514ef8292bd3584792b1a955155017c8fb686c7"
+    },
+    {
+      "source": "org/messages/orchestrator-0161.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0161.md",
+      "sha256": "6fac5a6c76f700998b92417f9ee9b2dbe41bd81f3374c36f3c8dc8e5a84d4b48"
+    },
+    {
+      "source": "org/messages/orchestrator-0162.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0162.md",
+      "sha256": "9b01b99ab40f9e990f96972590367193bc5027ca67b303c4a9e48b2c84db76ad"
+    },
+    {
+      "source": "org/messages/orchestrator-0163.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0163.md",
+      "sha256": "8ff19c6dcb729823664cd325b7bae9715abf3654cbd45ac7d2e5c7577d97d2e3"
+    },
+    {
+      "source": "org/messages/orchestrator-0164.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0164.md",
+      "sha256": "4b4482c91ce02f5b72f6212475d1bbca2fca05b739926179459f6e17fd69851d"
+    },
+    {
+      "source": "org/messages/orchestrator-0165.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0165.md",
+      "sha256": "4cdce7c7b38adf946d8e11350f076cf426e9c986be1b7e6968451acd4d2cfff6"
+    },
+    {
+      "source": "org/messages/orchestrator-0166.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/orchestrator-0166.md",
+      "sha256": "66a206e95629167289c7eb03ca3394dff5154c7f04fd0b011273bf542a6bdc4b"
+    },
+    {
+      "source": "org/messages/reviewer-0057.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/reviewer-0057.md",
+      "sha256": "875b1e402bfd5574a00a059a243cade08833391b387d621f2b69e5c9e0dab1fe"
+    },
+    {
+      "source": "org/messages/security-researcher-0031.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/security-researcher-0031.md",
+      "sha256": "fc0d3b043dac0b59e564370bb90b3217568239a80ea84f27169b19bf12696db2"
+    },
+    {
+      "source": "org/messages/security-researcher-0032.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/security-researcher-0032.md",
+      "sha256": "f399778a40ddf9e8cbd592c6353089aa48ed50fc43ff1d3ec4aacf8aeefb67c6"
+    },
+    {
+      "source": "org/messages/security-researcher-0033.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/security-researcher-0033.md",
+      "sha256": "c6226860db239ee5ec072d2bd652a3e00ff7c3077865bd3b0801bd97c97872c3"
+    },
+    {
+      "source": "org/messages/security-researcher-0034.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/security-researcher-0034.md",
+      "sha256": "1a15c8345ade1e31c70a99fe284416a6b85a91c9172e6124cabc0efaede5c0ca"
+    },
+    {
+      "source": "org/messages/security-researcher-0035.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/security-researcher-0035.md",
+      "sha256": "28b3f27d8cde319679f6a5ad56e8d47da0d2d3d6e9bb455de89059ba6a03065f"
+    },
+    {
+      "source": "org/messages/security-researcher-0036.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/security-researcher-0036.md",
+      "sha256": "c3406bfee0834a66a325bb38f99abff684ae901f4502e68a2ec88420d5d63148"
+    },
+    {
+      "source": "org/messages/senior-developer-0021.md",
+      "archive": "org/loop/archive/agent-verification-before-main-integration-20261125/org/messages/senior-developer-0021.md",
+      "sha256": "90bf79b4f42e26c4bc40e82e0be8cb401d4d5db6a87ba82682df9b760a6d037a"
+    }
+  ]
+}
