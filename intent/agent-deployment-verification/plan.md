@@ -24,6 +24,12 @@ implied. Those actions require separate exact-target authority after local proof
 The local operator CLI will eventually connect to the approved remote staging DB
 with verified TLS and change its data; it never deploys application code.
 
+## Implementation refinements
+
+- Native migration loader requires an exact UUID filename, so the implementation
+  uses `fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql` instead of the descriptive suffix
+  placeholder. Identity/dependencies/scope are unchanged; no validator is relaxed.
+
 ## Implementation order and task checklist
 
 Write each slice's meaningful strict TypeScript regression first, record its
@@ -46,7 +52,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    imports exist without a runtime generator or secrets in builds.
 
 2. [ ] **Prove the relational migration** (depends:1).
-   Add one UUIDv4-named `drizzle/postgresql/*_agent_verification.sql`, and strict
+   Add one UUIDv4-named `drizzle/postgresql/fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql`, and strict
    `tests/verification/migration.test.ts` plus fixture support. Its descriptor
    depends on the current0003 and0004 terminal UUIDs, transitively requiring all
    five historical migrations; no new sequential identity or independence claim.
@@ -272,7 +278,7 @@ No browser/application/build passes are claimed by this docs-only plan.
 - `lib/db/connection.ts`
 - `lib/db/schema.ts`
 - `lib/db/security.ts`
-- `drizzle/postgresql/*_agent_verification.sql`
+- `drizzle/postgresql/fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql`
 - `drizzle/postgresql/compatibility.json`
 - `drizzle/postgresql/catalog.json`
 - `lib/identity-access.ts`
