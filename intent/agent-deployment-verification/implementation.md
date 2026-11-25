@@ -58,3 +58,51 @@ The pinned Next cookie guide prohibits setting cookies from a Server Component.
 The exact staging GET/HEAD Proxy therefore generates the signed preflight nonce,
 overwrites its request nonce header, and sets the matching HttpOnly cookie. The
 page only reads and validates it. No forwarded identity header is trusted.
+
+## Actual browser compatibility and operator fixture
+
+The first native Chrome form submission returned403 despite a valid paired nonce:
+actual ingress reported Origin:null with Sec-Fetch-Site:same-origin. The page's
+global no-referrer policy caused that standard navigation behavior. The exact
+enabled entry GET/HEAD now uses Referrer-Policy:same-origin; all other paths keep
+no-referrer and POST still requires the exact configured Origin. A fresh Chrome
+158.0.8127.88 run then passed ordinary form/server-set Secure cookie entry,
+home/menu/family/plans at390 and1440, logout revocation and protected redirects,
+with zero Google/provider calls and no browser errors. Firefox is unavailable;
+Safari automation was not executed. The initial transport fixture accidentally
+omitted proxy.ts; that result was discarded as matcher proof. Fresh corrected
+fixtures copy the real Proxy and check metadata coherence before building.
+
+The operator's empty household remains the default. Explicit --seed-fixture and
+an operator inspection record allowing fixture seed create only reviewed v1:
+two labeled example.com snapshots (no images) and one current-week draft, in the
+new run's family. The TDD red found zero recipes where two were expected; the
+fixed fixture case now passes and cleanup preserves another run. A second red
+proved cleanup must refuse foreign-member approvals on a synthetic plan; both
+directions of cross-family approvals/suggestions are now refused before deletion.
+No provider, arbitrary recipe input or hosted issuance was used for this proof.
+
+## Security follow-up
+
+Chunked Google cookies were added to conflicting-credential tests; the new case
+first failed to reject and now passes. Verification admission still rejects any
+Google credential coexistence. Logout has a distinct non-admitting extraction of
+exactly one valid opaque cookie, allowing targeted revocation even when a stale
+Google cookie conflicts; malformed/duplicate verification cookies are clear-only.
+Its helper regression first failed for the absent function and then passed.
+Compiled-route copied-token revocation and stripped-runtime proofs are recorded
+by their dedicated tests and final review evidence, not inferred from this unit
+case. Malformed raw UTF-8 form bytes first produced503; parser normalization now
+returns the required400 without creating a session.
+
+## Compiled logout proof
+
+`node --import tsx --test tests/verification/logout.test.ts` passed against a fresh
+isolated real Preview build and TLS ingress. The copied opaque cookie initially
+accessed `/api/session` (200); adding a stale chunked Google cookie denied access
+(401). Posting same-origin logout with that conflict returned200, revoked exactly
+one stored session, and the previously copied opaque cookie alone then received
+401. No provider/Google request or hosted target was used. This complements the
+private browser's successful ordinary logout and the separate stripped-runtime
+packaging regression; it does not claim Google-cookie revocation beyond the
+existing library contract.
