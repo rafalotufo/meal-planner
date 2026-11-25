@@ -1,0 +1,31 @@
+{
+  "proofClass": "hosted-synthetic-browser",
+  "expectedSourceSha": "19774c7cd8ae301682003838f083b9d825d5e56d",
+  "passed": false,
+  "stage": "native-exchange",
+  "width": 390,
+  "browser": "unobserved",
+  "checks": {
+    "platformReachable": true,
+    "entry": true,
+    "keyboardEntry": true
+  },
+  "statuses": {
+    "platformBootstrap": 200,
+    "exchange": null,
+    "logout": null
+  },
+  "counts": {
+    "nativeExchanges": 0,
+    "blockedPlatformAssets": 0,
+    "forbiddenRequests": 0,
+    "browserErrors": 4
+  },
+  "gaps": [
+    "Real Google OAuth not exercised",
+    "Paid providers not exercised",
+    "Firefox not exercised",
+    "Safari not exercised"
+  ],
+  "releaseAccepted": false
+}

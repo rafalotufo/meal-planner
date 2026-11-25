@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: agent-verification-main-integration, last_report: Owner-approved main merge done; exact25 staged READY3XbA and stable alias attributed; browser pass but HTTP/OAuth/member/provider gaps explicit; review2882c0f ready for owner staging acceptance and concrete Production decision; Production unchanged }
+  orchestrator: { status: busy, assignment: agent-verification-hosted-release, last_report: "Merged reviewed19774c7 to main;365Node+7Python and Chrome pass; Preview8sa READY/migrated7/data preserved; native hosted helper keyboard diagnosis underway; ProductionAeQV unchanged" }
   product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
   architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
-  senior-developer: { status: busy, assignment: agent-verification-main-integration, last_report: "Exact25 verified328Node+7Python, lint/typecheck/build, both Chrome and126-file upload-only build; evidence155d00a; no main or deployment effects" }
-  security-researcher: { status: busy, assignment: agent-verification-main-integration, last_report: Exact25 approved6c70e99 with strict platform and upstream attribute contracts; no hosted mutation }
-  reviewer: { status: busy, assignment: agent-verification-main-integration, last_report: Actual25/3XbA staging evidence independently reviewed2882c0f; truthful inconclusive helper and named gaps; pending owner acceptance and Production scope }
+  senior-developer: { status: busy, assignment: agent-verification-hosted-browser, last_report: "Offline native Enter RED reproduced; helper-only correction and safe diagnostics in progress; app19774c7 unchanged" }
+  security-researcher: { status: idle, assignment: null, last_report: "Combined source approved; hosted cutover plan and strict URL/preflight diagnosis complete; root applied only Preview migrations" }
+  reviewer: { status: busy, assignment: agent-verification-hosted-browser, last_report: "Combined source and source attribution approved; helper001 approved and correction review pending; no hosted effects by reviewer" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

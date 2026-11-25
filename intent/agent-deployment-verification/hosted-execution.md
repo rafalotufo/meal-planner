@@ -13,3 +13,17 @@ READY Preview dpl_8saVzK5Pyerj3jbbEVhFerLpdLkt; generated URL https://meal-plann
 ## Pending final Production gate
 
 Actual staging evidence and its named Google/provider/browser/platform gaps must be reviewable before exact-source owner acceptance. The five-to-seven Production catalog cutover has a possible brief503 interval and no safe old-artifact rollback. Exact Production candidate/promotion, two migrations/grants,15-minute anonymous health and project pause recovery scope must be concretely accepted before Production effects. No Production migration/build/promotion has occurred in this execution record yet.
+
+## Observed Preview operations
+
+- Preview backup2026-11-25T15:41:49.336Z:30,553bytes, SHA256c288d52a9e7b9916c7e8adb24693f0c2f57c198e98d17e615387b372dfbc47b8; archive listing passed. It stays private0600; no restore was performed.
+- First migration attempt15:42:22 stopped before connection because connector URLs included channel_binding=require; the strict URL validator permits only sslmode. Read-only inspection confirmed unchanged five-migration catalog/data. Exact known option normalization retained verify-full; independent read-only owner/catalog/grant preflight passed. See org/reviews/agent-verification-preview-url-preflight-001.md.
+- Normalized pinned CLI migration15:44:30.291Z–15:44:36.795Z exited0, including post-commit restricted-runtime validation. Both native UUIDs are present; exact seven-migration runtime catalog/grants pass.
+- Preservation15:45:16.289Z: compared original-column values for all9 existing application/ledger tables against private pg_dump COPY data, all equal. Historical ledger5, users1, families1 and other original domain rows preserved. A preliminary read-only fingerprint query incorrectly assumed every table has id and failed; backup-based comparison replaced it without weakening preservation checks.
+- Existing staging alias moved only to8sa after validation; complete4-alias inventory confirmed all3 Production mappings remain AeQV.
+- One alias-scoped Shareable Link created15:45:52 with1800s expiry; no global bypass token or protection change. Initial bootstrap mistakenly used the automation query and was blocked before any app exchange. Observed Shareable Link query _vercel_share returns307 to the same canonical origin with platform cookie; fresh Chrome then reached the form200. Private links/credentials are never audit inputs.
+- First mobile run was unused: native-exchange count0. It was ownership-checked revoked/cleaned at15:48:55.761Z (exit0); helper keyboard submission is being diagnosed offline. No synthetic app pass or Google/provider result is asserted. A replacement mobile run is within necessary validation scope only after that diagnosis; desktop remains unissued.
+
+Canonical Production anonymous health remained passing during staging: helper exit0, pass:true, status401, elapsed2431ms; Production still points toAeQV and no Production migration/deployment occurred.
+
+Offline owned Chrome/data-URL probe reproduced the existing Enter sequence producing0 native submit events despite valid dummy fields and focused submit control. The helper-only carriage-return key correction is under local verification; no authentication code or release-source byte changed.

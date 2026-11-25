@@ -1,0 +1,27 @@
+{
+  "proofClass": "hosted-synthetic-browser",
+  "expectedSourceSha": "19774c7cd8ae301682003838f083b9d825d5e56d",
+  "passed": false,
+  "stage": "platform-bootstrap",
+  "width": 390,
+  "browser": "unobserved",
+  "checks": {},
+  "statuses": {
+    "platformBootstrap": null,
+    "exchange": null,
+    "logout": null
+  },
+  "counts": {
+    "nativeExchanges": 0,
+    "blockedPlatformAssets": 0,
+    "forbiddenRequests": 1,
+    "browserErrors": 0
+  },
+  "gaps": [
+    "Real Google OAuth not exercised",
+    "Paid providers not exercised",
+    "Firefox not exercised",
+    "Safari not exercised"
+  ],
+  "releaseAccepted": false
+}

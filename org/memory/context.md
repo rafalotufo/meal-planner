@@ -17,11 +17,11 @@ intent/agent-deployment-verification/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (agent-verification-main-integration)
+- orchestrator: busy (agent-verification-hosted-release)
 - product-manager: idle (unassigned)
-- reviewer: busy (agent-verification-main-integration)
-- security-researcher: busy (agent-verification-main-integration)
-- senior-developer: busy (agent-verification-main-integration)
+- reviewer: busy (agent-verification-hosted-browser)
+- security-researcher: idle (unassigned)
+- senior-developer: busy (agent-verification-hosted-browser)
 
 ## Open messages
 
@@ -116,6 +116,9 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0155 orchestrator -> senior-developer handoff: Integrate reviewed main compatibility and correct upload packaging
 - orchestrator-0156 orchestrator -> reviewer handoff: Review combined main and verification packaging candidate
 - orchestrator-0157 orchestrator -> security-researcher handoff: Security recheck combined hosted validators and upload policy
+- orchestrator-0158 orchestrator -> security-researcher handoff: Diagnose failed Preview migration without effects
+- orchestrator-0159 orchestrator -> senior-developer handoff: Prepare isolated hosted Chrome verification helper
+- orchestrator-0160 orchestrator -> reviewer handoff: Review helper-only native Enter correction
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

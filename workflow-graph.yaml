@@ -1,4 +1,4 @@
-# Agent deployment verification: owner approved plan; local implementation, review and verification only.
+# Agent deployment verification: reviewed main merge complete; isolated Preview execution; final Production gate remains.
 version: 1
 nodes:
   intent:
@@ -23,7 +23,7 @@ nodes:
     stage: build
     artifact: agent-deployment-verification
     gate: pr_merge_approval
-    status: in_progress
+    status: merged
     done_status: merged
   release:
     stage: deploy
