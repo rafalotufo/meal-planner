@@ -29,3 +29,5 @@ The concurrent main advancement to ef6de4bc32ed5e7475b0fd56be3efec593281c30 is c
 ## Operational guidance approval
 
 Approve the narrow AGENTS.md paragraph recording actual0002–0004 hosted cutover, five-migration runtime contract, unsafe old two-migration artifact rollback, temporary migration-role TEMP/full ACL restoration and no future authority. Its facts match the reviewed receipts. The matching plan.md AGENTS file-manifest entry and operational-history explanation correctly document this audit-only handoff; they do not change application source, migration order or release gates. Preserve the prior history/release-order paragraphs and the user's unstaged next-env.d.ts change when integrating the final audit with newer main.
+
+Final document closure: re-read the current completed production-release.md leading status and the relabeled “Initial observation record” historical checkpoint. They now agree with the final receipts and do not leave a current in-progress claim. The completed handoff approval above is closed against this corrected document; no outstanding documentation finding remains.
