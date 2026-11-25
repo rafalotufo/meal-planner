@@ -103,21 +103,26 @@ export function parseRecipeSource(html: string, sourceUrl: string): ParsedSource
   }, { decodeEntities: true });
   try { parser.end(html); } catch { return unsupported; }
   if (overflow) return unsupported;
-  const nodes: Record<string, unknown>[] = []; const stack = documents.map(value => ({ value, depth: 0 })); let visited = 0;
+  const nodes: Record<string, unknown>[] = [], pageLists: Record<string, unknown>[] = [];
+  const stack = documents.map(value => ({ value, depth: 0, recipeInstructions: false })); let visited = 0;
   while (stack.length) {
     const entry = stack.pop()!;
     if (++visited > 1000 || entry.depth > 12) return unsupported;
     if (entry.value !== null && typeof entry.value === 'object') {
-      if (isRecord(entry.value)) nodes.push(entry.value);
-      for (const value of Object.values(entry.value)) stack.push({ value, depth: entry.depth + 1 });
+      const node = isRecord(entry.value) ? entry.value : null;
+      if (node) {
+        nodes.push(node);
+        if (!entry.recipeInstructions && recipeType(node, 'ItemList')) pageLists.push(node);
+      }
+      for (const [key, value] of Object.entries(entry.value)) stack.push({ value, depth: entry.depth + 1, recipeInstructions: entry.recipeInstructions || !!node && recipeType(node, 'Recipe') && key === 'recipeInstructions' });
     }
   }
   const recipes = nodes.filter(node => recipeType(node, 'Recipe'));
-  const collection = nodes.some(node => recipeType(node, 'CollectionPage') || recipeType(node, 'ItemList')) || /\/(?:collection|collections|category|categories|gallery|tag|tags|photos|article|articles|howto\/guide)(?:\/|$)/i.test(new URL(source).pathname) || /(?:\b\d+\+?\s+.*(?:recipes|meals|dinners|ideas)\b|\b(?:dinner|meal|recipe|family)\s+(?:ideas|recipes)\b)/i.test(h1);
+  const collection = pageLists.length > 0 || nodes.some(node => recipeType(node, 'CollectionPage')) || /\/(?:collection|collections|category|categories|gallery|tag|tags|photos|article|articles|howto\/guide)(?:\/|$)/i.test(new URL(source).pathname) || /(?:\b\d+\+?\s+.*(?:recipes|meals|dinners|ideas)\b|\b(?:dinner|meal|recipe|family)\s+(?:ideas|recipes)\b)/i.test(h1);
   if (collection) {
     const links: string[] = []; const seen = new Set<string>();
     const add = (raw: unknown, label: string) => { if (typeof raw !== 'string' || links.length >= 12) return; const url = usefulLink(raw, label, source); if (url && !seen.has(url)) { links.push(url); seen.add(url); } };
-    for (const node of nodes.filter(node => recipeType(node, 'ItemList'))) {
+    for (const node of pageLists) {
       if (!Array.isArray(node.itemListElement)) continue;
       for (const value of node.itemListElement.slice(0, 100)) { if (!isRecord(value)) continue; const item = isRecord(value.item) ? value.item : value; add(item.url ?? item.URL ?? item['@id'] ?? value.url, String(item.name ?? 'recipe')); }
     }

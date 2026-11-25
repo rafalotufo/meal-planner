@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { parseRecipeSource } from '../lib/recipes/source.js';
-import { sourceHtml } from './recipe-brave-fixtures.js';
+import { sourceHtml, curated, response } from './recipe-brave-fixtures.js';
+import { prepareCuration, curateRecipe } from '../lib/recipes/curation.js';
 const url='https://recipes.example.com/chicken';
 test('source extraction binds single recipe identity, title, ingredients, method and deterministic metadata',()=>{
   const parsed=parseRecipeSource(sourceHtml(),url);
@@ -44,4 +45,18 @@ test('principal recipe H1 in an article header is captured without trusting the 
  const collection=html.replace('<h1>Crispy chicken</h1>','<h1>20 family dinner recipes</h1>')+'<nav><a href="/recipe/other-nav">Recipe navigation</a></nav>';
  const found=parseRecipeSource(collection,url);assert.equal(found.kind,'collection');
  if(found.kind==='collection')assert.ok(found.links.every(x=>!x.includes('nav')));
+});
+
+test('Recipe instruction ItemList remains extractable and curatable while page ItemList remains a collection',async()=>{
+ const html=sourceHtml().replace('"recipeInstructions":[','"recipeInstructions":{"@type":"ItemList","itemListElement":[').replace('],"totalTime"',']},"totalTime"');
+ const parsed=parseRecipeSource(html,url);assert.equal(parsed.kind,'recipe');
+ if(parsed.kind!=='recipe')throw new Error('Expected bound recipe evidence');
+ assert.equal(parsed.recipe.method,'Coat chicken in breadcrumbs and bake until cooked through.');
+ const prepared=prepareCuration(parsed.recipe,'crispy chicken','test-model');assert.ok(prepared);
+ const card=await curateRecipe(parsed.recipe,prepared,{apiKey:'test-only-key',signal:new AbortController().signal,transport:async()=>Response.json(response(curated()))});
+ assert.equal(card?.sourceUrl,url);assert.equal(card?.title,'Crispy chicken');
+ const pageList='<script type="application/ld+json">'+JSON.stringify({'@type':'ItemList',itemListElement:[{'@type':'ListItem',item:{'@type':'Recipe',name:'Other chicken',url:'/recipe/other'}}]})+'</script>';
+ const collection=parseRecipeSource(html.replace('</head>',pageList+'</head>'),url);
+ assert.equal(collection.kind,'collection');
+ if(collection.kind==='collection')assert.deepEqual(collection.links,['https://recipes.example.com/recipe/other']);
 });

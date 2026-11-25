@@ -118,3 +118,17 @@ Integration/source implementation commit2989467 passed staged
 `git diff --cached --check` and `python3 scripts/scan_secrets.py --staged`
 (0findings). Formal independent reviews are running against that stable source.
 The corrective run changed evidence only, not application or test code.
+
+## Formal review correction: instruction ItemList
+
+Code review adb3145 reproduced valid Recipe.recipeInstructions ItemList being
+misclassified as a page collection. Schema.org explicitly permits ItemList:
+https://schema.org/recipeInstructions . The new regression first failed with
+actual collection versus expected recipe (`/private/tmp/brave-itemlist-red.log`).
+Bounded traversal now distinguishes the Recipe instruction subtree from page
+ItemList signals, retaining all node/depth limits and genuine collection cues.
+The regression checks exact extracted method, successful fixture curation and
+an actual page ItemList with embedded Recipe that still expands as a collection.
+`pnpm test` passed107/107 (`/private/tmp/brave-itemlist-green.log`). No paid calls
+were made. Live measurements above describe source2989467, preceding this fix;
+this correction is verified offline rather than represented as a new live run.
