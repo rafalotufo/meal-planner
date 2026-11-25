@@ -94,3 +94,12 @@ test("quickest sort is stable, places unknown and cook-only times last, and pres
   assert.deepEqual(sortRecipes(recipes, "match"), recipes);
   assert.deepEqual(recipes, [unknown, pasta, soup, bowl, tied]);
 });
+
+test('twelve search sources chunk into existing six-source menu boundaries without accepting malformed sources',async()=>{
+ const {searchSourceChunks}=await import('../lib/recipes/notebook.js');
+ const urls=Array.from({length:12},(_,i)=>`https://recipes.example.com/meal-${i}`);
+ assert.deepEqual(searchSourceChunks(urls),[urls.slice(0,6),urls.slice(6)]);
+ assert.deepEqual(searchSourceChunks([urls[0],urls[0]+'#top']),[[urls[0]]]);
+ assert.equal(searchSourceChunks([...urls,urls[0]]),null);
+ assert.equal(searchSourceChunks([urls[0],'http://localhost/recipe']),null);
+});

@@ -1,0 +1,149 @@
+{
+  "method": "Actual implemented createRecipeProvider+createSearchHandler, existing keys, no fixtures or additional photo pass. Direct handler excludes family HTTP/browser. Source transport is actual safe HTTPS; transport timings are headers only, not full curation.",
+  "records": [
+    {
+      "query": "crispy chicken tenders",
+      "status": 200,
+      "totalMs": 9701,
+      "calls": [
+        {
+          "provider": "brave",
+          "elapsedMs": 762
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 3996
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4099
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4198
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4609
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4613
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4617
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4628
+        },
+        {
+          "provider": "openai",
+          "elapsedMs": 4751
+        }
+      ],
+      "body": {
+        "recipes": [
+          {
+            "title": "Three-Ingredient Crispy Oven Fried Chicken Tenders",
+            "sourceUrl": "https://www.bowlofdelicious.com/oven-fried-chicken-tenders/",
+            "summary": "Dip seasoned chicken tenders twice in beaten egg and flour, coat both sides with oil on a rimmed baking sheet, and bake at 425\u00b0F for 10 minutes per side.",
+            "time": {
+              "kind": "total",
+              "text": "30 minutes"
+            },
+            "imageUrl": "https://www.bowlofdelicious.com/wp-content/uploads/2019/02/Three-Ingredient-Oven-Fried-Chicken-Tenders-3.jpg"
+          },
+          {
+            "title": "Crispy Chicken Tenders",
+            "sourceUrl": "https://www.allrecipes.com/recipe/277802/crispy-chicken-tenders/",
+            "summary": "Chicken tenders are dipped in beaten egg, coated in seasoned panko, and baked until crisp and lightly browned.",
+            "time": {
+              "kind": "total",
+              "text": "25 minutes"
+            },
+            "imageUrl": "https://www.allrecipes.com/thmb/oCADOjEAepRnpUJctS5pfEnWfbs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/7620927-5b0a919133d54d03a189e220d775e3cf.jpg"
+          },
+          {
+            "title": "Crispy Fried Chicken Strips",
+            "sourceUrl": "https://www.yellowblissroad.com/cajun-chicken-tenders/",
+            "summary": "Chicken breast strips are dipped in Cajun-seasoned flour, egg wash, and flour again, then fried in small batches at 375\u00b0F until golden and cooked through to 165\u00b0F.",
+            "time": {
+              "kind": "total",
+              "text": "30 minutes"
+            },
+            "imageUrl": "https://www.yellowblissroad.com/wp-content/uploads/2021/05/Fried-Chicken-Tenders-social.jpg"
+          },
+          {
+            "title": "Crispy Fried Chicken Tenders (VIDEO)",
+            "sourceUrl": "https://cjeatsrecipes.com/fried-chicken-tenders/",
+            "summary": "Dry-brine the seasoned chicken tenders, dip them in wet batter, press them into a craggy flour dredge, and fry them first at 325\u00b0F and again at 375\u00b0F for a crisp coating.",
+            "time": {
+              "kind": "total",
+              "text": "30 minutes"
+            },
+            "imageUrl": "https://cjeatsrecipes.com/wp-content/uploads/2024/07/Fried-Chicken-Tenders-crispy-in-a-basket.jpg"
+          },
+          {
+            "title": "Crispy Fried Chicken Tenders",
+            "sourceUrl": "https://www.thecomfortofcooking.com/crispy-fried-chicken-tenders/",
+            "summary": "Coat the chicken tenders in seasoned flour, dip them in egg wash and then back into the flour, and fry in batches until golden brown.",
+            "time": {
+              "kind": "total",
+              "text": "20 minutes"
+            },
+            "imageUrl": "https://www.thecomfortofcooking.com/wp-content/uploads/2020/10/Crispy-Golden-Chicken-Tenders.png"
+          },
+          {
+            "title": "Crispy Fried Chicken Tenders",
+            "sourceUrl": "https://somuchfoodblog.com/crispy-fried-chicken-tenders/",
+            "summary": "Chicken tenders are dipped in a Dijon-Worcestershire batter, coated with panko, sesame seeds, and za\u2019atar, then fried until golden and served with creamy honey mustard sauce.",
+            "time": {
+              "kind": "total",
+              "text": "20 minutes"
+            },
+            "imageUrl": "https://somuchfoodblog.com/wp-content/uploads/2021/08/chicken-schnitzel-tenders5-scaled.jpg"
+          },
+          {
+            "title": "Crispy Chicken Tenders",
+            "sourceUrl": "https://www.alyonascooking.com/crispy-chicken-tenders/",
+            "summary": "Chicken breast strips are dipped in dry breading, then wet batter, then breading again before being fried in small batches at 350\u00b0F until golden brown.",
+            "time": {
+              "kind": "total",
+              "text": "50 minutes"
+            },
+            "imageUrl": "https://www.alyonascooking.com/wp-content/uploads/2020/06/crispy-chicken-tenders-16.jpg"
+          },
+          {
+            "title": "Fried Chicken Tenders",
+            "sourceUrl": "https://www.allrecipes.com/recipe/16669/fried-chicken-tenders/",
+            "summary": "Chicken tenderloins are dredged in flour, dipped in egg wash, coated in seasoned bread crumbs, and deep-fried until golden brown, then served with a creamy horseradish dipping sauce.",
+            "time": {
+              "kind": "total",
+              "text": "60 minutes"
+            },
+            "imageUrl": "https://www.allrecipes.com/thmb/YwJvX75IUx8uQ7PKz2eTDjCoLvY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/16669-fried-chicken-tenders-DDMFS-4x3-219f03b885be40139c8d93bef21d0a50.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "query": "meals for picky eaters like chicken fingers and burgers",
+      "status": 502,
+      "totalMs": 15784,
+      "calls": [
+        {
+          "provider": "brave",
+          "elapsedMs": 711
+        }
+      ],
+      "body": {
+        "error": {
+          "code": "SEARCH_FAILED",
+          "message": "We couldn\u2019t finish the search. Please try again."
+        }
+      }
+    }
+  ]
+}

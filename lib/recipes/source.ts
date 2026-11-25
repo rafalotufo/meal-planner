@@ -62,6 +62,7 @@ export function parseRecipeSource(html: string, sourceUrl: string): ParsedSource
   const documents: unknown[] = [], canonical: string[] = [], anchors: { href: string; label: string }[] = [];
   let overflow = false, depth = 0, scripts = 0, scriptBytes = 0, totalScriptBytes = 0;
   let script: string | null = null, body = '', heading = '', h1 = '', h1Count = 0, section = '', ingredientBody = '', methodBody = '';
+  let contentDepth = 0;
   let inH1 = false, inHeading = false, currentAnchor: { href: string; label: string } | null = null;
   const suppressed: string[] = [];
   const skipTags = new Set(['head', 'script', 'style', 'noscript', 'nav', 'header', 'footer', 'aside', 'svg']);
@@ -71,18 +72,20 @@ export function parseRecipeSource(html: string, sourceUrl: string): ParsedSource
       if (++depth > 256) { fail(); return; }
       if (name === 'link' && a.rel?.toLowerCase().split(/\s+/).includes('canonical')) canonical.push(a.href ?? '');
       if (name === 'script' && a.type?.split(';')[0].trim().toLowerCase() === 'application/ld+json') { if (++scripts > 16) { fail(); return; } script = ''; scriptBytes = 0; }
+      if (name === 'main' || name === 'article') contentDepth++;
       if (skipTags.has(name)) suppressed.push(name);
+      // Article headers commonly own the principal recipe heading; site/navigation headers do not.
+      if (name === 'h1' && (!suppressed.length || contentDepth > 0 && suppressed.every(tag => tag === 'header'))) { inH1 = true; h1Count++; }
       if (suppressed.length) return;
-      if (name === 'h1') { inH1 = true; h1Count++; }
       if (/^h[1-6]$/.test(name)) { inHeading = true; heading = ''; section = ''; body += '\n'; }
       if (name === 'a' && anchors.length < 500) currentAnchor = { href: a.href ?? '', label: '' };
       if (['p', 'li', 'div', 'br'].includes(name)) body += '\n';
     },
     ontext(text) {
       if (script !== null) { const bytes = Buffer.byteLength(text); scriptBytes += bytes; totalScriptBytes += bytes; if (scriptBytes > 131072 || totalScriptBytes > 262144) { fail(); return; } script += text; }
+      if (inH1 && h1.length < 500) h1 += text;
       if (suppressed.length) return;
       if (body.length < 24000) body += text + ' ';
-      if (inH1 && h1.length < 500) h1 += text;
       if (inHeading && heading.length < 500) heading += text;
       if (currentAnchor && currentAnchor.label.length < 300) currentAnchor.label += text;
       if (section === 'ingredients' && ingredientBody.length < 12000) ingredientBody += text + ' ';
@@ -91,6 +94,7 @@ export function parseRecipeSource(html: string, sourceUrl: string): ParsedSource
     onclosetag(name) {
       if (name === 'script' && script !== null) { try { documents.push(JSON.parse(script)); } catch { /* One malformed script is not evidence. */ } script = null; }
       if (skipTags.has(name)) { const index = suppressed.lastIndexOf(name); if (index >= 0) suppressed.splice(index, 1); }
+      if (name === 'main' || name === 'article') contentDepth = Math.max(0, contentDepth - 1);
       if (name === 'h1') inH1 = false;
       if (/^h[1-6]$/.test(name) && inHeading) { inHeading = false; section = /ingredients/i.test(heading) ? 'ingredients' : /instructions|directions|method|how to make/i.test(heading) ? 'method' : ''; }
       if (name === 'a' && currentAnchor) { anchors.push(currentAnchor); currentAnchor = null; }

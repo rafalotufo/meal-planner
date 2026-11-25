@@ -256,3 +256,11 @@ test("unsupported and oversized streamed bodies cancel without waiting for an un
   }
   assert.deepEqual(calls, []);
 });
+
+test('new runtime selector requires both keys, retires openai and forwards request deadline',async()=>{
+ for(const config of [{OPENAI_API_KEY:'test-only-key'},{BRAVE_SEARCH_API_KEY:'test-only-key'},{RECIPE_SEARCH_PROVIDER:'openai',OPENAI_API_KEY:'test-only-key',BRAVE_SEARCH_API_KEY:'test-only-key'}])assert.throws(()=>createRecipeProvider(config),/SEARCH_UNAVAILABLE/);
+ assert.ok(createRecipeProvider({OPENAI_API_KEY:'test-only-key',BRAVE_SEARCH_API_KEY:'test-only-key'}));
+ let observed:number|undefined;
+ const run=createSearchHandler({now:()=>1000,getProvider:()=>({search:async(_q,options)=>{observed=options.deadlineAt;return [];}})});
+ assert.equal((await run(request())).status,200);assert.equal(observed,61000);
+});

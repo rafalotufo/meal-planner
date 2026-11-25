@@ -1,5 +1,5 @@
 import { SearchError, type SearchErrorCode } from "./errors";
-import { createOpenAIProvider } from "./openai";
+import { createParallelRecipeProvider } from "./parallel-search";
 import type { RecipeSearchProvider } from "./types";
 import { isRecord, validateQuery } from "./validation";
 import type { PhotoEnricher } from "./photos";
@@ -86,12 +86,13 @@ async function readQuery(request: Request, signal: AbortSignal): Promise<string>
 }
 
 export function createRecipeProvider(config: {
-  RECIPE_SEARCH_PROVIDER?: string; OPENAI_API_KEY?: string; OPENAI_RECIPE_MODEL?: string;
+  RECIPE_SEARCH_PROVIDER?: string; OPENAI_API_KEY?: string; OPENAI_RECIPE_MODEL?: string; BRAVE_SEARCH_API_KEY?: string;
 }, transport?: typeof fetch): RecipeSearchProvider {
-  const provider = config.RECIPE_SEARCH_PROVIDER?.trim().toLowerCase() || "openai";
+  const provider = config.RECIPE_SEARCH_PROVIDER?.trim().toLowerCase() || "brave";
   const apiKey = config.OPENAI_API_KEY?.trim();
-  if (provider !== "openai" || !apiKey) throw new SearchError("SEARCH_UNAVAILABLE");
-  return createOpenAIProvider({ apiKey, model: config.OPENAI_RECIPE_MODEL?.trim() || undefined, transport });
+  const braveKey = config.BRAVE_SEARCH_API_KEY?.trim();
+  if (provider !== "brave" || !apiKey || !braveKey) throw new SearchError("SEARCH_UNAVAILABLE");
+  return createParallelRecipeProvider({ apiKey, braveKey, model: config.OPENAI_RECIPE_MODEL?.trim() || undefined, transport });
 }
 
 export function createSearchHandler({ getProvider, enrichPhotos, now = Date.now, timeoutMs = 60000 }: {
@@ -132,7 +133,7 @@ export function createSearchHandler({ getProvider, enrichPhotos, now = Date.now,
         controller.signal.addEventListener("abort", rejectOnAbort, { once: true });
       });
       const search = async () => {
-        const recipes = await provider.search(query, { signal: controller.signal });
+        const recipes = await provider.search(query, { signal: controller.signal, deadlineAt });
         return enrichPhotos ? enrichPhotos(recipes, { signal: controller.signal, deadlineAt }) : recipes;
       };
       const recipes = await Promise.race([search(), aborted]);

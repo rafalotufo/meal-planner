@@ -62,13 +62,23 @@ binding, family/admission checks and private/security headers on every method,
 including protected405. These are not public auth-policy exceptions; retain
 Proxy for all other shapes and `/menu`. See the feature request-timeout note.
 
-Recipe search/provider/photos remain as approved on main, with Node24 runtime,
-90-second Vercel route duration and cancellation configuration unchanged. Require
-current family context on the home page and search route before provider effects;
-pending identities cannot search. Preserve server-only provider configuration,
-text rendering, grounding/URL checks, paid-usage bounds, and photo SSRF protections
-(all-address validation, pinned HTTPS, no redirects/proxy/credentials, strict byte/
-time/encoding limits and two-job bounds). Never swallow parent abort.
+Recipe search uses the reviewed Brave parallel-search amendment in
+`intent/brave-parallel-recipe-search/`: one Brave Web Search call/20hits,
+24safe source fetch attempts including bounded collection expansion, at most
+12tool-free per-source curation calls/1200output tokens each and12cards. Keep
+Node24,90second Vercel route duration,60second request deadline/cancellation,
+family guard before effects, server-only configuration and sanitized errors.
+Use source-associated observed titles/ingredient/method evidence; required quote
+failures reject, optional time/photos derive deterministically from the same
+page. Do not fetch model URLs or treat collections/snippets as recipe evidence.
+Preserve strict all-address DNS/pinned HTTPS/no redirect/proxy/credentials and
+byte/time/encoding limits. Shared pools cap source2/model12 across new provider
+instances, with bounded queues and body-spanning leases; never swallow parent
+abort or release a lease before its underlying work settles. No automatic
+provider fallback/retries. Keep menu lookup's six-source server bound; notebook
+chunks up to12sources. Runtime never logs/persists queries, evidence or secrets.
+Old single-call OpenAI adapter/photo-enricher regression evidence is historical;
+no duplicate photo-fetch pass is attached to the new Brave runtime.
 
 Native local PostgreSQL remains the development database. Hosted Neon Preview and
 Production were separately authorized and configured on 2026-11-23; see

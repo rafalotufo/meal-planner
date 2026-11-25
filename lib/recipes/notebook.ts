@@ -1,3 +1,4 @@
+import { safeRecipeUrl } from './validation';
 import type { Recipe } from "./types";
 
 export type RecipeFilter = "all" | "chickpeas" | "pasta" | "quick";
@@ -68,4 +69,16 @@ export function availableFilters(recipes: readonly Recipe[]): RecipeFilter[] {
 export function sortRecipes(recipes: readonly Recipe[], sort: RecipeSort): Recipe[] {
   if (sort === "match") return [...recipes];
   return [...recipes].sort((a, b) => (totalMinutes(a) ?? Infinity) - (totalMinutes(b) ?? Infinity));
+}
+
+/** Keep the menu endpoint's six-source validation contract while supporting twelve cards. */
+export function searchSourceChunks(value: unknown): string[][] | null {
+  if (!Array.isArray(value) || value.length > 12) return null;
+  const urls: string[] = [];
+  for (const raw of value) {
+    const parsed = safeRecipeUrl(raw);
+    if (!parsed || !/^[\x21-\x7e]+$/.test(parsed)) return null;
+    if (!urls.includes(parsed)) urls.push(parsed);
+  }
+  return urls.length ? [urls.slice(0, 6), ...(urls.length > 6 ? [urls.slice(6)] : [])] : [];
 }

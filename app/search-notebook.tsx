@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import {
-  availableFilters, FILTER_LABELS, filterRecipes, sortRecipes,
+  availableFilters, FILTER_LABELS, filterRecipes, sortRecipes, searchSourceChunks,
   type RecipeFilter, type RecipeSort, type SearchEntry,
 } from "../lib/recipes/notebook";
 import RecipeCard from "./recipe-card";
@@ -20,11 +20,12 @@ type Props = {
 
 export default function SearchNotebook({ entries, selectedId, onSelect, onFilter, onSort }: Props) {
   const active = entries.find(entry => entry.id === selectedId);
-  const sources = active ? parseMenuSourceUrls(active.recipes.map(recipe => recipe.sourceUrl)) : null;
+  const chunks = active ? searchSourceChunks(active.recipes.map(recipe => recipe.sourceUrl)) : null;
+  const sources = chunks?.flat() ?? null;
   const sourcesKey = JSON.stringify(sources ?? []);
   const [saved, setSaved] = useState<Record<string, boolean>>({});
   const [retry, setRetry] = useState(0);
-  const [lookup, setLookup] = useState<{ key: string; state: 'ready' | 'error' | 'signin' | 'family' } | null>(null);
+  const [lookup, setLookup] = useState<{ key: string; states: Record<string, 'ready' | 'error' | 'signin' | 'family'> } | null>(null);
   const selectionKey = JSON.stringify([selectedId, sourcesKey, retry]);
   const generation = useRef(0);
   const saves = useRef(new Map<string, number>());
@@ -34,27 +35,31 @@ export default function SearchNotebook({ entries, selectedId, onSelect, onFilter
     const controller = new AbortController();
     const current = ++generation.current;
     const before = new Map(urls.map(url => [url, saves.current.get(url) ?? 0]));
-    async function check() {
+    function mark(chunk: string[], state: 'ready' | 'error' | 'signin' | 'family') {
+      if (controller.signal.aborted || generation.current !== current) return;
+      setLookup(previous => ({ key: selectionKey, states: { ...(previous?.key === selectionKey ? previous.states : {}), ...Object.fromEntries(chunk.map(url => [url, state])) } }));
+    }
+    async function check(chunk: string[]) {
       try {
-        const response = await fetch('/api/menu?lookup=saved', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sourceUrls: urls }), signal: controller.signal });
+        const response = await fetch('/api/menu?lookup=saved', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ sourceUrls: chunk }), signal: controller.signal });
         if (controller.signal.aborted || generation.current !== current) return;
-        if (response.status === 401 || response.status === 403) { setLookup({ key: selectionKey, state: response.status === 401 ? 'signin' : 'family' }); return; }
+        if (response.status === 401 || response.status === 403) { mark(chunk, response.status === 401 ? 'signin' : 'family'); return; }
         if (!response.ok) throw new Error('Lookup failed');
         const value: unknown = await response.json();
-        if (!value || typeof value !== 'object' || Object.keys(value).length !== 1 || !('savedSourceUrls' in value) || !Array.isArray(value.savedSourceUrls) || value.savedSourceUrls.length > 6 || value.savedSourceUrls.some(source => typeof source !== 'string' || !urls.includes(source))) throw new Error('Invalid response');
+        if (!value || typeof value !== 'object' || Object.keys(value).length !== 1 || !('savedSourceUrls' in value) || !Array.isArray(value.savedSourceUrls) || value.savedSourceUrls.length > 6 || value.savedSourceUrls.some(source => typeof source !== 'string' || !chunk.includes(source))) throw new Error('Invalid response');
         const matches = new Set<unknown>(value.savedSourceUrls);
         if (controller.signal.aborted || generation.current !== current) return;
         setSaved(previous => {
           const next = { ...previous };
-          for (const url of urls) if ((saves.current.get(url) ?? 0) === before.get(url)) next[url] = matches.has(url);
+          for (const url of chunk) if ((saves.current.get(url) ?? 0) === before.get(url)) next[url] = matches.has(url);
           return next;
         });
-        setLookup({ key: selectionKey, state: 'ready' });
+        mark(chunk, 'ready');
       } catch {
-        if (!controller.signal.aborted && generation.current === current) setLookup({ key: selectionKey, state: 'error' });
+        if (!controller.signal.aborted && generation.current === current) mark(chunk, 'error');
       }
     }
-    void check();
+    for (const chunk of searchSourceChunks(urls) ?? []) void check(chunk);
     return () => controller.abort();
   }, [sourcesKey, selectionKey]);
   function sourceKey(source: string) { return parseMenuSourceUrls([source])?.[0] ?? source; }
@@ -62,7 +67,8 @@ export default function SearchNotebook({ entries, selectedId, onSelect, onFilter
     if (saved[sourceKey(source)]) return 'saved';
     if (!sources) return 'error';
     if (lookup?.key !== selectionKey) return 'checking';
-    return lookup.state === 'ready' ? 'available' : lookup.state;
+    const state = lookup.states[sourceKey(source)];
+    return state === 'ready' ? 'available' : state ?? 'checking';
   }
   function didSave(source: string) {
     const url = sourceKey(source);

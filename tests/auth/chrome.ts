@@ -5,7 +5,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { Recipe } from '../../lib/recipes/types';
-interface Message { id?: number; error?: unknown; result?: unknown; method?: string; params?: { type?: string; args?: { value?: unknown; description?: string }[]; exceptionDetails?: { text: string }; entry?: { level: string; text: string }; errorText?: string; requestId?: string; networkId?: string; request?: { url: string } } }
+interface Message { id?: number; error?: unknown; result?: unknown; method?: string; params?: { type?: string; args?: { value?: unknown; description?: string }[]; exceptionDetails?: { text: string }; entry?: { level: string; text: string }; errorText?: string; requestId?: string; networkId?: string; request?: { url: string; postData?: string } } }
 interface Evaluation { exceptionDetails?: { text: string }; result: { value?: unknown } }
 export async function openChrome() {
   const profile = await mkdtemp(join(tmpdir(), 'meal-family-chrome-'));
@@ -17,11 +17,12 @@ export async function openChrome() {
   const socket = new WebSocket(target.webSocketDebuggerUrl);
   await new Promise<void>((resolve, reject) => { socket.addEventListener('open', () => resolve(), { once: true }); socket.addEventListener('error', reject, { once: true }); });
   let id = 0; const errors: string[] = []; const requests: string[] = [];
+  const requestDetails: { url: string; postData?: string }[] = [];
   const pending = new Map<number, { resolve(value: unknown): void; reject(error: Error): void }>();
   let oauth: { origin: string; code: string } | undefined;
   let recipeOrigin: string | undefined;
   let recipeResults: Recipe[] | undefined;
-  const failures = new Map<string, { status: number; delay: number }>();
+  const failures = new Map<string, { status: number; delay: number; skip: number; body?: unknown }>();
   const delayedFailures = new Map<string, { timer: ReturnType<typeof setTimeout>; url: string }>();
   const abortedFixtures: string[] = [];
   function send<T = unknown>(method: string, params: Record<string, unknown> = {}): Promise<T> {
@@ -38,15 +39,17 @@ export async function openChrome() {
       const delayed = delayedFailures.get(p.requestId);
       if (delayed) { clearTimeout(delayed.timer); delayedFailures.delete(p.requestId); abortedFixtures.push(delayed.url); }
     }
-    if (message.method === 'Network.requestWillBeSent' && p?.request) requests.push(p.request.url);
+    if (message.method === 'Network.requestWillBeSent' && p?.request) { requests.push(p.request.url); requestDetails.push({url:p.request.url,postData:p.request.postData}); }
     if (message.method === 'Fetch.requestPaused' && p?.request) {
       const target = new URL(p.request.url);
       const failureKey = target.pathname + target.search;
-      const failure = target.origin === recipeOrigin ? failures.get(failureKey) : undefined;
+      let failure = target.origin === recipeOrigin ? failures.get(failureKey) : undefined;
+      if (failure && failure.skip > 0) { failure.skip--; failure = undefined; }
       if (failure) {
+        const controlledFailure = failure;
         failures.delete(failureKey);
         const key = p.networkId ?? p.requestId!;
-        const timer = setTimeout(() => { delayedFailures.delete(key); send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: failure.status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body: Buffer.from(JSON.stringify({ error: 'Fixture request failure' })).toString('base64') }).catch((error: unknown) => errors.push(String(error))); }, failure.delay);
+        const timer = setTimeout(() => { delayedFailures.delete(key); send('Fetch.fulfillRequest', { requestId: p.requestId, responseCode: controlledFailure.status, responseHeaders: [{ name: 'Content-Type', value: 'application/json' }], body: Buffer.from(JSON.stringify(controlledFailure.body ?? { error: 'Fixture request failure' })).toString('base64') }).catch((error: unknown) => errors.push(String(error))); }, controlledFailure.delay);
         delayedFailures.set(key, { timer, url: p.request.url });
       } else if (recipeOrigin && target.origin === recipeOrigin && target.pathname === '/api/recipes/search') {
         const body = Buffer.from(JSON.stringify({ recipes: recipeResults ?? [{ title: 'Potato Gnocchi', sourceUrl: 'https://www.loveandlemons.com/gnocchi-recipe/', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Boil potatoes, mix with flour, shape the dough, and simmer until the gnocchi float.', time: { kind: 'cook', text: '30 minutes' } }] })).toString('base64');
@@ -86,7 +89,8 @@ export async function openChrome() {
   }
   async function google(origin: string, code: string) { oauth = { origin, code }; await patterns(); }
   async function recipes(origin: string, results?: Recipe[]) { recipeOrigin = origin; recipeResults = results; await patterns(); }
-  function failNext(path: string, status: number, delay = 0) { failures.set(path, { status, delay }); }
+  function failNext(path: string, status: number, delay = 0, skip = 0) { failures.set(path, { status, delay, skip }); }
+  function replyNext(path: string, status: number, body: unknown, delay = 0, skip = 0) { failures.set(path, { status, body, delay, skip }); }
   async function close() {
     for (const delayed of delayedFailures.values()) clearTimeout(delayed.timer);
     delayedFailures.clear();
@@ -94,5 +98,5 @@ export async function openChrome() {
     if (chrome.exitCode === null && chrome.signalCode === null) { const exited = new Promise<void>((resolve) => chrome.once('exit', () => resolve())); chrome.kill('SIGTERM'); await exited; }
     await rm(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   }
-  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, failNext, abortedFixtures, errors, requests, close };
+  return { send, evaluate, waitFor, navigate, viewport, click, screenshot, google, recipes, failNext, replyNext, abortedFixtures, errors, requests, requestDetails, close };
 }

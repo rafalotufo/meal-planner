@@ -34,3 +34,14 @@ test('parser fails closed on HTML/script/JSON-LD complexity and missing cooking 
     assert.equal(parseRecipeSource(html,url).kind,'unsupported');
   }
 });
+
+test('principal recipe H1 in an article header is captured without trusting the site header or its links',()=>{
+ const html=sourceHtml().replace('<body><main><h1>','<body><header><h1>Site brand</h1><a href="/recipe/site-nav">Nav recipe</a></header><main><article><header><h1>').replace('</h1><h2>','</h1></header><h2>').replace('</main>','</article></main>');
+ const parsed=parseRecipeSource(html,url);assert.equal(parsed.kind,'recipe');
+ if(parsed.kind==='recipe')assert.deepEqual(parsed.recipe.titles,['Crispy chicken']);
+ assert.equal(parseRecipeSource(html.replace('</article>','<header><h1>Other meal</h1></header></article>'),url).kind,'unsupported');
+ assert.equal(parseRecipeSource(html.replace('<h1>Crispy chicken</h1>','<h1>Other meal</h1>'),url).kind,'unsupported');
+ const collection=html.replace('<h1>Crispy chicken</h1>','<h1>20 family dinner recipes</h1>')+'<nav><a href="/recipe/other-nav">Recipe navigation</a></nav>';
+ const found=parseRecipeSource(collection,url);assert.equal(found.kind,'collection');
+ if(found.kind==='collection')assert.ok(found.links.every(x=>!x.includes('nav')));
+});
