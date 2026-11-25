@@ -1,16 +1,19 @@
 version: 1
-max_turns: 6
+max_turns: 10
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: dependency-aware-migrations-main-integration
-human_gates: [release_authorization]
+review_artifact: dependency-aware-migrations-production-release
+human_gates: [code_owner_approve, staging_acceptance, release_authorization]
 acceptance:
   commands: ["git diff --check"]
 phases:
-  intent: {role: reviewer, action: approve_integration_plan, next: implement}
-  implement: {role: senior-developer, action: integrate_and_verify, next: code_review}
-  code_review: {role: reviewer, action: review_integration_source, next: local_adoption}
-  local_adoption: {role: orchestrator, action: merge_and_restart_local, next: review}
+  intent: {role: reviewer, action: approve_hosted_correction_plan, next: implement}
+  implement: {role: senior-developer, action: correct_and_verify_hosted_validation, next: security}
+  security: {role: security-researcher, action: assess_corrected_validator, next: code_review}
+  code_review: {role: reviewer, action: review_corrected_source, next: staging}
+  staging: {role: orchestrator, action: deploy_and_validate_staging, next: staging_review}
+  staging_review: {role: reviewer, action: review_staging_readiness, next: production}
+  production: {role: orchestrator, action: release_and_observe, next: review}
   review: {role: reviewer, action: review, next: done}
   done: {role: null, action: null, next: null}
