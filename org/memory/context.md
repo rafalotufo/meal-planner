@@ -19,7 +19,7 @@ intent/dependency-aware-migrations/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/dependency-aware-migrations/main-integration.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (dependency-aware-migrations-main-integration)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (dependency-aware-migrations-main-integration)
 
@@ -102,6 +102,7 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0143 orchestrator -> reviewer handoff: Review approved local main integration plan
 - orchestrator-0144 orchestrator -> senior-developer handoff: Integrate pinned main and verify combined source
 - orchestrator-0145 orchestrator -> reviewer handoff: Review verified combined main integration source
+- orchestrator-0146 orchestrator -> reviewer handoff: Review completed approved local main adoption
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
