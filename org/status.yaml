@@ -3,9 +3,9 @@ agents:
   orchestrator: { status: idle, assignment: intent/dependency-aware-migrations/staging-result.md, last_report: Owner-approved main merge done; exact25 staged READY3XbA and stable alias attributed; browser pass but HTTP/OAuth/member/provider gaps explicit; review2882c0f ready for owner staging acceptance and concrete Production decision; Production unchanged }
   product-manager: { status: idle, assignment: null, last_report: Accepted Brave parallel search intent; clarified bounded discovery/curation and broad-query relevance; no owner escalation }
   architect: { status: busy, assignment: intent/brave-parallel-recipe-search/plan.md, last_report: Spec/plan f09624c ready for independent review }
-  senior-developer: { status: idle, assignment: null, last_report: Verified implementation2989467; corrected third live smoke pending independent amendment approval }
+  senior-developer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Verified implementation2989467; corrected third live smoke pending independent amendment approval }
   security-researcher: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Early threat consultation a1b78ca; formal source review pending Build }
-  reviewer: { status: idle, assignment: null, last_report: Approved narrow principal-heading corrective amendment53609f3; one conditioned same-query live follow-up only; full source review pending }
+  reviewer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Approved narrow principal-heading corrective amendment53609f3; one conditioned same-query live follow-up only; full source review pending }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -112,3 +112,4 @@ review_queue:
   - { id: dependency-aware-migrations-staging-evidence-001, artifact: intent/dependency-aware-migrations/staging-result.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved, scope: Evidence reviewable for owner exact25/3XbA/profile named-gap decision only; helper inconclusive and Production approval pending }
   - { id: design-brave-parallel-001, artifact: intent/brave-parallel-recipe-search/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: design-brave-parallel-amend-001, artifact: intent/brave-parallel-recipe-search/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-brave-parallel-001, artifact: brave-parallel-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }

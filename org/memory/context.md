@@ -19,9 +19,9 @@ intent/brave-parallel-recipe-search/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (brave-parallel-recipe-search-implementation)
 - security-researcher: busy (brave-parallel-recipe-search-implementation)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (brave-parallel-recipe-search-implementation)
 
 ## Open messages
 
@@ -122,6 +122,8 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0159 orchestrator -> senior-developer handoff: Implement approved Brave parallel recipe search plan
 - orchestrator-0160 orchestrator -> reviewer handoff: Review bounded heading correction and one corrective live smoke
 - orchestrator-0161 orchestrator -> security-researcher handoff: Formal security review of verified Brave implementation
+- orchestrator-0162 orchestrator -> senior-developer decision: Run one approved corrective broad-query smoke
+- orchestrator-0163 orchestrator -> reviewer handoff: Formal review of verified Brave search implementation
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
