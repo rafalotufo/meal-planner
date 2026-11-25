@@ -76,6 +76,9 @@ not a requirement to touch files whose existing support proves sufficient.
    Exercise all12calls concurrently, reversed completion order, successful
    partials, all-reject vs all-technical-error, aborted pending bodies and source
    phase expiry. Preserve parent abort as timeout, never success/empty fallback.
+   Apply the owner-selected8000ms per-item cap including pool wait; tests must
+   cover partial success with a slow sibling, all-expired/mixed-reject timeout,
+   queued expiry/no late start and active lease retention after caller timeout.
 4. **Runtime and twelve-card integration.** Switch only the provider boundary;
    leave family/proxy/route timing contracts intact. Remove duplicate network
    enrichment for new path; photos derive from already fetched source HTML.
@@ -164,3 +167,28 @@ run the one corrective broad-query smoke with the actual provider/handler and
 unchanged budgets, recording source/model call counts, omissions, valid yield
 and elapsed time. Preserve initial failure, offline replay and live follow-up
 as separate evidence. Human merge/release and hosted configuration stay gated.
+
+
+## Owner timeout amendment — existing correction loop
+
+Status: Proposed; independent narrow approval precedes timeout code changes.
+Source: `org/messages/ceo-0070.md`. Continue the active correction cycle; do not
+reset loop budget or create a new work item. Reduce the existing per-item model
+budget from25000ms to8000ms, covering queue wait through complete body work and
+validation, with provider/parent deadlines taking precedence. No new UI setting,
+provider call, retry, fallback or higher paid/resource ceiling is introduced.
+Existing manifest paths `lib/recipes/parallel-search.ts`,
+`tests/recipe-parallel-search.test.ts` and `tests/recipe-concurrency.test.ts`
+cover the focused change. The source-parser correction required by independent
+code review remains a separate existing in-scope fix.
+
+First add failing deterministic timeout tests with short injected timing/clock:
+one completed card plus a hung item; all items expired; an explicit rejection
+plus another expired item; a queued item expiring before acquisition and never
+starting later; parent abort overriding partial success; late answer ignored;
+and active abort-ignoring work retaining its lease until actual settlement.
+Then apply the minimal8second budget and failure-precedence correction. Keep
+bounded response consumption and timer/listener/queue cleanup tests intact.
+Run recipe/concurrency/pipeline tests, lint, strict typecheck and production
+build, then include this source in independent security/final correction review.
+No additional paid calls or hosted actions are authorized by this amendment.

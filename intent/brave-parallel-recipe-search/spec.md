@@ -88,8 +88,15 @@ page, query, credentials or provider error body is logged/persisted by runtime.
 Brave deadline≤10seconds. Source discovery phase≤20seconds after Brave; each
 actual source fetch retains existing≤3second DNS/HTTPS timeout. Provider work
 has a55second child deadline bounded by parent deadline. Model calls have
-≤25seconds each, including shared-pool wait, and cannot outlive provider/parent
-budget. Parent abort always propagates; the handler keeps its existing504.
+≤8seconds each, including shared-pool wait, network headers, bounded response
+body consumption and validation, and cannot outlive provider/parent budget.
+Start the per-item timer before shared-pool enqueue; do not reset it when a slot
+is acquired. An expired queued item never starts a model call. Cancel an active
+item through its AbortSignal and stop waiting for that candidate promptly while
+retaining its pool lease until underlying body/transport work actually settles.
+Never free a slot early or issue a retry/replacement because an item timed out.
+An implementation-only injectable clock/timer or lower timeout may support
+fast deterministic tests; no user-configurable setting may exceed8000ms. Parent abort always propagates; the handler keeps its existing504.
 Local candidate/phase expiration may produce a valid partial result; it is not
 permission to swallow parent abort. Cleanup cancels pending readers/queues.
 
@@ -199,7 +206,10 @@ network work therefore stays within the same24attempts and shared2active jobs.
 Sort accepted cards by source discovery order, then deduplicate server-owned
 sourceUrl and cap at12. A source/model error only rejects that candidate.
 If at least one valid card survives, return it despite other local failures.
-If all eligible curations explicitly reject, return empty recipes. If every
+If all eligible curations explicitly reject, return empty recipes. If no card
+survives and at least one eligible curation expires, return SEARCH_TIMEOUT,
+even if other candidates explicitly rejected; incomplete curation must not be
+reported as proven no-results. If every
 attempt failed technically and none made an explicit rejection, return sanitized
 SEARCH_FAILED (or SEARCH_TIMEOUT for exhausted local time, SEARCH_BUSY for pool
 capacity). Do not describe total provider failure as genuine no-results.
@@ -276,3 +286,29 @@ HTML offline to show the exact missed children can now reach curation. Do not
 claim this replay is a successful live model/admission/browser run. The one
 proposed corrective live smoke checks that the implemented pipeline now serves
 the original broad query; it does not erase the prior502 or guarantee yield.
+
+
+## Owner timeout amendment — 2026-11-25
+
+Status: Proposed for independent narrow approval before timeout implementation.
+Authority: Rafael's active steering recorded in `org/messages/ceo-0070.md` asks
+that slow per-recipe curation not hold up results. The selected technical bound
+is8000ms per item including queue wait, reduced from25000ms. Existing module
+shared pools,55second provider budget,60second request deadline and per-search
+call/byte/output ceilings remain unchanged; no new loop/work item is started.
+
+A slow item's completion after its deadline is ignored; retain already completed
+valid siblings and return them once remaining items settle or expire. No parent
+abort may be converted to partial success. If there are no surviving cards and
+any eligible curation timed out, report sanitized SEARCH_TIMEOUT rather than
+empty recipes. A timed-out queued item cannot start later; an abort-ignoring
+transport cannot free its lease early or admit replacement paid work.
+
+Focused regressions must prove one prompt success plus one hung curator returns
+the success after the item's short timeout; all expired and mixed explicit
+rejection+expiry return timeout; queue time counts toward the same budget; an
+expired queued item never starts after a held lease eventually releases; parent
+abort wins even if a sibling is complete; late model output is ignored; timers,
+listeners/readers and slots follow existing cleanup semantics. The fixture may
+use an injected short timer/clock, not real8second sleeps. No additional live
+paid verification is granted beyond the separately reviewed corrective smoke.

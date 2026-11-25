@@ -37,6 +37,15 @@ migrations, deployment and release remain separate human gates.
   aggregate input bytes/tokens and cancellation. It may choose lower bounds
   where needed for correctness or the existing sixty-second request deadline;
   raising these ceilings requires a reviewed scope amendment.
+- Owner timeout steering (`org/messages/ceo-0070.md`): a slow recipe must not hold
+  completed siblings until the full search deadline. Use an eight-second
+  per-item curation budget, including model-pool queue wait and response/body
+  work, bounded further by provider/parent deadlines. Cancel and skip expired
+  items without retries or replacement paid calls; preserve completed validated
+  cards. All-expired curation is a timeout error, not a successful empty search.
+  Parent abort still terminates the whole search with its existing timeout
+  semantics. This lowers the previous25second technical sub-budget; it does not
+  increase the original paid/source/output/concurrency ceilings.
 - Return more useful recipes where available, targeting up to twelve validated
   unique cards from bounded discovery, with honest fewer/no-result behavior.
   Start with one Brave request considering at most twenty results. The target
