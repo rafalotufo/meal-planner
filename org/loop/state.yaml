@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/dependency-aware-migrations/intent.md
 base_commit: 4a3623916b9ca4204c48baf0823a7ce0f9fd1f8e
-turn: 5
+turn: 6
 no_progress: 0
-phase: staging_review
+phase: production
 status: in_progress
-last_input_hash: ab364a8e493b4c2c7bb14f81783a94b2af61342bf368910a795ce60933c953ee
+last_input_hash: 275e23bd224a5179951ca17e6ad9a01aa0449d0a1b84e7780cdb592101f67e60
 stop_reason: null
-last_action: "orchestrator:deploy_and_validate_staging"
-artifacts: [{"path": "org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md", "sha256": "193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086"}, {"path": "intent/dependency-aware-migrations/attribute-options-verification.md", "sha256": "49fdd86da27166378df1022be069ac72aff36ceae2da4be50b5c9e580e40804b"}, {"path": "org/reviews/dependency-aware-migrations-attribute-source-security-001.md", "sha256": "6b54db58d4cf98169d3411c4a4de72ae52e5c7fdbab4a87bcb824c8e74027ddd"}, {"path": "org/reviews/dependency-aware-migrations-hosted-source-001.md", "sha256": "b2f22c6cf6b5ca02bdc745240a08a4646ac90852f4255c5d3adaf17528a7d657"}, {"path": "intent/dependency-aware-migrations/staging-result.md", "sha256": "e7a9b5185017efaac2c9adaaab447d837ce4070dcccfd840378acc0f7e3b744d"}]
+last_action: "reviewer:review_staging_readiness"
+artifacts: [{"path": "org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md", "sha256": "193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086"}, {"path": "intent/dependency-aware-migrations/attribute-options-verification.md", "sha256": "49fdd86da27166378df1022be069ac72aff36ceae2da4be50b5c9e580e40804b"}, {"path": "org/reviews/dependency-aware-migrations-attribute-source-security-001.md", "sha256": "6b54db58d4cf98169d3411c4a4de72ae52e5c7fdbab4a87bcb824c8e74027ddd"}, {"path": "org/reviews/dependency-aware-migrations-hosted-source-001.md", "sha256": "b2f22c6cf6b5ca02bdc745240a08a4646ac90852f4255c5d3adaf17528a7d657"}, {"path": "intent/dependency-aware-migrations/staging-result.md", "sha256": "e7a9b5185017efaac2c9adaaab447d837ce4070dcccfd840378acc0f7e3b744d"}, {"path": "org/reviews/dependency-aware-migrations-staging-evidence-001.md", "sha256": "4faf922934826630fa33aaef39ceb2b121dd725c141df767f91ba4de117be3d3"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T13:51:06Z"
+updated_at: "2026-11-25T13:52:33Z"

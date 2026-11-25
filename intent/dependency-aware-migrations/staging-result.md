@@ -60,8 +60,10 @@ The cooperative owned lane lock covered deploy, alias work and validation.
 | Final helper |13:49:39.238Z; OWNER_EVIDENCE_REQUIRED, pass=null, exit2; false real-Google/session/logout attestations retained |
 | Existing Production anonymous smoke | Exit0, status401/pass=true,2358ms; unchanged AeQV/d26 health only |
 
-The browser used its existing platform access; no protection bypass token was
-created, read or injected, and no protection setting changed. It remained
+The browser reached the app while the standalone helper was redirected; the
+browser/platform-auth mechanism was not inspected or freshly established.
+No protection bypass token was created, read or injected, and no protection
+setting changed. The browser remained
 anonymous to the application. Screenshots were emitted in the active chat;
 no screenshot file or authenticated/member browser result is claimed here.
 The browser viewport override was reset afterward.

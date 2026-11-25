@@ -9,15 +9,15 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 4
-- phase: staging
+- turn: 6
+- phase: production
 - stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (intent/dependency-aware-migrations/hosted-runtime-preflight.md)
+- orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -57,6 +57,7 @@ intent/dependency-aware-migrations/intent.md
 - ceo-0035 ceo -> orchestrator decision: Approve T-Rex implementation plan and Word Snack deletion
 - ceo-0036 ceo -> orchestrator decision: Fill available width with T-Rex game window
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
+- ceo-0068 ceo -> orchestrator decision: Approve reviewed hosted correction main merge and exact-source staging
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -109,6 +110,8 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0150 orchestrator -> reviewer handoff: Review documented PostgreSQL internal attribute metadata normalization
 - orchestrator-0151 orchestrator -> senior-developer handoff: Implement approved internal attribute-version normalization
 - orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
+- orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
+- orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -144,14 +147,16 @@ intent/dependency-aware-migrations/intent.md
 - intent/dependency-aware-migrations/attribute-options-verification.md (49fdd86da27166378df1022be069ac72aff36ceae2da4be50b5c9e580e40804b)
 - org/reviews/dependency-aware-migrations-attribute-source-security-001.md (6b54db58d4cf98169d3411c4a4de72ae52e5c7fdbab4a87bcb824c8e74027ddd)
 - org/reviews/dependency-aware-migrations-hosted-source-001.md (b2f22c6cf6b5ca02bdc745240a08a4646ac90852f4255c5d3adaf17528a7d657)
+- intent/dependency-aware-migrations/staging-result.md (e7a9b5185017efaac2c9adaaab447d837ce4070dcccfd840378acc0f7e3b744d)
+- org/reviews/dependency-aware-migrations-staging-evidence-001.md (4faf922934826630fa33aaef39ceb2b121dd725c141df767f91ba4de117be3d3)
 
 ## Next action
 
-reviewer:review_corrected_source
+reviewer:review_staging_readiness
 
 ## Last digest source
 
-- mem-0164 from intent/dependency-aware-migrations/hosted-runtime-preflight.md
+- mem-0165 from intent/dependency-aware-migrations/staging-result.md
 
 <!-- machine:end -->
 

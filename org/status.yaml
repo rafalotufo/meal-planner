@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: intent/dependency-aware-migrations/hosted-runtime-preflight.md, last_report: "Awaiting new human main-merge approval for reviewed correction25aaa9b; full tests and both hosted read-only validators pass; Production unchanged; truthful main-qualified staging follows approval" }
+  orchestrator: { status: idle, assignment: intent/dependency-aware-migrations/staging-result.md, last_report: "Owner-approved main merge done; exact25 staged READY3XbA and stable alias attributed; browser pass but HTTP/OAuth/member/provider gaps explicit; review2882c0f ready for owner staging acceptance and concrete Production decision; Production unchanged" }
   product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
   architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
   senior-developer: { status: idle, assignment: null, last_report: "Exact25 verified328Node+7Python, lint/typecheck/build, both Chrome and126-file upload-only build; evidence155d00a; no main or deployment effects" }
   security-researcher: { status: idle, assignment: null, last_report: "Exact25 approved6c70e99 with strict platform and upstream attribute contracts; no hosted mutation" }
-  reviewer: { status: idle, assignment: null, last_report: "Exact25 final source readiness approved54f7481; new human main merge then exact-source staging acceptance and Production gates pending" }
+  reviewer: { status: idle, assignment: null, last_report: "Actual25/3XbA staging evidence independently reviewed2882c0f; truthful inconclusive helper and named gaps; pending owner acceptance and Production scope" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
