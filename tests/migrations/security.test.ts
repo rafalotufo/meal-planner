@@ -53,6 +53,7 @@ for (const [name, sql] of [
   ['RLS', 'ALTER TABLE public.app_users ENABLE ROW LEVEL SECURITY; ALTER TABLE public.app_users FORCE ROW LEVEL SECURITY'],
   ['policy', "CREATE POLICY unreviewed ON public.app_users AS RESTRICTIVE FOR SELECT USING (false)"],
   ['unvalidated constraint', 'ALTER TABLE public.app_users ADD CONSTRAINT extra_guard CHECK (created_at>=0) NOT VALID'],
+  ['ordinary column option', 'ALTER TABLE public.app_users ALTER COLUMN google_subject SET (n_distinct=42)'],
   ['collation', 'ALTER TABLE public.app_users ALTER COLUMN google_subject TYPE text COLLATE "C"'],
   ['domain', 'CREATE DOMAIN public.unexplained AS text'],
   ['absent native ledger PK lookalike', 'CREATE INDEX __app_migrations_pkey ON public.menu_recipes(family_id)'],
