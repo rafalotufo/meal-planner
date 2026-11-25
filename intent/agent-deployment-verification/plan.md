@@ -309,8 +309,10 @@ No browser/application/build passes are claimed by this docs-only plan.
 - `app/menu/menu-controls.tsx`
 - `app/plans/page.tsx`
 - `app/onboarding/page.tsx`
+- `app/sign-out/page.tsx`
 - `tests/verification/**`
 - `tests/migrations/security.test.ts`
+- `tests/migrations/dependency.test.ts`
 - `tests/family/**`
 - `tests/auth/**`
 - `tests/menu/**`
@@ -335,3 +337,7 @@ public protection-removal fallback. Separate release authority must bind exact
 SHA/profile, schema/grants, issuer run/data/write/cleanup scope, private credential
 handoff and provider budget. Synthetic success does not prove Google OAuth or
 live provider success and does not replace Production anonymous health gates.
+
+Implementation refinement: the dependency regression retains its exact preserved-family assertion and adds the new default Google identity_kind column to the expected row. No existing assertion is removed.
+
+Pinned Next refinement: Proxy generates the signed preflight nonce for exact staging GET/HEAD /verification, overwrites the forwarded nonce header and sets its matching HttpOnly cookie; the Server Component only reads the nonce. The sign-out page may render for an expired verification cookie solely to permit clearing/revocation. Neither nonce nor cookie presence grants application admission.
