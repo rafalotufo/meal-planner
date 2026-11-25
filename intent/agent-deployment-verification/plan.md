@@ -40,7 +40,8 @@ five implementation/test files; metadata updates form their own adjacent slice.
    never substitute alias, placeholder, client header or a test environment flag.
    Verify copied Preview settings on Production, absent/changed source/profile,
    wrong origin/project/DB and moved alias. Keep the generated manifest server-only
-   and trace it into packaged output; no runtime generator or secrets in builds.
+   and trace it into packaged output; generate before dev/typecheck/build so static
+   imports exist without a runtime generator or secrets in builds.
 
 2. [ ] **Prove the relational migration** (depends:1).
    Add one UUIDv4-named `drizzle/postgresql/*_agent_verification.sql`, and strict
@@ -154,7 +155,8 @@ five implementation/test files; metadata updates form their own adjacent slice.
     never a fake verified email; retain strict Google displays. Narrow Google-only
     provisioning/invitation helpers and their call sites so direct API calls with
     synthetic sessions receive403 without membership/invitation effects.
-    Split those route call-site changes into small commits if necessary; enumerate
+    Keep `lib/invitations.ts` explicitly Google-only. Split route/helper call-site
+    changes into small commits if necessary; enumerate
     them in evidence. UI controls may reflect denied scope but cannot enforce it.
 
 12. [ ] **Support plans without broadening background eligibility** (depends:10).
@@ -210,7 +212,10 @@ Google unique indexes; use nondeferrable FKs and prove invalid permutations fail
 
 Replace broad runtime INSERT on families/app_users with explicit existing Google
 column INSERT grants; withhold identity_kind and verification_run_id, retaining
-Google defaults. Runtime cannot create synthetic setup rows. Restrict capability
+Google defaults. Restrict app_users UPDATE to verified_email only; remove broad
+table INSERT/UPDATE ACLs inside the explicit migration before applying the final
+column-grant profile (the existing grant applicator only adds grants). Runtime
+cannot create or retag synthetic setup rows. Restrict capability
 UPDATE to consumed_at and session UPDATE to revoked_at, permit required SELECT,
 session INSERT and bounded throttle DML; run mutation/setup/cleanup remains owner-
 operator only. Verify table-level grants do not accidentally override column
@@ -272,6 +277,7 @@ No browser/application/build passes are claimed by this docs-only plan.
 - `lib/session.ts`
 - `lib/family.ts`
 - `lib/family-store.ts`
+- `lib/invitations.ts`
 - `lib/menu/http.ts`
 - `lib/menu/store.ts`
 - `lib/plans/store.ts`
