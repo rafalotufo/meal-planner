@@ -61,7 +61,6 @@ intent/brave-parallel-recipe-search/intent.md
 - ceo-0069 ceo -> orchestrator decision: Merge verification to main and prepare Production using new flow
 - ceo-0070 ceo -> orchestrator answer: Re: Accept exact197 staging gaps and scoped Production cutover recovery
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
-- ceo-0072 ceo -> orchestrator decision: Owner approves Brave search local main merge
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -179,7 +178,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0173 from org/messages/ceo-0072.md
+- mem-0174 from intent/brave-parallel-recipe-search/main-merge-result.md
 
 <!-- machine:end -->
 

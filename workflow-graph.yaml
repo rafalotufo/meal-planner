@@ -23,7 +23,7 @@ nodes:
     stage: build
     artifact: brave-parallel-recipe-search-implementation
     gate: code_owner_approve
-    status: in_review
+    status: merged
     done_status: merged
   release:
     stage: deploy

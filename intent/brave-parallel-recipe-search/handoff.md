@@ -1,8 +1,10 @@
 # Brave parallel recipe search — local implementation handoff
 
-Status: locally implemented and independently reviewed; human merge/release
-remain pending. Application source: `e14feec` (including parser correction
-`dc1c778`). Later commits are audit/review evidence, not new application changes.
+Status: merged into local main with explicit owner approval; release remains
+separately gated. Brave application source: `e14feec` (including parser correction
+`dc1c778`). Combined source `73bb7f3` preserves intervening main changes and has
+fresh independent review and verification. See `main-merge-result.md` and
+`main-integration.md` for the actual merge and393 Node/7 Python/Chrome evidence.
 
 ## Delivered behavior
 
@@ -17,8 +19,9 @@ and photos derive from source metadata. The notebook handles up to twelve cards
 through existing six-URL menu lookup chunks, preserving save/selection races.
 
 The ignored local selector is `brave`; existing key values were preserved and
-remain private. No hosted provider configuration, database schema/data, merge,
-push, deployment or release was performed.
+remain private. This feature introduced no database migration. The local main
+merge is complete; no hosted provider configuration, push, deployment or release
+was performed.
 
 ## Verification and independent gates
 
