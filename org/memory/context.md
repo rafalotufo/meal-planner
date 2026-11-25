@@ -9,8 +9,8 @@ intent/brave-parallel-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 5
-- phase: review
+- turn: 6
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -19,7 +19,7 @@ intent/brave-parallel-recipe-search/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
-- reviewer: busy (brave-parallel-recipe-search-implementation)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (brave-parallel-recipe-search-implementation)
 
@@ -61,6 +61,7 @@ intent/brave-parallel-recipe-search/intent.md
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0068 ceo -> orchestrator decision: Approve reviewed hosted correction main merge and exact-source staging
 - ceo-0069 ceo -> orchestrator decision: Implement Brave discovery and parallel per-result recipe curation
+- ceo-0070 ceo -> orchestrator decision: Add per-recipe curation timeout
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -124,6 +125,7 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0161 orchestrator -> security-researcher handoff: Formal security review of verified Brave implementation
 - orchestrator-0162 orchestrator -> senior-developer decision: Run one approved corrective broad-query smoke
 - orchestrator-0163 orchestrator -> reviewer handoff: Formal review of verified Brave search implementation
+- orchestrator-0164 orchestrator -> architect handoff: Document owner-directed eight-second item timeout
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -138,9 +140,11 @@ intent/brave-parallel-recipe-search/intent.md
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - product-manager-0022 product-manager -> orchestrator decision: Accepted Brave parallel recipe search intent for Design
+- product-manager-0023 product-manager -> orchestrator decision: Local Brave scope met with disclosed broad recall limitation
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0057 reviewer -> orchestrator review: Approve Brave parallel search specification and plan
 - reviewer-0058 reviewer -> orchestrator review: Approve principal-H1 correction and one bounded broad-query follow-up
+- reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
 - security-researcher-0031 security-researcher -> orchestrator status: Early Brave parallel recipe search threat consultation
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
@@ -167,10 +171,11 @@ intent/brave-parallel-recipe-search/intent.md
 - org/reviews/design-brave-parallel-001.md (5eb8503d2a1509b57e76c3fa8d343cab0f679abede8649036d87e8354b373ca3)
 - intent/brave-parallel-recipe-search/verification.md (581874dedcad5ce11fa0d75d07191e68eb7c9ec454a11d8b9f7e28d13e59b7e3)
 - org/reviews/security-brave-parallel-001.md (079dbda498cbe661beba3d2235e26715f662cc999f6354aefa8bc7dde1ffe4a2)
+- org/reviews/code-brave-parallel-001.md (008c4d04665fc937bbaa22d475884471bdd449df3360eba2a858de68cfc83a98)
 
 ## Next action
 
-security-researcher:assess
+reviewer:review
 
 ## Last digest source
 
