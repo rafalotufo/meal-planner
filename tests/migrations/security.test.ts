@@ -23,20 +23,25 @@ test('native identities record executed SQL only, repeat/concurrent safely and r
   const contract = nativeContract('SELECT 1;');
   try {
     const legacy = await db.all('SELECT * FROM public.__drizzle_migrations ORDER BY id');
+    const nativeBefore = await db.all('SELECT * FROM public.__app_migrations ORDER BY id');
     await Promise.all([migrateDatabase(fixture.url, contract), migrateDatabase(fixture.url, contract)]);
     assert.deepEqual(await db.all('SELECT * FROM public.__drizzle_migrations ORDER BY id'), legacy);
-    assert.deepEqual(await db.all('SELECT * FROM public.__app_migrations'), [{ id: contract.row.id, hash: contract.row.hash, descriptor_hash: descriptorDigest(contract.row) }]);
+    assert.deepEqual(await db.all('SELECT * FROM public.__app_migrations ORDER BY id'), [...nativeBefore, { id: contract.row.id, hash: contract.row.hash, descriptor_hash: descriptorDigest(contract.row) }].sort((a,b)=>String(a.id).localeCompare(String(b.id))));
     const knownButUnapproved=structuredClone(contract.manifest); knownButUnapproved.required=[...compatibility.required]; knownButUnapproved.profiles=structuredClone(compatibility.profiles);
     await assert.rejects(migrateDatabase(fixture.url,{...contract,manifest:knownButUnapproved}),/database-ahead/);
-    await db.execute("UPDATE public.__app_migrations SET descriptor_hash=repeat('a',64)");
+    await db.execute("UPDATE public.__app_migrations SET descriptor_hash=repeat('a',64) WHERE id=$1", [contract.row.id]);
     await assert.rejects(migrateDatabase(fixture.url, contract), /conflicting-identity/);
-    await db.execute('UPDATE public.__app_migrations SET descriptor_hash=$1,hash=$2', [descriptorDigest(contract.row),'b'.repeat(64)]);
+    await db.execute('UPDATE public.__app_migrations SET descriptor_hash=$1,hash=$2 WHERE id=$3', [descriptorDigest(contract.row),'b'.repeat(64),contract.row.id]);
     await assert.rejects(migrateDatabase(fixture.url, contract), /checksum-mismatch/);
     await assert.rejects(migrateDatabase(fixture.url), /database-ahead/);
   } finally { await db.close(); await fixture.cleanup(); }
 });
 test('failed native SQL rolls back both schema and newly-created ledger', async () => {
-  const fixture = await testDatabase(); const db = await fixture.open();
+  const fixture = await testDatabase(false); const db = connectDatabaseForTooling(fixture.url);
+  const historical = structuredClone(compatibility);
+  historical.migrations = historical.migrations.filter(row => row.legacy); historical.required = historical.migrations.map(row => row.id);
+  historical.profiles = historical.profiles.filter(row => row.applied.every(id => historical.required.includes(id)));
+  await migrateDatabase(fixture.url, {manifest:historical,sources:repositorySources()});
   const contract = nativeContract('CREATE TABLE public.rollback_probe (id integer);\n--> statement-breakpoint\nSELECT 1/0;');
   try {
     const before = await db.all('SELECT * FROM public.__drizzle_migrations ORDER BY id');
@@ -55,7 +60,7 @@ for (const [name, sql] of [
   ['unvalidated constraint', 'ALTER TABLE public.app_users ADD CONSTRAINT extra_guard CHECK (created_at>=0) NOT VALID'],
   ['collation', 'ALTER TABLE public.app_users ALTER COLUMN google_subject TYPE text COLLATE "C"'],
   ['domain', 'CREATE DOMAIN public.unexplained AS text'],
-  ['absent native ledger PK lookalike', 'CREATE INDEX __app_migrations_pkey ON public.menu_recipes(family_id)'],
+  ['absent native ledger PK lookalike', 'DROP TABLE public.__app_migrations; CREATE INDEX __app_migrations_pkey ON public.menu_recipes(family_id)'],
   ['quoted ledger-prefix index', 'CREATE UNIQUE INDEX "__app_migrations.hidden" ON public.menu_recipes(family_id)'],
   ['quoted ledger-prefix table', 'CREATE TABLE public."__app_migrations.hidden" (id integer)'],
   ['prefix lookalike', 'CREATE TABLE public.__app_migrations_backdoor (id integer)'],
@@ -87,6 +92,7 @@ test('older required profile reads and writes approved newer schema with restric
   const older = structuredClone(compatibility); older.required.pop();
   try {
     const before = await owner.all('SELECT * FROM public.__drizzle_migrations ORDER BY id');
+    const nativeBefore = await owner.all('SELECT * FROM public.__app_migrations ORDER BY id');
     const db = await openDatabase(fixture.runtimeUrl, {manifest:older});
     try {
       const family = randomUUID(), user = randomUUID(), menu = randomUUID(), week = randomUUID();
@@ -102,7 +108,7 @@ test('older required profile reads and writes approved newer schema with restric
       await db.transaction(async tx => { assert.equal((await tx.one<{id:string}>("INSERT INTO public.families VALUES ('explicit-returning',1) RETURNING id"))?.id,'explicit-returning'); });
     } finally { await db.close(); }
     assert.deepEqual(await owner.all('SELECT * FROM public.__drizzle_migrations ORDER BY id'),before);
-    assert.equal((await owner.one<{ledger:string|null}>("SELECT to_regclass('public.__app_migrations')::text AS ledger"))?.ledger,null);
+    assert.deepEqual(await owner.all('SELECT * FROM public.__app_migrations ORDER BY id'),nativeBefore);
     await assert.rejects(openDatabase(fixture.url), {message:'Storage unavailable'}, 'runtime cannot auto-detect owner bypass');
   } finally { await owner.close(); await fixture.cleanup(); }
 });
@@ -165,7 +171,7 @@ test('native SQL dependencies execute CREATE before dependent INSERT despite rev
   try {
     await migrateDatabase(fixture.url,{manifest,sources});
     assert.deepEqual(await db.all('SELECT * FROM public.native_parent'),[{id:7}]);
-    assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM public.__app_migrations'))?.n,2);
+    assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM public.__app_migrations'))?.n,compatibility.migrations.filter(row=>!row.legacy).length+2);
     await migrateDatabase(fixture.url,{manifest,sources});
     assert.deepEqual(await db.all('SELECT * FROM public.native_parent'),[{id:7}]);
     const opened=await openDatabase(fixture.url,{manifest,ownerTooling:true});await opened.close();
