@@ -40,7 +40,7 @@ export function mountRunnerCanvas(canvas: HTMLCanvasElement, section: HTMLElemen
     if (!context || !loaded || !image || disposed) return;
     const width = Math.max(1, canvas.getBoundingClientRect().width);
     const dpr = window.devicePixelRatio || 1;
-    const height = width * WORLD_HEIGHT / WORLD_WIDTH;
+    const height = Math.max(1, canvas.getBoundingClientRect().height);
     if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
       canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
     }

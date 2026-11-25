@@ -36,8 +36,8 @@ export default function TRexRunner({ requestId, initial, canAutoStart, onHide }:
       }}>Hide game</button>
     </div>
     <p id="t-rex-instructions" className="mt-3 text-sm leading-relaxed text-stone-700">Press Space on the game or use Jump to clear a cactus. After a collision, Jump restarts.</p>
-    <div className="mt-4 flex min-h-32 items-center justify-center rounded-lg bg-stone-50">
-      <canvas id="t-rex-surface" ref={canvas} tabIndex={0} width={600} height={150}
+    <div className="mt-4 flex items-center justify-center rounded-lg bg-stone-50">
+      <canvas id="t-rex-surface" ref={canvas} tabIndex={0} width={600} height={120}
         aria-label="T-Rex jumping game" aria-describedby="t-rex-instructions t-rex-status"
         data-mode={view.mode} data-y={view.y} data-score={view.score}
         onKeyDown={event => {
@@ -45,7 +45,7 @@ export default function TRexRunner({ requestId, initial, canAutoStart, onHide }:
             event.preventDefault(); controller.current?.jump(event.repeat);
           }
         }}
-        className="block aspect-4/1 w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800">
+        className="block aspect-5/1 w-full rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800">
         A dinosaur jumping game. Use the Jump, Pause, Resume and Hide controls below.
       </canvas>
     </div>

@@ -163,7 +163,7 @@ try {
     const metrics = await send<{ contentSize: { width: number; height: number } }>('Page.getLayoutMetrics');
     const screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png', captureBeyondViewport: true,
       clip: { x: 0, y: 0, width: metrics.contentSize.width, height: metrics.contentSize.height, scale: 1 } });
-    await writeFile(filename, Buffer.from(screenshot.data, 'base64'));
+    await writeFile(join(profile, filename.split('/').at(-1)!), Buffer.from(screenshot.data, 'base64'));
   }
   async function key(key: string, code: string, windowsVirtualKeyCode: number, text?: string) {
     await send('Input.dispatchKeyEvent', { type: 'keyDown', key, code, windowsVirtualKeyCode, ...(text ? { text } : {}) });
@@ -184,6 +184,10 @@ try {
     holdSearch = true;
     await submitQuery(query, activation);
     await waitFor('Boolean(document.querySelector("#t-rex-surface"))');
+    // React may paint the game before CDP delivers the intercepted request event.
+    for (let attempt = 0; attempt < 220 && !heldRequest; attempt++) {
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
     assert.ok(heldRequest);
   }
   async function finishQuery() {
@@ -250,6 +254,7 @@ try {
     assert.equal(runningResources.observers, baseline.observers + 1);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
     assert.ok(await evaluate('Math.abs(document.querySelector("#t-rex-surface").getBoundingClientRect().width-document.querySelector("#t-rex-surface").parentElement.getBoundingClientRect().width)<1'), 'game fills available content width');
+    assert.ok(await evaluate('(() => {const c=document.querySelector("#t-rex-surface"), r=c.getBoundingClientRect(); return Math.abs(r.width/r.height-5)<0.02 && Math.abs(c.width/c.height-5)<0.1 && Math.abs(r.height-c.parentElement.getBoundingClientRect().height)<1;})()'), 'shorter full-width canvas and backing store share a 5:1 ratio, with no minimum-height padding');
     assert.ok(await evaluate('[...document.querySelectorAll("[aria-labelledby=t-rex-title] button")].every(x=>x.getBoundingClientRect().width>=44&&x.getBoundingClientRect().height>=44)'));
     const pixels = await evaluate(`(() => {const c=document.querySelector('#t-rex-surface');return [...c.getContext('2d').getImageData(0,0,c.width,c.height).data].filter((x,i)=>i%4===3&&x>0).length;})()`);
     assert.ok(Number(pixels) > 100, 'actual original sprites draw visible pixels');
@@ -522,13 +527,15 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("h1").length'), 1);
     assert.equal(await evaluate('document.querySelector("button").textContent.trim()'), 'Continue with Google');
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
-    for (let step = 0; step < 5 && await evaluate('document.activeElement.tagName') !== 'BUTTON'; step++) {
+    const tabStops = Number(await evaluate('document.querySelectorAll("a[href],button").length'));
+    for (let step = 0; step <= tabStops && await evaluate('document.activeElement.tagName') !== 'BUTTON'; step++) {
       await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
       await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'Tab', code: 'Tab', windowsVirtualKeyCode: 9 });
     }
     assert.equal(await evaluate('document.activeElement.tagName'), 'BUTTON');
+    assert.equal(await evaluate('document.activeElement.textContent.trim()'), 'Continue with Google');
     let screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
-    if (width === 320 || width === 1440) await writeFile(`org/reviews/t-rex-main-integration-sign-in-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+    if (width === 320 || width === 1440) await writeFile(join(profile, `t-rex-main-integration-sign-in-${width}.png`), Buffer.from(screenshot.data, 'base64'));
     await send('Network.setCookies', { cookies: [...jar.values].map(([name, value]) => ({ name, value, url: app.origin, httpOnly: true, sameSite: 'Lax' })) });
     await navigate(`${app.origin}/`);
     assert.equal(await evaluate('document.querySelector("h1").textContent'), 'Meal Planner');
@@ -547,7 +554,7 @@ try {
     assert.equal(await evaluate('document.querySelectorAll("h1").length'), 1);
     assert.ok(await evaluate('document.documentElement.scrollWidth <= innerWidth'));
     screenshot = await send<{ data: string }>('Page.captureScreenshot', { format: 'png' });
-    if (width === 320 || width === 1440) await writeFile(`org/reviews/t-rex-main-integration-results-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+    if (width === 320 || width === 1440) await writeFile(join(profile, `t-rex-main-integration-results-${width}.png`), Buffer.from(screenshot.data, 'base64'));
     const initialRequests = searchRequests;
     fixtureRecipes = dinnerRecipes;
     await submitQuery('Easy vegetarian dinners');
@@ -643,7 +650,7 @@ try {
   assert.equal(errors.filter(error => error === expectedHttpError).length, 10, 'two intentional fixture 429s are reported at each width');
   const unexpectedErrors = errors.filter(error => error !== expectedHttpError);
   assert.deepEqual(unexpectedErrors, []);
-  console.log(JSON.stringify({ recipeResults: 'browser response fixture; real HTTPS publisher image; no LLM calls', browser: 'isolated headless Google Chrome', results, logout: 'passed', googleButtonThroughMockedProvider: 'passed', intentionalFixtureHttp429s: 10, consoleAndNetworkErrors: unexpectedErrors }, null, 2));
+  console.log(JSON.stringify({ recipeResults: 'browser response fixture; real HTTPS publisher image; no LLM calls', browser: 'isolated headless Google Chrome', screenshots: profile, results, logout: 'passed', googleButtonThroughMockedProvider: 'passed', intentionalFixtureHttp429s: 10, consoleAndNetworkErrors: unexpectedErrors }, null, 2));
 } finally {
   socket?.close();
   await server?.stop();
