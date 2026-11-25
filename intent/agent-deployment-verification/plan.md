@@ -49,7 +49,7 @@ feature entry disabled until its dependencies are complete. Tests and existing
 Google behavior must remain usable at each checkpoint. Slices target at most
 five implementation/test files; metadata updates form their own adjacent slice.
 
-1. [ ] **Bind the build and runtime target** (depends: none).
+1. [x] **Bind the build and runtime target** (depends: none).
    Add `lib/verification/target.ts`, `scripts/build-verification-manifest.ts` and
    `tests/verification/target.test.ts`; wire package scripts and ignore the
    generated `.verification/build-manifest.json`. Generate a disabled manifest
@@ -62,7 +62,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    and trace it into packaged output; generate before dev/typecheck/build so static
    imports exist without a runtime generator or secrets in builds.
 
-2. [ ] **Prove the relational migration** (depends:1).
+2. [x] **Prove the relational migration** (depends:1).
    Add the initial UUIDv4-named `drizzle/postgresql/fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql`
    and its additive compatibility correction named above, with strict
    `tests/verification/migration.test.ts` plus fixture support. Its descriptor
@@ -73,7 +73,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    repeat/concurrent migration, and old-artifact rejection on the new catalog.
    Run only on restricted-role owned disposable databases, never development.
 
-3. [ ] **Review catalog and effective privileges** (depends:2).
+3. [x] **Review catalog and effective privileges** (depends:2).
    Update `drizzle/postgresql/compatibility.json`, its final catalog profile and
    `lib/db/security.ts` only as needed for supported column grants; add focused
    `tests/migrations/security.test.ts` cases. Do not append the native migration
@@ -83,7 +83,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    validator exception is planned. Obtain independent SQL/security review before
    using the migration outside disposable fixtures.
 
-4. [ ] **Represent actual member kinds** (depends:2–3).
+4. [x] **Represent actual member kinds** (depends:2–3).
    Update `lib/db/schema.ts`, `lib/identity-access.ts` and add
    `tests/verification/identity.test.ts`. Use strict Google/verification row and
    principal discriminants, not a generally nullable Google identity. Existing
@@ -94,11 +94,11 @@ five implementation/test files; metadata updates form their own adjacent slice.
    a grant/run exists. Test null/check/FK failures, forged member IDs, cross-run
    access, expired scope and unchanged pending-invite/Google admission behavior.
 
-- [ ] **Checkpoint A:** migration/security/identity focused tests pass; existing
+- [x] **Checkpoint A:** migration/security/identity focused tests pass; existing
   family storage/admission tests pass and typecheck remains strict. Review the
   schema/grant artifacts before building the exchange on them.
 
-5. [ ] **Bound verification database work** (depends:3–4).
+5. [x] **Bound verification database work** (depends:3–4).
    Add a narrowly named deadline-aware transaction entry in
    `lib/db/connection.ts` and tests in `tests/verification/deadline.test.ts`.
    Preserve existing transaction callers/defaults. Bound pool acquisition,
@@ -109,7 +109,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    capability/session rows never appear later, pools recover and no lock remains.
    If the pinned driver cannot prove this contract, stop for design correction.
 
-6. [ ] **Exchange capabilities and read revocable sessions** (depends:4–5).
+6. [x] **Exchange capabilities and read revocable sessions** (depends:4–5).
    Add `lib/verification/store.ts`, `lib/verification/cookies.ts` and
    `tests/verification/session.test.ts`. Use CSPRNG256-bit secrets and SHA256
    digests, five-minute capability/nonce limits, fixed fifteen-minute session
@@ -119,7 +119,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    Test simultaneous redemption, digest collision handling, expiry, replay,
    revoked member/run, storage failures, cookie conflicts and actual rollback.
 
-7. [ ] **Deliver operator issue/revoke/cleanup CLI** (depends:1–6).
+7. [x] **Deliver operator issue/revoke/cleanup CLI** (depends:1–6).
    Add `scripts/verification-access.ts`, `lib/verification/operator.ts` and
    `tests/verification/operator.test.ts`. Read operator connection credentials
    only from private environment/config, validate recorded Preview target and
@@ -130,7 +130,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    cleanup in FK order; reject mixed-family records or unexpected row counts.
    Preserve sanitized counts/evidence and no secret-bearing stdout/errors.
 
-8. [ ] **Integrate typed shared sessions and logout** (depends:4,6).
+8. [x] **Integrate typed shared sessions and logout** (depends:4,6).
    Update `lib/session.ts`, `lib/family.ts`, auth logout route and
    `tests/verification/admission.test.ts`. Retain current Google cryptographic
    identity and callback-only email update; add independent raw verification
@@ -140,11 +140,11 @@ five implementation/test files; metadata updates form their own adjacent slice.
    Logout revokes the current verification session before clearing cookies;
    invalid/expired cookies may be cleared without restoring lost admission.
 
-- [ ] **Checkpoint B:** operator lifecycle/session/deadline tests pass against
+- [x] **Checkpoint B:** operator lifecycle/session/deadline tests pass against
   owned local fixtures; existing Google HTTP/session tests pass. No public entry
   is enabled yet. Independently review deadline cancellation and issuer secrecy.
 
-9. [ ] **Expose the guarded browser entry** (depends:1,5–8).
+9. [x] **Expose the guarded browser entry** (depends:1,5–8).
    Add `app/verification/page.tsx`, exact session API route,
    `lib/verification/http.ts`, `tests/verification/http.test.ts`, and the exact
    Proxy matcher/entry amendment. If five-file sizing is exceeded, split matcher
@@ -159,7 +159,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
    Assert401/400/403/404/405/408/421/429/503 behavior, Allow and headers; no trust
    in forwarded identity. Success303 goes only to canonical `/`.
 
-10. [ ] **Preserve menu authority for both principal kinds** (depends:8–9).
+10. [x] **Preserve menu authority for both principal kinds** (depends:8–9).
     Update `lib/menu/http.ts`, `lib/menu/store.ts`, menu API route and
     `tests/verification/menu.test.ts`. Google retains raw JWE expiry/current
     token/subject/email binding. Verification independently matches raw cookie
@@ -169,7 +169,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
     Test direct methods/405, cross-family IDs, removed session/run and unfinished
     menu bodies. Preserve existing exact-menu exemption and all Google assertions.
 
-11. [ ] **Cover family summary and explicit denied flows** (depends:8).
+11. [x] **Cover family summary and explicit denied flows** (depends:8).
     Update `lib/family-store.ts`, family page/controls and
     `tests/verification/family.test.ts`. Display derived synthetic member labels,
     never a fake verified email; retain strict Google displays. Narrow Google-only
@@ -179,7 +179,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
     changes into small commits if necessary; enumerate
     them in evidence. UI controls may reflect denied scope but cannot enforce it.
 
-12. [ ] **Support plans without broadening background eligibility** (depends:10).
+12. [x] **Support plans without broadening background eligibility** (depends:10).
     Update `lib/plans/store.ts`, `lib/plans/generate.ts`, operator scoped generation
     adapter and `tests/verification/plans.test.ts`. Use the central typed resolver
     for read/approve/suggest actions and current transaction admission. Seed a
@@ -188,11 +188,11 @@ five implementation/test files; metadata updates form their own adjacent slice.
     dedicated scope may include one current run. Test expired/revoked runs,
     unrelated-family scans, two-member collaboration and unchanged Google plans.
 
-- [ ] **Checkpoint C:** Google plus synthetic admission/menu/family/plans suites,
+- [x] **Checkpoint C:** Google plus synthetic admission/menu/family/plans suites,
   lint/typecheck/build pass. Prove malformed allowlists deny all new entry/read
   paths. Independent security review covers every route/store/delegation path.
 
-13. [ ] **Make staging evidence truthful** (depends:9–12).
+13. [x] **Make staging evidence truthful** (depends:9–12).
     Update `tests/deployment/staging.ts`, its tests and active staging/release
     runbooks. Introduce explicit synthetic-app proof separately from real Google
     allowed/denied callbacks, local fixtures, providers and platform bypass.
@@ -201,7 +201,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
     run/member labels, exact source/deployment/profile, versions and actual gaps.
     Keep Google evidence or explicit owner release-gap acceptance separately gated.
 
-14. [ ] **Exercise ordinary-browser and packaged behavior** (depends:13).
+14. [x] **Exercise ordinary-browser and packaged behavior** (depends:13).
     Add strict `tests/verification/server.ts`, `browser.ts` and packaged tests.
     Fixtures own random DB/server/profile and force empty paid keys. Use test-
     process-only platform/build fixtures with isolated Preview-like builds and
@@ -213,7 +213,7 @@ five implementation/test files; metadata updates form their own adjacent slice.
     verify deadline response plus delayed DB/pool observations. Packaged runtime
     works without issuer, tests, migration SQL or source tooling.
 
-15. [ ] **Finalize local delivery** (depends:14).
+15. [x] **Finalize local delivery** (depends:14).
     Update README, active AGENTS policy amendment and feature evidence/runbook;
     complete commands below and independent code/security review. Fix findings,
     repeat affected checks and record exact source/command exits. Stop at reviewed
@@ -259,7 +259,7 @@ compiler suppression is authorized. Every application helper/test is TypeScript.
 
 ```text
 pnpm install --frozen-lockfile
-node --import tsx --test tests/verification/*.test.ts
+node --import tsx --test --test-concurrency=1 tests/verification/*.test.ts
 pnpm run test:migrations
 pnpm run lint
 pnpm run typecheck
@@ -362,3 +362,12 @@ approved `allowFixtureSeed: true` inspection record and seeds only the fixed v1
 two-snapshot/one-draft fixture into the new run family. Empty issuance remains
 the default; no arbitrary JSON/SQL/provider input is accepted. This implements
 the approved reviewed-fixture alternative for plan coverage.
+
+## Completed local verification
+
+All implementation slices and checkpoints are complete. See `verification.md`
+for actual command exits/counts, final Chrome evidence, independent reviews and
+the Firefox/Safari and hosted-readiness limits. Serial test-file execution keeps
+owned Preview builds bounded without omitting tests. Hosted use still requires
+separate approval of both new native migrations, grants, data/issuance scope,
+platform ingress and deployment; no shared or hosted database was migrated.

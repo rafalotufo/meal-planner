@@ -23,7 +23,7 @@ nodes:
     stage: build
     artifact: agent-deployment-verification
     gate: pr_merge_approval
-    status: in_progress
+    status: in_review
     done_status: merged
   release:
     stage: deploy
