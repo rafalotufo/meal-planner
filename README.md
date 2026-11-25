@@ -67,8 +67,9 @@ or fetch a recipe/photo on the server.
 This feature adds PostgreSQL migration `0001_saved_recipe_menu` and its narrow
 runtime SELECT/INSERT/DELETE grant. Runtime never migrates schema. Apply reviewed
 migrations explicitly through the existing operator workflow before running a
-new build against an older database; the exact runtime catalog fails closed
-until schema/history match. This branch's local tests migrate only disposable
+new build against an older database. Runtime requires its immutable migration
+IDs and an exact reviewed schema/security profile; unknown additions fail closed.
+This branch's local tests migrate only disposable
 test databases. Development and hosted migrations, deployment and promotion
 remain separate authorized operations. The original hosted provisioning verifier
 expects empty targets and is not a populated-data upgrade runbook.
@@ -362,6 +363,7 @@ volumes. Database files persist through stop/start and Mac restarts.
 pnpm run db:status
 pnpm run db:stop    # only this project's cluster; preserves data
 pnpm run db:start   # start on demand, including after restarting the Mac
+pnpm run db:check   # read-only history/schema/runtime-permission diagnosis
 pnpm run db:migrate # explicit reviewed migrations; never runs on requests/build
 ```
 
@@ -375,10 +377,41 @@ reviewed setup if another development project already owns these role/database n
 Runtime requires server-only `DATABASE_URL`; migrations use the schema-owner
 `MIGRATION_DATABASE_URL`. Builds need no database/secrets. Missing/unmigrated,
 changed-history or unexpected-schema databases fail closed. `drizzle/postgresql/`
-contains reviewed SQL, journal and catalog signature, included explicitly in Next
-server traces. Catalog verification includes columns/constraints/indexes, functions,
-triggers and row-security flags/policies. The original SQLite SQL/journal/snapshot
-are historical evidence and never executed by the new runtime.
+contains reviewed SQL, legacy journal/checksum evidence and bundled compatibility
+metadata. Runtime validation needs no SQL files or source tree. It checks required
+columns, constraints, indexes, ownership, effective table/column privileges,
+ledger security, functions, triggers and row-security state. The current finite
+profiles reject application functions, custom triggers and policies; adding them
+requires a new reviewed contract. The original SQLite SQL/journal/snapshot are
+historical evidence and never executed by the new runtime.
+
+Migration identity uses stable UUIDs and immutable checksums, with explicit
+dependencies and digest-bound reviews for independent migration pairs. The
+existing `__drizzle_migrations` rows keep their original IDs, hashes and timestamps.
+Future UUID-native migrations use a separate ledger; existing rows are never
+renumbered, rewritten or backfilled. Pending SQL and its ledger records execute
+atomically under the migration advisory lock. Runtime grants and final validation
+are part of that same explicit transaction.
+
+An application can accept additional migrations only when its reviewed manifest
+covers their identities, checksums, dependencies, independence and exact combined
+schema/security effects. An older branch obtains this trust through a reviewed
+source backport, rebuild and restart. For pre-curation application code, that
+backport also needs curation-aware meal-generation and suggestion/acceptance
+filters so unfinished saved links cannot become meals. A checksum observed in
+the database is not compatibility approval. Unmodified older binaries still
+fail closed. See the [design](intent/dependency-aware-migrations/spec.md),
+[Drizzle evaluation](intent/dependency-aware-migrations/tooling-assessment.md) and
+[local adoption/troubleshooting guide](intent/dependency-aware-migrations/local-adoption.md).
+
+For an already configured native database, run `pnpm run db:check` first. It uses
+the runtime credential and a bounded read-only snapshot; it never migrates.
+Success means the reviewed application can use that state. Operator failures
+distinguish database-ahead, missing dependencies, checksum/identity mismatches,
+incompatible schema, connection and permission problems using sanitized fixed
+messages. Public application errors remain generic. If required SQL is missing
+from the database, separately authorize the exact target/pending migrations and
+verify a backup before `db:migrate`; this feature does not authorize that action.
 
 Typed native `pg` queries and the public Drizzle migration loader preserve strict
 checking. The pinned ORM's PostgreSQL entry point independently reproduced 70
@@ -392,6 +425,9 @@ client queries. Global mutation serialization is a deliberate small-app tradeoff
 ### Tests and backups
 
 After build, `pnpm run test:family` and `pnpm run test:auth` use real PostgreSQL.
+`pnpm run test:migrations` exercises dependency order, independent branches,
+rollback, concurrent runs and fail-closed schema/security checks on disposable
+databases; it also characterizes the pinned Drizzle migrator's ordering limits.
 They load the dedicated `TEST_DATABASE_URL` from the ignored development config,
 require loopback and the `mp_test` role, create random `mp_test_<hex>` databases,
 and clean up only their own databases after checking ownership. They never reset
