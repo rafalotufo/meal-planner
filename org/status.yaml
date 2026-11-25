@@ -2,7 +2,7 @@ version: 1
 agents:
   orchestrator: { status: busy, assignment: recipe-url-menu-main-local-recovery, last_report: "Saved-menu merged main; Production9a7V/source1788143 live,15-minute health and final reconciliation pass; accepted hosted gaps explicit." }
   product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
-  architect: { status: idle, assignment: null, last_report: Async specification approved by owner; design work complete }
+  architect: { status: busy, assignment: dependency-aware-migrations-design, last_report: Async specification approved by owner; design work complete }
   senior-developer: { status: idle, assignment: null, last_report: All combined suites/browser QA pass; no native writes; owner sign-in works }
   security-researcher: { status: idle, assignment: null, last_report: "Integration security clear exact14fabbc; native observation honest, no apply needed" }
   reviewer: { status: idle, assignment: null, last_report: Integration source/recovery handoff approved; owner local-main gate ready }

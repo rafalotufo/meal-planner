@@ -1,0 +1,17 @@
+version: 1
+max_turns: 8
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: true
+review_artifact: recipe-url-menu-main-local-recovery
+human_gates: [code_owner_approve, release_authorization]
+acceptance:
+  commands: ["git diff --check"]
+phases:
+  intent: { role: reviewer, action: approve_integration_plan, next: implement }
+  implement: { role: senior-developer, action: integrate_and_verify, next: security }
+  security: { role: security-researcher, action: assess_integration, next: code_review }
+  code_review: { role: reviewer, action: review_integration_source, next: local_cutover }
+  local_cutover: { role: orchestrator, action: verify_compatible_native_and_restart, next: review }
+  review: { role: reviewer, action: review, next: done }
+  done: { role: null, action: null, next: null }
