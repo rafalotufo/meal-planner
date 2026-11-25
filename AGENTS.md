@@ -127,8 +127,11 @@ independent review, and human merge/release gates. Report actual command output
 and verify visible UI in a real browser at mobile and desktop widths. Python
 unittest covers workflow tooling. Node's built-in runner covers authentication
 through real HTTP and a test-process-only Google transport fixture; production
-code must never import it or add a fake-user bypass. Sessions expire after one
-hour without refresh; browser logout cannot revoke copied cookies before expiry.
+code must never import it or add a fake-user bypass. New Google sessions expire
+after a fixed 30 days without refresh; existing sessions retain their signed expiry.
+The separate Google account-data cookie remains one hour; staging verification
+durations stay unchanged. Browser logout cannot revoke copied cookies before expiry,
+potentially up to 30 days for new Google sessions, subject to current admission checks.
 The dev-only `bun-types/sqlite` ambient declaration supports Better Auth's public
 types; keep Node/React types and strict checks. Never suppress
 checks or remove failing tests to get a passing run. After fixture development QA has

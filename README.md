@@ -153,8 +153,11 @@ is also mandatory for the recipe home/search endpoint, before any paid provider
 work; pending onboarding identities cannot search.
 
 Sessions use encrypted HttpOnly, SameSite=Lax, host-only cookies, Secure on HTTPS.
-They expire after one hour without refresh. Logout clears the current browser's
-auth and invitation-context cookies, including after admission loss; it cannot revoke a previously copied cookie before expiry. Rotate
+New Google sessions expire after a fixed 30 days without refresh. Existing sessions
+keep their original signed expiry; sign in again to obtain the longer lifetime.
+The separate Google account-data cookie remains limited to one hour and is not
+required to keep the application session active. Logout clears the current browser's
+auth and invitation-context cookies, including after admission loss; it cannot revoke a previously copied cookie before expiry, potentially up to 30 days for new sessions, subject to current admission checks. Rotate
 `BETTER_AUTH_SECRET` to invalidate all sessions in an emergency. Google access
 uses identity scopes only; no offline/refresh-token access is requested.
 
