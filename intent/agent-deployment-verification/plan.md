@@ -1,8 +1,9 @@
 # Agent deployment verification — implementation plan
 
 - Author: senior-developer; date: 2026-11-25
-- Status: Draft
+- Status: Independently security- and peer-reviewed; pending owner plan approval
 - Inputs: approved sibling `spec.md`, gate `agent-verification-spec-2026-11-25`, security recheck002 and specification peer review001.
+- Plan reviews: `org/reviews/agent-deployment-verification-plan-security-001.md` and `org/reviews/agent-deployment-verification-plan-001.md`.
 - Scope: implementation planning only; owner plan approval precedes code. This checklist is the single task list for the feature.
 
 ## Delivery and authority
