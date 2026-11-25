@@ -1,10 +1,10 @@
 version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: "Owner-approved localmain merged, built and running localhost3000; finalreviewb74303f; database unchanged, no push/hosted/deploy" }
-  product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
+  product-manager: { status: idle, assignment: null, last_report: Drafted intent/options; staging-first synthetic capability direction pending owner scope acceptance }
   architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
   senior-developer: { status: idle, assignment: null, last_report: Combinedmain49e2a646 verified295Node+7Python and bothChrome; T-Rex/migration source preserved }
-  security-researcher: { status: idle, assignment: null, last_report: Approved exactef5d85e;36 independent tests/probes pass; named fixture cleanup rejected and preserved }
+  security-researcher: { status: busy, assignment: intent/agent-deployment-verification/options.md, last_report: Approved exactef5d85e;36 independent tests/probes pass; named fixture cleanup rejected and preserved }
   reviewer: { status: idle, assignment: null, last_report: "review dependency-aware-migrations-main-final-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

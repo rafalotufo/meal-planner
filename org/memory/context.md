@@ -4,14 +4,14 @@
 
 ## Goal
 
-intent/dependency-aware-migrations/intent.md
+intent/agent-deployment-verification/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 5
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: security
+- stop_reason: None
 
 ## Agents
 
@@ -104,6 +104,7 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0145 orchestrator -> reviewer handoff: Review verified combined main integration source
 - orchestrator-0146 orchestrator -> reviewer handoff: Review completed approved local main adoption
 - orchestrator-0147 orchestrator -> ceo status: Local main merged and running with dependency-aware migrations
+- orchestrator-0148 orchestrator -> product-manager handoff: Explore Google-free deployment verification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -123,11 +124,11 @@ intent/dependency-aware-migrations/intent.md
 
 ## Recent decisions
 
-- mem-0155 orchestrator: Historical mem-0139 import from feature tip: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
 - mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
 - mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 - mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 - mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
+- mem-0164 orchestrator: Owner requested Google-free ordinary-browser deployment-verification intent exploration. Preserve completed dependency-aware-migrations loop and graph under org/loop/archive/dependency-aware-migrations-before-agent-verification-2026-11-25; new work item is intent/agent-deployment-verification/intent.md. No runtime, hosted, paid or release actions authorized. (org/messages/orchestrator-0148.md)
 
 ## Constraints
 
@@ -135,19 +136,15 @@ intent/dependency-aware-migrations/intent.md
 
 ## Artifacts
 
-- org/reviews/dependency-aware-migrations-main-plan-001.md (c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4)
-- intent/dependency-aware-migrations/main-integration-verification.md (3f7282447ee601aef9cd1902c242ef9c0f97ce0584640b0377c2ea1e737d2d44)
-- org/reviews/dependency-aware-migrations-main-source-001.md (27e9a0f8eebf479d4019e81826e9dd87b0bf046e419a5418f7e3687ae0298b6c)
-- intent/dependency-aware-migrations/local-main-result.md (860f573c81c08a9b5ee6ac7d1d6bf80aaad730c59163f1df98fec2771582ea50)
-- org/reviews/dependency-aware-migrations-main-final-001.md (658e48a8d89fb4e1f01b0dccafad55a2005a586e6a59c87b36f4d4830202a5db)
+- intent/agent-deployment-verification/options.md (cfdaf750c6871bfad149b6a4620ecdaee7b161ee17d444ed099b5b61eafb85c1)
 
 ## Next action
 
-reviewer:review
+product-manager:capture_intent_and_options
 
 ## Last digest source
 
-- mem-0163 from intent/dependency-aware-migrations/local-main-result.md
+- mem-0164 from org/messages/orchestrator-0148.md
 
 <!-- machine:end -->
 

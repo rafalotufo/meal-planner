@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/dependency-aware-migrations/intent.md
-base_commit: 4f4483876ffbf1d68174a17e8658af1f7ca26ab0
-turn: 5
+work_item: intent/agent-deployment-verification/intent.md
+base_commit: e4b8c954f6e2cab63c39216cef794187a227d79e
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: eedf9f7addc7e0d1051d1aaf9de41f3d7712b9b6bd171bb4cb4a4e0a105a0d28
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "org/reviews/dependency-aware-migrations-main-plan-001.md", "sha256": "c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4"}, {"path": "intent/dependency-aware-migrations/main-integration-verification.md", "sha256": "3f7282447ee601aef9cd1902c242ef9c0f97ce0584640b0377c2ea1e737d2d44"}, {"path": "org/reviews/dependency-aware-migrations-main-source-001.md", "sha256": "27e9a0f8eebf479d4019e81826e9dd87b0bf046e419a5418f7e3687ae0298b6c"}, {"path": "intent/dependency-aware-migrations/local-main-result.md", "sha256": "860f573c81c08a9b5ee6ac7d1d6bf80aaad730c59163f1df98fec2771582ea50"}, {"path": "org/reviews/dependency-aware-migrations-main-final-001.md", "sha256": "658e48a8d89fb4e1f01b0dccafad55a2005a586e6a59c87b36f4d4830202a5db"}]
+phase: security
+status: in_progress
+last_input_hash: da35728ab933611c13c6784f75d6149dd052eda368de1087f3995b87a9638cd2
+stop_reason: null
+last_action: "product-manager:capture_intent_and_options"
+artifacts: [{"path": "intent/agent-deployment-verification/options.md", "sha256": "cfdaf750c6871bfad149b6a4620ecdaee7b161ee17d444ed099b5b61eafb85c1"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T01:20:35Z"
+updated_at: "2026-11-25T13:10:42Z"
