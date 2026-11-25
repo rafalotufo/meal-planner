@@ -184,6 +184,10 @@ try {
     holdSearch = true;
     await submitQuery(query, activation);
     await waitFor('Boolean(document.querySelector("#t-rex-surface"))');
+    // React may paint the game before CDP delivers the intercepted request event.
+    for (let attempt = 0; attempt < 220 && !heldRequest; attempt++) {
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
     assert.ok(heldRequest);
   }
   async function finishQuery() {

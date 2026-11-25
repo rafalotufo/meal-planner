@@ -51,7 +51,7 @@ async function main(){
   if(await verifyBackup(audit.backup)!==audit.backupSha)fail('backup-digest-mismatch');
   await checkOld(client);if(JSON.stringify(await fullLedger(client))!==JSON.stringify(audit.historyRows))fail('native-ledger-changed-since-backup');if(JSON.stringify(await fingerprint(client,audit.tables))!==JSON.stringify(audit.before))fail('native-data-changed-since-backup');
   if(runtimeMigrations.length!==5||JSON.stringify(runtimeMigrations.slice(0,4))!==JSON.stringify(oldMetadata))fail('candidate-prefix-mismatch');
-  const child=await exec(process.execPath,['--env-file=.env.local','--import','tsx','scripts/migrate-db.ts'],{env:{...process.env,OPENAI_API_KEY:''},maxBuffer:1048576});
+  await exec(process.execPath,['--env-file=.env.local','--import','tsx','scripts/migrate-db.ts'],{env:{...process.env,OPENAI_API_KEY:''},maxBuffer:1048576});
   const finalRows=await fullLedger(client);if(JSON.stringify(finalRows.slice(0,4))!==JSON.stringify(audit.historyRows))fail('post-migration-original-ledger-row-drift');const current=await ledger(client);if(JSON.stringify(current)!==JSON.stringify(runtimeMigrations))fail('post-migration-history-mismatch');
   if(JSON.stringify(await fingerprint(client,audit.tables))!==JSON.stringify(audit.before))fail('post-migration-data-drift');
   const db=await openDatabase(runtime.href);await db.close();
