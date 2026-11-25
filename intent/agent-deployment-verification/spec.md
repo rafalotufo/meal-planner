@@ -1,7 +1,8 @@
 # Agent deployment verification — specification
 
 - Author: architect; date: 2026-11-25
-- Status: Independently security- and peer-reviewed; pending owner spec approval
+- Status: Approved by Rafael on 2026-11-25; gate agent-verification-spec-2026-11-25
+- Issuance clarification accepted: the local operator command writes to the approved remote staging database over verified TLS; it does not redeploy the application. Hosted execution remains separately gated.
 - Inputs: accepted sibling intent/options; security assessment `org/reviews/agent-deployment-verification-security-001.md`
 - Independent Design reviews: `org/reviews/agent-deployment-verification-spec-security-002.md` and `org/reviews/agent-deployment-verification-spec-001.md` (implementation obligations remain mandatory for the plan)
 - Approval boundary: local implementation needs an approved plan; hosted schema/configuration/data/deployment changes need separate exact-scope authority.

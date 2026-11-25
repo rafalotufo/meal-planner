@@ -1,9 +1,9 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Design complete with independent security/peer review; owner spec approval required before implementation planning; no code/hosted effects }
+  orchestrator: { status: busy, assignment: intent/agent-deployment-verification/plan.md, last_report: Design complete with independent security/peer review; owner spec approval required before implementation planning; no code/hosted effects }
   product-manager: { status: idle, assignment: null, last_report: Intent/options peer-reviewed for owner consideration; scope and issuance decisions pending }
   architect: { status: idle, assignment: null, last_report: Revised specification independently security/peer-reviewed; pending owner spec approval }
-  senior-developer: { status: idle, assignment: null, last_report: Combinedmain49e2a646 verified295Node+7Python and bothChrome; T-Rex/migration source preserved }
+  senior-developer: { status: busy, assignment: intent/agent-deployment-verification/plan.md, last_report: Combinedmain49e2a646 verified295Node+7Python and bothChrome; T-Rex/migration source preserved }
   security-researcher: { status: idle, assignment: null, last_report: "Revised Design approved for peer/owner consideration; blocker0032 resolved at Design level, implementation proof remains" }
   reviewer: { status: idle, assignment: null, last_report: "review agent-deployment-verification-spec-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

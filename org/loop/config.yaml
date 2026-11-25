@@ -3,14 +3,14 @@ max_turns: 6
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: intent/agent-deployment-verification/spec.md
-human_gates: [spec_approval, pr_merge_approval, release_authorization]
+review_artifact: intent/agent-deployment-verification/plan.md
+human_gates: [engineer_approve, pr_merge_approval, release_authorization]
 acceptance:
   commands: ["git diff --check"]
 phases:
-  intent: {role: architect, action: draft_verification_spec, next: security}
-  security: {role: security-researcher, action: assess_verification_spec, next: peer}
-  peer: {role: reviewer, action: review_verification_spec, next: owner_decision}
-  implement: {role: architect, action: revise_verification_spec, next: security}
+  intent: {role: senior-developer, action: draft_verification_plan, next: security}
+  security: {role: security-researcher, action: assess_verification_plan, next: peer}
+  peer: {role: reviewer, action: review_verification_plan, next: owner_decision}
+  implement: {role: senior-developer, action: revise_verification_plan, next: security}
   owner_decision: {role: null, action: null, next: null}
   done: {role: null, action: null, next: null}
