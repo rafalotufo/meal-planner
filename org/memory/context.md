@@ -9,8 +9,8 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: implement
+- turn: 3
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/dependency-aware-migrations/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (recipe-url-menu-main-local-recovery)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- reviewer: busy (dependency-aware-migrations-implementation)
+- security-researcher: busy (dependency-aware-migrations-security)
+- senior-developer: busy (dependency-aware-migrations-implementation)
 
 ## Open messages
 
@@ -94,6 +94,9 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
 - orchestrator-0136 orchestrator -> architect handoff: Design dependency-aware migrations and evaluate Drizzle
 - orchestrator-0137 orchestrator -> reviewer handoff: Independently review dependency-aware design and plan
+- orchestrator-0138 orchestrator -> senior-developer handoff: Implement independently approved dependency-aware migration plan
+- orchestrator-0139 orchestrator -> reviewer handoff: Review dependency-aware migration implementation
+- orchestrator-0140 orchestrator -> security-researcher handoff: Assess dependency-aware migration security
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -127,10 +130,11 @@ intent/dependency-aware-migrations/intent.md
 
 - intent/dependency-aware-migrations/spec.md (6e485ad1c06a1ef27732b4794bbe78ac3b0d3682b81b78b06a04d5e5aef2bcb8)
 - org/reviews/dependency-aware-migrations-design-001.md (8e34ce02dc0d06e1397561210b0a93a70330a6dedf9b0ed95f8e42754a2ae4a3)
+- intent/dependency-aware-migrations/verification.md (1a2e5112449e8f51ced3164c8605505665f2511e7526ca8c6c8648f5f57decbd)
 
 ## Next action
 
-reviewer:review_design_plan
+senior-developer:implement_and_verify
 
 ## Last digest source
 

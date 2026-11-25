@@ -4,8 +4,8 @@ agents:
   product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
   architect: { status: busy, assignment: dependency-aware-migrations-design, last_report: Async specification approved by owner; design work complete }
   senior-developer: { status: busy, assignment: dependency-aware-migrations-implementation, last_report: All combined suites/browser QA pass; no native writes; owner sign-in works }
-  security-researcher: { status: idle, assignment: null, last_report: "Integration security clear exact14fabbc; native observation honest, no apply needed" }
-  reviewer: { status: idle, assignment: null, last_report: "review dependency-aware-migrations-design-001: approved" }
+  security-researcher: { status: busy, assignment: dependency-aware-migrations-security, last_report: "Integration security clear exact14fabbc; native observation honest, no apply needed" }
+  reviewer: { status: busy, assignment: dependency-aware-migrations-implementation, last_report: "review dependency-aware-migrations-design-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -102,3 +102,4 @@ review_queue:
   - { id: recipe-url-menu-main-integration-code-001, artifact: recipe-url-menu-main-integration-code, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: recipe-url-menu-main-local-recovery-001, artifact: recipe-url-menu-main-local-recovery, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: dependency-aware-migrations-design-001, artifact: intent/dependency-aware-migrations/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: dependency-aware-migrations-code-001, artifact: dependency-aware-migrations-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
