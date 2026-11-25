@@ -4,9 +4,10 @@ import { open, realpath, stat, unlink } from 'node:fs/promises';
 import { dirname, isAbsolute, resolve } from 'node:path';
 import type { FamilyDatabase } from '../db/connection';
 import type { VerificationTarget } from './target';
+import { currentWeek } from '../plans/calendar';
 import { capabilityDigest, newCredential, uuidPattern } from './cookies';
 export interface VerificationHandoff { runId: string; familyId: string; expiresAt: number; members: { memberId: string; capability: string }[] }
-export async function issueVerificationRun(db: FamilyDatabase, target: VerificationTarget, scope: 'app' | 'collaboration', now = Date.now()): Promise<VerificationHandoff> {
+export async function issueVerificationRun(db: FamilyDatabase, target: VerificationTarget, scope: 'app' | 'collaboration', now = Date.now(), seedFixture = false): Promise<VerificationHandoff> {
   if (!['app','collaboration'].includes(scope)) throw new Error('Invalid verification scope');
   const runId=randomUUID(), familyId=randomUUID(), expiresAt=now+1800000;
   const members=Array.from({length:scope==='collaboration'?2:1},()=>({memberId:randomUUID(),capability:newCredential()}));
@@ -16,6 +17,11 @@ export async function issueVerificationRun(db: FamilyDatabase, target: Verificat
     for (const member of members) {
       await tx.execute("INSERT INTO app_users(id,family_id,created_at,identity_kind,verification_run_id) VALUES($1,$2,$3,'verification',$4)",[member.memberId,familyId,now,runId]);
       await tx.execute('INSERT INTO verification_capabilities(digest,run_id,member_id,created_at,expires_at) VALUES($1,$2,$3,$4,$5)',[capabilityDigest(member.capability),runId,member.memberId,now,now+300000]);
+    }
+    if (seedFixture) {
+      const recipes = [1,2].map(index => ({ title: `Verification fixture dinner ${index}`, summary: 'Synthetic fixture v1 for an isolated verification run.', sourceUrl: `https://example.com/verification-fixture-v1/dinner-${index}`, imageUrl: null, time: null }));
+      for (const recipe of recipes) await tx.execute('INSERT INTO menu_recipes(id,family_id,source_url,title,summary,saved_at) VALUES($1,$2,$3,$4,$5,$6)', [randomUUID(),familyId,recipe.sourceUrl,recipe.title,recipe.summary,now]);
+      await tx.execute('INSERT INTO meal_plan_weeks(id,family_id,week_start,meals,created_at) VALUES($1,$2,$3,$4,$5)', [randomUUID(),familyId,currentWeek(new Date(now)),JSON.stringify([recipes[0]]),now]);
     }
   });
   return {runId,familyId,expiresAt,members};
@@ -43,7 +49,7 @@ export async function cleanupVerificationRun(db: FamilyDatabase, runId: string, 
   await revokeVerificationRun(db,runId,target);
   return db.transaction(async tx=>{
     const {familyId}=await ownedRun(tx,runId,target);
-    const unsafe=await tx.one<{n:number}>(`SELECT (SELECT count(*) FROM app_users WHERE family_id=$1 AND (identity_kind<>'verification' OR verification_run_id IS DISTINCT FROM $2))+(SELECT count(*) FROM family_invitations WHERE family_id=$1)+(SELECT count(*) FROM menu_recipe_curations c JOIN menu_recipes m ON m.id=c.entry_id WHERE m.family_id=$1)+(SELECT count(*) FROM meal_plan_approvals a JOIN app_users u ON u.id=a.user_id JOIN meal_plan_weeks p ON p.id=a.plan_id WHERE u.family_id=$1 AND p.family_id<>$1)+(SELECT count(*) FROM meal_plan_suggestions s JOIN app_users u ON u.id=s.user_id JOIN meal_plan_weeks p ON p.id=s.plan_id WHERE u.family_id=$1 AND p.family_id<>$1) AS n`,[familyId,runId]);
+    const unsafe=await tx.one<{n:number}>(`SELECT (SELECT count(*) FROM app_users WHERE family_id=$1 AND (identity_kind<>'verification' OR verification_run_id IS DISTINCT FROM $2))+(SELECT count(*) FROM family_invitations WHERE family_id=$1)+(SELECT count(*) FROM menu_recipe_curations c JOIN menu_recipes m ON m.id=c.entry_id WHERE m.family_id=$1)+(SELECT count(*) FROM meal_plan_approvals a JOIN app_users u ON u.id=a.user_id JOIN meal_plan_weeks p ON p.id=a.plan_id WHERE (u.family_id=$1 AND p.family_id<>$1) OR (p.family_id=$1 AND u.family_id<>$1))+(SELECT count(*) FROM meal_plan_suggestions s JOIN app_users u ON u.id=s.user_id JOIN meal_plan_weeks p ON p.id=s.plan_id WHERE (u.family_id=$1 AND p.family_id<>$1) OR (p.family_id=$1 AND u.family_id<>$1)) AS n`,[familyId,runId]);
     if(!unsafe || unsafe.n!==0) throw new Error('Verification ownership mismatch');
     await tx.execute('DELETE FROM meal_plan_approvals WHERE plan_id IN (SELECT id FROM meal_plan_weeks WHERE family_id=$1)',[familyId]);
     await tx.execute('DELETE FROM meal_plan_suggestions WHERE plan_id IN (SELECT id FROM meal_plan_weeks WHERE family_id=$1)',[familyId]);

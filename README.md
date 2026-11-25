@@ -568,3 +568,13 @@ isolated Preview-like builds and empty provider keys. Synthetic app evidence sta
 separate from real Google OAuth, provider success and release acceptance. See the
 [feature specification](intent/agent-deployment-verification/spec.md) and
 [local implementation evidence](intent/agent-deployment-verification/implementation.md).
+
+The issuer defaults to an empty household. An operator inspection record with
+`allowFixtureSeed: true` plus the explicit `--seed-fixture` flag permits only the
+fixed reviewed v1 seed: two clearly labeled synthetic menu snapshots under
+`https://example.com/verification-fixture-v1/`, no images/provider work, and one
+current-week draft containing the first snapshot. The second snapshot supports
+a suggestion check. Setup is atomic with the new run and touches no other family.
+This is not arbitrary recipe input or a general recipe-creation endpoint. Cleanup
+revokes first and refuses cross-family approvals/suggestions before deleting only
+that run's owned rows.

@@ -356,3 +356,9 @@ Native-form refinement backed by actual Chrome headers: enabled exact GET/HEAD
 retains its exact Origin. Global no-referrer produced Origin:null with a valid
 nonce; no null-Origin exception is permitted. All other responses remain
 no-referrer, and credentials remain absent from the URL.
+
+Operator handoff refinement: optional `--seed-fixture` requires an explicitly
+approved `allowFixtureSeed: true` inspection record and seeds only the fixed v1
+two-snapshot/one-draft fixture into the new run family. Empty issuance remains
+the default; no arbitrary JSON/SQL/provider input is accepted. This implements
+the approved reviewed-fixture alternative for plan coverage.

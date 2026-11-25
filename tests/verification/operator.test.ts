@@ -19,3 +19,19 @@ test('operator issues isolated run and private handoff, refuses overwrite, then 
     assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM families'))?.n,0);
   } finally { await db.close(); await fixture.cleanup(); await rm(dir,{recursive:true,force:true}); }
 });
+test('fixed reviewed seed is opt-in and scoped to the issued household, including cleanup preservation',async()=>{
+ const fixture=await testDatabase(),db=await fixture.open();try{
+  const empty=await issueVerificationRun(db,target,'app');
+  assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM menu_recipes WHERE family_id=$1',[empty.familyId]))?.n,0);
+  const seeded=await issueVerificationRun(db,target,'app',Date.now(),true);
+  assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM menu_recipes WHERE family_id=$1',[seeded.familyId]))?.n,2);
+  assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM meal_plan_weeks WHERE family_id=$1',[seeded.familyId]))?.n,1);
+  const plan=await db.one<{id:string}>('SELECT id FROM meal_plan_weeks WHERE family_id=$1',[seeded.familyId]);assert.ok(plan);
+  await db.execute('INSERT INTO meal_plan_approvals(plan_id,user_id,revision,created_at) VALUES($1,$2,1,$3)',[plan.id,empty.members[0].memberId,Date.now()]);
+  await assert.rejects(cleanupVerificationRun(db,seeded.runId,target),/Verification ownership mismatch/);
+  await db.execute('DELETE FROM meal_plan_approvals WHERE plan_id=$1 AND user_id=$2',[plan.id,empty.members[0].memberId]);
+  await cleanupVerificationRun(db,seeded.runId,target);
+  assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM verification_runs WHERE id=$1',[empty.runId]))?.n,1);
+  assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM families WHERE id=$1',[seeded.familyId]))?.n,0);
+ }finally{await db.close();await fixture.cleanup();}
+});
