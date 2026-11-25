@@ -75,3 +75,12 @@ test('a trickle cannot reset the total body deadline', async t => {
   await result;
   assert.equal(body.locked, false);
 });
+
+test('URL save and retry use exact small request contracts with shared Origin and actual-byte limits', async () => {
+  for (const [mode, value] of [['import', { sourceUrl: snapshot.sourceUrl }], ['retry', { id: 'a53f8c90-2345-4789-9234-abcd01234567' }]] as const) {
+    assert.deepEqual(await readMenuBody(request(JSON.stringify(value)), origin, mode), value);
+    await assert.rejects(readMenuBody(request(JSON.stringify({ ...value, familyId: 'forged' })), origin, mode), invalid());
+    await assert.rejects(readMenuBody(request(JSON.stringify(value).padEnd(4097, ' ')), origin, mode), invalid());
+    await assert.rejects(readMenuBody(request(JSON.stringify(value), { Origin: '' }), origin, mode), invalid(403));
+  }
+});

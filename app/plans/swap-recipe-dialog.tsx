@@ -90,7 +90,7 @@ export default function SwapRecipeDialog({ title, plannedSources, trigger, block
   function dismiss() { dialog.current?.close(); onDismiss(); }
   const page = displayed?.page;
   const unavailable = loading || loadError !== null || !displayed || displayed.query !== query.trim() || displayed.after !== after;
-  const planned = new Set(plannedSources), choices = page?.entries.filter(entry => !planned.has(entry.recipe.sourceUrl)) ?? [];
+  const planned = new Set(plannedSources), choices = page?.entries.filter(entry => entry.curation.state === 'ready' && !planned.has(entry.recipe.sourceUrl)) ?? [];
   const selected = unavailable ? undefined : choices.find(entry => entry.id === selection);
   async function confirm() {
     if (!selected || unavailable || blocked || submittingNow.current) return;

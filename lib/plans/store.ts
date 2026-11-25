@@ -44,8 +44,8 @@ export async function actOnPlan(db: FamilyDatabase, identity: VerifiedIdentity, 
       await tx.execute('INSERT INTO meal_plan_approvals (plan_id,user_id,revision,created_at) VALUES ($1,$2,$3,$4) ON CONFLICT (plan_id,user_id) DO UPDATE SET revision=EXCLUDED.revision,created_at=EXCLUDED.created_at', [id, user.id, plan.revision, now.getTime()]);
     } else if (action.action === 'suggest') {
       if (action.day >= plan.meals.length) throw invalid();
-      const row = await tx.one<MenuRecipeRow>('SELECT id,family_id AS "familyId",source_url AS "sourceUrl",image_url AS "imageUrl",title,summary,time_kind AS "timeKind",time_text AS "timeText",saved_at AS "savedAt" FROM menu_recipes WHERE id=$1 AND family_id=$2', [action.menuRecipeId, user.familyId]);
-      if (!row) throw new FamilyError(409, 'That recipe is no longer saved. Refresh your menu.');
+      const row = await tx.one<MenuRecipeRow>('SELECT id,family_id AS "familyId",source_url AS "sourceUrl",image_url AS "imageUrl",title,summary,time_kind AS "timeKind",time_text AS "timeText",saved_at AS "savedAt" FROM menu_recipes WHERE id=$1 AND family_id=$2 AND NOT EXISTS (SELECT 1 FROM menu_recipe_curations c WHERE c.entry_id=menu_recipes.id AND c.state<>\'ready\')', [action.menuRecipeId, user.familyId]);
+      if (!row) throw new FamilyError(409, 'That recipe is not ready or is no longer saved. Refresh your menu.');
       const recipe = menuEntryFromRow(row).recipe;
       if (plan.meals.some(meal => meal.sourceUrl === recipe.sourceUrl)) throw duplicate();
       const existing = await tx.one<{ menuRecipeId: string }>(`SELECT menu_recipe_id AS "menuRecipeId" FROM meal_plan_suggestions WHERE plan_id=$1 AND base_revision=$2 AND day_index=$3 AND user_id=$4 AND status='pending'`, [id, plan.revision, action.day, user.id]);
@@ -64,8 +64,8 @@ export async function actOnPlan(db: FamilyDatabase, identity: VerifiedIdentity, 
       if (action.action === 'reject') await tx.execute("UPDATE meal_plan_suggestions SET status='rejected' WHERE id=$1", [suggestion.id]);
       else {
         if (plan.revision === maxRevision) throw conflict();
-        const menu = await tx.one<MenuRecipeRow>('SELECT id,family_id AS "familyId",source_url AS "sourceUrl",image_url AS "imageUrl",title,summary,time_kind AS "timeKind",time_text AS "timeText",saved_at AS "savedAt" FROM menu_recipes WHERE id=$1 AND family_id=$2', [suggestion.menuRecipeId, user.familyId]);
-        if (!menu) throw new FamilyError(409, 'That recipe is no longer saved. Reject this suggestion and choose another.');
+        const menu = await tx.one<MenuRecipeRow>('SELECT id,family_id AS "familyId",source_url AS "sourceUrl",image_url AS "imageUrl",title,summary,time_kind AS "timeKind",time_text AS "timeText",saved_at AS "savedAt" FROM menu_recipes WHERE id=$1 AND family_id=$2 AND NOT EXISTS (SELECT 1 FROM menu_recipe_curations c WHERE c.entry_id=menu_recipes.id AND c.state<>\'ready\')', [suggestion.menuRecipeId, user.familyId]);
+        if (!menu) throw new FamilyError(409, 'That recipe is not ready or is no longer saved. Reject this suggestion and choose another.');
         const replacement = menuEntryFromRow(menu).recipe;
         if (plan.meals.some((meal, index) => index !== suggestion.day && meal.sourceUrl === replacement.sourceUrl)) throw duplicate();
         plan.meals[suggestion.day] = replacement;

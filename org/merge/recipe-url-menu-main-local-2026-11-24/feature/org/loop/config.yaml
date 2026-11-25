@@ -1,0 +1,18 @@
+version: 1
+max_turns: 8
+max_no_progress: 2
+max_review_rounds: 2
+require_security_clear: true
+review_artifact: recipe-url-menu-implementation
+human_gates: [product_owner_accept, product_owner_approve, engineer_approve, code_owner_approve, release_authorization]
+acceptance:
+  commands: ["git diff --check"]
+phases:
+  intent: { role: senior-developer, action: verify_build_readiness, next: implement }
+  # Initial implementation/security assessment are complete. The narrow enum
+  # correction returns to review; that final review requires independent
+  # security reconfirmation as a reviewer->security consultation before approval.
+  implement: { role: senior-developer, action: implement, next: review }
+  security: { role: security-researcher, action: assess_curation_security, next: review }
+  review: { role: reviewer, action: review, next: done }
+  done: { role: null, action: null, next: null }

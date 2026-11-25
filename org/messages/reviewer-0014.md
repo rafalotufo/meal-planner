@@ -7,10 +7,12 @@ subject: Approved single-call recipe search specification
 artifact: intent/single-call-recipe-search/spec.md
 requires_response: false
 in_reply_to: null
-status: open
+status: closed
 severity: null
 blocking: false
 created_at: "2026-11-23T20:42:09Z"
+closed_by: orchestrator
+closed_evidence: org/merge/recipe-url-menu-main-local-2026-11-24/README.md
 ---
 
 Independent spec review approved with no required findings. Evidence: org/reviews/spec-single-call-recipe-search-001.md. Planning may proceed; plan/code/security and human merge/release gates remain.

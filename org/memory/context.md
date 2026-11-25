@@ -4,12 +4,12 @@
 
 ## Goal
 
-intent/searchable-swap-picker/intent.md
+intent/recipe-url-menu/intent.md
 
 ## Loop
 
 - status: solved
-- turn: 4
+- turn: 6
 - phase: done
 - stop_reason: solved
 
@@ -17,15 +17,14 @@ intent/searchable-swap-picker/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (recipe-url-menu-main-local-recovery)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (searchable-swap-picker-retained-results)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
-- architect-0010 architect -> orchestrator handoff: Shared layout spec and plan ready
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -105,64 +104,17 @@ intent/searchable-swap-picker/intent.md
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
-- reviewer-0001 reviewer -> orchestrator review: pnpm specification approved
-- reviewer-0002 reviewer -> orchestrator review: pnpm build plan approved
-- reviewer-0003 reviewer -> orchestrator review: pnpm migration implementation approved
-- reviewer-0004 reviewer -> orchestrator review: Authenticated access specification approved
-- reviewer-0005 reviewer -> orchestrator review: Authenticated access build plan approved
-- reviewer-0006 reviewer -> orchestrator review: Server-code Gmail allowlist specification and plan approved
-- reviewer-0007 reviewer -> orchestrator review: Authenticated access implementation approved
-- reviewer-0008 reviewer -> orchestrator review: Vercel deployment local implementation approved
-- reviewer-0009 reviewer -> orchestrator decision: Approved strict SQLite storage compatibility amendment
-- reviewer-0010 reviewer -> orchestrator review: Family membership implementation approved
-- reviewer-0011 reviewer -> orchestrator review: Family membership draft needs product clarification
-- reviewer-0012 reviewer -> orchestrator review: Independent recipe notebook code review approved
-- reviewer-0013 reviewer -> orchestrator review: Independent recipe notebook code review approved
-- reviewer-0014 reviewer -> orchestrator review: Approved single-call recipe search specification
-- reviewer-0015 reviewer -> orchestrator review: Approved single-call recipe search implementation plan
-- reviewer-0016 reviewer -> orchestrator review: Independent single-call implementation code review approved
-- reviewer-0017 reviewer -> orchestrator review: Single-call main integration independently approved
-- reviewer-0018 reviewer -> orchestrator review: Current-main single-call integration approved
-- reviewer-0019 reviewer -> orchestrator review: App icon specification and plan independently approved
-- reviewer-0020 reviewer -> orchestrator review: App icon implementation independently approved
-- reviewer-0021 reviewer -> orchestrator review: Independent recipe notebook code review approved
-- reviewer-0022 reviewer -> orchestrator review: Word Snack specification peer review approved
-- reviewer-0023 reviewer -> orchestrator review: Word Snack 128-puzzle amendment approved
-- reviewer-0024 reviewer -> orchestrator review: Word Snack implementation plan peer review approved
-- reviewer-0025 reviewer -> orchestrator review: Full Word Snack catalogue content audit approved
-- reviewer-0026 reviewer -> orchestrator review: Word Snack final code review approved
-- reviewer-0027 reviewer -> orchestrator review: T-Rex specification needs scoped Space scroll correction
-- reviewer-0028 reviewer -> orchestrator review: T-Rex specification correction approved
-- reviewer-0029 reviewer -> orchestrator review: T-Rex automatic lifecycle amendment approved
-- reviewer-0030 reviewer -> orchestrator review: T-Rex implementation plan and pinned provenance approved
-- reviewer-0031 reviewer -> orchestrator review: T-Rex code review needs revoked-autostart correction
-- reviewer-0032 reviewer -> orchestrator review: T-Rex corrected code review approved
-- reviewer-0033 reviewer -> orchestrator review: T-Rex main integration independently approved
-- reviewer-0039 reviewer -> orchestrator review: Shared layout spec and plan approved
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
-- reviewer-0041 reviewer -> orchestrator review: Shared layout final implementation approved
-- security-researcher-0011 security-researcher -> orchestrator review: Independent recipe notebook security review clear
-- security-researcher-0012 security-researcher -> orchestrator review: Independent recipe notebook security review clear
-- security-researcher-0013 security-researcher -> orchestrator review: Independent single-call recipe search security clear
-- security-researcher-0014 security-researcher -> orchestrator review: App icon implementation security clear
-- security-researcher-0015 security-researcher -> orchestrator review: App icon final committed source security reconfirmed
-- security-researcher-0016 security-researcher -> orchestrator review: Independent recipe notebook security review clear
-- security-researcher-0017 security-researcher -> orchestrator review: Word Snack security review clear at 47a5878
-- security-researcher-0018 security-researcher -> orchestrator review: T-Rex security and shipped provenance clear at 1017d39
-- security-researcher-0019 security-researcher -> orchestrator review: Focused T-Rex security recheck clear at 0febee7
-- security-researcher-0020 security-researcher -> orchestrator review: T-Rex current-main integration security clear at f929e579
-- security-researcher-0023 security-researcher -> orchestrator review: Shared layout security clear
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
-- senior-developer-0015 senior-developer -> orchestrator handoff: Shared layout implementation verified
 
 ## Recent decisions
 
-- mem-0141 reviewer: Unique1-7weeklyrecipes approved at0f0b0c84792bb9947fe4ef0790d893973a21e01b,219Node/7Python/Chrome green. Root applied reviewedLOCAL0003 afterprecisetargetvalidation:1draft repaired to2unique, snapshots/order/proposals verified, runtime schema4valid. Usernext-env preserved/devleftstopped; no hosted/deploy/jobactivation, humanmerge pending. (intent/weekly-meal-planning/verification.md)
-- mem-0142 reviewer: Searchable thumbnail swap modal independently approved at b0627be7e2e65eed7061c4cbb1bb4182ed436a52;223Node/7Python/lint/typecheck/build/Chrome pass, exactcopybackverified, ownernext-env/dev preserved. Fullmenu boundsearch, explicitconfirmation, race/focus/image guards retained. Humanmerge/release pending; hostedICU remains prereleasecheck. (org/reviews/searchable-swap-picker-final-001.md)
-- mem-0143 reviewer: Searchmodal size flicker corrected at5e4dd69d4d07c0b6d1a034c79e4f5eafd4c23f4d with2CSS sizing attributes; actual500pxshrink reproduced then55geometrysamples0px at5viewports.223Node7Python/fullChrome/lint/typecheck/build pass, independentapproval. Ownernext-env/dev preserved, merge/release pending. (org/reviews/searchable-swap-picker-stable-frame-final-001.md)
-- mem-0144 reviewer: Retained search results approved at 4f91e9c2b833dddbe154a795c60cc869f4035366. Current cards remain visible until validated latest results arrive, without an updating label; stale actions stay disabled and current access failures clear snapshots. All 223 Node/7 Python tests, strict checks and Chrome pass, with zero geometry movement in 55 samples. Owner next-env/dev preserved. Human merge/release pending. (org/reviews/searchable-swap-picker-retained-results-final-001.md)
-- mem-0145 reviewer: Owner authorized local main integration; combined source 87fc775 independently approved after 223 Node tests, 7 workflow tests, strict checks and full planning Chrome. Main source and both audit histories preserved; four stale copy assertions synchronized. Local merge gate017 recorded; release and hosted actions remain separately gated. (org/reviews/searchable-swap-picker-main-integration-final-001.md)
+- mem-0154 orchestrator: Historical mem-0138 import from feature tip: Final code review requested one narrow enum-type correction. Keep max8 turns: correction7 returns to final review8, whose approval requires independent security reconfirmation of the exact corrected source via the committed reviewer-to-security consultation route. Initial security assessment already completed; no security review, tests or human gate removed. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0155 orchestrator: Historical mem-0139 import from feature tip: Recipe URL save-first curation implemented and verified. Exact source7a7668d passes required application/regression/Chrome checks and independent security/code reviews after one P2 fix. Bounded Build loop solved on turn8 without extending budget. Human merge and all development/hosted migration, staging/release scopes remain unapproved; later audit HEAD is distinct from reviewed source. (org/merge/recipe-url-menu-main-local-2026-11-24/feature/org/memory/events.jsonl)
+- mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
+- mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
+- mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 
 ## Constraints
 
@@ -170,18 +122,19 @@ intent/searchable-swap-picker/intent.md
 
 ## Artifacts
 
-- org/reviews/searchable-swap-picker-retained-results-plan-001.md (2118ab75b67881603f37deeba469924a8adf38bde7019de7dfe1cb46260157ca)
-- intent/searchable-swap-picker/verification.md (42752f835c80f4fd3c8c97dc0cbfd86384746cd41f7f4e44405fb2b147654876)
-- org/reviews/searchable-swap-picker-retained-results-security-001.md (f2284810ad0ae157c3f619f35c73738e2b6dc287ba6d5a8e3f91b52d5459c138)
-- org/reviews/searchable-swap-picker-retained-results-final-001.md (708a2ba6402cf0c96dde86968bf1db2c07382441270d2213dddae3db466de9a1)
+- org/reviews/recipe-url-menu-main-integration-plan-001.md (abea6f49e9f2dafba62e72a4ae495bc88c61dd57dbb30b8653bec95488999c1f)
+- intent/recipe-url-menu/main-integration-verification.md (1ec354559f0a86225957f784738b619e353fafc1a17cb1498317dfeade01d640)
+- org/reviews/recipe-url-menu-main-integration-security-001.md (bf0009c9022f61be7b1fbe6ec92c3baaa2424de1a42388436d42c59c417bcf54)
+- intent/recipe-url-menu/main-integration-local-result.md (6953e304d85b1271dfd66fd3f54bb8ddf6899578a09a5e45880f9120bc703d7f)
+- org/reviews/recipe-url-menu-main-integration-code-001.md (89270da32eceaffcd12f6ee804a123e198b20415263120f25d7ad745e4b20447)
 
 ## Next action
 
-reviewer:verify_retained_results
+reviewer:review
 
 ## Last digest source
 
-- mem-0145 from org/reviews/searchable-swap-picker-main-integration-final-001.md
+- mem-0159 from intent/recipe-url-menu/main-merge-result-2026-11-24.md
 
 <!-- machine:end -->
 

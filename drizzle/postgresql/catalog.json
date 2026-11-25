@@ -201,6 +201,51 @@
   },
   {
     "kind": "column",
+    "name": "menu_recipe_curations.credential_expires_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.entry_id",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.expires_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.generation",
+    "definition": "uuid:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.google_subject",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.lease",
+    "definition": "uuid:false:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.scheduled_at",
+    "definition": "bigint:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.state",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
+    "name": "menu_recipe_curations.verified_email",
+    "definition": "text:true:"
+  },
+  {
+    "kind": "column",
     "name": "menu_recipes.family_id",
     "definition": "text:true:"
   },
@@ -431,6 +476,41 @@
   },
   {
     "kind": "constraint",
+    "name": "menu_recipe_curations.menu_curation_email",
+    "definition": "CHECK (((length(verified_email) >= 3) AND (length(verified_email) <= 254) AND (verified_email = lower(btrim(verified_email)))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipe_curations.menu_curation_lease",
+    "definition": "CHECK (((state = 'processing'::text) = (lease IS NOT NULL)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipe_curations.menu_curation_state",
+    "definition": "CHECK ((state = ANY (ARRAY['pending'::text, 'processing'::text, 'ready'::text, 'failed'::text])))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipe_curations.menu_curation_subject",
+    "definition": "CHECK (((length(google_subject) >= 1) AND (length(google_subject) <= 255) AND (google_subject = btrim(google_subject))))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipe_curations.menu_curation_timestamps",
+    "definition": "CHECK (((scheduled_at >= 0) AND (scheduled_at <= '9007199254740991'::bigint) AND (expires_at >= scheduled_at) AND (expires_at <= (scheduled_at + 30000)) AND (credential_expires_at >= expires_at) AND (credential_expires_at <= '9007199254740991'::bigint)))"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipe_curations.menu_recipe_curations_entry_id_fkey",
+    "definition": "FOREIGN KEY (entry_id) REFERENCES menu_recipes(id) ON DELETE CASCADE"
+  },
+  {
+    "kind": "constraint",
+    "name": "menu_recipe_curations.menu_recipe_curations_pkey",
+    "definition": "PRIMARY KEY (entry_id)"
+  },
+  {
+    "kind": "constraint",
     "name": "menu_recipes.menu_image_bound",
     "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
   },
@@ -556,6 +636,11 @@
   },
   {
     "kind": "index",
+    "name": "menu_recipe_curations_pkey",
+    "definition": "CREATE UNIQUE INDEX menu_recipe_curations_pkey ON public.menu_recipe_curations USING btree (entry_id)"
+  },
+  {
+    "kind": "index",
     "name": "menu_recipes_pkey",
     "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
   },
@@ -677,6 +762,16 @@
   {
     "kind": "relation",
     "name": "menu_family_source_unique",
+    "definition": "i:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "menu_recipe_curations",
+    "definition": "r:false:false"
+  },
+  {
+    "kind": "relation",
+    "name": "menu_recipe_curations_pkey",
     "definition": "i:false:false"
   },
   {

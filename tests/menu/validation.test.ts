@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { parseMenuSearch, parseMenuPage, encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseSavedMenuEntry, parseMenuSourceUrls } from '../../lib/menu/validation.ts';
+import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseSavedMenuEntry, parseMenuSourceUrls, parseMenuSearch, parseMenuPage } from '../../lib/menu/validation.ts';
 
 test('saved lookup sources are a bounded normalized set, never ownership or page selectors', () => {
   assert.deepEqual(parseMenuSourceUrls(['https://EXAMPLE.test:443/recipe#method', 'https://example.test/recipe']), ['https://example.test/recipe']);
@@ -55,13 +55,31 @@ test('menu IDs and cursors are canonical, bounded positions without an ownership
 
 test('persisted and public entries fail closed rather than normalizing corrupt rows or leaking owners', () => {
   const row = { id, familyId: 'private-family', savedAt: 1795450000001, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes' };
-  const entry = { id, savedAt: row.savedAt, recipe };
+  const entry = { id, savedAt: row.savedAt, recipe, curation: { state: 'ready', retryable: false } };
   assert.deepEqual(menuEntryFromRow(row), entry);
   assert.deepEqual(parseSavedMenuEntry(entry), entry);
   for (const change of [{ title: ' padded ' }, { sourceUrl: 'https://EXAMPLE.test/r' }, { imageUrl: 'data:image/svg+xml,unsafe' }, { timeKind: null }, { savedAt: -1 }, { id: 'invalid' }]) assert.throws(() => menuEntryFromRow({ ...row, ...change }), /Storage unavailable/);
   for (const change of [{ familyId: 'private' }, { savedAt: -1 }, { recipe: { ...recipe, summary: ' padded ' } }]) assert.equal(parseSavedMenuEntry({ ...entry, ...change }), null);
 });
 
+test('curation state is explicit and exact, with no private task authority in public entries', () => {
+  const entry = { id, savedAt: 1, recipe, curation: { state: 'ready', retryable: false } };
+  assert.deepEqual(parseSavedMenuEntry(entry), entry);
+  assert.equal(parseSavedMenuEntry({ id, savedAt: 1, recipe }), null);
+  for (const curation of [{ state: 'failed', retryable: false }, { state: 'pending', retryable: true }, { state: 'ready', retryable: false, generation: id }, { state: 'unknown', retryable: false }]) assert.equal(parseSavedMenuEntry({ ...entry, curation }), null);
+  assert.deepEqual(parseSavedMenuEntry({ ...entry, curation: { state: 'interrupted', retryable: true } })?.curation, { state: 'interrupted', retryable: true });
+});
+
+test('curation enum boundaries reject non-string states instead of coercing JSON values', () => {
+  const entry = { id, savedAt: 1, recipe, curation: { state: 'ready', retryable: false } };
+  const row = { id, savedAt: 1, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes', curationState: 'ready', curationExpiresAt: Date.now() + 30000 };
+  for (const state of [['ready'], ['pending'], [], 0, 1, true, false, {}, { state: 'ready' }]) {
+    assert.equal(parseSavedMenuEntry({ ...entry, curation: { state, retryable: false } }), null);
+    assert.throws(() => menuEntryFromRow({ ...row, curationState: state }), /Storage unavailable/);
+  }
+  assert.equal(parseSavedMenuEntry({ ...entry, curation: { state: null, retryable: false } }), null);
+  assert.deepEqual(menuEntryFromRow({ ...row, curationState: null, curationExpiresAt: null }).curation, { state: 'ready', retryable: false }, 'a left-joined absent task still identifies an existing search snapshot');
+});
 
 test('title query is bounded trimmed well-formed literal text, with blank/unset compatibility',()=>{
  assert.equal(parseMenuSearch(undefined),'');assert.equal(parseMenuSearch('  '),'');assert.equal(parseMenuSearch("  50%_Lemon's 🍋  "),"50%_Lemon's 🍋");assert.equal(parseMenuSearch('🍋'.repeat(50))?.length,100);
@@ -69,7 +87,7 @@ test('title query is bounded trimmed well-formed literal text, with blank/unset 
 });
 
 test('menu response pages require exact bounded canonical unique descending entries and matching cursors',()=>{
- const entries=Array.from({length:50},(_,n)=>({id:`00000000-0000-0000-0000-${String(100-n).padStart(12,'0')}`,savedAt:100-n,recipe:{...recipe,sourceUrl:`https://example.test/response/${n}`}}));
+ const entries=Array.from({length:50},(_,n)=>({id:`00000000-0000-0000-0000-${String(100-n).padStart(12,'0')}`,savedAt:100-n,curation:{state:'ready',retryable:false},recipe:{...recipe,sourceUrl:`https://example.test/response/${n}`}}));
  const valid={entries,nextCursor:encodeMenuCursor(entries[49])};assert.deepEqual(parseMenuPage(valid),valid);assert.deepEqual(parseMenuPage({entries:[],nextCursor:null}),{entries:[],nextCursor:null});
  for(const value of [null,{}, {entries:Array(1),nextCursor:null}, {...valid,familyId:id},{entries:[...entries,entries[0]],nextCursor:null},{entries:entries.slice(1),nextCursor:valid.nextCursor},{entries:[],nextCursor:valid.nextCursor},{entries,nextCursor:encodeMenuCursor(entries[0])},{entries:[entries[0],entries[0]],nextCursor:null},{entries:[entries[1],entries[0]],nextCursor:null},{entries:[entries[0],{...entries[1],recipe:entries[0].recipe}],nextCursor:null},{entries:[{...entries[0],recipe:{...recipe,sourceUrl:'javascript:alert(1)'}}],nextCursor:null}])assert.equal(parseMenuPage(value),null);
  const tied=[{...entries[0],savedAt:1},{...entries[1],savedAt:1}];assert.ok(parseMenuPage({entries:tied,nextCursor:null}));assert.equal(parseMenuPage({entries:tied.toReversed(),nextCursor:null}),null);
