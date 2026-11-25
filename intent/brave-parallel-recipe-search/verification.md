@@ -132,3 +132,48 @@ an actual page ItemList with embedded Recipe that still expands as a collection.
 `pnpm test` passed107/107 (`/private/tmp/brave-itemlist-green.log`). No paid calls
 were made. Live measurements above describe source2989467, preceding this fix;
 this correction is verified offline rather than represented as a new live run.
+
+## Owner-requested eight-second per-item budget
+
+The owner requested skipping slow curators while returning valid siblings.
+Architecture348baf0 and independent approval03cb9fc/ledger5c0382b authorize an
+8000ms absolute per-item budget including shared-model-queue wait, headers,
+complete body consumption and validation. The request/route budgets stay60/90s.
+The existing25s code failed all5 added mocked-clock regression cases in
+`/private/tmp/brave-eight-second-red-final.log`; the minimal deadline and expiry
+precedence correction passed112/112 tests in
+`/private/tmp/brave-eight-second-green.log`, without real8second sleeps.
+
+Coverage checks a valid sibling returning at8s while an abort-ignoring candidate
+is skipped and retains its lease; queued expiry never starting model work;
+explicit rejection plus expiry reporting504; parent abort returning504 despite a
+completed sibling; absolute clock checks preventing late slot acquisition/output
+acceptance even before timer dispatch; and pending response-body cancellation
+holding its lease until cleanup settles. No retries/fallbacks or paid calls.
+The initial red harness had one pending fake-clock await, which was stopped as
+an owned test process; the final red harness asserts settlement before awaiting
+so the expected25s/8s mismatch fails promptly without hanging.
+
+Final corrected-source verification reran every required command:
+
+| Command | Actual result | Local evidence |
+| --- | --- | --- |
+| `pnpm test` |112passed,0failed | `/private/tmp/brave-eight-second-green.log` |
+| `pnpm run lint` | exit0 | `/private/tmp/brave-final-lint.log` |
+| `pnpm run typecheck` | exit0 | `/private/tmp/brave-final-typecheck.log` |
+| `pnpm run build` | exit0 | `/private/tmp/brave-final-build.log` |
+| `pnpm run test:family` |34passed,0failed | `/private/tmp/brave-final-family.log` |
+| `pnpm run test:menu` |69passed,0failed | `/private/tmp/brave-final-menu.log` |
+| `pnpm run test:auth` |16passed,0failed | `/private/tmp/brave-final-auth.log` |
+| `node --import tsx --test tests/deployment/*.test.ts` |33passed,0failed | `/private/tmp/brave-final-deployment.log` |
+| `python3 -m unittest discover -s tests` |7passed | `/private/tmp/brave-final-python.log` |
+| `node --import tsx tests/menu/brave-search-browser.ts` | Chrome390/1440passed | `/private/tmp/brave-final-browser.log` |
+
+264 Node tests and7 Python tests pass. Fixture-based final Chrome run regenerated
+identical screenshots; no product UI code changed in these corrections. Initial
+sandbox network/listener attempts returned EPERM; reruns with approval used the
+same owned test databases/fixture servers and passed. These were environment
+restrictions, not hidden application/test failures. All provider keys remained
+empty in fixture servers. Final diff check and staged secret scan must remain
+zero at the correction commit; independent final code/security decisions are
+still required from the orchestrator.

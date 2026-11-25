@@ -3,6 +3,7 @@ import test from 'node:test';
 import { setImmediate as turn } from 'node:timers/promises';
 import { createParallelRecipeProvider } from '../lib/recipes/parallel-search.js';
 import { BoundedPool } from '../lib/recipes/concurrency.js';
+import { createSearchHandler } from '../lib/recipes/search.js';
 import { sourceHtml, curated, response } from './recipe-brave-fixtures.js';
 function setup(count=12){
  const hits=Array.from({length:count},(_,i)=>({url:`https://recipes.example.com/dish-${i}`,title:`Dish ${i}`}));
@@ -72,4 +73,77 @@ test('model pool is shared across concurrent provider instances and completion o
  releases.splice(0).reverse().forEach(resolve=>resolve());for(let i=0;i<10;i++)await turn();
  assert.equal(releases.length,12);releases.splice(0).reverse().forEach(resolve=>resolve());
  for(const cards of await Promise.all([a,b]))assert.deepEqual(cards.map(x=>x.sourceUrl),f.hits.map(x=>x.url));assert.equal(max,12);
+});
+
+test('eight-second curation deadline returns a valid sibling and retains an abort-ignoring active lease',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:100000});
+ const f=setup(2),modelPool=new BoundedPool(1,24);let calls=0,slowSignal:AbortSignal|undefined,release!:()=>void;
+ const provider=createParallelRecipeProvider({braveKey:'test-only-key',apiKey:'test-only-key',loadHtml:f.loadHtml,pools:{source:f.pools.source,model:modelPool},transport:async(url,init)=>{
+  if(String(url).includes('search.brave.com'))return f.transport(url,init);
+  if(++calls===1)return f.transport(url,init);
+  slowSignal=init?.signal??undefined;await new Promise<void>(resolve=>{release=resolve;});return f.transport(url,init);
+ }});
+ let finished=false;const search=provider.search('chicken',{signal:new AbortController().signal}).then(cards=>{finished=true;return cards;});
+ for(let i=0;i<10;i++)await turn();assert.equal(calls,2);
+ t.mock.timers.tick(7999);await turn();assert.equal(finished,false);assert.equal(slowSignal?.aborted,false);
+ t.mock.timers.tick(1);await turn();assert.equal(finished,true);assert.equal(slowSignal?.aborted,true);
+ const cards=await search;assert.deepEqual(cards.map(c=>c.sourceUrl),[f.hits[0].url]);
+ let nextStarted=false;const next=modelPool.run(new AbortController().signal,async()=>{nextStarted=true;});
+ await turn();assert.equal(nextStarted,false,'timed-out transport still holds its lease');release();await next;
+});
+
+test('eight-second budget includes model queue wait and expired queued candidates never start',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:100000});
+ const f=setup(1),modelPool=new BoundedPool(1,24);let release!:()=>void;
+ const blocker=modelPool.run(new AbortController().signal,()=>new Promise<void>(resolve=>{release=resolve;}));
+ const provider=createParallelRecipeProvider({braveKey:'test-only-key',apiKey:'test-only-key',transport:f.transport,loadHtml:f.loadHtml,pools:{source:f.pools.source,model:modelPool}});
+ const failed=assert.rejects(provider.search('chicken',{signal:new AbortController().signal}),/SEARCH_TIMEOUT/);
+ for(let i=0;i<10;i++)await turn();t.mock.timers.tick(8000);await turn();
+ assert.equal(f.stats().modelCalls,0);release();await blocker;await failed;await turn();assert.equal(f.stats().modelCalls,0);
+});
+
+test('a rejected sibling cannot hide curation expiry, and parent abort cannot return completed siblings',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:100000});
+ for(const parentAbort of [false,true]){
+  const f=setup(2);let calls=0,release!:()=>void;
+  const provider=createParallelRecipeProvider({braveKey:'test-only-key',apiKey:'test-only-key',loadHtml:f.loadHtml,pools:f.pools,transport:async(url,init)=>{
+   if(String(url).includes('search.brave.com'))return f.transport(url,init);
+   if(++calls===1)return parentAbort?f.transport(url,init):Response.json(response(curated({accepted:false,title:null,summary:null,methodExcerpt:null,ingredientExcerpt:null})));
+   await new Promise<void>(resolve=>{release=resolve;});return f.transport(url,init);
+  }});
+  const controller=new AbortController(),handler=createSearchHandler({getProvider:()=>provider});
+  let finished=false;
+  const pending=handler(new Request('https://local.example.com/api/recipes/search',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:'chicken'}),signal:controller.signal})).then(result=>{finished=true;return result;});
+  for(let i=0;i<10;i++)await turn();assert.equal(calls,2);
+  if(parentAbort)controller.abort();else t.mock.timers.tick(8000);
+  await turn();assert.equal(finished,true,'request must settle at the candidate deadline');const result=await pending;assert.equal(result.status,504);assert.equal((await result.json()).error.code,'SEARCH_TIMEOUT');release();await turn();
+ }
+});
+
+test('absolute candidate deadline rejects late output and prevents late slot acquisition before timer dispatch',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:100000});
+ for(const queued of [false,true]){
+  t.mock.timers.setTime(100000);
+  const f=setup(1),modelPool=new BoundedPool(1,24);let release:()=>void=()=>{};
+  const blocker=queued?modelPool.run(new AbortController().signal,()=>new Promise<void>(resolve=>{release=resolve;})):Promise.resolve();
+  const provider=createParallelRecipeProvider({braveKey:'test-only-key',apiKey:'test-only-key',loadHtml:f.loadHtml,pools:{source:f.pools.source,model:modelPool},transport:async(url,init)=>{
+   if(String(url).includes('search.brave.com'))return f.transport(url,init);
+   t.mock.timers.setTime(108001);return f.transport(url,init);
+  }});
+  const failed=assert.rejects(provider.search('chicken',{signal:new AbortController().signal}),/SEARCH_TIMEOUT/);
+  for(let i=0;i<10;i++)await turn();
+  if(queued){t.mock.timers.setTime(108001);release();}
+  await blocker;await failed;assert.equal(f.stats().modelCalls,queued?0:1);
+ }
+});
+
+test('eight-second curation expiry cancels pending body and holds lease through cancellation cleanup',async t=>{
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:100000});
+ const f=setup(1),modelPool=new BoundedPool(1,24);let cancelStarted=false,finishCancel!:()=>void;
+ const body=new ReadableStream<Uint8Array>({start(controller){controller.enqueue(new TextEncoder().encode('{'));},cancel(){cancelStarted=true;return new Promise<void>(resolve=>{finishCancel=resolve;});}});
+ const provider=createParallelRecipeProvider({braveKey:'test-only-key',apiKey:'test-only-key',loadHtml:f.loadHtml,pools:{source:f.pools.source,model:modelPool},transport:async(url,init)=>String(url).includes('search.brave.com')?f.transport(url,init):new Response(body)});
+ const failed=assert.rejects(provider.search('chicken',{signal:new AbortController().signal}),/SEARCH_TIMEOUT/);
+ for(let i=0;i<10;i++)await turn();t.mock.timers.tick(8000);await turn();assert.equal(cancelStarted,true);await failed;
+ let nextStarted=false;const next=modelPool.run(new AbortController().signal,async()=>{nextStarted=true;});
+ await turn();assert.equal(nextStarted,false);finishCancel();await next;
 });

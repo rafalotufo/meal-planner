@@ -68,3 +68,13 @@ prevents treating before/after elapsed time as a controlled performance result.
 Implementation live verification totals:3 Brave queries,12 OpenAI requests,
 zero retries/fallbacks. Exact per-source outcomes, card fields and timings are
 preserved under `correctiveFollowUp` in `live-results.json`.
+
+## Final-source interpretation
+
+All live measurements above used implementation source2989467, before the
+reviewed instruction-ItemList parser correction and owner-requested8second
+per-item deadline. Those final corrections are verified by offline fixtures and
+mocked-clock tests; no live result or timing is claimed for the corrected source.
+The named8-card / broad1-card observations remain historical evidence with the
+same stated recall limitation. The three-query paid verification cap remains
+exhausted.

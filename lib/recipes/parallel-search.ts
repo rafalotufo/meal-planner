@@ -63,9 +63,14 @@ export function createParallelRecipeProvider({ braveKey, apiKey, model = 'gpt-6.
         const prepared = prepareCuration(candidate, query, model);
         if (!prepared || calls >= 12 || inputBytes + prepared.bytes > 491520) { technical = true; return null; }
         inputBytes += prepared.bytes; calls++;
-        const job = deadline(budget.signal, Math.min(now() + 25000, deadlineAt ?? Infinity), now);
+        const jobDeadline = Math.min(now() + 8000, deadlineAt ?? Infinity);
+        const job = deadline(budget.signal, jobDeadline, now);
         try {
-          const result = await pools.model.run(job.signal, () => curateRecipe(candidate, prepared, { apiKey, signal: job.signal, transport }));
+          const result = await pools.model.run(job.signal, () => {
+            if (now() >= jobDeadline) { job.cancel(); throw job.signal.reason; }
+            return curateRecipe(candidate, prepared, { apiKey, signal: job.signal, transport });
+          });
+          if (now() >= jobDeadline) { job.cancel(); throw job.signal.reason; }
           if (result === null) explicitRejection = true;
           return result;
         } catch (error) {
@@ -81,8 +86,8 @@ export function createParallelRecipeProvider({ braveKey, apiKey, model = 'gpt-6.
       const recipes = completed.filter((recipe): recipe is Recipe => recipe !== null && !emitted.has(recipe.sourceUrl) && !!emitted.add(recipe.sourceUrl));
       if (recipes.length) return recipes;
       if (budget.signal.aborted) throw budget.signal.reason;
-      if (explicitRejection) return [];
       if (timedOut) throw new SearchError('SEARCH_TIMEOUT');
+      if (explicitRejection) return [];
       if (busy) throw new SearchError('SEARCH_BUSY');
       if (technical) throw new SearchError('SEARCH_FAILED');
       return [];

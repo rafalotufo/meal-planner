@@ -212,6 +212,10 @@ pools allow2active source jobs/48queued and12active model requests/24queued.
 Queued aborts are removed; active leases cover complete response processing.
 Each curation is capped at1200output tokens,32768payload UTF-8 bytes and8192
 instruction/schema bytes; aggregate input is capped at491520bytes per search.
+Each item has an8second absolute deadline including shared-pool wait, response
+body and validation. Expired queued items never start; slow candidates are
+cancelled and skipped while valid siblings can return. With no valid card,
+any curation expiry reports a timeout even if another candidate rejected.
 Queries, source evidence, provider errors and credentials are not logged or
 persisted by runtime. Brave receives the discovery query; OpenAI receives the
 full query and bounded public-source evidence with `store:false`.
@@ -219,7 +223,7 @@ full query and bounded public-source evidence with `store:false`.
 Keep the60second request/90second route contract,2active searches and20accepted
 searches per process per rolling minute. Internal phase limits reserve time for
 bounded discovery/source/curation work. Candidate failures can preserve valid
-siblings; parent cancellation always propagates. These are per-process limits,
+siblings; parent cancellation always times out the whole request. These are per-process limits,
 not distributed spending controls. Provider project controls and multi-instance
 usage require separate review before deployment.
 
