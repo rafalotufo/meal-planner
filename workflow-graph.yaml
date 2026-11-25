@@ -2,9 +2,9 @@
 version: 1
 nodes:
   intent: {stage: plan, artifact: intent/dependency-aware-migrations/intent.md, gate: product_manager_review, status: accepted, done_status: accepted}
-  spec: {stage: design, artifact: intent/dependency-aware-migrations/spec.md, gate: peer_review, status: in_review, done_status: approved}
-  plan: {stage: build, artifact: intent/dependency-aware-migrations/plan.md, gate: peer_review, status: in_review, done_status: approved}
-  implementation: {stage: build, artifact: dependency-aware-migrations-implementation, gate: code_owner_approve, status: not_started, done_status: merged}
+  spec: {stage: design, artifact: intent/dependency-aware-migrations/spec.md, gate: peer_review, status: approved, done_status: approved}
+  plan: {stage: build, artifact: intent/dependency-aware-migrations/plan.md, gate: peer_review, status: approved, done_status: approved}
+  implementation: {stage: build, artifact: dependency-aware-migrations-implementation, gate: code_owner_approve, status: in_progress, done_status: merged}
   release: {stage: deploy, artifact: separately authorized release, gate: release_authorization, status: not_started, done_status: done}
 edges:
   - {from: intent, to: spec, trigger: acceptance}

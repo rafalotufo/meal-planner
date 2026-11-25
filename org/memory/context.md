@@ -9,8 +9,8 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design_review
+- turn: 2
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -19,7 +19,7 @@ intent/dependency-aware-migrations/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (recipe-url-menu-main-local-recovery)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/dependency-aware-migrations/plan.md)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -126,10 +126,11 @@ intent/dependency-aware-migrations/intent.md
 ## Artifacts
 
 - intent/dependency-aware-migrations/spec.md (6e485ad1c06a1ef27732b4794bbe78ac3b0d3682b81b78b06a04d5e5aef2bcb8)
+- org/reviews/dependency-aware-migrations-design-001.md (8e34ce02dc0d06e1397561210b0a93a70330a6dedf9b0ed95f8e42754a2ae4a3)
 
 ## Next action
 
-architect:design_and_prototype
+reviewer:review_design_plan
 
 ## Last digest source
 
