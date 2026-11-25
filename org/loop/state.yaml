@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/dependency-aware-migrations/intent.md
 base_commit: 4a3623916b9ca4204c48baf0823a7ce0f9fd1f8e
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: implement
 status: in_progress
-last_input_hash: null
+last_input_hash: bf0d810107a973ff6e237fda17e9b8cfb0e945985ffe8930b2f1bf94c25f7c47
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-25T01:54:56Z"
+last_action: "reviewer:approve_hosted_correction_plan"
+artifacts: [{"path": "org/reviews/dependency-aware-migrations-hosted-permission-plan-001.md", "sha256": "193868496c5446f063b8f587d230f8762b9aef65622aeec9cd46b4aa52277086"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-25T01:57:08Z"
