@@ -37,3 +37,12 @@ test('advisory wait expiry and delayed JavaScript cannot retain locks or issue l
   await other.verificationTransaction(Date.now()+1000,tx=>tx.execute('INSERT INTO public.deadline_probe VALUES(3)'));
  }finally{await other.close();await db.close();await fixture.cleanup();}
 });
+test('initial catalog admission is read-only and bounded before the exchange can begin',async()=>{
+ const fixture=await testDatabase(),db=connectDatabase(fixture.url);const {openVerificationDatabase}=await import('../../lib/db/connection.ts');let release:()=>void=()=>{};
+ try{
+  let acquired:()=>void=()=>{};const ready=new Promise<void>(resolve=>{acquired=resolve;});const holding=db.transaction(async tx=>{await tx.execute('LOCK TABLE public.__drizzle_migrations IN ACCESS EXCLUSIVE MODE');acquired();await new Promise<void>(resolve=>{release=resolve;});});await ready;
+  const started=Date.now();await assert.rejects(openVerificationDatabase(fixture.url,Date.now()+150,{ownerTooling:true}),/Verification deadline/);assert.ok(Date.now()-started<1000);release();await holding;
+  const admitted=await openVerificationDatabase(fixture.url,Date.now()+2000,{ownerTooling:true});await admitted.close();
+  assert.equal((await db.one<{n:number}>('SELECT count(*)::integer AS n FROM verification_sessions'))?.n,0);
+ }finally{release();await db.close();await fixture.cleanup();}
+});
