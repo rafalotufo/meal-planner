@@ -17,7 +17,7 @@ The approved [verification specification](../agent-deployment-verification/spec.
 and [implementation plan](../agent-deployment-verification/plan.md) add a distinct
 synthetic-app evidence lane. Local implementation approval does not authorize a
 hosted migration, grants, configuration, issuance, data creation, cleanup, paid
-provider request or deployment. No hosted success for this lane is recorded here.
+provider request or deployment. Actual first hosted Chrome evidence and separately approved Production execution are now recorded in [the verification release result](../agent-deployment-verification/production-release-result.md); this is not standing authority or a full browser/OAuth/provider pass.
 The real-Google lane and its existing `check`/`finalize` assertions below remain
 available and unchanged in meaning; synthetic evidence cannot satisfy them.
 
@@ -26,12 +26,12 @@ deployment/profile, native verification migration and grants, operator credentia
 run/data/write/cleanup scope, duration and provider budget. Verify scoped Vercel
 Shareable Link availability, canonical-origin access/cookie continuity, exact
 source/deployment binding and link revocation. Serialize alias changes during the
-run. These are unproven prerequisites; never substitute a project-wide protection
+run. These are per-run prerequisites; the recorded Chrome proof is bounded to its source/profile/browser/private channel. Never substitute a project-wide protection
 bypass credential, a real account handoff or public protection removal. Verify a
 private credential/automation-trace channel too; password masking does not hide
 tool arguments. A remote-agent transfer mechanism is not approved by this runbook.
 
-The eventual browser entry is
+The browser entry is
 `https://meal-planner-staging-rafalotufos.vercel.app/verification`. An authorized
 operator uses the explicit CLI on the operator's machine. It connects over verified
 TLS to the separately recorded Preview database and writes the run/member/digest
@@ -61,6 +61,40 @@ last at most fifteen minutes and the run at most thirty minutes. Logout revokes 
 session; operator revocation ends the run. Lost successful exchange responses need
 fresh operator issuance, not a retry of the consumed credential. Explicit cleanup
 revokes first and deletes only proven-owned run data; no automatic read/reset exists.
+
+### Recorded first hosted use and scope limits
+
+Release source19774c7/Preview8sa demonstrated account-free native form entry,
+server-cookie session, selected page reads and logout in fresh Chrome profiles at
+390/1440. The owner accepted the explicit missing browser/Google/provider/write/
+platform coverage; formal per-run matrix results remained incomplete. See
+[the actual staging result](../agent-deployment-verification/hosted-staging-result.md).
+Firefox/Safari and remote-agent private transfer remain unproved; inspect access,
+configuration, exact deployment and scope again for every future run.
+
+The observed alias-scoped Shareable Link uses private `_vercel_share` query
+navigation to establish the platform cookie at the canonical Host. It is distinct
+from the project-wide automation bypass. The first revocation was visible in the
+API before edge denial propagated; retain actual denied-access evidence, keep
+capabilities private and never infer immediate revocation from the API alone.
+No public protection removal or real account handoff was used. Temporary links,
+capabilities and owned synthetic runs were explicitly revoked/cleaned afterward.
+
+The first CLI deployment needed truthful explicit per-deployment
+`VERCEL_GIT_COMMIT_SHA` at build/runtime because the existing project has no Git
+integration. Bind it to verified upload Git blobs and exact inspected deployment;
+metadata is not provider-signed source proof. The source guard remains unchanged.
+Operator connection URLs normalize only known connector options to the reviewed
+`sslmode=verify-full` contract; never weaken TLS or silently drop unknown options.
+
+The excluded release-specific hosted-browser.ts helper uses private owner-only
+input/handoff files, normal TLS, fresh Chrome and native keyboard submission;
+raw capabilities never enter shared tool arguments or trace logs. Its expected
+source label is fixed to19774c7 and must be reviewed for another release; it is
+not an automatic verifier of future deployments or a substitute for inspection.
+Both hosted databases now require the seven-identity catalog. Old five-migration
+artifacts are incompatible; no new grant/migration/issuance/release permission or
+backup restore follows from this operational history.
 
 ### Synthetic evidence artifact and validator
 

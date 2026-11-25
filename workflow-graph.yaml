@@ -1,4 +1,4 @@
-# Agent deployment verification: reviewed main merge complete; isolated Preview execution; final Production gate remains.
+# Agent deployment verification: owner-accepted exact staging and authorized Production release complete; actual scope/gaps preserved.
 version: 1
 nodes:
   intent:
@@ -29,7 +29,7 @@ nodes:
     stage: deploy
     artifact: intent/agent-deployment-verification/production-release-decision.md
     gate: release_authorization
-    status: in_review
+    status: done
     done_status: done
 edges:
   - {from: intent, to: spec, trigger: acceptance}

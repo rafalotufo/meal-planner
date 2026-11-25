@@ -1,0 +1,151 @@
+{
+  "capturedAt": "2026-11-25T16:22:05.778Z",
+  "sourceSha": "19774c7cd8ae301682003838f083b9d825d5e56d",
+  "sourceFiles": 139,
+  "sourceInventorySha256": "50a6ada840fc087920bc84cf62cb3f99cb890aafb5392e20aa634b6de831cadf",
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "teamId": "team_2c0O29FMb91g7L6sUChc9v6J",
+  "plan": "hobby",
+  "nodeVersion": "24.x",
+  "framework": "nextjs",
+  "paused": false,
+  "autoAssignCustomDomains": false,
+  "gitLinked": false,
+  "protection": {
+    "deploymentType": "all_except_custom_domains"
+  },
+  "stagingDeploymentId": "dpl_8saVzK5Pyerj3jbbEVhFerLpdLkt",
+  "productionDeploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a",
+  "aliases": [
+    {
+      "alias": "meal-planner-staging-rafalotufos.vercel.app",
+      "deploymentId": "dpl_8saVzK5Pyerj3jbbEVhFerLpdLkt"
+    },
+    {
+      "alias": "lotufo-meals.vercel.app",
+      "deploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a"
+    },
+    {
+      "alias": "meal-planner-rafalotufos-projects.vercel.app",
+      "deploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a"
+    },
+    {
+      "alias": "meal-planner-delta-six-55.vercel.app",
+      "deploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a"
+    }
+  ],
+  "envInventory": [
+    {
+      "key": "BETTER_AUTH_URL",
+      "target": [
+        "production"
+      ],
+      "type": "encrypted"
+    },
+    {
+      "key": "RECIPE_SEARCH_PROVIDER",
+      "target": [
+        "production"
+      ],
+      "type": "encrypted"
+    },
+    {
+      "key": "OPENAI_RECIPE_MODEL",
+      "target": [
+        "production"
+      ],
+      "type": "encrypted"
+    },
+    {
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "target": [
+        "production"
+      ],
+      "type": "encrypted"
+    },
+    {
+      "key": "GOOGLE_CLIENT_ID",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "GOOGLE_CLIENT_SECRET",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "OPENAI_API_KEY",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "BETTER_AUTH_SECRET",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "DATABASE_URL",
+      "target": [
+        "preview"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "DATABASE_URL",
+      "target": [
+        "production"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "BETTER_AUTH_URL",
+      "target": [
+        "preview"
+      ],
+      "type": "encrypted"
+    },
+    {
+      "key": "BETTER_AUTH_SECRET",
+      "target": [
+        "preview"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "GOOGLE_CLIENT_ID",
+      "target": [
+        "preview"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "GOOGLE_CLIENT_SECRET",
+      "target": [
+        "preview"
+      ],
+      "type": "sensitive"
+    },
+    {
+      "key": "RECIPE_SEARCH_PROVIDER",
+      "target": [
+        "preview"
+      ],
+      "type": "encrypted"
+    },
+    {
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "target": [
+        "preview"
+      ],
+      "type": "encrypted"
+    }
+  ]
+}

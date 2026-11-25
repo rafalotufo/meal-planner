@@ -89,11 +89,23 @@ authority. This completed scope grants no future release/migration permission.
 The separately approved latest-main cutover on 2026-11-24 applied 0002–0004
 on both recorded hosted targets; see intent/t-rex-refinements/production-release.md
 for fixed source d26ea59, Production AeQV, preservation and observation evidence.
-The hosted runtime contract now requires all five migrations. Older two-migration
+The 2026-11-24 hosted runtime contract required all five historical migrations. Older two-migration
 Production artifacts are incompatible; preserve the current schema/data. Migration
 0003 uses temporary tables: its approved execution temporarily granted database
 TEMP only to mp_migrator, then restored the original ACL; runtime TEMP stays denied.
 This operational history provides no authority for a future migration or grant.
+The separately approved2026-11-25 agent verification cutover applied native identities
+fe5c2ee0-bf7f-464e-93be-2d654b4001e8 and557e80b6-f30b-452e-b563-12cff07158a5
+and their exact final grants on both recorded hosted targets. The current contract
+requires seven identities. Release source19774c7 is ProductionE8Nn; staging8sa
+retains its separate enabled Preview build. See
+intent/agent-deployment-verification/production-release-result.md for source,
+owner acceptance, actual evidence and preservation. Production verification stays
+disabled and has no synthetic data. Older five-migration artifacts reject the
+new catalog and are unsafe rollback targets. Preserve current schema/data; use
+only a reviewed compatible correction or explicitly authorized scoped pause.
+No DROP, ledger rewrite, backup restore, future migration/grant or standing release/
+issuance authority follows from this completed release.
 Future releases follow intent/staging-first-release/spec.md and the staging/
 Production runbooks: validate and obtain owner scope/gap acceptance for the exact
 release SHA on isolated staging before a separate Production build, manual

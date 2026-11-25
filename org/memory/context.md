@@ -17,7 +17,7 @@ intent/agent-deployment-verification/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (agent-verification-production-gate)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -121,6 +121,8 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0159 orchestrator -> senior-developer handoff: Prepare isolated hosted Chrome verification helper
 - orchestrator-0160 orchestrator -> reviewer handoff: Review helper-only native Enter correction
 - orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
+- orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
+- orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -162,7 +164,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0167 from intent/agent-deployment-verification/hosted-staging-result.md
+- mem-0168 from intent/agent-deployment-verification/production-release-result.md
 
 <!-- machine:end -->
 
