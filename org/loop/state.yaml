@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/login-session-expiration/intent.md
 base_commit: 5899ad3d948a0fcf2cbb3dc887ea272e0b0caff2
-turn: 1
+turn: 3
 no_progress: 0
-phase: design
+phase: implement
 status: in_progress
-last_input_hash: fa6dfc060bd83bbad0b49f19f443a64c24a22fea48bab46fda3c7434f94864ee
+last_input_hash: 6887067aeb6e4bf2ffd665b97a7f8da34f5e8debc4397e83e28ff92b0f6878d1
 stop_reason: null
-last_action: "product-manager:accept_intent"
-artifacts: [{"path": "intent/login-session-expiration/intent.md", "sha256": "c9df3257a7b92e27b493fa1c4fc87ee3862e9008065e8fb3fc030b7287b5ed67"}]
+last_action: "reviewer:review_design"
+artifacts: [{"path": "intent/login-session-expiration/intent.md", "sha256": "c9df3257a7b92e27b493fa1c4fc87ee3862e9008065e8fb3fc030b7287b5ed67"}, {"path": "intent/login-session-expiration/spec.md", "sha256": "7ea02dbbdb2aec44dcb7fdd0e927e7c838b6e2b0157d763481635c4a48f64180"}, {"path": "org/reviews/login-session-expiration-design-001.md", "sha256": "03e228475602fa9b3c2665c61f5feb3243c994434ccb3d529facb4bbf61c43e9"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T17:45:22Z"
+updated_at: "2026-11-25T17:47:39Z"

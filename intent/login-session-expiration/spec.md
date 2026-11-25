@@ -1,7 +1,8 @@
 # Login session expiration — specification
 
 - Author: architect; date: 2026-11-25
-- Status: Draft for independent org design review
+- Status: Approved
+- Peer approval: `org/reviews/login-session-expiration-design-001.md`, 2026-11-25
 - Inputs: accepted sibling `intent.md`; existing authenticated-access contracts
 - Approval: org peer review before implementation; human merge/release gates remain
 

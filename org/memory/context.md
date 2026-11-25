@@ -9,19 +9,19 @@ intent/login-session-expiration/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/login-session-expiration/spec.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/login-session-expiration/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/login-session-expiration/plan.md)
 
 ## Open messages
 
@@ -138,6 +138,7 @@ intent/login-session-expiration/intent.md
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - product-manager-0022 product-manager -> orchestrator decision: Accepted 30-day Google login expiration intent
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
+- reviewer-0057 reviewer -> orchestrator review: Approve login expiration design and plan
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
@@ -156,10 +157,12 @@ intent/login-session-expiration/intent.md
 ## Artifacts
 
 - intent/login-session-expiration/intent.md (c9df3257a7b92e27b493fa1c4fc87ee3862e9008065e8fb3fc030b7287b5ed67)
+- intent/login-session-expiration/spec.md (7ea02dbbdb2aec44dcb7fdd0e927e7c838b6e2b0157d763481635c4a48f64180)
+- org/reviews/login-session-expiration-design-001.md (03e228475602fa9b3c2665c61f5feb3243c994434ccb3d529facb4bbf61c43e9)
 
 ## Next action
 
-product-manager:accept_intent
+reviewer:review_design
 
 ## Last digest source
 
