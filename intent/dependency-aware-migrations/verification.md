@@ -113,9 +113,13 @@ The earlier orphan was uniquely identified read-only as
 fixture signature, no application rows and no active backends. Automatic approval
 review rejected the narrowly scoped DROP before execution, interpreting the
 owner's no-data-removal boundary as including this disposable fixture. It remains
-intact pending explicit owner cleanup authority. No retry or indirect bypass was
-attempted; no other test database was removed to guess its identity. The final
-security follow-up records the inspection and rejection.
+intact until explicit owner cleanup authority was received. No retry or indirect
+bypass was attempted before that approval; no other test database was removed to
+guess its identity. The final security follow-up records the inspection and
+rejection. The owner subsequently approved deletion of this exact fixture;
+`org/reviews/dependency-aware-migrations-cleanup-002.md` records renewed review,
+revalidation, successful DROP without FORCE and verified absence. That cleanup
+limitation is now resolved.
 
 ## Operational limits
 

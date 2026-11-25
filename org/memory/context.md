@@ -98,6 +98,7 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0139 orchestrator -> reviewer handoff: Review dependency-aware migration implementation
 - orchestrator-0140 orchestrator -> security-researcher handoff: Assess dependency-aware migration security
 - orchestrator-0141 orchestrator -> ceo status: Dependency-aware migrations reviewed and verified
+- orchestrator-0142 orchestrator -> ceo status: Approved exact disposable fixture cleanup completed
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -141,7 +142,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0161 from intent/dependency-aware-migrations/verification.md
+- mem-0162 from org/reviews/dependency-aware-migrations-cleanup-002.md
 
 <!-- machine:end -->
 
