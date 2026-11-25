@@ -4,7 +4,7 @@ agents:
   product-manager: { status: idle, assignment: null, last_report: Accepted Brave parallel search intent; clarified bounded discovery/curation and broad-query relevance; no owner escalation }
   architect: { status: busy, assignment: intent/brave-parallel-recipe-search/plan.md, last_report: Spec/plan f09624c ready for independent review }
   senior-developer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Verified implementation2989467; corrected third live smoke pending independent amendment approval }
-  security-researcher: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Independent security approval8f38bb8 for source2989467; final code-review correction pending }
+  security-researcher: { status: idle, assignment: null, last_report: Final independent security approval482dc2a for e14feec;112tests rerun }
   reviewer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: "review design-brave-parallel-timeout-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:

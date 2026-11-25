@@ -9,8 +9,8 @@ intent/brave-parallel-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 7
-- phase: security
+- turn: 8
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -20,7 +20,7 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
 - reviewer: busy (brave-parallel-recipe-search-implementation)
-- security-researcher: busy (brave-parallel-recipe-search-implementation)
+- security-researcher: idle (unassigned)
 - senior-developer: busy (brave-parallel-recipe-search-implementation)
 
 ## Open messages
@@ -161,10 +161,11 @@ intent/brave-parallel-recipe-search/intent.md
 - org/reviews/security-brave-parallel-001.md (079dbda498cbe661beba3d2235e26715f662cc999f6354aefa8bc7dde1ffe4a2)
 - org/reviews/code-brave-parallel-001.md (008c4d04665fc937bbaa22d475884471bdd449df3360eba2a858de68cfc83a98)
 - intent/brave-parallel-recipe-search/verification.md (c55b00c8e29593f8e40d8820facd9db43820a4bbc2f9aee1cc2bd52531eff271)
+- org/reviews/security-brave-parallel-002.md (3dd7534131618c7ad2f3070c3b60eda8b84930a2d81789c83e6910e5141b08c7)
 
 ## Next action
 
-senior-developer:implement_and_verify
+security-researcher:assess
 
 ## Last digest source
 
