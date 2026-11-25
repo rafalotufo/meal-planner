@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/dependency-aware-migrations/intent.md
 base_commit: 4f4483876ffbf1d68174a17e8658af1f7ca26ab0
-turn: 4
+turn: 5
 no_progress: 0
-phase: review
-status: in_progress
-last_input_hash: 774e7c7df2915bde8f69d9c73ee19832f1860c1195ed15809f9a48f431657dd7
-stop_reason: null
-last_action: "orchestrator:merge_and_restart_local"
-artifacts: [{"path": "org/reviews/dependency-aware-migrations-main-plan-001.md", "sha256": "c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4"}, {"path": "intent/dependency-aware-migrations/main-integration-verification.md", "sha256": "3f7282447ee601aef9cd1902c242ef9c0f97ce0584640b0377c2ea1e737d2d44"}, {"path": "org/reviews/dependency-aware-migrations-main-source-001.md", "sha256": "27e9a0f8eebf479d4019e81826e9dd87b0bf046e419a5418f7e3687ae0298b6c"}, {"path": "intent/dependency-aware-migrations/local-main-result.md", "sha256": "860f573c81c08a9b5ee6ac7d1d6bf80aaad730c59163f1df98fec2771582ea50"}]
+phase: done
+status: solved
+last_input_hash: eedf9f7addc7e0d1051d1aaf9de41f3d7712b9b6bd171bb4cb4a4e0a105a0d28
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "org/reviews/dependency-aware-migrations-main-plan-001.md", "sha256": "c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4"}, {"path": "intent/dependency-aware-migrations/main-integration-verification.md", "sha256": "3f7282447ee601aef9cd1902c242ef9c0f97ce0584640b0377c2ea1e737d2d44"}, {"path": "org/reviews/dependency-aware-migrations-main-source-001.md", "sha256": "27e9a0f8eebf479d4019e81826e9dd87b0bf046e419a5418f7e3687ae0298b6c"}, {"path": "intent/dependency-aware-migrations/local-main-result.md", "sha256": "860f573c81c08a9b5ee6ac7d1d6bf80aaad730c59163f1df98fec2771582ea50"}, {"path": "org/reviews/dependency-aware-migrations-main-final-001.md", "sha256": "658e48a8d89fb4e1f01b0dccafad55a2005a586e6a59c87b36f4d4830202a5db"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T01:18:01Z"
+updated_at: "2026-11-25T01:20:35Z"
