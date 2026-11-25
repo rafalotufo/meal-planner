@@ -1,0 +1,17 @@
+{
+  "origin": "http://localhost:3000",
+  "statuses": {
+    "/": 307,
+    "/sign-in": 200,
+    "/api/session": 401,
+    "/api/menu": 401,
+    "/menu": 307
+  },
+  "chromeWidths": [
+    390,
+    1440
+  ],
+  "consoleAndNetworkErrors": [],
+  "realGoogleSignIn": "not attempted",
+  "mutations": "none"
+}
