@@ -116,9 +116,15 @@ Do not suppress compiler/lint/test failures or change checks merely for green.
 Use existing local Chrome/CDP helper when no Chrome MCP is configured; capture
 screenshots and inspect actual visible layout, network behavior and errors.
 
-After fixture checks, at most two live smoke queries (one named dish, one broad
-family/picky-eater request) through actual implemented provider/handler, existing
-keys and current bounds. Record count, source relevance, source/curation/total
+Baseline verification allowed two live smoke queries (one named dish, one broad
+family/picky-eater request) through the actual implemented provider/handler,
+existing keys and current bounds. Both ran; retain the broad query's502 and
+zero-model-call result as original evidence. Following the documented
+principal-H1 parser correction and fixture/build checks, a peer-approved
+corrective amendment permits ONE more live smoke of the same broad query:
+three total live searches for this implementation verification. The third call
+must wait for actual independent amendment approval, and does not raise any
+per-search paid, source, byte, timeout or concurrency ceiling. Record count, source relevance, source/curation/total
 timings and complete field omissions/errors. Direct handler smoke excludes
 family HTTP/browser and must say so; fixtures cannot establish live quality.
 
@@ -136,3 +142,25 @@ family HTTP/browser and must say so; fixtures cannot establish live quality.
   encoding, redirect or TLS checks to match a benchmark result.
 - Selection/chunk races can mark saved recipes incorrectly: actual menu browser
   integration and save-version reconciliation must pass before final approval.
+
+
+## Corrective amendment — principal heading and bounded live follow-up
+
+Status: Proposed; requires independent approval before the additional paid call.
+Architecture consultation found that suppressing header body text/ordinary links
+also discarded principal H1 identity inside main/article headers. Capture only
+that content heading as an identity channel, keeping siteheader/navigation/
+footer/sidebar text and links excluded and every source identity/title/complexity
+check intact. This is an in-scope source parser defect, not a broader discovery
+or source-trust redesign. Existing manifest paths `lib/recipes/source.ts` and
+`tests/recipe-source.test.ts` cover the correction.
+
+First add the failing article/header/H1 regression and adversarial dummy site/
+nav headers, conflicting/multiple content headings and embedded collection
+recipe cases. Apply minimal correction, run source/pipeline/recipe tests and
+lint/typecheck/build as affected, and replay saved broad-search public HTML
+without Brave/OpenAI calls. Obtain independent amendment approval. Only then
+run the one corrective broad-query smoke with the actual provider/handler and
+unchanged budgets, recording source/model call counts, omissions, valid yield
+and elapsed time. Preserve initial failure, offline replay and live follow-up
+as separate evidence. Human merge/release and hosted configuration stay gated.

@@ -1,6 +1,7 @@
 # Brave discovery and parallel recipe curation — specification
 
-Author: architect. Status: Draft for independent peer review.
+Author: architect. Baseline design approved in `org/reviews/design-brave-parallel-001.md`.
+Corrective amendment below is pending independent approval.
 Input: PM-accepted `intent.md` and `org/reviews/intent-brave-parallel-recipe-search-001.md`.
 
 ## Outcome and public contract
@@ -118,7 +119,13 @@ collection pages were fetched.
 ### Broad-query collection expansion
 
 Parse HTML with installed htmlparser2; exclude scripts/styles/navigation/header/
-footer/aside from page text and ordinary links. Bound parser depth≤256, visited
+footer/aside from page text and ordinary links. Principal-heading identity is a
+separate channel: capture an H1 inside the main/article content region even
+when its immediate wrapper is an article header. Do not capture site-header,
+navigation, footer or sidebar headings, and do not admit header links or body
+text through this exception. Retain the existing single principal H1 count and
+its exact normalized binding to the unique associated Recipe name; conflicting
+or multiple content headings remain unsupported. Bound parser depth≤256, visited
 JSON-LD nodes≤1000/depth≤12, ≤16JSON-LD scripts and ≤262144combined script bytes.
 Recognize explicit ItemList/CollectionPage or collection/category/index URL/title
 signals; a bare Recipe object is insufficient because collections embed recipes.
@@ -222,8 +229,19 @@ empty; production code must not import fixtures. Real Chrome/CDP via existing
 keyboard/focus, filters, retry/stale-save races and no overflow/console errors.
 
 Run repository lint/typecheck/build, recipe/photo, auth/family/menu/deployment
-and Python regressions, secret scan and workflow checks. A maximum of two live
-implemented-provider/handler smoke searches may reuse configured keys; report
+and Python regressions, secret scan and workflow checks. The baseline allowed
+two live implemented-provider/handler smoke searches using configured keys. Both
+were executed: the named query returned eight cards in9.701seconds; the broad
+picky-eater query returned sanitized502 in15.784seconds with one Brave request
+and zero model requests. Preserve that failure as actual observation.
+
+The corrective amendment proposes ONE additional live smoke of that same broad
+query after the principal-H1 correction, relevant fixture/full-build checks and
+independent amendment approval. The total ceiling becomes three live searches
+for this implementation verification, with every per-search source/model/byte/
+time/concurrency ceiling unchanged. No further live retry, plan/account change,
+provider spend-limit change or hosted action is included. Without peer approval,
+the original two-query cap remains in force. For the authorized smoke, report
 stage timings and validated yield without private queries or source bodies.
 Label it as excluding authenticated HTTP/browser if run directly. Paid keys stay
 empty during protected HTTP/browser fixture testing. No new deployment is
@@ -237,3 +255,24 @@ included; merge/release require fresh explicit human authorization.
   implementation and `research.md` benchmark limitations.
 - Official Brave Web Search API and search-operator docs from this chat; official
   OpenAI Structured Outputs guide (Responses `text.format`) used in prototype.
+
+
+## Corrective amendment evidence — principal H1, 2026-11-25
+
+Status: Proposed for independent peer review, not self-approved by architect.
+The actual broad-search source phase fetched My Kids Lick The Bowl collection
+children successfully but emitted no eligible candidates. The saved local
+`broad-source-diagnosis.json` and `broad-source-{2..12}.html` show matching source
+Recipe identity/canonical/title evidence, while the generic header suppression
+removed principal H1 elements inside article headers. This is a parser defect,
+not evidence that Brave produced no recipes and not permission to relax source
+identity, graph limits, TLS/SSRF or collection rejection.
+
+A minimal synthetic regression must first fail for a valid article/header/H1
+source, then pass after separating identity capture from suppressed page text.
+It must still reject siteheader/nav dummy headings, conflicting principal title,
+multiple content H1s and a collection embedding one Recipe. Replay saved public
+HTML offline to show the exact missed children can now reach curation. Do not
+claim this replay is a successful live model/admission/browser run. The one
+proposed corrective live smoke checks that the implemented pipeline now serves
+the original broad query; it does not erase the prior502 or guarantee yield.
