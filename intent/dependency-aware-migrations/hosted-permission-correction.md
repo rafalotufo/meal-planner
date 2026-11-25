@@ -123,6 +123,14 @@ Prepare concrete staging results and remaining gaps before asking the owner for
 one combined decision: accept exact source/Preview/profile/gaps, approve local
 main fast-forward to the correction, and authorize separate Production candidate
 creation/manual promotion plus bounded15-minute anonymous observation/recovery.
+Staging-ref clarification after source review: the existing stable Preview lane
+is main-qualified, so the correction first needs a concrete human main-merge
+approval. Do not falsify an unmerged feature commit's gitCommitRef or silently
+change domain classification. Prepare full reviewed correction/packaging before
+that narrow merge decision, then stage the fixed source and request exact-result
+staging acceptance/Production authority. `hosted-runtime-preflight.md` records
+this required gate ordering; the earlier proposed combined decision cannot
+replace the truthful Git-ref requirement.
 The original deploy-main request is not acceptance of newly discovered source
 changes or unobserved named staging gaps. No Production build/promotion precedes
 those exact committed/unexpired gates. No old release gate is reused.
