@@ -1,10 +1,10 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Intent exploration complete; security/peer review clear; owner scope/direction/issuance decision required before Design }
+  orchestrator: { status: busy, assignment: intent/agent-deployment-verification/spec.md, last_report: Intent exploration complete; security/peer review clear; owner scope/direction/issuance decision required before Design }
   product-manager: { status: idle, assignment: null, last_report: Intent/options peer-reviewed for owner consideration; scope and issuance decisions pending }
-  architect: { status: idle, assignment: null, last_report: Concrete verification spec drafted; operator-issued per-run opaque session design and V1 gaps await independent review }
+  architect: { status: busy, assignment: intent/agent-deployment-verification/spec.md, last_report: Concrete verification spec drafted; operator-issued per-run opaque session design and V1 gaps await independent review }
   senior-developer: { status: idle, assignment: null, last_report: Combinedmain49e2a646 verified295Node+7Python and bothChrome; T-Rex/migration source preserved }
-  security-researcher: { status: busy, assignment: intent/agent-deployment-verification/spec.md, last_report: No intent-exploration blockers; scope/issuance/Production isolation and evidence obligations remain for Design }
+  security-researcher: { status: idle, assignment: null, last_report: "One P1 design blocker: exchange request deadline must precede pinned Proxy body wait" }
   reviewer: { status: idle, assignment: null, last_report: "review agent-deployment-verification-intent-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
