@@ -59,3 +59,14 @@ manual promotion and bounded anonymous observation/recovery. Recovery may use
 only freshly verified compatible AeQV/d26 under that later explicit scope.
 No previous release gate, e4 packaging pass or moving audit HEAD substitutes for
 those decisions. This plan review permits no Production build or promotion.
+
+## Approved provider-selection clarification
+
+Clarification `6df9cc2` retains the existing generic empty-set policy without a
+new database-name whitelist. After strict context-shape checking, actual database
+owner neondb_owner OR actual cloud_admin SUPERUSER=true forces full exact Neon
+context and both nonempty expected sets. Every single-field hosted-binding
+mutation must reject even with empty sets. A generic database named meal_planner
+with ordinary ownership and no provider indicator remains under the old empty
+contract and all other existing checks. I independently approved this wording;
+it prevents partial hosted bindings from selecting a permissive fallback.
