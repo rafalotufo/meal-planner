@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/dependency-aware-migrations/intent.md
 base_commit: 4f4483876ffbf1d68174a17e8658af1f7ca26ab0
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: implement
 status: in_progress
-last_input_hash: null
+last_input_hash: 2eadbedf50b820eb87c9c824d139cb3442989c83c649b3131ddd15bdfbed2914
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-25T01:06:53Z"
+last_action: "reviewer:approve_integration_plan"
+artifacts: [{"path": "org/reviews/dependency-aware-migrations-main-plan-001.md", "sha256": "c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-25T01:08:39Z"

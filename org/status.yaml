@@ -5,7 +5,7 @@ agents:
   architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
   senior-developer: { status: idle, assignment: null, last_report: Dependency-aware sourceef5d85e reviewed; full verification293Node+7Python and Chrome pass }
   security-researcher: { status: idle, assignment: null, last_report: Approved exactef5d85e;36 independent tests/probes pass; named fixture cleanup rejected and preserved }
-  reviewer: { status: busy, assignment: intent/dependency-aware-migrations/main-integration.md, last_report: "review dependency-aware-migrations-code-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review dependency-aware-migrations-main-plan-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -103,4 +103,4 @@ review_queue:
   - { id: recipe-url-menu-main-local-recovery-001, artifact: recipe-url-menu-main-local-recovery, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: dependency-aware-migrations-design-001, artifact: intent/dependency-aware-migrations/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: dependency-aware-migrations-code-001, artifact: dependency-aware-migrations-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: dependency-aware-migrations-main-plan-001, artifact: intent/dependency-aware-migrations/main-integration.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: dependency-aware-migrations-main-plan-001, artifact: intent/dependency-aware-migrations/main-integration.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

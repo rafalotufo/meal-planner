@@ -8,16 +8,16 @@ intent/dependency-aware-migrations/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 5
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: implement
+- stop_reason: None
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/dependency-aware-migrations/main-integration.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -99,6 +99,8 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0140 orchestrator -> security-researcher handoff: Assess dependency-aware migration security
 - orchestrator-0141 orchestrator -> ceo status: Dependency-aware migrations reviewed and verified
 - orchestrator-0142 orchestrator -> ceo status: Approved exact disposable fixture cleanup completed
+- orchestrator-0143 orchestrator -> reviewer handoff: Review approved local main integration plan
+- orchestrator-0144 orchestrator -> senior-developer handoff: Integrate pinned main and verify combined source
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -130,15 +132,11 @@ intent/dependency-aware-migrations/intent.md
 
 ## Artifacts
 
-- intent/dependency-aware-migrations/spec.md (6e485ad1c06a1ef27732b4794bbe78ac3b0d3682b81b78b06a04d5e5aef2bcb8)
-- org/reviews/dependency-aware-migrations-design-001.md (8e34ce02dc0d06e1397561210b0a93a70330a6dedf9b0ed95f8e42754a2ae4a3)
-- intent/dependency-aware-migrations/verification.md (1a2e5112449e8f51ced3164c8605505665f2511e7526ca8c6c8648f5f57decbd)
-- org/reviews/dependency-aware-migrations-security-001.md (be8918c8a03b6af4e2d91bdfedc2fdd1c4f6cbe7ffd27b4bed6ab647a795d92c)
-- org/reviews/dependency-aware-migrations-code-001.md (2f88c633248977c29e4175af970536a2201ad95a19a02afe0c4351a5ad016fac)
+- org/reviews/dependency-aware-migrations-main-plan-001.md (c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4)
 
 ## Next action
 
-reviewer:review
+reviewer:approve_integration_plan
 
 ## Last digest source
 
