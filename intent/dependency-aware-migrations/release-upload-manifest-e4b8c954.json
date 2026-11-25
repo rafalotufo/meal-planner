@@ -1,0 +1,757 @@
+{
+  "releaseSourceSha": "e4b8c954f6e2cab63c39216cef794187a227d79e",
+  "cliVersion": "66.6.0",
+  "scriptsDisabledForCli": true,
+  "framework": {
+    "name": "Next.js",
+    "slug": "nextjs"
+  },
+  "fileCount": 124,
+  "totalBytes": 730334,
+  "files": [
+    {
+      "path": ".secretsignore",
+      "bytes": 340,
+      "sha1": "aad8150e601ff5f6acf84bd4279c39bf6ffd279f",
+      "sha256": "b688357fdc3b4796b2fe53e36ad59ae184581ad2dc749f46a6cba20fa027b265"
+    },
+    {
+      "path": ".vercelignore",
+      "bytes": 309,
+      "sha1": "07154d33f31ce54f642692d0420c32a8d7f1dc0d",
+      "sha256": "c932350d059a752ba4b149040d43cacdca837036ac5958d11daee1b9444171e9"
+    },
+    {
+      "path": "app/api/auth/[...all]/route.ts",
+      "bytes": 3924,
+      "sha1": "e1650542015dd0c814713c775aa86d4455d39f45",
+      "sha256": "3d0ad83260f3ca3548166b20ed400d7e5a12fe087324c4f4652448649203a4bf"
+    },
+    {
+      "path": "app/api/family/invitations/[id]/revoke/route.ts",
+      "bytes": 858,
+      "sha1": "423dc2de438e19ffb6d0d01baea81d43e1fda904",
+      "sha256": "9dc7d534be3c0722ab169452532c9afaa214118cd073cb6984cd6433660012b3"
+    },
+    {
+      "path": "app/api/family/invitations/route.ts",
+      "bytes": 985,
+      "sha1": "e5265cb3d54cff7fc382b7fbb6144159bd57b43a",
+      "sha256": "0f316ce39df2cb052cfd904d399fe77cb0612bf76a009d19298ae18969d0982e"
+    },
+    {
+      "path": "app/api/family/route.ts",
+      "bytes": 653,
+      "sha1": "8b66d3aa14cdf91aefae86c9062439e57afc22ff",
+      "sha256": "033e9a9d010bfbfb4f662056d9c1ac6753a4fc423cfc80b9cf24128888d19d5c"
+    },
+    {
+      "path": "app/api/invitation-context/route.ts",
+      "bytes": 754,
+      "sha1": "c05104f73d0d11da90c0918ff7236f68631ed2c8",
+      "sha256": "25d2d5a1e86842eeedefb3c1ece1dc8c1e4185441c22ce18e4116dbad0ee0cb7"
+    },
+    {
+      "path": "app/api/invitations/accept/route.ts",
+      "bytes": 1180,
+      "sha1": "dcd53a23ffdf12154405cad65c37aad9e31ebe80",
+      "sha256": "1176fcf249fa1bd43f99fbd7fd15fd87e813700d586406febf3f981832311567"
+    },
+    {
+      "path": "app/api/menu/[id]/remove/route.ts",
+      "bytes": 1510,
+      "sha1": "8d02927cad5bd07f26ee5a7c3b67c0f02603465c",
+      "sha256": "cede0f8f9f8a796859e33d74a64e71cb7d1da977707d0d5174d32223e40090ba"
+    },
+    {
+      "path": "app/api/menu/route.ts",
+      "bytes": 3533,
+      "sha1": "da31e30e5bb2a6680074856b102c6dff7ac34087",
+      "sha256": "d00fab25639e7a361e858ac23cba4f2571d6ca7c1440cd301d1662d87f3e6ac7"
+    },
+    {
+      "path": "app/api/onboarding/provision/route.ts",
+      "bytes": 847,
+      "sha1": "582c17d1e8ffbd8870042230d7a46d617cd33e99",
+      "sha256": "5e412403d0b8584acf3786f7521d2ed2340b616d4d54d5a3a0e269d60e438f38"
+    },
+    {
+      "path": "app/api/plans/[id]/route.ts",
+      "bytes": 1612,
+      "sha1": "2c6667613e6fdf6b0da29784479a3798d5182d4b",
+      "sha256": "80f604193c660b82a20baa0f6cec4ddb2309c604374a5b196ac724290d61c5c8"
+    },
+    {
+      "path": "app/api/recipes/search/route.ts",
+      "bytes": 670,
+      "sha1": "969317999431066226fa0bbb7c1e3adbee4a524f",
+      "sha256": "b7b15de826eb542593ea9b006a85630fc10f05f9a4f345aea0b1038b3dd44afe"
+    },
+    {
+      "path": "app/api/session/route.ts",
+      "bytes": 361,
+      "sha1": "672f8bb4a60346de6d4b819f71a08976d97e0dab",
+      "sha256": "4308ab3cbb5a503e590f0ab76fed19f84232005a89bdeee1d51fcbb27e8ba9fe"
+    },
+    {
+      "path": "app/family/family-controls.tsx",
+      "bytes": 4851,
+      "sha1": "67bc3360e7755b76e6979c8be1b8c4671d4eedff",
+      "sha256": "2780ea1c8d7c3df386d9c6ca41810239c305e653b6ce81c7c5cdf863597d81cd"
+    },
+    {
+      "path": "app/family/page.tsx",
+      "bytes": 1378,
+      "sha1": "90bb713062f73441377cc4174c9f8f4af0f827f2",
+      "sha256": "3d08bdcd3ae2eaa532a63f96402f0838162be5450ed10da1fcf254b8e09c69ee"
+    },
+    {
+      "path": "app/favicon.ico",
+      "bytes": 1341,
+      "sha1": "db915ab443b390f06b5c809becb903a210b780e5",
+      "sha256": "f74fb55e3545b1f8851d273785ff01bb6bc56cbd6850100d5552b917f36a0ac4"
+    },
+    {
+      "path": "app/globals.css",
+      "bytes": 23,
+      "sha1": "24da772ecc54ea4ccdde761b6c2bb780d5975c8e",
+      "sha256": "42070e0b45bb201b2b838a52aaaa6e965f964e0b542d97f1fe517fe59c4b75a8"
+    },
+    {
+      "path": "app/icon.svg",
+      "bytes": 421,
+      "sha1": "96ae73f989d24f567cbdfa8d08f925e8e96e0a33",
+      "sha256": "f711cfaa475e933a98038c218badf30ef4f26b6c5aa6ca97b436dad87b82de81"
+    },
+    {
+      "path": "app/invite/invite-context.tsx",
+      "bytes": 1274,
+      "sha1": "a74db01e5aafb07860ff76b016608b00bc60e6ae",
+      "sha256": "e37f910f146e381898e324c9ff4a2b1eb7b59f0ba00e351b807d889d77e81e55"
+    },
+    {
+      "path": "app/invite/page.tsx",
+      "bytes": 456,
+      "sha1": "ff067ee50185467a4d71333402b4bd042c5bdcca",
+      "sha256": "338f411b5788ccc84611bda120c20988d28cdd0eecbc9aa7338b7bbe03315ae5"
+    },
+    {
+      "path": "app/layout.tsx",
+      "bytes": 2094,
+      "sha1": "696eee1fd54860f91aacb6738609fd54585f572d",
+      "sha256": "0315014cc633fdd9d30025e88c3215f86cae867333f2fb795098c190fe7f9c56"
+    },
+    {
+      "path": "app/menu/add-recipe-url-form.tsx",
+      "bytes": 5030,
+      "sha1": "b01b3ae80542cec2ffc147cfc1dcdcbf584d8744",
+      "sha256": "9ff06b83883811b6c9d78c6ec5a30629b174d164eae73897253abb1782b3768f"
+    },
+    {
+      "path": "app/menu/menu-controls.tsx",
+      "bytes": 12680,
+      "sha1": "0654f1a896f085ff7847a2824d133fd25f396ac7",
+      "sha256": "34ae642c226d485dbe1027a903e459ae50d7777e68c6706d45089e005f360e82"
+    },
+    {
+      "path": "app/menu/page.tsx",
+      "bytes": 2192,
+      "sha1": "fdf4fbd3cbef01130c18d81c1504efd79e88796d",
+      "sha256": "e6fafe58b65142fa8b819e2952256f653adf786a8ab5095a1e3a7cd527a5208c"
+    },
+    {
+      "path": "app/menu/remove-recipe-dialog.tsx",
+      "bytes": 2363,
+      "sha1": "419221c87353924372ed30e7ab0b46875e915a8e",
+      "sha256": "4cff3ddeb337f55e34e71b739881a7cb7a420c2081f90aa69c3de62b86897863"
+    },
+    {
+      "path": "app/menu/retry-recipe-details-button.tsx",
+      "bytes": 3173,
+      "sha1": "a08525a3330b6f5c19f1ebe951ad76e321e5d13d",
+      "sha256": "788182e39ab6428c19365a8e9ce6408310f672e0185d89862bbf526d32fdb6ba"
+    },
+    {
+      "path": "app/menu/save-recipe-button.tsx",
+      "bytes": 3398,
+      "sha1": "0f799d43da1956afbcd864dbd75ca1f307002cd9",
+      "sha256": "64f5da8b8c2e83d99fdad4a395dd24ff98972f3090ffe617c000c80b9b972898"
+    },
+    {
+      "path": "app/onboarding/onboarding-controls.tsx",
+      "bytes": 1907,
+      "sha1": "da480cf1389d7c01679a0ecd73add4afd9b48fac",
+      "sha256": "c75e03398f53eb27aa2fd91cfcf5d6d8dec82ccc9caae6a82d49a303a614908c"
+    },
+    {
+      "path": "app/onboarding/page.tsx",
+      "bytes": 1941,
+      "sha1": "5d54c85781b3e7f98d5b283db4eb34ecc5f558d5",
+      "sha256": "12d7989eed24d96c3f5356e81d70a6bc43a24a180d67b0c47dd8d4d8d68901d1"
+    },
+    {
+      "path": "app/page.tsx",
+      "bytes": 392,
+      "sha1": "df9b5b489ac5e78042edf0cc577eb2db62ecdbdd",
+      "sha256": "eb3099371ee6ee7145c876a3799804e3037d4d3c028551ef63ef838b7b6862b4"
+    },
+    {
+      "path": "app/plans/page.tsx",
+      "bytes": 4560,
+      "sha1": "19f9d3a2b5662d9a27fc4dce8af16aa0521790b4",
+      "sha256": "e950e899d3bb6dae0e0d8b2e23ecdbbbcef7c164a6b62407c1bfbbb17e246d8d"
+    },
+    {
+      "path": "app/plans/plan-controls.tsx",
+      "bytes": 8372,
+      "sha1": "65853c01a710149cb58c1a6853731f93a8465aad",
+      "sha256": "0696a46c028a5cac52d5aec5333dae0cf9699362409a107be594423cde15a3e7"
+    },
+    {
+      "path": "app/plans/swap-recipe-dialog.tsx",
+      "bytes": 13477,
+      "sha1": "7c32b5d743cc04bffd94a537b45455027f454b08",
+      "sha256": "cc3bccf0a65127d219b8f06b343207e8f41dc3b2e1d480b56792b08d9289a53d"
+    },
+    {
+      "path": "app/recipe-card.tsx",
+      "bytes": 2433,
+      "sha1": "8dd5033ad63da4aa87c98eb1700c3c5e0b1a5a43",
+      "sha256": "d4a92fbaecf983c49d4e9ab371fb8941eb551b66457d9857f3f3a48798b76177"
+    },
+    {
+      "path": "app/recipe-search.tsx",
+      "bytes": 10522,
+      "sha1": "196bd5e44e275cb1425ba01727d5e752d94c66c3",
+      "sha256": "4e6ab8334c9ba6ddebe9154aea97e22ca647df92494552782003b76a06e2f13d"
+    },
+    {
+      "path": "app/search-notebook.tsx",
+      "bytes": 9311,
+      "sha1": "60a91af2921c4c23c87e593caf5869228262bd37",
+      "sha256": "5e5c30c7b6f614b24d6ebededa3f6b77a390b6865c26d187b90b3f640b8bc809"
+    },
+    {
+      "path": "app/sign-in/page.tsx",
+      "bytes": 612,
+      "sha1": "72d835006f4351e68428e1ffe4f87aba2fdc56b2",
+      "sha256": "8d17e538103d8663c3728036bf4f10c4a7f7e489d8d14b940ec6ca9c1d949807"
+    },
+    {
+      "path": "app/sign-in/sign-in-button.tsx",
+      "bytes": 1133,
+      "sha1": "a2c38740a612c1583af6ff56b58e213457f2e363",
+      "sha256": "5a44e4715e3d96b3733c22b9985ffe984ff1c5b072e0af7e865e0d7f4d8eec41"
+    },
+    {
+      "path": "app/sign-out/page.tsx",
+      "bytes": 603,
+      "sha1": "3884cefaf32414ddf8952b89ba27971e43bb8c3f",
+      "sha256": "79f4871eed99974dd986ceb8e10b2187638028931e8e10a9a81a0fbd69320e78"
+    },
+    {
+      "path": "app/sign-out/sign-out-button.tsx",
+      "bytes": 1167,
+      "sha1": "091aa61f4cd5ff75c66f805956c65d4ee0bda61f",
+      "sha256": "f711b49fe163d9f5ecd8f8f1f7a95bf6c5ca3fca3cb065767bd698f251333c75"
+    },
+    {
+      "path": "app/t-rex-runner.tsx",
+      "bytes": 4944,
+      "sha1": "c4a61908e5fe2df0901783b410bc34becdf76fee",
+      "sha256": "1256251db328569bb68f2fa33fefcef7bc8ae1bb17a6a4b9cae17687bf0377ce"
+    },
+    {
+      "path": "drizzle/0000_gifted_sharon_carter.sql",
+      "bytes": 2806,
+      "sha1": "d1f61deccc40e47ee2c9f8584b13029dd358fdf7",
+      "sha256": "6ba21da4ef47d75f3f262492e0f8c7377fef42af00e752cce42b5df90405b792"
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "bytes": 210,
+      "sha1": "86fe0a0467232e878e15dbee53704111fcae573d",
+      "sha256": "7c95c8479cdab82158467e97be836b5ed71c6524477af3adce08d6859a6fe33d"
+    },
+    {
+      "path": "drizzle/meta/0000_snapshot.json",
+      "bytes": 8711,
+      "sha1": "255785297de19aacf6c907761061ef6b64fd07a3",
+      "sha256": "9060fc1c86da0e1f689f89341ecd1fb23152d0bb883a47471c182f85fad26fe1"
+    },
+    {
+      "path": "drizzle/postgresql/0000_family.sql",
+      "bytes": 2805,
+      "sha1": "de0becb72a201fe71e5a77a942e51c48d2df42b0",
+      "sha256": "22463e304a25ab4d43ded59a017f476ffc651e37f9c966903cc1bcc934afb597"
+    },
+    {
+      "path": "drizzle/postgresql/0001_saved_recipe_menu.sql",
+      "bytes": 1509,
+      "sha1": "413624e9f6055fdb71bd8933026ded54ff1306df",
+      "sha256": "5b984dc2492fb0bfd85c7ee46620ad61c819c81da6db606620b1fb244be52ddd"
+    },
+    {
+      "path": "drizzle/postgresql/0002_weekly_meal_planning.sql",
+      "bytes": 2322,
+      "sha1": "88dbd7913cdeba101f02d7d2cc1074c6cc185a0f",
+      "sha256": "f6a77d005618de16b22350df733f35674fc301ef638aa087ae5654efbfea035b"
+    },
+    {
+      "path": "drizzle/postgresql/0003_unique_weekly_recipes.sql",
+      "bytes": 3316,
+      "sha1": "fafc2fbd66c8400bbf5ec8e6d2da27b6e58e6ba0",
+      "sha256": "1e8f7dc3ba0e3fc4912763e42f1677183b7ece0d88788942f397dda3e9b7d447"
+    },
+    {
+      "path": "drizzle/postgresql/0004_recipe_url_curation.sql",
+      "bytes": 1170,
+      "sha1": "5c82ed766f275975efe686f11f3dfac38dead2a6",
+      "sha256": "e6245a306113e9a9fd0255fdf8fbc670f7678d91142d586b053d24548cfb1238"
+    },
+    {
+      "path": "drizzle/postgresql/catalog.json",
+      "bytes": 23057,
+      "sha1": "c6174f2386da1f2def20309fca5b0b8b50129168",
+      "sha256": "28a5cec88b06d6aca405c60b54617d46ba8623772f1ad991972994ca96d78adc"
+    },
+    {
+      "path": "drizzle/postgresql/compatibility.json",
+      "bytes": 151493,
+      "sha1": "fc1f4402c776f4208a1efcf85c1e63d1158d08cd",
+      "sha256": "4308f16ee8600789697cde966c4f3f7f49874c465c62893f5ba11c56243c27d5"
+    },
+    {
+      "path": "drizzle/postgresql/meta/_journal.json",
+      "bytes": 524,
+      "sha1": "1d549a27a6e9b2f9892d500858aa9ed9e8d5077f",
+      "sha256": "e7b91795eda714cde77e820a51018e124caed53d94d1ab9a7f30824ac0d1c6b3"
+    },
+    {
+      "path": "drizzle/postgresql/rollback-curation-test.sql",
+      "bytes": 112,
+      "sha1": "f67722c9c240fc6737b4ba8d63b0e651bd42f66b",
+      "sha256": "5179d21e017938cceefda9c38d50f877b10c80f5a96b08f9e55c047fdd7e78d5"
+    },
+    {
+      "path": "drizzle/postgresql/rollback-initial.sql",
+      "bytes": 273,
+      "sha1": "639e9453f8024d9ca60df0cd17519aff57b163c8",
+      "sha256": "930f8a60ca948cf1e7afcf37a160fe76889308edc368deeb8110023982c9891c"
+    },
+    {
+      "path": "drizzle/postgresql/rollback-menu-test.sql",
+      "bytes": 183,
+      "sha1": "d0dc31bc832bf600cf17106a59acf27ad377a63d",
+      "sha256": "ae0f54c32dfa4359f953f34d6287a5122cea94adfd2b897bc77c30c027fc0416"
+    },
+    {
+      "path": "drizzle/postgresql/rollback-plans-test.sql",
+      "bytes": 223,
+      "sha1": "76326698f3cc932982fa888f1491d7f3e672fcfe",
+      "sha256": "52fb84bdaac772dc5053a6e0334e4c03c602771fa7303da97ec91c057df2aa8d"
+    },
+    {
+      "path": "drizzle/postgresql/rollback-unique-plans-test.sql",
+      "bytes": 544,
+      "sha1": "9fa0f7ceed6e9c02470072179470eeadcf623b48",
+      "sha256": "fbdf75d782f294e8bcb4cbb7bec0203dcddb8f1a40ac804007e14bb3d9fd25f5"
+    },
+    {
+      "path": "drizzle/postgresql/runtime-migrations.json",
+      "bytes": 618,
+      "sha1": "c2b081c323e43e277fd9c080772269a42be9c339",
+      "sha256": "4016de237a628c6ac306d2a8dc32bc0e5d679924cbd54f3f27169a9bda484e8b"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 325,
+      "sha1": "8f5af3b6d7ab677982368d055c8ab2dfb612ab0f",
+      "sha256": "5f9151dadd25eea1cb991df794794c06a29f613dfb140e714ddae519a195d1be"
+    },
+    {
+      "path": "lib/allowed-google-emails.json",
+      "bytes": 106,
+      "sha1": "115830d1b3bb25fb3a955faeedf32e47910a4ed5",
+      "sha256": "ad005d6c30b4ef084e0e77d815a8a600e4a466ebf10ede007a8ab60bd2241089"
+    },
+    {
+      "path": "lib/auth-client.ts",
+      "bytes": 114,
+      "sha1": "51071334cada5b0719a0914ffcf908a9624696c0",
+      "sha256": "0e16bb7453403546d91492f9ff458786ad085b7e739a213d148d71fd0065b079"
+    },
+    {
+      "path": "lib/auth-policy.ts",
+      "bytes": 641,
+      "sha1": "caba89217af3c602df4266d65d1920757c3722f1",
+      "sha256": "7d8dde23b2b80ff7ae407aaf5bf0e23b201051e5a46f96c63bf2756ad4c386d8"
+    },
+    {
+      "path": "lib/auth.ts",
+      "bytes": 3787,
+      "sha1": "4c1ddede73618138aebe1b931ca78c02cf349788",
+      "sha256": "982f4b9c46bf5d629471ef9191748368ea9d4871b6ba165ae0a9bbfcda1f9278"
+    },
+    {
+      "path": "lib/db.ts",
+      "bytes": 363,
+      "sha1": "ff64fa63c60d766f841f28e2e58c56afc42b12bb",
+      "sha256": "7ca13f2d4d1673fec7e3d71de46a575124eba87f4cd9fd299eeda8e180866df8"
+    },
+    {
+      "path": "lib/db/compatibility.ts",
+      "bytes": 315,
+      "sha1": "cf98ac15ac03e081175ab9cb50ace196f0d94f58",
+      "sha256": "7f0b44624e2f529fed49fdb220b8a05155e31b47f677618e95c46548fe27327c"
+    },
+    {
+      "path": "lib/db/connection.ts",
+      "bytes": 7179,
+      "sha1": "4fb035e3fb09a1fda1d79158e9f1a0a17cbf5e86",
+      "sha256": "24c288020f50b77d94bca3f905727fe5d812ff9bf1661ffc712cb5a84ddf7f8a"
+    },
+    {
+      "path": "lib/db/migrate.ts",
+      "bytes": 3047,
+      "sha1": "5cd1211f41660ab61955b87ebce1f5736d989a82",
+      "sha256": "73d21ea543fdbb5402c99bdace6fbf4ae3dbc54325a7433af2e5176bbfa06007"
+    },
+    {
+      "path": "lib/db/migration-graph.ts",
+      "bytes": 7039,
+      "sha1": "0e1d20cc2ce8e83e60de1d7e062fecb38d5619f4",
+      "sha256": "ecffe1ff80155c2f19abf5bc57d3870f1d94eccc374de8de4112795fd31e4f90"
+    },
+    {
+      "path": "lib/db/repository-migrations.ts",
+      "bytes": 2107,
+      "sha1": "ac347f5409a0ba4fd2287b47607d7c30bf3ee294",
+      "sha256": "2788b6b62cbdc6ab43f0df9db7c99e46d98475b798aa7ddccbf775b4a9bbe0d5"
+    },
+    {
+      "path": "lib/db/runtime-metadata.ts",
+      "bytes": 932,
+      "sha1": "d61efabecd9e33b230d3f0fd6e8f08e245a405c1",
+      "sha256": "d44069e862db8919004de76bd4784221c1a9769defd00d0fe6e4f0b30b8068a5"
+    },
+    {
+      "path": "lib/db/schema.ts",
+      "bytes": 1514,
+      "sha1": "bf4e425ed088b992caafe78934ed11b867b51d5f",
+      "sha256": "fca440442606935952fa1842e2d3804b16a8c5d4700cc66836876777eb2fc150"
+    },
+    {
+      "path": "lib/db/security.ts",
+      "bytes": 8428,
+      "sha1": "41419bdaecd8727dd7881f9bd6d713527871b75e",
+      "sha256": "89979dceece530df0609b4fc4f39f28577767521a39b64bef0fb41665005ece7"
+    },
+    {
+      "path": "lib/db/validation.ts",
+      "bytes": 7003,
+      "sha1": "dd77cf3f5265927e82a778a7447cf2c2230b12f2",
+      "sha256": "40cb11455af7c2b48b8847b922d9abb3e008d3e16b961ed571e78a705c421762"
+    },
+    {
+      "path": "lib/db/verify-runtime-metadata.ts",
+      "bytes": 239,
+      "sha1": "02b3b9e13f4ffea492a05b52cd83e96efe67038a",
+      "sha256": "381d1f3874f1ec5efdcb3da2597701d1a3c3a3e72671e24bd60042082fb00372"
+    },
+    {
+      "path": "lib/family-store.ts",
+      "bytes": 1862,
+      "sha1": "2b889ba1b44f870124ee577f219041bb91164520",
+      "sha256": "b3b3a2c090a565fc9be049ceaa24a516d57e585671cc051f90c219a57c5f821c"
+    },
+    {
+      "path": "lib/family.ts",
+      "bytes": 310,
+      "sha1": "29cfec5ecd5b51c8991625d8272e408a40c6f317",
+      "sha256": "183423e4c414e24ad6290112cb8a54b952a391d5db46f6d68df74866169941a0"
+    },
+    {
+      "path": "lib/google-access.ts",
+      "bytes": 1087,
+      "sha1": "dfa35a342e176a46798488baceeef5af667a7d16",
+      "sha256": "58ca7e2301c0468d6492db9e40b67c0d0ef5f91863371853db280296e1b63715"
+    },
+    {
+      "path": "lib/http.ts",
+      "bytes": 1838,
+      "sha1": "69cff95012db9b136f47c49413deef967c7e062f",
+      "sha256": "cdd66205c5c8cbcc23894ff746f4385673f5de890a04e0dfa1b1496a2a3acf4e"
+    },
+    {
+      "path": "lib/identity-access.ts",
+      "bytes": 3534,
+      "sha1": "b10cc70e1f804f5cf0311bfe663b1349658d42a9",
+      "sha256": "c4dd05f961261775337bd5a775761db9f3b6e89472afc5500a2c51aec3c6cf72"
+    },
+    {
+      "path": "lib/invitation-context.ts",
+      "bytes": 778,
+      "sha1": "b870f7bf2334c64a045c23adf63603f8f766512f",
+      "sha256": "a4d1e0b35da3345ab788d9a1af883bef79f3408013616a77b983f103da8a9d5e"
+    },
+    {
+      "path": "lib/invitations.ts",
+      "bytes": 4989,
+      "sha1": "e72c9c3239b1f8e04ccc9c0132033ac79699301c",
+      "sha256": "54bd9560b34cc9618aea0e95bcf0f1d3b47d1bf24ca498633ae5ece21fded9ad"
+    },
+    {
+      "path": "lib/menu/body.ts",
+      "bytes": 2087,
+      "sha1": "08df7f28141b271cfd9c189b2670eb299b879727",
+      "sha256": "bda1568605121eecf017944771db991bf7c546c7432233f7f16d675e3422bef5"
+    },
+    {
+      "path": "lib/menu/curation.ts",
+      "bytes": 2574,
+      "sha1": "acfdd96b138cee998e68d809670413bce2df2c2e",
+      "sha256": "b7d2cffdaf8e49582127a3f03d1a938886a0ccbc553947b29bdb260ff088ea60"
+    },
+    {
+      "path": "lib/menu/http.ts",
+      "bytes": 3564,
+      "sha1": "7a89697f3bac22a2811662e77f3f3fa334fc138b",
+      "sha256": "4eddfd46282edf48556c08fc3af5280d02f47dff92024a556f7d82def5cf11c4"
+    },
+    {
+      "path": "lib/menu/recipe-metadata.ts",
+      "bytes": 7864,
+      "sha1": "89aeaef2f5885197d85f11fea87bf75f14edd668",
+      "sha256": "357f31dded3b29f8c3573181ecd948c01c6333ece4f419addf4ec19f8129269a"
+    },
+    {
+      "path": "lib/menu/store.ts",
+      "bytes": 11667,
+      "sha1": "f9332dced1d28fd1de592e562012929f138ac17f",
+      "sha256": "09a99ac38b65ca7e0a054d610d6142ec3ad513d22286d5d209b02f95c8441984"
+    },
+    {
+      "path": "lib/menu/types.ts",
+      "bytes": 543,
+      "sha1": "ba8dafe6e564871f89ecf074789abda02c304fe6",
+      "sha256": "a53a511700cd3d4a64781d32d108f7acb786419da8361c6f02e564513fcbfc1e"
+    },
+    {
+      "path": "lib/menu/validation.ts",
+      "bytes": 6819,
+      "sha1": "5c963882989a07cf0d07a20e7615740fe58b4e1f",
+      "sha256": "e0dea82137205b30c1bc7fcae0db9b8bb30de1e9bd87d66788439565823f5086"
+    },
+    {
+      "path": "lib/plans/calendar.ts",
+      "bytes": 2082,
+      "sha1": "9cac87b86e1033c6c7594c6ac597300e03b207d9",
+      "sha256": "def04eab1e52afeb40d152e39cf1700f82a74d365296157f408ebce280df97d9"
+    },
+    {
+      "path": "lib/plans/generate.ts",
+      "bytes": 2980,
+      "sha1": "dd9c686b6d74b54dbde55c1057aeb99fa6940668",
+      "sha256": "640c95643d2d4b5addc378304df394af952f0febce0ea77ed3045af3dc77b902"
+    },
+    {
+      "path": "lib/plans/store.ts",
+      "bytes": 9448,
+      "sha1": "e4006346cf170234c4f00d3c6da22afe2b551d33",
+      "sha256": "2d44c6bbc725c27db001a9cb616e3c1cb2018c681ace4c797b6629c335fb3d12"
+    },
+    {
+      "path": "lib/plans/types.ts",
+      "bytes": 828,
+      "sha1": "1ab2a71a2911ef4d1bf799dbc335f7aa8b8ea8f9",
+      "sha256": "d9c5520554ab7bf7d945afb951abe0a0402bf93100c759b089ce1ad30541cd01"
+    },
+    {
+      "path": "lib/plans/validation.ts",
+      "bytes": 2175,
+      "sha1": "b9c0e6cf25af9c25dfae42a6bc9eebdedd645288",
+      "sha256": "bf8b84dd9e90b2e8731afe5f37518bc8c0af24b05a843e4c04ec1517e07c8518"
+    },
+    {
+      "path": "lib/recipes/errors.ts",
+      "bytes": 348,
+      "sha1": "9946b752846d939d828fe32416744bab3ef6a965",
+      "sha256": "7d1e443c04922836c1de8d6255ed93b61e16c593bccd14df773e49c0f1c30334"
+    },
+    {
+      "path": "lib/recipes/notebook.ts",
+      "bytes": 3279,
+      "sha1": "b615808f33b9bb344c6be31028c36d2e39ec0cfa",
+      "sha256": "b88bf34ff10d7cb421b1ec4fed2c974f1e84501714ce7edf6295b85bf75ac5ba"
+    },
+    {
+      "path": "lib/recipes/openai.ts",
+      "bytes": 12182,
+      "sha1": "9ff81bb9a32cb41407a9d29d1cc838937acc62af",
+      "sha256": "8824714a1f5783ec34f151c42e61694abea48df1c44d166b1eede30dc4f65899"
+    },
+    {
+      "path": "lib/recipes/photo-metadata.ts",
+      "bytes": 8328,
+      "sha1": "aa8a664c61a3ce3754775dd744b86cd502f7e1bf",
+      "sha256": "0a8a23fef49decd463f5dfe2de7bc79da05f2fe67ccff3e795ac30a9c25a8bc7"
+    },
+    {
+      "path": "lib/recipes/photo-transport.ts",
+      "bytes": 6747,
+      "sha1": "12ae407ffb36be0521336a1cf3fd46d492c9e314",
+      "sha256": "5924cf27a8a22f35c1ae98b54333ca52458220f946e8a45547aedde38b34e0ba"
+    },
+    {
+      "path": "lib/recipes/photos.ts",
+      "bytes": 3219,
+      "sha1": "32f81c8952438607a5f9666c97222bb969366f46",
+      "sha256": "c38e4e66a90094e2ccaeb8bcf25b17367176c01c680b3cc5a96c172abe87f13f"
+    },
+    {
+      "path": "lib/recipes/search.ts",
+      "bytes": 7513,
+      "sha1": "5819cf6db1107aa2eedd3a765e0fc50f14c745c1",
+      "sha256": "bad9f59b1c1705b8677f479e2ce1805d7caa8b2e097ba3e8aa3a9867f8b38036"
+    },
+    {
+      "path": "lib/recipes/server.ts",
+      "bytes": 529,
+      "sha1": "214f6bf816be706f9ef119e1b61bfef3a59c2da4",
+      "sha256": "8119ebfa5c5445f7ea2874fe29734d0f3dcc02afb7ea5fc64a7ab1d169a32f0f"
+    },
+    {
+      "path": "lib/recipes/types.ts",
+      "bytes": 326,
+      "sha1": "9af8d39044168b92e2dcf2747894c0e6d11e3355",
+      "sha256": "2cef7e1ce8258c8a40687a272587cf9a0d933e467aff075578f599bb585aea9b"
+    },
+    {
+      "path": "lib/recipes/validation.ts",
+      "bytes": 1177,
+      "sha1": "2f14fb5a872c6fe340b7ea2de1c25abfb467826b",
+      "sha256": "5a01f8f8f100b8fc0ce76969a389e458e1924d1b32e516f233b8fc8d93cab8a1"
+    },
+    {
+      "path": "lib/session.ts",
+      "bytes": 1559,
+      "sha1": "a3e63496e426442c3d3c0ba6fe9a8bc14e421a50",
+      "sha256": "047d77d052825fb2b9d145da830a4fad6873d89e8e777783c5ea32194d870727"
+    },
+    {
+      "path": "lib/t-rex-canvas.ts",
+      "bytes": 7002,
+      "sha1": "9b4831943268d89f0f2c67beb93f494dac12b11c",
+      "sha256": "4f5cf40e42a1f839903dc1d714bfda85b8d7c0b3ab9188a362e328a4d4791218"
+    },
+    {
+      "path": "lib/t-rex-runner.ts",
+      "bytes": 6192,
+      "sha1": "a658070d2cd4037effb97f796f0a7cce029a8f45",
+      "sha256": "dcfce3157ed688f6cb2ded50d3efd58d9b2932aa169e2c1042e88afc74935083"
+    },
+    {
+      "path": "lib/t-rex-session.ts",
+      "bytes": 855,
+      "sha1": "3d3dcba3891efd089f87b2db7f22a4a820c766ea",
+      "sha256": "ff5a04243bc5cf677f32cef6491b803a719dd3e5bfb18e7d9d9970e55ede0a3c"
+    },
+    {
+      "path": "next-env.d.ts",
+      "bytes": 288,
+      "sha1": "915946e261450f4fb6aab2ca862c8b440b748240",
+      "sha256": "1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b"
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 173,
+      "sha1": "8bf0c99014dd1e16122c556be5ee4febff446414",
+      "sha256": "0b29f22451dea672ac412698496d8e50a0b48666fb326951cd095e75455f1247"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2051,
+      "sha1": "f436295f91fc56b7bca3b88e87cdfa5a9f32eafa",
+      "sha256": "2bc057c79b0c9cd7353bdd5ae0ec19087fa73b9b8c4da62983e8b1b6c67f1d1b"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 188879,
+      "sha1": "e3aa7dfb6fae28c2b04e22ad3c31c14a6cd14976",
+      "sha256": "e4d759fd97a10b412e69e9d618cf64033f60469a246c113b4a425cfb1114af1e"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "bytes": 370,
+      "sha1": "1b45e40723bf3b29667cc240534f2d3f278a0553",
+      "sha256": "216f674243f29b57e666d2aaa7f3c175e3a9621ef27d1e9f0ee573ac5d1ac3e3"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "bytes": 94,
+      "sha1": "8f8be689e9af58f80351df6e6b551146822f42a4",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "proxy.ts",
+      "bytes": 3459,
+      "sha1": "f59785e0d27264c38962c98e715ebb684c82cc15",
+      "sha256": "d092c9cfa246c6e9e3fc57b1c2a1035dc2385630cb652bc23183dee56e8af31b"
+    },
+    {
+      "path": "public/games/t-rex/100-offline-sprite.png",
+      "bytes": 2645,
+      "sha1": "c933d84c436b49d180dd945313fbd70e0c4fc125",
+      "sha256": "e306705c996676db01f4072ed3d6f33d89089a848ab0b2a0ba07a2d866ec309f"
+    },
+    {
+      "path": "public/games/t-rex/200-offline-sprite.png",
+      "bytes": 3244,
+      "sha1": "b1f0ff7b93ea725cd686a51630a728c8fbc8c6da",
+      "sha256": "b3011fd16e43cd860b9782c4eafe77c1cc40da2e0f6e2e5ea547d98d6efac879"
+    },
+    {
+      "path": "public/games/t-rex/THIRD-PARTY-NOTICES.txt",
+      "bytes": 3411,
+      "sha1": "ad1c23ee031e51dd2f3e478aac93299b1707556a",
+      "sha256": "47d419b94ce24ecd6fe063a168b88900035a87ba3b698b6a7cb07fac5c3e7ffd"
+    },
+    {
+      "path": "README.md",
+      "bytes": 32297,
+      "sha1": "298fb00caf4cbe712dd6f6e67ad19adbfd17ec01",
+      "sha256": "6c1def607eb44ad32263b6bc641e16204570c62bac70acfca8ee49f6d88a1c1e"
+    },
+    {
+      "path": "third_party/t-rex/LICENSE.chromium.txt",
+      "bytes": 1559,
+      "sha1": "5548778e53b16da694f02b4716c9b3678e63305a",
+      "sha256": "845022e0c1db1abb41a6ba4cd3c4b674ec290f3359d9d3c78ae558d4c0ed9308"
+    },
+    {
+      "path": "third_party/t-rex/LICENSE.wayou.txt",
+      "bytes": 1517,
+      "sha1": "387eee45844c6e54a9387eea768d8c6991ba876f",
+      "sha256": "c6ba363b8d8d89eab0a8f4775e4fc5dc2dc1c3b649cbf2a0af4049699ee29533"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 775,
+      "sha1": "13d0ee68c4406921f6fbc22a92bf6cbbafb49d0c",
+      "sha256": "7c34b17f05336e3cbcc99b7db401e5e9c48eb0b087282ca5bd56422ed904b750"
+    },
+    {
+      "path": "tsconfig.recipes-test.json",
+      "bytes": 412,
+      "sha1": "146c2b3c42f3f6f0f9c5d9f22d475ffecd4ab451",
+      "sha256": "2dd606608da597ee92527860e66a0ece2e1d91a0c378e6456d021ec8157bf9d7"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 276,
+      "sha1": "14344c327c5ed427d3f25639001d25a332b7f34b",
+      "sha256": "defd64b926fca0ccf49d9b0d184a6d4677df4c8fc556e769d87f9e56f6ab090a"
+    }
+  ]
+}
