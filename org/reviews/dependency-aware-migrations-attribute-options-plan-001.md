@@ -46,3 +46,12 @@ This approval crosses no main merge, deployment, hosted migration/configuration,
 paid-provider or Production gate. Fresh owner acceptance of the final source,
 concrete staging profile/gaps and bounded Production/recovery scope remains
 required under the governing release plan.
+
+## Approved row-type and shape clarification
+
+I also approve amendment `ed07050`: derive relation row-type presence from actual
+pg_class.reltype, independently of the marker, and accept pg_attver only on such
+relations. NULL/empty options remain valid on either class. Reject index markers
+and malformed/sparse/nested arrays or unexpected properties. This narrows the
+contract and preserves exact integer handling. Its pinned upstream source links
+make the implementation evidence reproducible; no additional bypass is added.
