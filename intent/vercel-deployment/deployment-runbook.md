@@ -18,6 +18,36 @@ canonical health and recovery. Earlier specs/releases and their recorded checks
 remain historical; their first-live OAuth/search/cancellation/WAF certification
 requirements do not govern future releases under this amendment.
 
+## Synthetic staging evidence is a separate proof class
+
+The approved [Google-free verification design](../agent-deployment-verification/spec.md)
+adds operator-issued synthetic staging sessions, described in the staging runbook's
+[synthetic lane](../vercel-candidate-validation/staging-runbook.md#google-free-synthetic-verification-lane).
+Its local implementation approval is not hosted migration/grant/issuance/data,
+configuration, paid-provider or deployment authority. The verification schema and
+runtime catalog must be reviewed together before any separately authorized cutover;
+older artifacts are not assumed compatible rollback targets. Preserve all data.
+
+A `synthetic-app` artifact binds its verification run/member IDs to the exact source,
+Preview deployment, configuration profile and actual browser/version/width results.
+The staging helper's `synthetic` validator reports only that app proof class and
+always returns `releaseAccepted: false`. Exit0 means the declared synthetic-app
+matrix passed; it proves neither real Google allowed/denied callbacks, live provider
+success, platform protection nor Production behavior. Missing browsers, keyless
+provider behavior, excluded invitations/URL curation and platform-bypassed traffic
+remain named gaps. The existing real-Google finalizer cannot accept this artifact
+and its Google assertions must never be populated from synthetic login results.
+
+Owner release-source acceptance must explicitly distinguish these proof classes
+and accept any required OAuth/provider/browser gaps, separately for that exact
+source/profile. Scoped shareable-link/canonical-origin access, deployment pinning,
+private credential transfer and trace handling must be proved under separately
+approved hosted scope before declaring the lane ready. No project-wide bypass
+secret is provided to browser agents and no public-protection-removal fallback is
+implied. Production retains the same separate build/manual promotion and minimal
+canonical anonymous health/recovery process below; no authenticated Production
+verification route is introduced.
+
 ## Login and gates
 
 1. Run the pinned CLI `login`; the owner approves its Vercel device flow.

@@ -4,7 +4,7 @@ import { spawn } from "node:child_process";
 import { mkdtemp, mkdir, writeFile, rm, access } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { resolve, join } from "node:path";
-import { checkStaging, finalizeStaging } from "./staging.ts";
+import { checkStaging, finalizeStaging, validateSyntheticStagingEvidence } from "./staging.ts";
 
 const now = Date.now();
 const expected = {
@@ -220,5 +220,101 @@ test("actual CLI rejects wrong target before waiting for private stdin and prese
     await mkdir(join(directory, ".data", "staging-validation-process.lock"), { recursive: true, mode: 0o700 });
     assert.equal((await invoke()).code, 2);
     await access(join(directory, ".data", "staging-validation-process.lock"));
+  } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+
+const syntheticExpected = {
+  ...expected, profileSha256: "b".repeat(64),
+  verificationRunId: "fe5c2ee0-bf7f-464e-93be-2d654b4001e8",
+  memberIds: ["ee5c2ee0-bf7f-464e-93be-2d654b4001e8"],
+};
+const syntheticChecks = ["form-entry", "home", "session", "family", "menu", "plans", "logout"];
+function syntheticEvidence() {
+  return {
+    version: 1, proofClass: "synthetic-app", target: syntheticExpected,
+    startedAt: new Date(now - 60000).toISOString(), endedAt: new Date(now).toISOString(),
+    observations: ["Chrome", "Firefox", "Safari"].flatMap(browser => [390, 1440].flatMap(width => syntheticChecks.map(check => ({
+      memberId: syntheticExpected.memberIds[0], browser, version: "130.0.1", width, check, result: "pass",
+    })))),
+    gaps: ["google-oauth-unchecked", "provider-unchecked", "invitations-excluded", "url-curation-excluded"],
+  };
+}
+
+test("synthetic app evidence binds exact run/member/source/profile and never asserts Google or release success", () => {
+  const result = validateSyntheticStagingEvidence({ expected: syntheticExpected, evidence: syntheticEvidence(), now });
+  assert.equal(result.exitCode, 0);
+  assert.equal(result.proofClass, "synthetic-app");
+  assert.equal(result.appResult, "pass");
+  assert.equal(result.releaseAccepted, false);
+  assert.doesNotMatch(JSON.stringify(result), /googleAllowed|googleDenied|sessionCookie|capability/);
+  assert.equal(finalizeStaging({ expected, pre, report: result, post: pre, attestations, now }).exitCode, 1);
+});
+
+test("synthetic browser gaps, blocked checks and failed checks retain their actual proof limits", () => {
+  const incomplete = syntheticEvidence();
+  incomplete.observations = incomplete.observations.filter(row => row.browser === "Chrome");
+  incomplete.gaps.push("firefox-unavailable", "safari-unavailable");
+  const gap = validateSyntheticStagingEvidence({ expected: syntheticExpected, evidence: incomplete, now });
+  assert.equal(gap.exitCode, 2); assert.equal(gap.appResult, "inconclusive");
+  for (const [value, code, outcome] of [["blocked", 2, "inconclusive"], ["fail", 1, "fail"]] as const) {
+    const evidence = syntheticEvidence(); evidence.observations[0].result = value;
+    const result = validateSyntheticStagingEvidence({ expected: syntheticExpected, evidence, now });
+    assert.equal(result.exitCode, code); assert.equal(result.appResult, outcome);
+  }
+});
+
+test("synthetic evidence rejects target drift, stale dates, duplicate observations, secret fields and OAuth substitutions", () => {
+  const base = syntheticEvidence();
+  for (const evidence of [
+    { ...base, target: { ...syntheticExpected, sourceSha: "c".repeat(40) } },
+    { ...base, target: { ...syntheticExpected, profileSha256: "c".repeat(64) } },
+    { ...base, target: { ...syntheticExpected, memberIds: ["de5c2ee0-bf7f-464e-93be-2d654b4001e8"] } },
+    { ...base, target: { ...syntheticExpected, verificationRunId: "de5c2ee0-bf7f-464e-93be-2d654b4001e8" } },
+    { ...base, endedAt: new Date(now + 1).toISOString() },
+    { ...base, startedAt: new Date(now - 1800001).toISOString() },
+    { ...base, observations: [...base.observations, base.observations[0]] },
+    { ...base, sessionCookie: "private-browser-secret" },
+    { ...base, googleAllowed: true, googleDenied: true },
+    { ...base, gaps: [] },
+    { ...base, gaps: [...base.gaps, "private-browser-secret"] },
+    { ...base, observations: [{ ...base.observations[0], memberId: "unknown-member" }] },
+    { ...base, observations: [{ ...base.observations[0], check: "google-allowed" }] },
+  ]) {
+    const result = validateSyntheticStagingEvidence({ expected: syntheticExpected, evidence, now });
+    assert.equal(result.exitCode, 1);
+    assert.equal(result.reason, "INVALID_INPUT");
+    assert.doesNotMatch(JSON.stringify(result), /private-browser-secret|googleAllowed|googleDenied/);
+  }
+});
+
+test("legacy Google-session checker refuses verification cookies before network", async () => {
+  let requests = 0;
+  const result = await checkStaging({ ...options(), mode: "member", readPrivate: async () => ({ sessionCookie: `__Host-mp-verification=${"a".repeat(43)}` }), fetchImpl: async (url, init) => { requests++; return healthy(url, init); } });
+  assert.equal(result.exitCode, 1);
+  assert.equal(result.reason, "INVALID_INPUT");
+  assert.equal(requests, 0);
+});
+
+test("synthetic CLI validates a bounded public artifact without private stdin or Google finalization", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "staging-synthetic-cli-"));
+  try {
+    const expectedFile = join(directory, "expected.json"), evidenceFile = join(directory, "evidence.json");
+    await writeFile(expectedFile, JSON.stringify(syntheticExpected));
+    await writeFile(evidenceFile, JSON.stringify(syntheticEvidence()));
+    const result = await new Promise<{ code: number | null; text: string }>((resolveResult, reject) => {
+      const child = spawn(process.execPath, ["--import", resolve("node_modules/tsx/dist/loader.mjs"), resolve("tests/deployment/staging.ts"), "synthetic", expectedFile, evidenceFile], { cwd: directory, stdio: ["pipe", "pipe", "pipe"] });
+      let text = "";
+      child.stdout.on("data", chunk => { text += String(chunk); });
+      child.stderr.on("data", chunk => { text += String(chunk); });
+      const timer = setTimeout(() => { child.kill(); reject(Error("Synthetic validator waited for private input")); }, 5000);
+      child.once("close", code => { clearTimeout(timer); resolveResult({ code, text }); });
+      child.once("error", reject);
+    });
+    assert.equal(result.code, 0);
+    const report = JSON.parse(result.text) as Record<string, unknown>;
+    assert.equal(report.proofClass, "synthetic-app");
+    assert.equal(report.releaseAccepted, false);
+    assert.equal(report.appResult, "pass");
   } finally { await rm(directory, { recursive: true, force: true }); }
 });
