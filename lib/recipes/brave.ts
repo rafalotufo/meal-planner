@@ -16,20 +16,27 @@ export async function readProviderJson(response: Response, signal: AbortSignal):
   }
   const reader = response.body.getReader();
   const chunks: Uint8Array[] = []; let size = 0;
-  const cancel = () => { void reader.cancel(signal.reason).catch(() => {}); };
+  let cancellation: Promise<void> | undefined;
+  const cancel = () => { cancellation ??= reader.cancel(signal.reason).catch(() => {}); };
+
   signal.addEventListener('abort', cancel, { once: true });
   try {
-    if (signal.aborted) throw signal.reason;
+    if (signal.aborted) { cancel(); throw signal.reason; }
     while (true) {
       const { done, value } = await abortable(reader.read(), signal);
       if (signal.aborted) throw signal.reason;
       if (done) break;
       size += value.byteLength;
-      if (size > 1048576) { void reader.cancel().catch(() => {}); throw new SearchError('SEARCH_FAILED'); }
+      if (size > 1048576) { cancel(); throw new SearchError('SEARCH_FAILED'); }
       chunks.push(value);
     }
     try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { throw new SearchError('SEARCH_FAILED'); }
-  } finally { signal.removeEventListener('abort', cancel); reader.releaseLock(); }
+  } finally {
+    signal.removeEventListener('abort', cancel);
+    if (signal.aborted) cancel();
+    await cancellation;
+    reader.releaseLock();
+  }
 }
 export async function discoverRecipes(query: string, { apiKey, signal, transport = fetch }: {
   apiKey: string; signal: AbortSignal; transport?: typeof fetch;

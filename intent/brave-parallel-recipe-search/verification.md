@@ -23,3 +23,15 @@ Implementation in progress; this is actual command evidence, not final readiness
   will reuse that behavior. No private provider body is surfaced.
 - Final source/discovery suite after cleanup regression:93/93 pass,
   `/private/tmp/brave-slice2-final.log`.
+
+- Curator/orchestration slice red: missing curation/parallel-search modules in
+  `/private/tmp/brave-slice3-red.log` before implementation.
+- Body-cancellation lease regression reproduced early release against an
+  abort-ignoring ReadableStream cancel hook (`/private/tmp/brave-body-red.log`).
+  Fixed shared reader to retain the cancellation promise before releasing its
+  active pool lease, including oversize and already-aborted bodies.
+- Curator/orchestration suite green: strict schema, full original query, no
+  tools/retries, deterministic metadata, required excerpt/title failures,
+  twelve concurrent calls, source/model ceilings, collection expansion,
+  technical/rejection distinction, parent abort and shared-instance pools.
+  Final recipe suite103/103 pass in `/private/tmp/brave-slice3-final.log`.

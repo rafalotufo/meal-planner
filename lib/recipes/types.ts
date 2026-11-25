@@ -9,5 +9,5 @@ export type Recipe = {
 };
 
 export interface RecipeSearchProvider {
-  search(query: string, options: { signal: AbortSignal }): Promise<Recipe[]>;
+  search(query: string, options: { signal: AbortSignal; deadlineAt?: number }): Promise<Recipe[]>;
 }
