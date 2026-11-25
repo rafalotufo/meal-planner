@@ -17,6 +17,11 @@ export function readVerificationCookie(header: string | null): string | null {
   if (values.length !== 1 || !credentialPattern.test(values[0]) || /(?:^|;)\s*(?:__Secure-)?better-auth\.(?:session_data|session_token)(?:\.\d+)?=/.test(header ?? '')) throw new Error('Unauthorized');
   return values[0];
 }
+/** Logout extraction grants no admission; revoke one unambiguous local token even if Google cookies conflict. */
+export function verificationLogoutCookie(header: string | null): string | null {
+  const values = cookieValues(header, VERIFICATION_COOKIE);
+  return values.length === 1 && credentialPattern.test(values[0]) ? values[0] : null;
+}
 export function createNonce(secret: string, now = Date.now()) {
   const data = `${newCredential()}.${now + 300000}`;
   return `${data}.${createHmac('sha256', secret).update(data).digest('base64url')}`;

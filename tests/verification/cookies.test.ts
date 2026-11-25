@@ -14,3 +14,9 @@ test('preflight nonce is bounded and bound to the server secret and matching coo
   assert.equal(validNonce(nonce, nonce, 'a'.repeat(32), 301001), false);
   assert.equal(validNonce(nonce, nonce + 'x', 'a'.repeat(32), 1001), false);
 });
+test('logout can revoke one opaque token despite conflicting Google cookies without granting admission',async()=>{
+ const {verificationLogoutCookie}=await import('../../lib/verification/cookies.ts');const token=newCredential();
+ assert.equal(verificationLogoutCookie(`__Host-mp-verification=${token}; __Secure-better-auth.session_data.0=stale`),token);
+ assert.equal(verificationLogoutCookie(`__Host-mp-verification=${token}; __Host-mp-verification=${token}`),null);
+ assert.equal(verificationLogoutCookie('__Host-mp-verification=malformed'),null);
+});

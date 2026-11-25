@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { authConfiguration, getAuth } from "../../../../lib/auth";
 import { contextCookie } from "../../../../lib/invitation-context";
 import { noStore } from "../../../../lib/auth-policy";
-import { cookieValues, VERIFICATION_COOKIE, clearVerificationCookie, readVerificationCookie } from "../../../../lib/verification/cookies";
+import { cookieValues, VERIFICATION_COOKIE, clearVerificationCookie, verificationLogoutCookie } from "../../../../lib/verification/cookies";
 import { revokeVerificationSession } from "../../../../lib/verification/store";
 import { currentVerificationTarget } from "../../../../lib/verification/runtime";
 import { getDatabase } from "../../../../lib/db";
@@ -49,8 +49,7 @@ async function handle(request: NextRequest) {
     }
     if (logout && cookieValues(request.headers.get("cookie"), VERIFICATION_COOKIE).length) {
       const target = currentVerificationTarget();
-      let token: string | null = null;
-      try { token = readVerificationCookie(request.headers.get("cookie")); } catch { /* Clearing a malformed local cookie grants no access. */ }
+      const token = verificationLogoutCookie(request.headers.get("cookie"));
       if (token && target) await revokeVerificationSession(await getDatabase(), token, target);
       // Clear Google library cookies too when conflicting credentials are present;
       // cookie clearing is the only effect permitted without current admission.
