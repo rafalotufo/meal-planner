@@ -9,8 +9,8 @@ intent/brave-parallel-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 6
-- phase: implement
+- turn: 7
+- phase: security
 - stop_reason: None
 
 ## Agents
@@ -19,8 +19,8 @@ intent/brave-parallel-recipe-search/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
+- reviewer: busy (brave-parallel-recipe-search-implementation)
+- security-researcher: busy (brave-parallel-recipe-search-implementation)
 - senior-developer: busy (brave-parallel-recipe-search-implementation)
 
 ## Open messages
@@ -129,6 +129,8 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0164 orchestrator -> architect handoff: Document owner-directed eight-second item timeout
 - orchestrator-0165 orchestrator -> reviewer handoff: Review owner-directed eight-second curation amendment
 - orchestrator-0166 orchestrator -> senior-developer decision: Implement independently approved eight-second item timeout
+- orchestrator-0167 orchestrator -> security-researcher handoff: Refresh final security review for parser and timeout corrections
+- orchestrator-0168 orchestrator -> reviewer handoff: Second-round final Brave implementation review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -173,13 +175,13 @@ intent/brave-parallel-recipe-search/intent.md
 - org/reviews/intent-brave-parallel-recipe-search-001.md (f72e1b562954897b5904e335a46e79a15ffea2d1ed21d5b96cfee247d37f1bc2)
 - intent/brave-parallel-recipe-search/plan.md (31c7f6167b96e0702c4e741de63ccd2c4ae8e748f68adf017a9e15d49fdd977e)
 - org/reviews/design-brave-parallel-001.md (5eb8503d2a1509b57e76c3fa8d343cab0f679abede8649036d87e8354b373ca3)
-- intent/brave-parallel-recipe-search/verification.md (581874dedcad5ce11fa0d75d07191e68eb7c9ec454a11d8b9f7e28d13e59b7e3)
 - org/reviews/security-brave-parallel-001.md (079dbda498cbe661beba3d2235e26715f662cc999f6354aefa8bc7dde1ffe4a2)
 - org/reviews/code-brave-parallel-001.md (008c4d04665fc937bbaa22d475884471bdd449df3360eba2a858de68cfc83a98)
+- intent/brave-parallel-recipe-search/verification.md (c55b00c8e29593f8e40d8820facd9db43820a4bbc2f9aee1cc2bd52531eff271)
 
 ## Next action
 
-reviewer:review
+senior-developer:implement_and_verify
 
 ## Last digest source
 
