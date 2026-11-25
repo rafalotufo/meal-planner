@@ -9,8 +9,8 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: security
+- turn: 2
+- phase: peer
 - stop_reason: None
 
 ## Agents
@@ -18,8 +18,8 @@ intent/agent-deployment-verification/intent.md
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
-- product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- product-manager: busy (intent/agent-deployment-verification/options.md)
+- reviewer: busy (intent/agent-deployment-verification/options.md)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -105,6 +105,8 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0146 orchestrator -> reviewer handoff: Review completed approved local main adoption
 - orchestrator-0147 orchestrator -> ceo status: Local main merged and running with dependency-aware migrations
 - orchestrator-0148 orchestrator -> product-manager handoff: Explore Google-free deployment verification
+- orchestrator-0149 orchestrator -> security-researcher handoff: Assess Google-free verification alternatives
+- orchestrator-0150 orchestrator -> reviewer handoff: Peer review Google-free verification intent and alternatives
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -119,6 +121,7 @@ intent/agent-deployment-verification/intent.md
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
+- security-researcher-0031 security-researcher -> orchestrator review: Google-free verification intent security assessment
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
@@ -137,10 +140,11 @@ intent/agent-deployment-verification/intent.md
 ## Artifacts
 
 - intent/agent-deployment-verification/options.md (cfdaf750c6871bfad149b6a4620ecdaee7b161ee17d444ed099b5b61eafb85c1)
+- org/reviews/agent-deployment-verification-security-001.md (0f93a1f1a47c234429ddd32c2003eb27163d2fbd1341d6dfde372e67d1674564)
 
 ## Next action
 
-product-manager:capture_intent_and_options
+security-researcher:assess_options
 
 ## Last digest source
 
