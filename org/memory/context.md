@@ -9,8 +9,8 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: code_review
+- turn: 3
+- phase: local_adoption
 - stop_reason: None
 
 ## Agents
@@ -19,7 +19,7 @@ intent/dependency-aware-migrations/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/dependency-aware-migrations/main-integration.md)
 - product-manager: idle (unassigned)
-- reviewer: busy (dependency-aware-migrations-main-integration)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (dependency-aware-migrations-main-integration)
 
@@ -135,10 +135,11 @@ intent/dependency-aware-migrations/intent.md
 
 - org/reviews/dependency-aware-migrations-main-plan-001.md (c5de32a0d26a60929e79b082dcd64229f698e104b8e97776d20c124ecb8012d4)
 - intent/dependency-aware-migrations/main-integration-verification.md (3f7282447ee601aef9cd1902c242ef9c0f97ce0584640b0377c2ea1e737d2d44)
+- org/reviews/dependency-aware-migrations-main-source-001.md (27e9a0f8eebf479d4019e81826e9dd87b0bf046e419a5418f7e3687ae0298b6c)
 
 ## Next action
 
-senior-developer:integrate_and_verify
+reviewer:review_integration_source
 
 ## Last digest source
 
