@@ -76,3 +76,63 @@ check currently reports a pre-existing/merged compact-context size overflow
 No historical notifications were improperly closed. Independent reviewer
 verified all802 archive blobs and approved the fixture-only manifest amendment.
 Remaining combined suites/browser results will be appended as audit evidence.
+
+## Completed combined verification
+
+Integrated source73bb7f3 has both expected parents c0c8858/1f7cf8b. A byte
+comparison of62 main-changed application/database/script/test/config paths found
+only the independently approved tests/verification/server.ts key-clearing delta.
+All five Brave discovery/source/curation/concurrency/coordinator modules remain
+byte-identical to reviewed feature sourcee14feec. Main's thirty-day session and
+seven-migration contracts survive. No runtime merge conflict or dependency
+version/lockfile change was introduced by resolution.
+
+| Command | Actual result | Command evidence |
+| --- | --- | --- |
+| `CI=true pnpm install --frozen-lockfile` | exit0 | `/private/tmp/brave-merge-install.log` |
+| `pnpm run lint` | exit0 | `/private/tmp/brave-merge-lint.log` |
+| `pnpm run typecheck` | exit0, repeated after browser QA | `/private/tmp/brave-merge-final-types.log` |
+| `pnpm run build` | exit0, repeated after browser QA | `/private/tmp/brave-merge-final-build.log` |
+| `pnpm test` |112passed,0failed | `/private/tmp/brave-merge-recipes.log` |
+| `pnpm run test:family` |35passed,0failed | `/private/tmp/brave-merge-family.log` |
+| `pnpm run test:menu` |69passed,0failed | `/private/tmp/brave-merge-menu.log` |
+| `pnpm run test:auth` |16passed,0failed | `/private/tmp/brave-merge-auth.log` |
+| `pnpm run test:plans` |23passed,0failed | `/private/tmp/brave-merge-plans.log` |
+| `pnpm run test:migrations` |69passed,0failed | `/private/tmp/brave-merge-migrations.log` |
+| `node --import tsx --test tests/deployment/*.test.ts` |40passed,0failed | `/private/tmp/brave-merge-deployment.log` |
+| `node --import tsx --test tests/verification/*.test.ts` |29passed,0failed | `/private/tmp/brave-merge-verification.log` |
+| `python3 -m unittest discover -s tests` |7passed | `/private/tmp/brave-merge-python.log` |
+| `node --import tsx tests/menu/brave-search-browser.ts` | Chrome390/1440pass | `/private/tmp/brave-merge-brave-browser.log` |
+| `node --import tsx tests/auth/login-expiration-browser.ts` | Chrome390/1440pass | `/private/tmp/brave-merge-login-browser.log` |
+| `node --import tsx tests/verification/browser.ts` | Chrome390/1440pass,0errors/Google/provider calls | `/private/tmp/brave-merge-verification-browser.log` |
+
+393 Node tests and7 Python tests pass with zero failures, cancellations or skips.
+The earlier progress checkpoint called family34; the actual integrated family
+log is35, as reflected here. All fixtures used owned disposable databases and
+servers, not development/hosted data. The synthetic browser used a real local
+Preview build and loopback TLS with simulated platform metadata, not hosted
+proof. Chrome158.0.8127.88 was used; Firefox/Safari were not exercised.
+
+Brave browser QA includes twelve-card rendering, seventh/twelfth saves, failed
+second lookup chunk/retry, out-of-chunk response rejection, save/lookup races,
+selection abort, filters and keyboard focus. Login browser checks sign-in,
+navigation and logout. Synthetic verification checks entry, home, menu, family,
+plans and revoked logout. Eighteen fresh screenshots live under
+`org/reviews/brave-main-integration/`; original screenshot bytes were restored
+exactly. Visual inspection confirms readable stacked mobile cards including
+saved card7 and an unclipped desktop search form/navigation. After the owned
+login dev fixture stopped, its generated dev/types was privately backed up
+again and production types/build regenerated successfully.
+
+Independent combined code review3fb5644 and security review6e4a368 approve
+source73bb7f3. Root resolved compact-memory overflow with legitimate fulfilled
+handoff closures in04ba132; no validators weakened or historical review verdicts
+rewritten. Message/memory/loop/strictgraph checks pass after reconciliation.
+The main canonical ledger remains an unchanged prefix followed by archival
+transcriptions and new explicit owner decisions. Staged diff/secret checks at
+integration commit passed with zero findings; the evidence commit repeats them.
+
+No paid search/curation calls, hosted mutation, migration, push, deployment or
+local-app restart occurred. Local main has not yet been moved by this work item;
+that exact reviewed fast-forward awaits the orchestrator's final handoff and
+current clean-tip checks. The solved implementation loop remains9/10.
