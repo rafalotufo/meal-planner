@@ -1,8 +1,8 @@
 # Hosted permission correction — developer verification
 
-2026-11-24. Source58534f5. Status: full local tests/build/browser verification passed;
-full lint is pending relocation of private operator instrumentation, with hosted
-read-only recheck, final code review and refreshed packaging tracked separately.
+2026-11-24. Source58534f5. Status: full local lint/tests/build/browser verification passed.
+Hosted read-only revalidation advances past permissions but still rejects an
+incompatible-schema condition; diagnosis/review and packaging remain pending.
 
 The shared typed policy is called with actual catalog-derived context and rows
 inside the existing bounded transaction. The only schema/security behavior
@@ -76,3 +76,20 @@ separate from the engineer's321-test result. Final code review and hosted
 read-only revalidation are root-owned evidence, not assumed passes here.
 Full root lint must pass after its private CommonJS inspector is relocated;
 application checks were not suppressed to hide that instrumentation failure.
+
+## Root follow-up,2026-11-25
+
+Root relocated its private CommonJS inspector to a non-code extension and
+reported a successful full `pnpm run lint` exit0, with no application suppression
+or source changes. This resolves the private-instrumentation lint limitation
+recorded above; the focused-only status is preserved as earlier evidence.
+
+Root's fresh strict read-only validation of both recorded hosted databases now
+passes the corrected permission predicates and stops at `incompatible-schema`.
+This is not a hosted compatibility pass. Source58534f5 is preserved while root
+diagnoses the exact catalog/security predicate; no broad schema exception,
+packaging/deployment, hosted grant/schema/data write or main merge follows from
+local test success. Any further behavior correction needs its own concrete
+reviewed evidence and affected verification. The full local321 Node/7 Python/
+Chrome results remain accurate for the current source, with this hosted blocker
+stated separately.
