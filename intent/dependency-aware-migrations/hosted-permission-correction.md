@@ -1,7 +1,8 @@
 # Hosted permission validation correction and release plan
 
 - Date:2026-11-24; author:orchestrator, from owner request “Deploy main to production”.
-- Status:draft for independent technical/security review before behavior changes.
+- Status:approved by independent plan review `f7d5e1c` and security design
+  review `a630fa8`; provider-indicator clarification below agreed by both reviewers.
 - Requested main at intake:`e4b8c954f6e2cab63c39216cef794187a227d79e`.
 - Existing live Production:`dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a`, source`d26ea59`.
 - Governing release policy:`intent/staging-first-release/spec.md` and Vercel runbooks.
@@ -57,6 +58,15 @@ privilege/grant option, malformed fields and all outward runtime memberships.
 Native/local/owned-test contexts retain the empty-membership/empty-non-owner-
 defaults contract. An empty hosted default set is not a silent drift fallback.
 No general ignored-role/default-ACL wildcard is added.
+
+Validate context field types before choosing a policy. Actual database owner
+neondb_owner OR actual cloud_admin SUPERUSER=true indicates a hosted-like
+context and requires the full exact Neon binding plus1+9, even if both row sets
+are empty. Partial/missing hosted bindings therefore cannot fall through to an
+empty native policy. A generic database named meal_planner with an ordinary
+owner and no platform SUPERUSER indicator retains the pre-existing empty-set
+contract, subject to every existing identity/flag/object/schema/access check;
+the database name alone introduces no unrelated generic-PostgreSQL restriction.
 
 Keep runtime privileged-role flags, exact current table/column/schema ACLs,
 required effective permissions, object owners, ledgers, constraints, indexes,
