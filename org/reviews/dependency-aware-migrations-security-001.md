@@ -109,3 +109,8 @@ This assessment does not claim hosted runtime validation or authorize a shared
 migration, hosted access, deployment, push or merge. The orchestrator records
 project-wide build/regression/browser evidence separately and retains the human
 merge/release gates. No dependency upgrade or new external service is included.
+
+Cleanup followup: the earlier fixture has now been uniquely identified and
+verified read-only. Automatic approval review rejected its DROP before execution;
+it remains untouched pending explicit owner cleanup authority. Exact evidence is
+in `org/reviews/dependency-aware-migrations-cleanup-001.md`.
