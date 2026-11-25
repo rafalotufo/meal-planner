@@ -9,8 +9,8 @@ intent/brave-parallel-recipe-search/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 4
-- phase: security
+- turn: 5
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -20,7 +20,7 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
 - product-manager: idle (unassigned)
 - reviewer: busy (brave-parallel-recipe-search-implementation)
-- security-researcher: busy (brave-parallel-recipe-search-implementation)
+- security-researcher: idle (unassigned)
 - senior-developer: busy (brave-parallel-recipe-search-implementation)
 
 ## Open messages
@@ -144,6 +144,7 @@ intent/brave-parallel-recipe-search/intent.md
 - security-researcher-0031 security-researcher -> orchestrator status: Early Brave parallel recipe search threat consultation
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
+- security-researcher-0035 security-researcher -> orchestrator review: Brave parallel source security approved locally
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
@@ -165,10 +166,11 @@ intent/brave-parallel-recipe-search/intent.md
 - intent/brave-parallel-recipe-search/plan.md (31c7f6167b96e0702c4e741de63ccd2c4ae8e748f68adf017a9e15d49fdd977e)
 - org/reviews/design-brave-parallel-001.md (5eb8503d2a1509b57e76c3fa8d343cab0f679abede8649036d87e8354b373ca3)
 - intent/brave-parallel-recipe-search/verification.md (581874dedcad5ce11fa0d75d07191e68eb7c9ec454a11d8b9f7e28d13e59b7e3)
+- org/reviews/security-brave-parallel-001.md (079dbda498cbe661beba3d2235e26715f662cc999f6354aefa8bc7dde1ffe4a2)
 
 ## Next action
 
-senior-developer:implement_and_verify
+security-researcher:assess
 
 ## Last digest source
 
