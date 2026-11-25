@@ -17,7 +17,7 @@ intent/brave-parallel-recipe-search/intent.md
 
 - architect: busy (intent/brave-parallel-recipe-search/plan.md)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (intent/dependency-aware-migrations/staging-result.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -114,8 +114,6 @@ intent/brave-parallel-recipe-search/intent.md
 - orchestrator-0152 orchestrator -> ceo handoff: Reviewed hosted validator corrections require new main merge approval
 - orchestrator-0153 orchestrator -> reviewer handoff: Review exact-source staging evidence and concrete owner release decision
 - orchestrator-0154 orchestrator -> ceo handoff: Exact-source staging ready for named-gap acceptance and Production decision
-- orchestrator-0167 orchestrator -> security-researcher handoff: Refresh final security review for parser and timeout corrections
-- orchestrator-0168 orchestrator -> reviewer handoff: Second-round final Brave implementation review
 - orchestrator-0169 orchestrator -> ceo handoff: Reviewed Brave parallel search and timeout ready for merge review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in

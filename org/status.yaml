@@ -1,6 +1,6 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: intent/dependency-aware-migrations/staging-result.md, last_report: Owner-approved main merge done; exact25 staged READY3XbA and stable alias attributed; browser pass but HTTP/OAuth/member/provider gaps explicit; review2882c0f ready for owner staging acceptance and concrete Production decision; Production unchanged }
+  orchestrator: { status: idle, assignment: null, last_report: Local Brave e14feec independently approved;8s item budget;264Node7Python andChrome pass; loopsolved9/10; humanmerge/releasepending; broadrecalllimited }
   product-manager: { status: idle, assignment: null, last_report: Accepted Brave parallel search intent; clarified bounded discovery/curation and broad-query relevance; no owner escalation }
   architect: { status: busy, assignment: intent/brave-parallel-recipe-search/plan.md, last_report: Spec/plan f09624c ready for independent review }
   senior-developer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Verified implementation2989467; corrected third live smoke pending independent amendment approval }
