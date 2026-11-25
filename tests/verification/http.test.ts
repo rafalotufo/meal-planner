@@ -16,3 +16,9 @@ test('native form exchange enforces nonce, method, canonical host and returns on
   const replay=await verificationApiResponse(make(new URLSearchParams({runId:f.runId,capability:f.capability,nonce}).toString()),deps);assert.equal(replay.status,401);
  } finally{await f.close();}
 });
+test('malformed UTF-8 form bytes are a bounded client error, never a storage failure',async()=>{
+ const f=await verificationFixture();try{
+  const response=await verificationApiResponse(new Request(`${f.target.origin}/api/verification/session`,{method:'POST',headers:{host:new URL(f.target.origin).host,origin:f.target.origin,'content-type':'application/x-www-form-urlencoded'},body:new Uint8Array([255])}),{origin:f.target.origin,secret:'x'.repeat(32),target:f.target,db:async()=>f.db,allowed:[]});
+  assert.equal(response.status,400);assert.equal((await f.db.one<{n:number}>('SELECT count(*)::integer AS n FROM verification_sessions'))?.n,0);
+ }finally{await f.close();}
+});

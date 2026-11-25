@@ -20,7 +20,8 @@ async function readForm(request:Request,deadline:number) {
   for(;;){const part=await Promise.race([reader.read(),timeout]);if(part.done){completed=true;break;}bytes+=part.value.byteLength;if(bytes>2048)throw new FamilyError(400,'Invalid request');text+=decoder.decode(part.value,{stream:true});}
   text+=decoder.decode();if(/%(?![a-fA-F0-9]{2})/.test(text))throw new FamilyError(400,'Invalid request');
   const fields=new URLSearchParams(text);if([...fields.keys()].length!==3||!['runId','capability','nonce'].every(key=>fields.getAll(key).length===1))throw new FamilyError(400,'Invalid request');return fields;
- } finally{clearTimeout(timer);if(!completed)void reader.cancel().catch(()=>{});reader.releaseLock();}
+ } catch(error){if(error instanceof FamilyError)throw error;throw new FamilyError(400,'Invalid request');}
+ finally{clearTimeout(timer);if(!completed)void reader.cancel().catch(()=>{});reader.releaseLock();}
 }
 export async function verificationApiResponse(request:Request,deps:Dependencies) {
  const deadline=Date.now()+5000;const finish=(response:Response)=>protectVerificationResponse(response,deps.origin);
