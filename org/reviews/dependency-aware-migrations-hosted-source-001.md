@@ -61,3 +61,42 @@ deployment, hosted mutation, paid/provider exercise or Production operation.
 Preserve truthful Git/source attribution. The existing release plan still
 requires concrete exact-source staging evidence and owner acceptance of its
 profile/named gaps and scoped Production/recovery authority.
+
+## Final local source-readiness verdict
+
+Reviewed final committed evidence `155d00a6ae77bf2b768451a244a157592a89456d`
+and complete hosted-preflight record `d51781ce079124225aa9ae1df143b0846e6d3f64`.
+**Approved: exact source25 is ready for the human main-merge decision and,
+after that approval, truthful same-source isolated staging preparation.** No
+remaining source-review blocker was found. This is not staging acceptance or
+Production release authorization.
+
+The engineer records successful frozen install, lint/typecheck/build,
+328 Node regressions (69 migration,34 family,69 menu,23 plans,16 auth,
+84 recipe/photo,33 deployment),7 Python regressions and both existing real-Chrome
+suites. The committed browser JSON distinguishes fixtures from real provider
+coverage; auth/T-Rex covers five widths and records no overflow/unexpected
+errors. I manually viewed the390 mobile-menu and1440 running-T-Rex PNGs: readable
+layout and preserved game/menu surfaces. I independently verified all eight
+new image SHA256 digests. Historical image restoration is engineer-attributed.
+
+I independently checked all126 upload entries against the fixed Git source:
+SHA1, SHA256 and byte counts match, total738556 bytes. Both new helpers are
+included; private environment/operator/audit/test state is excluded. Current
+workspace upload-source SHA256 values also match all126 records. The engineer's
+clean upload-only locked install/build and post-build byte verification provide
+separate packaging evidence; I did not repeat that build. CLI66.6.0 is pinned
+with scripts disabled. Fresh audit honestly reports one moderate existing tooling
+finding, zero high/critical, with the recorded bounded deferral; no clean-audit
+claim or dependency override is introduced.
+
+The preflight distinguishes read-only hosted catalog compatibility from deployed
+session/menu/provider behavior. Its successful full validators preserve both
+five-row histories and catalog signatures; no migrations or grants were needed.
+Main and Production remain unchanged. The main-qualified stable staging lane
+requires new owner main-merge approval before use; do not fabricate gitCommitRef
+or replace fixed source25 with later audit HEAD. After actual staging, obtain
+fresh exact-source/profile/named-gap acceptance and separate scoped Production
+candidate/promotion/observation/recovery authorization. Existing approvals are
+historical. No deployment, push, merge, paid request or hosted mutation was
+performed by this reviewer.
