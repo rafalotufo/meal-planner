@@ -1,33 +1,25 @@
 # Brave parallel recipe search — implementation plan
 
 Author: architect, planning draft delegated by orchestrator.
-Status: Draft for independent peer review; no application implementation yet.
+- Status: Draft
 Inputs: accepted `intent.md`, sibling `spec.md`, recorded live benchmark evidence.
 Senior developer owns execution and verification after peer approval.
 
 ## Files that change
 
-Application/config/documentation:
-- `lib/recipes/brave.ts` — bounded single Brave Web Search request and results.
-- `lib/recipes/concurrency.ts` — shared source/model abort-aware bounded pools.
-- `lib/recipes/source.ts` — bounded source evidence and deterministic collection
-  links/identity/metadata, reusing htmlparser2 and existing safe/photo helpers.
-- `lib/recipes/curation.ts` — strict tool-free per-source Responses call and
-  exact source/title evidence validation; no model-generated URL/time/image.
-- `lib/recipes/parallel-search.ts` — budgets, source waves/expansion, twelve-way
-  curation, deadline/error semantics, stable results and metadata projection.
-- `lib/recipes/search.ts` — Brave config dispatch, optional deadline propagation.
-- `lib/recipes/server.ts` — canonical Brave key and new provider wiring, removal
-  of duplicate photo-fetch enrichment on new runtime path.
-- `lib/recipes/types.ts` — optional provider deadline option if needed.
-- `app/search-notebook.tsx` —≤12sources split into two≤6lookup chunks, safe races.
-- `lib/recipes/notebook.ts` — small pure lookup-source/chunk helper if useful.
-- `.env.example` — brave selector/canonical key placeholder.
-- `README.md` — selected flow, configuration/migration, limits, data disclosure.
-- `AGENTS.md` — targeted replacement of superseded single-call research bounds
-  with reviewed Brave/source/curation contract; preserve all unrelated guidance.
-
-Tests/helpers:
+- `lib/recipes/brave.ts`
+- `lib/recipes/concurrency.ts`
+- `lib/recipes/source.ts`
+- `lib/recipes/curation.ts`
+- `lib/recipes/parallel-search.ts`
+- `lib/recipes/search.ts`
+- `lib/recipes/server.ts`
+- `lib/recipes/types.ts`
+- `lib/recipes/notebook.ts`
+- `app/search-notebook.tsx`
+- `.env.example`
+- `README.md`
+- `AGENTS.md`
 - `tests/recipe-brave.test.ts`
 - `tests/recipe-concurrency.test.ts`
 - `tests/recipe-source.test.ts`
@@ -35,20 +27,34 @@ Tests/helpers:
 - `tests/recipe-parallel-search.test.ts`
 - `tests/recipe-search.test.ts`
 - `tests/recipe-notebook.test.ts`
-- `tests/recipe-fixtures.ts` or a new strict `tests/recipe-brave-fixtures.ts`.
-- `tests/auth/server.ts` — force both Brave aliases/OpenAI keys empty in every
-  owned server; select `brave`, preserve Google fixture/DB/session behavior.
-- `tests/menu/brave-search-browser.ts` — real Chrome twelve-card notebook/menu QA.
-- `tests/auth/chrome.ts` — only minimal reusable fixture/browser support if
-  existing `recipes(origin,results)` is insufficient; no production imports.
-- `tests/deployment/*.test.ts` only where explicit config contract expectations
-  require new missing-key/selector assertions (no schema or auth weakening).
+- `tests/recipe-fixtures.ts`
+- `tests/recipe-brave-fixtures.ts`
+- `tests/auth/server.ts`
+- `tests/auth/chrome.ts`
+- `tests/menu/brave-search-browser.ts`
+- `tests/deployment/*.test.ts`
 
-Feature evidence: `verification.md`, `live-verification.md` and screenshot PNGs
-under `org/reviews/`, plus independent design/code/security reports and normal
-org messages/state. No dependency/lockfile, database or deployment file changes.
-If another application/test path is necessary, amend manifest and review before
-editing it. `.env.local` is ignored local activation only; never stage its values.
+## File responsibilities and evidence
+
+The five new recipe modules separate Brave discovery, shared bounded pools,
+safe source/collection parsing, per-item curation, and pipeline orchestration.
+Search/server/types wire the selected provider and optional deadline. Notebook
+changes handle twelve sources through two existing six-URL lookup requests;
+a small pure helper may live in the existing notebook module.
+
+Configuration and documentation update the Brave selector/canonical key,
+limits and data disclosure. AGENTS changes only the superseded search contract.
+Test helpers clear every paid key and retain current isolated Google/DB/session
+behavior. Existing Chrome support changes only if needed for twelve-card QA;
+deployment tests change only for explicit provider/missing-key expectations.
+
+Feature evidence includes `verification.md`, `live-verification.md`, screenshots
+under `org/reviews/`, independent design/code/security reports and normal org
+messages/state. These are workflow artifacts. No dependency/lockfile, database
+or deployment file changes. If another application/test path is necessary,
+amend manifest and review before editing it. `.env.local` is ignored local
+activation only; never stage its values. Paths listed are permitted changes,
+not a requirement to touch files whose existing support proves sufficient.
 
 ## Ordered implementation slices
 
