@@ -49,3 +49,11 @@ migration transaction already committed. The wrong-runtime-password regression
 passed1/1 (exit0): child tool exits1 with committed-stage/permission-failure,
 no credentials/raw driver detail, while all5 executed legacy ledger rows persist.
 This is not a claim that a postcommit credential error rolled migration back.
+
+Independent security review found a catalog-name hiding defect in the initial
+candidate: stripping every string with the native-ledger prefix could hide a
+quoted index on a domain table. The correction validates the actual native
+ledger first, then excludes only its exact known kind/name rows, and only when
+that ledger exists. Real quoted dotted index/table and exact absent-ledger-PK
+lookalike regressions reject both runtime and migration use; native CREATE proof
+remains passing. This correction does not authorize those unexplained objects.

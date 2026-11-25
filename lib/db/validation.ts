@@ -50,9 +50,14 @@ export async function checkLedgers(db: FamilyDatabase, presence: { legacy: boole
   }
 }
 export async function validateSchema(db: FamilyDatabase, profile: SchemaProfile, presence: { legacy: boolean; native: boolean }, ownerTooling: boolean, requireGrants = !ownerTooling) {
-  const actual = (await catalogSignature(db)).filter(row => !(row.name === '__app_migrations' || row.name === '__app_migrations_pkey' || row.name.startsWith('__app_migrations.')));
-  if (JSON.stringify(actual) !== JSON.stringify(profile.catalog)) throw new StorageDiagnostic('incompatible-schema');
   await checkLedgers(db, presence);
+  const actual = (await catalogSignature(db)).filter(row => !presence.native || !(
+    row.kind === 'column' && ['__app_migrations.id','__app_migrations.hash','__app_migrations.descriptor_hash'].includes(row.name) ||
+    row.kind === 'constraint' && row.name === '__app_migrations.__app_migrations_pkey' ||
+    row.kind === 'index' && row.name === '__app_migrations_pkey' ||
+    row.kind === 'relation' && ['__app_migrations','__app_migrations_pkey'].includes(row.name)
+  ));
+  if (JSON.stringify(actual) !== JSON.stringify(profile.catalog)) throw new StorageDiagnostic('incompatible-schema');
   await checkSecurity(db, profile, presence, ownerTooling, requireGrants);
 }
 export async function validateDatabase(db: FamilyDatabase, options: ValidationOptions = {}) {
