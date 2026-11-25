@@ -9,8 +9,8 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: security
+- turn: 2
+- phase: peer
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/agent-deployment-verification/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/agent-deployment-verification/plan.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: busy (intent/agent-deployment-verification/plan.md)
-- senior-developer: idle (unassigned)
+- reviewer: busy (intent/agent-deployment-verification/plan.md)
+- security-researcher: idle (unassigned)
+- senior-developer: busy (intent/agent-deployment-verification/plan.md)
 
 ## Open messages
 
@@ -116,6 +116,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0156 orchestrator -> reviewer handoff: Peer review revised Google-free verification specification
 - orchestrator-0158 orchestrator -> senior-developer handoff: Plan approved Google-free staging verification specification
 - orchestrator-0159 orchestrator -> security-researcher handoff: Security review staging verification implementation plan
+- orchestrator-0160 orchestrator -> reviewer handoff: Peer review concrete verification implementation plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -149,10 +150,11 @@ intent/agent-deployment-verification/intent.md
 ## Artifacts
 
 - intent/agent-deployment-verification/plan.md (08523be18b801f52180d3c44551bf5b70ecf31944c56dbc97f0d53d3f2b7726d)
+- org/reviews/agent-deployment-verification-plan-security-001.md (5cce61b7bc9fa2a72315ba155a3c75e254508c440d0fcfe950bec068089c50dc)
 
 ## Next action
 
-senior-developer:draft_verification_plan
+security-researcher:assess_verification_plan
 
 ## Last digest source
 
