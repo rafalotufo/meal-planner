@@ -5,7 +5,7 @@ agents:
   architect: { status: busy, assignment: intent/brave-parallel-recipe-search/plan.md, last_report: Spec/plan f09624c ready for independent review }
   senior-developer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Verified implementation2989467; corrected third live smoke pending independent amendment approval }
   security-researcher: { status: idle, assignment: null, last_report: Independent security approval8f38bb8 for source2989467; final code-review correction pending }
-  reviewer: { status: busy, assignment: brave-parallel-recipe-search-implementation, last_report: Approved narrow principal-heading corrective amendment53609f3; one conditioned same-query live follow-up only; full source review pending }
+  reviewer: { status: idle, assignment: null, last_report: "review code-brave-parallel-001: changes" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -112,4 +112,4 @@ review_queue:
   - { id: dependency-aware-migrations-staging-evidence-001, artifact: intent/dependency-aware-migrations/staging-result.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved, scope: Evidence reviewable for owner exact25/3XbA/profile named-gap decision only; helper inconclusive and Production approval pending }
   - { id: design-brave-parallel-001, artifact: intent/brave-parallel-recipe-search/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: design-brave-parallel-amend-001, artifact: intent/brave-parallel-recipe-search/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: code-brave-parallel-001, artifact: brave-parallel-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: code-brave-parallel-001, artifact: brave-parallel-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: changes, status: changes_requested }
