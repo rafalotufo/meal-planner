@@ -83,3 +83,13 @@ curator validation, app configuration, menu chunks and cancellation tests.
 Require actual lint/typecheck/build/regression and mobile/desktop evidence.
 A source-associated excerpt or successful fixture is not proof of all recipe
 facts. No security clearance is granted until those artifacts and code exist.
+
+## Core implementation consultation — 48e3d76
+
+Read committed queues, discovery, source parser, curation and coordinator.
+Independently reran their nineteen compiled tests:19passed/0failed. Covered
+full-body cancellation leases, shared model capacity, parent-abort queue cleanup,
+source-attempt ceiling, collection expansion, encoded input limits and strict
+source-bound output. No new blocking issue found in this slice. Runtime
+configuration, authenticated integration, notebook chunks and complete verification
+remain pending; this consultation is not the final security gate.
