@@ -7,10 +7,12 @@ subject: Accept exact197 staging gaps and scoped Production cutover recovery
 artifact: intent/agent-deployment-verification/production-release-decision.md
 requires_response: true
 in_reply_to: null
-status: open
+status: closed
 severity: null
 blocking: false
 created_at: "2026-11-25T16:05:14Z"
+closed_by: orchestrator
+closed_evidence: Owner approved exact question scope in chat2026-11-25; approval ledger follows
 ---
 
 # Exact-source Production release decision — pending owner acceptance

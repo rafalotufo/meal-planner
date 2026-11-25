@@ -28,3 +28,7 @@ Accept the actual final staging evidence/profile/gaps for this exact source, the
 This scope authorizes no DROP, ledger rewrite, backup restore, real-data import, shared-key revocation, protection removal, paid feature/upgrade, Google callback/routing change, Production synthetic user/fixture, or deployment of a changed source. Drift requires new staging proof and the appropriate decision.
 
 Owner decision: PENDING. Actual staging result: hosted-staging-result.md; all owned synthetic runs cleaned, scoped link revoked and denied after propagation, final source/aliases inspected. Independent review org/reviews/agent-verification-hosted-staging-evidence-001.md found no integrity blockers and explicitly granted no release authority. Fresh16:04:41.860Z restricted read-only Production baseline: families1/users1/menu7/weeks0/invitations0/legacy5/nativefalse; no changes performed.
+
+## Owner decision2026-11-25
+
+The owner replied approved to the exact reviewable scope in this chat. Recorded as the reply to orchestrator-0162 and separate staging_acceptance/release_authorization ledger records, expiring2026-11-25T18:20:00Z. Original proposal/history and actual incomplete matrix reports are preserved. Fixed release source remains19774c7; approval/audit HEAD is not upload source.

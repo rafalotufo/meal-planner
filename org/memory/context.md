@@ -59,6 +59,7 @@ intent/agent-deployment-verification/intent.md
 - ceo-0037 ceo -> orchestrator decision: Approve reviewed T-Rex local merge
 - ceo-0068 ceo -> orchestrator decision: Approve reviewed hosted correction main merge and exact-source staging
 - ceo-0069 ceo -> orchestrator decision: Merge verification to main and prepare Production using new flow
+- ceo-0070 ceo -> orchestrator answer: Re: Accept exact197 staging gaps and scoped Production cutover recovery
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -120,7 +121,6 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0159 orchestrator -> senior-developer handoff: Prepare isolated hosted Chrome verification helper
 - orchestrator-0160 orchestrator -> reviewer handoff: Review helper-only native Enter correction
 - orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
-- orchestrator-0162 orchestrator -> ceo question: Accept exact197 staging gaps and scoped Production cutover recovery
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
