@@ -86,6 +86,14 @@ artifacts reject this catalog and are not safe rollback targets. Preserve new
 schema/data; use only a reviewed compatible correction or explicitly authorized
 scoped pause. No DROP, ledger rewrite or backup restore is implied by deployment
 authority. This completed scope grants no future release/migration permission.
+The separately approved latest-main cutover on 2026-11-24 applied 0002–0004
+on both recorded hosted targets; see intent/t-rex-refinements/production-release.md
+for fixed source d26ea59, Production AeQV, preservation and observation evidence.
+The hosted runtime contract now requires all five migrations. Older two-migration
+Production artifacts are incompatible; preserve the current schema/data. Migration
+0003 uses temporary tables: its approved execution temporarily granted database
+TEMP only to mp_migrator, then restored the original ACL; runtime TEMP stays denied.
+This operational history provides no authority for a future migration or grant.
 Future releases follow intent/staging-first-release/spec.md and the staging/
 Production runbooks: validate and obtain owner scope/gap acceptance for the exact
 release SHA on isolated staging before a separate Production build, manual
