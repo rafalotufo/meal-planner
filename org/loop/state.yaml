@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/agent-deployment-verification/intent.md
 base_commit: 69f6816232572db9aaad4a54290ebee1c61cd859
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: security
 status: in_progress
-last_input_hash: null
+last_input_hash: 2a6df48abea008e62b38fd8ea192b399b4e5f02ab20f7580b1bb768ec0d9e794
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-25T13:21:20Z"
+last_action: "architect:draft_verification_spec"
+artifacts: [{"path": "intent/agent-deployment-verification/spec.md", "sha256": "2a89faedaf2a5b2105a1d4b1ed4bf394ddba938f721ef3c32905400573e88543"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-25T13:31:21Z"
