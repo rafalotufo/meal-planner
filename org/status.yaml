@@ -2,8 +2,8 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: Dependency-aware migrations reviewed and verified; human merge/release and separate rejected fixture cleanup await owner authority }
   product-manager: { status: idle, assignment: null, last_report: Save-first curation amendment captured and PM accepted }
-  architect: { status: busy, assignment: dependency-aware-migrations-design, last_report: Async specification approved by owner; design work complete }
-  senior-developer: { status: busy, assignment: dependency-aware-migrations-implementation, last_report: All combined suites/browser QA pass; no native writes; owner sign-in works }
+  architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
+  senior-developer: { status: idle, assignment: null, last_report: Dependency-aware sourceef5d85e reviewed; full verification293Node+7Python and Chrome pass }
   security-researcher: { status: idle, assignment: null, last_report: Approved exactef5d85e;36 independent tests/probes pass; named fixture cleanup rejected and preserved }
   reviewer: { status: idle, assignment: null, last_report: "review dependency-aware-migrations-code-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

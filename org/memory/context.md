@@ -15,13 +15,13 @@ intent/dependency-aware-migrations/intent.md
 
 ## Agents
 
-- architect: busy (dependency-aware-migrations-design)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (recipe-url-menu-main-local-recovery)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: busy (dependency-aware-migrations-security)
-- senior-developer: busy (dependency-aware-migrations-implementation)
+- security-researcher: idle (unassigned)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -97,6 +97,7 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0138 orchestrator -> senior-developer handoff: Implement independently approved dependency-aware migration plan
 - orchestrator-0139 orchestrator -> reviewer handoff: Review dependency-aware migration implementation
 - orchestrator-0140 orchestrator -> security-researcher handoff: Assess dependency-aware migration security
+- orchestrator-0141 orchestrator -> ceo status: Dependency-aware migrations reviewed and verified
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
