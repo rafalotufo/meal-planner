@@ -13,6 +13,16 @@ export const TREX_WIDTH = 44;
 export const TREX_HEIGHT = 47;
 export const GROUND_Y = WORLD_HEIGHT - TREX_HEIGHT - 10;
 export const SPEED = 240;
+export const MAX_SPEED = 330;
+const ACCELERATION = 2;
+
+// Integrate the ramp exactly, including steps crossing the speed cap.
+function runningDistance(elapsedMs: number): number {
+  const seconds = elapsedMs / 1000;
+  const accelerating = Math.min(seconds, (MAX_SPEED - SPEED) / ACCELERATION);
+  return SPEED * accelerating + ACCELERATION * accelerating * accelerating / 2
+    + MAX_SPEED * (seconds - accelerating);
+}
 export const CACTUS_WIDTH = 17;
 export const CACTUS_HEIGHT = 35;
 export const CACTUS_Y = 105;
@@ -75,7 +85,7 @@ export function createRunner(seed: number, pausedReason?: string): RunnerState {
     mode: pausedReason ? "paused" : "running", pauseReason: pausedReason ?? null,
     y: GROUND_Y, velocity: 0, distance: 0, elapsedMs: 0, obstacles: [],
     seed: normalizedSeed, initialSeed: normalizedSeed,
-    nextObstacleDistance: SPEED * 3, nextObstacleId: 1,
+    nextObstacleDistance: runningDistance(3000), nextObstacleId: 1,
   };
 }
 
@@ -98,11 +108,12 @@ export function resumeRunner(state: RunnerState): RunnerState {
 function step(state: RunnerState, milliseconds: number): RunnerState {
   const seconds = milliseconds / 1000;
   const elapsedMs = state.elapsedMs + milliseconds;
-  const distance = elapsedMs * SPEED / 1000;
+  const distance = runningDistance(elapsedMs);
+  const movement = distance - runningDistance(state.elapsedMs);
   const jumping = state.y < GROUND_Y || state.velocity < 0;
   const y = jumping ? Math.min(GROUND_Y, state.y + state.velocity * seconds + GRAVITY * seconds * seconds / 2) : GROUND_Y;
   const velocity = y === GROUND_Y ? 0 : state.velocity + GRAVITY * seconds;
-  const obstacles = state.obstacles.map(obstacle => ({ ...obstacle, x: obstacle.x - SPEED * seconds }))
+  const obstacles = state.obstacles.map(obstacle => ({ ...obstacle, x: obstacle.x - movement }))
     .filter(obstacle => obstacle.x + CACTUS_WIDTH > 0);
   let { seed, nextObstacleDistance, nextObstacleId } = state;
   if (distance >= nextObstacleDistance) {

@@ -7,6 +7,8 @@ import {
   resumeRunner, tickRunner, type RunnerState,
 } from "../lib/t-rex-runner";
 
+const MAX_SPEED = 330;
+
 function advance(state: RunnerState, milliseconds: number): RunnerState {
   let remaining = milliseconds;
   while (remaining > 0) {
@@ -72,7 +74,7 @@ test("frame deltas are bounded and invalid time cannot advance simulation", () =
   assert.deepEqual(tickRunner(start, 100000), tickRunner(start, 50));
   assert.deepEqual(tickRunner(start, 50), advance(start, 50));
   for (const delta of [0, -1, Infinity, -Infinity, NaN]) assert.equal(tickRunner(start, delta), start);
-  assert.equal(tickRunner(start, 50).distance, SPEED * 0.05);
+  assert.ok(Math.abs(tickRunner(start, 50).distance - (SPEED * 0.05 + 0.0025)) < 1e-9);
 });
 
 test("original running and single-small-cactus hitboxes collide without treating empty sprite pixels as solid", () => {
@@ -102,7 +104,7 @@ test("one fresh press after collision resets distance/obstacles and immediately 
 });
 
 test("seeded gaps exceed a full jump plus 300ms running and every generated cactus is jumpable", () => {
-  assert.ok(MIN_OBSTACLE_GAP > SPEED * (JUMP_DURATION_MS + 300) / 1000);
+  assert.ok(MIN_OBSTACLE_GAP > MAX_SPEED * (JUMP_DURATION_MS + 300) / 1000);
   const seen: number[] = [];
   for (let seed = 1; seed <= 24; seed++) {
     let state = createRunner(seed);
@@ -141,7 +143,7 @@ test("immutable transitions do not mutate frozen input snapshots or obstacle arr
 
 test("every allowed integer cactus gap admits a complete jump and recovery before the next", () => {
   for (let gap = MIN_OBSTACLE_GAP; gap <= MIN_OBSTACLE_GAP + 120; gap++) {
-    let state: RunnerState = { ...createRunner(1), nextObstacleDistance: Infinity,
+    let state: RunnerState = { ...createRunner(1), elapsedMs: 45000, nextObstacleDistance: Infinity,
       obstacles: [{ id: 1, x: 200 }, { id: 2, x: 200 + 17 + gap }] };
     for (let frame = 0; frame < 360; frame++) {
       const next = state.obstacles.find(obstacle => obstacle.x + 17 > TREX_X);
@@ -151,4 +153,32 @@ test("every allowed integer cactus gap admits a complete jump and recovery befor
     }
     assert.deepEqual(state.obstacles, [], `both cacti passed for gap ${gap}`);
   }
+});
+
+
+test("speed rises gradually with active time, caps, freezes on pause and resets on restart", () => {
+  const start = { ...createRunner(8), nextObstacleDistance: Infinity };
+  const first = advance(start, 1000);
+  const second = advance(first, 1000);
+  assert.ok(Math.abs(first.distance - 241) < 1e-7);
+  assert.ok(Math.abs(second.distance - first.distance - 243) < 1e-7);
+  const capped = advance(start, 45000);
+  assert.ok(Math.abs(capped.distance - 12825) < 1e-6);
+  const later = advance(capped, 1000);
+  assert.ok(Math.abs(later.distance - capped.distance - MAX_SPEED) < 1e-6);
+  const paused = pauseRunner(capped, "manual");
+  assert.equal(advance(paused, 2000), paused);
+  assert.ok(Math.abs(advance(resumeRunner(paused), 1000).distance - later.distance) < 1e-6);
+  const restarted = jumpRunner({ ...capped, mode: "crashed" });
+  assert.ok(Math.abs(advance(restarted, 1000).distance - 241) < 1e-7);
+});
+
+test("a step crossing the speed cap keeps obstacles and distance synchronized", () => {
+  const before = { ...createRunner(1), elapsedMs: 44990, distance: 12821.7001,
+    nextObstacleDistance: Infinity, obstacles: [{ id: 1, x: 500 }] };
+  const after = tickRunner(before, 30);
+  const traveled = 9.8999;
+  assert.ok(Math.abs(after.distance - before.distance - traveled) < 1e-7);
+  assert.ok(Math.abs(after.obstacles[0].x - (500 - traveled)) < 1e-7);
+  assert.deepEqual(after.obstacles, tickRunner(tickRunner(before, 15), 15).obstacles);
 });
