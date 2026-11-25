@@ -9,18 +9,18 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: security
+- turn: 4
+- phase: peer
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/agent-deployment-verification/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/agent-deployment-verification/spec.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
-- security-researcher: busy (intent/agent-deployment-verification/spec.md)
+- reviewer: busy (intent/agent-deployment-verification/spec.md)
+- security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
@@ -112,6 +112,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0153 orchestrator -> security-researcher handoff: Security review staged verification design
 - orchestrator-0154 orchestrator -> architect handoff: Revise exchange dispatch and security clarifications
 - orchestrator-0155 orchestrator -> security-researcher handoff: Recheck exact exchange guard correction
+- orchestrator-0156 orchestrator -> reviewer handoff: Peer review revised Google-free verification specification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -127,7 +128,6 @@ intent/agent-deployment-verification/intent.md
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - security-researcher-0031 security-researcher -> orchestrator review: Google-free verification intent security assessment
-- security-researcher-0032 security-researcher -> orchestrator finding: Exchange deadline blocked by Next Proxy dispatch
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
@@ -147,10 +147,11 @@ intent/agent-deployment-verification/intent.md
 
 - org/reviews/agent-deployment-verification-spec-security-001.md (d6206ab7f8cec9ed641b31b2a406f9ec27fb3bd129f14811e57d70d7662060fc)
 - intent/agent-deployment-verification/spec.md (4889232cf62c05ecfe8a4f63be2a871907f294738d18ea0461bfdcc0c34533db)
+- org/reviews/agent-deployment-verification-spec-security-002.md (83efc2957767b3ac95099647c55b4ee541014037008f1fcbdca7e316a36c0474)
 
 ## Next action
 
-architect:revise_verification_spec
+security-researcher:assess_verification_spec
 
 ## Last digest source
 
