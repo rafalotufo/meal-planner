@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { parseRecipeSource } from '../lib/recipes/source.js';
+import { sourceHtml } from './recipe-brave-fixtures.js';
+const url='https://recipes.example.com/chicken';
+test('source extraction binds single recipe identity, title, ingredients, method and deterministic metadata',()=>{
+  const parsed=parseRecipeSource(sourceHtml(),url);
+  assert.equal(parsed.kind,'recipe');
+  if(parsed.kind!=='recipe')return;
+  assert.deepEqual(parsed.recipe.titles,['Crispy chicken']);
+  assert.ok(parsed.recipe.ingredients.includes('2 chicken breasts'));
+  assert.ok(parsed.recipe.method.includes('Coat chicken'));
+  assert.deepEqual(parsed.recipe.time,{kind:'total',text:'30 minutes'});
+  assert.equal(parsed.recipe.imageUrl,'https://images.example.com/chicken.jpg');
+});
+test('source rejects conflicting, ambiguous or unrelated recipe identities and embedded collection recipes',()=>{
+  assert.equal(parseRecipeSource(sourceHtml('https://evil.example.com/other'),url).kind,'unsupported');
+  assert.equal(parseRecipeSource(sourceHtml().replace('<h1>Crispy chicken</h1>','<h1>Chocolate cake</h1>'),url).kind,'unsupported');
+  const collection=sourceHtml().replace('<h1>Crispy chicken</h1>','<h1>20 chicken recipes</h1>');
+  assert.equal(parseRecipeSource(collection,url).kind,'collection');
+  const multiple=sourceHtml().replace('"@type":"Recipe"','"@graph":[{"@type":"Recipe","name":"Other recipe"}],"@type":"Recipe"');
+  assert.equal(parseRecipeSource(multiple,url).kind,'unsupported');
+});
+test('collection expansion only returns bounded safe content links, resolves relative URLs, ignores base and navigation',()=>{
+  const html='<html><head><base href="https://evil.example.com"></head><body><nav><a href="/recipe/nav">Nav recipe</a></nav><main><h1>20 family recipes</h1><a href="/recipe/chicken">Chicken recipe</a><a href="https://127.0.0.1/x">Private recipe</a><a href="javascript:bad">Recipe</a><a href="#recipe">Recipe</a><a href="/login">Recipe account</a><a href="/recipe/chicken#top">Duplicate recipe</a>'+Array.from({length:20},(_,n)=>`<a href="/recipes/dish-${n}">Dinner recipe ${n}</a>`).join('')+'</main></body></html>';
+  const parsed=parseRecipeSource(html,'https://recipes.example.com/family-recipes');
+  assert.equal(parsed.kind,'collection');
+  if(parsed.kind!=='collection')return;
+  assert.equal(parsed.links.length,12);assert.equal(parsed.links[0],'https://recipes.example.com/recipe/chicken');
+  assert.ok(parsed.links.every(x=>x.startsWith('https://recipes.example.com/')&&!x.includes('nav')));
+});
+test('parser fails closed on HTML/script/JSON-LD complexity and missing cooking information',()=>{
+  for(const html of ['x'.repeat(1048577),'<div>'.repeat(257),'<script type="application/ld+json">'+JSON.stringify({x:'a'.repeat(262145)})+'</script>',sourceHtml().replace('recipeInstructions','unknownInstructions')]) {
+    assert.equal(parseRecipeSource(html,url).kind,'unsupported');
+  }
+});

@@ -28,3 +28,10 @@ test('Brave limits discovery query without malformed Unicode and rejects malform
   await assert.rejects(discoverRecipes('chicken',{apiKey:'test-only-key',transport:async()=>{calls++;return Response.json({web:{results:[]}});},signal:controller.signal}),/parent abort/);
   assert.equal(calls,0);
 });
+
+test('non-success provider response cancels its body before releasing the operation', async () => {
+  let canceled=false;
+  const body=new ReadableStream<Uint8Array>({cancel(){canceled=true;}});
+  await assert.rejects(discoverRecipes('chicken',{apiKey:'test-only-key',transport:async()=>new Response(body,{status:503}),signal:new AbortController().signal}),/SEARCH_FAILED/);
+  assert.equal(canceled,true);
+});

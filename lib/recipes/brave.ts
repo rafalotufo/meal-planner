@@ -10,7 +10,10 @@ export function discoveryQuery(query: string): string {
   return /\brecipes?\b/i.test(prefix) ? prefix : `${prefix} recipe`;
 }
 export async function readProviderJson(response: Response, signal: AbortSignal): Promise<unknown> {
-  if (!response.ok || !response.body) throw new SearchError('SEARCH_FAILED');
+  if (!response.ok || !response.body) {
+    if (response.body) await response.body.cancel().catch(() => {});
+    throw new SearchError('SEARCH_FAILED');
+  }
   const reader = response.body.getReader();
   const chunks: Uint8Array[] = []; let size = 0;
   const cancel = () => { void reader.cancel(signal.reason).catch(() => {}); };
