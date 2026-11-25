@@ -17,6 +17,7 @@ On 2026-11-24 Rafael instructed “merge to main”. Integrate current local mai
 
 ## Files that change
 
+- `AGENTS.md`
 - `app/t-rex-runner.tsx`
 - `lib/t-rex-canvas.ts`
 - `lib/t-rex-runner.ts`
@@ -30,3 +31,6 @@ On 2026-11-24 Rafael instructed “merge to main”. Integrate current local mai
 ## Audit format clarification
 
 Release preparation found that the previously independently approved prose plan lacked the checker's machine-readable Approved status and bullet manifest. This later audit normalizes only that format, retaining the original requirements and reviewed integration corrections. The pinned release source stays d26ea59742f904f399128477bfeb369a0049ba62; no application source changes accompany this clarification. Current hosted migration/release authorities are separately recorded in hosted-migration-approval.md and release evidence, and do not alter the historical local-only integration authority above.
+
+
+Production handoff records the actual approved hosted five-migration cutover and temporary-owner-permission requirement in AGENTS.md. This is operational history and preservation guidance only; manual release/migration gates remain unchanged.
