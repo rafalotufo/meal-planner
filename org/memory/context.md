@@ -9,8 +9,8 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: security
+- turn: 4
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -131,10 +131,11 @@ intent/dependency-aware-migrations/intent.md
 - intent/dependency-aware-migrations/spec.md (6e485ad1c06a1ef27732b4794bbe78ac3b0d3682b81b78b06a04d5e5aef2bcb8)
 - org/reviews/dependency-aware-migrations-design-001.md (8e34ce02dc0d06e1397561210b0a93a70330a6dedf9b0ed95f8e42754a2ae4a3)
 - intent/dependency-aware-migrations/verification.md (1a2e5112449e8f51ced3164c8605505665f2511e7526ca8c6c8648f5f57decbd)
+- org/reviews/dependency-aware-migrations-security-001.md (be8918c8a03b6af4e2d91bdfedc2fdd1c4f6cbe7ffd27b4bed6ab647a795d92c)
 
 ## Next action
 
-senior-developer:implement_and_verify
+security-researcher:assess
 
 ## Last digest source
 

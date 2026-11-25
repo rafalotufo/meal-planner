@@ -108,8 +108,14 @@ One independent runner encountered a cleanup race while a runtime backend was
 disconnecting; the test role cannot terminate another role's backend. Cleanup
 now has a bounded retry after verifying exact random name and owner, with no
 privilege elevation. All final suites cleaned their owned fixtures successfully.
-The earlier unnamed orphan's identification/cleanup outcome is recorded in the
-final security follow-up; no unrelated database may be dropped to guess its name.
+The earlier orphan was uniquely identified read-only as
+`mp_test_26ec1eb9d7b56457daff96aa`: restricted test owner, exact failed collation
+fixture signature, no application rows and no active backends. Automatic approval
+review rejected the narrowly scoped DROP before execution, interpreting the
+owner's no-data-removal boundary as including this disposable fixture. It remains
+intact pending explicit owner cleanup authority. No retry or indirect bypass was
+attempted; no other test database was removed to guess its identity. The final
+security follow-up records the inspection and rejection.
 
 ## Operational limits
 
