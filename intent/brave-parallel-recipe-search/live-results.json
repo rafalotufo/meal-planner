@@ -145,5 +145,205 @@
         }
       }
     }
-  ]
+  ],
+  "correctiveFollowUp": {
+    "method": "Corrective third/last live query after independently approved amendment; actual parallel-provider factory + actual handler, same default queues/budgets and real safe source loader, instrumentation only. Excludes selector (separately tested), family HTTP/browser. Header times exclude provider body. Source phase is first source start through last source end; model phase is first model start through handler completion, including validation.",
+    "query": "meals for picky eaters like chicken fingers and burgers",
+    "status": 200,
+    "totalMs": 8163,
+    "sourcePhaseMs": 3539,
+    "modelPhaseMs": 4211,
+    "calls": [
+      {
+        "provider": "brave",
+        "startMs": 17,
+        "headersMs": 320,
+        "status": 200
+      },
+      {
+        "provider": "openai",
+        "startMs": 3953,
+        "headersMs": 2599,
+        "status": 200
+      },
+      {
+        "provider": "openai",
+        "startMs": 3953,
+        "headersMs": 2966,
+        "status": 200
+      },
+      {
+        "provider": "openai",
+        "startMs": 3952,
+        "headersMs": 3235,
+        "status": 200
+      },
+      {
+        "provider": "openai",
+        "startMs": 3953,
+        "headersMs": 4200,
+        "status": 200
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://www.tasteofhome.com/collection/kid-friendly-meals-for-picky-eaters/",
+        "startMs": 391,
+        "endMs": 485,
+        "kind": "unfetched"
+      },
+      {
+        "url": "https://www.theseasonedmom.com/dinner-ideas-for-picky-eaters/",
+        "startMs": 392,
+        "endMs": 497,
+        "kind": "unfetched"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/chicken-dinner-ideas-for-family",
+        "startMs": 498,
+        "endMs": 726,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.cubbyathome.com/easy-kid-friendly-dinners-for-picky-eaters-80043513",
+        "startMs": 497,
+        "endMs": 845,
+        "kind": "unfetched"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/5-chicken-breast-recipes-for-dinner-tonight",
+        "startMs": 846,
+        "endMs": 1019,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes",
+        "startMs": 846,
+        "endMs": 1185,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/chicken-tender-recipes",
+        "startMs": 1199,
+        "endMs": 1412,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/our-best-chicken-thigh-recipes",
+        "startMs": 1199,
+        "endMs": 2060,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/chicken-and-rice-recipes",
+        "startMs": 2071,
+        "endMs": 2278,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/chicken-parmesan-recipes",
+        "startMs": 2071,
+        "endMs": 2364,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/photos/family-friendly-weeknight-dinner-recipes",
+        "startMs": 2371,
+        "endMs": 2518,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/potato-chip-crusted-chicken-strips-with-honey-mustard-dipping-sauce-8068669",
+        "startMs": 2372,
+        "endMs": 2688,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/food-network-kitchen/chicken-riggies-13351705",
+        "startMs": 2696,
+        "endMs": 2919,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/ina-garten/chicken-chili-recipe-1942939",
+        "startMs": 2697,
+        "endMs": 2938,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/ree-drummond/chicken-and-dumplings-2532876",
+        "startMs": 2946,
+        "endMs": 3204,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://www.foodnetwork.com/recipes/chicken-tortilla-soup-recipe-1939403",
+        "startMs": 2946,
+        "endMs": 3347,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/dinner-ideas-for-picky-eaters/",
+        "startMs": 3364,
+        "endMs": 3480,
+        "kind": "collection"
+      },
+      {
+        "url": "https://www.myfussyeater.com/15-of-the-best-finger-food-dinners-for-kids/",
+        "startMs": 3365,
+        "endMs": 3533,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/creamy-tomato-pasta/",
+        "startMs": 3541,
+        "endMs": 3626,
+        "kind": "recipe"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/healthy-macaroni-cheese-with-vegetables/",
+        "startMs": 3540,
+        "endMs": 3661,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/one-pan-pasta-tomato-sausage-lentils/",
+        "startMs": 3675,
+        "endMs": 3767,
+        "kind": "unsupported"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/butternut-mac-and-cheese/",
+        "startMs": 3675,
+        "endMs": 3783,
+        "kind": "recipe"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/pesto-pasta/",
+        "startMs": 3808,
+        "endMs": 3902,
+        "kind": "recipe"
+      },
+      {
+        "url": "https://mykidslickthebowl.com/cauliflower-alfredo-sauce/",
+        "startMs": 3809,
+        "endMs": 3930,
+        "kind": "recipe"
+      }
+    ],
+    "body": {
+      "recipes": [
+        {
+          "title": "Butternut Squash Mac and Cheese",
+          "sourceUrl": "https://mykidslickthebowl.com/butternut-mac-and-cheese/",
+          "summary": "Cook the pasta and squash separately, then soften the squash further in butter, blend it with milk, stir in cheddar until melted, and toss the pasta with the sauce.",
+          "time": {
+            "kind": "total",
+            "text": "25 minutes"
+          },
+          "imageUrl": "https://mykidslickthebowl.com/wp-content/uploads/2025/02/butternut-mac-and-cheese-11.jpg"
+        }
+      ]
+    }
+  }
 }

@@ -31,3 +31,40 @@ failure evidence remains visible regardless of the follow-up result.
 
 Only two Brave queries and eight OpenAI curation requests were made in these
 initial implemented-pipeline smoke tests. No paid retries or hidden fallback.
+
+
+## Independently approved corrective follow-up
+
+Amendment approval185d72b / ledger985cea9 authorized exactly one additional live
+query after the heading regression and build checks. This third/last query used
+the actual parallel-provider factory and actual handler, default shared queues,
+unchanged budgets and real safe source loader, with timing wrappers only. It
+excluded the selector and family HTTP/browser. No subsequent paid calls occurred.
+
+The same broad query returned HTTP200 in **8163ms**, with1 Brave request,24 source
+attempts,4 parallel model requests and **1 accepted recipe**. Brave headers took
+320ms. Full source phase was3539ms (first source start through last source end).
+Model phase including body validation was4211ms (first model start through handler
+completion); all4 model requests started within1ms, and headers took2599–4200ms.
+This measures actual parallel curation, not four serial requests.
+
+The accepted card was Butternut Squash Mac and Cheese from My Kids Lick The Bowl,
+with a cooking summary,25-minute source-derived total time and source image;
+no displayed fields were omitted. The other3 source candidates were rejected
+rather than surfaced without satisfying the complete query. Source outcomes:
+4 recipes,9 collections,8 unsupported,3 unfetched. Expansion counts remained
+within2 collections and24 fetch attempts. Several Food Network collection links
+and unsupported pages consumed attempts, leaving limited candidate variety.
+
+The parser failure is corrected and broad requests can return a valid recipe.
+**Broad-query recall remains weak in this one observation**: one accepted card
+from one publisher does not demonstrate10/20 useful results or reliable broad
+coverage. This limitation should remain visible in the merge/release decision;
+more queries would need separately authorized paid verification. Named-query
+results still demonstrate8 cards, and12-card capacity is proven by browser
+fixtures rather than a live12-result claim. The changing Brave discovery set also
+prevents treating before/after elapsed time as a controlled performance result.
+
+Implementation live verification totals:3 Brave queries,12 OpenAI requests,
+zero retries/fallbacks. Exact per-source outcomes, card fields and timings are
+preserved under `correctiveFollowUp` in `live-results.json`.

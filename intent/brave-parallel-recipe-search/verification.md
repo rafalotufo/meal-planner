@@ -103,3 +103,18 @@ cause. No third paid call occurred while the follow-up amendment awaited review.
 Final staged secret scan and diff-check results are recorded with the commit
 handoff. Org graph/ledger/loop and independent final reviews remain owned by the
 orchestrator; this document does not grant merge/release approval.
+
+
+## Corrective live follow-up and handoff
+
+After independent amendment approval185d72b/ledger985cea9 and explicit
+orchestrator GO, exactly one corrective broad query ran. It returned200 in8163ms,
+with24source attempts,4parallel curations and1accepted recipe. See
+`live-verification.md` and durable `live-results.json` for measurements, original
+failure and limited broad recall. No further paid calls are authorized or made.
+The heading defect is fixed; the low broad yield remains a quality limitation.
+
+Integration/source implementation commit2989467 passed staged
+`git diff --cached --check` and `python3 scripts/scan_secrets.py --staged`
+(0findings). Formal independent reviews are running against that stable source.
+The corrective run changed evidence only, not application or test code.
