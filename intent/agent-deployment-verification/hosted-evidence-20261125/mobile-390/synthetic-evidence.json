@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "proofClass": "synthetic-app",
+  "target": {
+    "version": 1,
+    "runId": "agent-release-20261125-390",
+    "origin": "https://meal-planner-staging-rafalotufos.vercel.app",
+    "sourceSha": "19774c7cd8ae301682003838f083b9d825d5e56d",
+    "deploymentId": "dpl_8saVzK5Pyerj3jbbEVhFerLpdLkt",
+    "teamId": "team_2c0O29FMb91g7L6sUChc9v6J",
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "productionDeploymentId": "dpl_AeQVDaT7ZCC99oLfjunTyiD1vA3a",
+    "productionOrigins": [
+      "https://lotufo-meals.vercel.app",
+      "https://meal-planner-rafalotufos-projects.vercel.app",
+      "https://meal-planner-delta-six-55.vercel.app"
+    ],
+    "profileSha256": "4f2b6f52e2779c30c8a93ae0c59f81dee197d17ef6ed9c20203d4af702acdaf1",
+    "verificationRunId": "c092901c-efaa-48d9-8f87-8522f42fcd08",
+    "memberIds": [
+      "df221533-8faa-442d-8d24-97513df32619"
+    ]
+  },
+  "startedAt": "2026-11-25T15:54:52.323Z",
+  "endedAt": "2026-11-25T15:55:03.556Z",
+  "observations": [
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "form-entry",
+      "result": "pass"
+    },
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "home",
+      "result": "pass"
+    },
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "session",
+      "result": "pass"
+    },
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "family",
+      "result": "pass"
+    },
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "menu",
+      "result": "pass"
+    },
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "plans",
+      "result": "pass"
+    },
+    {
+      "memberId": "df221533-8faa-442d-8d24-97513df32619",
+      "browser": "Chrome",
+      "version": "158.0.8127.88",
+      "width": 390,
+      "check": "logout",
+      "result": "pass"
+    }
+  ],
+  "gaps": [
+    "google-oauth-unchecked",
+    "provider-unchecked",
+    "invitations-excluded",
+    "url-curation-excluded",
+    "platform-protection-bypassed",
+    "firefox-unavailable",
+    "safari-unavailable"
+  ]
+}

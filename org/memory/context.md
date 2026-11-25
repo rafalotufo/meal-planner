@@ -17,11 +17,11 @@ intent/agent-deployment-verification/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (agent-verification-hosted-release)
+- orchestrator: busy (agent-verification-production-gate)
 - product-manager: idle (unassigned)
-- reviewer: busy (agent-verification-hosted-browser)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (agent-verification-hosted-browser)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -119,6 +119,8 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0158 orchestrator -> security-researcher handoff: Diagnose failed Preview migration without effects
 - orchestrator-0159 orchestrator -> senior-developer handoff: Prepare isolated hosted Chrome verification helper
 - orchestrator-0160 orchestrator -> reviewer handoff: Review helper-only native Enter correction
+- orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
+- orchestrator-0162 orchestrator -> ceo question: Accept exact197 staging gaps and scoped Production cutover recovery
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -160,7 +162,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0166 from intent/agent-deployment-verification/main-audit-reconciliation.md
+- mem-0167 from intent/agent-deployment-verification/hosted-staging-result.md
 
 <!-- machine:end -->
 

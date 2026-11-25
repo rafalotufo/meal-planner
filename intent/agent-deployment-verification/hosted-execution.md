@@ -27,3 +27,15 @@ Actual staging evidence and its named Google/provider/browser/platform gaps must
 Canonical Production anonymous health remained passing during staging: helper exit0, pass:true, status401, elapsed2431ms; Production still points toAeQV and no Production migration/deployment occurred.
 
 Offline owned Chrome/data-URL probe reproduced the existing Enter sequence producing0 native submit events despite valid dummy fields and focused submit control. The helper-only carriage-return key correction is under local verification; no authentication code or release-source byte changed.
+
+## Actual mobile authenticated result
+
+Chrome158.0.8127.88 at390px,15:54:52.323Z–15:55:03.556Z, replacement runc092901c-efaa-48d9-8f87-8522f42fcd08: actual native303 exchange, exact Origin/nonce policy, session200, home/family/menu/plans landmarks and no overflow, keyboard logout200, session401 and protected redirect all passed. Screenshots captured only blank entry/synthetic pages/signout. Root visually inspected mobile entry/home: readable, no clipping. The original helper still exited1 because it additionally counted9 known blocked Vercel live CSP network events and one network log; that report remains unchanged and is not called a helper pass. Bounded diagnostics classification is being corrected, without changing app CSP, before desktop. Owned run cleanup15:55:48.004Z exited0 and private handoff/input were deleted.
+
+## Final desktop, cleanup and handoff
+
+Desktop1440 Chrome158.0.8127.88 actual15:59:11.066Z–15:59:22.361Z completed all selected native/session/page/logout checks; final helper exit0, browserErrors0, forbiddenRequests0. Exact known platform CSP and expected logout401 diagnostics are separately counted. Root visually inspected desktop home. Neither source bytes nor app CSP changed.
+
+Desktop server-side read-only proof before cleanup: sessions1/revoked_sessions1/consumed_capabilities1. Cleanup15:59:56.306Z exited0; handoff/input deleted. Final Preview16:01:23.782Z: all original9 tables match backup, native runtime catalog/grants pass, runs/sessions/capabilities/synthetic users/families0;3 bounded throttle metadata buckets remain. Link revocation API returned0; first immediate probe was inconclusive, final16:00:56.243Z old link302 to Vercel authentication confirmed propagated revocation. Token files deleted. Final16:01:42.184Z same197/8sa/staging mapping and unchanged3 Production mappings confirmed; owned lane lock released.
+
+Formal per-run synthetic validators both exited2/incomplete/releaseAccepted:false: one Chrome width per owned run and missing all-browser/same-member matrix. Selected14 Chrome observations passed without rewriting the original mobile helper failure. Actual gaps and concrete Production release/interruption/pause proposal are in hosted-staging-result.md and production-release-decision.md. Final independent evidence review and owner exact-source acceptance remain pending. No Production candidate, migration or promotion has occurred.

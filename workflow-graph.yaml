@@ -27,9 +27,9 @@ nodes:
     done_status: merged
   release:
     stage: deploy
-    artifact: separately authorized release
+    artifact: intent/agent-deployment-verification/production-release-decision.md
     gate: release_authorization
-    status: not_started
+    status: in_review
     done_status: done
 edges:
   - {from: intent, to: spec, trigger: acceptance}
