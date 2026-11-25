@@ -11,3 +11,8 @@ at `lib/db/connection.ts:69` from `migrateDatabase`; no pending migration ran.
 Unknown history/checksum fail-closed coverage passed. Both owned databases were
 cleaned up. An initial sandbox-only attempt failed with EPERM before reaching
 PostgreSQL; that environmental failure is not the behavioral red proof.
+
+Pure planner contract tests in `tests/migrations/graph.test.ts` were then added
+before the graph module existed. The command failed with MODULE_NOT_FOUND
+(exit1), establishing that stable UUID/dependency/independence APIs were absent;
+the earlier real-database convergence test is the behavioral reproduction.
