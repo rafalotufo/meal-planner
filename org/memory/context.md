@@ -60,6 +60,7 @@ intent/login-session-expiration/intent.md
 - ceo-0068 ceo -> orchestrator decision: Approve reviewed hosted correction main merge and exact-source staging
 - ceo-0069 ceo -> orchestrator decision: Merge verification to main and prepare Production using new flow
 - ceo-0070 ceo -> orchestrator answer: Re: Accept exact197 staging gaps and scoped Production cutover recovery
+- ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -146,11 +147,11 @@ intent/login-session-expiration/intent.md
 
 ## Recent decisions
 
-- mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 - mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
 - mem-0166 orchestrator: Currentowner requests verification mainmerge andnewProductionrelease. Maincd60divergedwithreviewedhosted fixes; integrationrequired. Bothimmutableauditbranches preserved under agent-verification-before-main-integration-20261125, canonicalmainledgerprefixunchanged,3existingfeatureownerapprovals append-transcribed withoriginalevidence. No new/backdatedapproval; exact-sourcefuturestaging/releasegatespreserved. (intent/agent-deployment-verification/main-audit-reconciliation.md)
 - mem-0169 orchestrator: Owner requested one-month login expiration through org workflow. PM accepted fixed30day Google sessions without renewal; independent reviewer approved spec/plan. Preserve one-hour provider account data, existing issued expiries and short staging credentials. Local implementation/isolated verification only; human merge and release gates remain. (intent/login-session-expiration/spec.md)
 - mem-0170 orchestrator: Login-session-expiration implementation851c255 passes lint/typecheck/build,189 Node regressions,7 Python tests and Chrome390/1440. Independent code and security reviews approved with no findings. Local scope complete; human merge/release pending, no hosted/deployment effects. (intent/login-session-expiration/verification.md)
+- mem-0171 orchestrator: Owner-approved login expiration local main fast-forward from4f25732 to187bf43 completed without conflicts; reviewed runtime851c255 unchanged. Completion audit also merged; no push/restart/deployment/hosted effects, release remains gated. (intent/login-session-expiration/main-merge-result.md)
 
 ## Constraints
 
@@ -171,7 +172,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0170 from intent/login-session-expiration/verification.md
+- mem-0171 from intent/login-session-expiration/main-merge-result.md
 
 <!-- machine:end -->
 
