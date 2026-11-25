@@ -259,3 +259,13 @@ has no runtime, hosted or browser-success claim.
 Official capability references consulted2026-11-25: [Vercel system metadata](https://vercel.com/docs/environment-variables/system-environment-variables),
 [Vercel Shareable Links](https://vercel.com/docs/deployment-protection/methods-to-bypass-deployment-protection/sharable-links),
 and [Better Auth sessions](https://better-auth.com/docs/concepts/session-management).
+
+## Native-form browser compatibility refinement
+
+Actual isolated Chrome verification found that the global `no-referrer` page
+policy makes a native navigation form submit `Origin: null`, despite same-origin
+Fetch Metadata and a matching valid nonce. The enabled exact GET/HEAD
+`/verification` page therefore uses `Referrer-Policy: same-origin`; it contains
+no credential in its URL and sends no cross-origin referrer. Every other response
+keeps `no-referrer`. The POST still requires the exact configured Origin; null
+is never accepted. Real-browser coverage must prove this ordinary form path.

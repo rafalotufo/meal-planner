@@ -350,3 +350,9 @@ live provider success and does not replace Production anonymous health gates.
 Implementation refinement: the dependency regression retains its exact preserved-family assertion and adds the new default Google identity_kind column to the expected row. No existing assertion is removed.
 
 Pinned Next refinement: Proxy generates the signed preflight nonce for exact staging GET/HEAD /verification, overwrites the forwarded nonce header and sets its matching HttpOnly cookie; the Server Component only reads the nonce. The sign-out page may render for an expired verification cookie solely to permit clearing/revocation. Neither nonce nor cookie presence grants application admission.
+
+Native-form refinement backed by actual Chrome headers: enabled exact GET/HEAD
+`/verification` uses `Referrer-Policy: same-origin` so standard native form POST
+retains its exact Origin. Global no-referrer produced Origin:null with a valid
+nonce; no null-Origin exception is permitted. All other responses remain
+no-referrer, and credentials remain absent from the URL.

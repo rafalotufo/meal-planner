@@ -55,7 +55,7 @@ export async function proxy(request: NextRequest) {
   response.headers.set("Content-Security-Policy", csp);
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "DENY");
-  response.headers.set("Referrer-Policy", "no-referrer");
+  response.headers.set("Referrer-Policy", verificationNonce ? "same-origin" : "no-referrer");
   if (origin.startsWith("https:")) response.headers.set("Strict-Transport-Security", "max-age=31536000");
   return response;
 }
