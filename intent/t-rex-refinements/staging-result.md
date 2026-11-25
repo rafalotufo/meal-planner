@@ -1,6 +1,6 @@
 # Latest main — staging result, 2026-11-24
 
-Status: actual staging observations recorded; owner acceptance of exact source/profile and named gaps is pending. Production remains unchanged. No full hosted functional pass is claimed.
+Status: owner accepted this exact source/Preview/profile and all named gaps in the subsequent affirmative chat response. See production-release.md and committed staging/release gates. Actual observations remain unchanged; no missing check becomes a pass.
 
 ## Exact attribution
 
