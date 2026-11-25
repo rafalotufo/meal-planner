@@ -9,8 +9,8 @@ intent/agent-deployment-verification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: peer
+- turn: 3
+- phase: owner_decision
 - stop_reason: None
 
 ## Agents
@@ -18,8 +18,8 @@ intent/agent-deployment-verification/intent.md
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
-- product-manager: busy (intent/agent-deployment-verification/options.md)
-- reviewer: busy (intent/agent-deployment-verification/options.md)
+- product-manager: idle (unassigned)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -107,6 +107,7 @@ intent/agent-deployment-verification/intent.md
 - orchestrator-0148 orchestrator -> product-manager handoff: Explore Google-free deployment verification
 - orchestrator-0149 orchestrator -> security-researcher handoff: Assess Google-free verification alternatives
 - orchestrator-0150 orchestrator -> reviewer handoff: Peer review Google-free verification intent and alternatives
+- orchestrator-0151 orchestrator -> ceo question: Select Google-free verification direction before Design
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -127,11 +128,11 @@ intent/agent-deployment-verification/intent.md
 
 ## Recent decisions
 
-- mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
 - mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 - mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 - mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
 - mem-0164 orchestrator: Owner requested Google-free ordinary-browser deployment-verification intent exploration. Preserve completed dependency-aware-migrations loop and graph under org/loop/archive/dependency-aware-migrations-before-agent-verification-2026-11-25; new work item is intent/agent-deployment-verification/intent.md. No runtime, hosted, paid or release actions authorized. (org/messages/orchestrator-0148.md)
+- mem-0165 orchestrator: Agent deployment verification remains intent exploration only. PM recommends staging-only synthetic principal plus single-use short-lived capability, retains local fixture coverage, and escalates staging/Production and issuance scope before Design. Independent security assessment finds no exploration blockers; no authentication design, hosted setup or release is approved. (org/reviews/agent-deployment-verification-security-001.md)
 
 ## Constraints
 
@@ -141,14 +142,15 @@ intent/agent-deployment-verification/intent.md
 
 - intent/agent-deployment-verification/options.md (cfdaf750c6871bfad149b6a4620ecdaee7b161ee17d444ed099b5b61eafb85c1)
 - org/reviews/agent-deployment-verification-security-001.md (0f93a1f1a47c234429ddd32c2003eb27163d2fbd1341d6dfde372e67d1674564)
+- org/reviews/agent-deployment-verification-intent-001.md (288cdb5b91a600f4957317cca17a515a01d7d2e10269cc3681d0fb7a281901e1)
 
 ## Next action
 
-security-researcher:assess_options
+reviewer:review_intent_options
 
 ## Last digest source
 
-- mem-0164 from org/messages/orchestrator-0148.md
+- mem-0165 from org/reviews/agent-deployment-verification-security-001.md
 
 <!-- machine:end -->
 

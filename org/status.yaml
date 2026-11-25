@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Owner-approved localmain merged, built and running localhost3000; finalreviewb74303f; database unchanged, no push/hosted/deploy" }
-  product-manager: { status: busy, assignment: intent/agent-deployment-verification/options.md, last_report: Drafted intent/options; staging-first synthetic capability direction pending owner scope acceptance }
+  orchestrator: { status: idle, assignment: null, last_report: Intent exploration complete; security/peer review clear; owner scope/direction/issuance decision required before Design }
+  product-manager: { status: idle, assignment: null, last_report: Intent/options peer-reviewed for owner consideration; scope and issuance decisions pending }
   architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
   senior-developer: { status: idle, assignment: null, last_report: Combinedmain49e2a646 verified295Node+7Python and bothChrome; T-Rex/migration source preserved }
   security-researcher: { status: idle, assignment: null, last_report: No intent-exploration blockers; scope/issuance/Production isolation and evidence obligations remain for Design }
-  reviewer: { status: busy, assignment: intent/agent-deployment-verification/options.md, last_report: "review dependency-aware-migrations-main-final-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review agent-deployment-verification-intent-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -106,4 +106,4 @@ review_queue:
   - { id: dependency-aware-migrations-main-plan-001, artifact: intent/dependency-aware-migrations/main-integration.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: dependency-aware-migrations-main-source-001, artifact: dependency-aware-migrations-main-integration, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: dependency-aware-migrations-main-final-001, artifact: dependency-aware-migrations-main-integration, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: agent-deployment-verification-intent-001, artifact: intent/agent-deployment-verification/options.md, writer: product-manager, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: agent-deployment-verification-intent-001, artifact: intent/agent-deployment-verification/options.md, writer: product-manager, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
