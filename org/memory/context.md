@@ -8,20 +8,20 @@ intent/login-session-expiration/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 3
-- phase: implement
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/login-session-expiration/intent.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/login-session-expiration/plan.md)
+- senior-developer: busy (login-session-expiration-implementation)
 
 ## Open messages
 
@@ -139,16 +139,18 @@ intent/login-session-expiration/intent.md
 - product-manager-0022 product-manager -> orchestrator decision: Accepted 30-day Google login expiration intent
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0057 reviewer -> orchestrator review: Approve login expiration design and plan
+- reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
+- security-researcher-0031 security-researcher -> orchestrator review: Login session expiration local security approval
 - senior-developer-0008 senior-developer -> security-researcher handoff: Inspect stable single-call provider implementation
 - senior-developer-0009 senior-developer -> reviewer handoff: Inspect stable single-call implementation before final evidence handoff
 
 ## Recent decisions
 
-- mem-0156 ceo: Owner selected combining URL curation branch with latest main for existing local data after divergent-schema auth/migration failure. Pinned main4eea4aa, featurec9316dc. Both audit chains preserved/imported with provenance. Independently approved integration plan; isolated proof and source reviews precede additive native0004 backup/apply/restart. No feature-to-main merge or hosted action. (intent/recipe-url-menu/main-integration-plan.md)
-- mem-0158 ceo: Owner confirmed real Google sign-in works at restarted localhost and explicitly requested Merge to main. Finish exact-source reviews then local main merge only; keep preview running. Native schema reached matching five migrations externally during QA; root preflight refused before backup/write, so no root native migration or pre-cutover backup claim. (intent/recipe-url-menu/main-integration-verification.md)
 - mem-0159 orchestrator: Owner-authorized local main fast-forward completed from4eea4aa to b843b10, reviewed runtime source14fabbc unchanged. Final audit-only outcome commit will also be fast-forwarded. Localhost3000 staysrunning and ownerrealGooglesigninconfirmed. Nativecompatible5observedexternally; no rootmigration/prebackupclaim. No push/hosted/deployment/release. (intent/recipe-url-menu/main-merge-result-2026-11-24.md)
 - mem-0160 ceo: Owner requested dependency-aware migrations through org workflow and independent review. Local implementation and disposable database verification authorized. Shared diagnosis read-only; no shared migration, hosted access, deploy, push or merge. (intent/dependency-aware-migrations/intent.md)
 - mem-0166 orchestrator: Currentowner requests verification mainmerge andnewProductionrelease. Maincd60divergedwithreviewedhosted fixes; integrationrequired. Bothimmutableauditbranches preserved under agent-verification-before-main-integration-20261125, canonicalmainledgerprefixunchanged,3existingfeatureownerapprovals append-transcribed withoriginalevidence. No new/backdatedapproval; exact-sourcefuturestaging/releasegatespreserved. (intent/agent-deployment-verification/main-audit-reconciliation.md)
+- mem-0169 orchestrator: Owner requested one-month login expiration through org workflow. PM accepted fixed30day Google sessions without renewal; independent reviewer approved spec/plan. Preserve one-hour provider account data, existing issued expiries and short staging credentials. Local implementation/isolated verification only; human merge and release gates remain. (intent/login-session-expiration/spec.md)
+- mem-0170 orchestrator: Login-session-expiration implementation851c255 passes lint/typecheck/build,189 Node regressions,7 Python tests and Chrome390/1440. Independent code and security reviews approved with no findings. Local scope complete; human merge/release pending, no hosted/deployment effects. (intent/login-session-expiration/verification.md)
 
 ## Constraints
 
@@ -159,14 +161,17 @@ intent/login-session-expiration/intent.md
 - intent/login-session-expiration/intent.md (c9df3257a7b92e27b493fa1c4fc87ee3862e9008065e8fb3fc030b7287b5ed67)
 - intent/login-session-expiration/spec.md (7ea02dbbdb2aec44dcb7fdd0e927e7c838b6e2b0157d763481635c4a48f64180)
 - org/reviews/login-session-expiration-design-001.md (03e228475602fa9b3c2665c61f5feb3243c994434ccb3d529facb4bbf61c43e9)
+- intent/login-session-expiration/verification.md (cde0f8ef49b517d093351cb8466776488b9df5f7f9f5fc2f14af3cd894356935)
+- org/reviews/login-session-expiration-security-001.md (0f7e0c60da22ec0fdab60efa2198df1af7486900b493e0693da4f5eeb72a1c3c)
+- org/reviews/login-session-expiration-code-001.md (1666d53127faf2914e2659e08281ee5f497d772c85e7cda459ac2d484cb5b505)
 
 ## Next action
 
-reviewer:review_design
+reviewer:review
 
 ## Last digest source
 
-- mem-0168 from intent/agent-deployment-verification/production-release-result.md
+- mem-0170 from intent/login-session-expiration/verification.md
 
 <!-- machine:end -->
 

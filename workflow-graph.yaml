@@ -23,7 +23,7 @@ nodes:
     stage: build
     artifact: login-session-expiration-implementation
     gate: pr_merge_approval
-    status: draft
+    status: in_review
     done_status: merged
   release:
     stage: deploy
