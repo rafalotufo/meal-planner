@@ -146,6 +146,26 @@ provider-fixture and browser helpers. Use the pinned tsx loader with Node's
 built-in test runner and keep them in strict TypeScript checking. Preserve
 the existing Python workflow regression tests; do not migrate or weaken them.
 
+## Staging verification identities
+
+The approved agent-deployment-verification feature adds a distinct synthetic
+principal and revocable opaque cookie for explicitly enabled Preview builds only.
+Google identities retain verified Google subjects and exact Better Auth JWE/token
+binding; exact menu handlers independently bind verification cookies to current
+run/member admission. Never forge Google claims or widen the Google allowlist.
+Malformed Google allowlist configuration fails closed for every admission path.
+Exact `/api/verification/session` bypasses body-buffering Proxy only because its
+handler supplies canonical Host, target, method, Origin/nonce, throttle, deadline
+and security-header checks. `/verification` stays behind Proxy; only its exact
+GET/HEAD uses a Proxy-generated signed nonce and matching HttpOnly cookie.
+Ordinary/Production manifests stay disabled; runtime Production always denies.
+Synthetic members may use approved snapshot menu and plan read/approve/suggest
+flows, never provisioning/invitations/URL curation or unrelated background jobs.
+Operator CLI issuance/revocation/cleanup changes only the exact approved staging
+database over verified TLS; browser agents receive only a private short-lived
+handoff. No runtime migration or new hosted authority is implied. See
+`intent/agent-deployment-verification/spec.md`, `plan.md` and `implementation.md`.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know

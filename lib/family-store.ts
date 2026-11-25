@@ -1,9 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import type { FamilyDatabase } from './db/connection';
-import { classifyAccess, FamilyError, findUser, requireMember, type VerifiedIdentity } from './identity-access';
-export async function provisionFamily(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, contextPresent: boolean) {
+import { classifyAccess, FamilyError, findUser, requireMember, requireGoogleIdentity, type Principal } from './identity-access';
+export async function provisionFamily(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, contextPresent: boolean) {
+    identity = requireGoogleIdentity(identity);
+    const google = identity;
     return db.transaction(async (db) => {
-        const access = (await classifyAccess(db, identity, allowedEmails));
+        const access = (await classifyAccess(db, google, allowedEmails));
         if (access?.kind === 'member')
             return access.user;
         if (access?.kind !== 'provision' || contextPresent)
@@ -12,16 +14,16 @@ export async function provisionFamily(db: FamilyDatabase, identity: VerifiedIden
         const familyId = randomUUID();
         const userId = randomUUID();
         (await db.execute("INSERT INTO families (id,created_at) VALUES ($1,$2)", [familyId, now]));
-        (await db.execute("INSERT INTO app_users (id,google_subject,verified_email,family_id,created_at) VALUES ($1,$2,$3,$4,$5)", [userId, identity.googleSubject, identity.email, familyId, now]));
-        return (await findUser(db, identity.googleSubject))!;
+        (await db.execute("INSERT INTO app_users (id,google_subject,verified_email,family_id,created_at) VALUES ($1,$2,$3,$4,$5)", [userId, google.googleSubject, google.email, familyId, now]));
+        return (await findUser(db, google.googleSubject))!;
     });
 }
-export async function familySummary(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown) {
+export async function familySummary(db: FamilyDatabase, identity: Principal, allowedEmails: unknown) {
     const user = (await requireMember(db, identity, allowedEmails));
     const members = (await db.all<{
         id: string;
         email: string;
-    }>("SELECT id, verified_email AS email FROM app_users WHERE family_id=$1 ORDER BY created_at, id", [user.familyId]));
+    }>("SELECT id, CASE WHEN identity_kind='verification' THEN 'Verification member ' || left(id,8) ELSE verified_email END AS email FROM app_users WHERE family_id=$1 ORDER BY created_at, id", [user.familyId]));
     const invitations = (await db.all<{
         id: string;
         email: string;

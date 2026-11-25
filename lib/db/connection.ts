@@ -55,12 +55,20 @@ export class FamilyDatabase {
   }
   /** Owns and destroys its connection on expiry; timed-out callbacks cannot issue later SQL. */
   async verificationTransaction<T>(at: number, action: (db: FamilyDatabase) => Promise<T>): Promise<T> {
+    return this.withVerificationDeadline(at, action, false);
+  }
+  async verificationReadOnly<T>(at: number, action: (db: FamilyDatabase) => Promise<T>): Promise<T> {
+    return this.withVerificationDeadline(at, action, true);
+  }
+  private async withVerificationDeadline<T>(at: number, action: (db: FamilyDatabase) => Promise<T>, readOnly: boolean): Promise<T> {
     if (this.client || !Number.isSafeInteger(at) || at <= Date.now()) throw new Error('Verification deadline');
     const state = { at, expired: false };
     let client: PoolClient | undefined;
     let released = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let rejectExpiry: (error: Error) => void = () => {};
     const expiry = new Promise<never>((_, reject) => {
+      rejectExpiry = reject;
       timer = setTimeout(() => {
         state.expired = true;
         if (client && !released) { released = true; client.release(true); }
@@ -71,11 +79,19 @@ export class FamilyDatabase {
       const acquired = await this.pool.connect();
       if (state.expired || Date.now() >= at) { acquired.release(true); throw new Error('Verification deadline'); }
       client = acquired;
+      // A server idle deadline can fire while the callback is between SQL calls.
+      // Borrowed pg clients emit errors directly, so own that event until release.
+      const onClientError = (error: Error & { code?: string }) => {
+        state.expired = true;
+        if (!released) { released = true; acquired.release(true); }
+        rejectExpiry(new Error(error.code === '25P03' || Date.now() >= at - 25 ? 'Verification deadline' : 'Storage unavailable'));
+      };
+      acquired.on('error', onClientError);
       try {
-        await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
+        await client.query(readOnly ? 'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY' : 'BEGIN ISOLATION LEVEL READ COMMITTED');
         const remaining = Math.max(1, at - Date.now() - 25);
         await client.query("SELECT set_config('statement_timeout',$1,true), set_config('lock_timeout',$1,true), set_config('idle_in_transaction_session_timeout',$1,true), set_config('search_path','pg_catalog, public, pg_temp',true)", [String(remaining)]);
-        await client.query('SELECT pg_advisory_xact_lock($1)', [FAMILY_WRITE_LOCK]);
+        if (!readOnly) await client.query('SELECT pg_advisory_xact_lock($1)', [FAMILY_WRITE_LOCK]);
         const tx = new FamilyDatabase(this.pool, client, state);
         tx.checkDeadline();
         const result = await action(tx);
@@ -86,7 +102,7 @@ export class FamilyDatabase {
         if (!released) { try { await client.query('ROLLBACK'); } catch { released = true; client.release(true); } }
         if (state.expired || Date.now() >= at - 25 || (error && typeof error === 'object' && 'code' in error && ['57014', '55P03'].includes(String(error.code)))) throw new Error('Verification deadline');
         throw error;
-      } finally { if (!released) { released = true; client.release(); } }
+      } finally { if (!released) { released = true; acquired.removeListener('error', onClientError); client.release(); } }
     })();
     try { return await Promise.race([work, expiry]); }
     finally { if (timer) clearTimeout(timer); }
@@ -150,4 +166,11 @@ export async function openDatabase(url: string, options: ValidationOptions = {})
   const db = connectDatabase(url);
   try { await db.readOnly(async tx => { await validateDatabase(tx, options); }); return db; }
   catch { await db.close(); throw new Error('Storage unavailable'); }
+}
+
+/** Dedicated request-owned pool keeps initial catalog admission within the exchange deadline. */
+export async function openVerificationDatabase(url: string, deadline: number, options: ValidationOptions = {}) {
+  const db = connectDatabase(url);
+  try { await db.verificationReadOnly(deadline, tx => validateDatabase(tx, options)); return db; }
+  catch (error) { await db.close(); throw error; }
 }

@@ -40,3 +40,21 @@ work used owned random fixtures. Lint and strict typecheck passed after these
 changes. The direct form helper regression passed nonce/method/Host/header guards,
 303 server cookie, no reflected capability and replay denial; real-server raw
 body and browser checks remain outstanding.
+
+## Scoped integration and deadline follow-up
+
+Real store integration first exposed an overly broad synthetic plan finalization
+path (missing expected403); it now permits only read/approve/suggest. Snapshot
+menu, family labels, Google-only invite/provision/curation denial, no global plan
+creation, two-member approvals and foreign-run denial pass in two owned-fixture
+tests. Additional pool-starvation/advisory-wait/delayed-JavaScript deadline tests
+exposed a borrowed pg client idle-timeout error outside a running query. Owning
+that client error event now cancels/destroys the connection; all three deadline
+cases pass with no delayed rows or retained lock. Initial catalog validation for
+the exchange uses a dedicated request-owned read-only deadline-bound pool, so
+startup validation cannot bypass the handler deadline.
+
+The pinned Next cookie guide prohibits setting cookies from a Server Component.
+The exact staging GET/HEAD Proxy therefore generates the signed preflight nonce,
+overwrites its request nonce header, and sets the matching HttpOnly cookie. The
+page only reads and validates it. No forwarded identity header is trusted.

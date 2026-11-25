@@ -79,7 +79,8 @@ central member/admission resolver; Google-only helpers require the Google branch
 an authenticated verification principal from body/header IDs alone.
 
 Existing plan/invitation foreign keys point to app_users, so a separate fake-user
-map would not support actual app behavior. Propose one reviewed UUID migration:
+map would not support actual app behavior. Use the initial reviewed UUID migration
+plus an additive immutable compatibility correction (see below):
 add `identity_kind` default google to families and app_users; make app_users'
 google_subject and verified_email nullable only for verification rows; add
 verification_run_id for that branch. A check requires Google rows to retain their
@@ -119,6 +120,17 @@ be cleared by logout despite lost admission, without restoring app access.
 A request already admitted can finish; mutations recheck run admission within
 their decision transaction. Revocation does not cancel a provider request already
 started, and provider cancellation rules remain unchanged.
+
+## Implementation compatibility refinement
+
+Owned-disposable dump/restore testing found PostgreSQL expression-tree grouping
+drift for the initial origin check. Preserve initial migration UUID
+`fe5c2ee0-bf7f-464e-93be-2d654b4001e8` and its SQL/descriptor unchanged. Append
+`557e80b6-f30b-452e-b563-12cff07158a5`, depending on that UUID, to express the same
+check with stable flat comparisons. Keep the initial pre-profile and add the
+corrected final profile, with independent SQL/dump-restore regression evidence.
+This changes neither admission nor data semantics and grants no hosted execution
+authority; do not relax catalog validation or rewrite migration history.
 
 ## Target isolation and every authorization path
 

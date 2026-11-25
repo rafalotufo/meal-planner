@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import type { FamilyDatabase } from '../db/connection';
 import type { MenuRecipeRow, MenuCurationRow } from '../db/schema';
-import { FamilyError, requireMember, verifiedIdentity, type VerifiedIdentity } from '../identity-access';
+import { FamilyError, requireMember, verifiedIdentity, requireGoogleIdentity, type Principal } from '../identity-access';
 import type { MenuPage, MenuRecipe } from './types';
 import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrl, parseMenuSourceUrls, parseMenuSearch } from './validation';
 
@@ -11,14 +11,14 @@ const invalid = () => new FamilyError(400, 'Invalid request');
 async function entryById(db: FamilyDatabase, id: string) {
   return menuEntryFromRow(await db.one(`SELECT ${columns} FROM ${relation} WHERE m.id=$1`, [id]));
 }
-export async function lookupMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, value: unknown) {
+export async function lookupMenuRecipes(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown) {
   const sources = parseMenuSourceUrls(value);
   if (!sources) throw invalid();
   const user = await requireMember(db, identity, allowedEmails);
   const rows = await db.all<{sourceUrl: string}>('SELECT source_url AS "sourceUrl" FROM menu_recipes WHERE family_id=$1 AND source_url=ANY($2::text[]) LIMIT 6', [user.familyId, sources]);
   return { savedSourceUrls: rows.map(row => row.sourceUrl) };
 }
-export async function listMenuRecipes(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, after?: unknown, query?: unknown): Promise<MenuPage> {
+export async function listMenuRecipes(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, after?: unknown, query?: unknown): Promise<MenuPage> {
   const position = after === undefined ? null : parseMenuCursor(after);
   const search = parseMenuSearch(query);
   if (after !== undefined && !position || search === null) throw invalid();
@@ -38,7 +38,7 @@ async function insertRecipe(db: FamilyDatabase, familyId: string, recipe: MenuRe
   await db.execute('INSERT INTO menu_recipes (id,family_id,source_url,image_url,title,summary,time_kind,time_text,saved_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)', [id, familyId, recipe.sourceUrl, recipe.imageUrl, recipe.title, recipe.summary, recipe.time?.kind ?? null, recipe.time?.text ?? null, Date.now()]);
   return id;
 }
-export async function saveMenuRecipe(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, value: unknown) {
+export async function saveMenuRecipe(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown) {
   const recipe = parseMenuRecipe(value);
   if (!recipe) throw invalid();
   return db.transaction(async tx => {
@@ -48,7 +48,7 @@ export async function saveMenuRecipe(db: FamilyDatabase, identity: VerifiedIdent
     return { entry: await entryById(tx, await insertRecipe(tx, user.familyId, recipe)), created: true };
   });
 }
-export async function removeMenuRecipe(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, value: unknown) {
+export async function removeMenuRecipe(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown) {
   const id = parseMenuId(value); if (!id) throw invalid();
   return db.transaction(async tx => {
     const user = await requireMember(tx, identity, allowedEmails);
@@ -56,19 +56,20 @@ export async function removeMenuRecipe(db: FamilyDatabase, identity: VerifiedIde
     return { removed: true as const };
   });
 }
-function delegation(identity: VerifiedIdentity, credentialExpiresAt: number) {
+function delegation(identity: Principal, credentialExpiresAt: number) {
+  identity = requireGoogleIdentity(identity);
   const verified = verifiedIdentity(identity), now = Date.now();
   if (!verified || !Number.isSafeInteger(credentialExpiresAt) || credentialExpiresAt <= now) throw new FamilyError(401, 'Unauthorized');
   return { now, expiresAt: Math.min(now + 30000, credentialExpiresAt), generation: randomUUID() };
 }
-async function setTask(db: FamilyDatabase, entryId: string, identity: VerifiedIdentity, credentialExpiresAt: number, retry: boolean) {
+async function setTask(db: FamilyDatabase, entryId: string, identity: Principal, credentialExpiresAt: number, retry: boolean) {
   const { now, expiresAt, generation } = delegation(identity, credentialExpiresAt);
-  const values = [entryId, generation, now, expiresAt, identity.googleSubject, identity.email, credentialExpiresAt];
+  const values = [entryId, generation, now, expiresAt, requireGoogleIdentity(identity).googleSubject, requireGoogleIdentity(identity).email, credentialExpiresAt];
   if (retry) await db.execute("UPDATE menu_recipe_curations SET state='pending',generation=$2,scheduled_at=$3,expires_at=$4,lease=NULL,google_subject=$5,verified_email=$6,credential_expires_at=$7 WHERE entry_id=$1", values);
   else await db.execute("INSERT INTO menu_recipe_curations (entry_id,state,generation,scheduled_at,expires_at,google_subject,verified_email,credential_expires_at) VALUES ($1,'pending',$2,$3,$4,$5,$6,$7)", values);
   return generation;
 }
-export async function saveMenuRecipeUrl(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, value: unknown, credentialExpiresAt: number) {
+export async function saveMenuRecipeUrl(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown, credentialExpiresAt: number) {
   const source = parseMenuSourceUrl(typeof value === 'string' ? value.trim() : value); if (!source) throw invalid();
   return db.transaction(async tx => {
     delegation(identity, credentialExpiresAt);
@@ -80,7 +81,7 @@ export async function saveMenuRecipeUrl(db: FamilyDatabase, identity: VerifiedId
     return { entry: await entryById(tx, id), created: true, generation };
   });
 }
-export async function retryMenuRecipeCuration(db: FamilyDatabase, identity: VerifiedIdentity, allowedEmails: unknown, value: unknown, credentialExpiresAt: number) {
+export async function retryMenuRecipeCuration(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown, credentialExpiresAt: number) {
   const id = parseMenuId(value); if (!id) throw invalid();
   return db.transaction(async tx => {
     delegation(identity, credentialExpiresAt);

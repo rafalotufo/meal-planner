@@ -4,6 +4,7 @@ import { authConfiguration } from '../auth';
 import { noStore } from '../auth-policy';
 import { apiResponse } from '../http';
 import { readCryptographicSession, requireFamilyContext } from '../session';
+import { readVerificationCookie, capabilityDigest } from '../verification/cookies';
 import { FamilyError, verifiedIdentity } from '../identity-access';
 
 function protect(response: Response, origin?: string) {
@@ -19,13 +20,21 @@ function protect(response: Response, origin?: string) {
 
 export async function requireMenuAuthority(request: NextRequest) {
   const { origin, secret } = authConfiguration();
+  let rawVerification: string | null;
+  try { rawVerification = readVerificationCookie(request.headers.get('cookie')); } catch { throw new FamilyError(401, 'Unauthorized'); }
+  if (rawVerification) {
+    const session = await readCryptographicSession(request.headers);
+    if (!session || session.kind !== 'verification' || session.session.token !== rawVerification || session.identity.sessionDigest !== capabilityDigest(rawVerification)) throw new FamilyError(401, 'Unauthorized');
+    await requireFamilyContext(request.headers);
+    return { identity: session.identity, credentialExpiresAt: session.session.expiresAt.getTime() };
+  }
     const cached = await getCookieCache(request, { secret, strategy: 'jwe', isSecure: origin.startsWith('https:'), version: '1' });
     const identity = cached ? verifiedIdentity(cached.user) : null;
     const expiry = cached ? new Date(cached.session.expiresAt).getTime() : NaN;
     const jwtExpiry: unknown = cached && 'exp' in cached ? cached.exp : undefined;
     if (!cached || !identity || !cached.session.token.trim() || !Number.isFinite(expiry) || expiry <= Date.now() || typeof jwtExpiry !== 'number' || !Number.isFinite(jwtExpiry) || jwtExpiry * 1000 <= Date.now()) throw new FamilyError(401, 'Unauthorized');
     const session = await readCryptographicSession(request.headers);
-    if (!session || session.session.token !== cached.session.token || session.identity.googleSubject !== identity.googleSubject || session.identity.email !== identity.email) throw new FamilyError(401, 'Unauthorized');
+    if (!session || session.kind !== 'google' || session.session.token !== cached.session.token || session.identity.googleSubject !== identity.googleSubject || session.identity.email !== identity.email) throw new FamilyError(401, 'Unauthorized');
     await requireFamilyContext(request.headers);
     return { identity: session.identity, credentialExpiresAt: Math.min(expiry, jwtExpiry * 1000) };
 }

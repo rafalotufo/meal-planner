@@ -34,6 +34,13 @@ with verified TLS and change its data; it never deploys application code.
   schema work because its rollback/lock tests do not depend on verification tables.
   Exchange integration still requires the schema and typed-admission checkpoints.
 
+- Disposable dump/restore proof exposed PostgreSQL grouping drift in the initial
+  native migration's origin check. Preserve that committed SQL/UUID/descriptor and
+  append `557e80b6-f30b-452e-b563-12cff07158a5.sql`, depending on the initial UUID,
+  to express the same check with stable flat comparisons. Preserve the old exact
+  pre-profile, add the corrected required final profile, and independently review
+  actual dump/restore proof. No data, historical ledger or validator relaxation.
+
 ## Implementation order and task checklist
 
 Write each slice's meaningful strict TypeScript regression first, record its
@@ -56,7 +63,8 @@ five implementation/test files; metadata updates form their own adjacent slice.
    imports exist without a runtime generator or secrets in builds.
 
 2. [ ] **Prove the relational migration** (depends:1).
-   Add one UUIDv4-named `drizzle/postgresql/fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql`, and strict
+   Add the initial UUIDv4-named `drizzle/postgresql/fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql`
+   and its additive compatibility correction named above, with strict
    `tests/verification/migration.test.ts` plus fixture support. Its descriptor
    depends on the current0003 and0004 terminal UUIDs, transitively requiring all
    five historical migrations; no new sequential identity or independence claim.
@@ -283,6 +291,7 @@ No browser/application/build passes are claimed by this docs-only plan.
 - `lib/db/schema.ts`
 - `lib/db/security.ts`
 - `drizzle/postgresql/fe5c2ee0-bf7f-464e-93be-2d654b4001e8.sql`
+- `drizzle/postgresql/557e80b6-f30b-452e-b563-12cff07158a5.sql`
 - `drizzle/postgresql/compatibility.json`
 - `drizzle/postgresql/catalog.json`
 - `lib/identity-access.ts`
