@@ -4,7 +4,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import { compatibility } from '../../lib/db/compatibility.ts';
 import { repositorySources } from '../../lib/db/repository-migrations.ts';
 import { migrateDatabase } from '../../lib/db/migrate.ts';
-import { openDatabase } from '../../lib/db/connection.ts';
+import { openDatabase, connectDatabase as connectDatabaseForTooling } from '../../lib/db/connection.ts';
 import { descriptorDigest, diagnostic, type CompatibilityManifest, type MigrationDescriptor } from '../../lib/db/migration-graph.ts';
 import { testDatabase } from '../family/database.ts';
 import { restrictedMenuDatabase } from '../menu/database.ts';
@@ -207,5 +207,19 @@ test('safe local search path prevents temporary table shadowing and standalone f
     });
     await assert.rejects(db.execute("INSERT INTO public.families VALUES ('atomic-failure',1); SELECT 1/0"),{code:'22012'});
     assert.equal(await db.one("SELECT id FROM public.families WHERE id='atomic-failure'"),undefined);
+  } finally {await db.close();await fixture.cleanup();}
+});
+
+
+test('postcommit runtime credential failure reports committed stage and sanitized permission reason', async () => {
+  const {spawnSync}=await import('node:child_process');
+  const fixture=await testDatabase(false),db=connectDatabaseForTooling(fixture.url);
+  try {
+    const runtime=new URL(fixture.url);runtime.username='mp_runtime';runtime.password=randomUUID();
+    const result=spawnSync(process.execPath,['--import','tsx','scripts/migrate-db.ts'],{env:{...process.env,MIGRATION_DATABASE_URL:fixture.url,DATABASE_URL:runtime.href,OPENAI_API_KEY:''},encoding:'utf8'});
+    assert.equal(result.status,1);assert.equal(result.stdout,'');
+    assert.match(result.stderr,/Migrations committed; runtime verification failed/);assert.match(result.stderr,/permission-failure/);
+    assert.doesNotMatch(result.stderr,/sensitive-wrong|postgresql:|28P01|password authentication failed|mp_runtime/);
+    assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM public.__drizzle_migrations'))?.n,5,'schema and ledger committed before credential smoke');
   } finally {await db.close();await fixture.cleanup();}
 });

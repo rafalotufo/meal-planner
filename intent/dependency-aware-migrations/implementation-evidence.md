@@ -41,3 +41,11 @@ runtime URL and separately hold explicit owner setup URLs. No production bypass
 was added. A transient fixture cleanup race with an exiting runtime backend uses
 bounded retries without elevating the test role; safety owner/random-name guards
 remain intact. Final root verification records the resulting family/browser runs.
+
+Independent review requested a CLI-only postcommit distinction. The corrected
+migration tool uses the internal read-only validator for its credential smoke,
+retaining closed connection/permission reasons, and explicitly states when the
+migration transaction already committed. The wrong-runtime-password regression
+passed1/1 (exit0): child tool exits1 with committed-stage/permission-failure,
+no credentials/raw driver detail, while all5 executed legacy ledger rows persist.
+This is not a claim that a postcommit credential error rolled migration back.
