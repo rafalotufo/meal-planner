@@ -9,8 +9,8 @@ intent/dependency-aware-migrations/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: design_review
 - stop_reason: None
 
 ## Agents
@@ -19,7 +19,7 @@ intent/dependency-aware-migrations/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (recipe-url-menu-main-local-recovery)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (intent/dependency-aware-migrations/plan.md)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
@@ -93,6 +93,7 @@ intent/dependency-aware-migrations/intent.md
 - orchestrator-0086 orchestrator -> reviewer handoff: Final shared layout implementation review
 - orchestrator-0088 orchestrator -> ceo status: Saved recipe menu live and Production observation passed
 - orchestrator-0136 orchestrator -> architect handoff: Design dependency-aware migrations and evaluate Drizzle
+- orchestrator-0137 orchestrator -> reviewer handoff: Independently review dependency-aware design and plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -124,11 +125,11 @@ intent/dependency-aware-migrations/intent.md
 
 ## Artifacts
 
-(none)
+- intent/dependency-aware-migrations/spec.md (6e485ad1c06a1ef27732b4794bbe78ac3b0d3682b81b78b06a04d5e5aef2bcb8)
 
 ## Next action
 
-(run org_loop.py next)
+architect:design_and_prototype
 
 ## Last digest source
 

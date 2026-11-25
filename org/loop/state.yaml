@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/dependency-aware-migrations/intent.md
 base_commit: 956e0510e8bb0ddd4ccaf3b535d2281d95408c46
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: design_review
 status: in_progress
-last_input_hash: null
+last_input_hash: 267135a2f429f3e25db474bb318cd980f89166e08d0205ba4d543a251e31c4c6
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-25T00:07:08Z"
+last_action: "architect:design_and_prototype"
+artifacts: [{"path": "intent/dependency-aware-migrations/spec.md", "sha256": "6e485ad1c06a1ef27732b4794bbe78ac3b0d3682b81b78b06a04d5e5aef2bcb8"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-25T00:13:08Z"
