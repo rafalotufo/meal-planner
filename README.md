@@ -413,6 +413,17 @@ messages. Public application errors remain generic. If required SQL is missing
 from the database, separately authorize the exact target/pending migrations and
 verify a backup before `db:migrate`; this feature does not authorize that action.
 
+The recorded PostgreSQL17 Neon targets have a narrowly reviewed creator/default-
+ACL baseline. Catalog-derived provider indicators require the exact managed
+owner/platform SUPERUSER binding, one administrative creator membership and all
+nine platform-owned default ACL rows; unknown, partial or altered sets fail
+closed. Native databases retain the empty-set policy. This does not waive
+runtime role flags, actual table/column grants or schema security, and requires
+no grant or migration operation. See the
+[hosted permission correction](intent/dependency-aware-migrations/hosted-permission-correction.md).
+Do not revoke platform creator grants or change default privileges to repair a
+validator failure; inspect the sanitized category and use reviewed source.
+
 Typed native `pg` queries and the public Drizzle migration loader preserve strict
 checking. The pinned ORM's PostgreSQL entry point independently reproduced 70
 strict declaration failures; see
