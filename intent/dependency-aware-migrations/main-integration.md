@@ -6,7 +6,8 @@
 - Feature tip at intake: `4f44838`.
 - Main tip at intake: `d26ea59`.
 - Common base: `0c6a38b36e7652971ac95004df73b9040f878278`.
-- Status: draft for independent integration-plan review.
+- Status: plan approved by independent review `2906f4a`; combined source
+  verification and independent source review precede local main adoption.
 
 ## Integration contract
 
