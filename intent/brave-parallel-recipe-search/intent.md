@@ -1,7 +1,8 @@
 # Brave discovery and parallel recipe curation — intent
 
 - Author: orchestrator, from Rafael's active chat request, 2026-11-25.
-- Status: Draft for independent product-manager review.
+- Status: Accepted for Design under the org product-manager intent gate.
+- Decision: `org/reviews/intent-brave-parallel-recipe-search-001.md`.
 - Owner request: “Lets implement Brave web search with parallel per-result curation in the app. Use ai sdlc org workflow for this intent”.
 
 ## Problem and selected outcome
@@ -26,11 +27,26 @@ migrations, deployment and release remain separate human gates.
 - Run independent per-result curation concurrently, with request-wide budgets,
   process-wide caps and abort-aware queueing; no uncontrolled per-user fan-out.
   Benchmark twelve-way concurrency is design evidence, not permission for
-  unbounded calls or a guaranteed latency target.
+  unbounded calls or a guaranteed latency target. Product ceilings for the first
+  implementation are one Brave search, twenty initial search hits, twenty-four
+  original-page fetch attempts including any collection expansion, twelve model
+  curation calls and twelve returned cards per admitted request. Curation uses
+  at most 1,200 output tokens per call with no automatic retry, research tool,
+  or fallback provider call. At most twelve curation calls may run concurrently
+  across this application process; architecture must specify bounded queueing,
+  aggregate input bytes/tokens and cancellation. It may choose lower bounds
+  where needed for correctness or the existing sixty-second request deadline;
+  raising these ceilings requires a reviewed scope amendment.
 - Return more useful recipes where available, targeting up to twelve validated
   unique cards from bounded discovery, with honest fewer/no-result behavior.
-  PM/architecture must explicitly resolve initial candidate count, broad-query
-  collection handling and paid-usage ceilings without inventing user preferences.
+  Start with one Brave request considering at most twenty results. The target
+  of twelve is a maximum, not an entitlement to pad or relax user constraints.
+  Broad requests must remain useful: design bounded extraction of individual
+  recipe links from relevant collections, or another deterministic bounded
+  discovery treatment, rather than treating a collection itself as a recipe.
+  Do not silently replace a broad request with guessed dishes or restrict all
+  searches to a single publisher. Named dishes may use the original query with
+  recipe-focused terms, while retaining every explicit user constraint.
 - Preserve the Recipe/public API shape, family/admission authorization before
   all paid effects, private headers, overall request deadline/cancellation,
   sanitized errors, optional photo safety and two-job photo bound. A candidate

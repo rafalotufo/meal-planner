@@ -1,7 +1,7 @@
 version: 1
 agents:
   orchestrator: { status: idle, assignment: intent/dependency-aware-migrations/staging-result.md, last_report: Owner-approved main merge done; exact25 staged READY3XbA and stable alias attributed; browser pass but HTTP/OAuth/member/provider gaps explicit; review2882c0f ready for owner staging acceptance and concrete Production decision; Production unchanged }
-  product-manager: { status: busy, assignment: intent/brave-parallel-recipe-search/intent.md, last_report: Save-first curation amendment captured and PM accepted }
+  product-manager: { status: idle, assignment: null, last_report: Accepted Brave parallel search intent; clarified bounded discovery/curation and broad-query relevance; no owner escalation }
   architect: { status: idle, assignment: null, last_report: Dependency-aware migration design/toolingc00be7b independently approved; stable/RC disposable evidence complete }
   senior-developer: { status: idle, assignment: null, last_report: "Exact25 verified328Node+7Python, lint/typecheck/build, both Chrome and126-file upload-only build; evidence155d00a; no main or deployment effects" }
   security-researcher: { status: idle, assignment: null, last_report: Exact25 approved6c70e99 with strict platform and upstream attribute contracts; no hosted mutation }
