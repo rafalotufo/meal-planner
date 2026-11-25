@@ -17,7 +17,7 @@ export async function invitationScenario() {
         url: string;
     } = await response.json();
     const token = new URL(invitation.url).hash.slice(1);
-    const db = (await openDatabase(server.databaseUrl));
+    const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
     const invitee = new CookieJar();
     invitee.values.set('meal.invitation', token);
     assert.equal((await signInWithGoogle(server.origin, invitee, 'invitee')).callback.headers.get('location'), `${server.origin}/onboarding`);

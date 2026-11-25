@@ -1,7 +1,7 @@
 # Dependency-aware migrations — implementation plan
 
 - Author: architect; date: 2026-11-24
-- Status: Draft; independent review required before behavior changes
+- Status: Approved by independent reviewer7a08bfe against architecturec00be7b; implementation amendments documented in sibling spec
 - Inputs: sibling intent/spec/tooling assessment; PM acceptance
 
 ## Slices and proof
@@ -69,6 +69,7 @@
   schema/security profile artifacts only. Historical0000–0004 SQL, journal and
   hashes remain unchanged; optional catalog format extension must retain its
   reviewed structural content. No new domain schema is requested.
+- `scripts/check-db.ts`: read-only sanitized operator history/schema/permission diagnosis.
 - `scripts/migrate-db.ts`: sanitized diagnostics and transactional least-
   privilege grants from approved profile. Setup helper only if needed to
   preserve credential/ledger-read permissions; no shared setup execution.
@@ -125,3 +126,16 @@ remain trusted administrators; no claim to detect owner-authored data tampering.
 Old binaries without the compatibility backport still fail closed. Local
 adoption needs separate execution authority and backup verification; this task
 provides exact steps but does not run them on shared development or hosted data.
+
+## Executed amendments
+
+See sibling spec implementation-review amendments for pooled-safe SET LOCAL
+connection behavior, trusted object/schema owner bindings, finite unsupported
+security objects, no-digest legacy limitation and semantic older-app backport.
+Added successful native CREATE/child INSERT dependency proof, ledger-view
+nontransactional sequence prevention, actual operator CLI diagnostics and
+protected HTTP fault non-disclosure. HTTP test fixtures now always pass
+restricted runtime URLs to app servers; separately held owner URLs support only
+explicit test setup. Required preexisting lint issue is handled by the separately
+recorded audit-preserving helper amendment. Historical SQL/journal/hashes remain
+unchanged. Broad verification and independent final reviews remain required.

@@ -43,7 +43,7 @@ test('a matching recipient already in a one-person family cannot accept a new pe
         const owner = new CookieJar();
         await signInWithGoogle(server.origin, owner);
         await provision(server.origin, owner);
-        const db = (await openDatabase(server.databaseUrl));
+        const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
         try {
             const row = (await db.one<{
                 id: string;

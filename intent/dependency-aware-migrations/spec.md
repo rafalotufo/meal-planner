@@ -1,7 +1,7 @@
 # Dependency-aware migrations — specification
 
 - Author: architect; date: 2026-11-24
-- Status: Draft for independent review; no behavior changes authorized by this draft
+- Status: Approved by independent reviewer7a08bfe against architecturec00be7b; implementation amendments below reviewed in-session
 - Inputs: sibling intent, PM acceptance and `tooling-assessment.md`
 
 ## Decision
@@ -192,3 +192,46 @@ Google fixture boundaries and no paid provider calls. Run all repository checks
 listed in the plan; record actual counts/exits and independent reviews. No UI
 feature is added; existing browser menu checks at mobile/desktop cover regressions.
 No shared/hosted migration, deployment, push or merge is authorized.
+
+## Implementation review amendments
+
+Independent reviewer approved the bounded connection interface amendment: unbound
+`all`/`one` are read-only and use their own bounded REPEATABLE READ transaction;
+unbound `execute` uses the existing advisory-locked bounded write transaction.
+Explicit client-bound calls retain the surrounding transaction, including
+INSERT RETURNING. SET LOCAL search_path is `pg_catalog, public, pg_temp`; no
+unsupported startup `options` parameter is sent to Neon pooled connections.
+Only reviewed explicit migration SQL temporarily uses `public, pg_catalog,
+pg_temp` so unchanged historical unqualified CREATE statements target public;
+preflight/final validators restore catalog-first resolution.
+
+Object-owner binding is `mp_migrator` in supported deployments. `mp_test` is
+normalized only for random owned `mp_test_<24 hex>` fixture databases. Hosted
+schema/database bootstrap ownership stays separate (including neondb_owner or
+pg_database_owner); schema USAGE is pre-provisioned, never changed by the
+migration owner tool. Runtime database CREATE is forbidden. Existing PUBLIC
+TEMP privilege can remain; explicit pg_temp-last lookup prevents temp shadowing.
+Supported current profiles forbid user routines, triggers, policies, rewrite
+rules, domains/enums, operators, collations, conversions, extended statistics,
+text-search objects and other user schemas. Supporting such future objects
+needs an explicit validator/profile amendment, rather than a broad allowlist.
+
+Legacy rows contain only historical ID/hash/timestamp; no descriptor digest is
+backfilled. Their dependency/identity semantics come from reviewed immutable
+source mappings; the database cannot attest to metadata never recorded there.
+Native records persist descriptor digests and reject changed descriptors.
+
+The older requirement profile is a compatible application with the semantic
+curation backport, not an arbitrary older binary. Pre-curation weekly generation
+and suggestion acceptance read pending placeholders unless the reviewed current
+curation-aware filters are backported too. The regression uses current compatible
+application operations while omitting0004 from required migration IDs and proves
+unready links remain excluded from meals/suggestions. Trust approval must include
+those semantic behaviors and truthful menu presentation, not just SQL catalogs.
+
+`db:check` is a separately approved read-only operator entrypoint using the same
+validator with closed sanitized diagnostics. Public HTTP continues to return only
+existing generic error messages; restarts against a tampered ledger exercise
+session, home and both menu surfaces without exposing reason codes or repairing
+history. Denied-write privilege probes run only on owned disposable databases;
+shared diagnosis uses only read-only connections.

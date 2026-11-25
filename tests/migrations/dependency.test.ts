@@ -10,7 +10,8 @@ async function seedLegacy(url: string, order: number[]) {
   try {
     const migrations = readMigrationFiles({ migrationsFolder: 'drizzle/postgresql' });
     await db.transaction(async tx => {
-      await tx.execute('CREATE TABLE __drizzle_migrations (id integer PRIMARY KEY, hash text NOT NULL, created_at bigint NOT NULL)');
+      await tx.execute('CREATE TABLE public.__drizzle_migrations (id integer PRIMARY KEY, hash text NOT NULL, created_at bigint NOT NULL)');
+      await tx.execute('SET LOCAL search_path = public, pg_catalog, pg_temp');
       for (const id of order) {
         for (const sql of migrations[id].sql) await tx.execute(sql);
         await tx.execute('INSERT INTO __drizzle_migrations VALUES ($1,$2,$3)', [id, migrations[id].hash, migrations[id].folderMillis]);

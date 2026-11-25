@@ -1,7 +1,6 @@
 import { Pool, types, type PoolClient } from 'pg';
 import { attachDatabasePool } from '@vercel/functions/db-connections';
-import expectedCatalog from '../../drizzle/postgresql/catalog.json';
-import { runtimeMigrations, type MigrationMetadata } from './runtime-metadata';
+import { validateDatabase, type ValidationOptions } from './validation';
 
 export function validateDatabaseUrl(value: string | undefined): URL {
   try {
@@ -39,12 +38,16 @@ export class FamilyDatabase {
     if (!client) pool.on('error', () => { /* Idle disconnects must not crash the process or expose connection details. */ });
   }
   async all<Row extends object = Record<string, unknown>>(sql: string, values: readonly unknown[] = []): Promise<Row[]> {
-    return (await (this.client ?? this.pool).query<Row>(sql, [...values])).rows;
+    if (!this.client) return this.readOnly(tx => tx.all<Row>(sql, values));
+    return (await this.client.query<Row>(sql, [...values])).rows;
   }
   async one<Row extends object = Record<string, unknown>>(sql: string, values: readonly unknown[] = []): Promise<Row | undefined> {
     return (await this.all<Row>(sql, values))[0];
   }
-  async execute(sql: string, values: readonly unknown[] = []): Promise<void> { await (this.client ?? this.pool).query(sql, [...values]); }
+  async execute(sql: string, values: readonly unknown[] = []): Promise<void> {
+    if (!this.client) return this.transaction(tx => tx.execute(sql, values));
+    await this.client.query(sql, [...values]);
+  }
   async transaction<T>(action: (db: FamilyDatabase) => Promise<T>, lock = FAMILY_WRITE_LOCK): Promise<T> {
     if (this.client) throw new Error('Nested transaction is unsupported');
     const client = await this.pool.connect();
@@ -52,7 +55,7 @@ export class FamilyDatabase {
     try {
       await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
       // Transaction-local settings work through Neon/PgBouncer transaction pooling.
-      await client.query("SET LOCAL statement_timeout = '10s'; SET LOCAL lock_timeout = '5s'; SET LOCAL idle_in_transaction_session_timeout = '15s'");
+      await client.query("SET LOCAL statement_timeout = '10s'; SET LOCAL lock_timeout = '5s'; SET LOCAL idle_in_transaction_session_timeout = '15s'; SET LOCAL search_path = pg_catalog, public, pg_temp");
       await client.query('SELECT pg_advisory_xact_lock($1)', [lock]);
       const result = await action(new FamilyDatabase(this.pool, client));
       await client.query('COMMIT');
@@ -62,12 +65,21 @@ export class FamilyDatabase {
       throw error;
     } finally { client.release(failed); }
   }
+  async readOnly<T>(action: (db: FamilyDatabase) => Promise<T>): Promise<T> {
+    if (this.client) throw new Error('Nested transaction is unsupported');
+    const client = await this.pool.connect();
+    let failed = false;
+    try {
+      await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+      await client.query("SET LOCAL statement_timeout = '10s'; SET LOCAL lock_timeout = '5s'; SET LOCAL idle_in_transaction_session_timeout = '15s'; SET LOCAL search_path = pg_catalog, public, pg_temp");
+      const result = await action(new FamilyDatabase(this.pool, client));
+      await client.query('COMMIT'); return result;
+    } catch (error) {
+      try { await client.query('ROLLBACK'); } catch { failed = true; }
+      throw error;
+    } finally { client.release(failed); }
+  }
   async close() { await this.pool.end(); }
-}
-export async function checkHistory(db: FamilyDatabase, expected: readonly MigrationMetadata[], complete: boolean) {
-  const rows = await db.all<{ hash: string; created_at: number }>('SELECT hash, created_at FROM __drizzle_migrations ORDER BY id');
-  if (rows.length > expected.length || complete && rows.length !== expected.length || rows.some((row, i) => row.hash !== expected[i].hash || row.created_at !== expected[i].folderMillis)) throw new Error('Storage unavailable');
-  return rows.length;
 }
 export async function catalogSignature(db: FamilyDatabase) {
   return db.all<{ kind: string; name: string; definition: string }>(`
@@ -91,12 +103,8 @@ export async function catalogSignature(db: FamilyDatabase) {
     WHERE n.nspname='public' AND c.relname <> '__drizzle_migrations' AND c.relname <> '__drizzle_migrations_pkey'
     ORDER BY kind, name`);
 }
-export async function checkSchema(db: FamilyDatabase) {
-  const expected: unknown = expectedCatalog;
-  if (JSON.stringify(await catalogSignature(db)) !== JSON.stringify(expected)) throw new Error('Storage unavailable');
-}
-export async function openDatabase(url: string) {
+export async function openDatabase(url: string, options: ValidationOptions = {}) {
   const db = connectDatabase(url);
-  try { await checkHistory(db, runtimeMigrations, true); await checkSchema(db); return db; }
+  try { await db.readOnly(async tx => { await validateDatabase(tx, options); }); return db; }
   catch { await db.close(); throw new Error('Storage unavailable'); }
 }

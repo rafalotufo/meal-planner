@@ -1,5 +1,5 @@
-import { repositoryMigrations } from './repository-migrations';
+import { repositorySources } from './repository-migrations';
 
 // Mandatory prebuild check; deliberately never regenerates reviewed metadata.
-repositoryMigrations();
+repositorySources();
 console.log('Reviewed runtime migration metadata matches SQL and journal.');

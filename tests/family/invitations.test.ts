@@ -19,7 +19,7 @@ test('member creates a recipient-bound hash-only invitation and cannot duplicate
         assert.equal(link.pathname, '/invite');
         assert.match(link.hash, /^#[A-Za-z0-9_-]{43}$/);
         assert.equal((await create()).status, 409);
-        const db = (await openDatabase(server.databaseUrl));
+        const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
         try {
             const row = (await db.one<{
                 recipient_email: string;

@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { randomBytes } from 'node:crypto';
-import { testDatabase } from '../family/database.ts';
+import { restrictedMenuDatabase } from '../menu/database.ts';
 
 type EnvironmentOverrides = Record<string, string> | ((origin: string) => Record<string, string>);
 
@@ -22,8 +22,8 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
   const origin = `http://127.0.0.1:${port}`;
   const secret = randomBytes(48).toString('base64url');
   const config = typeof overrides === 'function' ? overrides(origin) : overrides;
-  const database = config.DATABASE_URL === undefined ? await testDatabase() : undefined;
-  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_URL: database?.url, ...config, OPENAI_API_KEY: '', RECIPE_SEARCH_PROVIDER: 'openai' };
+  const database = config.DATABASE_URL === undefined ? await restrictedMenuDatabase() : undefined;
+  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_URL: database?.runtimeUrl, ...config, OPENAI_API_KEY: '', RECIPE_SEARCH_PROVIDER: 'openai' };
   delete env.MIGRATION_DATABASE_URL; delete env.TEST_DATABASE_URL;
   const imports = [...(preload ? [new URL('./google-network.ts', import.meta.url).pathname] : []), ...extraPreloads];
   if (imports.length) env.NODE_OPTIONS = ['--import=tsx', ...imports.map(path => '--import=' + path)].join(' ');
@@ -44,7 +44,7 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
     if (child.exitCode !== null) { await stop(); throw new Error(`Server exited: ${output}`); }
     try {
       await fetch(origin, { redirect: 'manual', signal: AbortSignal.timeout(2000) });
-      return { origin, secret, databaseUrl: env.DATABASE_URL!, stop, output: () => output };
+      return { origin, secret, databaseUrl: env.DATABASE_URL!, ownerDatabaseUrl: database?.url, stop, output: () => output };
     } catch { await new Promise<void>((resolve) => setTimeout(resolve, 100)); }
   }
   await stop();

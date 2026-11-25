@@ -10,7 +10,7 @@ test('verified unlisted invitee joins the existing family and retains access aft
         const owner = new CookieJar();
         await signInWithGoogle(server.origin, owner);
         await provision(server.origin, owner);
-        const db = (await openDatabase(server.databaseUrl));
+        const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
         const token = randomBytes(32).toString('base64url');
         try {
             const member = (await db.one<{
@@ -200,20 +200,19 @@ test('two application processes accept one invitation exactly once', async () =>
     }
 });
 test('a PostgreSQL dump restores invitation grants across complete server restart', async () => {
-  const { testDatabase } = await import('./database.ts'); const { post } = await import('./http.ts');
-  const { restoreBackup } = await import('./postgres-backup.ts');
-  const fixture = await testDatabase(); const restored = await testDatabase(false);
-  let server = await startServer({ DATABASE_URL: fixture.url }, true);
+  const { restrictedMenuDatabase } = await import('../menu/database.ts'); const { post } = await import('./http.ts');
+  const fixture = await restrictedMenuDatabase(); let restored: Awaited<ReturnType<typeof restrictedMenuDatabase>> | undefined;
+  let server = await startServer({ DATABASE_URL: fixture.runtimeUrl }, true);
   try {
     const owner = new CookieJar(); await signInWithGoogle(server.origin, owner); await provision(server.origin, owner);
     const response = await post(server.origin, owner, '/api/family/invitations', { recipientEmail: 'invitee@example.test' }); assert.equal(response.status, 201);
     const invitation = await response.json(); const invitee = new CookieJar(); invitee.values.set('meal.invitation', new URL(invitation.url).hash.slice(1));
     await signInWithGoogle(server.origin, invitee, 'invitee'); assert.equal((await post(server.origin, invitee, '/api/invitations/accept')).status, 200);
     await server.stop();
-    await restoreBackup(fixture.url, restored.url);
-    server = await startServer({ DATABASE_URL: restored.url }, true);
+    restored = await restrictedMenuDatabase(fixture.url);
+    server = await startServer({ DATABASE_URL: restored.runtimeUrl }, true);
     const returning = new CookieJar(); await signInWithGoogle(server.origin, returning, 'invitee');
     assert.equal((await returning.request(server.origin, '/api/session')).status, 200);
     const summary = await (await returning.request(server.origin, '/api/family')).json(); assert.equal(summary.members.length, 2);
-  } finally { await server.stop(); await fixture.cleanup(); await restored.cleanup(); }
+  } finally { await server.stop(); await fixture.cleanup(); await restored?.cleanup(); }
 });

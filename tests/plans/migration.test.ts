@@ -16,7 +16,7 @@ test('weekly schema constraints, exact runtime privileges and disposable rollbac
   await assert.rejects(insert('2026-11-29',1,'draft',null),{code:'23505'});
   for(const args of [['2026-11-30',1,'draft',null],['2026-12-06',0,'draft',null],['2026-12-06',1,'final',null],['2026-12-06',1,'draft',2],['2026-12-06',1,'draft',null,'[]']] as const) await assert.rejects(insert(args[0],args[1],args[2],args[3],args[4]));
   await runtime.execute('UPDATE meal_plan_weeks SET revision=revision WHERE id=$1',[id]);
-  for(const sql of ['DELETE FROM meal_plan_weeks','TRUNCATE meal_plan_weeks','DELETE FROM meal_plan_suggestions','CREATE TABLE denied_weekly (id text)',"UPDATE __drizzle_migrations SET hash='bad'"]) await assert.rejects(runtime.execute(sql),{code:'42501'});
+  for(const sql of ['DELETE FROM meal_plan_weeks','TRUNCATE meal_plan_weeks','DELETE FROM meal_plan_suggestions','CREATE TABLE public.denied_weekly (id text)',"UPDATE __drizzle_migrations SET hash='bad'"]) await assert.rejects(runtime.execute(sql),{code:'42501'});
  }finally{await runtime.close();await db.close();await fixture.cleanup();}
  const rollback=await testDatabase();const owner=connectDatabase(rollback.url);
  try{await owner.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-plans-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-curation-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-menu-test.sql','utf8'));await owner.execute(await readFile('drizzle/postgresql/rollback-initial.sql','utf8'));assert.deepEqual(await owner.all("SELECT tablename FROM pg_tables WHERE schemaname='public'"),[]);await migrateDatabase(rollback.url);}
@@ -27,7 +27,8 @@ async function legacyFixture() {
  const {readMigrationFiles}=await import('drizzle-orm/migrator');
  const fixture=await testDatabase(false),db=connectDatabase(fixture.url);
  await db.transaction(async tx=>{
-  await tx.execute('CREATE TABLE __drizzle_migrations (id integer PRIMARY KEY,hash text NOT NULL,created_at bigint NOT NULL)');
+  await tx.execute('CREATE TABLE public.__drizzle_migrations (id integer PRIMARY KEY,hash text NOT NULL,created_at bigint NOT NULL)');
+  await tx.execute('SET LOCAL search_path = public, pg_catalog, pg_temp');
   for(const [index,migration] of readMigrationFiles({migrationsFolder:'drizzle/postgresql'}).slice(0,3).entries()) {for(const sql of migration.sql)await tx.execute(sql);await tx.execute('INSERT INTO __drizzle_migrations VALUES ($1,$2,$3)',[index,migration.hash,migration.folderMillis]);}
  });
  return {fixture,db};
@@ -67,7 +68,7 @@ test('fourth migration locks before table access and compacts only duplicate dra
   assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_approvals WHERE plan_id=$1',[duplicate]))?.n,0);
   assert.deepEqual(await db.all('SELECT * FROM meal_plan_approvals WHERE plan_id<>$1 ORDER BY plan_id',[duplicate]),beforeApprovals);
   const after=await db.all('SELECT * FROM meal_plan_weeks ORDER BY id');await migrateDatabase(fixture.url);assert.deepEqual(await db.all('SELECT * FROM meal_plan_weeks ORDER BY id'),after);
-  const runtime=await openDatabase(fixture.url);await runtime.close();assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n,5);
+  const runtime=await openDatabase(fixture.url, { ownerTooling: true });await runtime.close();assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n,5);
   await assert.rejects(db.execute(await readFile('drizzle/postgresql/rollback-unique-plans-test.sql','utf8')));
   assert.deepEqual(await db.all('SELECT * FROM meal_plan_weeks ORDER BY id'),after,'incompatible rollback never pads or deletes');
  }finally{await db.close();await fixture.cleanup();}

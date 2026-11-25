@@ -1,22 +1,14 @@
 import { migrateDatabase } from '../lib/db/migrate';
-import { connectDatabase, validateDatabaseUrl, validateMigrationPair } from '../lib/db/connection';
+import { validateDatabaseUrl, validateMigrationPair, openDatabase } from '../lib/db/connection';
+import { diagnostic } from '../lib/db/migration-graph';
 async function main() {
   const owner = validateDatabaseUrl(process.env.MIGRATION_DATABASE_URL);
   const runtime = validateDatabaseUrl(process.env.DATABASE_URL);
   validateMigrationPair(owner, runtime);
-  await migrateDatabase(owner.href);
-  const db = connectDatabase(owner.href);
-  // Explicit migration operation only; never runs during startup/build/requests.
-  const role = '"' + decodeURIComponent(runtime.username).replaceAll('"', '""') + '"';
-  try {
-    await db.execute(`GRANT SELECT ON __drizzle_migrations TO ${role}`);
-    await db.execute(`GRANT SELECT, INSERT, UPDATE, DELETE ON families, app_users, family_invitations TO ${role}`);
-    await db.execute(`GRANT SELECT, INSERT, DELETE ON menu_recipes TO ${role}`);
-    await db.execute(`GRANT UPDATE (title, summary, image_url, time_kind, time_text) ON menu_recipes TO ${role}`);
-    await db.execute(`GRANT SELECT, INSERT, UPDATE ON menu_recipe_curations TO ${role}`);
-    await db.execute(`GRANT SELECT, INSERT, UPDATE ON meal_plan_weeks, meal_plan_suggestions TO ${role}`);
-    await db.execute(`GRANT SELECT, INSERT, UPDATE, DELETE ON meal_plan_approvals TO ${role}`);
-  } finally { await db.close(); }
-  console.log('PostgreSQL migrations completed; runtime privileges applied.');
+  if (decodeURIComponent(runtime.username) !== 'mp_runtime') throw new Error('Invalid runtime role');
+  await migrateDatabase(owner.href, { runtimeRole: 'mp_runtime' });
+  // Post-commit credential/connectivity smoke; it cannot undo a committed migration.
+  const db = await openDatabase(runtime.href); await db.close();
+  console.log('PostgreSQL migrations and runtime privileges completed.');
 }
-main().catch(() => { console.error('PostgreSQL migration failed; no credentials printed.'); process.exitCode = 1; });
+main().catch(error => { console.error(diagnostic(error).message); process.exitCode = 1; });

@@ -9,7 +9,7 @@ test('first Google login stays read-only until guarded POST creates exactly one 
         const jar = new CookieJar();
         const { callback } = await signInWithGoogle(server.origin, jar);
         assert.equal(callback.headers.get('location'), `${server.origin}/onboarding`);
-        const db = (await openDatabase(server.databaseUrl));
+        const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
         try {
             for (const path of ['/onboarding', '/'])
                 await jar.request(server.origin, path);
@@ -37,9 +37,9 @@ test('first Google login stays read-only until guarded POST creates exactly one 
     }
 });
 test('two application processes provision the same Google subject without duplicates', async () => {
-    const { testDatabase } = await import('./database.ts');
-    const fixture = await testDatabase();
-    const servers = await Promise.all([startServer({ DATABASE_URL: fixture.url }, true), startServer({ DATABASE_URL: fixture.url }, true)]);
+    const { restrictedMenuDatabase } = await import('../menu/database.ts');
+    const fixture = await restrictedMenuDatabase();
+    const servers = await Promise.all([startServer({ DATABASE_URL: fixture.runtimeUrl }, true), startServer({ DATABASE_URL: fixture.runtimeUrl }, true)]);
     try {
         const jars = [new CookieJar(), new CookieJar()];
         await Promise.all(servers.map((server, i) => signInWithGoogle(server.origin, jars[i])));
@@ -73,7 +73,7 @@ test('provisioning rejects cross-origin and presented invalid invitations and ro
         jar.values.set('meal.invitation', 'malformed');
         assert.equal((await provision(server.origin, jar)).status, 409);
         jar.values.delete('meal.invitation');
-        const db = (await openDatabase(server.databaseUrl));
+        const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
         try {
             (await db.execute("ALTER TABLE app_users ADD CONSTRAINT fail_user CHECK (false) NOT VALID"));
             assert.equal((await provision(server.origin, jar)).status, 503);
@@ -99,7 +99,7 @@ test('PostgreSQL advisory lock timeout returns 503 without leaving a partial fam
     try {
         const jar = new CookieJar();
         await signInWithGoogle(server.origin, jar);
-        const db = (await openDatabase(server.databaseUrl));
+        const db = (await openDatabase(server.ownerDatabaseUrl!, { ownerTooling: true }));
         const { Client } = await import('pg');
         const lock = new Client({connectionString: server.databaseUrl}); await lock.connect();
         try {
@@ -122,13 +122,13 @@ test('PostgreSQL advisory lock timeout returns 503 without leaving a partial fam
 });
 test('invitation creation racing provisioning has exactly one serialized outcome', async () => {
     const { readFileSync } = await import('node:fs');
-    const { testDatabase } = await import('./database.ts');
+    const { restrictedMenuDatabase } = await import('../menu/database.ts');
     const { post } = await import('./http.ts');
     const allowed: unknown = JSON.parse(readFileSync(new URL('../../lib/allowed-google-emails.json', import.meta.url), 'utf8'));
     assert.ok(Array.isArray(allowed) && typeof allowed[1] === 'string');
-    const fixture = await testDatabase();
-    const first = await startServer({ DATABASE_URL: fixture.url }, true);
-    const second = await startServer({ DATABASE_URL: fixture.url }, true);
+    const fixture = await restrictedMenuDatabase();
+    const first = await startServer({ DATABASE_URL: fixture.runtimeUrl }, true);
+    const second = await startServer({ DATABASE_URL: fixture.runtimeUrl }, true);
     try {
         const owner = new CookieJar();
         await signInWithGoogle(first.origin, owner);

@@ -26,7 +26,7 @@ test('committed PostgreSQL schema enforces membership and invitation integrity',
 test('explicit migrations repeat; runtime never initializes an empty database', async () => {
   const fixture = await testDatabase(false);
   try {
-    await assert.rejects(() => openDatabase(fixture.url));
+    await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
     await migrateDatabase(fixture.url); await migrateDatabase(fixture.url);
     const db = await fixture.open(); await db.close();
   } finally { await fixture.cleanup(); }
@@ -36,13 +36,13 @@ test('changed migration history and partial schema fail closed without repair', 
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     await db.execute("UPDATE __drizzle_migrations SET hash='changed'");
-    await assert.rejects(() => openDatabase(fixture.url));
+    await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
     await assert.rejects(() => migrateDatabase(fixture.url));
   } finally { await db.close(); await fixture.cleanup(); }
   const partial = await testDatabase(); const changed = await partial.open();
   try {
     await changed.execute('DROP INDEX users_family');
-    await assert.rejects(() => openDatabase(partial.url));
+    await assert.rejects(() => openDatabase(partial.url, { ownerTooling: true }));
     await assert.rejects(() => migrateDatabase(partial.url));
     assert.equal(await changed.one("SELECT indexname FROM pg_indexes WHERE indexname='users_family'"), undefined);
   } finally { await changed.close(); await partial.cleanup(); }
@@ -51,7 +51,7 @@ test('changed migration history and partial schema fail closed without repair', 
 test('failed migration rolls back schema and ledger writes together', async () => {
   const fixture = await testDatabase(false); const db = connectDatabase(fixture.url);
   try {
-    await db.execute('CREATE TABLE families (id text PRIMARY KEY)');
+    await db.execute('CREATE TABLE public.families (id text PRIMARY KEY)');
     await assert.rejects(() => migrateDatabase(fixture.url));
     assert.deepEqual(await db.all("SELECT tablename AS name FROM pg_tables WHERE schemaname='public' ORDER BY name"), [{name:'families'}]);
   } finally { await db.close(); await fixture.cleanup(); }
@@ -61,7 +61,7 @@ test('unexpected columns and weakened constraints fail catalog validation', asyn
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
     await db.execute('ALTER TABLE app_users DROP CONSTRAINT email_normalized');
-    await assert.rejects(() => openDatabase(fixture.url));
+    await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
     await assert.rejects(() => migrateDatabase(fixture.url));
   } finally { await db.close(); await fixture.cleanup(); }
 });
@@ -81,7 +81,7 @@ test('concurrent explicit migrations serialize and disposable initial rollback i
         await tx.execute(await readFile('drizzle/postgresql/rollback-initial.sql','utf8'));
       });
       assert.deepEqual(await db.all("SELECT tablename FROM pg_tables WHERE schemaname='public'"), []);
-      await assert.rejects(() => openDatabase(fixture.url));
+      await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
       await migrateDatabase(fixture.url);
     } finally { await db.close(); }
   } finally { await fixture.cleanup(); }
@@ -103,12 +103,12 @@ test('bound SQL-looking identity values remain data and millisecond timestamps r
 test('unreviewed triggers, functions and row-security changes fail closed', async () => {
   const fixture = await testDatabase(); const db = await fixture.open();
   try {
-    await db.execute("CREATE FUNCTION unexpected() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
+    await db.execute("CREATE FUNCTION public.unexpected() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN NEW; END $$");
     await db.execute('CREATE TRIGGER unexpected BEFORE INSERT ON app_users FOR EACH ROW EXECUTE FUNCTION unexpected()');
-    await assert.rejects(() => openDatabase(fixture.url));
+    await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
     await assert.rejects(() => migrateDatabase(fixture.url));
     await db.execute('DROP TRIGGER unexpected ON app_users; DROP FUNCTION unexpected()');
     await db.execute('ALTER TABLE app_users ENABLE ROW LEVEL SECURITY');
-    await assert.rejects(() => openDatabase(fixture.url));
+    await assert.rejects(() => openDatabase(fixture.url, { ownerTooling: true }));
   } finally { await db.close(); await fixture.cleanup(); }
 });

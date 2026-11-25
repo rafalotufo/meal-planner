@@ -1,0 +1,4527 @@
+{
+  "version": 1,
+  "migrations": [
+    {
+      "id": "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+      "file": "0000_family.sql",
+      "hash": "22463e304a25ab4d43ded59a017f476ffc651e37f9c966903cc1bcc934afb597",
+      "dependsOn": [],
+      "legacy": {
+        "id": 0,
+        "createdAt": 1795450000000
+      }
+    },
+    {
+      "id": "07939701-4fb3-467a-8b79-b0487745bb74",
+      "file": "0001_saved_recipe_menu.sql",
+      "hash": "5b984dc2492fb0bfd85c7ee46620ad61c819c81da6db606620b1fb244be52ddd",
+      "dependsOn": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680"
+      ],
+      "legacy": {
+        "id": 1,
+        "createdAt": 1795530000000
+      }
+    },
+    {
+      "id": "ebcd5c8d-7651-45e8-a102-328581c44714",
+      "file": "0002_weekly_meal_planning.sql",
+      "hash": "f6a77d005618de16b22350df733f35674fc301ef638aa087ae5654efbfea035b",
+      "dependsOn": [
+        "07939701-4fb3-467a-8b79-b0487745bb74"
+      ],
+      "legacy": {
+        "id": 2,
+        "createdAt": 1795620000000
+      }
+    },
+    {
+      "id": "1f2a959a-4e7b-44dd-bc5a-6c6f2361cb07",
+      "file": "0003_unique_weekly_recipes.sql",
+      "hash": "1e8f7dc3ba0e3fc4912763e42f1677183b7ece0d88788942f397dda3e9b7d447",
+      "dependsOn": [
+        "ebcd5c8d-7651-45e8-a102-328581c44714"
+      ],
+      "legacy": {
+        "id": 3,
+        "createdAt": 1795706400000
+      }
+    },
+    {
+      "id": "e81c2de0-8b02-4136-b06b-a13b31ea304e",
+      "file": "0004_recipe_url_curation.sql",
+      "hash": "e6245a306113e9a9fd0255fdf8fbc670f7678d91142d586b053d24548cfb1238",
+      "dependsOn": [
+        "07939701-4fb3-467a-8b79-b0487745bb74"
+      ],
+      "legacy": {
+        "id": 4,
+        "createdAt": 1795792800000
+      }
+    }
+  ],
+  "required": [
+    "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+    "07939701-4fb3-467a-8b79-b0487745bb74",
+    "ebcd5c8d-7651-45e8-a102-328581c44714",
+    "1f2a959a-4e7b-44dd-bc5a-6c6f2361cb07",
+    "e81c2de0-8b02-4136-b06b-a13b31ea304e"
+  ],
+  "independent": [
+    {
+      "ids": [
+        "ebcd5c8d-7651-45e8-a102-328581c44714",
+        "e81c2de0-8b02-4136-b06b-a13b31ea304e"
+      ],
+      "digests": [
+        "be5d8ef3e30ec2aa220d35713b8e41b2d0142ad7065e165e39555cb4543dc6d7",
+        "972d74fbc4f22e438061066ffcbd952939c9126269e851fc77916a549a1413ed"
+      ]
+    },
+    {
+      "ids": [
+        "1f2a959a-4e7b-44dd-bc5a-6c6f2361cb07",
+        "e81c2de0-8b02-4136-b06b-a13b31ea304e"
+      ],
+      "digests": [
+        "67816162cf666030703cfbf90ebbd9f6d79d13b648f0e3cba3d2ccb8b211a286",
+        "972d74fbc4f22e438061066ffcbd952939c9126269e851fc77916a549a1413ed"
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "applied": [],
+      "catalog": [],
+      "grants": {}
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+        "07939701-4fb3-467a-8b79-b0487745bb74"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.image_url",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.saved_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.source_url",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.summary",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_kind",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_text",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.title",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_image_bound",
+          "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_saved_at_safe",
+          "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_source_bound",
+          "definition": "CHECK (((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048) AND (source_url = TRIM(BOTH FROM source_url))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_summary_bound",
+          "definition": "CHECK (((length(summary) >= 1) AND (length(summary) <= 600) AND (summary = TRIM(BOTH FROM summary))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_time_pair",
+          "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_title_bound",
+          "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_saved",
+          "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_source_unique",
+          "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipes_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_saved",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_source_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes": [
+          "SELECT",
+          "INSERT",
+          "DELETE"
+        ]
+      }
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+        "07939701-4fb3-467a-8b79-b0487745bb74",
+        "ebcd5c8d-7651-45e8-a102-328581c44714"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.base_revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.day_index",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.menu_recipe_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.recipe",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.status",
+          "definition": "text:true:'pending'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.finalized_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.meals",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.revision",
+          "definition": "integer:true:1"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.status",
+          "definition": "text:true:'draft'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.week_start",
+          "definition": "date:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.image_url",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.saved_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.source_url",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.summary",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_kind",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_text",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.title",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_pkey",
+          "definition": "PRIMARY KEY (plan_id, user_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_base_revision_check",
+          "definition": "CHECK ((base_revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_day_index_check",
+          "definition": "CHECK (((day_index >= 0) AND (day_index <= 6)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_menu_recipe_id_check",
+          "definition": "CHECK ((menu_recipe_id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_recipe_check",
+          "definition": "CHECK ((jsonb_typeof(recipe) = 'object'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'accepted'::text, 'rejected'::text, 'stale'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_check",
+          "definition": "CHECK ((((status = 'draft'::text) AND (finalized_at IS NULL)) OR ((status = 'final'::text) AND (finalized_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_week_start_key",
+          "definition": "UNIQUE (family_id, week_start)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_finalized_at_check",
+          "definition": "CHECK (((finalized_at >= 0) AND (finalized_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_meals_check",
+          "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND (jsonb_array_length(meals) = 7)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'final'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_week_start_check",
+          "definition": "CHECK (((EXTRACT(dow FROM week_start) = (0)::numeric) AND ((week_start >= '0001-01-01'::date) AND (week_start <= '9999-12-31'::date))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_image_bound",
+          "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_saved_at_safe",
+          "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_source_bound",
+          "definition": "CHECK (((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048) AND (source_url = TRIM(BOTH FROM source_url))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_summary_bound",
+          "definition": "CHECK (((length(summary) >= 1) AND (length(summary) <= 600) AND (summary = TRIM(BOTH FROM summary))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_time_pair",
+          "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_title_bound",
+          "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_approvals_pkey ON public.meal_plan_approvals USING btree (plan_id, user_id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_family_week",
+          "definition": "CREATE INDEX meal_plan_family_week ON public.meal_plan_weeks USING btree (family_id, week_start DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_pending_unique",
+          "definition": "CREATE UNIQUE INDEX meal_plan_pending_unique ON public.meal_plan_suggestions USING btree (plan_id, base_revision, day_index, user_id) WHERE (status = 'pending'::text)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "CREATE INDEX meal_plan_suggestion_revision ON public.meal_plan_suggestions USING btree (plan_id, base_revision, status)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_suggestions_pkey ON public.meal_plan_suggestions USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_family_id_week_start_key ON public.meal_plan_weeks USING btree (family_id, week_start)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_pkey ON public.meal_plan_weeks USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_saved",
+          "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_source_unique",
+          "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipes_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_family_week",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_pending_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_saved",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_source_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "meal_plan_suggestions": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes": [
+          "SELECT",
+          "INSERT",
+          "DELETE"
+        ],
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_approvals": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_weeks": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ]
+      }
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+        "07939701-4fb3-467a-8b79-b0487745bb74",
+        "e81c2de0-8b02-4136-b06b-a13b31ea304e"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.credential_expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.entry_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.generation",
+          "definition": "uuid:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.lease",
+          "definition": "uuid:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.scheduled_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.state",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.image_url",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.saved_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.source_url",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.summary",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_kind",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_text",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.title",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_email",
+          "definition": "CHECK (((length(verified_email) >= 3) AND (length(verified_email) <= 254) AND (verified_email = lower(btrim(verified_email)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_lease",
+          "definition": "CHECK (((state = 'processing'::text) = (lease IS NOT NULL)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_state",
+          "definition": "CHECK ((state = ANY (ARRAY['pending'::text, 'processing'::text, 'ready'::text, 'failed'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_subject",
+          "definition": "CHECK (((length(google_subject) >= 1) AND (length(google_subject) <= 255) AND (google_subject = btrim(google_subject))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_timestamps",
+          "definition": "CHECK (((scheduled_at >= 0) AND (scheduled_at <= '9007199254740991'::bigint) AND (expires_at >= scheduled_at) AND (expires_at <= (scheduled_at + 30000)) AND (credential_expires_at >= expires_at) AND (credential_expires_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_recipe_curations_entry_id_fkey",
+          "definition": "FOREIGN KEY (entry_id) REFERENCES menu_recipes(id) ON DELETE CASCADE"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_recipe_curations_pkey",
+          "definition": "PRIMARY KEY (entry_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_image_bound",
+          "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_saved_at_safe",
+          "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_source_bound",
+          "definition": "CHECK (((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048) AND (source_url = TRIM(BOTH FROM source_url))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_summary_bound",
+          "definition": "CHECK (((length(summary) >= 1) AND (length(summary) <= 600) AND (summary = TRIM(BOTH FROM summary))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_time_pair",
+          "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_title_bound",
+          "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_saved",
+          "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_source_unique",
+          "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipe_curations_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipe_curations_pkey ON public.menu_recipe_curations USING btree (entry_id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipes_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_saved",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_source_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipe_curations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipe_curations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes": [
+          "SELECT",
+          "INSERT",
+          "DELETE"
+        ],
+        "menu_recipe_curations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes.title": [
+          "UPDATE"
+        ],
+        "menu_recipes.summary": [
+          "UPDATE"
+        ],
+        "menu_recipes.image_url": [
+          "UPDATE"
+        ],
+        "menu_recipes.time_kind": [
+          "UPDATE"
+        ],
+        "menu_recipes.time_text": [
+          "UPDATE"
+        ]
+      }
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+        "07939701-4fb3-467a-8b79-b0487745bb74",
+        "ebcd5c8d-7651-45e8-a102-328581c44714",
+        "e81c2de0-8b02-4136-b06b-a13b31ea304e"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.base_revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.day_index",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.menu_recipe_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.recipe",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.status",
+          "definition": "text:true:'pending'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.finalized_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.meals",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.revision",
+          "definition": "integer:true:1"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.status",
+          "definition": "text:true:'draft'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.week_start",
+          "definition": "date:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.credential_expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.entry_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.generation",
+          "definition": "uuid:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.lease",
+          "definition": "uuid:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.scheduled_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.state",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.image_url",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.saved_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.source_url",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.summary",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_kind",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_text",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.title",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_pkey",
+          "definition": "PRIMARY KEY (plan_id, user_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_base_revision_check",
+          "definition": "CHECK ((base_revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_day_index_check",
+          "definition": "CHECK (((day_index >= 0) AND (day_index <= 6)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_menu_recipe_id_check",
+          "definition": "CHECK ((menu_recipe_id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_recipe_check",
+          "definition": "CHECK ((jsonb_typeof(recipe) = 'object'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'accepted'::text, 'rejected'::text, 'stale'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_check",
+          "definition": "CHECK ((((status = 'draft'::text) AND (finalized_at IS NULL)) OR ((status = 'final'::text) AND (finalized_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_week_start_key",
+          "definition": "UNIQUE (family_id, week_start)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_finalized_at_check",
+          "definition": "CHECK (((finalized_at >= 0) AND (finalized_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_meals_check",
+          "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND (jsonb_array_length(meals) = 7)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'final'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_week_start_check",
+          "definition": "CHECK (((EXTRACT(dow FROM week_start) = (0)::numeric) AND ((week_start >= '0001-01-01'::date) AND (week_start <= '9999-12-31'::date))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_email",
+          "definition": "CHECK (((length(verified_email) >= 3) AND (length(verified_email) <= 254) AND (verified_email = lower(btrim(verified_email)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_lease",
+          "definition": "CHECK (((state = 'processing'::text) = (lease IS NOT NULL)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_state",
+          "definition": "CHECK ((state = ANY (ARRAY['pending'::text, 'processing'::text, 'ready'::text, 'failed'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_subject",
+          "definition": "CHECK (((length(google_subject) >= 1) AND (length(google_subject) <= 255) AND (google_subject = btrim(google_subject))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_timestamps",
+          "definition": "CHECK (((scheduled_at >= 0) AND (scheduled_at <= '9007199254740991'::bigint) AND (expires_at >= scheduled_at) AND (expires_at <= (scheduled_at + 30000)) AND (credential_expires_at >= expires_at) AND (credential_expires_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_recipe_curations_entry_id_fkey",
+          "definition": "FOREIGN KEY (entry_id) REFERENCES menu_recipes(id) ON DELETE CASCADE"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_recipe_curations_pkey",
+          "definition": "PRIMARY KEY (entry_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_image_bound",
+          "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_saved_at_safe",
+          "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_source_bound",
+          "definition": "CHECK (((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048) AND (source_url = TRIM(BOTH FROM source_url))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_summary_bound",
+          "definition": "CHECK (((length(summary) >= 1) AND (length(summary) <= 600) AND (summary = TRIM(BOTH FROM summary))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_time_pair",
+          "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_title_bound",
+          "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_approvals_pkey ON public.meal_plan_approvals USING btree (plan_id, user_id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_family_week",
+          "definition": "CREATE INDEX meal_plan_family_week ON public.meal_plan_weeks USING btree (family_id, week_start DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_pending_unique",
+          "definition": "CREATE UNIQUE INDEX meal_plan_pending_unique ON public.meal_plan_suggestions USING btree (plan_id, base_revision, day_index, user_id) WHERE (status = 'pending'::text)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "CREATE INDEX meal_plan_suggestion_revision ON public.meal_plan_suggestions USING btree (plan_id, base_revision, status)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_suggestions_pkey ON public.meal_plan_suggestions USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_family_id_week_start_key ON public.meal_plan_weeks USING btree (family_id, week_start)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_pkey ON public.meal_plan_weeks USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_saved",
+          "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_source_unique",
+          "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipe_curations_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipe_curations_pkey ON public.menu_recipe_curations USING btree (entry_id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipes_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_family_week",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_pending_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_saved",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_source_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipe_curations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipe_curations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "meal_plan_suggestions": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes": [
+          "SELECT",
+          "INSERT",
+          "DELETE"
+        ],
+        "menu_recipe_curations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_approvals": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_weeks": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "menu_recipes.title": [
+          "UPDATE"
+        ],
+        "menu_recipes.summary": [
+          "UPDATE"
+        ],
+        "menu_recipes.image_url": [
+          "UPDATE"
+        ],
+        "menu_recipes.time_kind": [
+          "UPDATE"
+        ],
+        "menu_recipes.time_text": [
+          "UPDATE"
+        ]
+      }
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+        "07939701-4fb3-467a-8b79-b0487745bb74",
+        "ebcd5c8d-7651-45e8-a102-328581c44714",
+        "1f2a959a-4e7b-44dd-bc5a-6c6f2361cb07"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.base_revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.day_index",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.menu_recipe_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.recipe",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.status",
+          "definition": "text:true:'pending'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.finalized_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.meals",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.revision",
+          "definition": "integer:true:1"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.status",
+          "definition": "text:true:'draft'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.week_start",
+          "definition": "date:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.image_url",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.saved_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.source_url",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.summary",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_kind",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_text",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.title",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_pkey",
+          "definition": "PRIMARY KEY (plan_id, user_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_base_revision_check",
+          "definition": "CHECK ((base_revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_day_index_check",
+          "definition": "CHECK (((day_index >= 0) AND (day_index <= 6)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_menu_recipe_id_check",
+          "definition": "CHECK ((menu_recipe_id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_recipe_check",
+          "definition": "CHECK ((jsonb_typeof(recipe) = 'object'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'accepted'::text, 'rejected'::text, 'stale'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_check",
+          "definition": "CHECK ((((status = 'draft'::text) AND (finalized_at IS NULL)) OR ((status = 'final'::text) AND (finalized_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_week_start_key",
+          "definition": "UNIQUE (family_id, week_start)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_finalized_at_check",
+          "definition": "CHECK (((finalized_at >= 0) AND (finalized_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_meals_check",
+          "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND ((jsonb_array_length(meals) >= 1) AND (jsonb_array_length(meals) <= 7))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'final'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_week_start_check",
+          "definition": "CHECK (((EXTRACT(dow FROM week_start) = (0)::numeric) AND ((week_start >= '0001-01-01'::date) AND (week_start <= '9999-12-31'::date))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_image_bound",
+          "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_saved_at_safe",
+          "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_source_bound",
+          "definition": "CHECK (((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048) AND (source_url = TRIM(BOTH FROM source_url))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_summary_bound",
+          "definition": "CHECK (((length(summary) >= 1) AND (length(summary) <= 600) AND (summary = TRIM(BOTH FROM summary))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_time_pair",
+          "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_title_bound",
+          "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_approvals_pkey ON public.meal_plan_approvals USING btree (plan_id, user_id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_family_week",
+          "definition": "CREATE INDEX meal_plan_family_week ON public.meal_plan_weeks USING btree (family_id, week_start DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_pending_unique",
+          "definition": "CREATE UNIQUE INDEX meal_plan_pending_unique ON public.meal_plan_suggestions USING btree (plan_id, base_revision, day_index, user_id) WHERE (status = 'pending'::text)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "CREATE INDEX meal_plan_suggestion_revision ON public.meal_plan_suggestions USING btree (plan_id, base_revision, status)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_suggestions_pkey ON public.meal_plan_suggestions USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_family_id_week_start_key ON public.meal_plan_weeks USING btree (family_id, week_start)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_pkey ON public.meal_plan_weeks USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_saved",
+          "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_source_unique",
+          "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipes_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_family_week",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_pending_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_saved",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_source_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "meal_plan_suggestions": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes": [
+          "SELECT",
+          "INSERT",
+          "DELETE"
+        ],
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_approvals": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_weeks": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ]
+      }
+    },
+    {
+      "applied": [
+        "f3a0e2ac-5b25-4cff-9d89-ea7085eef680",
+        "07939701-4fb3-467a-8b79-b0487745bb74",
+        "ebcd5c8d-7651-45e8-a102-328581c44714",
+        "1f2a959a-4e7b-44dd-bc5a-6c6f2361cb07",
+        "e81c2de0-8b02-4136-b06b-a13b31ea304e"
+      ],
+      "catalog": [
+        {
+          "kind": "column",
+          "name": "app_users.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.invitation_granted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "app_users.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "families.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.accepted_by_user_id",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.created_by_user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.recipient_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.revoked_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.status",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "family_invitations.token_hash",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_approvals.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.base_revision",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.day_index",
+          "definition": "integer:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.menu_recipe_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.plan_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.recipe",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.status",
+          "definition": "text:true:'pending'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_suggestions.user_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.created_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.finalized_at",
+          "definition": "bigint:false:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.meals",
+          "definition": "jsonb:true:"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.revision",
+          "definition": "integer:true:1"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.status",
+          "definition": "text:true:'draft'::text"
+        },
+        {
+          "kind": "column",
+          "name": "meal_plan_weeks.week_start",
+          "definition": "date:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.credential_expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.entry_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.expires_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.generation",
+          "definition": "uuid:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.google_subject",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.lease",
+          "definition": "uuid:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.scheduled_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.state",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipe_curations.verified_email",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.family_id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.id",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.image_url",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.saved_at",
+          "definition": "bigint:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.source_url",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.summary",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_kind",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.time_text",
+          "definition": "text:false:"
+        },
+        {
+          "kind": "column",
+          "name": "menu_recipes.title",
+          "definition": "text:true:"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.app_users_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.email_normalized",
+          "definition": "CHECK (((verified_email = lower(TRIM(BOTH FROM verified_email))) AND (length(verified_email) > 0)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "app_users.subject_nonempty",
+          "definition": "CHECK ((length(TRIM(BOTH FROM google_subject)) > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "families.families_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_accepted_by_user_id_fkey",
+          "definition": "FOREIGN KEY (accepted_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_created_by_user_id_fkey",
+          "definition": "FOREIGN KEY (created_by_user_id) REFERENCES app_users(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.family_invitations_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_deadline",
+          "definition": "CHECK ((expires_at > created_at))"
+        },
+        {
+          "kind": "constraint",
+          "name": "family_invitations.invitation_state",
+          "definition": "CHECK ((((status = 'pending'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NULL)) OR ((status = 'accepted'::text) AND (accepted_by_user_id IS NOT NULL) AND (accepted_at IS NOT NULL) AND (revoked_at IS NULL)) OR ((status = 'revoked'::text) AND (accepted_by_user_id IS NULL) AND (accepted_at IS NULL) AND (revoked_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_pkey",
+          "definition": "PRIMARY KEY (plan_id, user_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_approvals.meal_plan_approvals_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_base_revision_check",
+          "definition": "CHECK ((base_revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_day_index_check",
+          "definition": "CHECK (((day_index >= 0) AND (day_index <= 6)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_menu_recipe_id_check",
+          "definition": "CHECK ((menu_recipe_id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_plan_id_fkey",
+          "definition": "FOREIGN KEY (plan_id) REFERENCES meal_plan_weeks(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_recipe_check",
+          "definition": "CHECK ((jsonb_typeof(recipe) = 'object'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'accepted'::text, 'rejected'::text, 'stale'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_suggestions.meal_plan_suggestions_user_id_fkey",
+          "definition": "FOREIGN KEY (user_id) REFERENCES app_users(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_check",
+          "definition": "CHECK ((((status = 'draft'::text) AND (finalized_at IS NULL)) OR ((status = 'final'::text) AND (finalized_at IS NOT NULL))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_created_at_check",
+          "definition": "CHECK (((created_at >= 0) AND (created_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_family_id_week_start_key",
+          "definition": "UNIQUE (family_id, week_start)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_finalized_at_check",
+          "definition": "CHECK (((finalized_at >= 0) AND (finalized_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_id_check",
+          "definition": "CHECK ((id ~ '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$'::text))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_meals_check",
+          "definition": "CHECK (((jsonb_typeof(meals) = 'array'::text) AND ((jsonb_array_length(meals) >= 1) AND (jsonb_array_length(meals) <= 7))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_revision_check",
+          "definition": "CHECK ((revision > 0))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_status_check",
+          "definition": "CHECK ((status = ANY (ARRAY['draft'::text, 'final'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "meal_plan_weeks.meal_plan_weeks_week_start_check",
+          "definition": "CHECK (((EXTRACT(dow FROM week_start) = (0)::numeric) AND ((week_start >= '0001-01-01'::date) AND (week_start <= '9999-12-31'::date))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_email",
+          "definition": "CHECK (((length(verified_email) >= 3) AND (length(verified_email) <= 254) AND (verified_email = lower(btrim(verified_email)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_lease",
+          "definition": "CHECK (((state = 'processing'::text) = (lease IS NOT NULL)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_state",
+          "definition": "CHECK ((state = ANY (ARRAY['pending'::text, 'processing'::text, 'ready'::text, 'failed'::text])))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_subject",
+          "definition": "CHECK (((length(google_subject) >= 1) AND (length(google_subject) <= 255) AND (google_subject = btrim(google_subject))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_curation_timestamps",
+          "definition": "CHECK (((scheduled_at >= 0) AND (scheduled_at <= '9007199254740991'::bigint) AND (expires_at >= scheduled_at) AND (expires_at <= (scheduled_at + 30000)) AND (credential_expires_at >= expires_at) AND (credential_expires_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_recipe_curations_entry_id_fkey",
+          "definition": "FOREIGN KEY (entry_id) REFERENCES menu_recipes(id) ON DELETE CASCADE"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipe_curations.menu_recipe_curations_pkey",
+          "definition": "PRIMARY KEY (entry_id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_image_bound",
+          "definition": "CHECK (((image_url IS NULL) OR ((octet_length(image_url) >= 1) AND (octet_length(image_url) <= 2048) AND (image_url = TRIM(BOTH FROM image_url)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_family_id_fkey",
+          "definition": "FOREIGN KEY (family_id) REFERENCES families(id) ON DELETE RESTRICT"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_recipes_pkey",
+          "definition": "PRIMARY KEY (id)"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_saved_at_safe",
+          "definition": "CHECK (((saved_at >= 0) AND (saved_at <= '9007199254740991'::bigint)))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_source_bound",
+          "definition": "CHECK (((octet_length(source_url) >= 1) AND (octet_length(source_url) <= 2048) AND (source_url = TRIM(BOTH FROM source_url))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_summary_bound",
+          "definition": "CHECK (((length(summary) >= 1) AND (length(summary) <= 600) AND (summary = TRIM(BOTH FROM summary))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_time_pair",
+          "definition": "CHECK ((((time_kind IS NULL) AND (time_text IS NULL)) OR ((time_kind IS NOT NULL) AND (time_kind = ANY (ARRAY['cook'::text, 'total'::text])) AND (time_text IS NOT NULL) AND ((length(time_text) >= 1) AND (length(time_text) <= 80)) AND (time_text = TRIM(BOTH FROM time_text)))))"
+        },
+        {
+          "kind": "constraint",
+          "name": "menu_recipes.menu_title_bound",
+          "definition": "CHECK (((length(title) >= 1) AND (length(title) <= 160) AND (title = TRIM(BOTH FROM title))))"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_google_subject_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_google_subject_unique ON public.app_users USING btree (google_subject)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_pkey",
+          "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "app_users_verified_email_unique",
+          "definition": "CREATE UNIQUE INDEX app_users_verified_email_unique ON public.app_users USING btree (verified_email)"
+        },
+        {
+          "kind": "index",
+          "name": "families_pkey",
+          "definition": "CREATE UNIQUE INDEX families_pkey ON public.families USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_pkey",
+          "definition": "CREATE UNIQUE INDEX family_invitations_pkey ON public.family_invitations USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "CREATE UNIQUE INDEX family_invitations_token_hash_unique ON public.family_invitations USING btree (token_hash)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_family",
+          "definition": "CREATE INDEX invitations_family ON public.family_invitations USING btree (family_id, created_at)"
+        },
+        {
+          "kind": "index",
+          "name": "invitations_recipient",
+          "definition": "CREATE INDEX invitations_recipient ON public.family_invitations USING btree (recipient_email, status, expires_at)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_approvals_pkey ON public.meal_plan_approvals USING btree (plan_id, user_id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_family_week",
+          "definition": "CREATE INDEX meal_plan_family_week ON public.meal_plan_weeks USING btree (family_id, week_start DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_pending_unique",
+          "definition": "CREATE UNIQUE INDEX meal_plan_pending_unique ON public.meal_plan_suggestions USING btree (plan_id, base_revision, day_index, user_id) WHERE (status = 'pending'::text)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "CREATE INDEX meal_plan_suggestion_revision ON public.meal_plan_suggestions USING btree (plan_id, base_revision, status)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_suggestions_pkey ON public.meal_plan_suggestions USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_family_id_week_start_key ON public.meal_plan_weeks USING btree (family_id, week_start)"
+        },
+        {
+          "kind": "index",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "CREATE UNIQUE INDEX meal_plan_weeks_pkey ON public.meal_plan_weeks USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_saved",
+          "definition": "CREATE INDEX menu_family_saved ON public.menu_recipes USING btree (family_id, saved_at DESC, id DESC)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_family_source_unique",
+          "definition": "CREATE UNIQUE INDEX menu_family_source_unique ON public.menu_recipes USING btree (family_id, source_url)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipe_curations_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipe_curations_pkey ON public.menu_recipe_curations USING btree (entry_id)"
+        },
+        {
+          "kind": "index",
+          "name": "menu_recipes_pkey",
+          "definition": "CREATE UNIQUE INDEX menu_recipes_pkey ON public.menu_recipes USING btree (id)"
+        },
+        {
+          "kind": "index",
+          "name": "users_family",
+          "definition": "CREATE INDEX users_family ON public.app_users USING btree (family_id)"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_google_subject_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "app_users_verified_email_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "families_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "family_invitations_token_hash_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_family",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "invitations_recipient",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_approvals_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_family_week",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_pending_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestion_revision",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_suggestions_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_family_id_week_start_key",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "meal_plan_weeks_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_saved",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_family_source_unique",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipe_curations",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipe_curations_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes",
+          "definition": "r:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "menu_recipes_pkey",
+          "definition": "i:false:false"
+        },
+        {
+          "kind": "relation",
+          "name": "users_family",
+          "definition": "i:false:false"
+        }
+      ],
+      "grants": {
+        "meal_plan_suggestions": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "families": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "menu_recipes": [
+          "SELECT",
+          "INSERT",
+          "DELETE"
+        ],
+        "menu_recipe_curations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "family_invitations": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "app_users": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_approvals": [
+          "SELECT",
+          "INSERT",
+          "UPDATE",
+          "DELETE"
+        ],
+        "meal_plan_weeks": [
+          "SELECT",
+          "INSERT",
+          "UPDATE"
+        ],
+        "menu_recipes.title": [
+          "UPDATE"
+        ],
+        "menu_recipes.summary": [
+          "UPDATE"
+        ],
+        "menu_recipes.image_url": [
+          "UPDATE"
+        ],
+        "menu_recipes.time_kind": [
+          "UPDATE"
+        ],
+        "menu_recipes.time_text": [
+          "UPDATE"
+        ]
+      }
+    }
+  ]
+}

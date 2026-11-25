@@ -34,18 +34,19 @@ test('initial schema upgrades preserve existing data and migrations repeat witho
   try {
     const initial = readMigrationFiles({ migrationsFolder: 'drizzle/postgresql' })[0];
     await db.transaction(async tx => {
-      await tx.execute('CREATE TABLE __drizzle_migrations (id integer PRIMARY KEY, hash text NOT NULL, created_at bigint NOT NULL)');
+      await tx.execute('CREATE TABLE public.__drizzle_migrations (id integer PRIMARY KEY, hash text NOT NULL, created_at bigint NOT NULL)');
+      await tx.execute('SET LOCAL search_path = public, pg_catalog, pg_temp');
       for (const sql of initial.sql) await tx.execute(sql);
       await tx.execute('INSERT INTO __drizzle_migrations VALUES ($1,$2,$3)', [0, initial.hash, initial.folderMillis]);
       await tx.execute('INSERT INTO families VALUES ($1,$2)', ['preserved-initial-family', 1]);
     }, 73462902);
-    await assert.rejects(openDatabase(fixture.url), /Storage unavailable/);
+    await assert.rejects(openDatabase(fixture.url, { ownerTooling: true }), /Storage unavailable/);
     await migrateDatabase(fixture.url); await migrateDatabase(fixture.url);
-    const runtime = await openDatabase(fixture.url); await runtime.close();
+    const runtime = await openDatabase(fixture.url, { ownerTooling: true }); await runtime.close();
     assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM families'))?.n, 1);
     assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n, readMigrationFiles({ migrationsFolder: 'drizzle/postgresql' }).length);
     await db.execute('DROP INDEX menu_family_saved');
-    await assert.rejects(openDatabase(fixture.url), /Storage unavailable/);
+    await assert.rejects(openDatabase(fixture.url, { ownerTooling: true }), /Storage unavailable/);
     await assert.rejects(migrateDatabase(fixture.url));
   } finally { await db.close(); await fixture.cleanup(); }
 });
@@ -74,7 +75,7 @@ test('explicit migration grants allow menu read/insert/delete but deny ownership
     await owner.execute('INSERT INTO families VALUES ($1,$2)', [family, 1]);
     await runtime.execute('INSERT INTO menu_recipes (id,family_id,source_url,title,summary,saved_at) VALUES ($1,$2,$3,$4,$5,$6)', [id, family, 'https://example.test/recipe', 'Chickpeas', 'Cook them.', 1]);
     assert.equal((await runtime.one<{ id: string }>('SELECT id FROM menu_recipes WHERE id=$1', [id]))?.id, id);
-    for (const sql of ['UPDATE menu_recipes SET source_url=source_url', 'TRUNCATE menu_recipes', 'CREATE TABLE forbidden_menu (id text)', "UPDATE __drizzle_migrations SET hash='forbidden'", 'DELETE FROM __drizzle_migrations']) await assert.rejects(runtime.execute(sql), { code: '42501' });
+    for (const sql of ['UPDATE menu_recipes SET source_url=source_url', 'TRUNCATE menu_recipes', 'CREATE TABLE public.forbidden_menu (id text)', "UPDATE __drizzle_migrations SET hash='forbidden'", 'DELETE FROM __drizzle_migrations']) await assert.rejects(runtime.execute(sql), { code: '42501' });
     await runtime.execute('DELETE FROM menu_recipes WHERE id=$1', [id]);
     assert.equal((await runtime.one<{ n: number }>('SELECT count(*) AS n FROM menu_recipes'))?.n, 0);
     const opened = await openDatabase(fixture.runtimeUrl); await opened.close();

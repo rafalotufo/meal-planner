@@ -26,7 +26,8 @@ test('main four-migration data/history upgrades additively to curation without c
     assert.deepEqual(migrations.slice(0, 4).map(({ hash, folderMillis }) => ({ hash, folderMillis })), mainPrefix);
     assert.equal(migrations.length, 5); assert.ok(migrations[4].folderMillis > mainPrefix[3].folderMillis);
     await db.transaction(async tx => {
-      await tx.execute('CREATE TABLE __drizzle_migrations (id integer PRIMARY KEY,hash text NOT NULL,created_at bigint NOT NULL)');
+      await tx.execute('CREATE TABLE public.__drizzle_migrations (id integer PRIMARY KEY,hash text NOT NULL,created_at bigint NOT NULL)');
+      await tx.execute('SET LOCAL search_path = public, pg_catalog, pg_temp');
       for (const [index, migration] of migrations.slice(0, 4).entries()) {
         for (const sql of migration.sql) await tx.execute(sql);
         await tx.execute('INSERT INTO __drizzle_migrations VALUES ($1,$2,$3)', [index, migration.hash, migration.folderMillis]);
@@ -42,7 +43,7 @@ test('main four-migration data/history upgrades additively to curation without c
     await db.execute('INSERT INTO meal_plan_suggestions (id,plan_id,user_id,base_revision,day_index,menu_recipe_id,recipe,created_at) VALUES ($1,$2,$3,1,0,$4,$5,1)', [randomUUID(), plan, user, menu, JSON.stringify(recipe('suggested'))]);
     const tables = ['families', 'app_users', 'family_invitations', 'menu_recipes', 'meal_plan_weeks', 'meal_plan_approvals', 'meal_plan_suggestions', '__drizzle_migrations'];
     const before = await Promise.all(tables.map(table => db.all(`SELECT * FROM ${table}`)));
-    await assert.rejects(openDatabase(fixture.url), /Storage unavailable/);
+    await assert.rejects(openDatabase(fixture.url, { ownerTooling: true }), /Storage unavailable/);
     await migrateDatabase(fixture.url); await migrateDatabase(fixture.url);
     for (const [index, table] of tables.entries()) {
       const rows = await db.all(`SELECT * FROM ${table}${table === '__drizzle_migrations' ? ' WHERE id<4 ORDER BY id' : ''}`);
@@ -50,7 +51,7 @@ test('main four-migration data/history upgrades additively to curation without c
     }
     assert.deepEqual(await db.all('SELECT * FROM menu_recipe_curations'), []);
     assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n, 5);
-    const runtime = await openDatabase(fixture.url); await runtime.close();
+    const runtime = await openDatabase(fixture.url, { ownerTooling: true }); await runtime.close();
   } finally { await db.close(); await fixture.cleanup(); }
 });
 

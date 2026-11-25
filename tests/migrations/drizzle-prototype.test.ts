@@ -25,8 +25,8 @@ test('pinned Drizzle migrator skips older independent work and does not detect t
     const journal = async (entries: { idx: number; when: number; tag: string }[]) => {
       await writeFile(join(directory, 'meta/_journal.json'), JSON.stringify({ version: '7', dialect: 'postgresql', entries: entries.map(row => ({ ...row, version: '7', breakpoints: true })) }));
     };
-    await writeFile(join(directory, 'later.sql'), 'CREATE TABLE prototype_later (id integer PRIMARY KEY);');
-    await writeFile(join(directory, 'earlier.sql'), 'CREATE TABLE prototype_earlier (id integer PRIMARY KEY);');
+    await writeFile(join(directory, 'later.sql'), 'CREATE TABLE public.prototype_later (id integer PRIMARY KEY);');
+    await writeFile(join(directory, 'earlier.sql'), 'CREATE TABLE public.prototype_earlier (id integer PRIMARY KEY);');
     await journal([{ idx: 0, when: 2000, tag: 'later' }]);
     const db = adapter.drizzle(client);
     await migrator.migrate(db, { migrationsFolder: directory, migrationsSchema: 'prototype_history' });
