@@ -125,9 +125,6 @@ intent/recipe-classification/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0188 orchestrator -> product-manager handoff: Capture saved recipe classification intent
-- orchestrator-0189 orchestrator -> architect handoff: Design saved recipe classification
-- orchestrator-0190 orchestrator -> reviewer handoff: Review recipe classification design and plan
 - orchestrator-0191 orchestrator -> senior-developer handoff: Implement independently approved recipe classification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -149,7 +146,6 @@ intent/recipe-classification/intent.md
 - reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
 - reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
 - reviewer-0061 reviewer -> orchestrator review: Final Brave source e14feec approved after both corrections
-- reviewer-0065 reviewer -> architect review: Correct category grants and plan row projections
 - security-researcher-0031 security-researcher -> orchestrator review: Login session expiration local security approval
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
