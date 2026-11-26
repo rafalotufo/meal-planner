@@ -17,9 +17,9 @@ intent/weekly-plan-scheduler/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (intent/weekly-plan-scheduler/hosted-target-correction-production-result.md)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (weekly-plan-scheduler-hosted-target-correction-implementation)
 
@@ -63,6 +63,7 @@ intent/weekly-plan-scheduler/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
+- ceo-0076 ceo -> orchestrator decision: Approve corrected f838 source staging gaps merge and fresh Production attempt
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -124,6 +125,7 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
+- orchestrator-0180 orchestrator -> senior-developer handoff: Execute fresh owner-approved f838 corrected scheduler release
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

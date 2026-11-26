@@ -24,7 +24,7 @@ nodes:
     artifact: weekly-plan-scheduler-hosted-target-correction-implementation
     gate: code_owner_approve
     status: pending
-    done_status: not_started
+    done_status: merged
   staging_acceptance:
     stage: deploy
     artifact: intent/weekly-plan-scheduler/hosted-target-correction-staging.md
