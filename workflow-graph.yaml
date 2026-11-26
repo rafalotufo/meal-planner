@@ -27,13 +27,13 @@ nodes:
     done_status: merged
   staging_acceptance:
     stage: deploy
-    artifact: intent/weekly-plan-scheduler/staging-result.md
+    artifact: intent/weekly-plan-scheduler/staging-validation.md
     gate: staging_acceptance
     status: not_started
     done_status: accepted
   release:
     stage: deploy
-    artifact: intent/weekly-plan-scheduler/production-release.md
+    artifact: intent/weekly-plan-scheduler/release-preparation.md
     gate: release_authorization
     status: not_started
     done_status: done

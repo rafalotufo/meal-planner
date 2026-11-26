@@ -2,7 +2,9 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Ready for independent full design/security review
+- Status: Approved
+- Independent approval: `org/reviews/design-weekly-plan-scheduler-001.md`;
+  `org/reviews/security-weekly-plan-scheduler-design-001.md`
 - Owner amendment: Wednesday09:00 America/Toronto; Hobby delay within one hour
   accepted in the active chat on2026-11-26
 - Input: accepted sibling `intent.md`; PM review
