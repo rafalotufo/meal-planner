@@ -139,8 +139,13 @@ design departures require independent review before implementation.
    auto-veggie and pending/failed entries plus correction/reload/error assertions;
    observe a failing missing-control assertion. Add the small category control,
    category display for every state and server-derived Google edit capability.
-   Validate returned entry before refresh. Test keyboard change/save, pending and
-   sanitized failure, no horizontal overflow at320/1440, persistence after reload,
+   Apply the owner amendment: native select onChange immediately saves; no Save
+   category or retry button/form. Validate returned entry before refresh. Test
+   real native keyboard type-to-select auto-save, disabled pending selection and
+   sanitized failure reset to the stored category. Register a failed response
+   before changing selection, then choose the desired category again to retry.
+   Assert no Save category button exists. Verify no horizontal overflow
+   at320/1440, persistence after reload,
    duplicate preservation, removal and polling coexistence. Use fixture-owned
    DB/server/profile, no production bypass or paid keys. Save feature-prefixed
    screenshots and inspect them; preserve earlier screenshots.
