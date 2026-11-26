@@ -8,7 +8,7 @@
 - Owner amendment: Wednesday09:00ET with Hobby delay within one hour accepted
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`, `design-notes.md`
 
-## Changed-file manifest
+## Files that change
 
 Implementation is bounded to the following paths; update this manifest and get
 review of material departures before expanding the change.
