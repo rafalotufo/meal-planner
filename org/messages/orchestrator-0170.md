@@ -7,10 +7,12 @@ subject: Design hosted weekly scheduler within owner staging scope
 artifact: intent/weekly-plan-scheduler/intent.md
 requires_response: false
 in_reply_to: null
-status: open
+status: closed
 severity: null
 blocking: false
 created_at: "2026-11-26T16:05:05Z"
+closed_by: orchestrator
+closed_evidence: intent/weekly-plan-scheduler/spec.md
 ---
 
 PM accepted c2b2545. Verify Hobby timing and native service host; owner timing selection pending. Write bounded spec/plan and obtain independent design/security reviews before implementation. Preview has one real Google family, zero menu recipes/plans; do not fabricate hosted creation evidence.

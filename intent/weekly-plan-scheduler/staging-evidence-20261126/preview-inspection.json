@@ -1,0 +1,30 @@
+{
+  "id": "dpl_773UDFo49UGV7yyzG4d5QdF49tRb",
+  "readyState": "READY",
+  "target": null,
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "sourceSha": "7fe1531d07f2fb6028c98e4f38b73d20f805e5fa",
+  "profileSha256": "0e9720bd59672d42d883cd024fc227e3643ebe88bfff42039ce899e0027cf7a6",
+  "gitCommitRef": "staging",
+  "nodeVersion": "24.x",
+  "groups": [
+    {
+      "outputCount": 5,
+      "firstKeys": [
+        "path",
+        "functionName"
+      ]
+    }
+  ],
+  "scheduler": [],
+  "cronDefinitions": [
+    {
+      "path": "/api/plans/generate",
+      "schedule": "0 13 * * 3"
+    },
+    {
+      "path": "/api/plans/generate",
+      "schedule": "0 14 * * 3"
+    }
+  ]
+}

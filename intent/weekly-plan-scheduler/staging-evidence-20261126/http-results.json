@@ -1,0 +1,126 @@
+{
+  "capturedAt": "2026-11-26T16:33:51.148Z",
+  "origin": "https://meal-planner-staging-rafalotufos.vercel.app",
+  "proof": "deployed-handler-actual-Thursday-offday",
+  "checks": [
+    {
+      "name": "missing-service-credential",
+      "status": 401,
+      "expected": 401,
+      "elapsedMs": 652,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "wrong-service-credential",
+      "status": 401,
+      "expected": 401,
+      "elapsedMs": 116,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "coalesced-service-credential",
+      "status": 401,
+      "expected": 401,
+      "elapsedMs": 124,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "protected-HEAD",
+      "status": 405,
+      "expected": 405,
+      "elapsedMs": 94,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "protected-POST",
+      "status": 405,
+      "expected": 405,
+      "elapsedMs": 72,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "protected-OPTIONS",
+      "status": 405,
+      "expected": 405,
+      "elapsedMs": 126,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "protected-PUT",
+      "status": 405,
+      "expected": 405,
+      "elapsedMs": 116,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "protected-PATCH",
+      "status": 405,
+      "expected": 405,
+      "elapsedMs": 102,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "protected-DELETE",
+      "status": 405,
+      "expected": 405,
+      "elapsedMs": 72,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "reject-query-clock-override",
+      "status": 400,
+      "expected": 400,
+      "elapsedMs": 73,
+      "securityHeaders": true,
+      "pass": true
+    },
+    {
+      "name": "authorized-actual-thursday-skip",
+      "status": 200,
+      "expected": 200,
+      "elapsedMs": 107,
+      "securityHeaders": true,
+      "pass": true,
+      "result": {
+        "skipped": true,
+        "created": 0,
+        "existing": 0,
+        "empty": 0,
+        "ineligible": 0
+      }
+    },
+    {
+      "name": "repeat-actual-thursday-skip",
+      "status": 200,
+      "expected": 200,
+      "elapsedMs": 72,
+      "securityHeaders": true,
+      "pass": true,
+      "result": {
+        "skipped": true,
+        "created": 0,
+        "existing": 0,
+        "empty": 0,
+        "ineligible": 0
+      }
+    },
+    {
+      "name": "ordinary-session-still-protected",
+      "status": 401,
+      "expected": 401,
+      "elapsedMs": 89,
+      "securityHeaders": true,
+      "pass": true
+    }
+  ],
+  "pass": true
+}

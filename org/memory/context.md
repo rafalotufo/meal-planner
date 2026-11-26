@@ -8,16 +8,16 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 3
-- phase: implement
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
-- architect: busy (intent/weekly-plan-scheduler/plan.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/weekly-plan-scheduler/intent.md)
+- orchestrator: busy (intent/weekly-plan-scheduler/release-preparation.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -123,11 +123,7 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
-- orchestrator-0170 orchestrator -> architect handoff: Design hosted weekly scheduler within owner staging scope
-- orchestrator-0171 orchestrator -> security-researcher handoff: Assess scheduler machine boundary design
-- orchestrator-0172 orchestrator -> architect decision: Finalize accepted Wednesday scheduler design
-- orchestrator-0173 orchestrator -> reviewer handoff: Review fixed Wednesday scheduler spec and plan
-- orchestrator-0174 orchestrator -> senior-developer handoff: Implement approved Wednesday scheduler
+- orchestrator-0175 orchestrator -> ceo handoff: Wednesday scheduler staged and ready for bounded release approval
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -158,11 +154,11 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Recent decisions
 
-- mem-0166 orchestrator: Currentowner requests verification mainmerge andnewProductionrelease. Maincd60divergedwithreviewedhosted fixes; integrationrequired. Bothimmutableauditbranches preserved under agent-verification-before-main-integration-20261125, canonicalmainledgerprefixunchanged,3existingfeatureownerapprovals append-transcribed withoriginalevidence. No new/backdatedapproval; exact-sourcefuturestaging/releasegatespreserved. (intent/agent-deployment-verification/main-audit-reconciliation.md)
-- mem-0169 orchestrator: Owner requested one-month login expiration through org workflow. PM accepted fixed30day Google sessions without renewal; independent reviewer approved spec/plan. Preserve one-hour provider account data, existing issued expiries and short staging credentials. Local implementation/isolated verification only; human merge and release gates remain. (intent/login-session-expiration/spec.md)
-- mem-0170 orchestrator: Login-session-expiration implementation851c255 passes lint/typecheck/build,189 Node regressions,7 Python tests and Chrome390/1440. Independent code and security reviews approved with no findings. Local scope complete; human merge/release pending, no hosted/deployment effects. (intent/login-session-expiration/verification.md)
-- mem-0171 orchestrator: Owner-approved login expiration local main fast-forward from4f25732 to187bf43 completed without conflicts; reviewed runtime851c255 unchanged. Completion audit also merged; no push/restart/deployment/hosted effects, release remains gated. (intent/login-session-expiration/main-merge-result.md)
-- mem-0173 ceo: Owner approved local main merge of Brave parallel search and eight-second timeout. Integrated source73bb7f3 preserves main1f7cf8b; combined verification and independent review precede final main fast-forward. No push/deployment/paid or hosted changes. (org/messages/ceo-0072.md)
+- mem-0176 memory-keeper: Owner selected Wednesday09ET with Hobby hour delay; no paid upgrade. (intent/weekly-plan-scheduler/intent.md)
+- mem-0177 memory-keeper: Retain reviewed machine Host/Bearer boundary,60s deadline and bounded cleanup. (intent/weekly-plan-scheduler/spec.md)
+- mem-0178 memory-keeper: Preserve plans, schema and synthetic exclusion; Preview probe always rolls back. (intent/weekly-plan-scheduler/spec.md)
+- mem-0179 memory-keeper: Release source remains7fe1531; use attributed Preview773U evidence and named gaps. (intent/weekly-plan-scheduler/staging-validation.md)
+- mem-0180 memory-keeper: Owner staging acceptance, human merge and Production activation remain pending. (intent/weekly-plan-scheduler/release-preparation.md)
 
 ## Constraints
 
@@ -173,14 +169,17 @@ intent/weekly-plan-scheduler/intent.md
 - intent/weekly-plan-scheduler/intent.md (505246367d070f066cbb122f0c1eb93f8390256248bc2b047f36d8d5cef97fba)
 - intent/weekly-plan-scheduler/design-notes.md (45318482f7d7ebb1bf0465011f8f630905fedd8a169daf6a776c215352c85202)
 - org/reviews/design-weekly-plan-scheduler-001.md (a73d960a63d93f4ddfbdf82c09c9cbc456fa1f444cc415d0666b9e0af12ff8f7)
+- intent/weekly-plan-scheduler/verification.md (997f75e35edb58d8a51c939adb0339ed2953352c8cf0f2dbddeb0380dab03f39)
+- org/reviews/security-weekly-plan-scheduler-code-001.md (27e5a2b52b41aaff7e6e55ca6a5aca9cb622670a1ee538477f67dd0039154e4d)
+- org/reviews/code-weekly-plan-scheduler-001.md (aa13efa484368a91c2ab502ae82dca00cbc7e9b2b2feba54c51b2fe7db1c82f1)
 
 ## Next action
 
-reviewer:review_design_and_plan
+reviewer:review
 
 ## Last digest source
 
-- mem-0174 from intent/brave-parallel-recipe-search/main-merge-result.md
+- mem-0180 from intent/weekly-plan-scheduler/release-preparation.md
 
 <!-- machine:end -->
 

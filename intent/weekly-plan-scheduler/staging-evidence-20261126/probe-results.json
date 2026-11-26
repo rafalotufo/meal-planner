@@ -1,0 +1,71 @@
+{
+  "probe": "weekly-plan-scheduler",
+  "target": "recorded-preview",
+  "rollbackOnly": true,
+  "created": true,
+  "draftPreserved": true,
+  "finalPreserved": true,
+  "preserved": true,
+  "before": {
+    "families": {
+      "count": 1,
+      "hash": "29b735bfac89c07e26b857c909982294"
+    },
+    "app_users": {
+      "count": 1,
+      "hash": "ee7788de4738c929555ab2dcaf061332"
+    },
+    "menu_recipes": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "menu_recipe_curations": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "meal_plan_weeks": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "meal_plan_approvals": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "meal_plan_suggestions": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  },
+  "after": {
+    "families": {
+      "count": 1,
+      "hash": "29b735bfac89c07e26b857c909982294"
+    },
+    "app_users": {
+      "count": 1,
+      "hash": "ee7788de4738c929555ab2dcaf061332"
+    },
+    "menu_recipes": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "menu_recipe_curations": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "meal_plan_weeks": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "meal_plan_approvals": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "meal_plan_suggestions": {
+      "count": 0,
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    }
+  },
+  "sourceSha": "7fe1531d07f2fb6028c98e4f38b73d20f805e5fa",
+  "capturedAt": "2026-11-26T16:30:23.970Z"
+}
