@@ -1,0 +1,14 @@
+{
+  "capturedAt": "2026-11-26T17:39:01.250045+00:00",
+  "deploymentId": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+  "query": "level:error OR level:fatal",
+  "types": [
+    "summary"
+  ],
+  "records": 0,
+  "summary": [
+    {
+      "type": "summary"
+    }
+  ]
+}

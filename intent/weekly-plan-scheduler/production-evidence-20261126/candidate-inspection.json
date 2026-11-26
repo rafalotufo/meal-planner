@@ -1,0 +1,77 @@
+{
+  "id": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+  "readyState": "READY",
+  "target": "production",
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "sourceSha": "7fe1531d07f2fb6028c98e4f38b73d20f805e5fa",
+  "releaseSourceSha": "7fe1531d07f2fb6028c98e4f38b73d20f805e5fa",
+  "acceptedPreviewId": "dpl_773UDFo49UGV7yyzG4d5QdF49tRb",
+  "profileSha256": "0e9720bd59672d42d883cd024fc227e3643ebe88bfff42039ce899e0027cf7a6",
+  "nodeVersion": "24.x",
+  "crons": [
+    {
+      "path": "/api/plans/generate",
+      "schedule": "0 13 * * 3"
+    },
+    {
+      "path": "/api/plans/generate",
+      "schedule": "0 14 * * 3"
+    }
+  ],
+  "functionConfigs": {
+    "app/api/plans/generate/route.ts": {
+      "supportsCancellation": true
+    },
+    "app/api/recipes/search/route.ts": {
+      "supportsCancellation": true
+    }
+  },
+  "envNames": [
+    "VERCEL_URL",
+    "VERCEL_GIT_PREVIOUS_SHA",
+    "VERCEL_GIT_COMMIT_REF",
+    "VERCEL_GIT_COMMIT_SHA",
+    "VERCEL_GIT_COMMIT_MESSAGE",
+    "VERCEL_GIT_COMMIT_AUTHOR_LOGIN",
+    "VERCEL_GIT_COMMIT_AUTHOR_NAME",
+    "VERCEL_GIT_PULL_REQUEST_ID",
+    "VERCEL_DEPLOYMENT_ID",
+    "VERCEL_DEPLOYMENT_KEY",
+    "VERCEL_FLUID",
+    "BETTER_AUTH_SECRET",
+    "BETTER_AUTH_URL",
+    "BRAVE_SEARCH_API_KEY",
+    "CRON_SECRET",
+    "DATABASE_URL",
+    "ENABLE_EXPERIMENTAL_COREPACK",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "MEAL_PLAN_DRAFT_DAY",
+    "MEAL_PLAN_SCHEDULER_ENABLED",
+    "MEAL_PLAN_SCHEDULER_ORIGIN",
+    "NX_DAEMON",
+    "OPENAI_API_KEY",
+    "OPENAI_RECIPE_MODEL",
+    "RECIPE_SEARCH_PROVIDER",
+    "TURBO_CACHE",
+    "TURBO_DOWNLOAD_LOCAL_ENABLED",
+    "TURBO_PLATFORM_ENV",
+    "TURBO_REMOTE_ONLY",
+    "TURBO_RUN_SUMMARY",
+    "VERCEL",
+    "VERCEL_AUTOMATION_BYPASS_SECRET",
+    "VERCEL_CACHE_HANDLER_MEMORY_CACHE",
+    "VERCEL_CONNECT_GUARD",
+    "VERCEL_ENV",
+    "VERCEL_GIT_PROVIDER",
+    "VERCEL_GIT_REPO_ID",
+    "VERCEL_GIT_REPO_OWNER",
+    "VERCEL_GIT_REPO_SLUG",
+    "VERCEL_PROJECT_ID",
+    "VERCEL_PROJECT_NAME",
+    "VERCEL_PROJECT_PRODUCTION_URL",
+    "VERCEL_TARGET_ENV",
+    "VERCEL_VDC_REMOTE_CACHE_ENABLED"
+  ],
+  "errorCode": null
+}

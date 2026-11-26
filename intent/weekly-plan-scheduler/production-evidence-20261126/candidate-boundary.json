@@ -1,0 +1,17 @@
+{
+  "capturedAt": "2026-11-26T17:33:21.095Z",
+  "deploymentId": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+  "scope": "candidate-only-platform-access",
+  "smoke": {
+    "mode": "candidate",
+    "status": 421,
+    "elapsedMs": 752,
+    "pass": true
+  },
+  "staticAsset": {
+    "path": "/icon.svg",
+    "status": 421,
+    "noStore": true
+  },
+  "pass": true
+}

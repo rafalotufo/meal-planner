@@ -1,0 +1,17 @@
+{
+  "id": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+  "target": "production",
+  "readyState": "READY",
+  "routes": [
+    {
+      "path": "api/plans/generate",
+      "runtime": "nodejs24.x",
+      "timeout": 90
+    },
+    {
+      "path": "api/recipes/search",
+      "runtime": "nodejs24.x",
+      "timeout": 90
+    }
+  ]
+}

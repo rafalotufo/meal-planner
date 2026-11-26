@@ -1,0 +1,29 @@
+{
+  "capturedAt": "2026-11-26T17:36:31.429789+00:00",
+  "productionDeploymentId": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+  "sourceSha": "7fe1531d07f2fb6028c98e4f38b73d20f805e5fa",
+  "providerAliasAssignedAt": "2026-11-26T17:36:04.941000+00:00",
+  "observationDeadline": "2026-11-26T17:51:04.941000+00:00",
+  "crons": {
+    "enabledAt": 1795457411114,
+    "disabledAt": null,
+    "updatedAt": 1795714563479,
+    "deploymentId": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+    "definitions": [
+      {
+        "host": "meal-planner-8judu2h75-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 13 * * 3"
+      },
+      {
+        "host": "meal-planner-8judu2h75-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 14 * * 3"
+      }
+    ]
+  },
+  "automaticAliases": [
+    "meal-planner-rafalotufos-projects.vercel.app"
+  ],
+  "paused": false
+}

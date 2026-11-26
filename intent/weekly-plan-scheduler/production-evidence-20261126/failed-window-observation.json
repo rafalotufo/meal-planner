@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-11-26T17:40:03.160Z",
+  "deploymentId": "dpl_Ed9cFJnmhMyUPc5QK1NhxzxkfESJ",
+  "since": "2026-11-26T17:36:04.941Z",
+  "observationEndedByAuthorizedRollback": true,
+  "checks": [
+    {
+      "source": "runtime",
+      "query": "level:error OR level:fatal",
+      "exitCode": 0,
+      "records": 0,
+      "hasSummary": true
+    },
+    {
+      "source": "requests",
+      "query": "httpStatus >= 500",
+      "exitCode": 0,
+      "records": 0,
+      "hasSummary": true
+    }
+  ]
+}
