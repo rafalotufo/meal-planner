@@ -15,7 +15,7 @@ intent/recipe-classification/intent.md
 
 ## Agents
 
-- architect: busy (intent/recipe-classification/plan.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/recipe-classification/intent.md)
 - product-manager: idle (unassigned)

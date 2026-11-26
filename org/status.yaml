@@ -2,7 +2,7 @@ version: 1
 agents:
   orchestrator: { status: busy, assignment: intent/recipe-classification/intent.md, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted recipe classification intent b73ecf5 }
-  architect: { status: busy, assignment: intent/recipe-classification/plan.md, last_report: Spec and plan 05613de ready for independent review }
+  architect: { status: idle, assignment: null, last_report: Corrected design6c0933e approvedd891e35 }
   senior-developer: { status: busy, assignment: intent/recipe-classification/plan.md, last_report: Implementation e16c6e9 final approvedc387147; required checks pass }
   security-researcher: { status: idle, assignment: null, last_report: Security approved e16c6e9 in794bd03; no findings; independent image policy and secret checks pass }
   reviewer: { status: idle, assignment: null, last_report: "review design-recipe-classification-002: approved" }
