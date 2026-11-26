@@ -119,3 +119,30 @@ and the staging/release procedure for independent review before implementation.
 Material uncertainty is schedule delivery precision on the existing platform
 plan and the available eligible staging dataset. Resolve these explicitly;
 neither justifies fabricated evidence or an authentication bypass.
+
+## Accepted owner amendment — Wednesday and Hobby delivery window
+
+On 2026-11-26 Rafael selected: “Use Vercel Hobby cron accept 1 hour delay.
+Lets run the plan on Wednesday 9 am instead.” The PM accepts this explicit
+scope correction for Design. It supersedes the requested Thursday trigger and
+any earlier exact-minute delivery expectation in this intent. The Thursday
+incident evidence above remains historical.
+
+The hosted target is now **Wednesday 09:00 America/Toronto**, with Vercel Hobby's
+accepted delivery window of **09:00–10:00 Eastern time**, following daylight
+saving. Use the existing platform without a paid upgrade. Design must still
+state missed-delivery/retry limits honestly and verify the concrete schedule
+expressions against the platform's UTC behavior.
+
+Hosted configuration sets `MEAL_PLAN_DRAFT_DAY=Wednesday`; the plan page's
+existing server-owned schedule display follows that setting. The original
+CLI's configurable weekday and Thursday default may remain for compatibility;
+the hosted handler must fail closed on configuration inconsistent with its
+reviewed Wednesday trigger.
+
+Staging validation on today's actual Thursday can prove authenticated off-day
+skip, guards, configuration and packaging. It cannot prove a live Wednesday
+due execution. Any due-storage evidence uses a separately reviewed rollback-only
+probe or owned local temporary database; preserve no client/runtime clock
+override and label this evidence distinctly. Actual unattended delivery remains
+unobserved until an authorized activation and its scheduled window.

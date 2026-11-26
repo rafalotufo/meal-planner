@@ -54,3 +54,18 @@ schema or authority expansion returns to the owner.
 
 This is a PM scope acceptance, not spec/plan approval, implementation review,
 staging acceptance, human merge approval or Production release authorization.
+
+## Owner amendment accepted — 2026-11-26
+
+Rafael explicitly selected Vercel Hobby cron with up to one hour of delivery
+delay and changed the intended day to Wednesday at 09:00 Eastern time. The
+PM accepts the amendment appended to the intent: hosted delivery is Wednesday
+09:00–10:00 America/Toronto, with DST preserved and no paid upgrade. The earlier
+Thursday outcome and concern about exact-minute Hobby delivery are superseded
+by this concrete owner choice; the incident findings remain historical.
+
+Set hosted `MEAL_PLAN_DRAFT_DAY=Wednesday` so the UI describes the actual
+reviewed schedule. Preserve CLI compatibility where possible. Today's Thursday
+staging request is off-day evidence, not a due-run observation; due-storage
+coverage must be attributed to the approved rollback-only or local procedure.
+Production activation and release authorization remain pending.
