@@ -4,24 +4,24 @@
 
 ## Goal
 
-intent/weekly-plan-scheduler/intent.md
+intent/plan-recipe-thumbnails/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 9
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/plan-recipe-thumbnails/plan.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (weekly-plan-scheduler-hosted-target-correction-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -124,6 +124,8 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
+- orchestrator-0181 orchestrator -> product-manager handoff: Capture plan recipe thumbnail intent
+- orchestrator-0182 orchestrator -> architect handoff: Design plan recipe thumbnails
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -154,11 +156,11 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Recent decisions
 
-- mem-0178 memory-keeper: Preserve plans, schema and synthetic exclusion; Preview probe always rolls back. (intent/weekly-plan-scheduler/spec.md)
 - mem-0179 memory-keeper: Release source remains7fe1531; use attributed Preview773U evidence and named gaps. (intent/weekly-plan-scheduler/staging-validation.md)
 - mem-0180 memory-keeper: Owner staging acceptance, human merge and Production activation remain pending. (intent/weekly-plan-scheduler/release-preparation.md)
 - mem-0181 ceo: Owner Approved exact7fe/773U staging gaps, merge and one scoped Production release; committed record weekly-scheduler-production-20261126 expires18:26Z. No standing future authority. (intent/weekly-plan-scheduler/production-authorization.md)
 - mem-0184 ceo: OwnerYes accepts correctedf838/12CQ/profile2da8d5 gaps, merge and freshoneattempt Productionrelease; newrecordexpires19:11Z. Generatedservice401 and registeredhost==ownURL mandatory;7feattemptstaysconsumed. (intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md)
+- mem-0187 orchestrator: Start plan recipe thumbnails org workflow from owner request. Prior scheduler graph/config/state/history archived at org/loop/archive/weekly-plan-scheduler-before-plan-recipe-thumbnails; old release evidence and ledger preserved. PM accepted bounded existing-image presentation scope; no merge or hosted authority. (intent/plan-recipe-thumbnails/intent.md)
 
 ## Constraints
 
@@ -166,20 +168,15 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-weekly-plan-scheduler-hosted-correction-001.md (bfc11d69b08bd1f6f8da4eb7aa344c12620997675578a187a04caedf0bfd8784)
-- intent/weekly-plan-scheduler/hosted-target-correction.md (8ef0f78aed891785d0c2e1aac1716cbcaf76ebe31cecea0448ed6720ba0f9f11)
-- org/reviews/design-weekly-plan-scheduler-hosted-correction-001.md (c06e90a0d94d3c5056777eb8981bdef237eed1aaee3222c56a3436fa13e762bb)
-- intent/weekly-plan-scheduler/hosted-target-correction-verification.md (2dbc3d434777ab9cd6ec16d6727448414d524254ab360a0e8e2644025a528d34)
-- org/reviews/security-weekly-plan-scheduler-hosted-correction-code-001.md (a5a06ff35bf8ed1ead12660c1bd80bd0e1065620c9c30bbe7156951287b8df54)
-- org/reviews/code-weekly-plan-scheduler-hosted-correction-001.md (2cccb44064e46de11b6e99c338b279d01697b24a1b19f44d9e5b054914d80830)
+- intent/plan-recipe-thumbnails/intent.md (a9a8eb2669621a02e960b6938b4f5c47d489a5cf09ffe21f57f8beb671cb82a3)
 
 ## Next action
 
-reviewer:review
+product-manager:review_intent
 
 ## Last digest source
 
-- mem-0186 from intent/weekly-plan-scheduler/hosted-target-correction-production-result.md
+- mem-0187 from intent/plan-recipe-thumbnails/intent.md
 
 <!-- machine:end -->
 
