@@ -1,0 +1,21 @@
+{
+  "id": "dpl_12CQHFyWKb3HTPTUqAJWY9HRig1P",
+  "readyState": "READY",
+  "target": null,
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "url": "meal-planner-o3lc8uo2z-rafalotufos-projects.vercel.app",
+  "sourceSha": "f8383f3dbfc14b4ab3b2cfdd3c648d6abc3d06a9",
+  "profileSha256": "2da8d5aa298bb44d9f3a6b5666c1800936ed23e5f299840b3a1cc0e4ebc71935",
+  "gitCommitRef": "staging",
+  "nodeVersion": "24.x",
+  "functions": {
+    "app/api/plans/generate/route.ts": {
+      "supportsCancellation": true
+    },
+    "app/api/recipes/search/route.ts": {
+      "supportsCancellation": true
+    }
+  },
+  "providerKeysPresent": [],
+  "errorCode": null
+}

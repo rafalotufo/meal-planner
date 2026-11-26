@@ -1,0 +1,7 @@
+{
+  "targetedRevocationStatus": 404,
+  "alreadyAbsent": true,
+  "freshAccessDenied": true,
+  "freshStatus": 302,
+  "proof": "targeted cleanup API returned link-not-found; fresh old-link request denied"
+}

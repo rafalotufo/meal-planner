@@ -1,0 +1,23 @@
+{
+  "configurationScope": "single-deployment-env",
+  "database": "withered-night-50194672/br-dark-term-bbqhnxi5/meal_planner",
+  "databaseRole": "mp_runtime",
+  "databaseTls": "verify-full",
+  "day": "Wednesday",
+  "deadlineSeconds": 60,
+  "firstDeliveryWindow": "09:00-09:59 America/Toronto",
+  "maxDurationSeconds": 90,
+  "node": "24.x",
+  "origin": "https://meal-planner-staging-rafalotufos.vercel.app",
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "providerKeyAbsent": true,
+  "releaseSourceSha": "f8383f3dbfc14b4ab3b2cfdd3c648d6abc3d06a9",
+  "schedulerEnabled": true,
+  "schedulerHostPolicy": "exact stable service Host or validated own platform VERCEL_URL; no incoming wildcard",
+  "schedulerOrigin": "https://meal-planner-staging-rafalotufos.vercel.app",
+  "supportsCancellation": true,
+  "systemUrlOverride": false,
+  "target": "preview",
+  "verificationManifest": "disabled",
+  "version": 2
+}

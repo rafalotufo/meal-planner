@@ -23,19 +23,19 @@ nodes:
     stage: build
     artifact: weekly-plan-scheduler-hosted-target-correction-implementation
     gate: code_owner_approve
-    status: not_started
+    status: pending
     done_status: not_started
   staging_acceptance:
     stage: deploy
     artifact: intent/weekly-plan-scheduler/hosted-target-correction-staging.md
     gate: staging_acceptance
-    status: not_started
+    status: pending
     done_status: accepted
   release:
     stage: deploy
     artifact: intent/weekly-plan-scheduler/hosted-target-correction-release.md
     gate: release_authorization
-    status: not_started
+    status: pending
     done_status: done
 edges:
   - {from: intent, to: spec, trigger: acceptance}

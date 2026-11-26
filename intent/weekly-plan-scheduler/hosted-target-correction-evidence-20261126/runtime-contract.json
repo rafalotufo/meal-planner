@@ -1,0 +1,27 @@
+{
+  "id": "dpl_12CQHFyWKb3HTPTUqAJWY9HRig1P",
+  "target": "preview",
+  "readyState": "READY",
+  "routes": [
+    {
+      "path": "api/plans/generate",
+      "runtime": "nodejs24.x",
+      "timeout": 90
+    },
+    {
+      "path": "api/plans/generate.rsc",
+      "runtime": "nodejs24.x",
+      "timeout": 90
+    },
+    {
+      "path": "api/recipes/search",
+      "runtime": "nodejs24.x",
+      "timeout": 90
+    },
+    {
+      "path": "api/recipes/search.rsc",
+      "runtime": "nodejs24.x",
+      "timeout": 90
+    }
+  ]
+}

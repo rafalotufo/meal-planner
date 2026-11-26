@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-11-26T17:59:39.880562+00:00",
+  "productionDeploymentId": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo",
+  "productionSource": "4fe9097657df1c641d511a276c81ec3ae118f8ee",
+  "paused": false,
+  "activeCronDefinitions": [],
+  "vercelUrlProjectOverrides": [],
+  "productionSchedulerKeys": [
+    {
+      "key": "CRON_SECRET",
+      "type": "sensitive"
+    },
+    {
+      "key": "MEAL_PLAN_SCHEDULER_ENABLED",
+      "type": "encrypted"
+    },
+    {
+      "key": "MEAL_PLAN_DRAFT_DAY",
+      "type": "encrypted"
+    },
+    {
+      "key": "MEAL_PLAN_SCHEDULER_ORIGIN",
+      "type": "encrypted"
+    }
+  ]
+}

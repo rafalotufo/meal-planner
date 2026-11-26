@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: intent/weekly-plan-scheduler/release-preparation.md, last_report: Source7fe1531 and isolatedPreview773U validated;13HTTPS+rollback probe pass;Production unchanged;owner staging/merge/release gates pending }
+  orchestrator: { status: idle, assignment: null, last_report: 7fe release safely rolled backGL3g; correctedf838 staged12CQ with30both-originchecks; freshownergates pending }
   product-manager: { status: idle, assignment: null, last_report: Accepted scheduler intent c2b2545 }
   architect: { status: idle, assignment: null, last_report: Rollback-only probe8cc2760 implemented and strict checked; no hosted invocation }
-  senior-developer: { status: busy, assignment: weekly-plan-scheduler-implementation, last_report: "Reviewed source7fe1531 ready:334Node and7Python tests; realChrome320/1440; finalbuild/lint/typecheck pass" }
-  security-researcher: { status: idle, assignment: null, last_report: Final source7fe1531 security approved02a34db;14focused and3probe checks pass; no blocking findings }
-  reviewer: { status: idle, assignment: null, last_report: "review weekly-scheduler-production-completion-001: approved" }
+  senior-developer: { status: busy, assignment: weekly-plan-scheduler-hosted-target-correction-implementation, last_report: Corrective sourcef8383f3 verified337Node7PythonChrome; waiting both-origin staging and freshownerrelease }
+  security-researcher: { status: idle, assignment: null, last_report: Corrective sourcef8383f3 security approved19b3ced;7independenthosttests pass; noProd authority }
+  reviewer: { status: idle, assignment: null, last_report: "review weekly-plan-scheduler-hosted-correction-readiness-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -130,3 +130,5 @@ review_queue:
   - { id: code-weekly-plan-scheduler-001, artifact: weekly-plan-scheduler-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-plan-scheduler-release-readiness-001, artifact: intent/weekly-plan-scheduler/release-preparation.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-scheduler-production-completion-001, artifact: intent/weekly-plan-scheduler/production-release-result.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: code-weekly-plan-scheduler-hosted-correction-001, artifact: weekly-plan-scheduler-hosted-target-correction-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-plan-scheduler-hosted-correction-readiness-001, artifact: intent/weekly-plan-scheduler/hosted-target-correction-release.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

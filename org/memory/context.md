@@ -8,20 +8,20 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 3
-- phase: implement
-- stop_reason: None
+- status: solved
+- turn: 9
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/weekly-plan-scheduler/release-preparation.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (weekly-plan-scheduler-implementation)
+- senior-developer: busy (weekly-plan-scheduler-hosted-target-correction-implementation)
 
 ## Open messages
 
@@ -63,7 +63,6 @@ intent/weekly-plan-scheduler/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
-- ceo-0075 ceo -> orchestrator decision: Approve exact scheduler staging gaps merge and scoped Production release
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -124,10 +123,7 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
-- orchestrator-0175 orchestrator -> ceo handoff: Wednesday scheduler staged and ready for bounded release approval
-- orchestrator-0176 orchestrator -> senior-developer handoff: Execute owner-approved exact-source scheduler release
-- orchestrator-0177 orchestrator -> architect handoff: Correct registered cron deployment Host after safe Production rollback
-- orchestrator-0178 orchestrator -> senior-developer handoff: Implement independently approved exact own-deployment Host correction locally
+- orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -173,14 +169,17 @@ intent/weekly-plan-scheduler/intent.md
 - org/reviews/intent-weekly-plan-scheduler-hosted-correction-001.md (bfc11d69b08bd1f6f8da4eb7aa344c12620997675578a187a04caedf0bfd8784)
 - intent/weekly-plan-scheduler/hosted-target-correction.md (8ef0f78aed891785d0c2e1aac1716cbcaf76ebe31cecea0448ed6720ba0f9f11)
 - org/reviews/design-weekly-plan-scheduler-hosted-correction-001.md (c06e90a0d94d3c5056777eb8981bdef237eed1aaee3222c56a3436fa13e762bb)
+- intent/weekly-plan-scheduler/hosted-target-correction-verification.md (2dbc3d434777ab9cd6ec16d6727448414d524254ab360a0e8e2644025a528d34)
+- org/reviews/security-weekly-plan-scheduler-hosted-correction-code-001.md (a5a06ff35bf8ed1ead12660c1bd80bd0e1065620c9c30bbe7156951287b8df54)
+- org/reviews/code-weekly-plan-scheduler-hosted-correction-001.md (2cccb44064e46de11b6e99c338b279d01697b24a1b19f44d9e5b054914d80830)
 
 ## Next action
 
-reviewer:review_design_and_plan
+reviewer:review
 
 ## Last digest source
 
-- mem-0182 from intent/weekly-plan-scheduler/hosted-target-correction.md
+- mem-0183 from intent/weekly-plan-scheduler/hosted-target-correction-staging.md
 
 <!-- machine:end -->
 
