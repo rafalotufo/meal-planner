@@ -19,7 +19,7 @@ intent/weekly-plan-scheduler/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/weekly-plan-scheduler/hosted-target-correction-production-result.md)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (weekly-plan-scheduler-hosted-target-correction-implementation)
 
