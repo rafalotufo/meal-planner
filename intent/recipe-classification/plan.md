@@ -17,6 +17,8 @@ Application and native storage:
 - `lib/menu/validation.ts`
 - `lib/menu/store.ts`
 - `lib/menu/body.ts`
+- `lib/plans/generate.ts`
+- `lib/plans/store.ts`
 - `lib/db/schema.ts`
 - `drizzle/postgresql/6e36359b-9b16-4642-a487-e4e5411ce477.sql` (new)
 - `drizzle/postgresql/compatibility.json`
@@ -65,7 +67,9 @@ design departures require independent review before implementation.
    an owned disposable database. Preserve every prior SQL/hash/profile and the
    five-row legacy journal. Verify fresh migration, seven→eight upgrade retaining
    saved recipes/plans, null/false defaults, invalid enum/override rejection,
-   idempotence and restricted runtime grants. Add no generic generator to the
+   idempotence and restricted runtime grants: exactly the two new column UPDATE
+   grants via `applyRuntimeGrants`, category writes succeed while table-level
+   UPDATE and ownership/source/saved-at mutations remain denied. Add no generic generator to the
    runtime. Run focused category/menu validation/migration and migration suite.
    Checkpoint: new catalog is reproducible, prior data is unchanged, old profile
    is still evidence and runtime missing identity fails closed.
@@ -92,8 +96,12 @@ design departures require independent review before implementation.
    retry marker preservation, family isolation, revoked admission, verification
    edit denial and remove/no-resurrection. Implement row category propagation,
    insert, completion CASE and transaction-protected category-only mutation.
-   Test old and new plan/suggestion JSON reads and ensure correction leaves
-   historical snapshots unchanged. Run menu/plan/store regressions.
+   Add category to every current stored-menu projection in plan generation and
+   suggest/accept in `lib/plans/store.ts`, keeping eligibility/selection intact.
+   Test classified rows through real generation, suggestion and acceptance,
+   preserve their category in new snapshots, and test old/new plan/suggestion
+   JSON reads. Prove correction leaves historical snapshot bytes unchanged.
+   Run menu/plan/store regressions.
 
 5. **Bounded HTTP contract** (depends on4; medium).
    Add failing body and real HTTP tests for exact category query/body, malformed

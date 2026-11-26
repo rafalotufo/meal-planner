@@ -47,9 +47,15 @@ Use a new native SQL migration
 - `category_overridden boolean NOT NULL DEFAULT false`, with a check that an
   overridden entry has a non-null category.
 
-There is no backfill, new relation, index, trigger, function, policy or grant.
-Existing table-level `mp_runtime` SELECT/INSERT/UPDATE/DELETE covers the added
-columns. Preserve role restrictions and TEMP denial. Append the native identity,
+There is no backfill, new relation, index, trigger, function or policy.
+The current runtime has table-level SELECT/INSERT/DELETE and only narrow
+metadata-column UPDATE privileges. Append exactly
+`menu_recipes.category: [UPDATE]` and
+`menu_recipes.category_overridden: [UPDATE]` to the new compatibility profile;
+the existing explicit migrator's `applyRuntimeGrants` applies these locally.
+Retain existing column grants and deny table-level UPDATE and ownership/source/
+saved-at updates. No hosted grant execution is authorized. Preserve role
+restrictions and TEMP denial. Append the native identity,
 SQL hash, required ID and exact post-migration catalog/grants profile to
 `compatibility.json`, retaining every old descriptor/profile unchanged. Generate
 the new profile from an owned disposable migrated database and inspect its small
@@ -112,7 +118,13 @@ three-second attempt, source transport and delegated admission/lease checks.
 ## Storage and correction transaction
 
 Add category to menu row selection, insert, row validation and automatic
-completion. Insert normal saves with override=false. URL placeholders start
+completion. Require the category field in current stored-row projections,
+including `lib/plans/generate.ts` and both suggest/accept menu reads in
+`lib/plans/store.ts`; missing stored fields must not silently normalize to null.
+Only historical JSON snapshot parsing accepts the absent category field. New
+generation and suggestion/acceptance snapshots preserve the selected saved
+category without changing selection/eligibility or existing snapshot bytes.
+Insert normal saves with override=false. URL placeholders start
 null/false. Existing duplicates remain no-ops. Curation completion updates other
 details as before and sets category with an SQL CASE: preserve stored category
 when category_overridden=true, otherwise use the curated category (possibly
