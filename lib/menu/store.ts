@@ -1,3 +1,4 @@
+import { isRecipeCategory } from '../recipes/category';
 import { randomUUID } from 'node:crypto';
 import type { FamilyDatabase } from '../db/connection';
 import type { MenuRecipeRow, MenuCurationRow } from '../db/schema';
@@ -5,7 +6,7 @@ import { FamilyError, requireMember, verifiedIdentity, requireGoogleIdentity, ty
 import type { MenuPage, MenuRecipe } from './types';
 import { encodeMenuCursor, menuEntryFromRow, parseMenuCursor, parseMenuId, parseMenuRecipe, parseMenuSourceUrl, parseMenuSourceUrls, parseMenuSearch } from './validation';
 
-const columns = 'm.id, m.family_id AS "familyId", m.source_url AS "sourceUrl", m.image_url AS "imageUrl", m.title, m.summary, m.time_kind AS "timeKind", m.time_text AS "timeText", m.saved_at AS "savedAt", c.state AS "curationState", c.expires_at AS "curationExpiresAt"';
+const columns = 'm.id, m.family_id AS "familyId", m.source_url AS "sourceUrl", m.image_url AS "imageUrl", m.title, m.summary, m.category, m.time_kind AS "timeKind", m.time_text AS "timeText", m.saved_at AS "savedAt", c.state AS "curationState", c.expires_at AS "curationExpiresAt"';
 const relation = 'menu_recipes m LEFT JOIN menu_recipe_curations c ON c.entry_id=m.id';
 const invalid = () => new FamilyError(400, 'Invalid request');
 async function entryById(db: FamilyDatabase, id: string) {
@@ -35,7 +36,7 @@ async function existingEntry(db: FamilyDatabase, familyId: string, source: strin
 }
 async function insertRecipe(db: FamilyDatabase, familyId: string, recipe: MenuRecipe) {
   const id = randomUUID();
-  await db.execute('INSERT INTO menu_recipes (id,family_id,source_url,image_url,title,summary,time_kind,time_text,saved_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)', [id, familyId, recipe.sourceUrl, recipe.imageUrl, recipe.title, recipe.summary, recipe.time?.kind ?? null, recipe.time?.text ?? null, Date.now()]);
+  await db.execute('INSERT INTO menu_recipes (id,family_id,source_url,image_url,title,summary,time_kind,time_text,saved_at,category) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)', [id, familyId, recipe.sourceUrl, recipe.imageUrl, recipe.title, recipe.summary, recipe.time?.kind ?? null, recipe.time?.text ?? null, Date.now(), recipe.category ?? null]);
   return id;
 }
 export async function saveMenuRecipe(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown) {
@@ -132,8 +133,20 @@ export async function completeMenuRecipeCuration(db: FamilyDatabase, job: Curati
     const row = await task(tx, job.entryId, job.generation);
     if (!row || row.state !== 'processing' || row.lease !== job.lease) return false;
     if (recipe.sourceUrl !== row.sourceUrl || !await authorizedTask(tx, row, allowedEmails)) { await failTask(tx, row.entryId, row.generation, row.lease); return false; }
-    await tx.execute('UPDATE menu_recipes SET title=$2,summary=$3,image_url=$4,time_kind=$5,time_text=$6 WHERE id=$1', [row.entryId, recipe.title, recipe.summary, recipe.imageUrl, recipe.time?.kind ?? null, recipe.time?.text ?? null]);
+    await tx.execute('UPDATE menu_recipes SET title=$2,summary=$3,image_url=$4,time_kind=$5,time_text=$6,category=CASE WHEN category_overridden THEN category ELSE $7 END WHERE id=$1', [row.entryId, recipe.title, recipe.summary, recipe.imageUrl, recipe.time?.kind ?? null, recipe.time?.text ?? null, recipe.category ?? null]);
     await tx.execute("UPDATE menu_recipe_curations SET state='ready',lease=NULL WHERE entry_id=$1 AND generation=$2 AND lease=$3", [row.entryId, row.generation, row.lease]);
     return true;
+  });
+}
+
+/** Category-only editing; curation completion preserves this durable override. */
+export async function updateMenuRecipeCategory(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, value: unknown, category: unknown) {
+  const id = parseMenuId(value); if (!id || !isRecipeCategory(category)) throw invalid();
+  requireGoogleIdentity(identity);
+  return db.transaction(async tx => {
+    const user = await requireMember(tx, identity, allowedEmails);
+    const row = await tx.one<{ id: string }>('UPDATE menu_recipes SET category=$3,category_overridden=true WHERE id=$1 AND family_id=$2 RETURNING id', [id, user.familyId, category]);
+    if (!row) throw new FamilyError(404, 'Recipe unavailable');
+    return { entry: await entryById(tx, id) };
   });
 }

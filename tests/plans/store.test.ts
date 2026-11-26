@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { randomUUID } from 'node:crypto';
 import { provisionFamily } from '../../lib/family-store.ts';
-import { saveMenuRecipe, removeMenuRecipe } from '../../lib/menu/store.ts';
+import { saveMenuRecipe, removeMenuRecipe, updateMenuRecipeCategory } from '../../lib/menu/store.ts';
 import { generateDuePlans } from '../../lib/plans/generate.ts';
 import { readPlans, actOnPlan } from '../../lib/plans/store.ts';
 import { testDatabase } from '../family/database.ts';
@@ -179,7 +179,31 @@ test('actual recipe count bounds slots, duplicate drafts fail closed and legacy 
   const raw=[recipe(0),recipe(0),recipe(1)];await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(raw),id]);
   await assert.rejects(readPlans(db,identity,allowed,{},now),/Storage unavailable/);await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'finalize',revision:1},now),/Storage unavailable/);
   await db.execute("UPDATE meal_plan_weeks SET status='final',finalized_at=1 WHERE id=$1",[id]);
-  view=await readPlans(db,identity,allowed,{},now);assert.deepEqual(view.plan?.meals,[recipe(0),recipe(1)]);assert.equal(view.plan?.originalRecipeCount,3);assert.equal(view.editable,false);
+  view=await readPlans(db,identity,allowed,{},now);assert.deepEqual(view.plan?.meals,[{...recipe(0),category:null},{...recipe(1),category:null}]);assert.equal(view.plan?.originalRecipeCount,3);assert.equal(view.editable,false);
   assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]))?.meals,raw);
  }finally{await db.close();await fixture.cleanup();}
+});
+
+
+test('generation and swap project categories while menu corrections leave stored snapshots unchanged', async () => {
+ const fixture=await testDatabase(),db=await fixture.open();
+ try {
+  await provisionFamily(db,identity,allowed,false);
+  for(let n=0;n<8;n++)await saveMenuRecipe(db,identity,allowed,{...recipe(n),category:'main'});
+  await generateDuePlans(db,allowed,'Thursday',now);
+  let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;
+  assert.equal(view.plan!.meals.every(meal=>meal.category==='main'),true);
+  const before=await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]);
+  const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
+  await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'side');
+  await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement.id},now);
+  view=await readPlans(db,identity,allowed,{},now);assert.equal(view.suggestions[0].recipe.category,'side');
+  await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'veggie');
+  assert.deepEqual(await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]),before);
+  await actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId:view.suggestions[0].id},now);
+  view=await readPlans(db,identity,allowed,{},now);assert.equal(view.plan!.meals[0].category,'veggie');
+  const accepted=await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]);
+  await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'main');
+  assert.deepEqual(await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]),accepted);
+ } finally {await db.close();await fixture.cleanup();}
 });

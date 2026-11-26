@@ -6,7 +6,7 @@ import { authConfiguration } from '../../../lib/auth';
 import { getDatabase } from '../../../lib/db';
 import { FamilyError } from '../../../lib/identity-access';
 import { readMenuBody } from '../../../lib/menu/body';
-import { listMenuRecipes, saveMenuRecipe, lookupMenuRecipes, saveMenuRecipeUrl, retryMenuRecipeCuration } from '../../../lib/menu/store';
+import { listMenuRecipes, saveMenuRecipe, lookupMenuRecipes, saveMenuRecipeUrl, retryMenuRecipeCuration, updateMenuRecipeCategory } from '../../../lib/menu/store';
 import { registerMenuCuration } from '../../../lib/menu/curation';
 import allowed from '../../../lib/allowed-google-emails.json';
 
@@ -32,6 +32,10 @@ export async function POST(request: NextRequest) {
     await requireFamilyContext(request.headers);
     const session = await requireIdentity(request.headers);
     const query = request.nextUrl.searchParams;
+    if (query.size === 1 && query.get('category') === 'update') {
+      const body = await readMenuBody(request, authConfiguration().origin, 'category');
+      return updateMenuRecipeCategory(await getDatabase(), session.identity, allowed, body.id, body.category);
+    }
     if (query.size === 1 && (query.get('import') === 'url' || query.get('curate') === 'retry')) {
       const importing = query.get('import') === 'url';
       const body = await readMenuBody(request, authConfiguration().origin, importing ? 'import' : 'retry');

@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { randomUUID } from 'node:crypto';
 import { provisionFamily } from '../../lib/family-store.ts';
 import { openDatabase, type FamilyDatabase } from '../../lib/db/connection.ts';
-import { listMenuRecipes, removeMenuRecipe, saveMenuRecipe } from '../../lib/menu/store.ts';
+import { listMenuRecipes, removeMenuRecipe, saveMenuRecipe, updateMenuRecipeCategory } from '../../lib/menu/store.ts';
 import { restrictedMenuDatabase } from './database.ts';
 
 const identity = { googleSubject: 'menu-store-member', email: 'menu.test.member@gmail.com', emailVerified: true as const };
@@ -91,4 +91,27 @@ test('bounded title search reaches older recipes and paginates literal case-inse
   const other={googleSubject:'foreign-title-search',email:'foreign.title.search@gmail.com',emailVerified:true as const};await provisionFamily(db,other,[other.email],false);await saveMenuRecipe(db,other,[other.email],{...recipe,title:'Hidden Lemon foreign'});
   assert.equal((await listMenuRecipes(db,identity,allowed,undefined,'foreign')).entries.length,0);assert.equal((await listMenuRecipes(db,other,[other.email],first.nextCursor,'lemon')).entries.length<=1,true);
  }finally{await db.close();await fixture.cleanup();}
+});
+
+
+test('category correction is durable, family scoped, admission checked and duplicate safe', async () => {
+  const fixture = await restrictedMenuDatabase(); const owner = await fixture.open(); const db = await openDatabase(fixture.runtimeUrl);
+  try {
+    await provisionFamily(owner, identity, allowed, false);
+    const saved = await saveMenuRecipe(db, identity, allowed, { ...recipe, category: 'main' });
+    assert.equal(saved.entry.recipe.category, 'main');
+    const changed = await updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'veggie');
+    assert.equal(changed.entry.recipe.category, 'veggie');
+    assert.equal((await saveMenuRecipe(db, identity, allowed, { ...recipe, category: 'side' })).entry.recipe.category, 'veggie');
+    assert.equal((await listMenuRecipes(db, identity, allowed)).entries[0].recipe.category, 'veggie');
+    assert.deepEqual(await owner.one('SELECT category,category_overridden FROM menu_recipes WHERE id=$1', [saved.entry.id]), { category: 'veggie', category_overridden: true });
+    await assert.rejects(updateMenuRecipeCategory(db, identity, [], saved.entry.id, 'main'), { status: 403 });
+    await assert.rejects(updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'vegetarian'), { status: 400 });
+    await assert.rejects(updateMenuRecipeCategory(db, identity, allowed, randomUUID(), 'main'), { status: 404 });
+    const other = { googleSubject: 'category-foreign', email: 'category.foreign@gmail.com', emailVerified: true as const };
+    await provisionFamily(owner, other, [other.email], false);
+    await assert.rejects(updateMenuRecipeCategory(db, other, [other.email], saved.entry.id, 'main'), { status: 404 });
+    await removeMenuRecipe(db, identity, allowed, saved.entry.id);
+    await assert.rejects(updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'main'), { status: 404 });
+  } finally { await db.close(); await owner.close(); await fixture.cleanup(); }
 });

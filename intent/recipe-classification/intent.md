@@ -31,7 +31,12 @@ The orchestrator surfaced these semantics and the recommended manual-correction
 option in an optional owner question. With no answer after the reply window,
 the orchestrator directed the stated default: include manual corrections. This
 is an explicit workflow assumption, not a fabricated owner answer. The owner may
-steer it before implementation. The PM accepts this bounded default because
+steer it before implementation.
+
+The owner subsequently explicitly confirmed “Yes, allow manual corrections
+(recommended)” on2026-11-26, recorded in `org/messages/ceo-0077.md` and sourced
+memory `mem-0191`. This confirms the same bounded scope; the earlier default
+decision chronology remains above. The PM accepts this bounded default because
 ambiguous dishes can play different roles in different families and inference
 can be wrong.
 

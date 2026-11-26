@@ -320,3 +320,56 @@ test('protected title query searches beyond50 with bounded literal pages and unc
   await errorResponse(await post(s.server.origin,s.jar,'/api/menu?q=lemon',recipe),400,'Invalid request');assert.equal((await s.db.one<{n:number}>('SELECT count(*) AS n FROM menu_recipes'))?.n,110);assert.equal((await s.db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions'))?.n,0);
  }finally{await s.close();}
 });
+
+
+test('category-only HTTP writes are exact, protected, family-scoped and durable', async () => {
+  const s = await setup();
+  try {
+    const saved = await (await post(s.server.origin, s.jar, '/api/menu', { ...recipe, category: 'main' })).json();
+    const body = { id: saved.entry.id, category: 'veggie' };
+    const result = await post(s.server.origin, s.jar, '/api/menu?category=update', body);
+    assert.equal(result.status, 200); securityHeaders(result.headers);
+    assert.equal((await result.json()).entry.recipe.category, 'veggie');
+    assert.equal((await (await s.jar.request(s.server.origin, '/api/menu')).json()).entries[0].recipe.category, 'veggie');
+    for (const query of ['?category=wrong', '?category=update&category=update', '?category=update&after=x', '?category=update&familyId=x']) await errorResponse(await post(s.server.origin, s.jar, '/api/menu' + query, body), 400, 'Invalid request');
+    for (const value of [{ ...body, familyId: 'forged' }, { id: body.id }, { ...body, category: 'vegan' }, { ...body, category: null }, { ...body, category: ['main'] }]) await errorResponse(await post(s.server.origin, s.jar, '/api/menu?category=update', value), 400, 'Invalid request');
+    await errorResponse(await post(s.server.origin, new CookieJar(), '/api/menu?category=update', body), 401, 'Unauthorized');
+    const foreign = new CookieJar(); await signInWithGoogle(s.server.origin, foreign, 'second-member'); await provision(s.server.origin, foreign);
+    await errorResponse(await post(s.server.origin, foreign, '/api/menu?category=update', body), 404, 'Recipe unavailable');
+    const forbidden = await s.jar.request(s.server.origin, '/api/menu?category=update', { method: 'POST', headers: { Origin: 'https://attacker.test', 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    await errorResponse(forbidden, 403, 'Forbidden');
+    const wrongHost = await new Promise<{status:number;body:string;headers:Headers}>((resolve,reject)=>{
+      const req=httpRequest(s.server.origin+'/api/menu?category=update',{method:'POST',headers:{Host:'attacker.test',Origin:s.server.origin,'Content-Type':'application/json',Cookie:s.jar.header()}},response=>{
+        let text='';response.setEncoding('utf8');response.on('data',chunk=>{text+=chunk;});
+        const headers=new Headers();for(const [key,value] of Object.entries(response.headers))if(value!==undefined)headers.set(key,Array.isArray(value)?value.join(','):value);
+        response.on('end',()=>resolve({status:response.statusCode??0,body:text,headers}));
+      });req.on('error',reject);req.end(JSON.stringify(body));
+    });
+    assert.equal(wrongHost.status,421);assert.deepEqual(JSON.parse(wrongHost.body),{error:'Misdirected request'});securityHeaders(wrongHost.headers);
+    assert.equal((await s.db.one<{category:string}>('SELECT category FROM menu_recipes WHERE id=$1',[body.id]))?.category,'veggie');
+    const unsupported = await s.jar.request(s.server.origin, '/api/menu?category=update', { method: 'PUT' });
+    assert.equal(unsupported.status, 405); securityHeaders(unsupported.headers);
+  } finally { await s.close(); }
+});
+
+
+test('category bodies expire or exceed limits before EOF without changing a saved category', async () => {
+  const s=await setup();
+  try {
+    const saved=await (await post(s.server.origin,s.jar,'/api/menu',{...recipe,category:'main'})).json();
+    for(const oversized of [false,true]) {
+      const started=Date.now();
+      const result=await new Promise<{status:number|undefined;body:string;headers:Headers}>((resolve,reject)=>{
+        const req=httpRequest(s.server.origin+'/api/menu?category=update',{method:'POST',headers:{Origin:s.server.origin,'Content-Type':'application/json',Cookie:s.jar.header()}},response=>{
+          let body='';response.setEncoding('utf8');response.on('data',chunk=>{body+=chunk;});
+          const headers=new Headers();for(const [key,value] of Object.entries(response.headers))if(value!==undefined)headers.set(key,Array.isArray(value)?value.join(','):value);
+          response.on('end',()=>{resolve({status:response.statusCode,body,headers});req.destroy();});
+        });
+        req.on('error',reject);req.setTimeout(15000,()=>req.destroy(new Error('Owned category body request timed out')));req.write(oversized?' '.repeat(4097):'{');
+      });
+      assert.equal(result.status,400);assert.deepEqual(JSON.parse(result.body),{error:'Invalid request'});securityHeaders(result.headers);
+      assert.ok(Date.now()-started<10000,'bounded handler replies before unfinished client body EOF');
+      assert.equal((await s.db.one<{category:string}>('SELECT category FROM menu_recipes WHERE id=$1',[saved.entry.id]))?.category,'main');
+    }
+  }finally{await s.close();}
+});

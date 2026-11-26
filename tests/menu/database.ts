@@ -21,6 +21,9 @@ export async function restrictedMenuDatabase(restoreFrom?: string) {
     if (restoreFrom !== undefined) await restoreBackup(restoreFrom, fixture.url);
     validateMigrationPair(owner, runtime);
     await db.execute(`GRANT CONNECT ON DATABASE "${name}" TO mp_runtime`);
+    // Fresh databases inherit PUBLIC TEMP. Mirror the approved runtime deny
+    // inside this owned disposable database; mp_test keeps owner privileges.
+    await db.execute(`REVOKE TEMP ON DATABASE "${name}" FROM PUBLIC,mp_runtime`);
     await db.execute('REVOKE ALL ON SCHEMA public FROM PUBLIC');
     await db.execute('GRANT USAGE ON SCHEMA public TO mp_runtime');
     // Exercise the actual explicit migration/grant tool with disposable URLs.

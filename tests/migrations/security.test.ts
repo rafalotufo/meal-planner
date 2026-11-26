@@ -208,16 +208,28 @@ test('applied child without its recorded prerequisite fails missing-dependency',
 });
 
 test('safe local search path prevents temporary table shadowing and standalone failures roll back', async () => {
-  const fixture=await restrictedMenuDatabase(),db=await openDatabase(fixture.runtimeUrl);
+  const fixture=await restrictedMenuDatabase(),db=await openDatabase(fixture.runtimeUrl),owner=await fixture.open();
   try {
-    await db.transaction(async tx=>{
-      await tx.execute('CREATE TEMPORARY TABLE app_users (unexpected text) ON COMMIT DROP');
-      assert.deepEqual(await tx.all('SELECT google_subject FROM app_users'),[],'public application table precedes pg_temp');
-      assert.equal((await tx.one<{path:string}>("SELECT current_setting('search_path') AS path"))?.path,'pg_catalog, public, pg_temp');
-    });
+    const target=await owner.one<{name:string;owner:string;actor:string}>('SELECT current_database() AS name,pg_get_userbyid(datdba) AS owner,current_user AS actor FROM pg_database WHERE datname=current_database()');
+    assert.ok(target);assert.match(target.name,/^mp_test_[a-f0-9]{24}$/);assert.equal(target.owner,'mp_test');assert.equal(target.actor,'mp_test');
+    const tempAllowed=async()=>(await db.one<{allowed:boolean}>("SELECT has_database_privilege(current_user,current_database(),'TEMP') AS allowed"))?.allowed;
+    assert.equal(await tempAllowed(),false,'ordinary restricted runtime has no TEMP');
+    // Deliberately arrange only this owned attack fixture's capability, then
+    // restore denial even if the shadowing assertions fail. No shared ACL changes.
+    await owner.execute(`GRANT TEMP ON DATABASE "${target.name}" TO mp_runtime`);
+    try {
+      await db.transaction(async tx=>{
+        await tx.execute('CREATE TEMPORARY TABLE app_users (unexpected text) ON COMMIT DROP');
+        assert.deepEqual(await tx.all('SELECT google_subject FROM app_users'),[],'public application table precedes pg_temp');
+        assert.equal((await tx.one<{path:string}>("SELECT current_setting('search_path') AS path"))?.path,'pg_catalog, public, pg_temp');
+      });
+    } finally {
+      await owner.execute(`REVOKE TEMP ON DATABASE "${target.name}" FROM mp_runtime`);
+      assert.equal(await tempAllowed(),false,'owned attack fixture restores runtime TEMP denial');
+    }
     await assert.rejects(db.execute("INSERT INTO public.families VALUES ('atomic-failure',1); SELECT 1/0"),{code:'22012'});
     assert.equal(await db.one("SELECT id FROM public.families WHERE id='atomic-failure'"),undefined);
-  } finally {await db.close();await fixture.cleanup();}
+  } finally {await db.close();await owner.close();await fixture.cleanup();}
 });
 
 

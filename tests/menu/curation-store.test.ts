@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { provisionFamily } from '../../lib/family-store.ts';
 import { openDatabase } from '../../lib/db/connection.ts';
-import { saveMenuRecipeUrl, retryMenuRecipeCuration, claimMenuRecipeCuration, completeMenuRecipeCuration, listMenuRecipes, removeMenuRecipe, saveMenuRecipe } from '../../lib/menu/store.ts';
+import { saveMenuRecipeUrl, retryMenuRecipeCuration, claimMenuRecipeCuration, completeMenuRecipeCuration, listMenuRecipes, removeMenuRecipe, saveMenuRecipe, updateMenuRecipeCategory, failMenuRecipeCuration } from '../../lib/menu/store.ts';
 import { restrictedMenuDatabase } from './database.ts';
 
 const identity = { googleSubject: 'curation-store-member', email: 'curation.member@gmail.com', emailVerified: true as const };
@@ -26,7 +26,7 @@ test('URL save commits a durable pending link, first-save dedupe and fenced same
     assert.equal(await completeMenuRecipeCuration(db, job, allowed, recipe), true);
     const ready = (await listMenuRecipes(db, identity, allowed)).entries[0];
     assert.equal(ready.id, saved.entry.id); assert.equal(ready.savedAt, saved.entry.savedAt);
-    assert.deepEqual(ready.recipe, recipe); assert.deepEqual(ready.curation, { state: 'ready', retryable: false });
+    assert.deepEqual(ready.recipe, { ...recipe, category: null }); assert.deepEqual(ready.curation, { state: 'ready', retryable: false });
     assert.equal((await retryMenuRecipeCuration(db, identity, allowed, ready.id, Date.now() + 60000)).started, false);
   } finally { await db.close(); await owner.close(); await fixture.cleanup(); }
 });
@@ -65,4 +65,27 @@ test('expired credentials and current admission loss cannot authorize background
     assert.equal(await completeMenuRecipeCuration(db, job, [], recipe), false);
     assert.equal((await listMenuRecipes(db, identity, allowed)).entries[0].curation.state, 'failed');
   } finally { await db.close(); await fixture.cleanup(); }
+});
+
+
+test('manual category corrections survive pending completion, failed retry and both serialization orders', async () => {
+  const fixture = await restrictedMenuDatabase(); const owner = await fixture.open(); const db = await openDatabase(fixture.runtimeUrl);
+  try {
+    await provisionFamily(owner, identity, allowed, false);
+    for (const correctionFirst of [true, false]) {
+      const saved = await saveMenuRecipeUrl(db, identity, allowed, source + '/' + correctionFirst, Date.now() + 60000);
+      const job = await claimMenuRecipeCuration(db, saved.entry.id, saved.generation!, allowed); assert.ok(job);
+      if (correctionFirst) await updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'veggie');
+      assert.equal(await completeMenuRecipeCuration(db, job, allowed, { ...recipe, sourceUrl: job.sourceUrl, category: 'main' }), true);
+      if (!correctionFirst) await updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'veggie');
+      assert.equal((await listMenuRecipes(db, identity, allowed)).entries.find(entry => entry.id === saved.entry.id)?.recipe.category, 'veggie');
+    }
+    const saved = await saveMenuRecipeUrl(db, identity, allowed, source + '/failed', Date.now() + 60000);
+    await failMenuRecipeCuration(db, saved.entry.id, saved.generation!);
+    await updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'side');
+    const retry = await retryMenuRecipeCuration(db, identity, allowed, saved.entry.id, Date.now() + 60000);
+    const job = await claimMenuRecipeCuration(db, saved.entry.id, retry.generation!, allowed); assert.ok(job);
+    assert.equal(await completeMenuRecipeCuration(db, job, allowed, { ...recipe, sourceUrl: job.sourceUrl, category: 'main' }), true);
+    assert.equal((await listMenuRecipes(db, identity, allowed)).entries.find(entry => entry.id === saved.entry.id)?.recipe.category, 'side');
+  } finally { await db.close(); await owner.close(); await fixture.cleanup(); }
 });

@@ -22,3 +22,24 @@ test('malformed UTF-8 form bytes are a bounded client error, never a storage fai
   assert.equal(response.status,400);assert.equal((await f.db.one<{n:number}>('SELECT count(*)::integer AS n FROM verification_sessions'))?.n,0);
  }finally{await f.close();}
 });
+
+
+test('real protected category edit denies verification identity while category snapshots stay permitted', { timeout:240000 }, async () => {
+ const {startVerificationServer}=await import('./server.ts');
+ const {VERIFICATION_COOKIE}=await import('../../lib/verification/cookies.ts');
+ const f=await startVerificationServer();
+ try {
+  const entry=await f.request('/verification');assert.equal(entry.status,200);
+  const noncePair=entry.headers['set-cookie']?.find(value=>value.startsWith(`${NONCE_COOKIE}=`))?.split(';')[0];assert.ok(noncePair);
+  const nonce=noncePair.slice(NONCE_COOKIE.length+1);
+  const login=await f.request('/api/verification/session',{method:'POST',headers:{Origin:f.origin,'Content-Type':'application/x-www-form-urlencoded',Cookie:noncePair},body:new URLSearchParams({runId:f.run.runId,capability:f.run.members[0].capability,nonce}).toString()});assert.equal(login.status,303);
+  const cookie=login.headers['set-cookie']?.find(value=>value.startsWith(`${VERIFICATION_COOKIE}=`))?.split(';')[0];assert.ok(cookie);
+  const headers={Origin:f.origin,'Content-Type':'application/json',Cookie:cookie};
+  const saved=await f.request('/api/menu',{method:'POST',headers,body:JSON.stringify({title:'Dinner',sourceUrl:'https://example.test/synthetic-category',imageUrl:null,summary:'Cook dinner.',time:null,category:'main'})});assert.equal(saved.status,200);
+  const result=JSON.parse(saved.body);assert.equal(result.entry.recipe.category,'main');
+  const denied=await f.request('/api/menu?category=update',{method:'POST',headers,body:JSON.stringify({id:result.entry.id,category:'veggie'})});
+  assert.equal(denied.status,403);assert.deepEqual(JSON.parse(denied.body),{error:'Forbidden'});assert.match(denied.headers['cache-control']??'',/private.*no-store/);assert.ok(denied.headers['content-security-policy']);
+  assert.equal((await f.ownerDb.one<{category:string}>('SELECT category FROM menu_recipes WHERE id=$1',[result.entry.id]))?.category,'main');
+  const menu=await f.request('/menu',{headers:{Cookie:cookie}});assert.equal(menu.status,200);assert.equal(menu.body.includes('Save category'),false);assert.match(menu.body,/Main dish/);
+ }finally{await f.stop();}
+});

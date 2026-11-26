@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { randomUUID } from 'node:crypto';
 import { readMigrationFiles } from 'drizzle-orm/migrator';
 import { testDatabase } from '../family/database.ts';
 import { connectDatabase, catalogSignature } from '../../lib/db/connection.ts';
+import { compatibility } from '../../lib/db/compatibility.ts';
+import { repositorySources } from '../../lib/db/repository-migrations.ts';
 import { migrateDatabase } from '../../lib/db/migrate.ts';
 
 async function seedLegacy(url: string, order: number[]) {
@@ -49,4 +52,26 @@ test('unknown history and checksum changes fail closed without applying pending 
       assert.equal((await db.one<{ name: string | null }>("SELECT to_regclass('meal_plan_weeks')::text AS name"))?.name, null);
     } finally { await db.close(); await fixture.cleanup(); }
   }
+});
+
+
+test('seven-identity upgrades preserve rows, raw historical snapshots and ledgers, then require category identity', async () => {
+  const id='6e36359b-9b16-4642-a487-e4e5411ce477';
+  const previous=structuredClone(compatibility); previous.required=previous.required.filter(value=>value!==id);previous.migrations=previous.migrations.filter(value=>value.id!==id);previous.profiles=previous.profiles.filter(value=>!value.applied.includes(id));
+  const fixture=await testDatabase(false), db=connectDatabase(fixture.url);
+  try {
+    await migrateDatabase(fixture.url,{manifest:previous,sources:repositorySources()});
+    await db.execute("INSERT INTO families(id,created_at) VALUES('category-preserved-family',1)");
+    await db.execute("INSERT INTO menu_recipes(id,family_id,source_url,title,summary,saved_at) VALUES('category-preserved-recipe','category-preserved-family','https://example.test/preserved','Dinner','Cook it.',1)");
+    const meals=JSON.stringify([{title:'Dinner',summary:'Cook it.',sourceUrl:'https://example.test/preserved',imageUrl:null,time:null}]);
+    await db.execute("INSERT INTO meal_plan_weeks(id,family_id,week_start,meals,created_at) VALUES($1,'category-preserved-family','2026-11-29',$2,1)",[randomUUID(),meals]);
+    const before=await db.one('SELECT meals FROM meal_plan_weeks'); const ledger=await db.all('SELECT * FROM __drizzle_migrations ORDER BY id');
+    await assert.rejects(fixture.open(),/Storage unavailable/);
+    await migrateDatabase(fixture.url); await migrateDatabase(fixture.url);
+    assert.deepEqual(await db.one('SELECT category,category_overridden FROM menu_recipes'),{category:null,category_overridden:false});
+    assert.deepEqual(await db.one('SELECT meals FROM meal_plan_weeks'),before);
+    assert.deepEqual(await db.all('SELECT * FROM __drizzle_migrations ORDER BY id'),ledger);
+    assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM __app_migrations'))?.n,3);
+    const opened=await fixture.open(); await opened.close();
+  } finally { await db.close(); await fixture.cleanup(); }
 });

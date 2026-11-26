@@ -39,7 +39,7 @@ test('one recipe appears once and its snapshot survives removal', async () => {
     await generateDuePlans(db, [identity.email], 'Thursday', new Date('2026-11-26T14:00:00Z'));
     await removeMenuRecipe(db, identity, [identity.email], saved.entry.id);
     const view = await readPlans(db, identity, [identity.email], {}, new Date('2026-11-26T14:00:00Z'));
-    assert.deepEqual(view.plan?.meals, [recipe(1)]);
+    assert.deepEqual(view.plan?.meals, [{ ...recipe(1), category: null }]);
   } finally { await db.close(); await fixture.cleanup(); }
 });
 

@@ -23,6 +23,7 @@ export interface InvitationRow {
   revokedAt: number | null;
 }
 export interface MenuRecipeRow {
+  category: import('../recipes/types').RecipeCategory | null;
   id: string;
   familyId: string;
   sourceUrl: string;

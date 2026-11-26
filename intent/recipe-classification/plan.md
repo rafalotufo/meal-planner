@@ -2,16 +2,17 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Approved by independent review `d891e35` of source `6c0933e`
+- Status: Approved
+- Independent approval: `d891e35` reviewing source `6c0933e`
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`
 - Gate: independent spec/plan approval before application implementation
 
-## Changed-file manifest
+## Files that change
 
 Application and native storage:
 
 - `lib/recipes/types.ts`
-- `lib/recipes/category.ts` (new shared enum parsing/labels and metadata classifier)
+- `lib/recipes/category.ts`
 - `lib/recipes/curation.ts`
 - `lib/menu/recipe-metadata.ts`
 - `lib/menu/validation.ts`
@@ -20,18 +21,18 @@ Application and native storage:
 - `lib/plans/generate.ts`
 - `lib/plans/store.ts`
 - `lib/db/schema.ts`
-- `drizzle/postgresql/6e36359b-9b16-4642-a487-e4e5411ce477.sql` (new)
+- `drizzle/postgresql/6e36359b-9b16-4642-a487-e4e5411ce477.sql`
 - `drizzle/postgresql/compatibility.json`
 - `app/api/menu/route.ts`
 - `app/menu/page.tsx`
 - `app/menu/menu-controls.tsx`
-- `app/menu/recipe-category-control.tsx` (new focused client control)
+- `app/menu/recipe-category-control.tsx`
 
 Tests and evidence:
 
 - `tests/recipe-curation.test.ts`
-- `tests/recipe-brave-fixtures.ts` (current model fixture response contract)
-- `tests/recipe-category.test.ts` (new)
+- `tests/recipe-brave-fixtures.ts`
+- `tests/recipe-category.test.ts`
 - `tests/menu/recipe-metadata.test.ts`
 - `tests/menu/validation.test.ts`
 - `tests/menu/body.test.ts`
@@ -39,15 +40,35 @@ Tests and evidence:
 - `tests/menu/curation-store.test.ts`
 - `tests/menu/http.test.ts`
 - `tests/menu/migration.test.ts`
+- `tests/menu/database.ts`
 - `tests/menu/browser.ts`
-- `tests/menu/curation-browser.ts` (pending/failed correction coverage if needed)
+- `tests/menu/curation-browser.ts`
 - `tests/plans/validation.test.ts`
 - `tests/plans/store.test.ts`
-- `tests/verification/http.test.ts` (only if existing fixture is needed for edit denial)
+- `tests/plans/generate.test.ts`
+- `tests/plans/curation-integration.test.ts`
+- `tests/verification/http.test.ts`
 - `tests/migrations/dependency.test.ts`
+- `tests/migrations/security.test.ts`
 - `tests/deployment/postgres-metadata.test.ts`
 - `intent/recipe-classification/verification.md`
-- `org/reviews/recipe-classification-*.png` (new evidence only)
+- `org/reviews/recipe-classification-*.png`
+
+
+### Manifest notes
+
+- `lib/recipes/category.ts`: (new shared enum parsing/labels and metadata classifier)
+- `drizzle/postgresql/6e36359b-9b16-4642-a487-e4e5411ce477.sql`: (new)
+- `app/menu/recipe-category-control.tsx`: (new focused client control)
+- `tests/recipe-brave-fixtures.ts`: (current model fixture response contract)
+- `tests/recipe-category.test.ts`: (new)
+- `tests/menu/database.ts`: (owned restricted fixture explicitly denies PUBLIC TEMP to match runtime contract; migrator owner retains its own privilege)
+- `tests/menu/curation-browser.ts`: (pending/failed correction coverage if needed)
+- `tests/plans/generate.test.ts`: (legacy expected normalized category=null; preserves raw fixture)
+- `tests/plans/curation-integration.test.ts`: (preserved legacy-row expectation includes additive null/false category defaults)
+- `tests/verification/http.test.ts`: (only if existing fixture is needed for edit denial)
+- `tests/migrations/security.test.ts`: (owned shadowing attack fixture explicitly grants then revokes TEMP, asserting baseline/restored runtime denial)
+- `org/reviews/recipe-classification-*.png`: (new evidence only)
 
 The orchestrator separately owns graph/state/config/history/status/messages,
 review records, memory and approval ledger. Preserve historical evidence and

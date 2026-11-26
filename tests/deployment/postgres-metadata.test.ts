@@ -3,6 +3,9 @@ import { cp, mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { tmpdir } from 'node:os';
 import { test } from 'node:test';
+import { compatibility } from '../../lib/db/compatibility.ts';
+import { repositorySources } from '../../lib/db/repository-migrations.ts';
+import { createHash } from 'node:crypto';
 import { repositoryMigrations } from '../../lib/db/repository-migrations.ts';
 import { runtimeMigrations, validateMigrationMetadata } from '../../lib/db/runtime-metadata.ts';
 
@@ -46,4 +49,20 @@ test('changed catalog is rejected without opening or repairing a database', asyn
     await writeFile(file, JSON.stringify(catalog));
     assert.throws(() => repositoryMigrations(folder), /catalog is stale/);
   });
+});
+
+
+test('category runtime bundles the new immutable identity and preserves all five historical migration records', () => {
+ const id='6e36359b-9b16-4642-a487-e4e5411ce477';
+ assert.equal(compatibility.required.length,8);assert.ok(compatibility.required.includes(id));
+ const descriptor=compatibility.migrations.find(row=>row.id===id);assert.ok(descriptor);
+ assert.deepEqual(descriptor.dependsOn,['557e80b6-f30b-452e-b563-12cff07158a5']);
+ assert.equal(descriptor.legacy,undefined);
+ const source=repositorySources().get(id);assert.ok(source);
+ assert.equal(createHash('sha256').update(source).digest('hex'),descriptor.hash);
+ assert.equal(repositoryMigrations().length,5);
+ const profile=compatibility.profiles.find(row=>row.applied.length===8);assert.ok(profile);
+ assert.deepEqual(profile.grants['menu_recipes'],['SELECT','INSERT','DELETE']);
+ assert.deepEqual(profile.grants['menu_recipes.category'],['UPDATE']);
+ assert.deepEqual(profile.grants['menu_recipes.category_overridden'],['UPDATE']);
 });

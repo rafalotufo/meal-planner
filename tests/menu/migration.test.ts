@@ -116,3 +116,21 @@ test('curation companion constrains state and cascades only with its existing en
     assert.equal((await owner.one<{ n: number }>('SELECT count(*) AS n FROM menu_recipe_curations'))?.n, 0);
   } finally { await runtime.close(); await owner.close(); await fixture.cleanup(); }
 });
+
+
+test('category migration defaults honestly and grants only category column writes with invariant checks', async () => {
+  const fixture = await restrictedMenuDatabase(); const owner = await fixture.open(); const runtime = connectDatabase(fixture.runtimeUrl);
+  try {
+    // Reapplying the migration/grant tool must retain the fixture's TEMP deny.
+    await migrateDatabase(fixture.url,{runtimeRole:'mp_runtime'});
+    const family = randomUUID(), id = randomUUID();
+    await owner.execute('INSERT INTO families(id,created_at) VALUES ($1,1)', [family]);
+    await runtime.execute('INSERT INTO menu_recipes(id,family_id,source_url,title,summary,saved_at) VALUES($1,$2,$3,$4,$5,1)', [id,family,'https://example.test/category','Beans','Cook beans.']);
+    assert.deepEqual(await runtime.one('SELECT category,category_overridden FROM menu_recipes WHERE id=$1',[id]), { category:null,category_overridden:false });
+    await runtime.execute("UPDATE menu_recipes SET category='veggie',category_overridden=true WHERE id=$1",[id]);
+    for (const sql of ["UPDATE menu_recipes SET category='vegetarian' WHERE id=$1",'UPDATE menu_recipes SET category=NULL WHERE id=$1']) await assert.rejects(runtime.execute(sql,[id]),{code:'23514'});
+    for (const column of ['id','family_id','source_url','saved_at']) await assert.rejects(runtime.execute(`UPDATE menu_recipes SET ${column}=${column} WHERE id=$1`,[id]),{code:'42501'});
+    assert.equal((await runtime.one<{allowed:boolean}>("SELECT has_database_privilege(current_user,current_database(),'TEMP') AS allowed"))?.allowed,false);
+    const opened=await openDatabase(fixture.runtimeUrl); await opened.close();
+  } finally { await runtime.close(); await owner.close(); await fixture.cleanup(); }
+});

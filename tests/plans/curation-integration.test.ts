@@ -47,8 +47,8 @@ test('main four-migration data/history upgrades additively to curation without c
     await migrateDatabase(fixture.url); await migrateDatabase(fixture.url);
     for (const [index, table] of tables.entries()) {
       const rows = await db.all(`SELECT * FROM ${table}${table === '__drizzle_migrations' ? ' WHERE id<4 ORDER BY id' : ''}`);
-      const expectedRows = before[index].map(row => table === 'families' ? { ...row, identity_kind: 'google' } : table === 'app_users' ? { ...row, identity_kind: 'google', verification_run_id: null } : row);
-      assert.deepEqual(rows, expectedRows, table + ' legacy values preserved exactly with reviewed Google defaults');
+      const expectedRows = before[index].map(row => table === 'families' ? { ...row, identity_kind: 'google' } : table === 'app_users' ? { ...row, identity_kind: 'google', verification_run_id: null } : table === 'menu_recipes' ? { ...row, category: null, category_overridden: false } : row);
+      assert.deepEqual(rows, expectedRows, table + ' legacy values preserved exactly with reviewed Google/category defaults');
     }
     assert.deepEqual(await db.all('SELECT * FROM menu_recipe_curations'), []);
     assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM __drizzle_migrations'))?.n, 5);

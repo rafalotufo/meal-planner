@@ -42,7 +42,7 @@ export async function generateFamilyPlan(tx: FamilyDatabase, allowed: string[], 
   const rows = await tx.all<MenuRecipeRow>(`WITH recent AS MATERIALIZED (
     SELECT week_start,meals FROM meal_plan_weeks WHERE family_id=$1 AND status='final' AND week_start >= $3::date AND week_start < $2::date ORDER BY week_start DESC LIMIT 8
   ), used AS (SELECT meal->>'sourceUrl' AS source_url,max(week_start) AS last_use FROM recent CROSS JOIN LATERAL jsonb_array_elements(meals) meal GROUP BY meal->>'sourceUrl')
-  SELECT m.id,m.family_id AS "familyId",m.source_url AS "sourceUrl",m.image_url AS "imageUrl",m.title,m.summary,m.time_kind AS "timeKind",m.time_text AS "timeText",m.saved_at AS "savedAt"
+  SELECT m.id,m.family_id AS "familyId",m.source_url AS "sourceUrl",m.image_url AS "imageUrl",m.title,m.summary,m.category,m.time_kind AS "timeKind",m.time_text AS "timeText",m.saved_at AS "savedAt"
   FROM menu_recipes m LEFT JOIN used ON used.source_url=m.source_url WHERE m.family_id=$1 AND NOT EXISTS (SELECT 1 FROM menu_recipe_curations c WHERE c.entry_id=m.id AND c.state<>'ready')
   ORDER BY used.last_use ASC NULLS FIRST, md5($2::text || m.source_url),m.source_url,m.id LIMIT 7`, [familyId, week, addDays(week, -56)]);
   if (!rows.length) return 'empty';
