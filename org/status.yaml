@@ -3,7 +3,7 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted scheduler intent c2b2545 }
   architect: { status: idle, assignment: null, last_report: Rollback-only probe8cc2760 implemented and strict checked; no hosted invocation }
-  senior-developer: { status: busy, assignment: weekly-plan-scheduler-hosted-target-correction-implementation, last_report: Corrective sourcef8383f3 verified337Node7PythonChrome; waiting both-origin staging and freshownerrelease }
+  senior-developer: { status: idle, assignment: null, last_report: Corrected ABfX/f838 active; qualified audit records healthy cron binding and unproven runtime monitoring seam; no Production authority remains }
   security-researcher: { status: idle, assignment: null, last_report: Corrective sourcef8383f3 security approved19b3ced;7independenthosttests pass; noProd authority }
   reviewer: { status: idle, assignment: null, last_report: Qualified ABfX/f838 activation audit; current health and cron binding pass; runtime observation seam unproven and release gate pending }
   memory-keeper: { status: idle, assignment: null, last_report: null }
