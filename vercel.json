@@ -3,7 +3,14 @@
   "framework": "nextjs",
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "pnpm run build",
+  "crons": [
+    { "path": "/api/plans/generate", "schedule": "0 13 * * 3" },
+    { "path": "/api/plans/generate", "schedule": "0 14 * * 3" }
+  ],
   "functions": {
+    "app/api/plans/generate/route.ts": {
+      "supportsCancellation": true
+    },
     "app/api/recipes/search/route.ts": {
       "supportsCancellation": true
     }

@@ -23,7 +23,7 @@ export async function startServer(overrides: EnvironmentOverrides = {}, preload 
   const secret = randomBytes(48).toString('base64url');
   const config = typeof overrides === 'function' ? overrides(origin) : overrides;
   const database = config.DATABASE_URL === undefined ? await restrictedMenuDatabase() : undefined;
-  const env: NodeJS.ProcessEnv = { ...process.env, NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_URL: database?.runtimeUrl, ...config, OPENAI_API_KEY: '', BRAVE_SEARCH_API_KEY: '', BRAVE_API_KEY: '', RECIPE_SEARCH_PROVIDER: 'brave' };
+  const env: NodeJS.ProcessEnv = { ...process.env, CRON_SECRET: '', MEAL_PLAN_SCHEDULER_ENABLED: 'false', MEAL_PLAN_SCHEDULER_ORIGIN: '', NODE_ENV: development ? 'development' : 'production', BETTER_AUTH_URL: origin, BETTER_AUTH_SECRET: secret, GOOGLE_CLIENT_ID: 'test-client', GOOGLE_CLIENT_SECRET: 'test-client-secret', DATABASE_URL: database?.runtimeUrl, ...config, OPENAI_API_KEY: '', BRAVE_SEARCH_API_KEY: '', BRAVE_API_KEY: '', RECIPE_SEARCH_PROVIDER: 'brave' };
   delete env.MIGRATION_DATABASE_URL; delete env.TEST_DATABASE_URL;
   const imports = [...(preload ? [new URL('./google-network.ts', import.meta.url).pathname] : []), ...extraPreloads];
   if (imports.length) env.NODE_OPTIONS = ['--import=tsx', ...imports.map(path => '--import=' + path)].join(' ');

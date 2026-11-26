@@ -62,4 +62,4 @@ export async function proxy(request: NextRequest) {
 
 // Menu handlers independently preserve every gate/header without Next's Proxy
 // body cloning, which otherwise waits for client EOF before route deadlines run.
-export const config = { matcher: "/((?!api/menu(?:/[^/]+/remove)?/?$|api/verification/session$).*)" };
+export const config = { matcher: "/((?!api/menu(?:/[^/]+/remove)?/?$|api/verification/session$|api/plans/generate$).*)" };

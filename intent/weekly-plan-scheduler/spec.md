@@ -120,6 +120,20 @@ per-family transaction; no unbounded background `after`/waitUntil work or
 Promise.race that lets mutations continue after a successful/error response.
 Close the request-owned pool before completing the response.
 
+Register that exact same bounded `schedulerResponse` promise once with the
+existing `@vercel/functions` `waitUntil` and return it to Next. Together with
+`supportsCancellation:true` for this function, this retains cleanup lifetime
+after disconnect while the signal stops new family work. It never starts a
+second generator or an unbounded post-response task. The60second deadline,
+started-work settlement and pool-close-before-response rules remain unchanged.
+Independent security/reviewer lifecycle consultation approved this clarification
+on2026-11-26; actual hosted disconnect delivery remains unobserved before release.
+The public SDK barrel exposes optional `ws` declarations even for waitUntil.
+Independent review approved exact dev-only `@types/ws@8.18.1` (matching the
+installed SDK's own type pin) and generated lockfile to satisfy strict checking.
+No WebSocket runtime package/feature, vendor patch or compiler suppression is
+added. The runtime's lazy WebSocket branch is unused.
+
 Preserve current common transaction advisory lock acquired before decision
 reads, READ COMMITTED per-family writes, runtime metadata validation, restricted
 DB role and verified TLS. Persisted member eligibility, synthetic-family

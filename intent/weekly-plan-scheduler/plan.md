@@ -18,6 +18,8 @@ review of material departures before expanding the change.
 - `lib/plans/generate.ts`
 - `proxy.ts`
 - `vercel.json`
+- `package.json`
+- `pnpm-lock.yaml`
 - `.env.example`
 - `README.md`
 - `AGENTS.md`
@@ -41,8 +43,12 @@ review of material departures before expanding the change.
 - `tests/auth/server.ts`
 
 Org workflow graph/state/status/messages/review/memory/ledger artifacts are
-maintained separately by the orchestrator. No dependency/package change, SQL,
-Drizzle journal/catalog or hosted migration is expected. Existing local CLI is
+maintained separately by the orchestrator. The independently approved narrow
+type-only dependency amendment adds exact dev `@types/ws@8.18.1` and pnpm's
+generated lockfile because the installed Vercel SDK's public waitUntil barrel
+reexports its optional WebSocket declarations. No runtime WebSocket feature,
+vendor declaration patch, compiler suppression, SQL,
+Drizzle journal/catalog or hosted migration is introduced. Existing local CLI is
 preserved. The final manifest may remove unneeded test-fixture server paths;
 do not edit unrelated fixture behavior merely to match this list.
 
@@ -107,6 +113,13 @@ do not edit unrelated fixture behavior merely to match this list.
    first actual Wednesday delivery observation. Leave Production untouched.
 
 ## Verification commands
+
+Lifecycle clarification approved in the2026-11-26 security/reviewer consultation:
+enable scheduler `supportsCancellation:true`; register exactly the same once-created
+bounded route-response promise with existing `waitUntil` and return that promise.
+Add a narrow promise-identity/one-registration regression, retain actual DB
+deadline/abort/closure tests, and explicitly record hosted disconnect observation
+as a gap. No duplicate generation or unbounded background work is introduced.
 
 Run on the final source where applicable and record actual exits/counts:
 
