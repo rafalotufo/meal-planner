@@ -316,6 +316,54 @@ hosting feature is introduced; existing OpenAI project limits stay unchanged.
 effective settings. Node24.x is pinned by major; Vercel controls patch updates.
 Private env and operator/audit/test/cache files remain excluded from uploads.
 
+### Weekly plan scheduler
+
+The hosted scheduler integration targets **Wednesday09:00 America/Toronto**.
+The owner accepts Vercel Hobby delivery during09:00–09:59, rather than an
+exact-minute start. Two Wednesday cron entries at13:00/14:00UTC cover daylight
+saving: winter's early call skips before09; summer's later call reconciles
+existing plans or provides an extra recovery opportunity as late as10:59ET.
+Each due invocation fills only missing upcoming Sunday weeks from eligible
+families' saved recipes. Existing drafts, family edits and final history remain
+unchanged. It makes no paid-provider calls. Vercel does not retry failed cron
+requests; manual same-Wednesday retries are idempotent. A missed entire day has
+no automatic backfill.
+
+Activation requires separate release approval. Enabled configuration requires
+`MEAL_PLAN_SCHEDULER_ENABLED=true`, explicit `MEAL_PLAN_DRAFT_DAY=Wednesday`, and
+an independent random32-byte `CRON_SECRET` encoded as64hex characters. Keep
+separate staging/Production credentials private in their exact deployment
+scope; never pass a secret through URLs, command arguments or browser state.
+Set `MEAL_PLAN_SCHEDULER_ORIGIN` to the exact Preview origin
+`https://meal-planner-staging-rafalotufos.vercel.app`, or the separately reviewed
+Production machine origin `https://meal-planner-rafalotufos-projects.vercel.app`.
+The latter applies only to this service route; Production browser auth/menu
+still require `https://lotufo-meals.vercel.app`. Project and Vercel environment
+attribution must match the reviewed target. Disabled/unset is404; incomplete or
+mismatched enabled configuration fails closed.
+
+`GET /api/plans/generate` requires its exact machine Host and dedicated Bearer
+credential; user cookies cannot invoke it. All other methods are protected405.
+The route returns only aggregate counts and logs one sanitized completion/failure
+event. Review cron invocation status/errors after activation and confirm actual
+registered target/Host and first scheduled delivery; manual success alone does
+not prove native dispatch. No runtime date/family override is supported. Each
+request owns a60-second deadline and pool; partial completed family transactions
+remain safe for same-day reconciliation. Native cron runs only in Production.
+
+The optional `scripts/check-meal-plan-scheduler.ts` operator probe is restricted
+to the recorded verified-TLS Preview database through private
+`MEAL_PLAN_SCHEDULER_PROBE_DATABASE_URL`. It has no arguments, commit mode or
+Production fallback. Its deterministic due-clock/storage proof is rollback-only,
+separate from hosted HTTP evidence. Follow the reviewed
+[scheduler spec](intent/weekly-plan-scheduler/spec.md) and actual
+[verification record](intent/weekly-plan-scheduler/verification.md).
+Production release preparation must bind the exact accepted staging source and
+profile. Rotate credentials through reviewed private environment configuration
+and redeployment under the corresponding staging/release authority. Recovery
+disables this scheduler through an approved compatible correction or scoped
+cron toggle; never remove plans/schema or deploy an incompatible old catalog.
+
 ## Families and invitations
 
 Visit `/family` after signing in to see your family, invite someone by verified

@@ -191,6 +191,25 @@ database over verified TLS; browser agents receive only a private short-lived
 handoff. No runtime migration or new hosted authority is implied. See
 `intent/agent-deployment-verification/spec.md`, `plan.md` and `implementation.md`.
 
+## Hosted weekly scheduler
+
+The owner-selected schedule is Wednesday09:00 America/Toronto with accepted
+Hobby delivery during09:00–09:59; dual13/14UTC Wednesday entries cover DST, with
+summer's later call an idempotent recovery opportunity. See
+`intent/weekly-plan-scheduler/spec.md`. Exact `/api/plans/generate` is a narrowly
+authenticated machine GET effect, excluded from Proxy only because its handler
+owns all-method exact project/env/service-Host, Bearer, method/target and security
+checks. It is not public auth policy; browser cookies never grant this authority.
+Only this route may accept the fixed Production machine origin; retain canonical
+browser/menu Host and Google admission boundaries unchanged. Enabled hosted
+configuration requires explicitWednesday, separate server-only64hex CRON_SECRET
+and exact reviewed MEAL_PLAN_SCHEDULER_ORIGIN. Defaultdisabled; runtime never
+migrates. Requests own60second deadlines/pools, stop new families on abort and
+settle started work before returning. Preserve existing/final plans and synthetic
+exclusion. Probe is Preview-only and rollback-only; native unattended dispatch
+cannot be claimed from Preview/manual checks. Production activation/configuration
+and release remain separately gated; no standing authority follows from this work.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know

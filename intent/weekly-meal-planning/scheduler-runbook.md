@@ -1,5 +1,12 @@
 # Weekly draft worker — activation runbook
 
+Historical local-worker activation guidance follows. The later owner-selected
+hosted Wednesday09:00 America/Toronto integration is specified in
+[`../weekly-plan-scheduler/spec.md`](../weekly-plan-scheduler/spec.md), with
+Hobby's accepted one-hour delivery window and separate staging/release gates.
+This original feature's unactivated state is historical; consult the later
+verification/release evidence for actual activation status.
+
 The worker and template are implemented for separately authorized local activation.
 No job is installed. Hosted/Production scheduling is unactivated. This worker does
 not run inside Vercel. No hosted migration, deployment or scheduler activation is

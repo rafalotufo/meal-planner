@@ -12,7 +12,7 @@ let browser:Awaited<ReturnType<typeof openChrome>>|undefined;
 let server:Awaited<ReturnType<typeof startServer>>|undefined;
 let db:Awaited<ReturnType<typeof fixture.open>>|undefined;
 try{
- browser=await openChrome();server=await startServer({DATABASE_URL:fixture.runtimeUrl},true);db=await fixture.open();
+ browser=await openChrome();server=await startServer({DATABASE_URL:fixture.runtimeUrl,MEAL_PLAN_DRAFT_DAY:'Wednesday'},true);db=await fixture.open();
  await browser.google(server.origin,'test-code');await browser.navigate(server.origin+'/sign-in');await browser.click('button');
  await browser.waitFor("location.pathname === '/' && Boolean(document.querySelector('#recipe-query'))",'verified member home');
  const user=await db.one<{googleSubject:string;email:string}>('SELECT google_subject AS "googleSubject",verified_email AS email FROM app_users LIMIT 1');assert.ok(user);
@@ -40,10 +40,11 @@ try{
  let view=await readPlans(db,identity,allowed,{},due);const id=view.plan!.id;const week=view.plan!.weekStart;
  await browser.navigate(server.origin+'/plans');
  await browser.waitFor("Boolean(document.querySelector('[data-plan-approve]')) && Object.keys(document.querySelector('[data-plan-approve]')).some(k=>k.startsWith('__reactProps$'))",'hydrated weekly controls');
+ assert.equal(await browser.evaluate("document.querySelector('main').innerText.includes('Wednesday after 09:00 America/Toronto')"),true,'plan schedule reflects hosted Wednesday configuration');
  assert.equal(await browser.evaluate("document.querySelectorAll('main').length===1 && document.querySelectorAll('h1').length===1 && document.querySelectorAll('article').length===7"),true);
  assert.equal(await browser.evaluate("/away|attendance/i.test(document.querySelector('main').innerText)"),false);
  await recipeCards(week);
- for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-draft-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-scheduler-draft-${width}.png`);}
 
  const initialSuggestions=(await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions'))?.n;
  // Keep the successful display snapshot through physical typing and body loading.
@@ -78,7 +79,7 @@ try{
  }
 
  await openPicker(0);assert.equal(await browser.evaluate("document.querySelector('[data-swap-confirm]').disabled"),true);
- for(const width of [320,1440]){await browser.viewport(width);assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('dialog').getBoundingClientRect(),c=document.querySelector('[aria-label=\"Close recipe picker\"]').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&c.width>=44&&c.height>=44;})()"),true);await browser.screenshot(`org/reviews/swap-picker-browse-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('dialog').getBoundingClientRect(),c=document.querySelector('[aria-label=\"Close recipe picker\"]').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&c.width>=44&&c.height>=44;})()"),true);await browser.screenshot(`org/reviews/weekly-plan-scheduler-swap-picker-browse-${width}.png`);}
  assert.equal(await browser.evaluate("document.querySelector('dialog img')?.getAttribute('referrerpolicy')"),'no-referrer');await browser.waitFor("document.querySelectorAll('dialog img').length===1",'saved image and null/broken fallbacks');
  assert.equal(await browser.evaluate("document.querySelectorAll('dialog img').length"),1);assert.equal(await browser.evaluate("document.querySelector('dialog').innerText.includes('Photo unavailable')"),true);
  await searchPicker('Family supper 0');assert.equal(await browser.evaluate("Boolean(document.querySelector('[data-swap-choice][aria-label=\"Family supper 0\"]'))"),true,'title search reaches beyond first50');await key('Enter','Enter',13);
@@ -95,7 +96,7 @@ try{
  assert.equal((await readPlans(db,identity,allowed,{},due)).approvals,1);
  const suggestionsBefore=await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions');
  await openPicker(0);await choose('Long saved dinner '+ 'hearty'.repeat(23));
- for(const width of [320,1440]){await browser.viewport(width);if(width===320)await browser.send('Emulation.setDeviceMetricsOverride',{width,height:568,deviceScaleFactor:1,mobile:false});await browser.evaluate("document.querySelector('[data-swap-confirm]').scrollIntoView({block:'nearest'})");assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('[data-swap-confirm]').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight&&document.documentElement.scrollWidth<=innerWidth;})()"),true,'selected long-title footer reachable on short mobile viewport');await browser.screenshot(`org/reviews/swap-picker-selected-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);if(width===320)await browser.send('Emulation.setDeviceMetricsOverride',{width,height:568,deviceScaleFactor:1,mobile:false});await browser.evaluate("document.querySelector('[data-swap-confirm]').scrollIntoView({block:'nearest'})");assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('[data-swap-confirm]').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight&&document.documentElement.scrollWidth<=innerWidth;})()"),true,'selected long-title footer reachable on short mobile viewport');await browser.screenshot(`org/reviews/weekly-plan-scheduler-swap-picker-selected-${width}.png`);}
  assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions'))?.n,suggestionsBefore?.n,'selection alone never posts');
  await browser.evaluate("(()=>{const original=window.fetch.bind(window);window.__swapOriginalFetch=original;window.__swapPostResolved=false;let used=false;window.fetch=async(input,init)=>{const response=await original(input,init);if(!used&&(init?.method==='POST')&&new URL(input,location.href).pathname.startsWith('/api/plans/')){used=true;window.__swapPostResolved=true;await new Promise(resolve=>setTimeout(resolve,850));}return response;};})()");
  const postRequests=()=>browser!.requests.filter(url=>new URL(url).pathname===`/api/plans/${id}`).length;const beforeDouble=postRequests();
@@ -109,7 +110,7 @@ try{
  assert.equal((await readPlans(db,identity,allowed,{},due)).approvals,0);
  await browser.waitFor("document.querySelectorAll('[data-plan-accept]').length===1 && Boolean(document.querySelector('article:nth-of-type(2) [data-plan-accept]'))",'other recipe suggestion survives accepted swap');
  assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
- for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-swap-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-scheduler-swap-${width}.png`);}
  await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.querySelector('[role=alert]')?.textContent.includes('already in this plan')",'duplicate acceptance blocked with useful reject guidance');
  assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
  await browser.click('article:nth-of-type(2) [data-plan-reject]');await browser.waitFor("!document.querySelector('[data-plan-accept]')",'retained conflicting suggestion remains rejectable');
@@ -146,14 +147,14 @@ try{
  await recipeCards(old.week,4);
  assert.equal(await browser.evaluate("document.querySelector('[role=note]')?.textContent.includes('original 7 entries')"),true,'honest legacy final display note');
  assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[old.id]))?.meals,legacy,'legacy raw history unchanged by display');
- for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-history-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/weekly-plan-scheduler-history-${width}.png`);}
  await browser.click('#history-week');await browser.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});await browser.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});
  assert.equal(await browser.evaluate("document.activeElement.matches(':focus-visible')"),true,'native keyboard focus remains visible');
  for(const [index,count] of [1,2,6,7].entries()){
   await db.execute('DELETE FROM menu_recipes');for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,allowed,{title:'Small-menu recipe '+n,sourceUrl:'https://example.test/small/'+n,imageUrl:null,summary:'Distinct saved recipe.',time:null});
   const clock=new Date(addDays(local.date,7*(index+1))+'T23:00:00Z');await generateDuePlans(db,allowed,torontoClock(clock).day,clock);const small=(await readPlans(db,identity,allowed,{},clock)).plan!;
   await browser.navigate(server.origin+'/plans?week='+small.weekStart);await browser.waitFor(`document.querySelectorAll('article').length===${count} && Boolean(document.querySelector('[data-plan-finalize]'))`,'variable-card plan');await recipeCards(small.weekStart,count);
-  for(const width of [320,1440]){await browser.viewport(width);if(count===1||count===6)await browser.screenshot(`org/reviews/weekly-plan-small-${count}-${width}.png`);}
+  for(const width of [320,1440]){await browser.viewport(width);if(count===1||count===6)await browser.screenshot(`org/reviews/weekly-plan-scheduler-small-${count}-${width}.png`);}
   await openPicker(0);assert.equal(await browser.evaluate("document.querySelector('dialog').innerText.includes('already in your plan') && document.querySelector('[data-swap-confirm]').disabled"),true,'all-planned menu still opens meaningful picker');await browser.click('[data-swap-cancel]');
   await browser.click('[data-plan-finalize]');await browser.waitFor("Boolean(document.querySelector('[data-plan-confirm]'))",'variable-count confirmation');assert.equal(await browser.evaluate(`document.querySelector('#confirm-warning').textContent.includes(${JSON.stringify('Confirm '+count+' planned '+(count===1?'recipe':'recipes')+'?')})`),true,'confirmation count accurate');
   await browser.click('section[aria-label="Confirm planned meals"] button:last-child');
