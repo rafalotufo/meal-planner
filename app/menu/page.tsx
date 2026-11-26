@@ -24,7 +24,7 @@ export default async function MenuPage({ searchParams }: { searchParams: Promise
         <p className="mt-3 text-sm leading-relaxed text-stone-600 sm:text-base">Recipes saved by your family, ready when you are. Everyone in your family can add or remove recipes.</p>
         {invalid ? <div className="mt-8 rounded-xl border border-stone-200 bg-white p-6"><p>This menu page is invalid.</p><a href="/menu" className="mt-3 inline-flex min-h-11 items-center text-emerald-900 underline">Newest recipes</a></div>
           : !page ? <div role="alert" className="mt-8 rounded-xl border border-stone-200 bg-white p-6"><p>Could not load your menu. Please try again.</p><a href="/menu" className="mt-3 inline-flex min-h-11 items-center text-emerald-900 underline">Reload menu</a></div>
-          : <MenuControls page={page} after={after} />}
+          : <MenuControls page={page} after={after} canEditCategory={session.kind === 'google'} />}
       </section>
   </main>;
 }

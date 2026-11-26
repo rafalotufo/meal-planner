@@ -43,7 +43,7 @@ try {
   await menuReady();
   for (const width of [390, 1440]) {
     await browser.viewport(width);
-    await browser.screenshot(`org/reviews/saved-recipe-menu-title-focus-after-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-menu-title-focus-after-${width}.png`);
   }
   await unselectedTitle();
   await key('Tab', 'Tab', 9);
@@ -90,7 +90,7 @@ try {
   for (const width of [390,1440]) {
     await browser.viewport(width);
     await browser.evaluate("document.querySelector('[data-save-recipe]').scrollIntoView({block:'center'})");
-    await browser.screenshot(`org/reviews/saved-recipe-menu-disabled-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-menu-disabled-${width}.png`);
   }
   const savesBeforeDisabledClick = browser.requests.filter(value => { const url = new URL(value); return url.pathname === '/api/menu' && !url.search; }).length;
   await browser.click('[data-save-recipe]');
@@ -115,13 +115,29 @@ try {
   await browser.click('a[href="/menu"]');
   await browser.waitFor("location.pathname === '/menu' && document.querySelectorAll('article').length === 1", 'fresh menu after save');
   await unselectedTitle();
+  assert.equal(await browser.evaluate("document.querySelectorAll('[data-recipe-category]').length"), 1, 'every saved recipe displays its category');
+  assert.equal(await browser.evaluate("document.querySelector('[data-recipe-category]').textContent"), 'Category: Unclassified', 'legacy cards are honestly unclassified');
+  assert.equal(await browser.evaluate("Boolean(document.querySelector('label[for^=recipe-category-]'))"), true, 'category select has an explicit label');
+  await browser.click('[data-category-select]');
+  await key('End', 'End', 35); await key('Enter', 'Enter', 13);
+  await browser.waitFor("document.querySelector('[data-category-select]').value === 'veggie'", 'keyboard selects Veggie');
+  browser.failNext('/api/menu?category=update', 503, 500);
+  await browser.click('[data-save-category]');
+  await browser.waitFor("document.querySelector('[data-save-category]').disabled", 'category request disables duplicate submission');
+  await browser.waitFor("document.body.innerText.includes('Could not confirm category')", 'failed category request stays recoverable');
+  assert.equal(await browser.evaluate("document.querySelector('[data-recipe-category]').textContent"), 'Category: Unclassified', 'failed write never claims a saved category');
+  assert.equal(await browser.evaluate("document.body.innerText.includes('Fixture request failure')"), false);
+  await browser.click('[data-save-category]');
+  await browser.waitFor("document.querySelector('[data-recipe-category]')?.textContent === 'Category: Veggie'", 'category persists through real HTTP and refresh');
+  await browser.navigate(`${server.origin}/menu`); await size(1); await menuReady();
+  assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').value"), 'veggie', 'saved correction survives reload');
   assert.equal(await browser.evaluate("document.querySelector('article img')?.getAttribute('src')"), 'https://images.recipe-fixture.test/photo.svg');
   await browser.navigate(`${server.origin}/menu`);
   await browser.waitFor("document.querySelectorAll('article').length === 1", 'save survives reload');
   await unselectedTitle();
   for (const width of [390, 1440]) {
     await browser.viewport(width);
-    await browser.screenshot(`org/reviews/saved-recipe-menu-controls-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-menu-controls-${width}.png`);
   }
   const removalsBefore = browser.requests.filter(url => new URL(url).pathname.endsWith('/remove')).length;
   await browser.click('[data-remove-recipe]');
@@ -130,7 +146,7 @@ try {
   for (const width of [320, 390, 1440]) {
     await browser.viewport(width);
     assert.equal(await browser.evaluate("(() => { const r=document.querySelector('dialog').getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && r.height <= innerHeight; })()"), true);
-    await browser.screenshot(`org/reviews/saved-recipe-menu-confirm-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-menu-confirm-${width}.png`);
   }
   await key('Tab', 'Tab', 9);
   assert.equal(await browser.evaluate('document.activeElement.hasAttribute("data-confirm-removal")'), true);
@@ -182,9 +198,9 @@ try {
   await browser.navigate(`${server.origin}/`);
   await browser.waitFor("Boolean(document.querySelector('#recipe-query'))");
   const special = [
-    { title: 'Lemony chickpea supper', sourceUrl: 'https://example.test/lemon', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Warm chickpeas with lemon and herbs.', time: { kind: 'total' as const, text: '20 minutes' } },
-    { title: '<b>Literal recipe title</b>', sourceUrl: 'https://example.test/literal', imageUrl: null, summary: '<script>window.menuInjected=true</script>' + 'x'.repeat(540), time: null },
-    { title: 'Missing publisher photo', sourceUrl: 'https://example.test/missing', imageUrl: 'https://images.recipe-fixture.test/missing.svg', summary: 'The publisher image is unavailable; the recipe stays readable.', time: null },
+    { title: 'Lemony chickpea supper', sourceUrl: 'https://example.test/lemon', imageUrl: 'https://images.recipe-fixture.test/photo.svg', summary: 'Warm chickpeas with lemon and herbs.', time: { kind: 'total' as const, text: '20 minutes' }, category: 'main' as const },
+    { title: '<b>Literal recipe title</b>', sourceUrl: 'https://example.test/literal', imageUrl: null, summary: '<script>window.menuInjected=true</script>' + 'x'.repeat(540), time: null, category: 'side' as const },
+    { title: 'Missing publisher photo', sourceUrl: 'https://example.test/missing', imageUrl: 'https://images.recipe-fixture.test/missing.svg', summary: 'The publisher image is unavailable; the recipe stays readable.', time: null, category: 'veggie' as const },
   ];
   await browser.recipes(server.origin, special);
   await browser.click('#recipe-query'); await browser.send('Input.insertText', { text: 'chickpea supper' }); await browser.click('button[type="submit"]');
@@ -202,10 +218,16 @@ try {
   // Additional snapshots enter through actual protected HTTP, as another family device would.
   assert.deepEqual(await browser.evaluate(`Promise.all(${JSON.stringify(special.slice(1))}.map(async recipe => (await fetch('/api/menu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(recipe)})).status))`), [200, 200]);
   await browser.navigate(`${server.origin}/menu`); await size(3);
+  assert.deepEqual(await browser.evaluate("Array.from(document.querySelectorAll('[data-recipe-category]'),node=>node.textContent).sort()"), ['Category: Main dish', 'Category: Side', 'Category: Veggie'], 'classified snapshot saves preserve all three labels');
   await browser.waitFor("document.querySelectorAll('article img').length === 1", 'missing and failed image fallbacks');
   assert.equal(await browser.evaluate("document.querySelectorAll('article b,article script').length"), 0, 'saved HTML remains literal text');
   assert.equal(await browser.evaluate("document.body.innerText.includes('<b>Literal recipe title</b>')"), true);
-  for (const width of [390,1440]) { await browser.viewport(width); await browser.screenshot(`org/reviews/saved-recipe-menu-photos-${width}.png`); }
+  for (const width of [320,1440]) {
+    await browser.viewport(width);
+    assert.equal(await browser.evaluate('document.documentElement.scrollWidth <= innerWidth'), true, 'category controls fit narrow and desktop cards');
+    assert.equal(await browser.evaluate("Array.from(document.querySelectorAll('[data-category-select],[data-save-category]')).every(node=>{const box=node.getBoundingClientRect();return box.width>0&&box.left>=0&&box.right<=innerWidth})"), true);
+    await browser.screenshot(`org/reviews/recipe-classification-menu-photos-${width}.png`);
+  }
   // Reset only our disposable menu, then populate through real API (no provider use).
   await owner.execute('DELETE FROM menu_recipes');
   assert.equal(await browser.evaluate(`(async()=>{for(let i=0;i<54;i++){const recipe={title:'Saved recipe '+i,sourceUrl:'https://example.test/page/'+i,imageUrl:null,summary:'Family recipe '+i,time:null};const r=await fetch('/api/menu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(recipe)});if(r.status!==200)return false;}return true;})()`), true);

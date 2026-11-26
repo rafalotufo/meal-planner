@@ -8,9 +8,10 @@ import RemoveRecipeDialog from './remove-recipe-dialog';
 import AddRecipeUrlForm from './add-recipe-url-form';
 import RetryRecipeDetailsButton from './retry-recipe-details-button';
 import { parseMenuPage } from '../../lib/menu/validation';
+import RecipeCategoryControl from './recipe-category-control';
 
 type ActionState = 'pending' | 'error' | 'signin' | 'family';
-export default function MenuControls({ page, after }: { page: MenuPage; after?: string }) {
+export default function MenuControls({ page, after, canEditCategory }: { page: MenuPage; after?: string; canEditCategory: boolean }) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const [selected, setSelected] = useState<SavedMenuEntry | null>(null);
@@ -120,6 +121,7 @@ export default function MenuControls({ page, after }: { page: MenuPage; after?: 
       const ready = entry.curation.state === 'ready';
       const title = ready ? entry.recipe.title : entry.recipe.sourceUrl;
       const actions = <>
+      <RecipeCategoryControl key={`${entry.id}:${entry.recipe.category ?? ''}`} entry={entry} canEdit={canEditCategory} onSaved={() => startTransition(() => router.refresh())} />
       <button data-remove-recipe={entry.id} ref={button => { if (button) buttons.current.set(entry.id, button); else buttons.current.delete(entry.id); }} type="button" disabled={states[entry.id] === 'pending'} aria-label={`Remove from menu: ${title}`} onClick={event => open(entry, event.currentTarget)}
         className="mt-3 min-h-11 w-full rounded-lg border border-stone-300 px-4 py-2 text-sm font-semibold text-stone-700 hover:border-emerald-800 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-800 disabled:opacity-60">
         {states[entry.id] === 'pending' ? 'Removing…' : states[entry.id] === 'error' ? 'Retry removing from menu' : 'Remove from menu'}
