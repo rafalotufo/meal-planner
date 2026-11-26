@@ -9,8 +9,8 @@ intent/plan-recipe-thumbnails/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -21,7 +21,7 @@ intent/plan-recipe-thumbnails/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (plan-recipe-thumbnails-implementation)
 
 ## Open messages
 
@@ -126,6 +126,8 @@ intent/plan-recipe-thumbnails/intent.md
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0181 orchestrator -> product-manager handoff: Capture plan recipe thumbnail intent
 - orchestrator-0182 orchestrator -> architect handoff: Design plan recipe thumbnails
+- orchestrator-0183 orchestrator -> reviewer handoff: Review plan recipe thumbnail design and plan
+- orchestrator-0184 orchestrator -> senior-developer handoff: Implement approved plan recipe thumbnails
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -169,10 +171,12 @@ intent/plan-recipe-thumbnails/intent.md
 ## Artifacts
 
 - intent/plan-recipe-thumbnails/intent.md (a9a8eb2669621a02e960b6938b4f5c47d489a5cf09ffe21f57f8beb671cb82a3)
+- intent/plan-recipe-thumbnails/plan.md (0925edc41fb90556f6f4d0ae622e10f9c65f2277ede3ab5d97abf6384082d893)
+- org/reviews/design-plan-recipe-thumbnails-001.md (7478a03a7d0bb66666eac6bcff6368930b6cdab2c3ef3a136a6916dbd4d0b474)
 
 ## Next action
 
-product-manager:review_intent
+reviewer:review_design_and_plan
 
 ## Last digest source
 

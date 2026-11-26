@@ -12,13 +12,13 @@ nodes:
     stage: design
     artifact: intent/plan-recipe-thumbnails/spec.md
     gate: peer_review
-    status: not_started
+    status: approved
     done_status: approved
   plan:
     stage: build
     artifact: intent/plan-recipe-thumbnails/plan.md
     gate: peer_review
-    status: not_started
+    status: approved
     done_status: approved
   implementation:
     stage: build

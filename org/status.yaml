@@ -2,10 +2,10 @@ version: 1
 agents:
   orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted plan recipe thumbnail intent 94f6f65 }
-  architect: { status: busy, assignment: intent/plan-recipe-thumbnails/plan.md, last_report: Rollback-only probe8cc2760 implemented and strict checked; no hosted invocation }
-  senior-developer: { status: idle, assignment: null, last_report: Corrected ABfX/f838 active; qualified audit records healthy cron binding and unproven runtime monitoring seam; no Production authority remains }
+  architect: { status: busy, assignment: intent/plan-recipe-thumbnails/plan.md, last_report: Designed plan thumbnails f06b361; no application code }
+  senior-developer: { status: busy, assignment: plan-recipe-thumbnails-implementation, last_report: Corrected ABfX/f838 active; qualified audit records healthy cron binding and unproven runtime monitoring seam; no Production authority remains }
   security-researcher: { status: idle, assignment: null, last_report: Corrective sourcef8383f3 security approved19b3ced;7independenthosttests pass; noProd authority }
-  reviewer: { status: idle, assignment: null, last_report: Qualified ABfX/f838 activation audit; current health and cron binding pass; runtime observation seam unproven and release gate pending }
+  reviewer: { status: idle, assignment: null, last_report: "review design-plan-recipe-thumbnails-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -133,3 +133,4 @@ review_queue:
   - { id: code-weekly-plan-scheduler-hosted-correction-001, artifact: weekly-plan-scheduler-hosted-target-correction-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-plan-scheduler-hosted-correction-readiness-001, artifact: intent/weekly-plan-scheduler/hosted-target-correction-release.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-scheduler-hosted-correction-production-completion-001, artifact: intent/weekly-plan-scheduler/hosted-target-correction-production-result.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: not_fully_approved, status: qualified, evidence: org/reviews/weekly-scheduler-hosted-correction-production-completion-001.md }
+  - { id: design-plan-recipe-thumbnails-001, artifact: intent/plan-recipe-thumbnails/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
