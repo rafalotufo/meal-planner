@@ -24,7 +24,7 @@ nodes:
     stage: build
     artifact: recipe-classification-implementation
     gate: code_owner_approve
-    status: not_started
+    status: pending
     done_status: merged
   staging_acceptance:
     stage: deploy

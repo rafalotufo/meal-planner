@@ -8,20 +8,20 @@ intent/recipe-classification/intent.md
 
 ## Loop
 
-- status: in_progress
-- turn: 3
-- phase: implement
-- stop_reason: None
+- status: solved
+- turn: 6
+- phase: done
+- stop_reason: solved
 
 ## Agents
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/recipe-classification/intent.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/recipe-classification/plan.md)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -125,7 +125,6 @@ intent/recipe-classification/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0191 orchestrator -> senior-developer handoff: Implement independently approved recipe classification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -156,11 +155,11 @@ intent/recipe-classification/intent.md
 
 ## Recent decisions
 
-- mem-0184 ceo: OwnerYes accepts correctedf838/12CQ/profile2da8d5 gaps, merge and freshoneattempt Productionrelease; newrecordexpires19:11Z. Generatedservice401 and registeredhost==ownURL mandatory;7feattemptstaysconsumed. (intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md)
-- mem-0187 orchestrator: Start plan recipe thumbnails org workflow from owner request. Prior scheduler graph/config/state/history archived at org/loop/archive/weekly-plan-scheduler-before-plan-recipe-thumbnails; old release evidence and ledger preserved. PM accepted bounded existing-image presentation scope; no merge or hosted authority. (intent/plan-recipe-thumbnails/intent.md)
-- mem-0188 orchestrator: Implementation e16c6e9 completes bounded plan thumbnail presentation and local fixture verification: lint/typecheck/build,308 Node tests,7 Python tests and real Chrome320/1440 pass. Independent security and code review remain; human merge and release gates untouched. (intent/plan-recipe-thumbnails/verification.md)
 - mem-0189 orchestrator: Local plan recipe thumbnails workflow solved in6 turns. Fixed implementation e16c6e9 independently security-approved794bd03 and code-approvedc387147, all required checks and real browser evidence pass. Implementation graph remains pending human merge; no release authority. Final review mutation restored and temporary dev cache handled per AGENTS. (org/reviews/code-plan-recipe-thumbnails-001.md)
 - mem-0190 orchestrator: Start recipe classification org workflow. Prior thumbnail graph/config/state/history archived at org/loop/archive/plan-recipe-thumbnails-before-recipe-classification. PM accepted exclusive meal-role categories and both curation paths; optional manual correction default disclosed. Human merge and hosted gates remain separate. (intent/recipe-classification/intent.md)
+- mem-0191 ceo: Owner explicitly confirms manual category corrections on saved recipes in response to optional question; accepted proposed exclusive meal-role semantics. Existing local scope unchanged; no merge/release/hosted authority. (intent/recipe-classification/intent.md)
+- mem-0192 ceo: Owner directs automatic persistence when recipe category dropdown changes and removal of Save category button. Architect/reviewer amend plan before UI change; existing bounded API, current identity and failure recovery remain. (intent/recipe-classification/spec.md)
+- mem-0193 orchestrator: Recipe classification local org workflow solved in6turns. Final autosave source76eaafb preserves protected persistence69b2719, security-approvedcd8609c and code-approvedac42663. All required affected checks and real Chrome320/1440 pass, original helper restored. Human merge pending; no development/hosted migration or release authority. (org/reviews/code-recipe-classification-001.md)
 
 ## Constraints
 
@@ -171,14 +170,17 @@ intent/recipe-classification/intent.md
 - intent/recipe-classification/intent.md (cad1e0fdbede716edad8764457777ac2b5ff0cb86bd7b19ce4cc2a7651319587)
 - intent/recipe-classification/plan.md (641c746d5bb9a86f35b5a20e3ccdfd38c99fc78661b486258ef096c84c9b7955)
 - org/reviews/design-recipe-classification-002.md (1048a184fa971c0f2242f06cd66423634eee356e2673535af8be811b80c564fa)
+- intent/recipe-classification/verification.md (96dbaf9fe2841d765ecaec5916a6c48ea02566e9cbf68b7aabbc02c2bc8c5631)
+- org/reviews/security-recipe-classification-001.md (4eed4aa10482c4d66c8e435064c97c0f66faf1dec559ad9afb2040a1003b6600)
+- org/reviews/code-recipe-classification-001.md (be756ca3af37d880bf8ffeba735b3c0c03820c680c79dc930ca532dc1e48abba)
 
 ## Next action
 
-reviewer:review_design_and_plan
+reviewer:review
 
 ## Last digest source
 
-- mem-0190 from intent/recipe-classification/intent.md
+- mem-0193 from org/reviews/code-recipe-classification-001.md
 
 <!-- machine:end -->
 

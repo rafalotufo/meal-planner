@@ -1,137 +1,122 @@
 # Saved recipe classification — local verification
 
-Status: Non-browser verification passed. Real Chrome verification and final
-independent approvals remain in progress. No merge or release is authorized.
+- Status: Local implementation verified and independently approved; human merge gate pending.
+- Final application source: `76eaafb` (autosave), cumulative storage source `69b2719`.
+- Security: `org/reviews/security-recipe-classification-001.md`, approvals `d84ac54` and `cd8609c`.
+- Code review: `org/reviews/code-recipe-classification-001.md`, approval `ac42663` of `76eaafb`.
+- No merge, hosted migration, staging deployment or Production release is authorized.
 
-## Source and implementation evidence
+## Result and review scope
 
-- Accepted intent: `b73ecf5`; corrected design: `6c0933e`; independent design
-  approval: `d891e35`, with graph/ledger approval recorded by the orchestrator.
-- Search/URL classification: `a2941f0` (existing search response only, conservative
-  selected Recipe-node metadata classification, null uncertainty).
-- Shared category contract/body parser: `a9b693f`.
-- Menu controls and browser assertions: `29db2b0`.
-- Storage/API/migration increment passed disposable-database verification.
+Recipes receive Main dish, Side or Veggie during existing search curation or
+supported associated URL metadata curation. Uncertain and legacy recipes remain
+Unclassified. The owner confirmed manual corrections and subsequently directed
+immediate dropdown autosave, removing the Save category button. The amended
+specification/plan was independently approved in `3e69b40` before code changes.
 
-## Environment
+Real Chrome proves immediate request on native selection, pending disable,
+sanitized failure with selection reset and unchanged saved label, deliberate
+reselection retry, reload persistence, and corrections on pending/failed URL
+imports surviving curation retry. Exact family/current admission, Google-only
+category writes, synthetic snapshot permissions, body deadlines, immutable plan
+history and duplicate preservation remain covered. No new provider/source pass.
 
-Node24.15.0 and pnpm10.33.0 match the repository contract. Frozen installation
-attempt hit sandbox registry ENOTFOUND; the escalated download did not complete.
-Offline frozen installation also failed because os-paths4.4.0 was absent from the
-local pnpm store. The orchestrator copied an existing installed dependency tree
-whose committed lockfile SHA256 exactly matched this worktree, then restored the
-exact declared @types/ws8.18.1 package from five cached files with individual
-SHA512 verification. No dependency/lockfile/vendor declaration was changed.
-This is cached installation reuse, not a successful frozen install claim.
-Installed pinned Next16.4.6 Server/Client Components and Route Handler docs were
-read before application code; ordinary local installed docs are now present.
+## Passed commands
 
-The orchestrator supplied owner-only private local test configuration and started
-the dedicated native cluster without migrating development data. Profile/tool
-loopback access hit sandbox EPERM; the orchestrator completed the elevated
-profile generator using an owned disposable database. Only owned random disposable test databases are in scope.
+| Command | Actual result |
+| --- | --- |
+| `pnpm run lint` | exit0, zero warnings, rerun after autosave |
+| `pnpm run typecheck` | exit0, including final post-browser check |
+| `pnpm run build` | exit0, fresh autosave build |
+| `pnpm test` | 118/118 |
+| `pnpm run test:family` | 35/35 |
+| `pnpm run test:menu` | 78/78 |
+| `pnpm run test:plans` | 37/37 |
+| `pnpm run test:migrations` | 70 distinct cases passed across affected reruns; final corrected security file30/30, remaining40 passed in preceding full run |
+| `pnpm run test:auth` | 16/16 |
+| `node --import tsx --test tests/verification/*.test.ts` | 30/30 |
+| `node --import tsx --test tests/deployment/*.test.ts` | 42/42, including clean source-upload build |
+| `node --import tsx tests/menu/browser.ts` | exit0 on final autosave build |
+| `node --import tsx tests/menu/curation-browser.ts` | exit0; confirmed again after temporary diagnostics restored |
+| `python3 -m unittest discover -s tests` | 7/7 |
+| focused category/curation/metadata tests | 23/23 |
+| focused menu validation/body/plan validation tests | 23/23 |
+| metadata contract tests | 6/6 after actual eight-identity profile generation |
+| `git diff --check` | exit0 |
+| staged plan-sync and secret scan | passed, zero secret findings before implementation commits |
 
-## Test-first checkpoints
+No application tests were skipped, removed or suppressed. The 43 independent
+security focused tests and the independent review mutation check supplement the
+required suites; they are not added to totals because cases overlap.
 
-- New category parsing assertion failed with `undefined` versus expected null
-  before canonical parser/type changes; exact legacy/new card validation now passes.
-- New store test failed because `updateMenuRecipeCategory` export did not exist
-  before implementing the transaction-scoped correction.
-- New category body mode failed with400 before adding its exact bounded shape;
-  all eight body tests now pass including existing deadline/cancel behavior.
-- Native category metadata test first failed7 versus expected8, then passed6/6
-  after actual PostgreSQL catalog profile generation. The historical five
-  metadata tests remain passing.
-- UI owner observed real React renderer RED for missing category controls and
-  GREEN for ready/pending/failed plus labels-only synthetic rendering. Actual
-  Chrome execution remains pending and must be recorded separately below.
+## Private command logs and visible evidence
 
-## Completed commands
+Owned private temporary directories preserve actual command output:
 
-- `pnpm run lint` — exit0, zero warnings.
-- `pnpm run typecheck` — exit0 after exact cached declared ws types recovery.
-- `pnpm run build` — exit0 in the elevated integration driver.
-- `pnpm run test:family` —35/35 passed in the first integration driver.
-- `pnpm run test:menu` —78/78 passed after fixture corrections.
-- `pnpm run test:plans` —37/37 passed after fixture corrections.
-- `pnpm run test:auth` —16/16 passed.
-- `node --import tsx --test tests/verification/*.test.ts` —30/30 passed, including
-  real synthetic snapshot save/main label and category-only403 with unchanged row.
-- `node --import tsx --test tests/migrations/security.test.ts` —30/30 passed after
-  the controlled TEMP attack-fixture correction. Other40 migration tests passed
-  in the prior full70-case execution; no untested failing case remains.
-- `node --import tsx --test tests/deployment/*.test.ts` —42/42 passed, including
-  clean source-upload build after the intended native SQL was staged.
-- `pnpm test` —118 tests passed, zero failures/skips.
-- `node --import tsx --test tests/menu/validation.test.ts tests/menu/body.test.ts tests/plans/validation.test.ts`
-  —23 tests passed, zero failures/skips.
-- Classification owner's focused category/curation/URL parser tests —23 passed.
-- `python3 -m unittest discover -s tests` —7 tests passed.
-- `git diff --check` — exit0.
-- `python3 scripts/scan_secrets.py --staged` — zero findings before committed increments.
+- `recipe-classification-checks-KxCqIF`: initial build/family pass and four fixture failures.
+- `recipe-classification-checks-2dz37o`: menu78/78, plans37/37, remaining TEMP attack fixture failure.
+- `recipe-classification-checks-Ep2ANk`: corrected security30/30, auth16/16, verification30/30; initial upload packaging failure.
+- `recipe-classification-checks-3mhLLe`: deployment42/42; initial native keyboard harness failure.
+- `recipe-classification-checks-ewxq3z`: final autosave build and both Chrome scripts pass.
+- `recipe-classification-checks-xISaQA`: final curation script passes with original Chrome helper restored.
 
-## Pending evidence
+These directories are under the private OS temporary directory, not runtime
+artifacts. Feature screenshots are committed under `org/reviews/recipe-classification-*.png`.
+Root and independent reviewer inspected actual pending320/1440 and failed320/1440
+images: native labelled selects, saved Veggie/Side labels, wrapped source links,
+reachable controls, no Save category button, clipping or horizontal overflow.
+Ready-photo overview shots show card layout; pending/failed shots provide the
+clear category-control evidence. The failure screenshot is retained as diagnostic
+history and does not represent final acceptance.
 
-The actual eight-identity catalog was generated and inspected: two columns,
-two checks and exactly two new column UPDATE grants. Every historical descriptor,
-profile, independence declaration and grant remains equal to HEAD evidence.
-Fresh/upgrade/repeat migration and exact narrow grants tests passed. All required
-non-browser suites have passed, with affected failures rerun as recorded below.
-Complete both owned Chrome scripts and inspect feature-prefixed screenshots at
-320 and1440px before final code review. Browser harness debugging remains open:
-native select arrow events did not change the value in an isolated Chrome page;
-trusted printable type-to-select does, and the current check is keyboard Save.
+## Test-first and correction evidence
 
-## Operational boundary
+Category parsing initially failed undefined versus null; category body mode
+initially failed400; storage correction initially failed missing export; native
+metadata initially failed7 versus8; real component renderer initially lacked
+category controls, and later the autosave renderer correctly failed presence of
+the old Save button. Each implementation followed these observed failures.
 
-No development or hosted migration, grant, merge, push, staging deployment or
-Production operation is authorized or performed by this implementation task.
-The new runtime requires eight identities; current hosted databases have seven.
-A future release must separately authorize/verify migration and staged exact-SHA
-compatibility. Older binaries are unsafe rollback targets after that cutover.
-Legacy saved recipes remain honestly unclassified and manually correctable;
-no bulk provider backfill or historical plan snapshot rewrite occurs.
+Integration corrections preserved every strict assertion:
 
-## First integration run and fixture corrections
+- New plan upgrade fixture uses a valid UUID. Legacy row comparisons include
+  additive null/false columns and preserve all old values/raw snapshots.
+- Host rejection uses actual node:http rather than a fetch-overridden Host.
+- Only validated owned random restricted test databases deny default PUBLIC
+  TEMP. The shadowing attack fixture temporarily grants the exact capability,
+  retains its attack assertions, revokes in finally and proves restored denial.
+- Source-upload export uses git ls-files: staging the required new SQL fixed
+  missing-dependency without changing production code or weakening the test.
+- Native Chrome select arrows did not change a standalone select. A real
+  printable type-to-select produced trusted input/change events; browser tests
+  use it rather than programmatic value assignments or synthetic events.
+- One pre-autosave curation run ended with Invalid InterceptionId despite all
+  functional assertions completing. Temporary request diagnostics preserved all
+  errors and did not reproduce it. Diagnostics were restored byte-for-byte;
+  final autosave curation passed with the original helper. This was an observed
+  transient harness error, not a claimed production defect/fix.
 
-Driver logs: private owned temporary directory `recipe-classification-checks-KxCqIF`.
-Build and family suite passed. Migrations69/70, plans36/37 and menu76/78
-identified four fixture issues, corrected without changing application behavior:
+## Environment and compatibility limits
 
-- New upgrade plan fixture used a non-UUID ID, correctly rejected by the existing
-  plan check. It now uses a bound random UUID.
-- Historical-row migration assertion now includes the additive category=null and
-  category_overridden=false defaults while still comparing all original fields
-  and unchanged raw plan snapshots.
-- CookieJar/fetch did not transmit the hostile Host override. The category probe
-  now uses the existing real node:http pattern and retains421, private headers
-  and no-mutation assertions.
-- Fresh disposable databases inherit PUBLIC TEMP; the restricted test fixture now
-  explicitly revokes TEMP from PUBLIC/mp_runtime on only its validated random
-  owned database before migration. The owner retains TEMP; migration reruns must
-  preserve runtime denial. No development or hosted ACL was touched.
+Node24.15.0/pnpm10.33.0 match the contract. Frozen installation hit sandbox DNS;
+offline installation missed os-paths4.4.0. An existing installed dependency tree
+with exactly matching lockfile SHA256 was copied locally; exact declared
+@types/ws8.18.1 was restored from five SHA512-verified pnpm cache files. This is
+cached dependency reuse, not a successful fresh frozen installation claim. No
+lockfile, dependency, vendor declaration or compiler exclusion changed. Installed
+Next16.4.6 guides were read before application edits.
 
-The two extra fixture paths and reasons are recorded in the plan manifest.
-Full affected-suite reruns and remaining integration/browser commands are pending.
+The dedicated local cluster was started with owner-only local fixture config.
+Only owned disposable databases were migrated or granted privileges. Actual
+PostgreSQL produced the new profile: two columns, two checks, exactly two new
+column UPDATE grants. All seven old descriptors, required identities and ten
+previous profiles/grants remain unchanged. Runtime TEMP remains denied in the
+restricted fixtures. Historical plan JSON remains unchanged.
 
-## Affected-suite rerun
-
-Logs: private `recipe-classification-checks-2dz37o`. Menu78/78 and plans37/37
-passed. Migrations69/70 found an existing attack test that intentionally creates
-a TEMP shadow table and had relied on implicit PUBLIC TEMP. Preserve that test
-with a deliberate owned-fixture capability: verify exact random database name,
-owner and actor; assert ordinary runtime TEMP denial; grant TEMP on only that
-database; perform the original shadow-table/path checks; revoke in finally and
-assert restored denial. The runtime fixture default remains denied and no shared
-role, development or hosted ACL changes occur. This exact test path is added to
-the plan. Focused security-file rerun is pending with the remaining suites.
-
-## Compiled permission and upload checks
-
-Private logs `recipe-classification-checks-Ep2ANk` record auth16/16,
-verification30/30 and targeted migration security30/30 passing. Deployment41/42
-failed only because its clean export intentionally selects `git ls-files` and
-the new UUID SQL was not staged yet. The export copied the new required manifest
-without its untracked SQL, correctly producing missing-dependency. Staged the
-intended SQL with zero secret findings; no application/test change was required.
-Deployment rerun and both real Chrome scripts remain pending.
+The new runtime requires eight migration identities; current hosted databases
+have seven. Development and hosted databases were not migrated. A future release
+requires separate migration and exact-source staging/Production authorization;
+older binaries reject the newer catalog after that future cutover. No push,
+merge, deployment, provider-paid query, legacy bulk backfill or data import was
+performed. Conservative URL metadata classification may remain Unclassified and
+can be corrected by the family.
