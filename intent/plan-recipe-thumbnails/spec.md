@@ -2,7 +2,8 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Proposed for independent org peer review
+- Status: Approved
+- Independent approval: `org/reviews/design-plan-recipe-thumbnails-001.md` (`277aa47`), reviewing `f06b361`
 - Input: accepted sibling `intent.md`; `org/reviews/intent-plan-recipe-thumbnails-001.md`
 - Approval policy: the explicitly requested org workflow uses PM intent and peer
   spec/plan gates (`org/protocol.md`); human merge/release gates remain separate.

@@ -2,11 +2,12 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Proposed for independent org peer review
+- Status: Approved
+- Independent approval: `org/reviews/design-plan-recipe-thumbnails-001.md` (`277aa47`), reviewing `f06b361`
 - Inputs: accepted sibling `intent.md`; proposed sibling `spec.md`
 - Gate: independent spec/plan approval before application code
 
-## Changed-file manifest
+## Files that change
 
 - `app/plans/plan-controls.tsx`
 - `tests/plans/browser.ts`

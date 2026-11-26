@@ -1,9 +1,16 @@
 'use client';
+import Image from 'next/image';
 import { useRef, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import SwapRecipeDialog, { type SwapOutcome } from './swap-recipe-dialog';
 import type { PlanAction, PlanView } from '../../lib/plans/types';
 const button = 'inline-flex min-h-11 items-center justify-center rounded-lg border border-emerald-800 px-3 py-2 text-sm font-medium text-emerald-950 hover:bg-emerald-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700 disabled:cursor-wait disabled:opacity-50';
+function RecipeThumbnail({ imageUrl }: { imageUrl: string | null }) {
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
+  return <div aria-hidden="true" className="mb-3 flex h-32 w-full items-center justify-center overflow-hidden rounded-lg bg-stone-100">
+    {imageUrl && failedUrl !== imageUrl ? <Image src={imageUrl} alt="" width={320} height={240} unoptimized loading="lazy" referrerPolicy="no-referrer" className="h-full w-full object-cover" onError={() => setFailedUrl(imageUrl)} /> : <span className="px-2 text-center text-xs text-stone-500">Photo unavailable</span>}
+  </div>;
+}
 export default function PlanControls({ view }: { view: PlanView }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -50,6 +57,7 @@ export default function PlanControls({ view }: { view: PlanView }) {
     {plan.originalRecipeCount > plan.meals.length ? <p role="note" className="mt-5 text-sm text-stone-600">This older finalized plan contained repeated recipes. Showing {plan.meals.length} unique recipes from its original {plan.originalRecipeCount} entries.</p> : null}
     <div className="mt-6 grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {plan.meals.map((meal, day) => <article key={day} className="min-w-0 rounded-xl border border-stone-200 bg-white p-4">
+        <RecipeThumbnail key={meal.sourceUrl} imageUrl={meal.imageUrl} />
         <h2 className="font-serif text-xl wrap-anywhere text-stone-900">{meal.title}</h2>
         <a href={meal.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex min-h-11 items-center text-sm text-emerald-900 underline focus-visible:outline-2 focus-visible:outline-emerald-700">Open recipe<span className="sr-only">: {meal.title} (new tab)</span></a>
         {view.editable ? <button type="button" data-plan-suggest={day} className={`${button} mt-3 w-full`} onClick={event => setOpened({ instance: ++instance.current, planId: plan.id, revision: plan.revision, day, title: meal.title, plannedSources: plan.meals.map(recipe => recipe.sourceUrl), trigger: event.currentTarget })}>Suggest swap<span className="sr-only"> for {meal.title}</span></button> : null}
