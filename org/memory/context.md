@@ -19,7 +19,7 @@ intent/weekly-plan-scheduler/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/weekly-plan-scheduler/release-preparation.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (intent/weekly-plan-scheduler/production-release-result.md)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (weekly-plan-scheduler-implementation)
 
@@ -63,6 +63,7 @@ intent/weekly-plan-scheduler/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
+- ceo-0075 ceo -> orchestrator decision: Approve exact scheduler staging gaps merge and scoped Production release
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -124,6 +125,7 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0175 orchestrator -> ceo handoff: Wednesday scheduler staged and ready for bounded release approval
+- orchestrator-0176 orchestrator -> senior-developer handoff: Execute owner-approved exact-source scheduler release
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment

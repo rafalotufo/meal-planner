@@ -5,7 +5,7 @@ agents:
   architect: { status: idle, assignment: null, last_report: Rollback-only probe8cc2760 implemented and strict checked; no hosted invocation }
   senior-developer: { status: busy, assignment: weekly-plan-scheduler-implementation, last_report: "Reviewed source7fe1531 ready:334Node and7Python tests; realChrome320/1440; finalbuild/lint/typecheck pass" }
   security-researcher: { status: idle, assignment: null, last_report: Final source7fe1531 security approved02a34db;14focused and3probe checks pass; no blocking findings }
-  reviewer: { status: idle, assignment: null, last_report: "review weekly-plan-scheduler-release-readiness-001: approved" }
+  reviewer: { status: busy, assignment: intent/weekly-plan-scheduler/production-release-result.md, last_report: "review weekly-plan-scheduler-release-readiness-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -129,3 +129,4 @@ review_queue:
   - { id: design-weekly-plan-scheduler-001, artifact: intent/weekly-plan-scheduler/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-weekly-plan-scheduler-001, artifact: weekly-plan-scheduler-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: weekly-plan-scheduler-release-readiness-001, artifact: intent/weekly-plan-scheduler/release-preparation.md, writer: orchestrator, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: weekly-scheduler-production-completion-001, artifact: intent/weekly-plan-scheduler/production-release-result.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
