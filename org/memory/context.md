@@ -9,19 +9,19 @@ intent/weekly-plan-scheduler/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/brave-parallel-recipe-search/plan.md)
+- architect: busy (intent/weekly-plan-scheduler/plan.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/weekly-plan-scheduler/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (weekly-plan-scheduler-implementation)
 
 ## Open messages
 
@@ -62,6 +62,7 @@ intent/weekly-plan-scheduler/intent.md
 - ceo-0070 ceo -> orchestrator answer: Re: Accept exact197 staging gaps and scoped Production cutover recovery
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
+- ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -122,6 +123,11 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0161 orchestrator -> reviewer handoff: Review exact-source staging evidence and final release proposal
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
+- orchestrator-0170 orchestrator -> architect handoff: Design hosted weekly scheduler within owner staging scope
+- orchestrator-0171 orchestrator -> security-researcher handoff: Assess scheduler machine boundary design
+- orchestrator-0172 orchestrator -> architect decision: Finalize accepted Wednesday scheduler design
+- orchestrator-0173 orchestrator -> reviewer handoff: Review fixed Wednesday scheduler spec and plan
+- orchestrator-0174 orchestrator -> senior-developer handoff: Implement approved Wednesday scheduler
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -165,10 +171,12 @@ intent/weekly-plan-scheduler/intent.md
 ## Artifacts
 
 - intent/weekly-plan-scheduler/intent.md (505246367d070f066cbb122f0c1eb93f8390256248bc2b047f36d8d5cef97fba)
+- intent/weekly-plan-scheduler/design-notes.md (45318482f7d7ebb1bf0465011f8f630905fedd8a169daf6a776c215352c85202)
+- org/reviews/design-weekly-plan-scheduler-001.md (a73d960a63d93f4ddfbdf82c09c9cbc456fa1f444cc415d0666b9e0af12ff8f7)
 
 ## Next action
 
-product-manager:review_intent
+reviewer:review_design_and_plan
 
 ## Last digest source
 

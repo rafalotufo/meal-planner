@@ -2,10 +2,10 @@ version: 1
 agents:
   orchestrator: { status: busy, assignment: intent/weekly-plan-scheduler/intent.md, last_report: Local Brave e14feec independently approved;8s item budget;264Node7Python andChrome pass; loopsolved9/10; humanmerge/releasepending; broadrecalllimited }
   product-manager: { status: idle, assignment: null, last_report: Accepted scheduler intent c2b2545 }
-  architect: { status: busy, assignment: intent/weekly-plan-scheduler/plan.md, last_report: Closed stale Brave assignment; scheduler design dispatched }
-  senior-developer: { status: idle, assignment: null, last_report: Prior Brave loop solved; awaiting reviewed scheduler plan }
-  security-researcher: { status: busy, assignment: intent/weekly-plan-scheduler/spec.md, last_report: Final independent security approval482dc2a for e14feec;112tests rerun }
-  reviewer: { status: idle, assignment: null, last_report: "review code-brave-parallel-002: approved" }
+  architect: { status: busy, assignment: intent/weekly-plan-scheduler/plan.md, last_report: Final Wednesday Hobby design2fb7e5d ready for independent review }
+  senior-developer: { status: busy, assignment: weekly-plan-scheduler-implementation, last_report: Prior Brave loop solved; awaiting reviewed scheduler plan }
+  security-researcher: { status: idle, assignment: null, last_report: Security design approved b0f1171; no blocking findings }
+  reviewer: { status: idle, assignment: null, last_report: "review design-weekly-plan-scheduler-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -126,3 +126,4 @@ review_queue:
   - { id: code-brave-parallel-001, artifact: brave-parallel-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: design-brave-parallel-timeout-001, artifact: intent/brave-parallel-recipe-search/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-brave-parallel-002, artifact: brave-parallel-recipe-search-implementation, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
+  - { id: design-weekly-plan-scheduler-001, artifact: intent/weekly-plan-scheduler/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
