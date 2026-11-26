@@ -4,14 +4,14 @@
 
 ## Goal
 
-intent/plan-recipe-thumbnails/intent.md
+intent/recipe-classification/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
@@ -125,6 +125,7 @@ intent/plan-recipe-thumbnails/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
+- orchestrator-0188 orchestrator -> product-manager handoff: Capture saved recipe classification intent
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -155,11 +156,11 @@ intent/plan-recipe-thumbnails/intent.md
 
 ## Recent decisions
 
-- mem-0181 ceo: Owner Approved exact7fe/773U staging gaps, merge and one scoped Production release; committed record weekly-scheduler-production-20261126 expires18:26Z. No standing future authority. (intent/weekly-plan-scheduler/production-authorization.md)
 - mem-0184 ceo: OwnerYes accepts correctedf838/12CQ/profile2da8d5 gaps, merge and freshoneattempt Productionrelease; newrecordexpires19:11Z. Generatedservice401 and registeredhost==ownURL mandatory;7feattemptstaysconsumed. (intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md)
 - mem-0187 orchestrator: Start plan recipe thumbnails org workflow from owner request. Prior scheduler graph/config/state/history archived at org/loop/archive/weekly-plan-scheduler-before-plan-recipe-thumbnails; old release evidence and ledger preserved. PM accepted bounded existing-image presentation scope; no merge or hosted authority. (intent/plan-recipe-thumbnails/intent.md)
 - mem-0188 orchestrator: Implementation e16c6e9 completes bounded plan thumbnail presentation and local fixture verification: lint/typecheck/build,308 Node tests,7 Python tests and real Chrome320/1440 pass. Independent security and code review remain; human merge and release gates untouched. (intent/plan-recipe-thumbnails/verification.md)
 - mem-0189 orchestrator: Local plan recipe thumbnails workflow solved in6 turns. Fixed implementation e16c6e9 independently security-approved794bd03 and code-approvedc387147, all required checks and real browser evidence pass. Implementation graph remains pending human merge; no release authority. Final review mutation restored and temporary dev cache handled per AGENTS. (org/reviews/code-plan-recipe-thumbnails-001.md)
+- mem-0190 orchestrator: Start recipe classification org workflow. Prior thumbnail graph/config/state/history archived at org/loop/archive/plan-recipe-thumbnails-before-recipe-classification. PM accepted exclusive meal-role categories and both curation paths; optional manual correction default disclosed. Human merge and hosted gates remain separate. (intent/recipe-classification/intent.md)
 
 ## Constraints
 
@@ -167,20 +168,15 @@ intent/plan-recipe-thumbnails/intent.md
 
 ## Artifacts
 
-- intent/plan-recipe-thumbnails/intent.md (a9a8eb2669621a02e960b6938b4f5c47d489a5cf09ffe21f57f8beb671cb82a3)
-- intent/plan-recipe-thumbnails/plan.md (0925edc41fb90556f6f4d0ae622e10f9c65f2277ede3ab5d97abf6384082d893)
-- org/reviews/design-plan-recipe-thumbnails-001.md (7478a03a7d0bb66666eac6bcff6368930b6cdab2c3ef3a136a6916dbd4d0b474)
-- intent/plan-recipe-thumbnails/verification.md (44c5a4f6e50aea6fe9c5f270c8e3cf20e15c85216cabf8c5d2766c21d835f07d)
-- org/reviews/security-plan-recipe-thumbnails-001.md (95a90f129b344bfcbbe83c1ac9c9735b760350a26a27c871836f6bfe892db996)
-- org/reviews/code-plan-recipe-thumbnails-001.md (fbe9191271e1794a9cecf7243e381004248e2cc4048f96509d71c99f3c04424b)
+- intent/recipe-classification/intent.md (cad1e0fdbede716edad8764457777ac2b5ff0cb86bd7b19ce4cc2a7651319587)
 
 ## Next action
 
-reviewer:review
+product-manager:review_intent
 
 ## Last digest source
 
-- mem-0189 from org/reviews/code-plan-recipe-thumbnails-001.md
+- mem-0190 from intent/recipe-classification/intent.md
 
 <!-- machine:end -->
 

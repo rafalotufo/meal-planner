@@ -1,0 +1,46 @@
+# Plan recipe thumbnails under org peer-review and human merge/release gates.
+# Prior scheduler graph/state/history/config preserved in org/loop/archive/weekly-plan-scheduler-before-plan-recipe-thumbnails/.
+version: 1
+nodes:
+  intent:
+    stage: plan
+    artifact: intent/plan-recipe-thumbnails/intent.md
+    gate: product_manager_review
+    status: accepted
+    done_status: accepted
+  spec:
+    stage: design
+    artifact: intent/plan-recipe-thumbnails/spec.md
+    gate: peer_review
+    status: approved
+    done_status: approved
+  plan:
+    stage: build
+    artifact: intent/plan-recipe-thumbnails/plan.md
+    gate: peer_review
+    status: approved
+    done_status: approved
+  implementation:
+    stage: build
+    artifact: plan-recipe-thumbnails-implementation
+    gate: code_owner_approve
+    status: pending
+    done_status: merged
+  staging_acceptance:
+    stage: deploy
+    artifact: intent/plan-recipe-thumbnails/staging-validation.md
+    gate: staging_acceptance
+    status: not_started
+    done_status: accepted
+  release:
+    stage: deploy
+    artifact: intent/plan-recipe-thumbnails/release.md
+    gate: release_authorization
+    status: not_started
+    done_status: done
+edges:
+  - {from: intent, to: spec, trigger: acceptance}
+  - {from: spec, to: plan, trigger: approval}
+  - {from: plan, to: implementation, trigger: plan_accepted}
+  - {from: implementation, to: staging_acceptance, trigger: merge}
+  - {from: staging_acceptance, to: release, trigger: acceptance}

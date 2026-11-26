@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/plan-recipe-thumbnails/intent.md
+base_commit: 94f6f65ca5680a0b312f73145a85ff6f7755ee0b
+turn: 6
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: b916a6663218054977119b62576813fb069247db478fa0b5e771d9d7b5f25fe0
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/plan-recipe-thumbnails/intent.md", "sha256": "a9a8eb2669621a02e960b6938b4f5c47d489a5cf09ffe21f57f8beb671cb82a3"}, {"path": "intent/plan-recipe-thumbnails/plan.md", "sha256": "0925edc41fb90556f6f4d0ae622e10f9c65f2277ede3ab5d97abf6384082d893"}, {"path": "org/reviews/design-plan-recipe-thumbnails-001.md", "sha256": "7478a03a7d0bb66666eac6bcff6368930b6cdab2c3ef3a136a6916dbd4d0b474"}, {"path": "intent/plan-recipe-thumbnails/verification.md", "sha256": "44c5a4f6e50aea6fe9c5f270c8e3cf20e15c85216cabf8c5d2766c21d835f07d"}, {"path": "org/reviews/security-plan-recipe-thumbnails-001.md", "sha256": "95a90f129b344bfcbbe83c1ac9c9735b760350a26a27c871836f6bfe892db996"}, {"path": "org/reviews/code-plan-recipe-thumbnails-001.md", "sha256": "fbe9191271e1794a9cecf7243e381004248e2cc4048f96509d71c99f3c04424b"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-26T20:26:31Z"
