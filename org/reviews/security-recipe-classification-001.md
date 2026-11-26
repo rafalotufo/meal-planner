@@ -89,3 +89,28 @@ the recorded hosted databases have seven. A future cutover must follow the
 separate exact-source staging/migration/release gates; old seven-identity binaries
 are unsafe rollback targets after that migration. No production or development
 database mutation was part of this review.
+
+## Automatic-save amendment — independently approved
+
+- Reviewed source: `76eaafb0752203a493c95c469c93a05fe7249d52`
+- Input: owner-requested selection autosave; independent design approval `3e69b40`
+- Verdict: **Approved for the same local security gate.** No new findings.
+
+The amendment removes the separate Save button and calls the same category POST
+when the native selection changes. I inspected the complete control delta:
+Google-derived capability and exact enum guards remain; the request ref is set
+synchronously to prevent concurrent effects; pending selection is disabled;
+the15-second abort, unmount cleanup and post-await controller checks remain.
+Success still requires the exact validated returned entry ID/category. The
+saved label remains based on server props. Failure/401/403 restores that saved
+selection and displays sanitized feedback, allowing deliberate re-selection
+instead of an automatic retry. No credentials, endpoint, API/storage, family
+authorization or synthetic permission changed from the approved `69b2719`.
+
+I read the completed `ewxq3z` build and both menu/curation browser logs. The
+orchestrator reports all three driver commands exited0; the browser logs record
+successful real flows, persistence and failure recovery. Temporary diagnostic
+logging did not suppress failures, and `tests/auth/chrome.ts` has no source diff.
+Final screenshot/visual and any helper-restoration rerun assessment remains with
+the independent code/UI reviewer. The merge, hosted migration and release limits
+above still apply.
