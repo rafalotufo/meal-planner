@@ -2,37 +2,29 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Common service slice ready for independent review; trigger/activation
-  slice pending owner timing choice and separate approval
+- Status: Ready for independent full design/security review
+- Owner amendment: Wednesday09:00 America/Toronto; Hobby delay within one hour
+  accepted in the active chat on2026-11-26
 - Input: accepted sibling `intent.md`; PM review
   `org/reviews/intent-weekly-plan-scheduler-001.md`
 - Source grounding and platform limitations: sibling `design-notes.md`
 
-## Review and implementation boundary
-
-This design separates a common service slice (guarded route, deadline-aware
-generator, tests, staging manual validation and release preparation) from the
-trigger/activation slice. Independent approval may authorize implementing and
-validating the common slice now. It does not approve `vercel.json` cron entries,
-Production service-origin configuration or activation. The trigger slice stays
-blocked on the owner's timing choice; later review must name that choice and
-actual dispatch-host contract. An implemented service without the trigger is
-not a completed scheduler fix.
-
-## Outcome and trigger — pending owner timing choice
+## Outcome and trigger — owner-selected Wednesday Hobby schedule
 
 Add a hosted authenticated service route invoking the existing weekly generator.
-The intended calendar remains Thursday at09:00 America/Toronto for the next
+The owner amended the intended calendar to Wednesday at09:00 America/Toronto for the next
 strictly subsequent Sunday. Do not change recipe selection or regenerate
 existing drafts/final plans. No schema migration or paid provider operation.
 
 Proposed native trigger: two `vercel.json` entries for exact
-`/api/plans/generate`, schedules `0 13 * * 4` and `0 14 * * 4`. These cover EDT
+`/api/plans/generate`, schedules `0 13 * * 3` and `0 14 * * 3`. These cover EDT
 and EST without seasonal deployment. The actual Toronto due check skips the
-08EST call and safely retries at10EDT if the earlier call failed. Thursday
-09:00 is the scheduled target; the current Hobby platform can deliver at any
-minute within that hour and may miss delivery. This is an explicit owner
-decision before adopting this trigger, not an accepted exact-minute SLA.
+08EST call and safely retries at10EDT if the earlier call failed. Wednesday09:00 is the scheduled target; the owner explicitly accepts Hobby's
+delivery window09:00–09:59. Native delivery remains best effort and may miss;
+it is not an exact-minute SLA. The later summer10EDT entry can reconcile an
+earlier failed invocation, potentially as late as10:59; it normally reports
+existing. This is a bounded recovery opportunity, not a change to the first
+scheduled09:00–09:59 window.
 Do not introduce a paid plan, beta Schedules feature, new repository publication
 or external scheduler account. Any different selected trigger updates this spec
 and plan before implementation.
@@ -42,7 +34,7 @@ manual authenticated HTTPS calls, with no claim of an unattended Preview run.
 Keep unrelated `vercel.json` settings unchanged. Production definitions and
 credential configuration remain unapplied until the separate release approval.
 
-## Common slice — service configuration and authentication
+## Service configuration and authentication
 
 Use server-only `MEAL_PLAN_SCHEDULER_ENABLED=true` and `CRON_SECRET`, absent by
 default. Disabled/unset means404 and no DB effect. Malformed enabled value or
@@ -82,12 +74,13 @@ origin for the actual environment: staging above or Production
 configuration fails closed before DB access. No wildcard/client forwarding
 header or arbitrary `VERCEL_URL` becomes an accepted service origin.
 
-Common-slice approval covers Preview's canonical service origin only. For the
-pending native trigger slice, the proposed Production machine origin is the
+For the owner-selected native trigger, the Production machine origin is the
 inspected `targets.production.automaticAliases` hostname:
-`https://meal-planner-rafalotufos-projects.vercel.app`. That is a distinct
+`https://meal-planner-rafalotufos-projects.vercel.app`. Runtime Production
+configuration must equal this exact origin; any other configured origin
+fails503. That is a distinct
 service-only boundary, not permission to alter browser/menu canonical rules.
-Require independent security approval of the exact choice, reinspection at
+Require independent security approval of this exact choice, reinspection at
 release, and actual registered cron target/Host observation after activation.
 Do not silently accept extra aliases or claim a secure origin allowlist proves
 native cron dispatch. No redirect or proxy-forwarding workaround is introduced.
@@ -104,11 +97,11 @@ browser cookies cannot substitute for its credential.
 
 Validate the server Google allowlist before any DB work even on skip paths;
 malformed policy denies all generation. Hosted configuration accepts only the
-Thursday draft day (unset uses existing Thursday default); another/invalid day
-fails503, avoiding a stale Thursday trigger paired with a silently changed day.
+explicit `MEAL_PLAN_DRAFT_DAY=Wednesday`; unset/another/invalid day fails503,
+avoiding a stale Wednesday trigger paired with the historical CLI default.
 The CLI keeps its existing configurable-weekday behavior.
 
-## Common slice — execution, deadlines and persistence
+## Execution, deadlines and persistence
 
 Export explicit Node runtime, dynamic execution and `maxDuration=90`. Apply a
 60-second wall-clock exchange deadline starting before DB admission, leaving
@@ -145,12 +138,12 @@ success. Do not log queries, evidence, recipe titles, family/member IDs or
 secrets. Vercel invocation status/timing remains operational evidence; no new
 telemetry service or alert subscription.
 
-## Trigger slice — retries and missed runs
+## Retries and missed runs
 
 Native delivery is best effort and does not retry failed requests. Duplicate
 and concurrent requests are safe. The second EDT entry is a bounded extra
 same-day opportunity; winter's early entry is skipped. Operators may retry
-manually with the dedicated credential on the same Thursday after09; use
+manually with the dedicated credential on the same Wednesday after09; use
 actual time and no date override. Existing dueWeek has no off-day backfill.
 A full-day outage therefore misses a week and requires a separately scoped
 recovery decision. Never delete a plan, rewrite its date, reset history or relax
@@ -165,7 +158,7 @@ Configure only its separate scheduler enablement/secret/service origin. Reinspec
 Preview ID, alias, target and private environment attribution. Preserve all
 Production deployment/domain/configuration assignments.
 
-On today's actual due Thursday, invoke its canonical handler without a secret,
+On today's actual Thursday (off-day for the amended schedule), invoke its canonical handler without a secret,
 with a wrong secret, unsupported method, invalid target and correct credential.
 Use a private operator process, no browser injection or secret command argv.
 Protect any platform share-link separately; revoke it after the bounded check.
@@ -176,21 +169,29 @@ Invoke again, proving unchanged plan snapshots/revisions. Do not provision fake
 Google identities, widen the allowlist, process synthetic families globally,
 import Production data or persist fake records. No paid provider call is needed.
 The read-only staging inventory found one real Google family, zero saved menu
-recipes and zero plans. Its actual deployed handler therefore should return
-`empty:1`, then the same on a repeat; this proves service auth/storage admission
-but not draft creation. Add a separately reviewed operator rollback-only probe
+recipes and zero plans. Today's actual Thursday handler therefore should
+return `skipped:true` and zero counters, then the same on a repeat, before DB
+admission. This proves deployed guard/offday behavior, not due-day DB admission
+or draft creation. Add a separately reviewed operator rollback-only probe
 on the exact recorded Preview database: acquire the existing common lock in one
 transaction, verify the same current real family/member eligibility, insert at
 most seven transient fixture menu snapshots, exercise the same per-family core
-with actual current due time, verify created plan and repeat idempotency inside
+with a deterministic Wednesday09:00 test clock confined to the operator probe, verify created plan and repeat idempotency inside
 that transaction, then deliberately roll back every change. Recheck bounded
 before/after counts and hashes to prove no fixture rows escaped. The probe has
 no Production target, no schema/grant changes and no commit option; it must fail
-closed outside the recorded verified-TLS staging target. Its operator credentials
+closed outside the recorded verified-TLS staging target:
+`ep-wandering-breeze-bbtscekj.c-15.us-east-1.aws.neon.tech`, database
+`meal_planner` (only its exact `-pooler` hostname variant is also permitted).
+Require a distinct private `MEAL_PLAN_SCHEDULER_PROBE_DATABASE_URL`, validated by
+the existing remote URL rules and exact target match; no command-line URL or
+Production fallback. The transient probe must test existing/final preservation
+and throw an owned rollback sentinel before outer commit, including on failure.
+No catch may convert the sentinel into a transaction commit. Its operator credentials
 remain private outside Vercel. Extract only the existing transaction-owned
 per-family generator core needed to share this code path; do not add a clock,
 family or recipe override to HTTP. Record rollback-only DB proof separately
-from the hosted `empty:1` handler result and local disposable DB tests. If the
+from the hosted offday `skipped:true` handler result and local disposable DB tests. If the
 probe cannot complete, record its coverage gap rather than invent hosted proof.
 Do not add a runtime clock bypass.
 

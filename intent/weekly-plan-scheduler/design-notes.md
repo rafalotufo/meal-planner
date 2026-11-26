@@ -26,9 +26,10 @@ execution. Check routing/authentication and the installed definitions after
 activation; deployment readiness alone cannot prove a scheduled delivery.
 [Managing cron jobs](https://vercel.com/docs/schedules/cron-jobs/manage-cron-jobs).
 
-Cron uses UTC. Weekly `0 13 * * 4` and `0 14 * * 4` invoke the same service
+Cron uses UTC. The owner subsequently selected Wednesday09:00ET and accepted Hobby's one-hour
+delay in the active chat. Weekly `0 13 * * 3` and `0 14 * * 3` invoke the same service
 handler: 13UTC is 09EDT/08EST; 14UTC is 10EDT/09EST. The application retains the
-actual America/Toronto Thursday-at-or-after09 due check. The earlier winter
+actual America/Toronto configured-Wednesday-at-or-after09 due check. The earlier winter
 invocation skips; the later summer invocation is an idempotent retry. This
 retains DST behavior without an automatic time-change deployment.
 [Cron reference](https://vercel.com/docs/schedules/cron-jobs).
@@ -44,7 +45,7 @@ origin, scoped to this exact authenticated route; do not widen browser canonical
 Host acceptance or trust a client forwarding header. Live project inspection
 reports Production automatic alias
 `meal-planner-rafalotufos-projects.vercel.app`. This is the proposed native
-service-origin choice, not verified scheduled dispatch. Preview common-slice
+service-origin choice, not verified scheduled dispatch. Preview
 validation uses only its existing canonical staging origin. `VERCEL_URL` is
 not used to guess or widen the set of permitted targets. A manually invoked canonical handler on
 Preview proves the handler only, not Production platform dispatch.
@@ -70,14 +71,18 @@ if a later family fails; an authorized same-day rerun safely reconciles them.
 
 ## Staging proof
 
-Today is a due Thursday; a direct authenticated invocation of an isolated
-Preview deployment can exercise actual server-clock generation for its existing
-eligible Google household. Such a draft is legitimate staging data, not a fake
-identity. Inspect bounded aggregate before/after counts and preserve existing
-plans; invoke again to prove duplicate safety. Never add a date override to
-force future due runs. If there is no eligible household/ready menu, the hosted
-zero-creation result is a stated gap and local disposable-database tests remain
-a separate proof class. No persistent synthetic fixture data is introduced.
+The read-only inventory found one real Google staging household, zero menu
+recipes and zero plans. Today is Thursday, off-day for the owner's amended
+Wednesday schedule. Direct Preview calls can prove authenticated offday skip
+and rejection guards, not a due HTTP mutation or unattended Preview delivery.
+A reviewed operator probe may use a deterministic Wednesday clock solely inside
+an owned rollback-only transaction on the recorded isolated Preview target. It
+inserts at most seven transient menu snapshots, exercises the same per-family
+core twice, verifies created/repeat behavior and rolls everything back. Read
+before/after aggregate counts and hashes to prove preservation. This is a
+separate storage proof class, never a claim the deployed route used that clock.
+No runtime date override, fake Google user, widened allowlist or synthetic
+family exception is introduced. No Production data or credential is involved.
 
 ## Installed framework grounding
 

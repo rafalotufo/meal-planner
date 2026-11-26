@@ -2,8 +2,8 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Common slice ready for independent design/security review; trigger
-  slice pending owner timing choice
+- Status: Ready for full independent design/security review
+- Owner amendment: Wednesday09:00ET with Hobby delay within one hour accepted
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`, `design-notes.md`
 
 ## Changed-file manifest
@@ -34,8 +34,8 @@ review of material departures before expanding the change.
 - `tests/plans/browser.ts`
 - `tests/deployment/postgres-packaging.test.ts`
 - `tests/deployment/upload-build.test.ts`
-- `tests/family/server.ts`
-- `tests/menu/server.ts`
+- `tests/family/http.ts`
+- `tests/menu/curation-server.ts`
 - `tests/auth/server.ts`
 
 Org workflow graph/state/status/messages/review/memory/ledger artifacts are
@@ -46,20 +46,17 @@ do not edit unrelated fixture behavior merely to match this list.
 
 ## Ordered work
 
-1. **Independently approve common service slice.** Review the exact Preview
-   canonical service origin, machine credential, deadline/abort contracts and
-   bounded staging proof. Common-slice approval allows steps2–4,6–8 without
-   `vercel.json` trigger definitions or Production activation. Native Hobby cron
-   can target09:00 but deliver during09:00–09:59. Step5's trigger integration
-   requires the owner timing choice and an independent review amendment naming
-   the exact service Host contract. Never report the service-only slice as a
-   completed scheduler fix.
+1. **Independently approve full design.** Owner selected Wednesday09:00
+   America/Toronto, accepting Hobby delivery within the09:00–09:59 hour. Review
+   the explicit machine-only service origin, bearer credential, native cron
+   target uncertainty, deadline/abort contract and bounded staging proof before
+   application code. No paid plan or Production action is authorized.
 2. **Failing security/calendar tests.** Add strict TypeScript handler tests with
    dependency injection for trusted configuration, internal test clock and DB
    opener. Prove configured/auth/method/Host/target rejection happens before DB
    admission; all headers; no cookies/forged user agent/date/family override;
    disabled/malformed flag; credential validation and diagnostic redaction;
-   Toronto Thursday09EST/EDT boundaries, pre09/offday skip, rollover and retry.
+   Toronto Wednesday09EST/EDT boundaries, pre09/offday skip, rollover and retry.
    An ordinary internal test clock never becomes runtime request/env input.
 3. **Minimal service adapter and bounds.** Implement scheduler guard and exact
    route, all seven method exports, Node runtime/dynamic/maxDuration90, optional
@@ -76,7 +73,7 @@ do not edit unrelated fixture behavior merely to match this list.
    anonymous bodies cannot enter costly parser work. Fixture servers must
    explicitly clear inherited scheduler credentials/enablement when unused,
    matching their existing paid-key isolation.
-5. **Pending trigger slice and operating docs.** Under approved timing choice, add dual weekly
+5. **Trigger and operating docs.** Under the owner-selected timing choice, add dual weekly
    UTC13/14 cron entries to existing `vercel.json`, keeping all other settings.
    Add disabled-by-default env examples, update active README/AGENTS and append
    supersession link to the old unactivated runbook. Document exact separate
@@ -87,12 +84,15 @@ do not edit unrelated fixture behavior merely to match this list.
    output in `verification.md`. Fix findings with focused regressions and rerun
    affected checks. Have independent security and code reviewers examine the
    fixed implementation before selecting a clean releaseSourceSha.
-7. **Authorized isolated Preview validation of common slice.** Use existing staging lock/alias,
+7. **Authorized isolated Preview validation.** Use existing staging lock/alias,
    keyless restricted DB and exact clean source. Configure fresh independent
-   Preview CRON_SECRET, enablement and exact service origin only; verify target isolation without
+   Preview CRON_SECRET, Wednesday draft day, enablement and exact service origin only; verify target isolation without
    printing values. Inspect deployment source/branch/project/alias/runtime.
    Directly call unauthorized/wrong-token/method/valid paths through real HTTPS;
-   record actual empty1 result/repeat on the existing menu-empty household.
+   record actual offday skipped result/repeat before DB admission. Today is
+   Thursday; no date override enters the route. On the staging DB, use the
+   reviewed rollback-only probe's deterministic Wednesday clock for storage
+   creation/idempotency proof, explicitly separate from deployed HTTP proof.
    Never claim native cron ran on Preview. Run the reviewed strict-target
    rollback-only probe, asserting before/after preservation. Browser mobile/
    desktop plan checks reuse existing valid staging identity/session only; if
@@ -102,7 +102,7 @@ do not edit unrelated fixture behavior merely to match this list.
    Proposed Production actions bind separate secret/enablement, compatible
    separate Production build/manual promotion, inspected registered cron host,
    precise two schedule definitions, canonical routing, anonymous health and
-   first actual Thursday delivery observation. Leave Production untouched.
+   first actual Wednesday delivery observation. Leave Production untouched.
 
 ## Verification commands
 
@@ -133,10 +133,10 @@ hashes/statuses and exact deployment/source IDs only.
 
 ## Decisions and release blockers
 
-- Common service slice may proceed after independent review; trigger/activation
-  remains incomplete until the owner decision and reviewed integration.
-- Owner choice: native Hobby delivery window versus a separately authorized
-  different scheduler/paid plan. No platform plan/feature change in this task.
+- Owner selected Wednesday09:00ET and accepts the Hobby one-hour delay. Native
+  dualUTC13/14 Wednesday expressions reflect that decision. The extra summer
+  10EDT recovery opportunity may complete later; document it honestly. No
+  platform plan/feature change in this task.
 - Native cron Host must match the reviewed service Host contract. Registration
   and manual canonical handler success alone cannot prove this. Inspect actual
   definition host and require first authorized native run observation; a
