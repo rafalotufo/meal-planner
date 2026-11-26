@@ -2,36 +2,43 @@
 
 - Reviewer: security-researcher
 - Date: 2026-11-26
-- Artifacts: `intent/weekly-plan-scheduler/intent.md`, draft `spec.md`,
+- Reviewed source: `2fb7e5d960f7a4fc9fd4d4fa53f18e677fb8e1a6`
+- Artifacts: `intent/weekly-plan-scheduler/intent.md`, `spec.md`, `plan.md`,
   `design-notes.md`; existing generator/connection/Proxy contracts
-- Verdict: **Pending design completion; implementation not approved**
-- Scope: design assessment only; no code, hosted mutation or release approval
+- Verdict: **Approved for implementation and scoped staging verification**
+- Scope: design assessment only; no code, Production mutation or release approval
 
-## Decisions required before approval
+## Resolved design decisions
 
-1. **Important — Bugs / Compliance: native dispatch Host is unresolved.**
-   `spec.md:56` requires an exact trusted Host, but `spec.md:59` explicitly
-   leaves its contract undecided. Vercel's [cron management documentation](https://vercel.com/docs/schedules/cron-jobs/manage-cron-jobs)
-   describes invocation on the deployment serving the production domain;
-   the [system-variable documentation](https://vercel.com/docs/environment-variables/system-environment-variables#vercel_url)
-   describes `VERCEL_URL` as the generated deployment hostname. These are not
-   evidence that cron sends that generated hostname as Host. A secure exact
-   `VERCEL_URL` comparison may therefore still reject the real trigger. Define
-   the concrete service-host contract and its inspected activation preflight;
-   preserve browser canonical-host checks. Do not replace the gap with a
-   wildcard hostname, arbitrary forwarded header, redirect, or a fabricated
-   successful native dispatch observation.
-2. **Important — Compliance: owner timing selection is outstanding.**
-   `spec.md:17` proposes dual UTC13/14 triggers while `spec.md:22` correctly
-   states their adoption requires the owner's timing decision. Current
-   [Vercel cron pricing documentation](https://vercel.com/docs/schedules/cron-jobs/usage-and-pricing)
-   confirms Hobby's hourly precision. Do not approve this as an exact09:00
-   implementation or activate a paid plan/external repository without the
-   corresponding authority. Preserve the question as a real gate, not implied
-   acceptance from elapsed time.
+The owner selected native Vercel Hobby cron, accepted its one-hour delay, and
+changed the weekly target to Wednesday09:00 America/Toronto. The final design
+uses weekly UTC13/14 Wednesday expressions plus trusted Toronto due checks.
+The first due delivery may occur09:00–09:59; the extra summer10EDT invocation
+is explicitly documented as a later reconciliation opportunity. This resolves
+the original unselected timing gate; it does not promise an exact-minute SLA.
 
-The implementation plan was not present at this review snapshot. This review
-does not approve an unwritten changed-file manifest or verification procedure.
+The final `spec.md:61`–87 resolves the security host contract. This review
+explicitly approves **only the machine route's** fixed Production canonical
+service origin `https://meal-planner-rafalotufos-projects.vercel.app`, independent
+of the unchanged browser origin `https://lotufo-meals.vercel.app`. Preview uses
+its one fixed staging canonical origin. Runtime must reject other configured
+origins, require the exact existing Vercel project and environment, verify
+matching browser-origin configuration and authenticate the dedicated bearer.
+No wildcard host, forwarded header, cookie or arbitrary `VERCEL_URL` is trusted.
+
+Official [cron documentation](https://vercel.com/docs/schedules/cron-jobs/manage-cron-jobs)
+identifies the production domain as the invocation target; the
+[system-variable documentation](https://vercel.com/docs/environment-variables/system-environment-variables#vercel_url)
+describes a generated deployment hostname. Secure origin validation alone does
+not prove native routing. The inspected automatic production alias is a
+concrete narrow service boundary; release must reinspect the registered target
+and observe the first actual native request. A mismatch requires reviewed
+correction, never extra alias acceptance or a fabricated pass. This remains a
+release observation obligation rather than an unresolved implementation design.
+
+No blocking security finding remains in this fixed design. The earlier pending
+verdict is preserved in Git history; this revision supersedes it after the
+actual owner amendment and concrete service-origin specification.
 
 ## Threat model and required controls
 
@@ -42,7 +49,7 @@ retained edits/history. Platform deployment configuration is trusted operator
 input; client Host, forwarded headers, cookies, cron-schedule headers and
 User-Agent are not proof of service identity.
 
-The draft captures the appropriate common-handler controls:
+The fixed specification and changed-file plan capture the required controls:
 
 - Dedicated, independently scoped staging/Production random bearer; explicit
   enablement, fail-closed malformed configuration and constant-time fixed-size
@@ -66,24 +73,44 @@ The draft captures the appropriate common-handler controls:
 These are design obligations, not findings that implementation already meets
 them. Final assessment requires hostile HTTP, malformed config/allowlist,
 deadline/abort, concurrent repeat and privacy tests against the built route.
-Run the native lockfile audit before release and triage reachable high/critical
-findings without forced upgrades.
+Retain the audit disposition below; reassess if implementation adds a new
+serving or dependency path. No forced upgrade is authorized.
 
 ## Staging and release limitations
 
 The orchestrator's read-only staging aggregate reports one Google household,
-zero saved Google menu recipes and zero plans. Authenticated hosted invocation
-can honestly prove the empty outcome and handler boundary; it cannot prove
-hosted creation from that dataset. Local disposable DB or separately reviewed
-rollback-only storage proof remains a distinct proof class. Do not seed fake
-Google identities, widen the allowlist or persist synthetic fixture data merely
-to claim a hosted pass. A synthetic browser member never gains global scheduler
-authority.
+zero saved Google menu recipes and zero plans. Today is Thursday, so the
+amended Wednesday handler must skip before database admission. It cannot prove
+hosted due-day storage or creation. The strict-target operator probe in
+`spec.md:175`–196 is approved only for the recorded Preview database, verified
+TLS, the existing eligible real household, at most seven transient snapshots,
+internal deterministic Wednesday clock and mandatory sentinel rollback. It has
+no Production fallback or commit option. Before/after preservation is required.
+This probe and disposable local tests remain distinct proof classes from
+deployed HTTP. Do not seed fake Google identities, widen the allowlist or
+persist fixture data to claim a hosted pass. A synthetic browser member never
+gains global scheduler authority.
 
 Preview manual invocation is not unattended cron delivery. Native delivery,
 production Host attribution and first scheduled-run status require later
 authorized observation. Exact-source staging acceptance, human merge and fresh
 Production release/activation authorization remain ungranted by this review.
+
+## Dependency audit
+
+Independently ran the native `pnpm audit --json` on2026-11-26: exit1,
+**one moderate esbuild advisory, zero high/critical**. This is not a clean audit.
+`pnpm why esbuild` confirms affected0.18.20 via Drizzle Kit's
+`@esbuild-kit/esm-loader`/`core-utils` chain, including Better Auth's optional
+peer path. The issue is
+[GHSA-67mh-4wv8-2f99](https://github.com/evanw/esbuild/security/advisories/GHSA-67mh-4wv8-2f99),
+concerning development-server cross-origin reads; patched versions start0.25.0.
+Existing source uses Next/native pg and the public migration loader, with no
+esbuild serve invocation. The design adds neither a dependency nor affected
+serve API. Retain the existing documented tooling deferral and reassessment
+**by2026-12-01**, earlier on serving/tooling changes, from
+`org/reviews/security-saved-recipe-menu-release-audit-001.md`. Final source
+review must confirm the implementation preserves this reachability assessment.
 
 ## Evidence and verification
 
