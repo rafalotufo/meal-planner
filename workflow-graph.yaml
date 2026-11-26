@@ -24,7 +24,7 @@ nodes:
     stage: build
     artifact: plan-recipe-thumbnails-implementation
     gate: code_owner_approve
-    status: in_progress
+    status: pending
     done_status: merged
   staging_acceptance:
     stage: deploy
