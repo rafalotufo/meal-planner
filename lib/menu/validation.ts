@@ -1,3 +1,4 @@
+import { isRecipeCategory } from '../recipes/category';
 import { isRecord, safeRecipeUrl } from '../recipes/validation';
 import type { MenuCursor, MenuPage, MenuRecipe, SavedMenuEntry } from './types';
 
@@ -19,7 +20,11 @@ export function parseMenuSourceUrls(value: unknown): string[] | null {
   return normalized.every((source): source is string => source !== null) ? [...new Set(normalized)] : null;
 }
 export function parseMenuRecipe(value: unknown): MenuRecipe | null {
-  if (!isRecord(value) || !exactKeys(value, ['title', 'sourceUrl', 'imageUrl', 'summary', 'time'])) return null;
+  if (!isRecord(value)) return null;
+  const keys = ['title', 'sourceUrl', 'imageUrl', 'summary', 'time'];
+  if (!exactKeys(value, Object.hasOwn(value, 'category') ? [...keys, 'category'] : keys)) return null;
+  if (Object.hasOwn(value, 'category') && value.category !== null && !isRecipeCategory(value.category)) return null;
+  const category = isRecipeCategory(value.category) ? value.category : null;
   const title = text(value.title, 160), summary = text(value.summary, 600), sourceUrl = parseMenuSourceUrl(value.sourceUrl);
   const imageUrl = value.imageUrl === null ? null : parseMenuSourceUrl(value.imageUrl);
   if (!title || !summary || !sourceUrl || value.imageUrl !== null && !imageUrl) return null;
@@ -30,7 +35,7 @@ export function parseMenuRecipe(value: unknown): MenuRecipe | null {
     if (!timeText || value.time.kind !== 'cook' && value.time.kind !== 'total') return null;
     time = { kind: value.time.kind, text: timeText };
   }
-  return { title, sourceUrl, imageUrl, summary, time };
+  return { title, sourceUrl, imageUrl, summary, time, category };
 }
 export function parseMenuId(value: unknown): string | null {
   return typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(value) ? value : null;
@@ -51,6 +56,7 @@ export function parseMenuCursor(value: unknown): MenuCursor | null {
 }
 function unchangedRecipe(raw: Record<string, unknown>, recipe: MenuRecipe) {
   return raw.title === recipe.title && raw.sourceUrl === recipe.sourceUrl && raw.imageUrl === recipe.imageUrl && raw.summary === recipe.summary &&
+    (!Object.hasOwn(raw, 'category') || raw.category === recipe.category) &&
     (raw.time === null ? recipe.time === null : isRecord(raw.time) && raw.time.kind === recipe.time?.kind && raw.time.text === recipe.time?.text);
 }
 export function parseSavedMenuEntry(value: unknown): SavedMenuEntry | null {
@@ -62,14 +68,14 @@ export function parseSavedMenuEntry(value: unknown): SavedMenuEntry | null {
   return { id: value.id as string, savedAt: value.savedAt, recipe, curation: { state: curation.state as SavedMenuEntry['curation']['state'], retryable: curation.retryable } };
 }
 export function menuEntryFromRow(value: unknown): SavedMenuEntry {
-  if (!isRecord(value)) throw new Error('Storage unavailable');
+  if (!isRecord(value) || !Object.hasOwn(value, 'category') || value.category !== null && !isRecipeCategory(value.category)) throw new Error('Storage unavailable');
   const time = value.timeKind === null && value.timeText === null ? null : { kind: value.timeKind, text: value.timeText };
   let state: unknown = value.curationState ?? 'ready';
   if (value.curationState != null) {
     if (typeof state !== 'string' || !['pending', 'processing', 'ready', 'failed'].includes(state) || !timestamp(value.curationExpiresAt)) throw new Error('Storage unavailable');
     if ((state === 'pending' || state === 'processing') && value.curationExpiresAt <= Date.now()) state = 'interrupted';
   }
-  const entry = parseSavedMenuEntry({ id: value.id, savedAt: value.savedAt, curation: { state, retryable: state === 'failed' || state === 'interrupted' }, recipe: { title: value.title, sourceUrl: value.sourceUrl, imageUrl: value.imageUrl, summary: value.summary, time } });
+  const entry = parseSavedMenuEntry({ id: value.id, savedAt: value.savedAt, curation: { state, retryable: state === 'failed' || state === 'interrupted' }, recipe: { title: value.title, sourceUrl: value.sourceUrl, imageUrl: value.imageUrl, summary: value.summary, time, category: value.category } });
   if (!entry) throw new Error('Storage unavailable');
   return entry;
 }

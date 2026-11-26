@@ -12,8 +12,8 @@ const id = 'a53f8c90-2345-4789-9234-abcd01234567';
 const recipe = { title: 'Lemony chickpeas', sourceUrl: 'https://example.test/recipe?a=1&b=2', imageUrl: 'https://images.example.test/photo.jpg', summary: 'Warm chickpeas and add lemon.', time: { kind: 'total', text: '20 minutes' } };
 
 test('snapshots require exact fields and normalize text, URL identity and optional photo/time', () => {
-  assert.deepEqual(parseMenuRecipe({ ...recipe, title: '  Lemony chickpeas  ', sourceUrl: 'https://EXAMPLE.test:443/recipe?a=1&b=2#method' }), recipe);
-  assert.deepEqual(parseMenuRecipe({ ...recipe, imageUrl: null, time: null }), { ...recipe, imageUrl: null, time: null });
+  assert.deepEqual(parseMenuRecipe({ ...recipe, title: '  Lemony chickpeas  ', sourceUrl: 'https://EXAMPLE.test:443/recipe?a=1&b=2#method' }), { ...recipe, category: null });
+  assert.deepEqual(parseMenuRecipe({ ...recipe, imageUrl: null, time: null }), { ...recipe, imageUrl: null, time: null, category: null });
   assert.notEqual(parseMenuRecipe({ ...recipe, sourceUrl: 'https://example.test/recipe?b=2&a=1' })?.sourceUrl, recipe.sourceUrl);
   assert.equal(parseMenuRecipe({ ...recipe, sourceUrl: 'https://example.test/Recipe/' })?.sourceUrl, 'https://example.test/Recipe/');
   for (const key of Object.keys(recipe)) {
@@ -54,8 +54,8 @@ test('menu IDs and cursors are canonical, bounded positions without an ownership
 });
 
 test('persisted and public entries fail closed rather than normalizing corrupt rows or leaking owners', () => {
-  const row = { id, familyId: 'private-family', savedAt: 1795450000001, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes' };
-  const entry = { id, savedAt: row.savedAt, recipe, curation: { state: 'ready', retryable: false } };
+  const row = { category: null, id, familyId: 'private-family', savedAt: 1795450000001, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes' };
+  const entry = { id, savedAt: row.savedAt, recipe: { ...recipe, category: null }, curation: { state: 'ready', retryable: false } };
   assert.deepEqual(menuEntryFromRow(row), entry);
   assert.deepEqual(parseSavedMenuEntry(entry), entry);
   for (const change of [{ title: ' padded ' }, { sourceUrl: 'https://EXAMPLE.test/r' }, { imageUrl: 'data:image/svg+xml,unsafe' }, { timeKind: null }, { savedAt: -1 }, { id: 'invalid' }]) assert.throws(() => menuEntryFromRow({ ...row, ...change }), /Storage unavailable/);
@@ -63,7 +63,7 @@ test('persisted and public entries fail closed rather than normalizing corrupt r
 });
 
 test('curation state is explicit and exact, with no private task authority in public entries', () => {
-  const entry = { id, savedAt: 1, recipe, curation: { state: 'ready', retryable: false } };
+  const entry = { id, savedAt: 1, recipe: { ...recipe, category: null }, curation: { state: 'ready', retryable: false } };
   assert.deepEqual(parseSavedMenuEntry(entry), entry);
   assert.equal(parseSavedMenuEntry({ id, savedAt: 1, recipe }), null);
   for (const curation of [{ state: 'failed', retryable: false }, { state: 'pending', retryable: true }, { state: 'ready', retryable: false, generation: id }, { state: 'unknown', retryable: false }]) assert.equal(parseSavedMenuEntry({ ...entry, curation }), null);
@@ -71,8 +71,8 @@ test('curation state is explicit and exact, with no private task authority in pu
 });
 
 test('curation enum boundaries reject non-string states instead of coercing JSON values', () => {
-  const entry = { id, savedAt: 1, recipe, curation: { state: 'ready', retryable: false } };
-  const row = { id, savedAt: 1, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes', curationState: 'ready', curationExpiresAt: Date.now() + 30000 };
+  const entry = { id, savedAt: 1, recipe: { ...recipe, category: null }, curation: { state: 'ready', retryable: false } };
+  const row = { category: null, id, savedAt: 1, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes', curationState: 'ready', curationExpiresAt: Date.now() + 30000 };
   for (const state of [['ready'], ['pending'], [], 0, 1, true, false, {}, { state: 'ready' }]) {
     assert.equal(parseSavedMenuEntry({ ...entry, curation: { state, retryable: false } }), null);
     assert.throws(() => menuEntryFromRow({ ...row, curationState: state }), /Storage unavailable/);
@@ -87,8 +87,31 @@ test('title query is bounded trimmed well-formed literal text, with blank/unset 
 });
 
 test('menu response pages require exact bounded canonical unique descending entries and matching cursors',()=>{
- const entries=Array.from({length:50},(_,n)=>({id:`00000000-0000-0000-0000-${String(100-n).padStart(12,'0')}`,savedAt:100-n,curation:{state:'ready',retryable:false},recipe:{...recipe,sourceUrl:`https://example.test/response/${n}`}}));
+ const entries=Array.from({length:50},(_,n)=>({id:`00000000-0000-0000-0000-${String(100-n).padStart(12,'0')}`,savedAt:100-n,curation:{state:'ready',retryable:false},recipe:{...recipe,category:null,sourceUrl:`https://example.test/response/${n}`}}));
  const valid={entries,nextCursor:encodeMenuCursor(entries[49])};assert.deepEqual(parseMenuPage(valid),valid);assert.deepEqual(parseMenuPage({entries:[],nextCursor:null}),{entries:[],nextCursor:null});
- for(const value of [null,{}, {entries:Array(1),nextCursor:null}, {...valid,familyId:id},{entries:[...entries,entries[0]],nextCursor:null},{entries:entries.slice(1),nextCursor:valid.nextCursor},{entries:[],nextCursor:valid.nextCursor},{entries,nextCursor:encodeMenuCursor(entries[0])},{entries:[entries[0],entries[0]],nextCursor:null},{entries:[entries[1],entries[0]],nextCursor:null},{entries:[entries[0],{...entries[1],recipe:entries[0].recipe}],nextCursor:null},{entries:[{...entries[0],recipe:{...recipe,sourceUrl:'javascript:alert(1)'}}],nextCursor:null}])assert.equal(parseMenuPage(value),null);
+ for(const value of [null,{}, {entries:Array(1),nextCursor:null}, {...valid,familyId:id},{entries:[...entries,entries[0]],nextCursor:null},{entries:entries.slice(1),nextCursor:valid.nextCursor},{entries:[],nextCursor:valid.nextCursor},{entries,nextCursor:encodeMenuCursor(entries[0])},{entries:[entries[0],entries[0]],nextCursor:null},{entries:[entries[1],entries[0]],nextCursor:null},{entries:[entries[0],{...entries[1],recipe:entries[0].recipe}],nextCursor:null},{entries:[{...entries[0],recipe:{...recipe,category:null,sourceUrl:'javascript:alert(1)'}}],nextCursor:null}])assert.equal(parseMenuPage(value),null);
  const tied=[{...entries[0],savedAt:1},{...entries[1],savedAt:1}];assert.ok(parseMenuPage({entries:tied,nextCursor:null}));assert.equal(parseMenuPage({entries:tied.toReversed(),nextCursor:null}),null);
+});
+
+
+test('classification accepts only exact new or legacy card shapes and normalizes legacy absence', () => {
+  assert.equal(parseMenuRecipe(recipe)?.category, null);
+  for (const category of ['main', 'side', 'veggie', null]) {
+    assert.equal(parseMenuRecipe({ ...recipe, category })?.category, category);
+    const entry = { id, savedAt: 1, recipe: { ...recipe, category }, curation: { state: 'ready', retryable: false } };
+    assert.deepEqual(parseSavedMenuEntry(entry), entry);
+  }
+  for (const category of [undefined, 'Main dish', '', 'vegan', 1, true, [], {}, ['main']]) {
+    assert.equal(parseMenuRecipe({ ...recipe, category }), null);
+  }
+  assert.equal(parseMenuRecipe({ ...recipe, category: 'main', categoryOverridden: true }), null);
+});
+
+
+test('stored rows require an explicitly projected valid category while legacy JSON remains readable', () => {
+  const row = { id, savedAt: 1, title: recipe.title, sourceUrl: recipe.sourceUrl, imageUrl: recipe.imageUrl, summary: recipe.summary, timeKind: 'total', timeText: '20 minutes' };
+  assert.throws(() => menuEntryFromRow(row), /Storage unavailable/);
+  for (const category of [undefined, 'unknown', ['main']]) assert.throws(() => menuEntryFromRow({ ...row, category }), /Storage unavailable/);
+  assert.equal(menuEntryFromRow({ ...row, category: null }).recipe.category, null);
+  assert.equal(parseMenuRecipe(recipe)?.category, null);
 });

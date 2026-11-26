@@ -2,7 +2,7 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Proposed for independent peer approval; no application code authorized yet
+- Status: Approved by independent review `d891e35` of source `6c0933e`
 - Input: accepted sibling `intent.md` (`b73ecf5`)
 - Approval policy: PM intent and independent spec/plan review under `org/protocol.md`; human merge and hosted release gates remain separate.
 

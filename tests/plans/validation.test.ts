@@ -18,3 +18,11 @@ test('week/query and one-to-seven unique validated recipe snapshots fail closed'
   for (const value of [[],Array(8).fill(recipe),Array(2).fill(recipe),[recipe,{...recipe,sourceUrl:recipe.sourceUrl+'#method'}]]) assert.equal(parseMeals(value),null);
   assert.equal(parseMeals(Array(7).fill({ ...recipe, sourceUrl: 'javascript:alert(1)' })), null);
 });
+
+
+test('legacy plan snapshots normalize absent category while new snapshots retain exact validated category', () => {
+  const recipe={title:'Dinner',summary:'Cook it.',sourceUrl:'https://example.test/dinner',imageUrl:null,time:null};
+  assert.equal(parseMeals([recipe])?.[0].category,null);
+  for (const category of ['main','side','veggie',null]) assert.equal(parseMeals([{...recipe,category}])?.[0].category,category);
+  for (const category of ['vegetarian',[],true,undefined]) assert.equal(parseMeals([{...recipe,category}]),null);
+});

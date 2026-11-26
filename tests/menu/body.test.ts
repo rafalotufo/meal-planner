@@ -80,7 +80,21 @@ test('URL save and retry use exact small request contracts with shared Origin an
   for (const [mode, value] of [['import', { sourceUrl: snapshot.sourceUrl }], ['retry', { id: 'a53f8c90-2345-4789-9234-abcd01234567' }]] as const) {
     assert.deepEqual(await readMenuBody(request(JSON.stringify(value)), origin, mode), value);
     await assert.rejects(readMenuBody(request(JSON.stringify({ ...value, familyId: 'forged' })), origin, mode), invalid());
-    await assert.rejects(readMenuBody(request(JSON.stringify(value).padEnd(4097, ' ')), origin, mode), invalid());
+    await assert.rejects(readMenuBody(request(JSON.stringify({ ...snapshot, category: 'main', override: true })), origin, 'save'), invalid());
+  await assert.rejects(readMenuBody(request(JSON.stringify(value).padEnd(4097, ' ')), origin, mode), invalid());
     await assert.rejects(readMenuBody(request(JSON.stringify(value), { Origin: '' }), origin, mode), invalid(403));
   }
+});
+
+
+test('category corrections use an exact small body and snapshots accept one optional category key', async () => {
+  const value = { id: 'a53f8c90-2345-4789-9234-abcd01234567', category: 'veggie' };
+  assert.deepEqual(await readMenuBody(request(JSON.stringify(value)), origin, 'category'), value);
+  assert.deepEqual(await readMenuBody(request(JSON.stringify({ ...snapshot, category: 'main' })), origin, 'save'), { ...snapshot, category: 'main' });
+  for (const body of [{ id: value.id }, { ...value, familyId: 'forged' }]) {
+    await assert.rejects(readMenuBody(request(JSON.stringify(body)), origin, 'category'), invalid());
+  }
+  await assert.rejects(readMenuBody(request(JSON.stringify({ ...snapshot, category: 'main', override: true })), origin, 'save'), invalid());
+  await assert.rejects(readMenuBody(request(JSON.stringify(value).padEnd(4097, ' ')), origin, 'category'), invalid());
+  await assert.rejects(readMenuBody(request(JSON.stringify(value), { Origin: '' }), origin, 'category'), invalid(403));
 });

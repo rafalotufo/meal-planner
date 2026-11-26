@@ -2,7 +2,7 @@ import { FamilyError } from '../identity-access';
 import { isRecord } from '../recipes/validation';
 
 /** Pure request parsing; the caller supplies its configured server Origin. */
-export async function readMenuBody(request: Request, origin: string, mode: 'save' | 'remove' | 'lookup' | 'import' | 'retry'): Promise<Record<string, unknown>> {
+export async function readMenuBody(request: Request, origin: string, mode: 'save' | 'remove' | 'lookup' | 'import' | 'retry' | 'category'): Promise<Record<string, unknown>> {
   if (request.headers.get('origin') !== origin || request.headers.get('sec-fetch-site') === 'cross-site') throw new FamilyError(403, 'Forbidden');
   const limit = mode === 'save' || mode === 'lookup' ? 16384 : 4096;
   const invalid = () => new FamilyError(400, 'Invalid request');
@@ -22,7 +22,8 @@ export async function readMenuBody(request: Request, origin: string, mode: 'save
       text += decoder.decode(part.value, { stream: true });
     }
     const value: unknown = JSON.parse(text + decoder.decode());
-    const keys = mode === 'save' ? ['title', 'sourceUrl', 'imageUrl', 'summary', 'time'] : mode === 'lookup' ? ['sourceUrls'] : mode === 'import' ? ['sourceUrl'] : mode === 'retry' ? ['id'] : [];
+    const keys = mode === 'save' ? ['title', 'sourceUrl', 'imageUrl', 'summary', 'time'] : mode === 'lookup' ? ['sourceUrls'] : mode === 'import' ? ['sourceUrl'] : mode === 'retry' ? ['id'] : mode === 'category' ? ['id', 'category'] : [];
+    if (mode === 'save' && isRecord(value) && Object.hasOwn(value, 'category')) keys.push('category');
     if (!isRecord(value) || Object.keys(value).length !== keys.length || !keys.every(key => Object.hasOwn(value, key))) throw invalid();
     return value;
   } catch { throw invalid(); }

@@ -2,7 +2,7 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Proposed for independent peer approval
+- Status: Approved by independent review `d891e35` of source `6c0933e`
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`
 - Gate: independent spec/plan approval before application implementation
 
