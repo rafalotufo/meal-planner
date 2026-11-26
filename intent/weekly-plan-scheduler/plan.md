@@ -164,3 +164,30 @@ hashes/statuses and exact deployment/source IDs only.
 - No source drift between accepted staging and proposed Production source.
   Later audit commits remain distinct. No migration, grant or destructive
   recovery; no Production rollout until fresh owner approval.
+
+## Corrective plan after first Production attempt — pending review
+
+Input: `hosted-target-correction.md`, the actual generated-host registration
+mismatch and preserved first-attempt/rollback evidence. This work does not reuse
+that attempt's consumed Production authorization.
+
+1. Independently review the corrective design/security contract before code.
+2. Add failing own-generated-Host, different-generated-Host and malformed/missing
+   system-metadata regressions in existing scheduler/HTTP/packaging tests.
+3. Change only the service guard's trusted Host binding; retain all existing
+   project/env/origin/Bearer/method/target/security/deadline/data contracts.
+4. Update active operating docs to distinguish configured stable service origin
+   from exact own generated machine Host; preserve historical source evidence.
+5. Run appropriate required checks and independent security/final code review.
+6. Pin a new clean source; validate stable AND exact generated Preview origins,
+   normal generated-host browser421, rollback-only core proof and preservation.
+7. Prepare new exact-source/profile approval package. A future separately approved
+   candidate must show generated-service401 without credential, ordinary421 and
+   post-promotion registered cron host equal its own generated URL. No new
+   Production action occurs before that fresh approval.
+
+The existing changed-file manifest applies, plus
+`intent/weekly-plan-scheduler/hosted-target-correction.md` and new correction-specific
+verification/staging/release evidence under this same feature directory. No
+runtime DB/schema/provider/dependency change is required. The orchestrator owns
+historical release/rollback records, workflow state and gate ledger updates.

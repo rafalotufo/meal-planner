@@ -247,3 +247,15 @@ checks and zero staged-secret findings. Independent design/security/code
 reviews precede fixed-source staging release preparation. Source, audit commits
 and proof classes stay distinct. Preserve the original weekly implementation
 records; the old unactivated runbook gains a clear supersession link only.
+
+## Corrective amendment after first Production attempt — pending review
+
+The first promoted candidate's registered cron host was its generated deployment
+hostname, outside the original fixed service Host rule. The original source and
+acceptance remain historical; they do not certify a working native dispatch.
+For corrective work, `hosted-target-correction.md` supersedes only the original
+one-service-Host requirement and the associated staging/candidate/registered-host
+proof. It specifies the exact trusted current deployment `VERCEL_URL` as a
+second machine-only Host, with unchanged browser canonical rules and full service
+authentication, plus fresh review/staging/owner approval before another Production
+attempt. That corrective amendment is proposed, not yet independently approved.
