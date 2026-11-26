@@ -9,19 +9,19 @@ intent/recipe-classification/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/recipe-classification/plan.md)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/recipe-classification/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/recipe-classification/plan.md)
 
 ## Open messages
 
@@ -126,6 +126,9 @@ intent/recipe-classification/intent.md
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
 - orchestrator-0188 orchestrator -> product-manager handoff: Capture saved recipe classification intent
+- orchestrator-0189 orchestrator -> architect handoff: Design saved recipe classification
+- orchestrator-0190 orchestrator -> reviewer handoff: Review recipe classification design and plan
+- orchestrator-0191 orchestrator -> senior-developer handoff: Implement independently approved recipe classification
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -146,6 +149,7 @@ intent/recipe-classification/intent.md
 - reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
 - reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
 - reviewer-0061 reviewer -> orchestrator review: Final Brave source e14feec approved after both corrections
+- reviewer-0065 reviewer -> architect review: Correct category grants and plan row projections
 - security-researcher-0031 security-researcher -> orchestrator review: Login session expiration local security approval
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
@@ -169,10 +173,12 @@ intent/recipe-classification/intent.md
 ## Artifacts
 
 - intent/recipe-classification/intent.md (cad1e0fdbede716edad8764457777ac2b5ff0cb86bd7b19ce4cc2a7651319587)
+- intent/recipe-classification/plan.md (641c746d5bb9a86f35b5a20e3ccdfd38c99fc78661b486258ef096c84c9b7955)
+- org/reviews/design-recipe-classification-002.md (1048a184fa971c0f2242f06cd66423634eee356e2673535af8be811b80c564fa)
 
 ## Next action
 
-product-manager:review_intent
+reviewer:review_design_and_plan
 
 ## Last digest source
 
