@@ -165,7 +165,7 @@ hashes/statuses and exact deployment/source IDs only.
   Later audit commits remain distinct. No migration, grant or destructive
   recovery; no Production rollout until fresh owner approval.
 
-## Corrective plan after first Production attempt — pending review
+## Corrective plan after first Production attempt — independently approved
 
 Input: `hosted-target-correction.md`, the actual generated-host registration
 mismatch and preserved first-attempt/rollback evidence. This work does not reuse

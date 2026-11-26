@@ -1,7 +1,7 @@
 # Wednesday weekly scheduler — exact-source staging validation
 
 - Date:2026-11-26; operator:orchestrator
-- Status: completed with the explicitly listed coverage limits; owner acceptance pending
+- Status: completed; owner accepted the exact source/profile and listed coverage limits on2026-11-26. See `production-authorization.md`.
 - releaseSourceSha:`7fe1531d07f2fb6028c98e4f38b73d20f805e5fa`
 - Preview:`dpl_773UDFo49UGV7yyzG4d5QdF49tRb` (Ready, actual target Preview)
 - Origin:[isolated staging](https://meal-planner-staging-rafalotufos.vercel.app)
@@ -110,6 +110,8 @@ The following are explicit limits for owner acceptance of this scheduler scope:
   fixtures. A new hosted Google callback/member UI/browser session and paid
   provider success were not exercised in this keyless scheduler validation.
 
-Owner staging acceptance, human merge and Production release/activation approval
-remain ungranted. The [release package](release-preparation.md) binds the exact
-source/profile/results and proposed bounded Production actions.
+Owner accepted these exact results and named limits on2026-11-26 in
+[production-authorization.md](production-authorization.md), approving merge and
+the bounded Production release. The [release package](release-preparation.md)
+binds the source/profile/results and approved action scope; actual execution
+is recorded separately, without changing these observed proof classes.

@@ -66,3 +66,17 @@ The ledger contains separate current staging_acceptance,code_owner_approve and
 release_authorization records. Release operations require committed unexpired
 release record`weekly-scheduler-production-20261126`. The post-release result will
 record actual candidate/promotion/health/recovery observations and consumed scope.
+
+## Scope consumed — failed activation and completed recovery
+
+This single approved attempt promotedEd9c and then failed its concrete registered
+cron-Host contract. Authorized rollback restoredGL3g/source4fe, emptycrons and
+canonicalhealth. See [actual result](production-release-result.md) and independent
+completion review. This is not a completed healthy scheduler release. The four
+new project settings remain configured but unused by the restored artifact.
+
+The attempt is consumed despite the ledger's original expiry timestamp. It
+authorizes no corrected-source build, configuration change or further promotion.
+Original fix/staging-preparation authority supports the separately reviewed
+local correction; its new source/profile requires fresh human merge/release
+approval. Preserve this decision and failedattempt as historical evidence.

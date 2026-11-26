@@ -8,10 +8,10 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 6
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 3
+- phase: implement
+- stop_reason: None
 
 ## Agents
 
@@ -19,7 +19,7 @@ intent/weekly-plan-scheduler/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/weekly-plan-scheduler/release-preparation.md)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/weekly-plan-scheduler/production-release-result.md)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
 - senior-developer: busy (weekly-plan-scheduler-implementation)
 
@@ -126,6 +126,8 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0175 orchestrator -> ceo handoff: Wednesday scheduler staged and ready for bounded release approval
 - orchestrator-0176 orchestrator -> senior-developer handoff: Execute owner-approved exact-source scheduler release
+- orchestrator-0177 orchestrator -> architect handoff: Correct registered cron deployment Host after safe Production rollback
+- orchestrator-0178 orchestrator -> senior-developer handoff: Implement independently approved exact own-deployment Host correction locally
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -156,11 +158,11 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Recent decisions
 
-- mem-0176 memory-keeper: Owner selected Wednesday09ET with Hobby hour delay; no paid upgrade. (intent/weekly-plan-scheduler/intent.md)
 - mem-0177 memory-keeper: Retain reviewed machine Host/Bearer boundary,60s deadline and bounded cleanup. (intent/weekly-plan-scheduler/spec.md)
 - mem-0178 memory-keeper: Preserve plans, schema and synthetic exclusion; Preview probe always rolls back. (intent/weekly-plan-scheduler/spec.md)
 - mem-0179 memory-keeper: Release source remains7fe1531; use attributed Preview773U evidence and named gaps. (intent/weekly-plan-scheduler/staging-validation.md)
 - mem-0180 memory-keeper: Owner staging acceptance, human merge and Production activation remain pending. (intent/weekly-plan-scheduler/release-preparation.md)
+- mem-0181 ceo: Owner Approved exact7fe/773U staging gaps, merge and one scoped Production release; committed record weekly-scheduler-production-20261126 expires18:26Z. No standing future authority. (intent/weekly-plan-scheduler/production-authorization.md)
 
 ## Constraints
 
@@ -168,20 +170,17 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Artifacts
 
-- intent/weekly-plan-scheduler/intent.md (505246367d070f066cbb122f0c1eb93f8390256248bc2b047f36d8d5cef97fba)
-- intent/weekly-plan-scheduler/design-notes.md (45318482f7d7ebb1bf0465011f8f630905fedd8a169daf6a776c215352c85202)
-- org/reviews/design-weekly-plan-scheduler-001.md (a73d960a63d93f4ddfbdf82c09c9cbc456fa1f444cc415d0666b9e0af12ff8f7)
-- intent/weekly-plan-scheduler/verification.md (997f75e35edb58d8a51c939adb0339ed2953352c8cf0f2dbddeb0380dab03f39)
-- org/reviews/security-weekly-plan-scheduler-code-001.md (27e5a2b52b41aaff7e6e55ca6a5aca9cb622670a1ee538477f67dd0039154e4d)
-- org/reviews/code-weekly-plan-scheduler-001.md (aa13efa484368a91c2ab502ae82dca00cbc7e9b2b2feba54c51b2fe7db1c82f1)
+- org/reviews/intent-weekly-plan-scheduler-hosted-correction-001.md (bfc11d69b08bd1f6f8da4eb7aa344c12620997675578a187a04caedf0bfd8784)
+- intent/weekly-plan-scheduler/hosted-target-correction.md (8ef0f78aed891785d0c2e1aac1716cbcaf76ebe31cecea0448ed6720ba0f9f11)
+- org/reviews/design-weekly-plan-scheduler-hosted-correction-001.md (c06e90a0d94d3c5056777eb8981bdef237eed1aaee3222c56a3436fa13e762bb)
 
 ## Next action
 
-reviewer:review
+reviewer:review_design_and_plan
 
 ## Last digest source
 
-- mem-0180 from intent/weekly-plan-scheduler/release-preparation.md
+- mem-0182 from intent/weekly-plan-scheduler/hosted-target-correction.md
 
 <!-- machine:end -->
 

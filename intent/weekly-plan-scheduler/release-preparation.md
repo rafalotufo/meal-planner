@@ -1,6 +1,6 @@
 # Wednesday weekly scheduler — production approval package
 
-Status: ready for owner staging acceptance, merge and Production release approval; no Production authorization recorded.
+Status: first approved attempt failed its registered cron-Host check and was safely rolled back. That one-attempt authority is consumed; see [actual result](production-release-result.md). A corrected source/profile requires fresh approval.
 
 The owner selected native Vercel Hobby cron on Wednesday at09:00
 America/Toronto, accepting delivery during09:00–09:59. Two UTC definitions,
@@ -86,8 +86,11 @@ needs concrete scope; no client date override or history reset is introduced.
 
 ## Approval boundary
 
-The requested work authorizes isolated staging validation and preparation.
-It does not authorize Production configuration, build, promotion or activation.
+The original preparation request authorized isolated staging validation and
+preparation only. The owner's later **Approved**, recorded in
+[production-authorization.md](production-authorization.md), separately authorizes
+the exact one-attempt Production configuration/build/promotion/activation scope
+above; it is not standing permission for future releases.
 The [org workflow](../../org/protocol.md) reserves human merge and release gates;
 the [staging-first contract](../staging-first-release/spec.md) additionally
 requires owner acceptance of the exact source, Preview profile and stated gaps.

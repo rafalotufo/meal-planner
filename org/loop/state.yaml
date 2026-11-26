@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/weekly-plan-scheduler/intent.md
-base_commit: c2b25459436f282624c7d7891a91c28adcc929c9
-turn: 6
+base_commit: 42c92ffa9b05f25fd26e373ae38f8f02d0f8a6f1
+turn: 3
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: d843d074d33f368902438cda9e12f743793d278fc9fc0b57da69ba83b331c642
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/weekly-plan-scheduler/intent.md", "sha256": "505246367d070f066cbb122f0c1eb93f8390256248bc2b047f36d8d5cef97fba"}, {"path": "intent/weekly-plan-scheduler/design-notes.md", "sha256": "45318482f7d7ebb1bf0465011f8f630905fedd8a169daf6a776c215352c85202"}, {"path": "org/reviews/design-weekly-plan-scheduler-001.md", "sha256": "a73d960a63d93f4ddfbdf82c09c9cbc456fa1f444cc415d0666b9e0af12ff8f7"}, {"path": "intent/weekly-plan-scheduler/verification.md", "sha256": "997f75e35edb58d8a51c939adb0339ed2953352c8cf0f2dbddeb0380dab03f39"}, {"path": "org/reviews/security-weekly-plan-scheduler-code-001.md", "sha256": "27e5a2b52b41aaff7e6e55ca6a5aca9cb622670a1ee538477f67dd0039154e4d"}, {"path": "org/reviews/code-weekly-plan-scheduler-001.md", "sha256": "aa13efa484368a91c2ab502ae82dca00cbc7e9b2b2feba54c51b2fe7db1c82f1"}]
+phase: implement
+status: in_progress
+last_input_hash: 2ad026592451e3d11b3015781aeb4adc482d798615e2dec22566312ee6f90591
+stop_reason: null
+last_action: "reviewer:review_design_and_plan"
+artifacts: [{"path": "org/reviews/intent-weekly-plan-scheduler-hosted-correction-001.md", "sha256": "bfc11d69b08bd1f6f8da4eb7aa344c12620997675578a187a04caedf0bfd8784"}, {"path": "intent/weekly-plan-scheduler/hosted-target-correction.md", "sha256": "8ef0f78aed891785d0c2e1aac1716cbcaf76ebe31cecea0448ed6720ba0f9f11"}, {"path": "org/reviews/design-weekly-plan-scheduler-hosted-correction-001.md", "sha256": "c06e90a0d94d3c5056777eb8981bdef237eed1aaee3222c56a3436fa13e762bb"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-26T16:29:21Z"
+updated_at: "2026-11-26T17:43:26Z"

@@ -2,7 +2,9 @@
 
 - Author: architect
 - Date: 2026-11-26
-- Status: Proposed; independent design/security approval required before code
+- Status: Approved for local correction and isolated staging; no Production authority
+- Independent design: `org/reviews/design-weekly-plan-scheduler-hosted-correction-001.md`
+- Independent security: `org/reviews/security-weekly-plan-scheduler-hosted-correction-design-001.md`
 - Governs: corrective implementation only, after the first Production attempt
 - Inputs: accepted scheduler intent, Wednesday/Hobby owner amendment, sibling
   specification/plan, actual registered cron target observed during the release
