@@ -4,24 +4,24 @@
 
 ## Goal
 
-intent/brave-parallel-recipe-search/intent.md
+intent/weekly-plan-scheduler/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 9
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
 - architect: busy (intent/brave-parallel-recipe-search/plan.md)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/weekly-plan-scheduler/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (brave-parallel-recipe-search-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -61,6 +61,7 @@ intent/brave-parallel-recipe-search/intent.md
 - ceo-0069 ceo -> orchestrator decision: Merge verification to main and prepare Production using new flow
 - ceo-0070 ceo -> orchestrator answer: Re: Accept exact197 staging gaps and scoped Production cutover recovery
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
+- ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -163,18 +164,11 @@ intent/brave-parallel-recipe-search/intent.md
 
 ## Artifacts
 
-- org/reviews/intent-brave-parallel-recipe-search-001.md (f72e1b562954897b5904e335a46e79a15ffea2d1ed21d5b96cfee247d37f1bc2)
-- intent/brave-parallel-recipe-search/plan.md (31c7f6167b96e0702c4e741de63ccd2c4ae8e748f68adf017a9e15d49fdd977e)
-- org/reviews/design-brave-parallel-001.md (5eb8503d2a1509b57e76c3fa8d343cab0f679abede8649036d87e8354b373ca3)
-- org/reviews/security-brave-parallel-001.md (079dbda498cbe661beba3d2235e26715f662cc999f6354aefa8bc7dde1ffe4a2)
-- org/reviews/code-brave-parallel-001.md (008c4d04665fc937bbaa22d475884471bdd449df3360eba2a858de68cfc83a98)
-- intent/brave-parallel-recipe-search/verification.md (c55b00c8e29593f8e40d8820facd9db43820a4bbc2f9aee1cc2bd52531eff271)
-- org/reviews/security-brave-parallel-002.md (3dd7534131618c7ad2f3070c3b60eda8b84930a2d81789c83e6910e5141b08c7)
-- org/reviews/code-brave-parallel-002.md (c0f5c5b73b2d2818bb96a31174fff3703d841088c9a79461e9752379183dc8ee)
+- intent/weekly-plan-scheduler/intent.md (505246367d070f066cbb122f0c1eb93f8390256248bc2b047f36d8d5cef97fba)
 
 ## Next action
 
-reviewer:review
+product-manager:review_intent
 
 ## Last digest source
 

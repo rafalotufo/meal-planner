@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/brave-parallel-recipe-search/intent.md
-base_commit: ce07559f8a60b25cb5026edc3cdb03acc1fa0b55
-turn: 9
+work_item: intent/weekly-plan-scheduler/intent.md
+base_commit: c2b25459436f282624c7d7891a91c28adcc929c9
+turn: 1
 no_progress: 0
-phase: done
-status: solved
-last_input_hash: 8e2ef0eada90102e6ea780c320102f77cf297c597c24367c1189a3b9aba95905
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "org/reviews/intent-brave-parallel-recipe-search-001.md", "sha256": "f72e1b562954897b5904e335a46e79a15ffea2d1ed21d5b96cfee247d37f1bc2"}, {"path": "intent/brave-parallel-recipe-search/plan.md", "sha256": "31c7f6167b96e0702c4e741de63ccd2c4ae8e748f68adf017a9e15d49fdd977e"}, {"path": "org/reviews/design-brave-parallel-001.md", "sha256": "5eb8503d2a1509b57e76c3fa8d343cab0f679abede8649036d87e8354b373ca3"}, {"path": "org/reviews/security-brave-parallel-001.md", "sha256": "079dbda498cbe661beba3d2235e26715f662cc999f6354aefa8bc7dde1ffe4a2"}, {"path": "org/reviews/code-brave-parallel-001.md", "sha256": "008c4d04665fc937bbaa22d475884471bdd449df3360eba2a858de68cfc83a98"}, {"path": "intent/brave-parallel-recipe-search/verification.md", "sha256": "c55b00c8e29593f8e40d8820facd9db43820a4bbc2f9aee1cc2bd52531eff271"}, {"path": "org/reviews/security-brave-parallel-002.md", "sha256": "3dd7534131618c7ad2f3070c3b60eda8b84930a2d81789c83e6910e5141b08c7"}, {"path": "org/reviews/code-brave-parallel-002.md", "sha256": "c0f5c5b73b2d2818bb96a31174fff3703d841088c9a79461e9752379183dc8ee"}]
+phase: design
+status: in_progress
+last_input_hash: e45dfd6507a758a59fe5f0f84c6ce3d7a706150dcadee5c06a67a136521d79ee
+stop_reason: null
+last_action: "product-manager:review_intent"
+artifacts: [{"path": "intent/weekly-plan-scheduler/intent.md", "sha256": "505246367d070f066cbb122f0c1eb93f8390256248bc2b047f36d8d5cef97fba"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-25T17:57:14Z"
+updated_at: "2026-11-26T15:59:03Z"
