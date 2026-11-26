@@ -342,12 +342,27 @@ still require `https://lotufo-meals.vercel.app`. Project and Vercel environment
 attribution must match the reviewed target. Disabled/unset is404; incomplete or
 mismatched enabled configuration fails closed.
 
-`GET /api/plans/generate` requires its exact machine Host and dedicated Bearer
-credential; user cookies cannot invoke it. All other methods are protected405.
+Enabled configuration also requires the platform-supplied `VERCEL_URL`: this
+deployment's exact lowercase ASCII generated `.vercel.app` hostname, without
+scheme, port, path or other URL syntax. Do not override it in project settings
+or guess a fallback. Missing or malformed metadata fails503 even on the stable
+service hostname. Only this service handler accepts either the configured stable
+machine Host or that exact own generated Host; it never suffix-matches incoming
+requests or trusts forwarding headers. Normal browser/menu/auth canonical Host
+checks remain unchanged.
+
+`GET /api/plans/generate` requires an accepted machine Host and dedicated Bearer
+credential; user cookies cannot invoke it. Authenticated non-GET methods return405.
 The route returns only aggregate counts and logs one sanitized completion/failure
 event. Review cron invocation status/errors after activation and confirm actual
 registered target/Host and first scheduled delivery; manual success alone does
-not prove native dispatch. No runtime date/family override is supported. Each
+not prove native dispatch. The first attempt was rolled back when registered
+cron definitions exposed a generated hostname that the original fixed-alias
+guard rejected. Corrected staging must test both stable and exact own generated
+origins, and a separately approved Production release must compare installed
+cron hosts with the current deployment's own generated URL. See the
+[corrective contract](intent/weekly-plan-scheduler/hosted-target-correction.md).
+No runtime date/family override is supported. Each
 request owns a60-second deadline and pool; partial completed family transactions
 remain safe for same-day reconciliation. Native cron runs only in Production.
 

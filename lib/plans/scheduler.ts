@@ -24,6 +24,10 @@ function protect(response: Response) {
   })) response.headers.set(name, value);
   return response;
 }
+function isDeploymentHost(value: string | undefined): value is string {
+  return typeof value === 'string' && value.length <= 253 && value.endsWith('.vercel.app') &&
+    value.split('.').every(label => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label));
+}
 /** Separate machine authority: browser sessions and forwarded headers confer no access. */
 export async function schedulerResponse(request: Request, deps: SchedulerDependencies) {
   const deadline = Date.now() + 60000;
@@ -34,10 +38,13 @@ export async function schedulerResponse(request: Request, deps: SchedulerDepende
   const origin = preview ? SCHEDULER_PREVIEW_ORIGIN : SCHEDULER_PRODUCTION_ORIGIN;
   const browserOrigin = preview ? SCHEDULER_PREVIEW_ORIGIN : 'https://lotufo-meals.vercel.app';
   const secret = env.CRON_SECRET;
+  const deploymentHost = env.VERCEL_URL;
   if (env.MEAL_PLAN_SCHEDULER_ENABLED !== 'true' || !secret || !/^[a-fA-F0-9]{64}$/.test(secret) ||
     env.VERCEL_PROJECT_ID !== SCHEDULER_PROJECT || !['preview', 'production'].includes(env.VERCEL_ENV ?? '') ||
-    env.MEAL_PLAN_SCHEDULER_ORIGIN !== origin || env.BETTER_AUTH_URL !== browserOrigin || env.MEAL_PLAN_DRAFT_DAY !== 'Wednesday') return reply(503, 'Scheduler unavailable');
-  if (request.headers.get('host') !== new URL(origin).host) return reply(421, 'Misdirected request');
+    env.MEAL_PLAN_SCHEDULER_ORIGIN !== origin || env.BETTER_AUTH_URL !== browserOrigin || env.MEAL_PLAN_DRAFT_DAY !== 'Wednesday' ||
+    !isDeploymentHost(deploymentHost)) return reply(503, 'Scheduler unavailable');
+  const host = request.headers.get('host');
+  if (host !== new URL(origin).host && host !== deploymentHost) return reply(421, 'Misdirected request');
   const authorization = request.headers.get('authorization');
   const expected = 'Bearer ' + secret;
   if (!authorization || !/^Bearer [a-fA-F0-9]{64}$/.test(authorization) || !timingSafeEqual(Buffer.from(authorization), Buffer.from(expected))) return reply(401, 'Unauthorized');

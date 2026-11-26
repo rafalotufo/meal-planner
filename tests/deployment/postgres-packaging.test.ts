@@ -69,18 +69,20 @@ test('compiled protected proxy and routes work without source or migration files
       DATABASE_URL: 'postgresql://fixture:unreachable@127.0.0.1:1/unavailable',
       MEAL_PLAN_SCHEDULER_ENABLED: 'true', CRON_SECRET: secret, MEAL_PLAN_DRAFT_DAY: 'Wednesday',
       MEAL_PLAN_SCHEDULER_ORIGIN: SCHEDULER_PREVIEW_ORIGIN, BETTER_AUTH_URL: SCHEDULER_PREVIEW_ORIGIN,
-      VERCEL_PROJECT_ID: SCHEDULER_PROJECT, VERCEL_ENV: 'preview',
+      VERCEL_PROJECT_ID: SCHEDULER_PROJECT, VERCEL_ENV: 'preview', VERCEL_URL: 'meal-planner-own-packaged.vercel.app',
     }, false, false, directory);
     try {
-      const response = await new Promise<{ status: number; body: string }>((resolve, reject) => {
-        const call = request(scheduler.origin + '/api/plans/generate', { headers: { Host: new URL(SCHEDULER_PREVIEW_ORIGIN).host, Authorization: 'Bearer ' + secret } }, response => {
-          let body = ''; response.setEncoding('utf8'); response.on('data', (part: string) => { body += part; });
-          response.on('end', () => resolve({ status: response.statusCode ?? 0, body }));
+      for (const Host of [new URL(SCHEDULER_PREVIEW_ORIGIN).host, 'meal-planner-own-packaged.vercel.app']) {
+        const response = await new Promise<{ status: number; body: string }>((resolve, reject) => {
+          const call = request(scheduler.origin + '/api/plans/generate', { headers: { Host, Authorization: 'Bearer ' + secret } }, response => {
+            let body = ''; response.setEncoding('utf8'); response.on('data', (part: string) => { body += part; });
+            response.on('end', () => resolve({ status: response.statusCode ?? 0, body }));
+          });
+          call.on('error', reject); call.end();
         });
-        call.on('error', reject); call.end();
-      });
-      assert.equal(response.status, dueWeek(new Date(), 'Wednesday') ? 503 : 200, 'packaged scheduler operates without source or migrations');
-      if (response.status === 200) assert.equal(JSON.parse(response.body).skipped, true);
+        assert.equal(response.status, dueWeek(new Date(), 'Wednesday') ? 503 : 200, 'packaged scheduler operates without source or migrations');
+        if (response.status === 200) assert.equal(JSON.parse(response.body).skipped, true);
+      }
       assert.doesNotMatch(scheduler.output(), new RegExp(secret));
     } finally { await scheduler.stop(); }
   } finally { await rm(directory, { recursive: true, force: true }); }

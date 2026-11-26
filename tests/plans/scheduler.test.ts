@@ -14,6 +14,7 @@ const configuration = {
   MEAL_PLAN_SCHEDULER_ENABLED: 'true', CRON_SECRET: secret, MEAL_PLAN_DRAFT_DAY: 'Wednesday',
   MEAL_PLAN_SCHEDULER_ORIGIN: origin, BETTER_AUTH_URL: origin,
   VERCEL_PROJECT_ID: 'prj_ntxXnJAVA977jHjLNDR7xJuwSx4V', VERCEL_ENV: 'preview',
+  VERCEL_URL: 'meal-planner-own-preview.vercel.app',
 };
 function request(method = 'GET', headers: Record<string, string> = {}, path = '/api/plans/generate') {
   return new Request(origin + path, { method, headers: { Host: new URL(origin).host, Authorization: 'Bearer ' + secret, ...headers } });
@@ -85,7 +86,7 @@ test('Wednesday 09 Eastern uses correct UTC boundary across seasons and year rol
   }
   assert.equal(dueWeek(new Date('2026-11-26T14:00:00Z'), 'Wednesday'), null);
 });
-test('Production accepts only its fixed service Host while browser canonical Host remains distinct', async () => {
+test('Production keeps its fixed service origin distinct from the browser canonical origin', async () => {
   const machine = 'https://meal-planner-rafalotufos-projects.vercel.app';
   const env = { ...configuration, VERCEL_ENV: 'production', BETTER_AUTH_URL: 'https://lotufo-meals.vercel.app', MEAL_PLAN_SCHEDULER_ORIGIN: machine };
   assert.equal((await schedulerResponse(request('GET', { Host: new URL(machine).host }), dependencies(env))).status, 200);
@@ -93,6 +94,50 @@ test('Production accepts only its fixed service Host while browser canonical Hos
   for (const invalidOrigin of ['https://lotufo-meals.vercel.app', 'https://arbitrary-deployment.vercel.app']) {
     assert.equal((await schedulerResponse(request(), dependencies({ ...env, MEAL_PLAN_SCHEDULER_ORIGIN: invalidOrigin }))).status, 503);
   }
+});
+test('only this deployment generated Host joins the stable machine Host before independent Bearer checks', async () => {
+  for (const environment of ['preview', 'production']) {
+    const stable = environment === 'preview' ? origin : 'https://meal-planner-rafalotufos-projects.vercel.app';
+    const own = `meal-planner-own-${environment}.vercel.app`;
+    const env = { ...configuration, VERCEL_ENV: environment, VERCEL_URL: own, MEAL_PLAN_SCHEDULER_ORIGIN: stable,
+      BETTER_AUTH_URL: environment === 'preview' ? origin : 'https://lotufo-meals.vercel.app' };
+    const deps = dependencies(env);
+    const anonymous = await schedulerResponse(request('GET', { Host: own, Authorization: '' }), deps);
+    assert.equal(anonymous.status, 401, 'the registered generated cron target must reach authentication instead of421');
+    protectedResponse(anonymous);
+    for (const host of [new URL(stable).host, own]) {
+      for (const method of ['GET', 'HEAD', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE']) {
+        const rejected = await schedulerResponse(request(method, { Host: host, Authorization: 'Bearer ' + 'b'.repeat(64) }), deps);
+        assert.equal(rejected.status, 401); protectedResponse(rejected);
+        const response = await schedulerResponse(request(method, { Host: host, 'x-forwarded-host': 'attacker.test' }), deps);
+        assert.equal(response.status, method === 'GET' ? 200 : 405); protectedResponse(response);
+        if (method === 'GET') assert.deepEqual(await response.json(), { skipped: true, created: 0, existing: 0, empty: 0, ineligible: 0 });
+        else assert.equal(response.headers.get('allow'), 'GET');
+      }
+    }
+    for (const host of ['meal-planner-other-deployment.vercel.app', 'sibling-project.vercel.app', own + '.attacker.test', 'attacker.test']) {
+      const response = await schedulerResponse(request('GET', { Host: host, 'x-forwarded-host': own, 'x-vercel-forwarded-host': own }), deps);
+      assert.equal(response.status, 421); protectedResponse(response);
+    }
+    assert.equal((await schedulerResponse(request('GET', { Host: own }, '/api/plans/generate?date=2026-11-25'), deps)).status, 400);
+  }
+});
+test('missing or noncanonical generated deployment metadata fails closed for either machine Host', async () => {
+  const own = configuration.VERCEL_URL;
+  const invalid: (string | undefined)[] = [undefined, '', 'vercel.app', '.vercel.app', 'https://' + own, own + ':443',
+    own + '/', 'user@' + own, own + '?query=1', own + '#fragment', own + '.', '.' + own, own.toUpperCase(),
+    ' ' + own, own + ' ', own + '\n', '*.' + own, 'own..vercel.app', '-own.vercel.app', 'own-.vercel.app',
+    'own_name.vercel.app', 'é.vercel.app', 'own\n.vercel.app', 'own\r.vercel.app', 'own\u2028.vercel.app',
+    'a'.repeat(64) + '.vercel.app', `${'a'.repeat(63)}.${'b'.repeat(63)}.${'c'.repeat(63)}.${'d'.repeat(63)}.vercel.app`];
+  for (const value of invalid) {
+    for (const host of [new URL(origin).host, own]) {
+      const response = await schedulerResponse(request('GET', { Host: host }), dependencies({ ...configuration, VERCEL_URL: value }));
+      assert.equal(response.status, 503); protectedResponse(response);
+      assert.deepEqual(await response.json(), { error: 'Scheduler unavailable' });
+    }
+  }
+  const longestLabel = 'a'.repeat(63) + '.vercel.app';
+  assert.equal((await schedulerResponse(request('GET', { Host: longestLabel }), dependencies({ ...configuration, VERCEL_URL: longestLabel }))).status, 200);
 });
 test('authorized due service uses restricted storage and concurrent retries preserve the final plan', async () => {
   const fixture = await restrictedMenuDatabase(); const db = await fixture.open();
@@ -104,7 +149,7 @@ test('authorized due service uses restricted storage and concurrent retries pres
     await saveMenuRecipe(db, identity, [identity.email], { title: 'Private fixture dinner', summary: 'Private fixture method.', sourceUrl: 'https://example.test/scheduler', imageUrl: null, time: null });
     const deps: SchedulerDependencies = { env: configuration, allowed: [identity.email], now: () => now,
       db: async deadline => { const connection = await openVerificationDatabase(fixture.runtimeUrl, deadline); opened.push(connection); return connection; }, event: entry => events.push(entry) };
-    const responses = await Promise.all([schedulerResponse(request(), deps), schedulerResponse(request(), deps)]);
+    const responses = await Promise.all([schedulerResponse(request('GET', { Host: configuration.VERCEL_URL }), deps), schedulerResponse(request(), deps)]);
     for (const response of responses) assert.equal(response.status, 200);
     const counts = await Promise.all(responses.map(response => response.json()));
     assert.equal(counts.reduce((total: number, result: { created: number }) => total + result.created, 0), 1);

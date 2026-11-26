@@ -200,8 +200,15 @@ summer's later call an idempotent recovery opportunity. See
 authenticated machine GET effect, excluded from Proxy only because its handler
 owns all-method exact project/env/service-Host, Bearer, method/target and security
 checks. It is not public auth policy; browser cookies never grant this authority.
-Only this route may accept the fixed Production machine origin; retain canonical
-browser/menu Host and Google admission boundaries unchanged. Enabled hosted
+Only this route may accept the fixed Production machine origin and its exact own
+generated Host from validated server-side VERCEL_URL; retain canonical
+browser/menu Host and Google admission boundaries unchanged. Missing/malformed
+system metadata fails503 for both service Hosts; never suffix-match incoming
+Hosts, trust forwarding headers, override the system variable or guess a fallback.
+The first release was rolled back because registered cron hosts were generated
+deployment URLs. Corrected staging must exercise both origins, ordinary generated
+browser/menu421 and exact post-release cron-host attribution before success.
+Enabled hosted
 configuration requires explicitWednesday, separate server-only64hex CRON_SECRET
 and exact reviewed MEAL_PLAN_SCHEDULER_ORIGIN. Defaultdisabled; runtime never
 migrates. Requests own60second deadlines/pools, stop new families on abort and

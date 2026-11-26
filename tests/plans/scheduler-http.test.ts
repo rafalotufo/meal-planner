@@ -17,9 +17,10 @@ function call(url: string, headers: Record<string, string>, method = 'GET'): Pro
 }
 
 const secret = 'c'.repeat(64);
+const generatedHost = 'meal-planner-own-http-fixture.vercel.app';
 const env = { MEAL_PLAN_SCHEDULER_ENABLED: 'true', MEAL_PLAN_DRAFT_DAY: 'Wednesday', CRON_SECRET: secret,
   MEAL_PLAN_SCHEDULER_ORIGIN: SCHEDULER_PREVIEW_ORIGIN, BETTER_AUTH_URL: SCHEDULER_PREVIEW_ORIGIN,
-  VERCEL_ENV: 'preview', VERCEL_PROJECT_ID: SCHEDULER_PROJECT,
+  VERCEL_ENV: 'preview', VERCEL_PROJECT_ID: SCHEDULER_PROJECT, VERCEL_URL: generatedHost,
   DATABASE_URL: 'postgresql://fixture:unreachable@127.0.0.1:1/unavailable' };
 test('route retains exactly the same bounded response work in the Fluid request lifetime', async () => {
   const key = Symbol.for('@vercel/request-context'); const prior = Reflect.get(globalThis, key);
@@ -49,9 +50,19 @@ test('built exact scheduler route owns all-method machine guards while neighbori
       assert.match(authorized.headers.get('content-security-policy') ?? '', /default-src 'none'/);
       if (method !== 'GET') assert.equal(authorized.headers.get('allow'), 'GET');
       else if (authorized.status === 200) assert.deepEqual(await authorized.json(), { skipped: true, created: 0, existing: 0, empty: 0, ineligible: 0 });
+      const generatedAnonymous = await call(server.origin + '/api/plans/generate', { Host: generatedHost }, method);
+      assert.equal(generatedAnonymous.status, 401); assert.equal(generatedAnonymous.headers.get('x-frame-options'), 'DENY');
+      const generated = await call(server.origin + '/api/plans/generate', { ...headers, Host: generatedHost }, method);
+      assert.equal(generated.status, authorized.status); assert.equal(generated.headers.get('x-frame-options'), 'DENY');
+      assert.match(generated.headers.get('content-security-policy') ?? '', /default-src 'none'/);
     }
     assert.equal((await call(server.origin + '/api/plans/generate', { ...headers, Host: 'attacker.test', 'x-forwarded-host': headers.Host })).status, 421);
     assert.equal((await call(server.origin + '/api/plans/generate?date=2026-11-25', headers)).status, 400);
+    assert.equal((await call(server.origin + '/api/plans/generate', { ...headers, Host: 'another-deployment.vercel.app', 'x-forwarded-host': generatedHost })).status, 421);
+    assert.equal((await call(server.origin + '/api/plans/generate?date=2026-11-25', { ...headers, Host: generatedHost })).status, 400);
+    for (const path of ['/', '/menu', '/api/menu', '/api/session', '/sign-in']) {
+      assert.equal((await call(server.origin + path, { Host: generatedHost })).status, 421, 'ordinary canonical-host guards stay unchanged');
+    }
     for (const path of ['/api/plans/generate/extra', '/api/plans/generatE']) {
       const response = await call(server.origin + path, headers);
       assert.equal(response.status, 401, path);
@@ -66,5 +77,15 @@ test('built exact scheduler route owns all-method machine guards while neighbori
     });
     assert.equal(status, 401);
     assert.doesNotMatch(server.output(), new RegExp(secret));
+  } finally { await server.stop(); }
+});
+test('built machine route rejects malformed own-deployment metadata for stable and generated Hosts', async () => {
+  const server = await startServer({ ...env, VERCEL_URL: 'https://' + generatedHost });
+  try {
+    for (const Host of [new URL(SCHEDULER_PREVIEW_ORIGIN).host, generatedHost]) {
+      const response = await call(server.origin + '/api/plans/generate', { Host, Authorization: 'Bearer ' + secret });
+      assert.equal(response.status, 503); assert.equal(response.headers.get('x-frame-options'), 'DENY');
+      assert.deepEqual(await response.json(), { error: 'Scheduler unavailable' });
+    }
   } finally { await server.stop(); }
 });
