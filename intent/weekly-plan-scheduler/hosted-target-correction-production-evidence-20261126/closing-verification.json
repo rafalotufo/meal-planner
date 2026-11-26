@@ -44,7 +44,6 @@
       }
     ]
   },
-  "allQueriesEmpty": true,
   "canonicalAnonymousHealthPass": true,
   "registeredOwnHostsOwnerPathSchedulePass": true,
   "allProductionAliasesMatch": true,
@@ -98,5 +97,6 @@
       ],
       "available": true
     }
-  ]
+  ],
+  "allSuccessfulQueriesEmpty": true
 }

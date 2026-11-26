@@ -86,8 +86,8 @@ evidence limit or imply timely rollback could occur during the interruption.
 Read-only closing canonical anonymous health passed at19:53:18.143UTC.
 Project inspection19:53:19.242 and aliases19:53:20.876 confirmedABfX/f838,
 both exact own registered Hosts/owner/path/Wednesday schedules, unpaused state,
-all three Production aliases and preserved staging12CQ. The late closing audit
-projection was finalized19:54:04.828UTC. No rollback was performed. Expired
+all three Production aliases and preserved staging12CQ. The initial closing-state snapshot
+was captured19:54:04.828UTC; the bounded-query supplement followed19:55:26.853UTC. No rollback was performed. Expired
 approval was not used for promotion, rollback, configuration or workflow-gate
 advancement. The live deployment is healthy by these checks; any acceptance
 of the observation interruption is separate from these operational facts.
