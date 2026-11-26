@@ -1,6 +1,6 @@
 # Corrected scheduler — fresh Production approval package
 
-Status: ready for fresh owner acceptance/merge/Production approval; corrected Production release is not authorized.
+Status: corrected source f8383f3 was promoted on2026-11-26 under the owner's bounded authorization. See the [Production result](hosted-target-correction-production-result.md) for actual checks, delayed closing audit and proof limits. The one-attempt authority is consumed and expired; it grants no further Production action.
 
 The first approved source7fe1531 was safely rolled back after Vercel registered
 cron jobs against a generated deployment hostname excluded by its fixed Host

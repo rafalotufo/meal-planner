@@ -67,3 +67,18 @@ scoped checks beforemutations and capture exactcandidate/promotion/observation.
 Committed record `weekly-scheduler-hosted-correction-production-20261126` plus
 this scope governs the attempt. The post-release result will mark consumed scope
 and actual observations/recovery; it grants no future release authority.
+
+## Consumed execution and delayed closing audit
+
+The authorized fixed-source candidate ABfX was promoted at18:43:39.328UTC,
+within this approval. This one-attempt authority is consumed and has expired.
+See the [actual Production result](hosted-target-correction-production-result.md).
+Closing read-only evidence was collected after an interruption and expiry; no
+new Production mutation was performed. The workflow tool rejected late release
+node advancement because this record expired; the node remains pending without
+backdating, extending or reusing the approval. This audit status does not reverse
+the observed timely deployment or grant future authority.
+
+The final audit is qualified: a small runtime-log coverage seam could not be
+rechecked within Hobby retention. Full15-minute observation is not proven,
+even though current anonymous health, routing and registered cron checks pass.

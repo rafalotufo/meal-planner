@@ -23,13 +23,13 @@ nodes:
     stage: build
     artifact: weekly-plan-scheduler-hosted-target-correction-implementation
     gate: code_owner_approve
-    status: pending
+    status: merged
     done_status: merged
   staging_acceptance:
     stage: deploy
     artifact: intent/weekly-plan-scheduler/hosted-target-correction-staging.md
     gate: staging_acceptance
-    status: pending
+    status: accepted
     done_status: accepted
   release:
     stage: deploy
@@ -43,3 +43,11 @@ edges:
   - {from: plan, to: implementation, trigger: plan_accepted}
   - {from: implementation, to: staging_acceptance, trigger: merge}
   - {from: staging_acceptance, to: release, trigger: acceptance}
+
+# Closing audit: Production promotion was timely at 2026-11-26T18:43:39.328Z.
+# The delayed closing audit occurred after the 19:11:07Z authorization expiry.
+# release remains mechanically pending: advance rejects expired records; no
+# backdating, extension or renewed Production authority is implied. Actual
+# execution/observations: intent/weekly-plan-scheduler/hosted-target-correction-production-result.md
+# The qualified result also preserves incomplete runtime-log coverage; the
+# full 15-minute observation requirement is not proven by the closing audit.

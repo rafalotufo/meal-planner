@@ -1,7 +1,7 @@
 # Corrected scheduler — exact-source both-origin staging proof
 
 - Date:2026-11-26; operator:orchestrator
-- Status: validation complete; fresh owner acceptance/merge/Production approval pending
+- Status: validation complete; owner accepted exactsource/profile/gaps and approved merge/one Production attempt on2026-11-26. See `hosted-target-correction-production-authorization.md`.
 - Fixed source:`f8383f3dbfc14b4ab3b2cfdd3c648d6abc3d06a9`
 - Ready Preview:`dpl_12CQHFyWKb3HTPTUqAJWY9HRig1P`
 - Stable origin:`https://meal-planner-staging-rafalotufos.vercel.app`
@@ -112,6 +112,7 @@ registered cron hosts MUST equal that inspected candidate's own generated URL.
 Any known mismatch fails release even if ordinary anonymous health passes.
 
 The [fresh package](hosted-target-correction-release.md) binds f8383f3/12CQ/profile
-and these exact results/gaps. Owner staging acceptance and human merge/release
-approval for this new source remain pending. No unexpired timestamp on the
-consumed7fe authorization permits another Production attempt.
+and these exact results/gaps. Owner separately accepted this exact source/profile and authorized its bounded
+merge/release on2026-11-26 in [current authorization](hosted-target-correction-production-authorization.md).
+Actual release observations are recorded separately; no unexpired timestamp on
+the consumed7fe authorization permits a further attempt.

@@ -1,6 +1,6 @@
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md, last_report: Fresh ownerYes authorizes correctedf838 release; actual7feattemptremainsconsumed }
+  orchestrator: { status: idle, assignment: null, last_report: null }
   product-manager: { status: idle, assignment: null, last_report: Accepted scheduler intent c2b2545 }
   architect: { status: idle, assignment: null, last_report: Rollback-only probe8cc2760 implemented and strict checked; no hosted invocation }
   senior-developer: { status: busy, assignment: weekly-plan-scheduler-hosted-target-correction-implementation, last_report: Corrective sourcef8383f3 verified337Node7PythonChrome; waiting both-origin staging and freshownerrelease }

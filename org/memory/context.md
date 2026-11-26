@@ -17,7 +17,7 @@ intent/weekly-plan-scheduler/intent.md
 
 - architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
-- orchestrator: busy (intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md)
+- orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
 - reviewer: busy (intent/weekly-plan-scheduler/hosted-target-correction-production-result.md)
 - security-researcher: idle (unassigned)
@@ -63,7 +63,6 @@ intent/weekly-plan-scheduler/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
-- ceo-0076 ceo -> orchestrator decision: Approve corrected f838 source staging gaps merge and fresh Production attempt
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -125,7 +124,6 @@ intent/weekly-plan-scheduler/intent.md
 - orchestrator-0163 orchestrator -> reviewer handoff: Review authorized Production cutover and preservation receipts
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
-- orchestrator-0180 orchestrator -> senior-developer handoff: Execute fresh owner-approved f838 corrected scheduler release
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -156,11 +154,11 @@ intent/weekly-plan-scheduler/intent.md
 
 ## Recent decisions
 
-- mem-0177 memory-keeper: Retain reviewed machine Host/Bearer boundary,60s deadline and bounded cleanup. (intent/weekly-plan-scheduler/spec.md)
 - mem-0178 memory-keeper: Preserve plans, schema and synthetic exclusion; Preview probe always rolls back. (intent/weekly-plan-scheduler/spec.md)
 - mem-0179 memory-keeper: Release source remains7fe1531; use attributed Preview773U evidence and named gaps. (intent/weekly-plan-scheduler/staging-validation.md)
 - mem-0180 memory-keeper: Owner staging acceptance, human merge and Production activation remain pending. (intent/weekly-plan-scheduler/release-preparation.md)
 - mem-0181 ceo: Owner Approved exact7fe/773U staging gaps, merge and one scoped Production release; committed record weekly-scheduler-production-20261126 expires18:26Z. No standing future authority. (intent/weekly-plan-scheduler/production-authorization.md)
+- mem-0184 ceo: OwnerYes accepts correctedf838/12CQ/profile2da8d5 gaps, merge and freshoneattempt Productionrelease; newrecordexpires19:11Z. Generatedservice401 and registeredhost==ownURL mandatory;7feattemptstaysconsumed. (intent/weekly-plan-scheduler/hosted-target-correction-production-authorization.md)
 
 ## Constraints
 
@@ -181,7 +179,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0183 from intent/weekly-plan-scheduler/hosted-target-correction-staging.md
+- mem-0186 from intent/weekly-plan-scheduler/hosted-target-correction-production-result.md
 
 <!-- machine:end -->
 
