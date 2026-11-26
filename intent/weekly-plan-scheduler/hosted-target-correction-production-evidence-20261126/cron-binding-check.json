@@ -1,0 +1,9 @@
+{
+  "capturedAt": "2026-11-26T18:43:55.485Z",
+  "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+  "promotionAt": "2026-11-26T18:43:39.328Z",
+  "observationDeadline": "2026-11-26T18:58:39.328Z",
+  "bothRegisteredHostsMatchOwnRuntimeURL": true,
+  "ownerPathScheduleMatch": true,
+  "pass": true
+}

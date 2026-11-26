@@ -1,0 +1,102 @@
+{
+  "capturedAt": "2026-11-26T19:54:04.828109+00:00",
+  "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+  "releaseSourceSha": "f8383f3dbfc14b4ab3b2cfdd3c648d6abc3d06a9",
+  "promotionAt": "2026-11-26T18:43:39.328Z",
+  "requiredObservationDeadline": "2026-11-26T18:58:39.328Z",
+  "liveObservationLastCapturedAt": "2026-11-26T18:54:38.236Z",
+  "liveObservationSamples": 9,
+  "realTimeObservationInterrupted": true,
+  "lateReadOnlyClosingAudit": true,
+  "authorityExpiredBeforeClosingAudit": true,
+  "productionMutationsAfterExpiry": false,
+  "fullBoundedIntervalRetrospectiveLogCoverage": false,
+  "runtimeMissingTailSummary": {
+    "type": "summary",
+    "recordsReturned": 0,
+    "timeRange": {
+      "start": "2026-11-26T18:54:38.236Z",
+      "end": "2026-11-26T18:58:39.328Z"
+    },
+    "pagination": {
+      "hasMore": false,
+      "next": null
+    },
+    "excludedIntervals": []
+  },
+  "requestsMissingTail": {
+    "capturedAt": "2026-11-26T19:53:38.827Z",
+    "query": "httpStatus >= 500",
+    "records": 0,
+    "summaries": [
+      {
+        "type": "summary",
+        "recordsReturned": 0,
+        "timeRange": {
+          "start": "2026-11-26T18:54:38.000Z",
+          "end": "2026-11-26T18:58:40.000Z"
+        },
+        "pagination": {
+          "hasMore": false,
+          "next": null
+        },
+        "excludedIntervals": []
+      }
+    ]
+  },
+  "allQueriesEmpty": true,
+  "canonicalAnonymousHealthPass": true,
+  "registeredOwnHostsOwnerPathSchedulePass": true,
+  "allProductionAliasesMatch": true,
+  "acceptedStagingAliasRetained": true,
+  "noRollbackPerformed": true,
+  "nativeDispatchObserved": false,
+  "operationalStatePass": true,
+  "continuous15MinuteRealtimeMonitoringClaimed": false,
+  "fullBoundedIntervalHTTP5xxCoverage": true,
+  "preciseRuntimeCoverageSeamUnproven": true,
+  "observationGateFullyMet": false,
+  "boundedLogQueries": [
+    {
+      "source": "runtime",
+      "query": "level:error OR level:fatal",
+      "start": "2026-11-26T18:43:39Z",
+      "end": "2026-11-26T18:58:40Z",
+      "exitCode": 2,
+      "available": false
+    },
+    {
+      "source": "runtime",
+      "query": "level:error OR level:fatal",
+      "start": "2026-11-26T18:53:00Z",
+      "end": "2026-11-26T18:58:40Z",
+      "exitCode": 2,
+      "available": false
+    },
+    {
+      "capturedAt": "2026-11-26T19:55:26.853Z",
+      "source": "requests",
+      "query": "httpStatus >= 500",
+      "start": "2026-11-26T18:43:39Z",
+      "end": "2026-11-26T18:58:40Z",
+      "exitCode": 0,
+      "records": 0,
+      "summaries": [
+        {
+          "type": "summary",
+          "recordsReturned": 0,
+          "timeRange": {
+            "start": "2026-11-26T18:43:39.000Z",
+            "end": "2026-11-26T18:58:40.000Z"
+          },
+          "pagination": {
+            "hasMore": false,
+            "next": null
+          },
+          "excludedIntervals": []
+        }
+      ],
+      "available": true
+    }
+  ]
+}

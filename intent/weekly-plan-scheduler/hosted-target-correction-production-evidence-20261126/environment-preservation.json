@@ -1,0 +1,16 @@
+{
+  "capturedAt": "2026-11-26T18:45:01.379Z",
+  "envEntryCount": 21,
+  "identityTypeTargetMetadataPreserved": true,
+  "noVERCEL_URLProjectOverride": true,
+  "productionSecret": [
+    {
+      "key": "CRON_SECRET",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ]
+    }
+  ],
+  "noOtherValuesRead": true
+}

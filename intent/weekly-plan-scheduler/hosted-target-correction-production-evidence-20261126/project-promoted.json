@@ -1,0 +1,39 @@
+{
+  "capturedAt": "2026-11-26T18:43:40.933Z",
+  "id": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "production": {
+    "id": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "source": "f8383f3dbfc14b4ab3b2cfdd3c648d6abc3d06a9",
+    "aliasAssigned": 1795718619328
+  },
+  "crons": {
+    "enabledAt": 1795457411114,
+    "disabledAt": null,
+    "updatedAt": 1795718618105,
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "definitions": [
+      {
+        "host": "meal-planner-1c36i1mew-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 13 * * 3"
+      },
+      {
+        "host": "meal-planner-1c36i1mew-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 14 * * 3"
+      }
+    ]
+  },
+  "paused": false,
+  "aliases": [],
+  "targets": {
+    "production": {
+      "id": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+      "alias": []
+    },
+    "preview": {
+      "id": "dpl_12CQHFyWKb3HTPTUqAJWY9HRig1P",
+      "alias": []
+    }
+  }
+}

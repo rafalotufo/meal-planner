@@ -1,0 +1,28 @@
+{
+  "capturedAt": "2026-11-26T18:42:40.995Z",
+  "id": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "production": {
+    "id": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo",
+    "source": "4fe9097657df1c641d511a276c81ec3ae118f8ee",
+    "aliasAssigned": 1795714653697
+  },
+  "crons": {
+    "enabledAt": 1795457411114,
+    "disabledAt": null,
+    "updatedAt": 1795714652285,
+    "deploymentId": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo",
+    "definitions": []
+  },
+  "paused": false,
+  "aliases": [],
+  "targets": {
+    "production": {
+      "id": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo",
+      "alias": []
+    },
+    "preview": {
+      "id": "dpl_12CQHFyWKb3HTPTUqAJWY9HRig1P",
+      "alias": []
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "capturedAt": "2026-11-26T19:53:38.827Z",
+  "query": "httpStatus >= 500",
+  "records": 0,
+  "summaries": [
+    {
+      "type": "summary",
+      "recordsReturned": 0,
+      "timeRange": {
+        "start": "2026-11-26T18:54:38.000Z",
+        "end": "2026-11-26T18:58:40.000Z"
+      },
+      "pagination": {
+        "hasMore": false,
+        "next": null
+      },
+      "excludedIntervals": []
+    }
+  ]
+}

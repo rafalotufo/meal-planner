@@ -1,0 +1,21 @@
+{
+  "capturedAt": "2026-11-26T18:43:19.173Z",
+  "aliases": [
+    {
+      "alias": "meal-planner-staging-rafalotufos.vercel.app",
+      "deploymentId": "dpl_12CQHFyWKb3HTPTUqAJWY9HRig1P"
+    },
+    {
+      "alias": "lotufo-meals.vercel.app",
+      "deploymentId": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo"
+    },
+    {
+      "alias": "meal-planner-rafalotufos-projects.vercel.app",
+      "deploymentId": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo"
+    },
+    {
+      "alias": "meal-planner-delta-six-55.vercel.app",
+      "deploymentId": "dpl_GL3gRCVHKknoJjBacFhwNbm2d1oo"
+    }
+  ]
+}

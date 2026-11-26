@@ -1,0 +1,209 @@
+[
+  {
+    "capturedAt": "2026-11-26T18:44:32.523Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:45:58.996Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:47:12.063Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:48:34.906Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:49:46.691Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:51:03.707Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:52:19.297Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:53:32.652Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  },
+  {
+    "capturedAt": "2026-11-26T18:54:38.236Z",
+    "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+    "since": "2026-11-26T18:43:39.328Z",
+    "observationDeadline": "2026-11-26T18:58:39.328Z",
+    "checks": [
+      {
+        "source": "runtime",
+        "query": "level:error OR level:fatal",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      },
+      {
+        "source": "requests",
+        "query": "httpStatus >= 500",
+        "exitCode": 0,
+        "records": 0,
+        "hasSummary": true
+      }
+    ],
+    "pass": true
+  }
+]

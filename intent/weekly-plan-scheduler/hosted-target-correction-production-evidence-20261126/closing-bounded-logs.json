@@ -1,0 +1,43 @@
+[
+  {
+    "source": "runtime",
+    "query": "level:error OR level:fatal",
+    "start": "2026-11-26T18:43:39Z",
+    "end": "2026-11-26T18:58:40Z",
+    "exitCode": 2,
+    "available": false
+  },
+  {
+    "source": "runtime",
+    "query": "level:error OR level:fatal",
+    "start": "2026-11-26T18:53:00Z",
+    "end": "2026-11-26T18:58:40Z",
+    "exitCode": 2,
+    "available": false
+  },
+  {
+    "capturedAt": "2026-11-26T19:55:26.853Z",
+    "source": "requests",
+    "query": "httpStatus >= 500",
+    "start": "2026-11-26T18:43:39Z",
+    "end": "2026-11-26T18:58:40Z",
+    "exitCode": 0,
+    "records": 0,
+    "summaries": [
+      {
+        "type": "summary",
+        "recordsReturned": 0,
+        "timeRange": {
+          "start": "2026-11-26T18:43:39.000Z",
+          "end": "2026-11-26T18:58:40.000Z"
+        },
+        "pagination": {
+          "hasMore": false,
+          "next": null
+        },
+        "excludedIntervals": []
+      }
+    ],
+    "available": true
+  }
+]

@@ -1,0 +1,34 @@
+{
+  "capturedAt": "2026-11-26T18:42:11.541Z",
+  "deploymentId": "dpl_ABfXbQqY99XHLDbJ2R43LjaxMsf7",
+  "scope": "candidate-only-platform-access",
+  "machine": {
+    "path": "/api/plans/generate",
+    "method": "GET",
+    "noBearer": true,
+    "noQuery": true,
+    "status": 401,
+    "headerChecks": {
+      "cache-control": true,
+      "pragma": true,
+      "content-security-policy": true,
+      "x-content-type-options": true,
+      "x-frame-options": true,
+      "referrer-policy": true,
+      "strict-transport-security": true
+    },
+    "pass": true
+  },
+  "smoke": {
+    "mode": "candidate",
+    "status": 421,
+    "elapsedMs": 745,
+    "pass": true
+  },
+  "staticAsset": {
+    "path": "/icon.svg",
+    "status": 421,
+    "noStore": true
+  },
+  "pass": true
+}

@@ -1,0 +1,27 @@
+{
+  "capturedAt": "2026-11-26T18:13:59.500Z",
+  "keysOnlyInspection": true,
+  "allMatch": true,
+  "checks": [
+    {
+      "key": "MEAL_PLAN_SCHEDULER_ENABLED",
+      "privateValueMatches": true,
+      "type": "encrypted"
+    },
+    {
+      "key": "MEAL_PLAN_DRAFT_DAY",
+      "privateValueMatches": true,
+      "type": "encrypted"
+    },
+    {
+      "key": "MEAL_PLAN_SCHEDULER_ORIGIN",
+      "privateValueMatches": true,
+      "type": "encrypted"
+    },
+    {
+      "key": "BETTER_AUTH_URL",
+      "privateValueMatches": true,
+      "type": "encrypted"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "capturedAt": "2026-11-26T18:10:48.925Z",
+  "target": "recorded-production",
+  "migrationIdentities": 7,
+  "historyHashesMatch": true,
+  "catalogRows": 247,
+  "catalogMatches": true,
+  "readOnly": true,
+  "noMigration": true
+}
