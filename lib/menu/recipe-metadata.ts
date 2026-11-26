@@ -3,6 +3,7 @@ import { selectRecipePhoto } from '../recipes/photo-metadata';
 import { isRecord, safeRecipeUrl } from '../recipes/validation';
 import type { MenuRecipe } from './types';
 import { parseMenuRecipe } from './validation';
+import { classifyRecipeMetadata } from '../recipes/category';
 
 function resolveUrl(value: unknown, source: string): string | null {
   if (typeof value !== 'string' || !value.isWellFormed() || !value.trim() || value.length > 2048 || /[\x00-\x1f\x7f]/.test(value)) return null;
@@ -131,6 +132,6 @@ export function parseImportedRecipe(html: string, sourceUrl: string): MenuRecipe
   const selected = image(node, html, source, title);
   if (!selected) return null;
   const total = duration(node.totalTime), cook = total ? null : duration(node.cookTime);
-  return parseMenuRecipe({ title, sourceUrl: source, summary: description(node.description), imageUrl: selected.imageUrl,
+  return parseMenuRecipe({ title, sourceUrl: source, summary: description(node.description), imageUrl: selected.imageUrl, category: classifyRecipeMetadata(node.recipeCategory),
     time: total ? { kind: 'total', text: total } : cook ? { kind: 'cook', text: cook } : null });
 }

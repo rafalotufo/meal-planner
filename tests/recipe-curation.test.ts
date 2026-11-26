@@ -12,6 +12,35 @@ test('curator uses strict tool-free source-bound output and preserves full query
  const card=await curateRecipe(source(),prepared!,{apiKey:'test-only-key',signal:new AbortController().signal,transport});
  assert.equal(card?.sourceUrl,source().sourceUrl);assert.deepEqual(card?.time,{kind:'total',text:'30 minutes'});assert.equal(calls,1);
 });
+test('category is required in the strict response schema and uses only the existing source response', async () => {
+ const prepared=prepareCuration(source(),'vegetarian main dish','model')!;
+ const body=JSON.parse(prepared.body);
+ assert.ok(body.text.format.schema.required.includes('category'));
+ assert.deepEqual(body.text.format.schema.properties.category.enum,['main','side','veggie',null]);
+ assert.match(body.instructions,/vegetarian entr/i);
+ for(const category of ['main','side','veggie',null]) {
+  let calls=0;
+  const card=await curateRecipe(source(),prepared,{apiKey:'test-only-key',signal:new AbortController().signal,transport:async()=>{calls++;return Response.json(response(curated({category})));}});
+  assert.equal(card?.category,category);assert.equal(calls,1);
+ }
+});
+test('invalid category alone preserves a grounded card as unclassified; missing fields and bad rejection fail',async()=>{
+ for(const category of ['vegetarian',1,{},['main'],undefined]) {
+  const value=curated({category});
+  const call=()=>curateRecipe(source(),prepareCuration(source(),'chicken','model')!,{apiKey:'test-only-key',signal:new AbortController().signal,transport:async()=>Response.json(response(value))});
+  if(category===undefined) await assert.rejects(call,/SEARCH_FAILED/);
+  else {const card=await call();assert.equal(card?.category,null);assert.equal(card?.title,'Crispy chicken');}
+ }
+ await assert.rejects(curateRecipe(source(),prepareCuration(source(),'chicken','model')!,{apiKey:'test-only-key',signal:new AbortController().signal,transport:async()=>Response.json(response(curated({accepted:false,title:null,summary:null,methodExcerpt:null,ingredientExcerpt:null,category:'main'})))}),/SEARCH_FAILED/);
+});
+test('curation preserves parent abort before and after the response without another call',async()=>{
+ for(const before of [true,false]) {
+  const controller=new AbortController();const reason=new Error('parent stopped');let calls=0;
+  if(before) controller.abort(reason);
+  await assert.rejects(curateRecipe(source(),prepareCuration(source(),'chicken','model')!,{apiKey:'test-only-key',signal:controller.signal,transport:async()=>{calls++;controller.abort(reason);return Response.json(response(curated()));}}),error=>error===reason);
+  assert.equal(calls,before?0:1);
+ }
+});
 test('curation rejects unsupported quotes/titles/refusals/incomplete/schema and never retries',async()=>{
  for(const value of [response(curated({title:'Other recipe'})),response(curated({methodExcerpt:'Invented fry method'})),response(curated({ingredientExcerpt:'3 beef patties'})),response(curated({sourceUrl:'https://evil.example.com'})),response(curated(),'incomplete'),{status:'completed',output:[{type:'message',content:[{type:'refusal'}]}]}]){
   let calls=0;await assert.rejects(curateRecipe(source(),prepareCuration(source(),'chicken','model')!,{apiKey:'test-only-key',signal:new AbortController().signal,transport:async()=>{calls++;return Response.json(value);}}),/SEARCH_FAILED/);assert.equal(calls,1);

@@ -10,8 +10,18 @@ const page = (value: unknown, head = '') => `<html><head>${head}</head><body>${l
 
 test('imports an exact source-associated Recipe and its declared available metadata', () => {
   assert.deepEqual(parseImportedRecipe(page(recipe({ description: 'Bright lemon soup.', image: photo, totalTime: 'PT25M' })), source), {
-    title: 'Lemon soup', summary: 'Bright lemon soup.', imageUrl: photo, sourceUrl: source, time: { kind: 'total', text: '25 minutes' },
+    title: 'Lemon soup', summary: 'Bright lemon soup.', imageUrl: photo, sourceUrl: source, time: { kind: 'total', text: '25 minutes' }, category: null,
   });
+});
+test('classification uses only the uniquely associated node and keeps usable uncertain details', () => {
+  for (const [recipeCategory, expected] of [['main course', 'main'], ['side dish', 'side'], ['vegetable side', 'veggie'], ['vegetarian', null], [['main', 'side'], null], [{ text: 'main' }, null]] as const) {
+    const card = parseImportedRecipe(page(recipe({ recipeCategory })), source);
+    assert.equal(card?.category, expected); assert.equal(card?.title, 'Lemon soup');
+  }
+  const document = [recipe({ recipeCategory: 'side' }), recipe({ url: 'https://recipes.example.test/other', recipeCategory: 'main' })];
+  assert.equal(parseImportedRecipe(page(document), source)?.category, 'side');
+  assert.equal(parseImportedRecipe(page(recipe({ name: 'Vegetarian vegetable soup' })), source)?.category, null);
+  assert.equal(parseImportedRecipe(page({ '@graph': [recipe({ recipeCategory: 'veggie' }), { '@type': 'WebPage', recipeCategory: 'main' }] }), source)?.category, 'veggie');
 });
 test('supports root arrays and graph arrays, exact type forms and relative identities', () => {
   for (const type of ['Recipe', 'https://schema.org/Recipe', 'http://schema.org/Recipe', ['Thing', 'Recipe']]) {
