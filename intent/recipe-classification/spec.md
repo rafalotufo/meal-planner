@@ -3,6 +3,7 @@
 - Author: architect
 - Date: 2026-11-26
 - Status: Approved by independent review `d891e35` of source `6c0933e`
+- Auto-save amendment: Proposed from the owner's follow-up; independent review required before code
 - Input: accepted sibling `intent.md` (`b73ecf5`)
 - Approval policy: PM intent and independent spec/plan review under `org/protocol.md`; human merge and hosted release gates remain separate.
 
