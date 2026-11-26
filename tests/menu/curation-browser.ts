@@ -108,16 +108,15 @@ try {
   await db.execute("UPDATE menu_recipe_curations SET state='pending',lease=NULL,scheduled_at=$2,expires_at=$3 WHERE entry_id=$1", [missing.id, categoryPendingAt, categoryPendingAt + 30000]);
   await chrome.navigate(`${server.origin}/menu`); await state(missing.id, 'pending');
   async function changeCategory(id: string, category: 'side' | 'veggie') {
-    await chrome.click(`[data-menu-entry="${id}"] [data-category-select]`);
-    async function key(key: string, code: string, windowsVirtualKeyCode: number) {
-      await chrome.send('Input.dispatchKeyEvent', { type: 'keyDown', key, code, windowsVirtualKeyCode });
-      await chrome.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code, windowsVirtualKeyCode });
-    }
-    if (category === 'veggie') await key('End', 'End', 35);
-    else { await key('Home', 'Home', 36); await key('ArrowDown', 'ArrowDown', 40); }
-    await key('Enter', 'Enter', 13);
+    const selector = `[data-menu-entry="${id}"] [data-category-select]`;
+    const document = await chrome.send<{ root: { nodeId: number } }>('DOM.getDocument');
+    const { nodeId } = await chrome.send<{ nodeId: number }>('DOM.querySelector', { nodeId: document.root.nodeId, selector });
+    await chrome.send('DOM.focus', { nodeId });
+    const key = category === 'veggie' ? 'v' : 's', code = category === 'veggie' ? 'KeyV' : 'KeyS';
+    const windowsVirtualKeyCode = category === 'veggie' ? 86 : 83, nativeVirtualKeyCode = category === 'veggie' ? 9 : 1;
+    await chrome.send('Input.dispatchKeyEvent', { type: 'keyDown', key, code, windowsVirtualKeyCode, nativeVirtualKeyCode, text: key, unmodifiedText: key });
+    await chrome.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code, windowsVirtualKeyCode, nativeVirtualKeyCode });
     await chrome.waitFor(`document.querySelector('[data-menu-entry="${id}"] [data-category-select]').value === ${JSON.stringify(category)}`, 'native category selection');
-    await chrome.click(`[data-menu-entry="${id}"] [data-save-category]`);
     await chrome.waitFor(`document.querySelector('[data-menu-entry="${id}"] [data-recipe-category]').textContent === ${JSON.stringify('Category: ' + (category === 'veggie' ? 'Veggie' : 'Side'))}`, 'saved link category refresh');
   }
   await changeCategory(missing.id, 'veggie');

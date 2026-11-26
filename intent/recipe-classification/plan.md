@@ -3,7 +3,7 @@
 - Author: architect
 - Date: 2026-11-26
 - Status: Approved
-- Auto-save amendment: Proposed from the owner's follow-up; independent review required before code
+- Auto-save amendment: Approved by independent review `3e69b40` of owner-requested amendment `eb1e15f`
 - Independent approval: `d891e35` reviewing source `6c0933e`
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`
 - Gate: independent spec/plan approval before application implementation

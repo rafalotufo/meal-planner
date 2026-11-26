@@ -118,16 +118,24 @@ try {
   assert.equal(await browser.evaluate("document.querySelectorAll('[data-recipe-category]').length"), 1, 'every saved recipe displays its category');
   assert.equal(await browser.evaluate("document.querySelector('[data-recipe-category]').textContent"), 'Category: Unclassified', 'legacy cards are honestly unclassified');
   assert.equal(await browser.evaluate("Boolean(document.querySelector('label[for^=recipe-category-]'))"), true, 'category select has an explicit label');
-  await browser.click('[data-category-select]');
-  await key('End', 'End', 35); await key('Enter', 'Enter', 13);
-  await browser.waitFor("document.querySelector('[data-category-select]').value === 'veggie'", 'keyboard selects Veggie');
+  assert.equal(await browser.evaluate("Boolean(document.querySelector('[data-save-category]'))"), false, 'selecting a category saves without a separate button');
+  async function chooseVeggie() {
+  // Focus only, then use the native printable-key selection supported by Chrome.
+  const categoryDocument = await browser.send<{ root: { nodeId: number } }>('DOM.getDocument');
+  const categorySelect = await browser.send<{ nodeId: number }>('DOM.querySelector', { nodeId: categoryDocument.root.nodeId, selector: '[data-category-select]' });
+  await browser.send('DOM.focus', { nodeId: categorySelect.nodeId });
+  await browser.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'v', code: 'KeyV', windowsVirtualKeyCode: 86, nativeVirtualKeyCode: 9, text: 'v', unmodifiedText: 'v' });
+  await browser.send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'v', code: 'KeyV', windowsVirtualKeyCode: 86, nativeVirtualKeyCode: 9 });
+  }
   browser.failNext('/api/menu?category=update', 503, 500);
-  await browser.click('[data-save-category]');
-  await browser.waitFor("document.querySelector('[data-save-category]').disabled", 'category request disables duplicate submission');
+  await chooseVeggie();
+  await browser.waitFor("document.querySelector('[data-category-select]').value === 'veggie'", 'keyboard selects Veggie');
+  await browser.waitFor("document.querySelector('[data-category-select]').disabled", 'automatic category request disables overlapping selection');
   await browser.waitFor("document.body.innerText.includes('Could not confirm category')", 'failed category request stays recoverable');
   assert.equal(await browser.evaluate("document.querySelector('[data-recipe-category]').textContent"), 'Category: Unclassified', 'failed write never claims a saved category');
+  assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').value"), '', 'failed automatic write restores the stored selection');
   assert.equal(await browser.evaluate("document.body.innerText.includes('Fixture request failure')"), false);
-  await browser.click('[data-save-category]');
+  await chooseVeggie();
   await browser.waitFor("document.querySelector('[data-recipe-category]')?.textContent === 'Category: Veggie'", 'category persists through real HTTP and refresh');
   await browser.navigate(`${server.origin}/menu`); await size(1); await menuReady();
   assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').value"), 'veggie', 'saved correction survives reload');
@@ -225,7 +233,7 @@ try {
   for (const width of [320,1440]) {
     await browser.viewport(width);
     assert.equal(await browser.evaluate('document.documentElement.scrollWidth <= innerWidth'), true, 'category controls fit narrow and desktop cards');
-    assert.equal(await browser.evaluate("Array.from(document.querySelectorAll('[data-category-select],[data-save-category]')).every(node=>{const box=node.getBoundingClientRect();return box.width>0&&box.left>=0&&box.right<=innerWidth})"), true);
+    assert.equal(await browser.evaluate("Array.from(document.querySelectorAll('[data-category-select]')).every(node=>{const box=node.getBoundingClientRect();return box.width>0&&box.left>=0&&box.right<=innerWidth})"), true);
     await browser.screenshot(`org/reviews/recipe-classification-menu-photos-${width}.png`);
   }
   // Reset only our disposable menu, then populate through real API (no provider use).
