@@ -27,9 +27,9 @@ try{
  async function menuFixture(mode:string,delay=0){await liveBrowser.evaluate(`(()=>{const original=window.__swapOriginalFetch??window.fetch.bind(window);window.__swapOriginalFetch=original;window.__swapCancelled=false;window.__swapBodyStarted=false;let used=false;window.fetch=async(input,init)=>{const path=new URL(typeof input==='string'?input:input.url,location.href).pathname;if(used||path!=='/api/menu'||(init?.method??'GET')!=='GET')return original(input,init);used=true;const mode=${JSON.stringify(mode)},delay=${delay};if(mode==='status401'||mode==='status403')return new Response('{}',{status:Number(mode.slice(6))});if(mode==='empty')return new Response(JSON.stringify({entries:[],nextCursor:null}),{status:200});if(mode==='malformed')return new Response(JSON.stringify({entries:[{bad:true}],nextCursor:null}),{status:200});if(mode==='oversized'||mode==='utf8')return new Response(new ReadableStream({start(c){c.enqueue(mode==='oversized'?new Uint8Array(524289):new Uint8Array([255]));},cancel(){window.__swapCancelled=true;}}));const real=await original(input,init);const text=await real.text();if(mode==='lateHeaders'){await new Promise(r=>setTimeout(r,delay));return new Response(text);}return new Response(new ReadableStream({start(c){window.__swapBodyStarted=true;c.enqueue(new TextEncoder().encode(text.slice(0,10)));setTimeout(()=>{try{c.enqueue(new TextEncoder().encode(text.slice(10)));c.close();}catch{}},delay);},cancel(){window.__swapCancelled=true;}}));};})()`);}
  async function restoreFetch(){await liveBrowser.evaluate("if(window.__swapOriginalFetch){window.fetch=window.__swapOriginalFetch;delete window.__swapOriginalFetch;}");}
 
- for(let n=0;n<54;n++)await saveMenuRecipe(db,identity,allowed,{title:n===53?'Long saved dinner '+ 'hearty'.repeat(23):'Family supper '+n,sourceUrl:'https://example.test/weekly/'+n,imageUrl:n===53?'https://images.recipe-fixture.test/photo.svg':n===52?'https://images.recipe-fixture.test/missing.svg':null,summary:'A saved family dinner.',time:null});
+ for(let n=0;n<54;n++)await saveMenuRecipe(db,identity,allowed,{title:n===53?'Long saved dinner '+ 'hearty'.repeat(23):'Family supper '+n,sourceUrl:'https://example.test/weekly/'+n,imageUrl:n===53?'https://images.recipe-fixture.test/photo.svg':n===52?'https://images.recipe-fixture.test/missing.svg':null,summary:'A saved family dinner.',time:null,category:'main'});
  async function recipeCards(expectedWeek: string, count = 7) {
-  assert.equal(await browser!.evaluate(`document.querySelectorAll('article').length===${count} && document.querySelectorAll('article h2').length===${count} && !document.querySelector('article time,article [datetime]')`),true,'actual number of recipe-title cards without date elements');
+  assert.equal(await browser!.evaluate(`document.querySelectorAll('article').length===${count} && document.querySelectorAll('article h3').length===${count} && !document.querySelector('article time,article [datetime]')`),true,'actual number of recipe-title cards without date elements');
   assert.equal(await browser!.evaluate("Array.from(document.querySelectorAll('article')).every(card=>!(/Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|\\d{4}-\\d{2}-\\d{2}/.test(card.innerText)))"),true,'recipe cards have no weekday/date assignment labels');
   assert.equal(await browser!.evaluate("(() => { const content=document.querySelector('main').cloneNode(true); content.querySelector('section[aria-labelledby=planned-history]')?.remove(); return !content.querySelector('time,[datetime]') && !/\\d{4}-\\d{2}-\\d{2}/.test(content.textContent); })()"),true,'no numeric dates or date elements outside history controls');
   assert.equal(await browser!.evaluate(`document.querySelector('#history-week')?.value===${JSON.stringify(expectedWeek)}`),true,'history selector retains selected-week context');
@@ -39,7 +39,7 @@ try{
  async function primaryThumbnails(meals: MenuRecipe[]) {
   assert.equal(await browser!.evaluate("document.querySelectorAll('article > [aria-hidden=true]').length"),meals.length,'every planned recipe reserves a thumbnail frame');
   for (const [index,meal] of meals.entries()) {
-   const card=`article:nth-of-type(${index+1})`, frame=card+' > [aria-hidden=true]';
+   const card=`article[data-plan-index="${index}"]`, frame=card+' > [aria-hidden=true]';
    await browser!.evaluate(`document.querySelector(${JSON.stringify(frame)}).scrollIntoView({block:'center'})`);
    if (meal.imageUrl && !meal.imageUrl.endsWith('/missing.svg')) {
     await browser!.waitFor(`(()=>{const image=document.querySelector(${JSON.stringify(frame+' img')});return image?.complete && image.naturalWidth>0;})()`,'primary snapshot photo loaded');
@@ -47,7 +47,7 @@ try{
    } else {
     await browser!.waitFor(`(()=>{const frame=document.querySelector(${JSON.stringify(frame)});return !frame.querySelector('img') && frame.textContent==='Photo unavailable';})()`,'missing or broken primary photo fallback');
    }
-   assert.equal(await browser!.evaluate(`(()=>{const frame=document.querySelector(${JSON.stringify(frame)}),r=frame.getBoundingClientRect();return r.height===128 && r.width>0 && r.left>=0 && r.right<=innerWidth && !frame.querySelector('[tabindex],a,button') && document.querySelector(${JSON.stringify(card+' h2')}).textContent===${JSON.stringify(meal.title)};})()`),true,'stable128px frame and usable recipe title');
+   assert.equal(await browser!.evaluate(`(()=>{const frame=document.querySelector(${JSON.stringify(frame)}),r=frame.getBoundingClientRect();return r.height===128 && r.width>0 && r.left>=0 && r.right<=innerWidth && !frame.querySelector('[tabindex],a,button') && document.querySelector(${JSON.stringify(card+' h3')}).textContent===${JSON.stringify(meal.title)};})()`),true,'stable128px frame and usable recipe title');
   }
   await browser!.evaluate('scrollTo(0,0)');
  }
@@ -65,9 +65,10 @@ try{
  assert.equal(await browser.evaluate("document.querySelector('main').innerText.includes('Wednesday after 09:00 America/Toronto')"),true,'plan schedule reflects hosted Wednesday configuration');
  assert.equal(await browser.evaluate("document.querySelectorAll('main').length===1 && document.querySelectorAll('h1').length===1 && document.querySelectorAll('article').length===7"),true);
  assert.equal(await browser.evaluate("/away|attendance/i.test(document.querySelector('main').innerText)"),false);
+ assert.deepEqual(await browser.evaluate("Array.from(document.querySelectorAll('[data-plan-category] > h2')).map(h=>h.textContent)"),['Main dishes','Sides','Veggies','Unclassified'],'separate category sections preserve legacy snapshots');
  await recipeCards(week);
  await primaryThumbnails(initialMeals);
- for(const width of [320,1440]){await browser.viewport(width);await primaryThumbnails(initialMeals);await browser.screenshot(`org/reviews/plan-recipe-thumbnails-draft-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);await primaryThumbnails(initialMeals);await browser.screenshot(`org/reviews/classified-weekly-planning-draft-${width}.png`);}
 
  const initialSuggestions=(await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions'))?.n;
  // Keep the successful display snapshot through physical typing and body loading.
@@ -102,7 +103,7 @@ try{
  }
 
  await openPicker(0);assert.equal(await browser.evaluate("document.querySelector('[data-swap-confirm]').disabled"),true);
- for(const width of [320,1440]){await browser.viewport(width);assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('dialog').getBoundingClientRect(),c=document.querySelector('[aria-label=\"Close recipe picker\"]').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&c.width>=44&&c.height>=44;})()"),true);await browser.screenshot(`org/reviews/plan-recipe-thumbnails-swap-picker-browse-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('dialog').getBoundingClientRect(),c=document.querySelector('[aria-label=\"Close recipe picker\"]').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight&&c.width>=44&&c.height>=44;})()"),true);await browser.screenshot(`org/reviews/classified-weekly-planning-swap-picker-browse-${width}.png`);}
  assert.equal(await browser.evaluate("document.querySelector('dialog img')?.getAttribute('referrerpolicy')"),'no-referrer');await browser.waitFor("document.querySelectorAll('dialog img').length===1",'saved image and null/broken fallbacks');
  assert.equal(await browser.evaluate("document.querySelectorAll('dialog img').length"),1);assert.equal(await browser.evaluate("document.querySelector('dialog').innerText.includes('Photo unavailable')"),true);
  await searchPicker('Family supper 0');assert.equal(await browser.evaluate("Boolean(document.querySelector('[data-swap-choice][aria-label=\"Family supper 0\"]'))"),true,'title search reaches beyond first50');await key('Enter','Enter',13);
@@ -119,7 +120,7 @@ try{
  assert.equal((await readPlans(db,identity,allowed,{},due)).approvals,1);
  const suggestionsBefore=await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions');
  await openPicker(0);await choose('Long saved dinner '+ 'hearty'.repeat(23));
- for(const width of [320,1440]){await browser.viewport(width);if(width===320)await browser.send('Emulation.setDeviceMetricsOverride',{width,height:568,deviceScaleFactor:1,mobile:false});await browser.evaluate("document.querySelector('[data-swap-confirm]').scrollIntoView({block:'nearest'})");assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('[data-swap-confirm]').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight&&document.documentElement.scrollWidth<=innerWidth;})()"),true,'selected long-title footer reachable on short mobile viewport');await browser.screenshot(`org/reviews/plan-recipe-thumbnails-swap-picker-selected-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);if(width===320)await browser.send('Emulation.setDeviceMetricsOverride',{width,height:568,deviceScaleFactor:1,mobile:false});await browser.evaluate("document.querySelector('[data-swap-confirm]').scrollIntoView({block:'nearest'})");assert.equal(await browser.evaluate("(()=>{const r=document.querySelector('[data-swap-confirm]').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight&&document.documentElement.scrollWidth<=innerWidth;})()"),true,'selected long-title footer reachable on short mobile viewport');await browser.screenshot(`org/reviews/classified-weekly-planning-swap-picker-selected-${width}.png`);}
  assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM meal_plan_suggestions'))?.n,suggestionsBefore?.n,'selection alone never posts');
  await browser.evaluate("(()=>{const original=window.fetch.bind(window);window.__swapOriginalFetch=original;window.__swapPostResolved=false;let used=false;window.fetch=async(input,init)=>{const response=await original(input,init);if(!used&&(init?.method==='POST')&&new URL(input,location.href).pathname.startsWith('/api/plans/')){used=true;window.__swapPostResolved=true;await new Promise(resolve=>setTimeout(resolve,850));}return response;};})()");
  const postRequests=()=>browser!.requests.filter(url=>new URL(url).pathname===`/api/plans/${id}`).length;const beforeDouble=postRequests();
@@ -132,14 +133,14 @@ try{
  await browser.click('[data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 2') && document.querySelector('[data-plan-approve]')?.textContent==='Looks good'",'accepted swap clears approvals');
  assert.equal((await readPlans(db,identity,allowed,{},due)).approvals,0);
  await primaryThumbnails((await readPlans(db,identity,allowed,{},due)).plan!.meals); // Previously broken slot0 now loads the accepted valid image.
- await browser.waitFor("document.querySelectorAll('[data-plan-accept]').length===1 && Boolean(document.querySelector('article:nth-of-type(2) [data-plan-accept]'))",'other recipe suggestion survives accepted swap');
+ await browser.waitFor("document.querySelectorAll('[data-plan-accept]').length===1 && Boolean(document.querySelector('article[data-plan-index=\"1\"] [data-plan-accept]'))",'other recipe suggestion survives accepted swap');
  assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
- for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/plan-recipe-thumbnails-swap-${width}.png`);}
- await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.querySelector('[role=alert]')?.textContent.includes('already in this plan')",'duplicate acceptance blocked with useful reject guidance');
+ for(const width of [320,1440]){await browser.viewport(width);await browser.screenshot(`org/reviews/classified-weekly-planning-swap-${width}.png`);}
+ await browser.click('article[data-plan-index=\"1\"] [data-plan-accept]');await browser.waitFor("document.querySelector('[role=alert]')?.textContent.includes('already in this plan')",'duplicate acceptance blocked with useful reject guidance');
  assert.deepEqual((await readPlans(db,identity,allowed,{},due)).suggestions,[retained]);
- await browser.click('article:nth-of-type(2) [data-plan-reject]');await browser.waitFor("!document.querySelector('[data-plan-accept]')",'retained conflicting suggestion remains rejectable');
- await openPicker(1);await choose('Family supper 52');await browser.click('[data-swap-confirm]');await browser.waitFor("!document.querySelector('dialog[open]') && Boolean(document.querySelector('article:nth-of-type(2) [data-plan-accept]'))",'distinct modal suggestion saved');
- await browser.click('article:nth-of-type(2) [data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 3') && !document.querySelector('[data-plan-accept]')",'distinct replacement accepted through real HTTP');
+ await browser.click('article[data-plan-index=\"1\"] [data-plan-reject]');await browser.waitFor("!document.querySelector('[data-plan-accept]')",'retained conflicting suggestion remains rejectable');
+ await openPicker(1);await choose('Family supper 52');await browser.click('[data-swap-confirm]');await browser.waitFor("!document.querySelector('dialog[open]') && Boolean(document.querySelector('article[data-plan-index=\"1\"] [data-plan-accept]'))",'distinct modal suggestion saved');
+ await browser.click('article[data-plan-index=\"1\"] [data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 3') && !document.querySelector('[data-plan-accept]')",'distinct replacement accepted through real HTTP');
  await recipeCards(week);
  await primaryThumbnails((await readPlans(db,identity,allowed,{},due)).plan!.meals); // Accepted404 replacement settles to fallback.
  // An open picker captures revision3 while another device accepts a real swap.
@@ -161,12 +162,12 @@ try{
  await browser.navigate(server.origin+'/plans?week='+week);await browser.waitFor("document.body.innerText.includes('Final · Planned meals')",'final survives reload');
  assert.equal((await readPlans(db,identity,allowed,{week},due)).plan?.status,'final');
  await recipeCards(week);
- for(const width of [320,1440]){await browser.viewport(width);await primaryThumbnails((await readPlans(db,identity,allowed,{week},due)).plan!.meals);await browser.screenshot(`org/reviews/plan-recipe-thumbnails-final-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);await primaryThumbnails((await readPlans(db,identity,allowed,{week},due)).plan!.meals);await browser.screenshot(`org/reviews/classified-weekly-planning-final-${width}.png`);}
  // Genuine retained planned history created only in this owned fixture/process.
  const pastDate=addDays(local.date,-70);const past=new Date(pastDate+'T23:00:00Z');await generateDuePlans(db,allowed,torontoClock(past).day,past);
  const old=(await db.one<{id:string;week:string}>('SELECT id,week_start::text AS week FROM meal_plan_weeks WHERE week_start<$1::date ORDER BY week_start LIMIT 1',[week]))!;
  await actOnPlan(db,identity,allowed,old.id,{action:'finalize',revision:1},past);
- const historical=initialMeals;const legacy=[historical[0],historical[0],historical[1],historical[2],historical[2],historical[3],historical[0]];await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(legacy),old.id]);
+ const historical=initialMeals.map(meal=>({...meal,category:null}));const legacy=[historical[0],historical[0],historical[1],historical[2],historical[2],historical[3],historical[0]];await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(legacy),old.id]);
  await db.execute('DELETE FROM menu_recipes WHERE source_url=ANY($1::text[])',[historical.map(meal=>meal.sourceUrl)]);
  await browser.navigate(server.origin+'/plans');await browser.waitFor(`Boolean(document.querySelector('a[href="/plans?week=${old.week}"]'))`,'finalized history link');
  await browser.click(`a[href="/plans?week=${old.week}"]`);await browser.waitFor(`location.search.includes('${old.week}') && document.querySelectorAll('article').length===4`,'retained planned history');
@@ -175,18 +176,44 @@ try{
  await primaryThumbnails([historical[0],historical[1],historical[2],historical[3]]);
  assert.equal(await browser.evaluate("document.querySelector('[role=note]')?.textContent.includes('original 7 entries')"),true,'honest legacy final display note');
  assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[old.id]))?.meals,legacy,'legacy raw history unchanged by display');
- for(const width of [320,1440]){await browser.viewport(width);await primaryThumbnails([historical[0],historical[1],historical[2],historical[3]]);await browser.screenshot(`org/reviews/plan-recipe-thumbnails-history-${width}.png`);}
+ for(const width of [320,1440]){await browser.viewport(width);await primaryThumbnails([historical[0],historical[1],historical[2],historical[3]]);await browser.evaluate("document.querySelector('[data-plan-category=unclassified]').scrollIntoView({block:'start'})");await browser.screenshot(`org/reviews/classified-weekly-planning-history-${width}.png`);}
  await browser.click('#history-week');await browser.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});await browser.send('Input.dispatchKeyEvent',{type:'keyUp',key:'Tab',code:'Tab',windowsVirtualKeyCode:9});
  assert.equal(await browser.evaluate("document.activeElement.matches(':focus-visible')"),true,'native keyboard focus remains visible');
  for(const [index,count] of [1,2,6,7].entries()){
-  await db.execute('DELETE FROM menu_recipes');for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,allowed,{title:'Small-menu recipe '+n,sourceUrl:'https://example.test/small/'+n,imageUrl:null,summary:'Distinct saved recipe.',time:null});
+  await db.execute('DELETE FROM menu_recipes');for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,allowed,{title:'Small-menu recipe '+n,sourceUrl:'https://example.test/small/'+n,imageUrl:null,summary:'Distinct saved recipe.',time:null,category:n<4?'main':n<6?'side':'veggie'});
   const clock=new Date(addDays(local.date,7*(index+1))+'T23:00:00Z');await generateDuePlans(db,allowed,torontoClock(clock).day,clock);const small=(await readPlans(db,identity,allowed,{},clock)).plan!;
   await browser.navigate(server.origin+'/plans?week='+small.weekStart);await browser.waitFor(`document.querySelectorAll('article').length===${count} && Boolean(document.querySelector('[data-plan-finalize]'))`,'variable-card plan');await recipeCards(small.weekStart,count);await primaryThumbnails(small.meals);
-  for(const width of [320,1440]){await browser.viewport(width);if(count===1||count===6)await browser.screenshot(`org/reviews/plan-recipe-thumbnails-small-${count}-${width}.png`);}
+  assert.deepEqual(await browser.evaluate("Array.from(document.querySelectorAll('[data-plan-category]')).map(section=>section.querySelectorAll('article').length)"),[Math.min(count,4),Math.min(Math.max(count-4,0),2),Math.max(count-6,0)],'short category pools retain honest separate counts');
+  assert.equal(await browser.evaluate("document.querySelector('main').textContent.includes('Current target: 4') && document.querySelector('main').textContent.includes('Save or classify more')"),true,'partial plan explains current target and Menu recovery');
+  for(const width of [320,1440]){await browser.viewport(width);if(count===1||count===6)await browser.screenshot(`org/reviews/classified-weekly-planning-small-${count}-${width}.png`);}
   await openPicker(0);assert.equal(await browser.evaluate("document.querySelector('dialog').innerText.includes('already in your plan') && document.querySelector('[data-swap-confirm]').disabled"),true,'all-planned menu still opens meaningful picker');await browser.click('[data-swap-cancel]');
   await browser.click('[data-plan-finalize]');await browser.waitFor("Boolean(document.querySelector('[data-plan-confirm]'))",'variable-count confirmation');assert.equal(await browser.evaluate(`document.querySelector('#confirm-warning').textContent.includes(${JSON.stringify('Confirm '+count+' planned '+(count===1?'recipe':'recipes')+'?')})`),true,'confirmation count accurate');
   await browser.click('section[aria-label="Confirm planned meals"] button:last-child');
  }
+ // New generated composition, with category reads beyond unrelated saves and an actual eighth-slot swap.
+ await db.execute('DELETE FROM menu_recipes');
+ const extras=[];
+ for(const category of ['side','veggie','main'] as const)for(let n=0;n<(category==='main'?54:3);n++)extras.push(await saveMenuRecipe(db,identity,allowed,{title:`Classified ${category} ${n}`,sourceUrl:`https://example.test/classified/${category}/${n}`,imageUrl:null,summary:'A classified saved recipe.',time:null,category}));
+ const fullClock=new Date(addDays(local.date,42)+'T23:00:00Z');
+ await generateDuePlans(db,allowed,torontoClock(fullClock).day,fullClock);
+ const full=(await readPlans(db,identity,allowed,{},fullClock)).plan!;
+ assert.equal(full.meals.length,8);assert.deepEqual(full.meals.map(meal=>meal.category),['main','main','main','main','side','side','veggie','veggie']);
+ await browser.navigate(server.origin+'/plans?week='+full.weekStart);await browser.waitFor("document.querySelectorAll('article').length===8 && Boolean(document.querySelector('[data-plan-suggest=\"7\"]'))",'full classified plan and eighth global index');
+ assert.deepEqual(await browser.evaluate("Array.from(document.querySelectorAll('[data-plan-category]')).map(section=>({category:section.getAttribute('data-plan-category'),title:section.querySelector('h2').textContent,count:section.querySelectorAll('article').length}))"),[{category:'main',title:'Main dishes',count:4},{category:'side',title:'Sides',count:2},{category:'veggie',title:'Veggies',count:2}]);
+ await recipeCards(full.weekStart,8);await primaryThumbnails(full.meals);
+ for(const width of [320,1440]){await browser.viewport(width);await browser.evaluate('scrollTo(0,0)');await browser.screenshot(`org/reviews/classified-weekly-planning-full-${width}.png`);await browser.evaluate("document.querySelector('[data-plan-category=veggie]').scrollIntoView({block:'start'})");await browser.screenshot(`org/reviews/classified-weekly-planning-veggies-${width}.png`);}
+ await browser.click('[data-plan-approve]');await browser.waitFor("document.querySelector('[data-plan-approve]')?.textContent==='You approved'",'full plan approval saved');
+ const veggieReplacement=extras.find(result=>result.entry.recipe.category==='veggie'&&!full.meals.some(meal=>meal.sourceUrl===result.entry.recipe.sourceUrl))!.entry;
+ await openPicker(7);
+ assert.equal(await browser.evaluate("document.querySelector('#swap-context').textContent.includes('Veggie')"),true,'picker explains required slot category');
+ assert.equal(await browser.evaluate("document.querySelectorAll('[data-swap-choice]').length"),1,'server category filtering sees veggie beyond54newer mains');
+ await searchPicker(veggieReplacement.recipe.title);
+ const filteredRequest=browser.requests.filter(value=>{const url=new URL(value);return url.pathname==='/api/menu'&&url.searchParams.get('q')===veggieReplacement.recipe.title;}).at(-1);assert.ok(filteredRequest);assert.equal(new URL(filteredRequest).searchParams.get('category'),'veggie','search retains slot category');
+ await choose(veggieReplacement.recipe.title);await browser.click('[data-swap-confirm]');await browser.waitFor("Boolean(document.querySelector('article[data-plan-index=\"7\"] [data-plan-accept]')) && !document.querySelector('dialog[open]')",'eighth global slot suggestion saved');
+ await browser.click('article[data-plan-index="7"] [data-plan-accept]');await browser.waitFor("document.body.innerText.includes('revision 2') && document.querySelector('[data-plan-approve]')?.textContent==='Looks good'",'eighth slot accepted and approval reset');
+ const acceptedFull=await readPlans(db,identity,allowed,{week:full.weekStart},fullClock);assert.equal(acceptedFull.plan!.meals[7].sourceUrl,veggieReplacement.recipe.sourceUrl);assert.equal(acceptedFull.approvals,0);assert.deepEqual(acceptedFull.plan!.meals.map(meal=>meal.category),full.meals.map(meal=>meal.category));
+ await browser.click('[data-plan-approve]');await browser.waitFor("document.querySelector('[data-plan-approve]')?.textContent==='You approved'",'classified revision reapproved');
+ console.log('Classified planning Chrome320/1440: generated4/2/2, separate semantic groups, current-target shortage guidance, legacy Unclassified, filtered source beyond54mains, real slot7 suggest/accept and approval reset passed.');
  assert.deepEqual(browser.errors.filter(error=>!/Failed to load resource: the server responded with a status of (401|403|404|409|503)\b/.test(error)),[]);
  console.log('Primary plan thumbnails: valid/null/404 snapshots,128px frames, lazy/no-referrer/decorative images, accepted broken-to-valid and404 replacements, draft/final/history320/1440 passed.');
  console.log('Searchable modal: full-menu search/paging, thumbnails/fallback, native keyboard selection/focus/dismissal, explicit single POST, bounded/invalid UTF8 payloads, retry/access, pre-header/post-fetch-body supersession, close/reopen GET and mutation races, captured stale409 recovery passed.');

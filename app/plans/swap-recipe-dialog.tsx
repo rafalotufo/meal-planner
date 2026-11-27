@@ -2,11 +2,13 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { parseMenuPage } from '../../lib/menu/validation';
+import { recipeCategoryLabels } from '../../lib/recipes/category';
+import type { RecipeCategory } from '../../lib/recipes/types';
 import type { MenuPage, SavedMenuEntry } from '../../lib/menu/types';
 
 export interface SwapOutcome { ok: boolean; status: number; message: string }
 interface Props {
-  title: string; plannedSources: string[]; trigger: HTMLButtonElement; blocked: boolean;
+  title: string; category: RecipeCategory | null; plannedSources: string[]; trigger: HTMLButtonElement; blocked: boolean;
   onDismiss: () => void; onRefresh: () => void;
   onSubmit: (menuRecipeId: string) => Promise<SwapOutcome>;
 }
@@ -49,7 +51,7 @@ function Choice({ entry, selected, disabled, onSelect }: { entry: SavedMenuEntry
     <span className="min-w-0 flex-1"><span className="block font-serif text-base leading-snug wrap-anywhere text-stone-900">{recipe.title}</span>{selected ? <span className="mt-2 inline-block rounded-full bg-emerald-900 px-2 py-1 text-xs font-semibold text-white">Selected</span> : null}</span>
   </button>;
 }
-export default function SwapRecipeDialog({ title, plannedSources, trigger, blocked, onDismiss, onSubmit, onRefresh }: Props) {
+export default function SwapRecipeDialog({ title, category, plannedSources, trigger, blocked, onDismiss, onSubmit, onRefresh }: Props) {
   const dialog = useRef<HTMLDialogElement>(null), search = useRef<HTMLInputElement>(null);
   const backdrop = useRef(false), alive = useRef(true), request = useRef({ version: 0 }), active = useRef<AbortController | null>(null), submittingNow = useRef(false);
   const [query, setQuery] = useState(''), [after, setAfter] = useState<string | undefined>(), [retry, setRetry] = useState(0);
@@ -73,7 +75,7 @@ export default function SwapRecipeDialog({ title, plannedSources, trigger, block
     const debounce = setTimeout(async () => {
       deadline = setTimeout(() => { timedOut = true; controller.abort(); }, 12000);
       try {
-        const params = new URLSearchParams(); if (query.trim()) params.set('q', query); if (after) params.set('after', after);
+        const params = new URLSearchParams(); if (query.trim()) params.set('q', query); if (after) params.set('after', after); if (category) params.set('category', category);
         const response = await fetch('/api/menu' + (params.size ? '?' + params : ''), { signal: controller.signal, cache: 'no-store' });
         if (!response.ok) throw new LoadError(response.status);
         const result = await readPage(response, controller.signal);
@@ -83,14 +85,14 @@ export default function SwapRecipeDialog({ title, plannedSources, trigger, block
       } finally { clearTimeout(deadline); if (alive.current && version === request.current.version) setLoading(false); }
     }, query ? 250 : 0);
     return () => { counter.version++; clearTimeout(debounce); clearTimeout(deadline); controller.abort(); };
-  }, [query, after, retry]);
+  }, [query, after, retry, category]);
   function reset() { request.current.version++; active.current?.abort(); setSelection(null); setOutcome(null); setLoadError(null); setLoading(true); }
   function changeQuery(value: string) { reset(); setQuery(value); setAfter(undefined); }
   function changePage(value: string | undefined) { reset(); setAfter(value); if (value === after) setRetry(value => value + 1); }
   function dismiss() { dialog.current?.close(); onDismiss(); }
   const page = displayed?.page;
   const unavailable = loading || loadError !== null || !displayed || displayed.query !== query.trim() || displayed.after !== after;
-  const planned = new Set(plannedSources), choices = page?.entries.filter(entry => entry.curation.state === 'ready' && !planned.has(entry.recipe.sourceUrl)) ?? [];
+  const planned = new Set(plannedSources), choices = page?.entries.filter(entry => entry.curation.state === 'ready' && (category === null || entry.recipe.category === category) && !planned.has(entry.recipe.sourceUrl)) ?? [];
   const selected = unavailable ? undefined : choices.find(entry => entry.id === selection);
   async function confirm() {
     if (!selected || unavailable || blocked || submittingNow.current) return;
@@ -109,7 +111,7 @@ export default function SwapRecipeDialog({ title, plannedSources, trigger, block
     <div className="flex h-full min-h-0 flex-col">
       <div className="shrink-0 border-b border-stone-200 p-4 sm:p-6">
         <div className="flex items-start justify-between gap-3"><div><p className="text-xs font-semibold tracking-widest text-emerald-800 uppercase">From your saved menu</p><h2 id="swap-title" className="mt-2 font-serif text-2xl">Choose a replacement</h2></div><button type="button" aria-label="Close recipe picker" onClick={dismiss} className={`${action} min-w-11 shrink-0 px-3`}>×</button></div>
-        <p id="swap-context" className="mt-2 text-sm wrap-anywhere text-stone-600">Replacing: {title}</p>
+        <p id="swap-context" className="mt-2 text-sm wrap-anywhere text-stone-600">Replacing: {title}{category ? ` · Choose another ${recipeCategoryLabels[category]}.` : ''}</p>
         <label htmlFor="swap-search" className="mt-4 block text-sm font-medium">Search saved recipes</label>
         <input ref={search} id="swap-search" type="search" value={query} maxLength={100} onChange={event => changeQuery(event.target.value)} className="mt-2 min-h-11 w-full min-w-0 rounded-lg border border-stone-400 bg-white px-3 text-sm focus-visible:outline-2 focus-visible:outline-emerald-800" placeholder="Search by recipe title" />
       </div>
@@ -119,7 +121,7 @@ export default function SwapRecipeDialog({ title, plannedSources, trigger, block
         {page && displayed ? <>
           <p className="mb-2 text-xs wrap-anywhere text-stone-500">Showing {displayed.query !== query.trim() || displayed.after !== after ? 'previous ' : ''}results for {displayed.query ? `“${displayed.query}”` : 'all saved recipes'}{displayed.after ? ' (older page)' : ''}.</p>
           <p role="status" className="mb-3 text-sm text-stone-600">{choices.length} available {choices.length === 1 ? 'recipe' : 'recipes'} on this page</p>
-          {!page.entries.length ? <p className="py-4 text-sm text-stone-600">{displayed.query ? 'No saved recipe titles match your search.' : 'No saved recipes on this page. Add recipes to your menu to suggest a swap.'}</p> : !choices.length ? <p className="py-4 text-sm text-stone-600">These recipes are already in your plan. Search for another title or browse older matches.</p> : <div role="group" aria-label="Available replacement recipes" className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-3">{choices.map(entry => <Choice key={entry.id} entry={entry} selected={selected?.id === entry.id} disabled={unavailable} onSelect={() => { if (!unavailable) { setSelection(entry.id); setOutcome(null); } }} />)}</div>}
+          {!page.entries.length ? <p className="py-4 text-sm text-stone-600">{displayed.query ? 'No saved recipe titles match your search.' : 'No saved recipes on this page. Add recipes to your menu to suggest a swap.'}</p> : !choices.length ? <p className="py-4 text-sm text-stone-600">No matching replacements are available on this page. Recipes can be unready or already in your plan. Search for another title or browse older matches.</p> : <div role="group" aria-label="Available replacement recipes" className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-3">{choices.map(entry => <Choice key={entry.id} entry={entry} selected={selected?.id === entry.id} disabled={unavailable} onSelect={() => { if (!unavailable) { setSelection(entry.id); setOutcome(null); } }} />)}</div>}
           <nav aria-label="Recipe search pages" className="mt-4 flex flex-wrap justify-between gap-3">{displayed.after ? <button type="button" disabled={unavailable} className={action} onClick={() => changePage(undefined)}>Newest matches</button> : <span />}{page.nextCursor ? <button type="button" disabled={unavailable} className={action} onClick={() => changePage(page.nextCursor!)}>Older matches</button> : null}</nav>
         </> : null}
         {query ? <button type="button" className="mt-2 min-h-11 text-sm text-emerald-900 underline" onClick={() => changeQuery('')}>Clear search</button> : null}

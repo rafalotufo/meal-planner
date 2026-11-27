@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { openChrome } from '../auth/chrome.ts';
 import { startCurationServer } from '../menu/curation-server.ts';
-import { saveMenuRecipe } from '../../lib/menu/store.ts';
+import { saveMenuRecipe, updateMenuRecipeCategory } from '../../lib/menu/store.ts';
 import { generateDuePlans } from '../../lib/plans/generate.ts';
 import { readPlans } from '../../lib/plans/store.ts';
 import { torontoClock } from '../../lib/plans/calendar.ts';
@@ -21,7 +21,7 @@ try {
   const user = await db.one<{ googleSubject: string; email: string }>('SELECT google_subject AS "googleSubject",verified_email AS email FROM app_users LIMIT 1');
   assert.ok(user);
   const identity = { ...user, emailVerified: true as const }, allowed = [user.email];
-  const original = await saveMenuRecipe(db, identity, allowed, { title: 'Existing family dinner', sourceUrl: 'https://example.test/existing-family-dinner', summary: 'A preserved saved dinner.', imageUrl: null, time: null });
+  const original = await saveMenuRecipe(db, identity, allowed, { title: 'Existing family dinner', sourceUrl: 'https://example.test/existing-family-dinner', summary: 'A preserved saved dinner.', imageUrl: null, time: null, category: 'main' });
   const local = torontoClock(new Date()), due = new Date(local.date + 'T23:00:00Z');
 
   fixture.set('/combined-browser', 'stall');
@@ -67,9 +67,10 @@ try {
     await chrome.viewport(width);
     await chrome.evaluate(`document.querySelector('[data-menu-entry="${saved.id}"]').scrollIntoView({block:'center'})`);
     assert.equal(await chrome.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
-    await chrome.screenshot(`org/reviews/recipe-url-menu-main-integration-menu-ready-${width}.png`);
+    await chrome.screenshot(`org/reviews/classified-weekly-planning-curation-menu-ready-${width}.png`);
   }
 
+  await updateMenuRecipeCategory(db, identity, allowed, saved.id, 'main');
   await chrome.navigate(server.origin + '/plans');
   await chrome.click('[data-plan-suggest="0"]');
   await chrome.waitFor("document.activeElement.id === 'swap-search' && document.querySelector('dialog [aria-busy]')?.getAttribute('aria-busy') === 'false'", 'hydrated picker search');
@@ -81,12 +82,12 @@ try {
   for (const width of [320, 390, 1440]) {
     await chrome.viewport(width);
     assert.equal(await chrome.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
-    await chrome.screenshot(`org/reviews/recipe-url-menu-main-integration-picker-ready-${width}.png`);
+    await chrome.screenshot(`org/reviews/classified-weekly-planning-curation-picker-ready-${width}.png`);
   }
   await chrome.click('[data-swap-confirm]');
   await chrome.waitFor("!document.querySelector('dialog[open]') && Boolean(document.querySelector('[data-plan-accept]'))", 'actual suggestion saved');
   await chrome.click('[data-plan-accept]');
-  await chrome.waitFor("document.querySelector('article h2')?.textContent === 'Imported fixture recipe' && !document.querySelector('[data-plan-accept]')", 'actual curated recipe swap accepted');
+  await chrome.waitFor("document.querySelector('article h3')?.textContent === 'Imported fixture recipe' && !document.querySelector('[data-plan-accept]')", 'actual curated recipe swap accepted');
   const final = await readPlans(db, identity, allowed, {}, due);
   assert.equal(final.plan?.id, initial.plan.id);
   assert.equal(final.plan?.revision, initial.plan.revision + 1);
@@ -95,7 +96,7 @@ try {
   for (const width of [320, 390, 1440]) {
     await chrome.viewport(width);
     assert.equal(await chrome.evaluate('document.documentElement.scrollWidth <= innerWidth'), true);
-    await chrome.screenshot(`org/reviews/recipe-url-menu-main-integration-plan-ready-${width}.png`);
+    await chrome.screenshot(`org/reviews/classified-weekly-planning-curation-plan-ready-${width}.png`);
   }
   assert.deepEqual(chrome.errors, []);
   console.log('Combined Chrome320/390/1440: immediate URL save, pending excluded from generation/picker, same-entry curation, unchanged draft, protected q search, actual suggest/accept and unique plan passed; no overflow/console errors.');
