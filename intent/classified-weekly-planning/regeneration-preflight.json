@@ -1,0 +1,83 @@
+{
+  "completedAt": "2026-11-27T18:29:00.889Z",
+  "mode": "rehearse",
+  "helperSha256": "c38fad8f4b03000580a22c31184d599f1cefa0725c39ef1aad6c4b5aacef5190",
+  "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+  "familyId": "43d6ebb2-8115-4c38-ad63-65b153cb128e",
+  "week": "2026-11-29",
+  "oldPlanId": "d8ad41c1-e840-401e-998f-88d5101c7781",
+  "expectedOldRecipeCount": 7,
+  "oldDraftRevision": 1,
+  "currentAdmissionConfirmedByDeployedGenerator": true,
+  "readyPools": {
+    "main": 17,
+    "side": 3,
+    "veggie": 3
+  },
+  "singleReadCommittedConnectionAndCommonLockBeforeDecisions": true,
+  "guardedExactOldPlanDelete": true,
+  "deployedGeneratorUsed": true,
+  "realCurrentTimestampUsed": true,
+  "proposal": {
+    "newPlanId": "6cb57c36-3f63-422a-bdc2-90a9626726ff",
+    "recipeCount": 8,
+    "categories": {
+      "main": 4,
+      "side": 2,
+      "veggie": 2
+    },
+    "createdAt": 1795804134646
+  },
+  "backup": {
+    "sha256": "01758997c81e00046fe22a26e02375544665b049463f737e09d013f1092bf491",
+    "bytes": 3980,
+    "retainedOwnerOnly": true
+  },
+  "rollbackOnly": true,
+  "committed": false,
+  "rollbackSentinelReached": true,
+  "exactOriginalAndDependentsRestored": true,
+  "originalTargetDigest": "9fc99914632884d904316dd06cae21a8ab837211fb0163822b06a97385cb3661",
+  "originalFullStateDigest": "c5a9ef7556f094a8d1ea95e20130f81539af3bc0044bef7a4651686acf0fc7df",
+  "readbackFullStateDigest": "c5a9ef7556f094a8d1ea95e20130f81539af3bc0044bef7a4651686acf0fc7df",
+  "unrelatedDataUnchanged": true,
+  "unrelatedDataDigest": "8feafd669f1a1f17c0e635245e158afc737eb7971b3854049c45fe7a4a00fd56",
+  "schemaUnchanged": true,
+  "schemaProfileSha256": "0c854fcd29a0561d17e2d2effb03dcfc661aa9e192719ae1d0349bf580d9fb3e",
+  "grantsAndRolesUnchanged": true,
+  "securityDigest": "32e2d34f07ec872a3cadd27d77b67a2170639143c688ac79c4deb9b2441f4118",
+  "historyUnchanged": true,
+  "historyDigest": "bdcf1d3545e6fd7ded6de471d939556169a20d58bd346b53cfd1ae641b5ed550",
+  "helperPath": "/private/tmp/classified-plan-regeneration-20261127/regenerate-plan.mts",
+  "deployedProduction": {
+    "capturedAt": "2026-11-27T18:28:33.380Z",
+    "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+    "target": "production",
+    "ready": "READY",
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "projectUnpaused": true,
+    "nodeVersion": "24.x"
+  },
+  "authority": {
+    "commit": "e14dfbb",
+    "ledgerRecord": "classified-plan-regeneration-20261127",
+    "expiresAt": "2026-11-27T19:21:44Z"
+  },
+  "strictTypecheck": {
+    "exitCode": 0,
+    "command": "pnpm exec tsc --project <private operator tsconfig> --noEmit",
+    "strict": true,
+    "skipLibCheck": false,
+    "applicationCompilerChanged": false
+  },
+  "commitModeReviewGate": {
+    "requiredPrivateReviewReceipt": true,
+    "requiresExactHelperSourceTargetDigestAndReviewCommit": true,
+    "exclusiveCommitAttemptMarker": true,
+    "commitModeInvoked": false,
+    "commitAttemptMarkerPresent": false
+  },
+  "independentReviewPending": true,
+  "credentialsHeldPrivateForAuthorizedCommitPhase": true
+}
