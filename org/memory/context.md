@@ -17,7 +17,7 @@ intent/classified-weekly-planning/intent.md
 
 - architect: busy (intent/classified-weekly-planning/spec.md)
 - memory-keeper: idle (unassigned)
-- orchestrator: idle (unassigned)
+- orchestrator: busy (intent/classified-weekly-planning/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
@@ -178,7 +178,7 @@ product-manager:accept_intent
 
 ## Last digest source
 
-- mem-0198 from org/loop/archive/recipe-classification-before-classified-weekly-planning/state.yaml
+- mem-0199 from intent/classified-weekly-planning/intent.md
 
 <!-- machine:end -->
 

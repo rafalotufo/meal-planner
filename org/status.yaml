@@ -1,6 +1,6 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Recipe classification76eaafb verified and independently approved; human merge gate pending }
+  orchestrator: { status: busy, assignment: intent/classified-weekly-planning/intent.md, last_report: Recipe classification76eaafb verified and independently approved; human merge gate pending }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: busy, assignment: intent/classified-weekly-planning/spec.md, last_report: Final autosave source76eaafb independently approvedac42663 }
   senior-developer: { status: idle, assignment: null, last_report: Dropdown-only4a05fbf verified and independently approved546b3a6 }

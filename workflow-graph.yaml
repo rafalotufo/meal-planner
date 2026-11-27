@@ -1,5 +1,5 @@
-# Recipe classification under org peer-review and human merge/release gates.
-# Prior thumbnail graph/state/history/config preserved in org/loop/archive/plan-recipe-thumbnails-before-classified-weekly-planning/.
+# Classified weekly planning under org peer-review and human merge/release gates.
+# Prior recipe classification state preserved in org/loop/archive/recipe-classification-before-classified-weekly-planning/.
 version: 1
 nodes:
   intent:
@@ -7,31 +7,31 @@ nodes:
     artifact: intent/classified-weekly-planning/intent.md
     gate: product_manager_review
     status: accepted
-    done_status: not_started
+    done_status: accepted
   spec:
     stage: design
     artifact: intent/classified-weekly-planning/spec.md
     gate: peer_review
     status: not_started
-    done_status: not_started
+    done_status: approved
   plan:
     stage: build
     artifact: intent/classified-weekly-planning/plan.md
     gate: peer_review
     status: not_started
-    done_status: not_started
+    done_status: approved
   implementation:
     stage: build
     artifact: classified-weekly-planning-implementation
     gate: code_owner_approve
     status: not_started
-    done_status: not_started
+    done_status: merged
   staging_acceptance:
     stage: deploy
     artifact: intent/classified-weekly-planning/staging-validation.md
     gate: staging_acceptance
     status: not_started
-    done_status: not_started
+    done_status: accepted
   release:
     stage: deploy
     artifact: intent/classified-weekly-planning/release.md
