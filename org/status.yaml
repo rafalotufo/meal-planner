@@ -1,12 +1,12 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Preview cutover verifieda4b22dd reviewedc282c58; awaiting owner staging-gap acceptance and Production authority }
+  orchestrator: { status: busy, assignment: intent/classified-weekly-planning/production-authorization.md, last_report: Preview cutover verifieda4b22dd reviewedc282c58; awaiting owner staging-gap acceptance and Production authority }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
-  architect: { status: idle, assignment: null, last_report: Design737458b approved07affd4 and implementation verified7d66352 }
+  architect: { status: idle, assignment: null, last_report: Guidance-only AGENTS manifest amendment9f817e8 awaits final independent Production review }
   senior-developer: { status: busy, assignment: intent/classified-weekly-planning/production-authorization.md, last_report: Candidate independently approved cf64bc3; approved cutover dispatch next }
   security-researcher: { status: idle, assignment: null, last_report: Read-only function metadata consultation found official CLI v11 builds endpoint; no effects }
   reviewer: { status: idle, assignment: null, last_report: "review candidate-classified-weekly-planning-001: approved" }
-  memory-keeper: { status: idle, assignment: null, last_report: null }
+  memory-keeper: { status: idle, assignment: null, last_report: Guidance-only probe lessons and nine-identity history committed00783e8/1291e69; final independent review pending }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
