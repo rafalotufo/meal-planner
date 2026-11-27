@@ -3,6 +3,7 @@
 - Author: architect
 - Date: 2026-11-26
 - Status: Approved by independent review `d891e35` of source `6c0933e`
+- Dropdown-only amendment: Proposed for independent peer review; owner requests “No need to repeat the category. Showing only the drop-down is enough.”
 - Auto-save amendment: Approved by independent review `3e69b40` of owner-requested amendment `eb1e15f`
 - Input: accepted sibling `intent.md` (`b73ecf5`)
 - Approval policy: PM intent and independent spec/plan review under `org/protocol.md`; human merge and hosted release gates remain separate.
@@ -168,9 +169,11 @@ is authoritative. Do not alter verification grants, runs, allowlist or sessions.
 ## Menu interaction and verification
 
 Owner amendment: changing the dropdown saves automatically; there is no Save
-category button or form submission. Render a compact saved-category label and
-an explicitly labelled native select for each menu entry; null starts at a
-disabled Unclassified placeholder. Native controls preserve keyboard operation
+category button or form submission. Editable Google cards show the native select
+alone, without a duplicate category paragraph or visible Category label. Retain
+the existing complete Category-for-recipe label with screen-reader-only styling.
+Noneditable verification cards keep the static saved-category label because they
+have no dropdown. Null starts at a disabled Unclassified placeholder. Native controls preserve keyboard operation
 and mobile usability. Each validated changed selection immediately starts the
 existing category-only request; disable the select while it is pending to avoid
 duplicate or overlapping submissions.
@@ -178,10 +181,10 @@ Keep drafts local to the small control, and key/reset them by entry ID and
 persisted category so refreshes do not show another entry's stale value. Use a
 bounded abortable request and display local pending, success and sanitized
 failure status. On success validate the returned entry then refresh through the
-existing router. Keep the saved label at the actual persisted value until
-success is reflected by refreshed props. On failure restore the select to that
-stored category (including the disabled Unclassified placeholder for null),
-retain the saved label, and let choosing the desired value again retry. No
+existing router. The editable dropdown shows the pending selection with feedback;
+refreshed props establish the persisted selection. On failure restore the select
+to its stored category (including Unclassified for null), and let choosing the
+desired value again retry. No
 separate retry/save button is introduced. Do not optimistically claim persistence.
 
 Category changes must not break removal focus restoration, URL preparation

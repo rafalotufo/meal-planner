@@ -3,6 +3,7 @@
 - Author: architect
 - Date: 2026-11-26
 - Status: Approved
+- Dropdown-only amendment: Proposed for independent peer review before code
 - Auto-save amendment: Approved by independent review `3e69b40` of owner-requested amendment `eb1e15f`
 - Independent approval: `d891e35` reviewing source `6c0933e`
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`
@@ -201,3 +202,16 @@ runtime is an unsafe rollback target. No old release/issuance authority applies.
 Any future release follows exact-SHA isolated staging acceptance, separate
 Production build, manual promotion authorization and minimal canonical health
 verification under the existing runbooks. This plan stops at local review.
+
+## Dropdown-only owner refinement — proposed bounded followup
+
+- Before code, independently approve this amendment and sibling spec.
+- Change only `app/menu/recipe-category-control.tsx`: editable cards show the
+  dropdown alone with the full existing sr-only label; noneditable verification
+  cards retain static category text. Preserve autosave, feedback and permissions.
+- Update existing `tests/menu/browser.ts` and `tests/menu/curation-browser.ts`
+  assertions to selectedOptions/value plus actual API/DB/reload persistence,
+  failure reset and trusted keyboard behavior; assert no duplicate paragraph.
+- Run lint/typecheck/build and both owned real Chrome scripts at320/1440; inspect
+  screenshots. Root owns org/verification evidence. No unrelated full suite
+  repeat, API/storage/migration/provider/scheduler or deployment change.
