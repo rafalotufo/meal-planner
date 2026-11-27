@@ -157,13 +157,19 @@ The backup below is preservation evidence, not authority to restore over new wri
    and validation interval. Preserve unrelated mappings and protection settings.
 7. Perform only separately authorized staging checks. For limited keyless scope,
    anonymous/Host/security/configuration checks are valid evidence but cannot
-   certify authenticated planning/OAuth/provider behavior. Check the scheduler's
-   exact generated service Host and stable staging Host: no-credential401 with
-   private/security headers where platform access allows. Ordinary generated-Host
-   page/menu requests must421. Platform interception is inconclusive. Bearer
-   off-day checks, rollback-only hosted probe and browser/data operations require
-   concrete run authority; never force runtime dates or execute a due write merely
-   to obtain a pass.
+   certify authenticated planning/OAuth/provider behavior. Current inspected
+   scheduler settings are Production-only: ordinary Preview remains disabled.
+   Its exact `/api/plans/generate` returns404 with private/security headers when
+   `MEAL_PLAN_SCHEDULER_ENABLED` is absent/false; expect that disabled response on
+   both its generated and stable staging origins where platform access allows.
+   Do not enable Preview scheduler configuration for this preparation. A separately
+   authorized enabled Preview profile would instead require no-credential401 on
+   those two service Hosts, with renewed configuration attribution and staging
+   acceptance. Ordinary generated-Host page/menu requests must421. Platform
+   interception is inconclusive. Bearer off-day checks, rollback-only hosted probe
+   and browser/data operations require concrete run authority; never force runtime
+   dates or execute a due write merely to obtain a pass. Production remains
+   enabled and its step10 generated service no-Bearer expectation remains401.
 
 ### Optional staging application lane
 
