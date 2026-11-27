@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/classified-weekly-planning/plan-regeneration-authority.md
 base_commit: 1ef9e5825a80c1127bf5259d15c0899bb5ae5cfc
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: safety_review
 status: in_progress
-last_input_hash: null
+last_input_hash: bfa8181d33408a7c4233e272c0a8b4bb23eec304dade72eded9eb7100dc18272
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-27T18:21:45Z"
+last_action: "senior-developer:prepare_plan_regeneration"
+artifacts: [{"path": "intent/classified-weekly-planning/regeneration-preflight.md", "sha256": "9743fe6d648001392e3a26ccf55dabd718dc1449cccfa8bc223d2c5e4ee0717b"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-27T18:30:42Z"
