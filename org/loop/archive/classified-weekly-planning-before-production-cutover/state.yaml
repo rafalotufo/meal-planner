@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/classified-weekly-planning/preview-cutover-approval.md
+base_commit: 9e249a29794d493da42201d54817bc17eeff6f4f
+turn: 2
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: 319f255fcea3a5dc88be420538668ea9d91addd6023bb04da71ec4f20e868feb
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/classified-weekly-planning/staging-validation.md", "sha256": "488773c1ae1106ecb2a1136f5cb200c864ed1b20e8ab80fbfdef74f44bc9a077"}, {"path": "org/reviews/preview-classified-weekly-planning-001.md", "sha256": "28619384bd246cdde6fe8f6e76f893bd63a446dfce17027d1adddaed9e936b0f"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-27T14:57:15Z"

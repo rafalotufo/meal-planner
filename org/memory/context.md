@@ -4,14 +4,14 @@
 
 ## Goal
 
-intent/classified-weekly-planning/preview-cutover-approval.md
+intent/classified-weekly-planning/production-authorization.md
 
 ## Loop
 
-- status: solved
-- turn: 2
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 0
+- phase: intent
+- stop_reason: None
 
 ## Agents
 
@@ -21,7 +21,7 @@ intent/classified-weekly-planning/preview-cutover-approval.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (classified-weekly-planning-preview-cutover)
+- senior-developer: busy (intent/classified-weekly-planning/production-authorization.md)
 
 ## Open messages
 
@@ -126,6 +126,7 @@ intent/classified-weekly-planning/preview-cutover-approval.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
+- orchestrator-0203 orchestrator -> senior-developer handoff: Prepare owner-authorized exact-source Production candidate and backup
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -165,12 +166,11 @@ intent/classified-weekly-planning/preview-cutover-approval.md
 
 ## Artifacts
 
-- intent/classified-weekly-planning/staging-validation.md (488773c1ae1106ecb2a1136f5cb200c864ed1b20e8ab80fbfdef74f44bc9a077)
-- org/reviews/preview-classified-weekly-planning-001.md (28619384bd246cdde6fe8f6e76f893bd63a446dfce17027d1adddaed9e936b0f)
+(none)
 
 ## Next action
 
-reviewer:review
+(run org_loop.py next)
 
 ## Last digest source
 

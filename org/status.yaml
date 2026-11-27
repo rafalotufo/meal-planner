@@ -3,7 +3,7 @@ agents:
   orchestrator: { status: idle, assignment: null, last_report: Preview cutover verifieda4b22dd reviewedc282c58; awaiting owner staging-gap acceptance and Production authority }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: idle, assignment: null, last_report: Design737458b approved07affd4 and implementation verified7d66352 }
-  senior-developer: { status: busy, assignment: classified-weekly-planning-preview-cutover, last_report: Preview cutovera4b22dd verified and cleaned; Production unchanged }
+  senior-developer: { status: busy, assignment: intent/classified-weekly-planning/production-authorization.md, last_report: Owner accepted actual staging and authorized one Production cutover923d7cc }
   security-researcher: { status: idle, assignment: null, last_report: Security approvedce3fc5d; focused6pass; no findings }
   reviewer: { status: idle, assignment: null, last_report: "review preview-classified-weekly-planning-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }

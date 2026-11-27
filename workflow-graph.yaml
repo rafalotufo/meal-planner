@@ -30,11 +30,11 @@ nodes:
     stage: deploy
     artifact: intent/classified-weekly-planning/staging-validation.md
     gate: staging_acceptance
-    status: pending
+    status: accepted
     done_status: accepted
   release:
     stage: deploy
-    artifact: intent/classified-weekly-planning/release.md
+    artifact: intent/classified-weekly-planning/production-authorization.md
     gate: release_authorization
     status: not_started
     done_status: done
