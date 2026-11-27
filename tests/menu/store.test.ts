@@ -115,3 +115,20 @@ test('category correction is durable, family scoped, admission checked and dupli
     await assert.rejects(updateMenuRecipeCategory(db, identity, allowed, saved.entry.id, 'main'), { status: 404 });
   } finally { await db.close(); await owner.close(); await fixture.cleanup(); }
 });
+
+
+test('category filtering precedes keyset pagination and composes with title search', async()=>{
+ const fixture=await restrictedMenuDatabase(),db=await fixture.open();
+ try{
+  await provisionFamily(db,identity,allowed,false);
+  const expected=new Set<string>();
+  for(let n=0;n<52;n++)expected.add((await saveMenuRecipe(db,identity,allowed,{...recipe,title:`Target veggie ${n}`,sourceUrl:`https://example.test/veggie/${n}`,category:'veggie'})).entry.id);
+  for(let n=0;n<55;n++)await saveMenuRecipe(db,identity,allowed,{...recipe,title:`Target main ${n}`,sourceUrl:`https://example.test/main/${n}`,category:'main'});
+  const first=await listMenuRecipes(db,identity,allowed,undefined,'TARGET','veggie');
+  assert.equal(first.entries.length,50);assert.ok(first.nextCursor);
+  const second=await listMenuRecipes(db,identity,allowed,first.nextCursor,'TARGET','veggie');
+  assert.equal(second.entries.length,2);assert.equal(second.nextCursor,null);
+  assert.deepEqual(new Set([...first.entries,...second.entries].map(entry=>entry.id)),expected);
+  for(const invalid of ['',null,'other',[],true])await assert.rejects(listMenuRecipes(db,identity,allowed,undefined,undefined,invalid),{status:400});
+ }finally{await db.close();await fixture.cleanup();}
+});

@@ -7,18 +7,19 @@ import { readPlans, actOnPlan } from '../../lib/plans/store.ts';
 import { testDatabase } from '../family/database.ts';
 
 const identity = { googleSubject: 'weekly-generator', email: 'weekly.generator@gmail.com', emailVerified: true as const };
-const recipe = (n: number) => ({ title: `Dinner ${n}`, summary: 'Cook dinner.', sourceUrl: `https://example.test/dinner/${n}`, imageUrl: null, time: null });
-test('due scheduler skips empty/ineligible families, concurrent retries preserve drafts and finalized recency avoids the prior seven', async () => {
+const recipe = (n: number) => ({ category: (n % 8 < 4 ? 'main' : n % 8 < 6 ? 'side' : 'veggie') as 'main' | 'side' | 'veggie', title: `Dinner ${n}`, summary: 'Cook dinner.', sourceUrl: `https://example.test/dinner/${n}`, imageUrl: null, time: null });
+test('due scheduler skips empty/ineligible families, concurrent retries preserve drafts and finalized recency avoids the prior eight', async () => {
   const fixture = await testDatabase(); const db = await fixture.open(); const allowed = [identity.email];
   try {
     await provisionFamily(db, identity, allowed, false);
     assert.equal((await generateDuePlans(db, allowed, 'Thursday', new Date('2026-11-26T13:59:00Z'))).skipped, true);
     assert.equal((await generateDuePlans(db, allowed, 'Thursday', new Date('2026-11-26T14:00:00Z'))).empty, 1);
-    for (let n = 0; n < 14; n++) await saveMenuRecipe(db, identity, allowed, recipe(n));
+    for (let n = 0; n < 16; n++) await saveMenuRecipe(db, identity, allowed, recipe(n));
     const runs = await Promise.all(Array.from({ length: 3 }, () => generateDuePlans(db, allowed, 'Thursday', new Date('2026-11-26T14:00:00Z'))));
     assert.equal(runs.reduce((n, result) => n + result.created, 0), 1);
     const first = (await readPlans(db, identity, allowed, {}, new Date('2026-11-26T14:00:00Z'))).plan!;
-    assert.equal(new Set(first.meals.map(meal => meal.sourceUrl)).size, 7);
+    assert.equal(new Set(first.meals.map(meal => meal.sourceUrl)).size, 8);
+    assert.deepEqual(['main','side','veggie'].map(category => first.meals.filter(meal => meal.category === category).length), [4,2,2]);
     await actOnPlan(db, identity, allowed, first.id, { action: 'finalize', revision: 1 }, new Date('2026-11-26T14:00:00Z'));
     const menu = (await readPlans(db, identity, allowed, {}, new Date('2026-11-26T14:00:00Z'))).menu.entries;
     for (const entry of menu.filter(entry => first.meals.some(meal => meal.sourceUrl === entry.recipe.sourceUrl))) { await removeMenuRecipe(db, identity, allowed, entry.id); await saveMenuRecipe(db, identity, allowed, entry.recipe); }
@@ -39,7 +40,7 @@ test('one recipe appears once and its snapshot survives removal', async () => {
     await generateDuePlans(db, [identity.email], 'Thursday', new Date('2026-11-26T14:00:00Z'));
     await removeMenuRecipe(db, identity, [identity.email], saved.entry.id);
     const view = await readPlans(db, identity, [identity.email], {}, new Date('2026-11-26T14:00:00Z'));
-    assert.deepEqual(view.plan?.meals, [{ ...recipe(1), category: null }]);
+    assert.deepEqual(view.plan?.meals, [recipe(1)]);
   } finally { await db.close(); await fixture.cleanup(); }
 });
 
@@ -63,7 +64,7 @@ test('off-day CLI succeeds without connecting to a valid unreachable database UR
 test('menu sizes1/2/6/7/8 produce only available distinct recipes without cycling',async()=>{
  for(const count of [1,2,6,7,8]){
   const fixture=await testDatabase();const db=await fixture.open();
-  try{await provisionFamily(db,identity,[identity.email],false);for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,[identity.email],recipe(n));await generateDuePlans(db,[identity.email],'Thursday',new Date('2026-11-26T14:00:00Z'));const view=await readPlans(db,identity,[identity.email],{},new Date('2026-11-26T14:00:00Z'));assert.equal(view.plan?.meals.length,Math.min(7,count));assert.equal(new Set(view.plan!.meals.map(meal=>meal.sourceUrl)).size,Math.min(7,count));}finally{await db.close();await fixture.cleanup();}
+  try{await provisionFamily(db,identity,[identity.email],false);for(let n=0;n<count;n++)await saveMenuRecipe(db,identity,[identity.email],recipe(n));await generateDuePlans(db,[identity.email],'Thursday',new Date('2026-11-26T14:00:00Z'));const view=await readPlans(db,identity,[identity.email],{},new Date('2026-11-26T14:00:00Z'));assert.equal(view.plan?.meals.length,Math.min(8,count));assert.equal(new Set(view.plan!.meals.map(meal=>meal.sourceUrl)).size,Math.min(8,count));}finally{await db.close();await fixture.cleanup();}
  }
 });
 
@@ -97,4 +98,20 @@ test('abort waits for the current family transaction and never advances to the n
     await assert.rejects(generateDuePlans(db, allowed, 'Wednesday', new Date('2026-11-25T14:00:00Z'), { deadline: Date.now() + 5000, signal: controller.signal }));
     assert.equal((await db.one<{ n: number }>('SELECT count(*) AS n FROM meal_plan_weeks'))?.n, 1, 'one settled transaction is preserved; second family never starts');
   } finally { await db.close(); await fixture.cleanup(); }
+});
+
+
+test('category quotas leave honest shortages and ignore unclassified saves', async () => {
+ const fixture=await testDatabase();const db=await fixture.open();const allowed=[identity.email];
+ try {
+  await provisionFamily(db,identity,allowed,false);
+  await saveMenuRecipe(db,identity,allowed,{...recipe(99),category:null});
+  assert.equal((await generateDuePlans(db,allowed,'Thursday',new Date('2026-11-26T14:00:00Z'))).empty,1);
+  for(let n=0;n<10;n++)await saveMenuRecipe(db,identity,allowed,{...recipe(n),category:'main'});
+  await saveMenuRecipe(db,identity,allowed,{...recipe(20),category:'side'});
+  await generateDuePlans(db,allowed,'Thursday',new Date('2026-11-26T14:00:00Z'));
+  const plan=(await readPlans(db,identity,allowed,{},new Date('2026-11-26T14:00:00Z'))).plan!;
+  assert.deepEqual(['main','side','veggie'].map(category=>plan.meals.filter(meal=>meal.category===category).length),[4,1,0]);
+  assert.equal(plan.meals.length,5);
+ } finally {await db.close();await fixture.cleanup();}
 });

@@ -41,14 +41,12 @@ export async function generateFamilyPlan(tx: FamilyDatabase, allowed: string[], 
   if (await tx.one('SELECT id FROM meal_plan_weeks WHERE family_id=$1 AND week_start=$2::date', [familyId, week])) return 'existing';
   const rows = await tx.all<MenuRecipeRow>(`WITH recent AS MATERIALIZED (
     SELECT week_start,meals FROM meal_plan_weeks WHERE family_id=$1 AND status='final' AND week_start >= $3::date AND week_start < $2::date ORDER BY week_start DESC LIMIT 8
-  ), used AS (SELECT meal->>'sourceUrl' AS source_url,max(week_start) AS last_use FROM recent CROSS JOIN LATERAL jsonb_array_elements(meals) meal GROUP BY meal->>'sourceUrl')
-  SELECT m.id,m.family_id AS "familyId",m.source_url AS "sourceUrl",m.image_url AS "imageUrl",m.title,m.summary,m.category,m.time_kind AS "timeKind",m.time_text AS "timeText",m.saved_at AS "savedAt"
-  FROM menu_recipes m LEFT JOIN used ON used.source_url=m.source_url WHERE m.family_id=$1 AND NOT EXISTS (SELECT 1 FROM menu_recipe_curations c WHERE c.entry_id=m.id AND c.state<>'ready')
-  ORDER BY used.last_use ASC NULLS FIRST, md5($2::text || m.source_url),m.source_url,m.id LIMIT 7`, [familyId, week, addDays(week, -56)]);
+  ), used AS (SELECT meal->>'sourceUrl' AS source_url,max(week_start) AS last_use FROM recent CROSS JOIN LATERAL jsonb_array_elements(meals) meal GROUP BY meal->>'sourceUrl'), ranked AS (
+  SELECT row_number() OVER (PARTITION BY m.category ORDER BY used.last_use ASC NULLS FIRST, md5($2::text || m.source_url),m.source_url,m.id) AS rank,m.id,m.family_id AS "familyId",m.source_url AS "sourceUrl",m.image_url AS "imageUrl",m.title,m.summary,m.category,m.time_kind AS "timeKind",m.time_text AS "timeText",m.saved_at AS "savedAt"
+  FROM menu_recipes m LEFT JOIN used ON used.source_url=m.source_url WHERE m.family_id=$1 AND m.category IN ('main','side','veggie') AND NOT EXISTS (SELECT 1 FROM menu_recipe_curations c WHERE c.entry_id=m.id AND c.state<>'ready')
+  ) SELECT * FROM ranked WHERE rank <= CASE category WHEN 'main' THEN 4 ELSE 2 END ORDER BY CASE category WHEN 'main' THEN 0 WHEN 'side' THEN 1 ELSE 2 END,rank LIMIT 8`, [familyId, week, addDays(week, -56)]);
   if (!rows.length) return 'empty';
-  const candidates = rows.map(row => menuEntryFromRow(row).recipe);
-  const offset = Math.floor(Date.parse(week + 'T12:00:00Z') / 604800000) % candidates.length;
-  const meals = candidates.map((_, index) => candidates[(index + offset) % candidates.length]);
+  const meals = rows.map(row => menuEntryFromRow(row).recipe);
   await tx.execute('INSERT INTO meal_plan_weeks (id,family_id,week_start,meals,created_at) VALUES ($1,$2,$3,$4,$5)', [randomUUID(), familyId, week, JSON.stringify(meals), now.getTime()]);
   return 'created';
 }

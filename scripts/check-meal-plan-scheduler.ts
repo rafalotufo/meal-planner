@@ -48,11 +48,11 @@ async function main() {
         const week = dueWeek(now, 'Wednesday'); assert.ok(week);
         if (await tx.one('SELECT id FROM meal_plan_weeks WHERE family_id=$1 AND week_start=$2::date', [familyId, week])) throw new Error('Probe refuses an existing target week');
         const fixtureId = randomUUID();
-        await tx.execute('INSERT INTO menu_recipes(id,family_id,source_url,title,summary,saved_at) VALUES($1,$2,$3,$4,$5,$6)',
+        await tx.execute("INSERT INTO menu_recipes(id,family_id,source_url,title,summary,saved_at,category) VALUES($1,$2,$3,$4,$5,$6,'main')",
           [fixtureId, familyId, 'https://example.test/scheduler-probe/' + fixtureId, 'Rollback-only scheduler dinner', 'Transient operator fixture; no network fetch.', now.getTime()]);
         assert.equal(await generateFamilyPlan(tx, policy, familyId, week, now), 'created');
         const draft = await tx.one<{ id: string; meals: { sourceUrl: string }[] }>('SELECT * FROM meal_plan_weeks WHERE family_id=$1 AND week_start=$2::date', [familyId, week]);
-        assert.ok(draft && draft.meals.length >= 1 && draft.meals.length <= 7);
+        assert.ok(draft && draft.meals.length >= 1 && draft.meals.length <= 8);
         assert.equal(new Set(draft.meals.map(meal => meal.sourceUrl)).size, draft.meals.length);
         assert.equal(await generateFamilyPlan(tx, policy, familyId, week, now), 'existing');
         assert.deepEqual(await tx.one('SELECT * FROM meal_plan_weeks WHERE id=$1', [draft.id]), draft);

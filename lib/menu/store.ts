@@ -19,14 +19,16 @@ export async function lookupMenuRecipes(db: FamilyDatabase, identity: Principal,
   const rows = await db.all<{sourceUrl: string}>('SELECT source_url AS "sourceUrl" FROM menu_recipes WHERE family_id=$1 AND source_url=ANY($2::text[]) LIMIT 6', [user.familyId, sources]);
   return { savedSourceUrls: rows.map(row => row.sourceUrl) };
 }
-export async function listMenuRecipes(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, after?: unknown, query?: unknown): Promise<MenuPage> {
+export async function listMenuRecipes(db: FamilyDatabase, identity: Principal, allowedEmails: unknown, after?: unknown, query?: unknown, category?: unknown): Promise<MenuPage> {
   const position = after === undefined ? null : parseMenuCursor(after);
   const search = parseMenuSearch(query);
-  if (after !== undefined && !position || search === null) throw invalid();
+  if (after !== undefined && !position || search === null || category !== undefined && !isRecipeCategory(category)) throw invalid();
   const user = await requireMember(db, identity, allowedEmails);
   const values: unknown[] = position ? [user.familyId, position.savedAt, position.id] : [user.familyId];
   if (search) values.push(search);
-  const rows = await db.all<MenuRecipeRow>(`SELECT ${columns} FROM ${relation} WHERE m.family_id=$1${position ? ' AND (m.saved_at,m.id) < ($2,$3)' : ''}${search ? ` AND strpos(lower(m.title COLLATE pg_catalog."und-x-icu"),lower($${values.length}::text COLLATE pg_catalog."und-x-icu"))>0` : ''} ORDER BY m.saved_at DESC,m.id DESC LIMIT 51`, values);
+  const searchParameter = values.length;
+  if (category !== undefined) values.push(category);
+  const rows = await db.all<MenuRecipeRow>(`SELECT ${columns} FROM ${relation} WHERE m.family_id=$1${position ? ' AND (m.saved_at,m.id) < ($2,$3)' : ''}${search ? ` AND strpos(lower(m.title COLLATE pg_catalog."und-x-icu"),lower($${searchParameter}::text COLLATE pg_catalog."und-x-icu"))>0` : ''}${category !== undefined ? ` AND m.category=$${values.length}` : ''} ORDER BY m.saved_at DESC,m.id DESC LIMIT 51`, values);
   const entries = rows.map(menuEntryFromRow), visible = entries.slice(0, 50);
   return { entries: visible, nextCursor: entries.length > 50 ? encodeMenuCursor(visible[49]) : null };
 }

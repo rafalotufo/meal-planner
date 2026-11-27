@@ -146,7 +146,7 @@ test('authorized due service uses restricted storage and concurrent retries pres
   const opened: Awaited<ReturnType<typeof openVerificationDatabase>>[] = [];
   try {
     await provisionFamily(db, identity, [identity.email], false);
-    await saveMenuRecipe(db, identity, [identity.email], { title: 'Private fixture dinner', summary: 'Private fixture method.', sourceUrl: 'https://example.test/scheduler', imageUrl: null, time: null });
+    await saveMenuRecipe(db, identity, [identity.email], { category: 'main', title: 'Private fixture dinner', summary: 'Private fixture method.', sourceUrl: 'https://example.test/scheduler', imageUrl: null, time: null });
     const deps: SchedulerDependencies = { env: configuration, allowed: [identity.email], now: () => now,
       db: async deadline => { const connection = await openVerificationDatabase(fixture.runtimeUrl, deadline); opened.push(connection); return connection; }, event: entry => events.push(entry) };
     const responses = await Promise.all([schedulerResponse(request('GET', { Host: configuration.VERCEL_URL }), deps), schedulerResponse(request(), deps)]);

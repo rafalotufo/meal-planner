@@ -373,3 +373,16 @@ test('category bodies expire or exceed limits before EOF without changing a save
     }
   }finally{await s.close();}
 });
+
+
+test('protected GET category filter validates exact query and combines with title lookup', async()=>{
+ const s=await setup();
+ try{
+  for(const category of ['main','side','veggie'])assert.equal((await post(s.server.origin,s.jar,'/api/menu',{...recipe,title:`Shared title ${category}`,sourceUrl:`https://example.test/category/${category}`,category})).status,200);
+  const response=await s.jar.request(s.server.origin,'/api/menu?category=side&q=shared');
+  assert.equal(response.status,200);securityHeaders(response.headers);
+  const page=await response.json();assert.equal(page.entries.length,1);assert.equal(page.entries[0].recipe.category,'side');
+  for(const query of ['category=','category=unknown','category=null','category=side&category=side','category=update','category=main&familyId=forged'])await errorResponse(await s.jar.request(s.server.origin,'/api/menu?'+query),400,'Invalid request');
+  await errorResponse(await new CookieJar().request(s.server.origin,'/api/menu?category=side'),401,'Unauthorized');
+ }finally{await s.close();}
+});

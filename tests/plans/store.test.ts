@@ -10,7 +10,7 @@ const identity = { googleSubject: 'weekly-store', email: 'weekly.store@gmail.com
 const other = { googleSubject: 'weekly-foreign', email: 'weekly.foreign@gmail.com', emailVerified: true as const };
 const allowed = [identity.email, other.email];
 const now = new Date('2026-11-26T14:00:00Z');
-const recipe = (n: number) => ({ title: `Dinner ${n}`, summary: 'Cook it.', sourceUrl: `https://example.test/${n}`, imageUrl: null, time: null });
+const recipe = (n: number) => ({ category: 'main' as const, title: `Dinner ${n}`, summary: 'Cook it.', sourceUrl: `https://example.test/${n}`, imageUrl: null, time: null });
 test('family-bound approval/suggestion resolution invalidates approvals, rejects stale concurrent edits and freezes final history', async () => {
  const fixture = await testDatabase(); const db = await fixture.open();
  try {
@@ -179,31 +179,37 @@ test('actual recipe count bounds slots, duplicate drafts fail closed and legacy 
   const raw=[recipe(0),recipe(0),recipe(1)];await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(raw),id]);
   await assert.rejects(readPlans(db,identity,allowed,{},now),/Storage unavailable/);await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'finalize',revision:1},now),/Storage unavailable/);
   await db.execute("UPDATE meal_plan_weeks SET status='final',finalized_at=1 WHERE id=$1",[id]);
-  view=await readPlans(db,identity,allowed,{},now);assert.deepEqual(view.plan?.meals,[{...recipe(0),category:null},{...recipe(1),category:null}]);assert.equal(view.plan?.originalRecipeCount,3);assert.equal(view.editable,false);
+  view=await readPlans(db,identity,allowed,{},now);assert.deepEqual(view.plan?.meals,[recipe(0),recipe(1)]);assert.equal(view.plan?.originalRecipeCount,3);assert.equal(view.editable,false);
   assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]))?.meals,raw);
  }finally{await db.close();await fixture.cleanup();}
 });
 
 
-test('generation and swap project categories while menu corrections leave stored snapshots unchanged', async () => {
+test('classified swaps reject wrong category and recheck corrections without partial writes', async () => {
  const fixture=await testDatabase(),db=await fixture.open();
  try {
   await provisionFamily(db,identity,allowed,false);
-  for(let n=0;n<8;n++)await saveMenuRecipe(db,identity,allowed,{...recipe(n),category:'main'});
+  for(let n=0;n<8;n++)await saveMenuRecipe(db,identity,allowed,recipe(n));
   await generateDuePlans(db,allowed,'Thursday',now);
   let view=await readPlans(db,identity,allowed,{},now);const id=view.plan!.id;
-  assert.equal(view.plan!.meals.every(meal=>meal.category==='main'),true);
-  const before=await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]);
+  const before=await db.one('SELECT meals,revision FROM meal_plan_weeks WHERE id=$1',[id]);
   const replacement=view.menu.entries.find(entry=>!view.plan!.meals.some(meal=>meal.sourceUrl===entry.recipe.sourceUrl))!;
   await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'side');
-  await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement.id},now);
-  view=await readPlans(db,identity,allowed,{},now);assert.equal(view.suggestions[0].recipe.category,'side');
-  await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'veggie');
-  assert.deepEqual(await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]),before);
-  await actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId:view.suggestions[0].id},now);
-  view=await readPlans(db,identity,allowed,{},now);assert.equal(view.plan!.meals[0].category,'veggie');
-  const accepted=await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]);
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement.id},now),{status:409});
   await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'main');
-  assert.deepEqual(await db.one('SELECT meals FROM meal_plan_weeks WHERE id=$1',[id]),accepted);
+  await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement.id},now);
+  await actOnPlan(db,identity,allowed,id,{action:'approve',revision:1},now);
+  view=await readPlans(db,identity,allowed,{},now);const suggestionId=view.suggestions[0].id;
+  await updateMenuRecipeCategory(db,identity,allowed,replacement.id,'veggie');
+  await assert.rejects(actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId},now),{status:409});
+  assert.deepEqual(await db.one('SELECT meals,revision FROM meal_plan_weeks WHERE id=$1',[id]),before);
+  assert.equal((await readPlans(db,identity,allowed,{},now)).approvals,1);
+  await actOnPlan(db,identity,allowed,id,{action:'reject',revision:1,suggestionId},now);
+  // Historical null slots permit an ordinary categorized replacement.
+  await db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify([{...recipe(100),category:null}]),id]);
+  await actOnPlan(db,identity,allowed,id,{action:'suggest',revision:1,day:0,menuRecipeId:replacement.id},now);
+  view=await readPlans(db,identity,allowed,{},now);
+  await actOnPlan(db,identity,allowed,id,{action:'accept',revision:1,suggestionId:view.suggestions[0].id},now);
+  assert.equal((await readPlans(db,identity,allowed,{},now)).plan!.meals[0].category,'veggie');
  } finally {await db.close();await fixture.cleanup();}
 });

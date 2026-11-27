@@ -64,12 +64,12 @@ test('weekly generation excludes pending and failed links, then uses ready curat
     const failed = await saveMenuRecipeUrl(db, identity, allowed, recipe('failed').sourceUrl, Date.now() + 60000);
     await db.execute("UPDATE menu_recipe_curations SET state='failed' WHERE entry_id=$1", [failed.entry.id]);
     assert.equal((await generateDuePlans(db, allowed, 'Thursday', now)).empty, 1, 'saved links alone are not curated dinners');
-    const ready = await saveMenuRecipe(db, identity, allowed, recipe('legacy'));
+    const ready = await saveMenuRecipe(db, identity, allowed, {...recipe('legacy'),category:'main'});
     await generateDuePlans(db, allowed, 'Thursday', now);
     const original = (await readPlans(db, identity, allowed, {}, now)).plan!;
     assert.deepEqual(original.meals.map(meal => meal.sourceUrl), [ready.entry.recipe.sourceUrl]);
     const job = await claimMenuRecipeCuration(db, pending.entry.id, pending.generation!, allowed); assert.ok(job);
-    assert.equal(await completeMenuRecipeCuration(db, job, allowed, recipe('pending')), true);
+    assert.equal(await completeMenuRecipeCuration(db, job, allowed, {...recipe('pending'),category:'main'}), true);
     await generateDuePlans(db, allowed, 'Thursday', now);
     assert.deepEqual((await readPlans(db, identity, allowed, {}, now)).plan, original, 'new metadata never silently regenerates an existing draft');
     await generateDuePlans(db, allowed, 'Thursday', new Date('2026-12-03T14:00:00Z'));
@@ -83,7 +83,7 @@ test('server suggestion and acceptance boundaries reject pending curation placeh
   const fixture = await testDatabase(), db = await fixture.open();
   try {
     const member = await provisionFamily(db, identity, allowed, false);
-    await saveMenuRecipe(db, identity, allowed, recipe('legacy'));
+    await saveMenuRecipe(db, identity, allowed, {...recipe('legacy'),category:'main'});
     await generateDuePlans(db, allowed, 'Thursday', now);
     const plan = (await readPlans(db, identity, allowed, {}, now)).plan!;
     const pending = await saveMenuRecipeUrl(db, identity, allowed, recipe('pending').sourceUrl, Date.now() + 60000);
