@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/classified-weekly-planning/production-authorization.md
 base_commit: 923d7cc06477fe3a23290805371584d516304297
-turn: 0
+turn: 1
 no_progress: 0
-phase: intent
+phase: candidate_review
 status: in_progress
-last_input_hash: null
+last_input_hash: 8dae2ca6a9e6f0ddeaca0d0a8aa08069d0a93aa7b8992f3e57a8d3b626697427
 stop_reason: null
-last_action: null
-artifacts: []
-acceptance: []
-updated_at: "2026-11-27T15:43:33Z"
+last_action: "senior-developer:prepare_production_candidate"
+artifacts: [{"path": "intent/classified-weekly-planning/production-candidate.md", "sha256": "d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-27T16:02:23Z"

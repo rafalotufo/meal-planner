@@ -9,8 +9,8 @@ intent/classified-weekly-planning/production-authorization.md
 ## Loop
 
 - status: in_progress
-- turn: 0
-- phase: intent
+- turn: 1
+- phase: candidate_review
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/classified-weekly-planning/production-authorization.md
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (intent/classified-weekly-planning/production-candidate.md)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/classified-weekly-planning/production-authorization.md)
+- senior-developer: busy (intent/classified-weekly-planning/production-candidate.md)
 
 ## Open messages
 
@@ -126,7 +126,7 @@ intent/classified-weekly-planning/production-authorization.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0203 orchestrator -> senior-developer handoff: Prepare owner-authorized exact-source Production candidate and backup
+- orchestrator-0204 orchestrator -> reviewer handoff: Review exact-source Production candidate before DDL and promotion
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -166,11 +166,11 @@ intent/classified-weekly-planning/production-authorization.md
 
 ## Artifacts
 
-(none)
+- intent/classified-weekly-planning/production-candidate.md (d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4)
 
 ## Next action
 
-(run org_loop.py next)
+senior-developer:prepare_production_candidate
 
 ## Last digest source
 
