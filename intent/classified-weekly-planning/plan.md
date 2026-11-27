@@ -169,7 +169,7 @@ staging-first and human release gates. No hosted operations in this plan.
 
 ## Release-audit documentation amendment — 2026-11-27
 
-- Status: In review — final independent Production result review
+- Status: Approved — independent review `org/reviews/production-classified-weekly-planning-001.md`
 - Scope: local repository guidance and this exact manifest clarification only
 
 The original application plan remains Approved. Subsequent owner-authorized
