@@ -106,15 +106,37 @@ The backup below is preservation evidence, not authority to restore over new wri
    isolated credentials, Hobby plan and provider limits. Any required config or
    Google registration change requires separate authority; do not infer it from
    the deploy request. Record an actual dependency audit result or named limitation
-   if no release audit is available; do not invent checklist passes.
+   if no release audit is available; do not invent checklist passes. The
+   orchestrator subsequently confirmed the source dependency audit: one moderate
+   esbuild advisory, zero high/critical findings. Record its actual advisory and
+   reachability/deferral in execution evidence; no dependency upgrade is implied.
 2. Create an owned private staging-lane lock as the runbook specifies. Do not
-   break an existing lock or race another operator. Build the exact fixed source
-   as an **unassigned Preview** candidate, with `--skip-domain`, existing project
-   and existing Preview environment. Inspect READY, source bytes/provenance,
-   deployment ID/generated Host, project/team/target, build/runtime metadata and
-   intended isolated profile. Explicit source metadata is an attestation bound to
-   upload bytes, not independent platform-signed Git proof. Record the resulting
-   candidate ID rather than reuse old staging. A failed build changes no schema.
+   break an existing lock or race another operator. Capture stable staging and
+   complete Production alias attribution **before** deployment. CLI66.6.0 rejects
+   `--skip-domain` for Preview; that flag is Production-only. Deploy the exact
+   fixed source using the existing project and default Preview environment,
+   isolated preparation branch/ref `classified-planning-f0b8c1e`, and
+   `--environment preview --no-wait --json --yes`. Bind `gitCommitSha`,
+   `releaseSourceSha` and build/runtime `VERCEL_GIT_COMMIT_SHA` to the full fixed
+   SHA, with `gitCommitRef` naming that isolated preparation ref. Do not pass
+   `--verify`, which would create project-wide protection bypass authority.
+   Branch-generated alias assignment may occur; inspect the actual deployment
+   and complete alias mappings **after** deployment and prove stable staging and
+   every Production alias still point to their baseline deployments. No manual
+   stable/Production alias move is part of this preparation step. Inspect READY,
+   source bytes/provenance, deployment ID/generated Host, project/team/Preview
+   target, build/runtime metadata and effective existing isolated configuration.
+   The ordinary build manifest must remain verification-disabled; do not enable
+   synthetic verification or change configuration merely to make checks pass.
+   Explicit source metadata is an attestation bound to upload bytes, not
+   independent platform-signed Git proof. Record the resulting candidate ID
+   rather than reuse old staging. A failed build changes no schema. The
+   corrected preparation created Preview `dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S` at
+   `meal-planner-9sutdnafh-rafalotufos-projects.vercel.app`. Provider inspection at
+   `2026-11-27T14:04:42Z` still showed BUILDING. Treat inspected provider state as
+   authoritative; CLI `--no-wait` readiness wording is not READY evidence. Capture
+   actual final readiness and before/after mappings in execution evidence. The distinct
+   Production build in step10 still requires `--prod --skip-domain`.
 3. Before schema effects obtain concrete owner authorization for this exact
    Preview migration, staging alias move, possible503 gap, validation scope and
    failure disposition. This plan may be presented alongside the READY candidate.
