@@ -116,6 +116,16 @@ new catalog and are unsafe rollback targets. Preserve current schema/data; use
 only a reviewed compatible correction or explicitly authorized scoped pause.
 No DROP, ledger rewrite, backup restore, future migration/grant or standing release/
 issuance authority follows from this completed release.
+The separately approved 2026-11-27 classified-planning cutover applied native
+identity 80fd3d65-d202-462b-883d-6adc2eb565be to both recorded hosted databases;
+both now require nine identities. Fixed source f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5
+is assigned to Production dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7; staging remains
+dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S. Existing data, grants and old ledgers
+were preserved. Older eight-identity artifacts reject this catalog and are unsafe
+rollback targets. See intent/classified-weekly-planning/production-release-result.md
+for exact owner scope, actual observations and proof limits. Preserve current
+schema/data; no DROP, ledger rewrite, backup restore, future migration/grant or
+standing release authority follows from this cutover.
 Future releases follow intent/staging-first-release/spec.md and the staging/
 Production runbooks: validate and obtain owner scope/gap acceptance for the exact
 release SHA on isolated staging before a separate Production build, manual
