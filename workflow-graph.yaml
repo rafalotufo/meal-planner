@@ -36,7 +36,7 @@ nodes:
     stage: deploy
     artifact: intent/classified-weekly-planning/production-authorization.md
     gate: release_authorization
-    status: not_started
+    status: pending
     done_status: done
 edges:
   - {from: intent, to: spec, trigger: acceptance}
