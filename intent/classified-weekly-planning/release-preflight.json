@@ -1,0 +1,53 @@
+{
+  "releaseSourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+  "sourceGitBlobs": 151,
+  "sourceBytes": 1047842,
+  "preview": {
+    "id": "dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S",
+    "url": "meal-planner-9sutdnafh-rafalotufos-projects.vercel.app",
+    "readyState": "READY",
+    "target": null,
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "readyInspectedAt": "2026-11-27T14:05:18.197Z"
+  },
+  "stableAliasesUnchanged": true,
+  "production": {
+    "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+    "paused": false
+  },
+  "dependencyVulnerabilities": {
+    "info": 0,
+    "low": 0,
+    "moderate": 1,
+    "high": 0,
+    "critical": 0
+  },
+  "candidateSmoke": {
+    "exitCode": 2,
+    "pass": null,
+    "status": null,
+    "elapsedMs": 202
+  },
+  "productionBaselineSmoke": {
+    "exitCode": 0,
+    "pass": true,
+    "status": 401,
+    "elapsedMs": 2064
+  },
+  "schema": {
+    "previewTotalIdentities": 8,
+    "productionTotalIdentities": 8,
+    "pendingIdentity": "80fd3d65-d202-462b-883d-6adc2eb565be",
+    "pendingSha256": "2b9ffeb679e365c96aa862a6e808f0b2a87f9cd97a17cdafa0bfd3226ea669b5",
+    "legacyRowsPerTarget": 5,
+    "nativeRowsPerTarget": 3,
+    "runtimeTempPerTarget": false
+  },
+  "effects": {
+    "previewBuildCreated": true,
+    "databaseChanges": false,
+    "stableAliasChanges": false,
+    "productionDeploymentCreated": false
+  },
+  "recordedAt": "2026-11-27T14:07:43.941149+00:00"
+}
