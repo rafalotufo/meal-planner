@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/recipe-classification/intent.md
+base_commit: a0deeb6a552fe29e88fe3220eae44b0a935cde93
+turn: 6
+no_progress: 1
+phase: done
+status: solved
+last_input_hash: 50b8655418ee35197e1e1f1f33e19faa012a73147180d97b666e361cd5c61c1e
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/recipe-classification/intent.md", "sha256": "cad1e0fdbede716edad8764457777ac2b5ff0cb86bd7b19ce4cc2a7651319587"}, {"path": "intent/recipe-classification/plan.md", "sha256": "641c746d5bb9a86f35b5a20e3ccdfd38c99fc78661b486258ef096c84c9b7955"}, {"path": "org/reviews/design-recipe-classification-002.md", "sha256": "1048a184fa971c0f2242f06cd66423634eee356e2673535af8be811b80c564fa"}, {"path": "intent/recipe-classification/verification.md", "sha256": "96dbaf9fe2841d765ecaec5916a6c48ea02566e9cbf68b7aabbc02c2bc8c5631"}, {"path": "org/reviews/security-recipe-classification-001.md", "sha256": "4eed4aa10482c4d66c8e435064c97c0f66faf1dec559ad9afb2040a1003b6600"}, {"path": "org/reviews/code-recipe-classification-001.md", "sha256": "be756ca3af37d880bf8ffeba735b3c0c03820c680c79dc930ca532dc1e48abba"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-26T23:57:35Z"

@@ -9,7 +9,7 @@ intent/recipe-classification/intent.md
 ## Loop
 
 - status: solved
-- turn: 6
+- turn: 4
 - phase: done
 - stop_reason: solved
 
@@ -155,11 +155,11 @@ intent/recipe-classification/intent.md
 
 ## Recent decisions
 
-- mem-0189 orchestrator: Local plan recipe thumbnails workflow solved in6 turns. Fixed implementation e16c6e9 independently security-approved794bd03 and code-approvedc387147, all required checks and real browser evidence pass. Implementation graph remains pending human merge; no release authority. Final review mutation restored and temporary dev cache handled per AGENTS. (org/reviews/code-plan-recipe-thumbnails-001.md)
-- mem-0190 orchestrator: Start recipe classification org workflow. Prior thumbnail graph/config/state/history archived at org/loop/archive/plan-recipe-thumbnails-before-recipe-classification. PM accepted exclusive meal-role categories and both curation paths; optional manual correction default disclosed. Human merge and hosted gates remain separate. (intent/recipe-classification/intent.md)
 - mem-0191 ceo: Owner explicitly confirms manual category corrections on saved recipes in response to optional question; accepted proposed exclusive meal-role semantics. Existing local scope unchanged; no merge/release/hosted authority. (intent/recipe-classification/intent.md)
 - mem-0192 ceo: Owner directs automatic persistence when recipe category dropdown changes and removal of Save category button. Architect/reviewer amend plan before UI change; existing bounded API, current identity and failure recovery remain. (intent/recipe-classification/spec.md)
 - mem-0193 orchestrator: Recipe classification local org workflow solved in6turns. Final autosave source76eaafb preserves protected persistence69b2719, security-approvedcd8609c and code-approvedac42663. All required affected checks and real Chrome320/1440 pass, original helper restored. Human merge pending; no development/hosted migration or release authority. (org/reviews/code-recipe-classification-001.md)
+- mem-0194 orchestrator: Begin bounded dropdown-only presentation followup at owner request. Preserve completed original classification graph/config/state/history at org/loop/archive/recipe-classification-before-dropdown-only. Independent plan/code review retained; no storage/API change or release authority. (intent/recipe-classification/spec.md)
+- mem-0195 orchestrator: Dropdown-only followup solved in4turns. Final4a05fbf independently approved546b3a6; lint/typecheck/build and both real Chrome flows pass, actual320/1440 screenshot inspection confirms single visible dropdown with accessible hidden label. Prior acceptance images preserved. Human merge/release gates unchanged. (org/reviews/recipe-classification-dropdown-only-001.md)
 
 ## Constraints
 
@@ -167,12 +167,9 @@ intent/recipe-classification/intent.md
 
 ## Artifacts
 
-- intent/recipe-classification/intent.md (cad1e0fdbede716edad8764457777ac2b5ff0cb86bd7b19ce4cc2a7651319587)
-- intent/recipe-classification/plan.md (641c746d5bb9a86f35b5a20e3ccdfd38c99fc78661b486258ef096c84c9b7955)
-- org/reviews/design-recipe-classification-002.md (1048a184fa971c0f2242f06cd66423634eee356e2673535af8be811b80c564fa)
-- intent/recipe-classification/verification.md (96dbaf9fe2841d765ecaec5916a6c48ea02566e9cbf68b7aabbc02c2bc8c5631)
-- org/reviews/security-recipe-classification-001.md (4eed4aa10482c4d66c8e435064c97c0f66faf1dec559ad9afb2040a1003b6600)
-- org/reviews/code-recipe-classification-001.md (be756ca3af37d880bf8ffeba735b3c0c03820c680c79dc930ca532dc1e48abba)
+- intent/recipe-classification/plan.md (b9143c9329b1f0ecb99bf6c24fc781021603bad656b9f5a94f1499591f2c1653)
+- intent/recipe-classification/verification.md (1d7914a31ae5fba854ddbb8df99acf5ad206bb97b626ba14e073a2c758b465d6)
+- org/reviews/recipe-classification-dropdown-only-001.md (8bfa1cbda9428e47651acf5119bef9127d740b1e534d9af587bdbcc7881a7791)
 
 ## Next action
 
@@ -180,7 +177,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0193 from org/reviews/code-recipe-classification-001.md
+- mem-0195 from org/reviews/recipe-classification-dropdown-only-001.md
 
 <!-- machine:end -->
 

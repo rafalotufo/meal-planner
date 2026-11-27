@@ -1,7 +1,7 @@
 # Saved recipe classification — local verification
 
 - Status: Local implementation verified and independently approved; human merge gate pending.
-- Final application source: `76eaafb` (autosave), cumulative storage source `69b2719`.
+- Final application source: `4a05fbf` (dropdown-only), autosave `76eaafb`, cumulative storage `69b2719`.
 - Security: `org/reviews/security-recipe-classification-001.md`, approvals `d84ac54` and `cd8609c`.
 - Code review: `org/reviews/code-recipe-classification-001.md`, approval `ac42663` of `76eaafb`.
 - No merge, hosted migration, staging deployment or Production release is authorized.
@@ -120,3 +120,37 @@ older binaries reject the newer catalog after that future cutover. No push,
 merge, deployment, provider-paid query, legacy bulk backfill or data import was
 performed. Conservative URL metadata classification may remain Unclassified and
 can be corrected by the family.
+
+
+## Dropdown-only followup
+
+Owner refinement: show only the editable dropdown instead of repeating its
+category in a paragraph and visible label. Independent amendment approval:
+`1e23bc1` reviewing `c24b2a0`. Verified implementation: `4a05fbf`.
+
+Editable cards now use the selected option as the single visible category.
+The existing label is sr-only for accessibility. Noneditable synthetic cards
+retain their static category because they have no dropdown. Autosave, feedback,
+retry/reset, identity, API, persistence and migrations are unchanged.
+
+Full lint and typecheck passed. A fresh build and both existing real Chrome
+scripts passed, logs `recipe-classification-checks-b5PIaV`. Assertions use real
+protected API/DB/reload persistence and selected options, not duplicated text.
+Both scripts retain native keyboard selection, autosave failure/reset/retry,
+pending/failed corrections, and mobile/desktop bounds. No unrelated suites
+were repeated for this presentation-only delta.
+
+Root and independent reviewer inspected
+`recipe-classification-dropdown-only-url-menu-category-pending-320.png` and
+`recipe-classification-dropdown-only-url-menu-category-failed-1440.png`:
+only the native select displays category, source links wrap, and controls fit.
+Accessible labels remain. New screenshot names preserve prior acceptance
+images. The running curation process loaded its old screenshot prefix before
+that filename-only fix; root copied the new observations to followup names
+and restored all prior acceptance image bytes from HEAD. No evidence was lost.
+
+Plan-sync, staged secret scan and final org checks accompany the followup
+commit. Human merge and hosted migration/release gates remain separate.
+
+Final followup code approval: `546b3a6`, reviewing `4a05fbf`, in
+`org/reviews/recipe-classification-dropdown-only-001.md`; no findings.

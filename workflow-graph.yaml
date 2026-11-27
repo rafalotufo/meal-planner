@@ -22,7 +22,7 @@ nodes:
     done_status: approved
   implementation:
     stage: build
-    artifact: recipe-classification-implementation
+    artifact: recipe-classification-dropdown-only-implementation
     gate: code_owner_approve
     status: pending
     done_status: merged
