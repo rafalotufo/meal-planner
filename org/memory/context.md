@@ -9,8 +9,8 @@ intent/classified-weekly-planning/plan-regeneration-authority.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: execute
+- turn: 3
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/classified-weekly-planning/plan-regeneration-authority.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/classified-weekly-planning/plan-regeneration-authority.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (classified-weekly-planning-plan-regeneration)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/classified-weekly-planning/regeneration-preflight.md)
+- senior-developer: busy (classified-weekly-planning-plan-regeneration)
 
 ## Open messages
 
@@ -127,7 +127,7 @@ intent/classified-weekly-planning/plan-regeneration-authority.md
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
 - orchestrator-0208 orchestrator -> ceo status: Opened reviewed classified planning audit PR
-- orchestrator-0210 orchestrator -> senior-developer handoff: Execute independently approved exact current draft regeneration
+- orchestrator-0211 orchestrator -> reviewer handoff: Review actual committed classified plan replacement and cleanup
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -169,10 +169,11 @@ intent/classified-weekly-planning/plan-regeneration-authority.md
 
 - intent/classified-weekly-planning/regeneration-preflight.md (9743fe6d648001392e3a26ccf55dabd718dc1449cccfa8bc223d2c5e4ee0717b)
 - org/reviews/regeneration-safety-classified-weekly-planning-001.md (f5c9301952a96def3d76551ae3cbe869848b74cc2f0a22793db12e307600f5b9)
+- intent/classified-weekly-planning/regeneration-result.md (751f5f853d709bc094e38cccb2e1515873fc845a2fdb4bacc209a0f0d997edb5)
 
 ## Next action
 
-reviewer:review_regeneration
+senior-developer:replace_plan_and_verify
 
 ## Last digest source
 

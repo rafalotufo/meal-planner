@@ -3,9 +3,9 @@ agents:
   orchestrator: { status: busy, assignment: intent/classified-weekly-planning/plan-regeneration-authority.md, last_report: "Classified planning Production complete:5LXW/f0, schema9, full15-minute watch and finalreview6698dea; authority consumed" }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: idle, assignment: null, last_report: Guidance-only AGENTS manifest amendment9f817e8 awaits final independent Production review }
-  senior-developer: { status: busy, assignment: intent/classified-weekly-planning/regeneration-preflight.md, last_report: "Rollback-only regeneration rehearsal passed; preparing review evidence, no committed replacement" }
+  senior-developer: { status: busy, assignment: classified-weekly-planning-plan-regeneration, last_report: Actual replacement b313c20/ced7fb8 complete; independent final review pending }
   security-researcher: { status: idle, assignment: null, last_report: Read-only function metadata consultation found official CLI v11 builds endpoint; no effects }
-  reviewer: { status: idle, assignment: null, last_report: "review regeneration-safety-classified-weekly-planning-001: approved" }
+  reviewer: { status: busy, assignment: classified-weekly-planning-plan-regeneration, last_report: "review regeneration-safety-classified-weekly-planning-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: Guidance-only probe lessons and nine-identity history committed00783e8/1291e69; final independent review pending }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -147,3 +147,4 @@ review_queue:
   - { id: candidate-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/production-candidate.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: production-classified-weekly-planning-001, artifact: classified-weekly-planning-production-cutover, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: regeneration-safety-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/regeneration-preflight.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: regeneration-result-classified-weekly-planning-001, artifact: classified-weekly-planning-plan-regeneration, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
