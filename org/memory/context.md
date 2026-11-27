@@ -63,7 +63,6 @@ intent/recipe-classification/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
-- ceo-0080 ceo -> orchestrator decision: Approve reviewed recipe classification local main merge
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -178,7 +177,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0196 from intent/recipe-classification/merge-approval.md
+- mem-0197 from intent/recipe-classification/merge-approval.md
 
 <!-- machine:end -->
 

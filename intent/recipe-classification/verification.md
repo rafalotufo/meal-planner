@@ -1,6 +1,6 @@
 # Saved recipe classification — local verification
 
-- Status: Local implementation verified and independently approved; human merge gate pending.
+- Status: Local implementation verified, independently approved and merged into local main under the owner approval in `merge-approval.md`; staging/release gates remain pending.
 - Final application source: `4a05fbf` (dropdown-only), autosave `76eaafb`, cumulative storage `69b2719`.
 - Security: `org/reviews/security-recipe-classification-001.md`, approvals `d84ac54` and `cd8609c`.
 - Code review: `org/reviews/code-recipe-classification-001.md`, approval `ac42663` of `76eaafb`.

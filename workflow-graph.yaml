@@ -24,7 +24,7 @@ nodes:
     stage: build
     artifact: recipe-classification-dropdown-only-implementation
     gate: code_owner_approve
-    status: pending
+    status: merged
     done_status: merged
   staging_acceptance:
     stage: deploy
