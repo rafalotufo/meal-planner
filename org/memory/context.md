@@ -9,8 +9,8 @@ intent/classified-weekly-planning/production-authorization.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: cutover
+- turn: 3
+- phase: review
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/classified-weekly-planning/production-authorization.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/classified-weekly-planning/production-authorization.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (classified-weekly-planning-production-cutover)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (intent/classified-weekly-planning/production-authorization.md)
+- senior-developer: busy (classified-weekly-planning-production-cutover)
 
 ## Open messages
 
@@ -126,7 +126,7 @@ intent/classified-weekly-planning/production-authorization.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0205 orchestrator -> senior-developer handoff: Execute approved Production migration and same-candidate promotion with 15-minute watch
+- orchestrator-0207 orchestrator -> reviewer handoff: Review actual Production cutover, full observation and audit guidance
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -168,10 +168,11 @@ intent/classified-weekly-planning/production-authorization.md
 
 - intent/classified-weekly-planning/production-candidate.md (d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4)
 - org/reviews/candidate-classified-weekly-planning-001.md (d3ecabbc27844c3f965ea7c27a7c31dae61ffc3fe4e5e4e9fe680f7e7d2597a7)
+- intent/classified-weekly-planning/production-release-result.md (4cac3615cea7110a7d3ee395034d8ec6ce686074350bc1d1088ecdce7414e7aa)
 
 ## Next action
 
-reviewer:review_candidate
+senior-developer:cutover_and_monitor
 
 ## Last digest source
 

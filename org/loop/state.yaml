@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/classified-weekly-planning/production-authorization.md
 base_commit: 923d7cc06477fe3a23290805371584d516304297
-turn: 2
+turn: 3
 no_progress: 0
-phase: cutover
+phase: review
 status: in_progress
-last_input_hash: bae647f720d4b91d610e05741a75834f62b0840a3c8e6b699388b776d86ec415
+last_input_hash: 7cc5af36da6c471e0136b09d464735d7360a1b3568e1ea2a4d4e5d6c9e1eea3e
 stop_reason: null
-last_action: "reviewer:review_candidate"
-artifacts: [{"path": "intent/classified-weekly-planning/production-candidate.md", "sha256": "d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4"}, {"path": "org/reviews/candidate-classified-weekly-planning-001.md", "sha256": "d3ecabbc27844c3f965ea7c27a7c31dae61ffc3fe4e5e4e9fe680f7e7d2597a7"}]
+last_action: "senior-developer:cutover_and_monitor"
+artifacts: [{"path": "intent/classified-weekly-planning/production-candidate.md", "sha256": "d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4"}, {"path": "org/reviews/candidate-classified-weekly-planning-001.md", "sha256": "d3ecabbc27844c3f965ea7c27a7c31dae61ffc3fe4e5e4e9fe680f7e7d2597a7"}, {"path": "intent/classified-weekly-planning/production-release-result.md", "sha256": "4cac3615cea7110a7d3ee395034d8ec6ce686074350bc1d1088ecdce7414e7aa"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-27T16:05:21Z"
+updated_at: "2026-11-27T16:27:43Z"
