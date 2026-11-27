@@ -1,13 +1,13 @@
 version: 1
-work_item: intent/recipe-classification/intent.md
-base_commit: cbab2d9d01f62ae01a787d4520d0d169a9cc98ed
-turn: 4
-no_progress: 1
-phase: done
-status: solved
-last_input_hash: aebe0e94d7bdaa58f827a1a8222ca5b3b76fd7855240b8b27051b3290c0fb19d
-stop_reason: solved
-last_action: "reviewer:review"
-artifacts: [{"path": "intent/recipe-classification/plan.md", "sha256": "b9143c9329b1f0ecb99bf6c24fc781021603bad656b9f5a94f1499591f2c1653"}, {"path": "intent/recipe-classification/verification.md", "sha256": "1d7914a31ae5fba854ddbb8df99acf5ad206bb97b626ba14e073a2c758b465d6"}, {"path": "org/reviews/recipe-classification-dropdown-only-001.md", "sha256": "8bfa1cbda9428e47651acf5119bef9127d740b1e534d9af587bdbcc7881a7791"}]
+work_item: intent/classified-weekly-planning/intent.md
+base_commit: 91c419e54bbee8c92642c509e9cb4e92ee2e0426
+turn: 1
+no_progress: 0
+phase: design
+status: in_progress
+last_input_hash: 72e838419aa1591b826a5588b99479445fb77ff1f151572b61102fb221ff49a9
+stop_reason: null
+last_action: "product-manager:accept_intent"
+artifacts: [{"path": "intent/classified-weekly-planning/intent.md", "sha256": "269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-27T00:11:13Z"
+updated_at: "2026-11-27T13:38:11Z"

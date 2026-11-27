@@ -4,18 +4,18 @@
 
 ## Goal
 
-intent/recipe-classification/intent.md
+intent/classified-weekly-planning/intent.md
 
 ## Loop
 
-- status: solved
-- turn: 4
-- phase: done
-- stop_reason: solved
+- status: in_progress
+- turn: 1
+- phase: design
+- stop_reason: None
 
 ## Agents
 
-- architect: idle (unassigned)
+- architect: busy (intent/classified-weekly-planning/spec.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: idle (unassigned)
 - product-manager: idle (unassigned)
@@ -125,6 +125,8 @@ intent/recipe-classification/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
+- orchestrator-0192 orchestrator -> product-manager handoff: Capture classified weekly planning intent
+- orchestrator-0193 orchestrator -> architect handoff: Design classified weekly planning and eight-slot compatibility
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -140,6 +142,7 @@ intent/recipe-classification/intent.md
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - product-manager-0022 product-manager -> orchestrator decision: Accepted 30-day Google login expiration intent
 - product-manager-0023 product-manager -> orchestrator decision: Local Brave scope met with disclosed broad recall limitation
+- product-manager-0024 product-manager -> orchestrator handoff: Classified weekly planning intent accepted for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0057 reviewer -> orchestrator review: Approve login expiration design and plan
 - reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
@@ -155,11 +158,11 @@ intent/recipe-classification/intent.md
 
 ## Recent decisions
 
-- mem-0192 ceo: Owner directs automatic persistence when recipe category dropdown changes and removal of Save category button. Architect/reviewer amend plan before UI change; existing bounded API, current identity and failure recovery remain. (intent/recipe-classification/spec.md)
 - mem-0193 orchestrator: Recipe classification local org workflow solved in6turns. Final autosave source76eaafb preserves protected persistence69b2719, security-approvedcd8609c and code-approvedac42663. All required affected checks and real Chrome320/1440 pass, original helper restored. Human merge pending; no development/hosted migration or release authority. (org/reviews/code-recipe-classification-001.md)
 - mem-0194 orchestrator: Begin bounded dropdown-only presentation followup at owner request. Preserve completed original classification graph/config/state/history at org/loop/archive/recipe-classification-before-dropdown-only. Independent plan/code review retained; no storage/API change or release authority. (intent/recipe-classification/spec.md)
 - mem-0195 orchestrator: Dropdown-only followup solved in4turns. Final4a05fbf independently approved546b3a6; lint/typecheck/build and both real Chrome flows pass, actual320/1440 screenshot inspection confirms single visible dropdown with accessible hidden label. Prior acceptance images preserved. Human merge/release gates unchanged. (org/reviews/recipe-classification-dropdown-only-001.md)
 - mem-0196 ceo: Owner Approved reviewed classificationb49dcc4/application4a05fbf for local main merge. Maina0deeb6 clean ancestor; use fast-forward only plus approval/audit metadata. No push/development or hosted migration/grants/deployment/release authority. (intent/recipe-classification/merge-approval.md)
+- mem-0198 orchestrator: Begin classified weekly planning org workflow from owner request; preserve completed recipe classification loop in org/loop/archive/recipe-classification-before-classified-weekly-planning. Target 4 main,2 side,2 veggie recipes and separate display; gates remain PM/peer plus human merge/release. (org/loop/archive/recipe-classification-before-classified-weekly-planning/state.yaml)
 
 ## Constraints
 
@@ -167,17 +170,15 @@ intent/recipe-classification/intent.md
 
 ## Artifacts
 
-- intent/recipe-classification/plan.md (b9143c9329b1f0ecb99bf6c24fc781021603bad656b9f5a94f1499591f2c1653)
-- intent/recipe-classification/verification.md (1d7914a31ae5fba854ddbb8df99acf5ad206bb97b626ba14e073a2c758b465d6)
-- org/reviews/recipe-classification-dropdown-only-001.md (8bfa1cbda9428e47651acf5119bef9127d740b1e534d9af587bdbcc7881a7791)
+- intent/classified-weekly-planning/intent.md (269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17)
 
 ## Next action
 
-reviewer:review
+product-manager:accept_intent
 
 ## Last digest source
 
-- mem-0197 from intent/recipe-classification/merge-approval.md
+- mem-0198 from org/loop/archive/recipe-classification-before-classified-weekly-planning/state.yaml
 
 <!-- machine:end -->
 
