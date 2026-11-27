@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/classified-weekly-planning/plan-regeneration-authority.md
 base_commit: 1ef9e5825a80c1127bf5259d15c0899bb5ae5cfc
-turn: 3
+turn: 4
 no_progress: 0
-phase: review
-status: in_progress
-last_input_hash: 0bd4384295a2bbeaeef84a39aa5af213a46988c8a927f5d06c9adc0ae87f9423
-stop_reason: null
-last_action: "senior-developer:replace_plan_and_verify"
-artifacts: [{"path": "intent/classified-weekly-planning/regeneration-preflight.md", "sha256": "9743fe6d648001392e3a26ccf55dabd718dc1449cccfa8bc223d2c5e4ee0717b"}, {"path": "org/reviews/regeneration-safety-classified-weekly-planning-001.md", "sha256": "f5c9301952a96def3d76551ae3cbe869848b74cc2f0a22793db12e307600f5b9"}, {"path": "intent/classified-weekly-planning/regeneration-result.md", "sha256": "751f5f853d709bc094e38cccb2e1515873fc845a2fdb4bacc209a0f0d997edb5"}]
+phase: done
+status: solved
+last_input_hash: 443ce348d91a6a332d198430f25cab9230fc386f6319a82131a1abb35f921c22
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/classified-weekly-planning/regeneration-preflight.md", "sha256": "9743fe6d648001392e3a26ccf55dabd718dc1449cccfa8bc223d2c5e4ee0717b"}, {"path": "org/reviews/regeneration-safety-classified-weekly-planning-001.md", "sha256": "f5c9301952a96def3d76551ae3cbe869848b74cc2f0a22793db12e307600f5b9"}, {"path": "intent/classified-weekly-planning/regeneration-result.md", "sha256": "751f5f853d709bc094e38cccb2e1515873fc845a2fdb4bacc209a0f0d997edb5"}, {"path": "org/reviews/regeneration-result-classified-weekly-planning-001.md", "sha256": "2a6060258284673fb9aab5ce3685308a7fa24115a197fe8b16cf2bdf8e88731c"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-27T18:36:09Z"
+updated_at: "2026-11-27T18:37:17Z"
