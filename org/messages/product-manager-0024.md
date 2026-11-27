@@ -7,10 +7,12 @@ subject: Classified weekly planning intent accepted for Design
 artifact: intent/classified-weekly-planning/intent.md
 requires_response: false
 in_reply_to: null
-status: open
+status: closed
 severity: null
 blocking: false
 created_at: "2026-11-27T13:37:43Z"
+closed_by: orchestrator
+closed_evidence: intent/classified-weekly-planning/spec.md
 ---
 
 Accepted the owner-requested4/2/2 plan mix and separate groups. Explicit PM decisions: honest category shortages; no unclassified automatic picks; immutable historical snapshots with Unclassified display; same-category swaps for categorized slots and legacy compatibility for null slots. Architect must design eight-slot storage and paginated picker compatibility before independent review. Review: org/reviews/intent-classified-weekly-planning-001.md.

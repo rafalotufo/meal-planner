@@ -25,7 +25,6 @@ intent/classified-weekly-planning/intent.md
 
 ## Open messages
 
-- architect-0019 architect -> orchestrator handoff: Classified weekly planning spec and plan ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -126,9 +125,6 @@ intent/classified-weekly-planning/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0192 orchestrator -> product-manager handoff: Capture classified weekly planning intent
-- orchestrator-0193 orchestrator -> architect handoff: Design classified weekly planning and eight-slot compatibility
-- orchestrator-0194 orchestrator -> reviewer handoff: Independently review classified planning design and plan
 - orchestrator-0195 orchestrator -> senior-developer handoff: Implement approved classified weekly planning
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
@@ -145,13 +141,11 @@ intent/classified-weekly-planning/intent.md
 - product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
 - product-manager-0022 product-manager -> orchestrator decision: Accepted 30-day Google login expiration intent
 - product-manager-0023 product-manager -> orchestrator decision: Local Brave scope met with disclosed broad recall limitation
-- product-manager-0024 product-manager -> orchestrator handoff: Classified weekly planning intent accepted for Design
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
 - reviewer-0057 reviewer -> orchestrator review: Approve login expiration design and plan
 - reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
 - reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
 - reviewer-0061 reviewer -> orchestrator review: Final Brave source e14feec approved after both corrections
-- reviewer-0066 reviewer -> orchestrator review: Approve classified weekly planning specification and plan
 - security-researcher-0031 security-researcher -> orchestrator review: Login session expiration local security approval
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
