@@ -63,6 +63,7 @@ intent/recipe-classification/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
+- ceo-0080 ceo -> orchestrator decision: Approve reviewed recipe classification local main merge
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -155,11 +156,11 @@ intent/recipe-classification/intent.md
 
 ## Recent decisions
 
-- mem-0191 ceo: Owner explicitly confirms manual category corrections on saved recipes in response to optional question; accepted proposed exclusive meal-role semantics. Existing local scope unchanged; no merge/release/hosted authority. (intent/recipe-classification/intent.md)
 - mem-0192 ceo: Owner directs automatic persistence when recipe category dropdown changes and removal of Save category button. Architect/reviewer amend plan before UI change; existing bounded API, current identity and failure recovery remain. (intent/recipe-classification/spec.md)
 - mem-0193 orchestrator: Recipe classification local org workflow solved in6turns. Final autosave source76eaafb preserves protected persistence69b2719, security-approvedcd8609c and code-approvedac42663. All required affected checks and real Chrome320/1440 pass, original helper restored. Human merge pending; no development/hosted migration or release authority. (org/reviews/code-recipe-classification-001.md)
 - mem-0194 orchestrator: Begin bounded dropdown-only presentation followup at owner request. Preserve completed original classification graph/config/state/history at org/loop/archive/recipe-classification-before-dropdown-only. Independent plan/code review retained; no storage/API change or release authority. (intent/recipe-classification/spec.md)
 - mem-0195 orchestrator: Dropdown-only followup solved in4turns. Final4a05fbf independently approved546b3a6; lint/typecheck/build and both real Chrome flows pass, actual320/1440 screenshot inspection confirms single visible dropdown with accessible hidden label. Prior acceptance images preserved. Human merge/release gates unchanged. (org/reviews/recipe-classification-dropdown-only-001.md)
+- mem-0196 ceo: Owner Approved reviewed classificationb49dcc4/application4a05fbf for local main merge. Maina0deeb6 clean ancestor; use fast-forward only plus approval/audit metadata. No push/development or hosted migration/grants/deployment/release authority. (intent/recipe-classification/merge-approval.md)
 
 ## Constraints
 
@@ -177,7 +178,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0195 from org/reviews/recipe-classification-dropdown-only-001.md
+- mem-0196 from intent/recipe-classification/merge-approval.md
 
 <!-- machine:end -->
 
