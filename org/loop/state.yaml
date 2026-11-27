@@ -1,13 +1,13 @@
 version: 1
 work_item: intent/classified-weekly-planning/production-authorization.md
 base_commit: 923d7cc06477fe3a23290805371584d516304297
-turn: 1
+turn: 2
 no_progress: 0
-phase: candidate_review
+phase: cutover
 status: in_progress
-last_input_hash: 8dae2ca6a9e6f0ddeaca0d0a8aa08069d0a93aa7b8992f3e57a8d3b626697427
+last_input_hash: bae647f720d4b91d610e05741a75834f62b0840a3c8e6b699388b776d86ec415
 stop_reason: null
-last_action: "senior-developer:prepare_production_candidate"
-artifacts: [{"path": "intent/classified-weekly-planning/production-candidate.md", "sha256": "d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4"}]
+last_action: "reviewer:review_candidate"
+artifacts: [{"path": "intent/classified-weekly-planning/production-candidate.md", "sha256": "d18f7cdfd23548507c502bd744756001e3c3df6bb9b5b6cb49a22c3aac5479e4"}, {"path": "org/reviews/candidate-classified-weekly-planning-001.md", "sha256": "d3ecabbc27844c3f965ea7c27a7c31dae61ffc3fe4e5e4e9fe680f7e7d2597a7"}]
 acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
-updated_at: "2026-11-27T16:02:23Z"
+updated_at: "2026-11-27T16:05:21Z"
