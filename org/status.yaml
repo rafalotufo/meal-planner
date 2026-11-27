@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Classified planning approved and merged to local main; no migration/deployment }
+  orchestrator: { status: idle, assignment: null, last_report: Preview cutover verifieda4b22dd reviewedc282c58; awaiting owner staging-gap acceptance and Production authority }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: idle, assignment: null, last_report: Design737458b approved07affd4 and implementation verified7d66352 }
-  senior-developer: { status: busy, assignment: intent/classified-weekly-planning/preview-cutover-approval.md, last_report: Owner authorized Preview cutover9e249a2; new bounded operations loop }
+  senior-developer: { status: busy, assignment: classified-weekly-planning-preview-cutover, last_report: Preview cutovera4b22dd verified and cleaned; Production unchanged }
   security-researcher: { status: idle, assignment: null, last_report: Security approvedce3fc5d; focused6pass; no findings }
-  reviewer: { status: idle, assignment: null, last_report: "review code-classified-weekly-planning-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review preview-classified-weekly-planning-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -143,3 +143,4 @@ review_queue:
   - { id: code-recipe-classification-dropdown-only-001, artifact: recipe-classification-dropdown-only-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: design-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-classified-weekly-planning-001, artifact: classified-weekly-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: preview-classified-weekly-planning-001, artifact: classified-weekly-planning-preview-cutover, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

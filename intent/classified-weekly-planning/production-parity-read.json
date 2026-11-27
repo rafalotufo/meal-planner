@@ -1,0 +1,67 @@
+{
+  "capturedAt": "2026-11-27T14:55:07.253Z",
+  "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+  "nodeVersion": "24.x",
+  "unpaused": true,
+  "productionDeploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+  "productionSourceSha": "91c419e54bbee8c92642c509e9cb4e92ee2e0426",
+  "checks": [
+    {
+      "key": "BETTER_AUTH_URL",
+      "targets": [
+        "production"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    },
+    {
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "targets": [
+        "production"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    },
+    {
+      "key": "BETTER_AUTH_URL",
+      "targets": [
+        "preview"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    },
+    {
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "targets": [
+        "preview"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    },
+    {
+      "key": "MEAL_PLAN_SCHEDULER_ENABLED",
+      "targets": [
+        "production"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    },
+    {
+      "key": "MEAL_PLAN_DRAFT_DAY",
+      "targets": [
+        "production"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    },
+    {
+      "key": "MEAL_PLAN_SCHEDULER_ORIGIN",
+      "targets": [
+        "production"
+      ],
+      "matchesExpected": true,
+      "valueReadable": true
+    }
+  ],
+  "sensitiveValuesRead": false
+}
