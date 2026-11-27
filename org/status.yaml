@@ -1,6 +1,6 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Classified planning solved6turns; verified7d66352 securityce3fc5d code6ba4f84; human merge pending }
+  orchestrator: { status: idle, assignment: null, last_report: Classified planning approved and merged to local main; no migration/deployment }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: idle, assignment: null, last_report: Design737458b approved07affd4 and implementation verified7d66352 }
   senior-developer: { status: busy, assignment: classified-weekly-planning-implementation, last_report: Implemented and verified7d66352; source72f726b tests all pass }

@@ -24,7 +24,7 @@ nodes:
     stage: build
     artifact: classified-weekly-planning-implementation
     gate: code_owner_approve
-    status: pending
+    status: merged
     done_status: merged
   staging_acceptance:
     stage: deploy

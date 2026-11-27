@@ -63,7 +63,6 @@ intent/classified-weekly-planning/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
-- ceo-0081 ceo -> orchestrator decision: Approve classified planning merge to local main
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -126,7 +125,6 @@ intent/classified-weekly-planning/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0198 orchestrator -> ceo handoff: Classified weekly planning ready for human merge review
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -179,7 +177,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0201 from intent/classified-weekly-planning/merge-approval.md
+- mem-0202 from intent/classified-weekly-planning/merge-approval.md
 
 <!-- machine:end -->
 
