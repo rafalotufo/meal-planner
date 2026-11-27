@@ -1,0 +1,119 @@
+{
+  "completedAt": "2026-11-27T18:32:49.659Z",
+  "mode": "commit",
+  "helperSha256": "c38fad8f4b03000580a22c31184d599f1cefa0725c39ef1aad6c4b5aacef5190",
+  "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+  "familyId": "43d6ebb2-8115-4c38-ad63-65b153cb128e",
+  "week": "2026-11-29",
+  "oldPlanId": "d8ad41c1-e840-401e-998f-88d5101c7781",
+  "expectedOldRecipeCount": 7,
+  "oldDraftRevision": 1,
+  "currentAdmissionConfirmedByDeployedGenerator": true,
+  "readyPools": {
+    "main": 17,
+    "side": 3,
+    "veggie": 3
+  },
+  "singleReadCommittedConnectionAndCommonLockBeforeDecisions": true,
+  "guardedExactOldPlanDelete": true,
+  "deployedGeneratorUsed": true,
+  "realCurrentTimestampUsed": true,
+  "proposal": {
+    "newPlanId": "e4d483ec-8b42-4f51-8301-f7596fb47c08",
+    "recipeCount": 8,
+    "categories": {
+      "main": 4,
+      "side": 2,
+      "veggie": 2
+    },
+    "createdAt": 1795804363149
+  },
+  "backup": {
+    "sha256": "e8234c1a88cd4b9cdb28eac7d848bf69e2d0e0dd9abc13c9c47c3b805701a041",
+    "bytes": 3980,
+    "retainedOwnerOnly": true
+  },
+  "rollbackOnly": false,
+  "committed": true,
+  "rollbackSentinelReached": false,
+  "exactOriginalAndDependentsRestored": false,
+  "originalTargetDigest": "9fc99914632884d904316dd06cae21a8ab837211fb0163822b06a97385cb3661",
+  "originalFullStateDigest": "c5a9ef7556f094a8d1ea95e20130f81539af3bc0044bef7a4651686acf0fc7df",
+  "readbackFullStateDigest": "79cc13a0dbc8d2c4facbe0a4b7f9b9e6bc21be7227d2a1e054622eebf1848f15",
+  "unrelatedDataUnchanged": true,
+  "unrelatedDataDigest": "8feafd669f1a1f17c0e635245e158afc737eb7971b3854049c45fe7a4a00fd56",
+  "schemaUnchanged": true,
+  "schemaProfileSha256": "0c854fcd29a0561d17e2d2effb03dcfc661aa9e192719ae1d0349bf580d9fb3e",
+  "grantsAndRolesUnchanged": true,
+  "securityDigest": "32e2d34f07ec872a3cadd27d77b67a2170639143c688ac79c4deb9b2441f4118",
+  "historyUnchanged": true,
+  "historyDigest": "bdcf1d3545e6fd7ded6de471d939556169a20d58bd346b53cfd1ae641b5ed550",
+  "scopeAuthority": {
+    "commit": "e14dfbb",
+    "ledgerRecord": "classified-plan-regeneration-20261127",
+    "expiresAt": "2026-11-27T19:21:44Z",
+    "helperReviewCommit": "82dc88b5f6328b43222400a925403c73247a93f2",
+    "executionDispatchCommit": "a4d0a2f"
+  },
+  "deploymentBeforeCommit": {
+    "capturedAt": "2026-11-27T18:32:30.347Z",
+    "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+    "target": "production",
+    "ready": "READY",
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "projectUnpaused": true,
+    "nodeVersion": "24.x"
+  },
+  "independentOperatorReadOnly": {
+    "capturedAt": "2026-11-27T18:34:32.286Z",
+    "proofClass": "separate-read-only-Neon-SELECT",
+    "projectId": "plain-pond-82425009",
+    "branchId": "br-wild-dust-bbr2mvzw",
+    "database": "meal_planner",
+    "role": "mp_migrator",
+    "rows": [
+      {
+        "id": "e4d483ec-8b42-4f51-8301-f7596fb47c08",
+        "family_id": "43d6ebb2-8115-4c38-ad63-65b153cb128e",
+        "week_start": "2026-11-29",
+        "status": "draft",
+        "revision": 1,
+        "recipe_count": 8,
+        "distinct_recipe_count": 8,
+        "category_counts": {
+          "main": 4,
+          "side": 2,
+          "veggie": 2
+        },
+        "old_plan_count": 0,
+        "approval_count": 0,
+        "suggestion_count": 0,
+        "legacy_count": 5,
+        "native_count": 4,
+        "runtime_temp_denied": true
+      }
+    ],
+    "truncated": false,
+    "pass": true
+  },
+  "reviewerReadOnlyReceiptAvailable": true,
+  "cleanup": {
+    "cleanedAt": "2026-11-27T18:34:35.589Z",
+    "operationOwnedOwnerCredentialDeleted": true,
+    "narrowBackupsRetainedPrivate": true,
+    "sharedCliCredentialsUntouched": true,
+    "applicationConfigurationUntouched": true,
+    "rawDataPrinted": false
+  },
+  "excludedEffects": [
+    "other family/week plan edits",
+    "menu recipe edits",
+    "schema or runtime grant changes",
+    "migration/deployment/schedule changes",
+    "provider request",
+    "Google or synthetic principal effect",
+    "backup restoration"
+  ],
+  "independentFinalReviewPending": true
+}
