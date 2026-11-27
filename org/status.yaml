@@ -1,12 +1,12 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: Classified planning approved and merged to local main; no migration/deployment }
+  orchestrator: { status: idle, assignment: null, last_report: "PR1 open; scoped current plan replaced with4main2side2veggie, result reviewed5fd8283, no standing authority" }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
-  architect: { status: idle, assignment: null, last_report: Design737458b approved07affd4 and implementation verified7d66352 }
-  senior-developer: { status: busy, assignment: classified-weekly-planning-implementation, last_report: Implemented and verified7d66352; source72f726b tests all pass }
-  security-researcher: { status: idle, assignment: null, last_report: Security approvedce3fc5d; focused6pass; no findings }
-  reviewer: { status: idle, assignment: null, last_report: "review code-classified-weekly-planning-001: approved" }
-  memory-keeper: { status: idle, assignment: null, last_report: null }
+  architect: { status: idle, assignment: null, last_report: Guidance-only AGENTS manifest amendment9f817e8 awaits final independent Production review }
+  senior-developer: { status: idle, assignment: null, last_report: Regenerated Nov29 draft8distinct4/2/2; final independent review5fd8283 approved }
+  security-researcher: { status: idle, assignment: null, last_report: Read-only function metadata consultation found official CLI v11 builds endpoint; no effects }
+  reviewer: { status: idle, assignment: null, last_report: "review regeneration-result-classified-weekly-planning-001: approved" }
+  memory-keeper: { status: idle, assignment: null, last_report: Guidance-only probe lessons and nine-identity history committed00783e8/1291e69; final independent review pending }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: plan-home-page-001, artifact: plan.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -143,3 +143,8 @@ review_queue:
   - { id: code-recipe-classification-dropdown-only-001, artifact: recipe-classification-dropdown-only-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: design-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: code-classified-weekly-planning-001, artifact: classified-weekly-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: preview-classified-weekly-planning-001, artifact: classified-weekly-planning-preview-cutover, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: candidate-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/production-candidate.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: production-classified-weekly-planning-001, artifact: classified-weekly-planning-production-cutover, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: regeneration-safety-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/regeneration-preflight.md, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
+  - { id: regeneration-result-classified-weekly-planning-001, artifact: classified-weekly-planning-plan-regeneration, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }

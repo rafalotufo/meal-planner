@@ -1,0 +1,13 @@
+version: 1
+work_item: intent/classified-weekly-planning/intent.md
+base_commit: 91c419e54bbee8c92642c509e9cb4e92ee2e0426
+turn: 6
+no_progress: 0
+phase: done
+status: solved
+last_input_hash: a4f32eded62f4eaa5e537850db7ca5f34ffe682a1188da8960c7df35e01ccbdb
+stop_reason: solved
+last_action: "reviewer:review"
+artifacts: [{"path": "intent/classified-weekly-planning/intent.md", "sha256": "269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17"}, {"path": "intent/classified-weekly-planning/plan.md", "sha256": "f1338491fec80076f94c7bdc3a8371f3822076d6548d2f86b273c3fbe5f2381b"}, {"path": "org/reviews/design-classified-weekly-planning-001.md", "sha256": "f8daae3b070ee211b4912062b9847bcf9a7d3a87188ba9fd2fa0e173fd675f40"}, {"path": "intent/classified-weekly-planning/verification.md", "sha256": "bb2f7bd2cfac3892a388ccb14ee2a5c1c773bf98358b979d8a4be651d264901e"}, {"path": "org/reviews/security-classified-weekly-planning-001.md", "sha256": "dd8b2fd51ee59ead437a34bff9582e8d5893f5b80f4e6f775a41622487db4642"}, {"path": "org/reviews/code-classified-weekly-planning-001.md", "sha256": "d43bd12a5ac52ed5bdf2073341290098a44fecd4c29d3680e41a66d204b94074"}]
+acceptance: [{"command": "git diff --check", "exit": 0, "pass": true}]
+updated_at: "2026-11-27T13:55:23Z"

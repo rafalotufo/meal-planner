@@ -9,6 +9,7 @@
 
 ## Files that change
 
+- `AGENTS.md`
 - `scripts/check-meal-plan-scheduler.ts`
 - `lib/plans/composition.ts`
 - `lib/plans/generate.ts`
@@ -165,3 +166,38 @@ ordering. The new nine-identity catalog requires a separately authorized future
 migration; deployed older eight-identity artifacts reject it and are unsafe
 rollback targets. Preserve current hosted/development schema/data and existing
 staging-first and human release gates. No hosted operations in this plan.
+
+## Release-audit documentation amendment — 2026-11-27
+
+- Status: Approved — independent review `org/reviews/production-classified-weekly-planning-001.md`
+- Scope: local repository guidance and this exact manifest clarification only
+
+The original application plan remains Approved. Subsequent owner-authorized
+hosted cutover work follows sibling `hosted-cutover-plan.md` and the release
+approval/evidence artifacts; it does not change this plan's original local-build
+boundary or supply standing hosted authority.
+
+After fixed source `f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5` was selected and
+uploaded, the memory keeper committed two local release-audit guidance updates:
+`00783e8` added the repeated route-specific operator-probe lesson required by the
+AI SDLC skill's hard rule4, and `1291e69` recorded the actually applied ninth
+hosted migration identity, source/deployment attribution, preserved data/grants/
+ledgers and unsafe older-artifact rollback boundary. These commits change only
+`AGENTS.md`, are excluded from the fixed upload, and modify no application,
+service/API, configuration, schema, grants or authorization scope.
+
+The plan-sync checker does not classify `AGENTS.md` as a process path by default.
+Its exact manifest entry above therefore records those guidance edits honestly;
+no checker exemption, `--ignore` option or weakened rule is introduced. This
+amendment itself requires the final independent Production result review before
+closure; no approval of this additional documentation scope is claimed here.
+
+Production artifact `dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7` was promoted at
+`2026-11-27T16:08:43Z`. At this amendment request its full15-minute observation
+window was still running through `2026-11-27T16:23:43Z`; this amendment does not
+claim that watch completed or replace its actual result evidence. Later audit
+HEAD remains distinct from the unchanged fixed release source above.
+
+Verification for this documentation-only clarification is `git diff --check`
+and zero staged secret findings. No new application test/build is warranted;
+final independent review and root-owned plan-sync/audit checks remain required.

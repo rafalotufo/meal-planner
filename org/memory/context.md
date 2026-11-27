@@ -4,12 +4,12 @@
 
 ## Goal
 
-intent/classified-weekly-planning/intent.md
+intent/classified-weekly-planning/plan-regeneration-authority.md
 
 ## Loop
 
 - status: solved
-- turn: 6
+- turn: 4
 - phase: done
 - stop_reason: solved
 
@@ -21,7 +21,7 @@ intent/classified-weekly-planning/intent.md
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: busy (classified-weekly-planning-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -152,11 +152,11 @@ intent/classified-weekly-planning/intent.md
 
 ## Recent decisions
 
-- mem-0195 orchestrator: Dropdown-only followup solved in4turns. Final4a05fbf independently approved546b3a6; lint/typecheck/build and both real Chrome flows pass, actual320/1440 screenshot inspection confirms single visible dropdown with accessible hidden label. Prior acceptance images preserved. Human merge/release gates unchanged. (org/reviews/recipe-classification-dropdown-only-001.md)
-- mem-0196 ceo: Owner Approved reviewed classificationb49dcc4/application4a05fbf for local main merge. Maina0deeb6 clean ancestor; use fast-forward only plus approval/audit metadata. No push/development or hosted migration/grants/deployment/release authority. (intent/recipe-classification/merge-approval.md)
-- mem-0198 orchestrator: Begin classified weekly planning org workflow from owner request; preserve completed recipe classification loop in org/loop/archive/recipe-classification-before-classified-weekly-planning. Target 4 main,2 side,2 veggie recipes and separate display; gates remain PM/peer plus human merge/release. (org/loop/archive/recipe-classification-before-classified-weekly-planning/state.yaml)
-- mem-0200 orchestrator: Classified planning completed in6org turns: sourcefc9b12c/39fdc4a/72f726b, evidence7d66352, securityce3fc5d and code6ba4f84 approved. All required suites and3realChrome flows passed. New plans4main2side2veggie with honest shortages, snapshot groups and category-safe swaps. Human merge pending; no development/hosted migration or release. (org/reviews/code-classified-weekly-planning-001.md)
 - mem-0201 ceo: Owner Approved classified planning6f51d64 for clean local main fast-forward plus approval/audit metadata. Main91c419e is an ancestor and both worktrees clean. No push, development/hosted migration/grant or deployment/release authority. (intent/classified-weekly-planning/merge-approval.md)
+- mem-0204 ceo: Owner approved Preview-only cutover for fixedf0b8c1e/5pWi and native80fd migration on recordedPreview target, backup/preservation/stagingalias/scopedlink, acceptedpossible503gap and emergencysharedprojectpauseifrequiredhealthfails. NoProductioneffect or staginggapacceptance implied. (intent/classified-weekly-planning/preview-cutover-approval.md)
+- mem-0206 ceo: Owner Aprroved actualf0/5pWi stagingresults and gaps plus oneProductioncutover onrecordedtarget: only80fd migration, separatecandidate/manualpromotion, acceptedpossible503gap,15minhealth and emergencysharedprojectpauseifrequiredhealthfails. Pin f0 despite newerLICENSEmain/unrelatededits. No otherdata/config/paid effects; finiteexpiry inauthorization. (intent/classified-weekly-planning/production-authorization.md)
+- mem-0207 orchestrator: Authorized classified planning release completed: fixed f0b8c1e Production5LXW and staging5pWi, both nine identities. Result b93fa5f independently approved6698dea; full901364ms watch and40 complete queries observed zero runtime errors/fatal orHTTP5xx, final health/aliases/own cron registrations/schema/data/grants/history pass. Owned credentials/links/locks cleaned; private backups retained. One-attempt authority consumed; older8 artifacts unsafe, no future action/restore authority. (intent/classified-weekly-planning/production-release-result.md)
+- mem-0208 ceo: Owner requests exact current Production draft replacement: family43d6ebb2, plan d8ad41c1, week2026-11-29. New scoped atomic deletion/regeneration authority; ready pools17main3side3veggie support full4/2/2. Preserve backup/rollback safety and unrelated data; no schema, grant, schedule, deploy, other-family or provider effect. (intent/classified-weekly-planning/plan-regeneration-authority.md)
 
 ## Constraints
 
@@ -164,12 +164,10 @@ intent/classified-weekly-planning/intent.md
 
 ## Artifacts
 
-- intent/classified-weekly-planning/intent.md (269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17)
-- intent/classified-weekly-planning/plan.md (f1338491fec80076f94c7bdc3a8371f3822076d6548d2f86b273c3fbe5f2381b)
-- org/reviews/design-classified-weekly-planning-001.md (f8daae3b070ee211b4912062b9847bcf9a7d3a87188ba9fd2fa0e173fd675f40)
-- intent/classified-weekly-planning/verification.md (bb2f7bd2cfac3892a388ccb14ee2a5c1c773bf98358b979d8a4be651d264901e)
-- org/reviews/security-classified-weekly-planning-001.md (dd8b2fd51ee59ead437a34bff9582e8d5893f5b80f4e6f775a41622487db4642)
-- org/reviews/code-classified-weekly-planning-001.md (d43bd12a5ac52ed5bdf2073341290098a44fecd4c29d3680e41a66d204b94074)
+- intent/classified-weekly-planning/regeneration-preflight.md (9743fe6d648001392e3a26ccf55dabd718dc1449cccfa8bc223d2c5e4ee0717b)
+- org/reviews/regeneration-safety-classified-weekly-planning-001.md (f5c9301952a96def3d76551ae3cbe869848b74cc2f0a22793db12e307600f5b9)
+- intent/classified-weekly-planning/regeneration-result.md (751f5f853d709bc094e38cccb2e1515873fc845a2fdb4bacc209a0f0d997edb5)
+- org/reviews/regeneration-result-classified-weekly-planning-001.md (2a6060258284673fb9aab5ce3685308a7fa24115a197fe8b16cf2bdf8e88731c)
 
 ## Next action
 
@@ -177,7 +175,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0202 from intent/classified-weekly-planning/merge-approval.md
+- mem-0209 from intent/classified-weekly-planning/regeneration-result.md
 
 <!-- machine:end -->
 

@@ -1,0 +1,510 @@
+{
+  "version": 1,
+  "phase": "production-release-result",
+  "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+  "ownerAuthority": {
+    "commit": "923d7cc",
+    "ledgerRecord": "classified-weekly-planning-production-20261127",
+    "expiresAt": "2026-11-27T17:42:46Z",
+    "candidateReviewCommit": "cf64bc3",
+    "dispatchCommit": "bd6575e"
+  },
+  "result": "required bounded release checks completed; independent final review pending",
+  "target": {
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "teamId": "team_2c0O29FMb91g7L6sUChc9v6J",
+    "environment": "production",
+    "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "generatedHost": "meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+    "canonicalOrigin": "https://lotufo-meals.vercel.app",
+    "neonProjectId": "plain-pond-82425009",
+    "branchId": "br-wild-dust-bbr2mvzw",
+    "database": "meal_planner"
+  },
+  "migration": {
+    "startedAt": "2026-11-27T16:08:32.280Z",
+    "committedAt": "2026-11-27T16:08:34.003Z",
+    "id": "80fd3d65-d202-462b-883d-6adc2eb565be",
+    "hash": "2b9ffeb679e365c96aa862a6e808f0b2a87f9cd97a17cdafa0bfd3226ea669b5"
+  },
+  "schema": {
+    "refreshCapturedAt": "2026-11-27T16:06:42.567Z",
+    "beforeIdentityCount": 8,
+    "afterIdentityCount": 9,
+    "finalIdentityCount": 9,
+    "profileSha256": "0c854fcd29a0561d17e2d2effb03dcfc661aa9e192719ae1d0349bf580d9fb3e",
+    "catalogSha256": "9c9a8471e4ef4374109829edadebea9392019c81790875996f8abe64f89824c3",
+    "onlyReviewedMigrationApplied": true,
+    "pendingAfter": [],
+    "strictRestrictedRuntimeValidated": true,
+    "runtimeTempDenied": true,
+    "runtimeRoleGrantReconciliation": false
+  },
+  "preservation": {
+    "immediatePostMigrationAt": "2026-11-27T16:08:37.074Z",
+    "oldLegacyRowsPreserved": true,
+    "oldNativeRowsPreserved": true,
+    "immediateDomainDataPreserved": true,
+    "grantsPreserved": true,
+    "grantsSha256": "c210098c87f1c1b40fecb2fab2b5387e6b31625fd25e5852cd29b6090eab3c64",
+    "domainSha256Before": "92b12b2d7ac3d50ccfd251d1dde4ea2b3f1fdcbe13516280fde017185c4a2b07",
+    "domainSha256ImmediateAfter": "92b12b2d7ac3d50ccfd251d1dde4ea2b3f1fdcbe13516280fde017185c4a2b07",
+    "domainSha256Closing": "92b12b2d7ac3d50ccfd251d1dde4ea2b3f1fdcbe13516280fde017185c4a2b07",
+    "closingDomainMatchesImmediateAfter": true,
+    "closingStrictValidationAt": "2026-11-27T16:24:18.674Z",
+    "laterDataDeltaObserved": false,
+    "backupRestored": false
+  },
+  "backup": {
+    "completedAt": "2026-11-27T15:47:36.804Z",
+    "format": "PostgreSQL17 custom",
+    "bytes": 63713,
+    "sha256": "4ea258f54f21a4978ec563254f076240dc5130af59a68ab68a27dd6680e1f320",
+    "allDomainTablesPresent": true,
+    "bothLedgersPresent": true,
+    "archiveListed": true,
+    "restoreTested": false
+  },
+  "promotion": {
+    "requestedAt": "2026-11-27T16:08:40.995Z",
+    "promotionObservedAt": "2026-11-27T16:08:44.821Z",
+    "aliasAssignedAt": "2026-11-27T16:08:43.060Z",
+    "aliasTimestampSource": "provider deployment.aliasAssignedAt",
+    "candidateId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+    "generatedHost": "meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+    "stagingPreserved": true,
+    "configurationPreserved": true,
+    "projectUnpaused": true
+  },
+  "outageDurationMeasured": false,
+  "initialCanonicalHealth": {
+    "capturedAt": "2026-11-27T16:09:18.887Z",
+    "origin": "https://lotufo-meals.vercel.app",
+    "checks": [
+      {
+        "capturedAt": "2026-11-27T16:09:17.566Z",
+        "check": "home",
+        "status": 307,
+        "expected": 307,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T16:09:18.618Z",
+        "check": "sign-in",
+        "status": 200,
+        "expected": 200,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T16:09:18.763Z",
+        "check": "session",
+        "status": 401,
+        "expected": 401,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T16:09:18.887Z",
+        "check": "search",
+        "status": 401,
+        "expected": 401,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      }
+    ],
+    "pass": true
+  },
+  "watch": {
+    "startedAt": "2026-11-27T16:08:43.060Z",
+    "requiredEnd": "2026-11-27T16:23:43.060Z",
+    "observationEndedAt": "2026-11-27T16:23:44.424Z",
+    "observedDurationMs": 901364,
+    "complete15Minutes": true,
+    "closingSince": "2026-11-27T16:08:43.000Z",
+    "closingUntil": "2026-11-27T16:23:45.000Z",
+    "closingEndWaitedUntilPastBeforeQuery": true,
+    "queryPairCount": 20,
+    "queryCount": 40,
+    "queriesBoundToDeployment": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "queriesBoundToEnvironment": "production",
+    "sourceBinding": "immutable candidate fixed-source attribution",
+    "pinnedCliVersion": "66.6.0",
+    "allQueriesExit0": true,
+    "allSummariesExactRequestedBounds": true,
+    "allExcludedIntervalsEmpty": true,
+    "allPaginationComplete": true,
+    "runtimeErrorFatalRecords": 0,
+    "http5xxRecords": 0,
+    "requestQueryBackgroundExecutionsExcludedByCli": true,
+    "closingReceipts": [
+      {
+        "kind": "runtime",
+        "capturedAt": "2026-11-27T16:23:46.586Z",
+        "requestedSince": "2026-11-27T16:08:43.000Z",
+        "requestedUntil": "2026-11-27T16:23:45.000Z",
+        "query": "level:(error OR fatal)",
+        "exitCode": 0,
+        "recordCount": 0,
+        "summary": {
+          "type": "summary",
+          "recordsReturned": 0,
+          "timeRange": {
+            "start": "2026-11-27T16:08:43.000Z",
+            "end": "2026-11-27T16:23:45.000Z"
+          },
+          "pagination": {
+            "hasMore": false,
+            "next": null
+          },
+          "excludedIntervals": []
+        }
+      },
+      {
+        "kind": "requests",
+        "capturedAt": "2026-11-27T16:23:47.006Z",
+        "requestedSince": "2026-11-27T16:08:43.000Z",
+        "requestedUntil": "2026-11-27T16:23:45.000Z",
+        "query": "httpStatus >= 500 AND httpStatus < 600",
+        "exitCode": 0,
+        "recordCount": 0,
+        "summary": {
+          "type": "summary",
+          "recordsReturned": 0,
+          "timeRange": {
+            "start": "2026-11-27T16:08:43.000Z",
+            "end": "2026-11-27T16:23:45.000Z"
+          },
+          "pagination": {
+            "hasMore": false,
+            "next": null
+          },
+          "excludedIntervals": []
+        }
+      }
+    ],
+    "cumulativePolls": [
+      {
+        "label": "001",
+        "through": "2026-11-27T16:09:47.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "002",
+        "through": "2026-11-27T16:11:20.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "003",
+        "through": "2026-11-27T16:12:02.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "004",
+        "through": "2026-11-27T16:12:47.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "005",
+        "through": "2026-11-27T16:13:29.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "006",
+        "through": "2026-11-27T16:14:11.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "007",
+        "through": "2026-11-27T16:14:59.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "008",
+        "through": "2026-11-27T16:15:41.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "009",
+        "through": "2026-11-27T16:16:26.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "010",
+        "through": "2026-11-27T16:17:11.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "011",
+        "through": "2026-11-27T16:17:55.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "012",
+        "through": "2026-11-27T16:18:37.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "013",
+        "through": "2026-11-27T16:19:22.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "014",
+        "through": "2026-11-27T16:20:04.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "015",
+        "through": "2026-11-27T16:20:46.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "016",
+        "through": "2026-11-27T16:21:32.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "017",
+        "through": "2026-11-27T16:22:14.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "018",
+        "through": "2026-11-27T16:22:57.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "019",
+        "through": "2026-11-27T16:23:40.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      },
+      {
+        "label": "closing-full-window",
+        "through": "2026-11-27T16:23:45.000Z",
+        "bothQueriesComplete": true,
+        "bothRecordCounts": 0
+      }
+    ]
+  },
+  "closingCanonicalHealth": {
+    "capturedAt": "2026-11-27T16:24:16.797Z",
+    "origin": "https://lotufo-meals.vercel.app",
+    "checks": [
+      {
+        "capturedAt": "2026-11-27T16:24:15.646Z",
+        "check": "home",
+        "status": 307,
+        "expected": 307,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T16:24:16.542Z",
+        "check": "sign-in",
+        "status": 200,
+        "expected": 200,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T16:24:16.661Z",
+        "check": "session",
+        "status": 401,
+        "expected": 401,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T16:24:16.797Z",
+        "check": "search",
+        "status": 401,
+        "expected": 401,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "referrerPolicy": "no-referrer",
+        "pragma": "no-cache",
+        "strictTransportSecurity": "max-age=31536000",
+        "cspFrameAncestorsNone": true,
+        "ownSignInRedirect": true,
+        "pass": true
+      }
+    ],
+    "pass": true
+  },
+  "closingRouting": {
+    "capturedAt": "2026-11-27T16:24:13.895Z",
+    "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "readyState": "READY",
+    "target": "production",
+    "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+    "generatedHost": "meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+    "nodeVersion": "24.x",
+    "sourceProjectTargetCorrect": true,
+    "projectUnpaused": true,
+    "projectProductionTargetCorrect": true,
+    "configurationPreserved": true,
+    "configurationSha256": "97e7370073cbb0137996adbb66e0d8f87781edad57422a184109e8456d0bf577",
+    "exactAliasesCorrect": true,
+    "aliases": [
+      {
+        "alias": "lotufo-meals.vercel.app",
+        "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-delta-six-55.vercel.app",
+        "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-rafalotufos-projects.vercel.app",
+        "deploymentId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-staging-rafalotufos.vercel.app",
+        "deploymentId": "dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S",
+        "redirect": null
+      }
+    ],
+    "cronOwner": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "cronDefinitions": [
+      {
+        "host": "meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 13 * * 3"
+      },
+      {
+        "host": "meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 14 * * 3"
+      }
+    ],
+    "cronAttributionCorrect": true,
+    "sourceMetadataIsOperatorAttestation": true
+  },
+  "configurationFingerprintNote": "compared unchanged non-cron settings/secrets/protection; expected cron owner/generated hostname update verified separately with unchanged path/schedules",
+  "candidateRuntimeEvidence": "production-candidate.json and actual v11 lambda runtime nodejs24.x/timeout90 receipts",
+  "cleanup": {
+    "credentials": {
+      "cleanedAt": "2026-11-27T16:24:56.556Z",
+      "ownedProductionCredentialCopyDeleted": true,
+      "ownedCandidateLinkCopyPreviouslyDeleted": true,
+      "ownedActiveLinksRemaining": 0,
+      "remainingLinksEvidence": "API revocation receipt before promotion; no links created afterward",
+      "sharedCliAuthenticationPreserved": true,
+      "privateBackupRetained": true,
+      "backupModeOwnerOnly": true
+    },
+    "locks": {
+      "cleanedAt": "2026-11-27T16:24:56.606867+00:00",
+      "runId": "classified-planning-production-f0b8c1e-20261127",
+      "ownedLaneLocksReleased": 2,
+      "unrelatedLocksRemoved": 0
+    },
+    "newScopedLinksCreatedDuringCutover": 0,
+    "privateBackupRetained": true
+  },
+  "recovery": {
+    "requiredFailureObserved": false,
+    "pauseNeeded": false,
+    "pausePerformed": false,
+    "oldArtifactRollbackPerformed": false,
+    "automaticResumePerformed": false
+  },
+  "gaps": [
+    "hosted-authenticated-planning-UI-and-mutations-unverified",
+    "google-oauth-unverified",
+    "paid-provider-photo-and-live-cancellation-unverified",
+    "native-unattended-cron-delivery-not-observed",
+    "no-valid-Bearer-production-generation-call",
+    "no-hosted-mobile-Firefox-Safari-run",
+    "finite-candidate-link-is-not-comprehensive-platform-WAF-proof",
+    "backup-listed-not-restore-tested",
+    "existing-moderate-esbuild-advisory-and-live-trace-reassessment-limit-retained"
+  ],
+  "excludedEffects": [
+    "Google/app-session login",
+    "paid provider call",
+    "synthetic data or principal",
+    "valid-token scheduler generation",
+    "source/config/secret rotation",
+    "backup restore",
+    "old-artifact rollback"
+  ],
+  "endedAt": "2026-11-27T16:24:56.606867+00:00",
+  "independentFinalReviewPending": true,
+  "selfMarkedReleaseDone": false
+}
