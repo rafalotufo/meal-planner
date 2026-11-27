@@ -63,6 +63,7 @@ intent/classified-weekly-planning/intent.md
 - ceo-0071 ceo -> orchestrator decision: Approve login expiration merge to local main
 - ceo-0073 ceo -> orchestrator decision: Fix weekly scheduler and validate staging before Production approval
 - ceo-0074 ceo -> orchestrator answer: Select Wednesday Hobby cron with one-hour delay accepted
+- ceo-0082 ceo -> orchestrator decision: Approve exact Preview eight-slot cutover and interruption scope
 - orchestrator-0014 orchestrator -> ceo status: Vercel project configured; credential and Google prerequisites pending
 - orchestrator-0015 orchestrator -> ceo handoff: Family membership ready for human merge review
 - orchestrator-0020 orchestrator -> ceo status: Recipe search notebook implemented and verified locally
@@ -125,7 +126,6 @@ intent/classified-weekly-planning/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0199 orchestrator -> ceo question: Approve exact Preview eight-slot migration and staging cutover scope
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -153,11 +153,11 @@ intent/classified-weekly-planning/intent.md
 
 ## Recent decisions
 
-- mem-0195 orchestrator: Dropdown-only followup solved in4turns. Final4a05fbf independently approved546b3a6; lint/typecheck/build and both real Chrome flows pass, actual320/1440 screenshot inspection confirms single visible dropdown with accessible hidden label. Prior acceptance images preserved. Human merge/release gates unchanged. (org/reviews/recipe-classification-dropdown-only-001.md)
 - mem-0196 ceo: Owner Approved reviewed classificationb49dcc4/application4a05fbf for local main merge. Maina0deeb6 clean ancestor; use fast-forward only plus approval/audit metadata. No push/development or hosted migration/grants/deployment/release authority. (intent/recipe-classification/merge-approval.md)
 - mem-0198 orchestrator: Begin classified weekly planning org workflow from owner request; preserve completed recipe classification loop in org/loop/archive/recipe-classification-before-classified-weekly-planning. Target 4 main,2 side,2 veggie recipes and separate display; gates remain PM/peer plus human merge/release. (org/loop/archive/recipe-classification-before-classified-weekly-planning/state.yaml)
 - mem-0200 orchestrator: Classified planning completed in6org turns: sourcefc9b12c/39fdc4a/72f726b, evidence7d66352, securityce3fc5d and code6ba4f84 approved. All required suites and3realChrome flows passed. New plans4main2side2veggie with honest shortages, snapshot groups and category-safe swaps. Human merge pending; no development/hosted migration or release. (org/reviews/code-classified-weekly-planning-001.md)
 - mem-0201 ceo: Owner Approved classified planning6f51d64 for clean local main fast-forward plus approval/audit metadata. Main91c419e is an ancestor and both worktrees clean. No push, development/hosted migration/grant or deployment/release authority. (intent/classified-weekly-planning/merge-approval.md)
+- mem-0204 ceo: Owner approved Preview-only cutover for fixedf0b8c1e/5pWi and native80fd migration on recordedPreview target, backup/preservation/stagingalias/scopedlink, acceptedpossible503gap and emergencysharedprojectpauseifrequiredhealthfails. NoProductioneffect or staginggapacceptance implied. (intent/classified-weekly-planning/preview-cutover-approval.md)
 
 ## Constraints
 
@@ -178,7 +178,7 @@ reviewer:review
 
 ## Last digest source
 
-- mem-0203 from intent/classified-weekly-planning/release-preflight.md
+- mem-0204 from intent/classified-weekly-planning/preview-cutover-approval.md
 
 <!-- machine:end -->
 
