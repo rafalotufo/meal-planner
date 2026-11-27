@@ -1,0 +1,349 @@
+{
+  "version": 1,
+  "phase": "production-candidate-preparation-only",
+  "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+  "releaseAuthorization": {
+    "record": "classified-weekly-planning-production-20261127",
+    "commit": "923d7cc",
+    "expiresAt": "2026-11-27T17:42:46Z",
+    "committedUnexpiredLedgerVerified": true,
+    "actualProductionGateResult": "ALLOW"
+  },
+  "preparedAt": "2026-11-27T16:01:26.944687+00:00",
+  "candidate": {
+    "id": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "url": "meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+    "readyState": "READY",
+    "target": "production",
+    "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+    "nodeVersion": "24.x",
+    "capturedAt": "2026-11-27T16:00:13.337Z",
+    "aliasMappingsUnchanged": true
+  },
+  "build": {
+    "cliVersion": "66.6.0",
+    "prod": true,
+    "skipDomain": true,
+    "buildsCreated": 1,
+    "uploadFilesVerified": 151,
+    "uploadBytes": 1047842,
+    "criticalPinnedOperatorFilesReverified": 10,
+    "gitCommitRef": "main",
+    "buildAndRuntimeSourceShaBound": true,
+    "attribution": "fixed Git blob upload + operator metadata; not provider-signed Git integration"
+  },
+  "providerFunctionMetadata": {
+    "capturedAt": "2026-11-27T15:59:40.047Z",
+    "method": "supported GET /v11/deployments/{id}/builds, lambda.timeout field",
+    "candidateId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+    "sourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+    "deployedFunctions": [
+      {
+        "path": "api/plans/generate",
+        "runtime": "nodejs24.x",
+        "timeoutSeconds": 90,
+        "memorySize": 2048
+      },
+      {
+        "path": "api/recipes/search",
+        "runtime": "nodejs24.x",
+        "timeoutSeconds": 90,
+        "memorySize": 2048
+      }
+    ],
+    "cancellationOverrides": {
+      "app/api/plans/generate/route.ts": {
+        "supportsCancellation": true
+      },
+      "app/api/recipes/search/route.ts": {
+        "supportsCancellation": true
+      }
+    }
+  },
+  "configuration": {
+    "capturedAt": "2026-11-27T16:00:13.609Z",
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "projectUnpaused": true,
+    "configurationUnchanged": true,
+    "configurationSha256": "0ee2ceb2af1ed16ea9af26b74d64666bcec30dbcf3552fcec35b8a2d9761f3f6",
+    "currentProductionDeployment": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+    "currentCronOwner": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+    "cronDefinitions": [
+      {
+        "host": "meal-planner-smlpcvad5-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 13 * * 3"
+      },
+      {
+        "host": "meal-planner-smlpcvad5-rafalotufos-projects.vercel.app",
+        "path": "/api/plans/generate",
+        "schedule": "0 14 * * 3"
+      }
+    ]
+  },
+  "acceptedStagingRefresh": {
+    "capturedAt": "2026-11-27T15:46:54.471Z",
+    "exactCatalogMatchedNineIdentityProfile": true,
+    "legacyCount": 5,
+    "nativeCount": 4,
+    "runtimeTempDenied": true,
+    "profileSha256": "0c854fcd29a0561d17e2d2effb03dcfc661aa9e192719ae1d0349bf580d9fb3e",
+    "method": "read-only catalog/ledger SELECT via existing Neon connector; no credentials retrieved",
+    "legacyAndNativeIdsChecksumsDescriptorsMatchFixedSource": true
+  },
+  "productionDatabase": {
+    "projectId": "plain-pond-82425009",
+    "branchId": "br-wild-dust-bbr2mvzw",
+    "database": "meal_planner",
+    "directEndpoint": "ep-lively-tooth-bbi1n111.c-15.us-east-1.aws.neon.tech",
+    "baselineCapturedAt": "2026-11-27T15:46:15.491Z",
+    "identityCount": 8,
+    "profileSha256": "b7288dc9ec2f72d71a77d32104205a493bbbecca5fa07c83a19bb1ed52e55584",
+    "catalogSha256": "0ffeb4f3ddb891f722c4dc203c23277ca7b25463945d78c8937087d1464b94a3",
+    "grantsSha256": "c210098c87f1c1b40fecb2fab2b5387e6b31625fd25e5852cd29b6090eab3c64",
+    "domainSha256": "92b12b2d7ac3d50ccfd251d1dde4ea2b3f1fdcbe13516280fde017185c4a2b07",
+    "strictRestrictedRuntimeValidated": true,
+    "runtimeTempDenied": true,
+    "onlyPending": [
+      {
+        "id": "80fd3d65-d202-462b-883d-6adc2eb565be",
+        "hash": "2b9ffeb679e365c96aa862a6e808f0b2a87f9cd97a17cdafa0bfd3226ea669b5"
+      }
+    ],
+    "ddlPerformed": false,
+    "migrationExecuted": false,
+    "grantReconciliation": false
+  },
+  "backup": {
+    "completedAt": "2026-11-27T15:47:36.804Z",
+    "format": "PostgreSQL17 custom",
+    "bytes": 63713,
+    "sha256": "4ea258f54f21a4978ec563254f076240dc5130af59a68ab68a27dd6680e1f320",
+    "allDomainTablesPresent": true,
+    "bothLedgersPresent": true,
+    "archiveListed": true,
+    "restoreTested": false
+  },
+  "candidateAnonymousChecks": [
+    {
+      "capturedAt": "2026-11-27T15:59:05.183Z",
+      "origin": "generated",
+      "check": "root",
+      "status": 421,
+      "expected": 421,
+      "privateNoStore": true,
+      "frameDenied": false,
+      "nosniff": false,
+      "locationCorrect": true,
+      "platformIntercepted": false,
+      "bodyBytes": 31,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "pragma": "no-cache",
+        "referrerPolicy": null,
+        "frameOptions": null,
+        "contentTypeOptions": null,
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": "max-age=63072000; includeSubDomains; preload"
+      },
+      "pass": true
+    },
+    {
+      "capturedAt": "2026-11-27T15:59:05.394Z",
+      "origin": "generated",
+      "check": "sign-in",
+      "status": 421,
+      "expected": 421,
+      "privateNoStore": true,
+      "frameDenied": false,
+      "nosniff": false,
+      "locationCorrect": true,
+      "platformIntercepted": false,
+      "bodyBytes": 31,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "pragma": "no-cache",
+        "referrerPolicy": null,
+        "frameOptions": null,
+        "contentTypeOptions": null,
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": "max-age=63072000; includeSubDomains; preload"
+      },
+      "pass": true
+    },
+    {
+      "capturedAt": "2026-11-27T15:59:05.603Z",
+      "origin": "generated",
+      "check": "session",
+      "status": 421,
+      "expected": 421,
+      "privateNoStore": true,
+      "frameDenied": false,
+      "nosniff": false,
+      "locationCorrect": true,
+      "platformIntercepted": false,
+      "bodyBytes": 31,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "pragma": "no-cache",
+        "referrerPolicy": null,
+        "frameOptions": null,
+        "contentTypeOptions": null,
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": "max-age=63072000; includeSubDomains; preload"
+      },
+      "pass": true
+    },
+    {
+      "capturedAt": "2026-11-27T15:59:05.825Z",
+      "origin": "generated",
+      "check": "static",
+      "status": 421,
+      "expected": 421,
+      "privateNoStore": true,
+      "frameDenied": false,
+      "nosniff": false,
+      "locationCorrect": true,
+      "platformIntercepted": false,
+      "bodyBytes": 31,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "pragma": "no-cache",
+        "referrerPolicy": null,
+        "frameOptions": null,
+        "contentTypeOptions": null,
+        "contentSecurityPolicy": null,
+        "strictTransportSecurity": "max-age=63072000; includeSubDomains; preload"
+      },
+      "pass": true
+    },
+    {
+      "capturedAt": "2026-11-27T15:59:07.063Z",
+      "origin": "generated",
+      "check": "menu",
+      "status": 421,
+      "expected": 421,
+      "privateNoStore": true,
+      "frameDenied": true,
+      "nosniff": true,
+      "locationCorrect": true,
+      "platformIntercepted": false,
+      "bodyBytes": 31,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "pragma": "no-cache",
+        "referrerPolicy": "no-referrer",
+        "frameOptions": "DENY",
+        "contentTypeOptions": "nosniff",
+        "contentSecurityPolicy": "default-src 'self'; script-src 'self' 'nonce-[redacted]'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
+        "strictTransportSecurity": "max-age=31536000"
+      },
+      "pass": true,
+      "sevenPrivateHeaders": true
+    },
+    {
+      "capturedAt": "2026-11-27T15:59:08.057Z",
+      "origin": "generated",
+      "check": "scheduler",
+      "status": 401,
+      "expected": 401,
+      "privateNoStore": true,
+      "frameDenied": true,
+      "nosniff": true,
+      "locationCorrect": true,
+      "platformIntercepted": false,
+      "bodyBytes": 24,
+      "securityHeaders": {
+        "cacheControl": "private, no-store",
+        "pragma": "no-cache",
+        "referrerPolicy": "no-referrer",
+        "frameOptions": "DENY",
+        "contentTypeOptions": "nosniff",
+        "contentSecurityPolicy": "default-src 'none'; frame-ancestors 'none'; base-uri 'none'",
+        "strictTransportSecurity": "max-age=31536000"
+      },
+      "pass": true,
+      "sevenPrivateHeaders": true
+    }
+  ],
+  "candidateChecksPass": true,
+  "initialOperatorProbe": {
+    "exitCode": 2,
+    "issue": "operator incorrectly applied scheduler default-none CSP to menu, whose reviewed nonce-bearing default-self CSP was present",
+    "appOrTestsChanged": false,
+    "initialReceiptRetainedPrivately": true,
+    "correctedRouteSpecificProbeExitCode": 0
+  },
+  "temporaryAccess": {
+    "linksCreated": 1,
+    "scope": "candidate-only",
+    "createdAt": "2026-11-27T15:49:35.645Z",
+    "ttlSeconds": 1800,
+    "revocation": {
+      "candidateId": "dpl_5LXWA7v3PufUctcCUm6Evd2WSdu7",
+      "revokedAt": "2026-11-27T15:59:39.143Z",
+      "apiRevoked": true,
+      "regenerated": false,
+      "remainingCandidateScopedLinks": 0,
+      "freshDenialProven": true,
+      "observations": [
+        {
+          "capturedAt": "2026-11-27T15:59:39.219Z",
+          "attempt": 1,
+          "status": 307,
+          "redirectOrigin": "https://meal-planner-jvp1ahcio-rafalotufos-projects.vercel.app",
+          "redirectPath": "/sign-in",
+          "freshWithoutCookies": true,
+          "appAccessDenied": false
+        },
+        {
+          "capturedAt": "2026-11-27T15:59:41.250Z",
+          "attempt": 2,
+          "status": 302,
+          "redirectOrigin": "https://vercel.com",
+          "redirectPath": "/sso-api",
+          "freshWithoutCookies": true,
+          "appAccessDenied": true
+        }
+      ]
+    },
+    "plaintextLinkCopyDeleted": true,
+    "projectWideBypassCreated": false,
+    "appSessionCookieUsed": false
+  },
+  "operatingState": {
+    "productionPromotionPerformed": false,
+    "currentProductionRemains": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+    "allThreeProductionAliasesUnchanged": true,
+    "stagingRemains": "dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S",
+    "ownedLaneLocksHeld": {
+      "acquiredAt": "2026-11-27T15:45:07.680094+00:00",
+      "runId": "classified-planning-production-f0b8c1e-20261127",
+      "allWorktreesChecked": 19,
+      "ownedLaneLocksHeld": 2
+    },
+    "privateProductionCredentialsHeldForAuthorizedNextPhase": true,
+    "sharedCredentialsChanged": false,
+    "unrelatedMainWorkingEditsUntouched": true,
+    "awaitingIndependentCandidateReview": true
+  },
+  "privateReceipts": [
+    "production/create-private.json",
+    "production/candidate-private.json",
+    "production/candidate-builds-private.json",
+    "production/actual-function-metadata.json",
+    "production/before-private.json",
+    "production/backup-evidence.json",
+    "production/health-generated-initial-assertion.json",
+    "production/health-generated.json",
+    "production/revocation-evidence.json",
+    "production/configuration-readiness.json"
+  ],
+  "proofLimits": [
+    "no Production migration/promotion yet",
+    "no hosted authenticated user/UI/planning/provider/photo/cancellation execution",
+    "no valid scheduler Bearer call or generation effect",
+    "archive listed; not restored",
+    "existing accepted staging/dependency gaps remain"
+  ]
+}
