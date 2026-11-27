@@ -150,6 +150,15 @@ in .next/dev/types and .next/types. Move only the inactive generated dev/types
 directory to a private temporary backup, then regenerate production types/build.
 Do not exclude application/tests or weaken the compiler to handle this cache issue.
 
+Operator probes must match each reviewed handler's contract: early Proxy generated-Host
+421 requires no-store; exact Menu uses nonce-bearing default-self CSP, while the
+scheduler uses default-none CSP. Preserve raw failed or inconclusive supplementary
+observations and distinguish corrected probe results from the original receipts.
+Correct mistaken operator assertions without changing application/security policy,
+weakening required checks, or relabeling failed observations as passes. Effective
+hosted runtime/timeout proof uses the actual deployed function's build output,
+not source-only duration declarations or deployment-wide defaults.
+
 ## Conventions
 
 Prefer small server components and static Tailwind utilities. Do not add client
