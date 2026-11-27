@@ -9,22 +9,23 @@ intent/classified-weekly-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 1
-- phase: design
+- turn: 2
+- phase: design_review
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/classified-weekly-planning/spec.md)
+- architect: busy (intent/classified-weekly-planning/plan.md)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/classified-weekly-planning/intent.md)
 - product-manager: idle (unassigned)
-- reviewer: idle (unassigned)
+- reviewer: busy (intent/classified-weekly-planning/plan.md)
 - security-researcher: idle (unassigned)
 - senior-developer: idle (unassigned)
 
 ## Open messages
 
+- architect-0019 architect -> orchestrator handoff: Classified weekly planning spec and plan ready for independent review
 - ceo-0001 ceo -> product-manager answer: Re: Feature scope needed for intake
 - ceo-0007 ceo -> orchestrator decision: Approve Vercel merge and free project configuration
 - ceo-0008 ceo -> orchestrator decision: Authorize Vercel production release and bounded verification
@@ -127,6 +128,7 @@ intent/classified-weekly-planning/intent.md
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
 - orchestrator-0192 orchestrator -> product-manager handoff: Capture classified weekly planning intent
 - orchestrator-0193 orchestrator -> architect handoff: Design classified weekly planning and eight-slot compatibility
+- orchestrator-0194 orchestrator -> reviewer handoff: Independently review classified planning design and plan
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -171,10 +173,11 @@ intent/classified-weekly-planning/intent.md
 ## Artifacts
 
 - intent/classified-weekly-planning/intent.md (269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17)
+- intent/classified-weekly-planning/plan.md (f1338491fec80076f94c7bdc3a8371f3822076d6548d2f86b273c3fbe5f2381b)
 
 ## Next action
 
-product-manager:accept_intent
+architect:design_and_plan
 
 ## Last digest source
 
