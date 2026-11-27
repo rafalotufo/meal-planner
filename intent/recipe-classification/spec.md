@@ -3,7 +3,7 @@
 - Author: architect
 - Date: 2026-11-26
 - Status: Approved by independent review `d891e35` of source `6c0933e`
-- Dropdown-only amendment: Proposed for independent peer review; owner requests “No need to repeat the category. Showing only the drop-down is enough.”
+- Dropdown-only amendment: Approved by independent review `1e23bc1` of source `c24b2a0`; owner requests “No need to repeat the category. Showing only the drop-down is enough.”
 - Auto-save amendment: Approved by independent review `3e69b40` of owner-requested amendment `eb1e15f`
 - Input: accepted sibling `intent.md` (`b73ecf5`)
 - Approval policy: PM intent and independent spec/plan review under `org/protocol.md`; human merge and hosted release gates remain separate.

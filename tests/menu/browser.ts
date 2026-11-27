@@ -43,7 +43,7 @@ try {
   await menuReady();
   for (const width of [390, 1440]) {
     await browser.viewport(width);
-    await browser.screenshot(`org/reviews/recipe-classification-menu-title-focus-after-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-dropdown-only-menu-title-focus-after-${width}.png`);
   }
   await unselectedTitle();
   await key('Tab', 'Tab', 9);
@@ -90,7 +90,7 @@ try {
   for (const width of [390,1440]) {
     await browser.viewport(width);
     await browser.evaluate("document.querySelector('[data-save-recipe]').scrollIntoView({block:'center'})");
-    await browser.screenshot(`org/reviews/recipe-classification-menu-disabled-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-dropdown-only-menu-disabled-${width}.png`);
   }
   const savesBeforeDisabledClick = browser.requests.filter(value => { const url = new URL(value); return url.pathname === '/api/menu' && !url.search; }).length;
   await browser.click('[data-save-recipe]');
@@ -115,9 +115,9 @@ try {
   await browser.click('a[href="/menu"]');
   await browser.waitFor("location.pathname === '/menu' && document.querySelectorAll('article').length === 1", 'fresh menu after save');
   await unselectedTitle();
-  assert.equal(await browser.evaluate("document.querySelectorAll('[data-recipe-category]').length"), 1, 'every saved recipe displays its category');
-  assert.equal(await browser.evaluate("document.querySelector('[data-recipe-category]').textContent"), 'Category: Unclassified', 'legacy cards are honestly unclassified');
-  assert.equal(await browser.evaluate("Boolean(document.querySelector('label[for^=recipe-category-]'))"), true, 'category select has an explicit label');
+  assert.equal(await browser.evaluate("document.querySelectorAll('[data-recipe-category]').length"), 0, 'editable cards do not repeat the dropdown category');
+  assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').selectedOptions[0].textContent"), 'Unclassified', 'legacy cards are honestly unclassified in their dropdown');
+  assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').labels[0].textContent.includes('Category for ')"), true, 'dropdown keeps its full recipe-specific accessible label');
   assert.equal(await browser.evaluate("Boolean(document.querySelector('[data-save-category]'))"), false, 'selecting a category saves without a separate button');
   async function chooseVeggie() {
   // Focus only, then use the native printable-key selection supported by Chrome.
@@ -132,11 +132,12 @@ try {
   await browser.waitFor("document.querySelector('[data-category-select]').value === 'veggie'", 'keyboard selects Veggie');
   await browser.waitFor("document.querySelector('[data-category-select]').disabled", 'automatic category request disables overlapping selection');
   await browser.waitFor("document.body.innerText.includes('Could not confirm category')", 'failed category request stays recoverable');
-  assert.equal(await browser.evaluate("document.querySelector('[data-recipe-category]').textContent"), 'Category: Unclassified', 'failed write never claims a saved category');
+  assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').selectedOptions[0].textContent"), 'Unclassified', 'failed write never claims a saved category');
   assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').value"), '', 'failed automatic write restores the stored selection');
   assert.equal(await browser.evaluate("document.body.innerText.includes('Fixture request failure')"), false);
   await chooseVeggie();
-  await browser.waitFor("document.querySelector('[data-recipe-category]')?.textContent === 'Category: Veggie'", 'category persists through real HTTP and refresh');
+  await browser.waitFor("(async()=>{const response=await fetch('/api/menu',{cache:'no-store'});if(!response.ok)return false;const page=await response.json();return page.entries.length===1&&page.entries[0].recipe.category==='veggie';})()", 'category persists through the real protected API');
+  await browser.waitFor("document.querySelector('[data-category-select]')?.selectedOptions[0].textContent === 'Veggie' && !document.querySelector('[data-category-select]').disabled", 'saved dropdown selection settles after refresh');
   await browser.navigate(`${server.origin}/menu`); await size(1); await menuReady();
   assert.equal(await browser.evaluate("document.querySelector('[data-category-select]').value"), 'veggie', 'saved correction survives reload');
   assert.equal(await browser.evaluate("document.querySelector('article img')?.getAttribute('src')"), 'https://images.recipe-fixture.test/photo.svg');
@@ -145,7 +146,7 @@ try {
   await unselectedTitle();
   for (const width of [390, 1440]) {
     await browser.viewport(width);
-    await browser.screenshot(`org/reviews/recipe-classification-menu-controls-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-dropdown-only-menu-controls-${width}.png`);
   }
   const removalsBefore = browser.requests.filter(url => new URL(url).pathname.endsWith('/remove')).length;
   await browser.click('[data-remove-recipe]');
@@ -154,7 +155,7 @@ try {
   for (const width of [320, 390, 1440]) {
     await browser.viewport(width);
     assert.equal(await browser.evaluate("(() => { const r=document.querySelector('dialog').getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && r.height <= innerHeight; })()"), true);
-    await browser.screenshot(`org/reviews/recipe-classification-menu-confirm-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-dropdown-only-menu-confirm-${width}.png`);
   }
   await key('Tab', 'Tab', 9);
   assert.equal(await browser.evaluate('document.activeElement.hasAttribute("data-confirm-removal")'), true);
@@ -226,7 +227,8 @@ try {
   // Additional snapshots enter through actual protected HTTP, as another family device would.
   assert.deepEqual(await browser.evaluate(`Promise.all(${JSON.stringify(special.slice(1))}.map(async recipe => (await fetch('/api/menu',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(recipe)})).status))`), [200, 200]);
   await browser.navigate(`${server.origin}/menu`); await size(3);
-  assert.deepEqual(await browser.evaluate("Array.from(document.querySelectorAll('[data-recipe-category]'),node=>node.textContent).sort()"), ['Category: Main dish', 'Category: Side', 'Category: Veggie'], 'classified snapshot saves preserve all three labels');
+  assert.deepEqual(await browser.evaluate("Array.from(document.querySelectorAll('[data-category-select]'),node=>node.selectedOptions[0].textContent).sort()"), ['Main dish', 'Side', 'Veggie'], 'classified snapshot saves preserve all three selected options');
+  assert.equal(await browser.evaluate("document.querySelectorAll('[data-recipe-category]').length"), 0, 'classified editable cards have no duplicate category text');
   await browser.waitFor("document.querySelectorAll('article img').length === 1", 'missing and failed image fallbacks');
   assert.equal(await browser.evaluate("document.querySelectorAll('article b,article script').length"), 0, 'saved HTML remains literal text');
   assert.equal(await browser.evaluate("document.body.innerText.includes('<b>Literal recipe title</b>')"), true);
@@ -234,7 +236,7 @@ try {
     await browser.viewport(width);
     assert.equal(await browser.evaluate('document.documentElement.scrollWidth <= innerWidth'), true, 'category controls fit narrow and desktop cards');
     assert.equal(await browser.evaluate("Array.from(document.querySelectorAll('[data-category-select]')).every(node=>{const box=node.getBoundingClientRect();return box.width>0&&box.left>=0&&box.right<=innerWidth})"), true);
-    await browser.screenshot(`org/reviews/recipe-classification-menu-photos-${width}.png`);
+    await browser.screenshot(`org/reviews/recipe-classification-dropdown-only-menu-photos-${width}.png`);
   }
   // Reset only our disposable menu, then populate through real API (no provider use).
   await owner.execute('DELETE FROM menu_recipes');

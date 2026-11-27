@@ -3,7 +3,7 @@
 - Author: architect
 - Date: 2026-11-26
 - Status: Approved
-- Dropdown-only amendment: Proposed for independent peer review before code
+- Dropdown-only amendment: Approved by independent review `1e23bc1` of source `c24b2a0`
 - Auto-save amendment: Approved by independent review `3e69b40` of owner-requested amendment `eb1e15f`
 - Independent approval: `d891e35` reviewing source `6c0933e`
 - Inputs: accepted sibling `intent.md`; sibling `spec.md`
@@ -203,7 +203,7 @@ Any future release follows exact-SHA isolated staging acceptance, separate
 Production build, manual promotion authorization and minimal canonical health
 verification under the existing runbooks. This plan stops at local review.
 
-## Dropdown-only owner refinement — proposed bounded followup
+## Dropdown-only owner refinement — approved bounded followup
 
 - Before code, independently approve this amendment and sibling spec.
 - Change only `app/menu/recipe-category-control.tsx`: editable cards show the

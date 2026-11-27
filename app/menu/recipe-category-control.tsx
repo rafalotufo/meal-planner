@@ -48,9 +48,8 @@ export default function RecipeCategoryControl({ entry, canEdit, onSaved }: { ent
     }
   }
   return <div className="mt-4 border-t border-stone-100 pt-3">
-    <p data-recipe-category className="text-sm font-medium text-stone-700">Category: {category ? recipeCategoryLabels[category] : 'Unclassified'}</p>
-    {canEdit ? <div className="mt-3">
-      <label htmlFor={id} className="block text-xs font-semibold text-stone-600">Category<span className="sr-only"> for {title}</span></label>
+    {canEdit ? <div>
+      <label htmlFor={id} className="sr-only">Category<span className="sr-only"> for {title}</span></label>
       <select ref={select} id={id} data-category-select value={draft} disabled={pending} aria-describedby={`${id}-feedback`} onChange={event => { void changeCategory(event.target.value); }} className="mt-1 min-h-11 w-full min-w-0 rounded-lg border border-stone-300 bg-white px-3 py-2 text-base text-stone-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-800 disabled:bg-stone-100">
         <option value="" disabled>Unclassified</option>
         {Object.entries(recipeCategoryLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
@@ -58,6 +57,6 @@ export default function RecipeCategoryControl({ entry, canEdit, onSaved }: { ent
       <p id={`${id}-feedback`} role="status" aria-live="polite" aria-atomic="true" className={`mt-2 text-sm ${feedback?.kind === 'error' ? 'text-red-800' : 'text-stone-600'}`}>
         {feedback?.text}{feedback?.kind === 'signin' ? <> <a href="/sign-in" className="underline">Sign in again</a>.</> : feedback?.kind === 'family' ? <> <a href="/onboarding" className="underline">Check family access</a>.</> : null}
       </p>
-    </div> : null}
+    </div> : <p data-recipe-category className="text-sm font-medium text-stone-700">Category: {category ? recipeCategoryLabels[category] : 'Unclassified'}</p>}
   </div>;
 }

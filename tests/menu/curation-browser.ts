@@ -41,7 +41,7 @@ try {
     for (const width of widths) {
       await chrome.viewport(width);
       if (entryId) await chrome.evaluate(`document.querySelector('[data-menu-entry="${entryId}"]').scrollIntoView({block:'center'})`);
-      await chrome.screenshot(`org/reviews/recipe-classification-url-menu-${name}-${width}.png`);
+      await chrome.screenshot(`org/reviews/recipe-classification-dropdown-only-url-menu-${name}-${width}.png`);
     }
   }
   await shot('empty');
@@ -117,7 +117,9 @@ try {
     await chrome.send('Input.dispatchKeyEvent', { type: 'keyDown', key, code, windowsVirtualKeyCode, nativeVirtualKeyCode, text: key, unmodifiedText: key });
     await chrome.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code, windowsVirtualKeyCode, nativeVirtualKeyCode });
     await chrome.waitFor(`document.querySelector('[data-menu-entry="${id}"] [data-category-select]').value === ${JSON.stringify(category)}`, 'native category selection');
-    await chrome.waitFor(`document.querySelector('[data-menu-entry="${id}"] [data-recipe-category]').textContent === ${JSON.stringify('Category: ' + (category === 'veggie' ? 'Veggie' : 'Side'))}`, 'saved link category refresh');
+    await chrome.waitFor(`(async()=>{const response=await fetch('/api/menu',{cache:'no-store'});if(!response.ok)return false;const page=await response.json();return page.entries.some(entry=>entry.id===${JSON.stringify(id)}&&entry.recipe.category===${JSON.stringify(category)});})()`, 'link category is persisted through real protected API');
+    await chrome.waitFor(`document.querySelector('[data-menu-entry="${id}"] [data-category-select]').selectedOptions[0].textContent === ${JSON.stringify(category === 'veggie' ? 'Veggie' : 'Side')} && !document.querySelector('[data-menu-entry="${id}"] [data-category-select]').disabled`, 'saved link dropdown selection settles');
+    assert.equal(await chrome.evaluate(`Boolean(document.querySelector('[data-menu-entry="${id}"] [data-recipe-category]'))`), false, 'saved links do not repeat their dropdown category');
   }
   await changeCategory(missing.id, 'veggie');
   assert.equal((await db.one<{ category: string }>('SELECT category FROM menu_recipes WHERE id=$1', [missing.id]))?.category, 'veggie');
@@ -133,7 +135,7 @@ try {
   await chrome.navigate(`${server.origin}/menu`); await state(missing.id, 'interrupted');
   assert.equal(await fixture.requests('/missing-browser'), beforeRead, 'reading interruption never starts work');
   await chrome.click(`[data-retry-recipe-details="${missing.id}"]`); await state(missing.id, 'ready');
-  assert.equal(await chrome.evaluate(`document.querySelector('[data-menu-entry="${missing.id}"] [data-recipe-category]').textContent`), 'Category: Side', 'manual category survives explicit curation retry');
+  assert.equal(await chrome.evaluate(`document.querySelector('[data-menu-entry="${missing.id}"] [data-category-select]').selectedOptions[0].textContent`), 'Side', 'manual category survives explicit curation retry');
 
   await fixture.set('/removed-browser', 'stall');
   const removed = await add('/removed-browser'); await fixture.waitForRequest('/removed-browser');
@@ -194,7 +196,7 @@ try {
   failed = true;
   if (browser) {
     console.error('Curation browser failure state:', await browser.evaluate("({path:location.pathname+location.search,input:document.querySelector('#recipe-url')?.value,disabled:document.querySelector('#recipe-url')?.disabled,feedback:document.querySelector('#recipe-url-feedback')?.textContent,cards:document.querySelectorAll('article').length})").catch(() => 'page unavailable'));
-    await browser.screenshot('org/reviews/recipe-classification-url-menu-browser-failure.png').catch(() => {});
+    await browser.screenshot('org/reviews/recipe-classification-dropdown-only-url-menu-browser-failure.png').catch(() => {});
   }
   throw error;
 }
