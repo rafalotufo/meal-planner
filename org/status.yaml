@@ -1,11 +1,11 @@
 version: 1
 agents:
-  orchestrator: { status: busy, assignment: intent/classified-weekly-planning/intent.md, last_report: Recipe classification76eaafb verified and independently approved; human merge gate pending }
+  orchestrator: { status: idle, assignment: null, last_report: Classified planning solved6turns; verified7d66352 securityce3fc5d code6ba4f84; human merge pending }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: idle, assignment: null, last_report: Design737458b approved07affd4 and implementation verified7d66352 }
   senior-developer: { status: busy, assignment: classified-weekly-planning-implementation, last_report: Implemented and verified7d66352; source72f726b tests all pass }
   security-researcher: { status: idle, assignment: null, last_report: Security approvedce3fc5d; focused6pass; no findings }
-  reviewer: { status: busy, assignment: classified-weekly-planning-implementation, last_report: "review design-classified-weekly-planning-001: approved" }
+  reviewer: { status: idle, assignment: null, last_report: "review code-classified-weekly-planning-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: null }
 review_queue:
   - { id: spec-home-page-001, artifact: spec.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
@@ -142,4 +142,4 @@ review_queue:
   - { id: design-recipe-classification-dropdown-only-001, artifact: intent/recipe-classification/plan.md, writer: senior-developer, reviewer: reviewer, rounds: 1, verdict: approved, status: approved }
   - { id: code-recipe-classification-dropdown-only-001, artifact: recipe-classification-dropdown-only-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
   - { id: design-classified-weekly-planning-001, artifact: intent/classified-weekly-planning/plan.md, writer: architect, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
-  - { id: code-classified-weekly-planning-001, artifact: classified-weekly-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: null, status: assigned }
+  - { id: code-classified-weekly-planning-001, artifact: classified-weekly-planning-implementation, writer: senior-developer, reviewer: reviewer, rounds: 0, verdict: approved, status: approved }
