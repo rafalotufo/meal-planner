@@ -132,7 +132,7 @@ test('older migration-requirement application with semantic curation backport ex
   try {
     await provisionFamily(db,identity,allowed,false);
     const pending=await saveMenuRecipeUrl(db,identity,allowed,'https://example.test/pending-older',Date.now()+60000);
-    await saveMenuRecipe(db,identity,allowed,{title:'Ready recipe',sourceUrl:'https://example.test/ready-older',imageUrl:null,summary:'Cook.',time:null});
+    await saveMenuRecipe(db,identity,allowed,{title:'Ready recipe',sourceUrl:'https://example.test/ready-older',imageUrl:null,summary:'Cook.',time:null,category:'main'});
     await generateDuePlans(db,allowed,'Thursday',now);
     const plan=(await readPlans(db,identity,allowed,{},now)).plan!;
     assert.deepEqual(plan.meals.map(row=>row.sourceUrl),['https://example.test/ready-older']);

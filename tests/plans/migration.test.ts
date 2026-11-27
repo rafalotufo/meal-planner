@@ -84,3 +84,20 @@ test('fourth migration malformed-source or revision overflow rolls back repair/s
   }finally{await db.close();await fixture.cleanup();}
  }
 });
+
+test('classified planning supports eight snapshots and eighth-slot suggestions without widening bounds', async () => {
+ const fixture=await testDatabase(),db=connectDatabase(fixture.url);
+ try {
+  const family=randomUUID(),user=randomUUID(),plan=randomUUID();
+  await db.execute('INSERT INTO families(id,created_at) VALUES($1,1)',[family]);
+  await db.execute('INSERT INTO app_users(id,google_subject,verified_email,family_id,created_at) VALUES($1,$2,$3,$4,1)',[user,'eight-slot-user','eight@example.test',family]);
+  const meals=Array.from({length:8},(_,index)=>({...snapshot('eight-'+index),category:index<4?'main':index<6?'side':'veggie'}));
+  await db.execute('INSERT INTO meal_plan_weeks(id,family_id,week_start,meals,created_at) VALUES($1,$2,$3,$4,1)',[plan,family,'2026-11-29',JSON.stringify(meals)]);
+  const suggestion=(index:number)=>db.execute('INSERT INTO meal_plan_suggestions(id,plan_id,user_id,base_revision,day_index,menu_recipe_id,recipe,created_at) VALUES($1,$2,$3,1,$4,$5,$6,1)',[randomUUID(),plan,user,index,randomUUID(),JSON.stringify(snapshot('replacement'))]);
+  await suggestion(7);
+  await assert.rejects(suggestion(8),{code:'23514'});
+  await assert.rejects(suggestion(-1),{code:'23514'});
+  for(const content of [[],[...meals,snapshot('ninth')],{}]) await assert.rejects(db.execute('UPDATE meal_plan_weeks SET meals=$1 WHERE id=$2',[JSON.stringify(content),plan]),{code:'23514'});
+  assert.deepEqual((await db.one<{meals:unknown}>('SELECT meals FROM meal_plan_weeks WHERE id=$1',[plan]))?.meals,meals);
+ } finally {await db.close();await fixture.cleanup();}
+});

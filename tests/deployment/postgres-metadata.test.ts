@@ -54,7 +54,7 @@ test('changed catalog is rejected without opening or repairing a database', asyn
 
 test('category runtime bundles the new immutable identity and preserves all five historical migration records', () => {
  const id='6e36359b-9b16-4642-a487-e4e5411ce477';
- assert.equal(compatibility.required.length,8);assert.ok(compatibility.required.includes(id));
+ assert.equal(compatibility.required.length,9);assert.ok(compatibility.required.includes(id));
  const descriptor=compatibility.migrations.find(row=>row.id===id);assert.ok(descriptor);
  assert.deepEqual(descriptor.dependsOn,['557e80b6-f30b-452e-b563-12cff07158a5']);
  assert.equal(descriptor.legacy,undefined);
@@ -65,4 +65,18 @@ test('category runtime bundles the new immutable identity and preserves all five
  assert.deepEqual(profile.grants['menu_recipes'],['SELECT','INSERT','DELETE']);
  assert.deepEqual(profile.grants['menu_recipes.category'],['UPDATE']);
  assert.deepEqual(profile.grants['menu_recipes.category_overridden'],['UPDATE']);
+});
+
+
+test('classified planning identity widens only two checks and preserves reviewed runtime grants', () => {
+ const id='80fd3d65-d202-462b-883d-6adc2eb565be';
+ const descriptor=compatibility.migrations.find(row=>row.id===id);assert.ok(descriptor);
+ assert.deepEqual(descriptor.dependsOn,['6e36359b-9b16-4642-a487-e4e5411ce477']);
+ const source=repositorySources().get(id);assert.ok(source);
+ assert.match(source.split('--> statement-breakpoint')[0].trim(),/^SELECT pg_advisory_xact_lock\(73462901\);$/);
+ assert.equal(createHash('sha256').update(source).digest('hex'),descriptor.hash);
+ const previous=compatibility.profiles.find(row=>row.applied.length===8),current=compatibility.profiles.find(row=>row.applied.length===9);assert.ok(previous);assert.ok(current);
+ assert.deepEqual(current.grants,previous.grants);
+ const changed=current.catalog.filter(row=>!previous.catalog.some(old=>JSON.stringify(old)===JSON.stringify(row)));
+ assert.deepEqual(changed.map(row=>row.name),['meal_plan_suggestions.meal_plan_suggestions_day_index_check','meal_plan_weeks.meal_plan_weeks_meals_check']);
 });

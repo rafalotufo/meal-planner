@@ -57,7 +57,8 @@ test('unknown history and checksum changes fail closed without applying pending 
 
 test('seven-identity upgrades preserve rows, raw historical snapshots and ledgers, then require category identity', async () => {
   const id='6e36359b-9b16-4642-a487-e4e5411ce477';
-  const previous=structuredClone(compatibility); previous.required=previous.required.filter(value=>value!==id);previous.migrations=previous.migrations.filter(value=>value.id!==id);previous.profiles=previous.profiles.filter(value=>!value.applied.includes(id));
+  const excluded=new Set([id,'80fd3d65-d202-462b-883d-6adc2eb565be']);
+  const previous=structuredClone(compatibility); previous.required=previous.required.filter(value=>!excluded.has(value));previous.migrations=previous.migrations.filter(value=>!excluded.has(value.id));previous.profiles=previous.profiles.filter(value=>value.applied.every(applied=>!excluded.has(applied)));
   const fixture=await testDatabase(false), db=connectDatabase(fixture.url);
   try {
     await migrateDatabase(fixture.url,{manifest:previous,sources:repositorySources()});
@@ -71,7 +72,37 @@ test('seven-identity upgrades preserve rows, raw historical snapshots and ledger
     assert.deepEqual(await db.one('SELECT category,category_overridden FROM menu_recipes'),{category:null,category_overridden:false});
     assert.deepEqual(await db.one('SELECT meals FROM meal_plan_weeks'),before);
     assert.deepEqual(await db.all('SELECT * FROM __drizzle_migrations ORDER BY id'),ledger);
-    assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM __app_migrations'))?.n,3);
+    assert.equal((await db.one<{n:number}>('SELECT count(*) AS n FROM __app_migrations'))?.n,4);
     const opened=await fixture.open(); await opened.close();
   } finally { await db.close(); await fixture.cleanup(); }
+});
+
+test('eight-identity upgrade preserves plan snapshots, suggestions, approvals and ledgers while rejecting old runtime artifacts', async () => {
+ const id='80fd3d65-d202-462b-883d-6adc2eb565be';
+ const previous=structuredClone(compatibility);
+ previous.required=previous.required.filter(value=>value!==id);previous.migrations=previous.migrations.filter(value=>value.id!==id);previous.profiles=previous.profiles.filter(value=>!value.applied.includes(id));
+ const fixture=await testDatabase(false),db=connectDatabase(fixture.url);
+ try {
+  await migrateDatabase(fixture.url,{manifest:previous,sources:repositorySources()});
+  const family=randomUUID(),user=randomUUID(),plan=randomUUID(),recipe=randomUUID();
+  await db.execute('INSERT INTO families(id,created_at) VALUES($1,1)',[family]);
+  await db.execute('INSERT INTO app_users(id,google_subject,verified_email,family_id,created_at) VALUES($1,$2,$3,$4,1)',[user,'preserved-eight-user','preserved@example.test',family]);
+  await db.execute("INSERT INTO menu_recipes(id,family_id,source_url,title,summary,saved_at,category) VALUES($1,$2,'https://example.test/preserved-eight','Retained','Cook.',1,'main')",[recipe,family]);
+  const content=JSON.stringify([{title:'Retained',sourceUrl:'https://example.test/preserved-eight',imageUrl:null,time:null,summary:'Cook.'}]);
+  await db.execute('INSERT INTO meal_plan_weeks(id,family_id,week_start,meals,created_at) VALUES($1,$2,$3,$4,1)',[plan,family,'2026-11-29',content]);
+  await db.execute('INSERT INTO meal_plan_approvals VALUES($1,$2,1,1)',[plan,user]);
+  await db.execute('INSERT INTO meal_plan_suggestions(id,plan_id,user_id,base_revision,day_index,menu_recipe_id,recipe,created_at) VALUES($1,$2,$3,1,0,$4,$5,1)',[randomUUID(),plan,user,recipe,content.slice(1,-1)]);
+  const tables=['meal_plan_weeks','meal_plan_approvals','meal_plan_suggestions','menu_recipes','__drizzle_migrations','__app_migrations'];
+  const before=await Promise.all(tables.map(table=>db.all(`SELECT * FROM ${table} ORDER BY 1`)));
+  await assert.rejects(fixture.open(),/Storage unavailable/,'new runtime rejects missing ninth identity');
+  await migrateDatabase(fixture.url);await migrateDatabase(fixture.url);
+  for(const [index,table]of tables.entries()) {
+   const after=await db.all(`SELECT * FROM ${table} ORDER BY 1`);
+   assert.deepEqual(table==='__app_migrations'?after.filter(row=>row.id!==id):after,before[index],table+' retained byte-equivalent decoded rows');
+  }
+  const {openDatabase}=await import('../../lib/db/connection.ts');
+  const current=await fixture.open();await current.close();
+  await assert.rejects(openDatabase(fixture.url,{manifest:previous,ownerTooling:true}),/Storage unavailable/,'old runtime artifact rejects ahead database');
+  await assert.rejects(migrateDatabase(fixture.url,{manifest:previous,sources:repositorySources()}),/database-ahead/);
+ } finally {await db.close();await fixture.cleanup();}
 });
