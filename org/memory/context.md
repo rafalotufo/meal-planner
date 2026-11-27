@@ -9,8 +9,8 @@ intent/classified-weekly-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 2
-- phase: design_review
+- turn: 3
+- phase: implement
 - stop_reason: None
 
 ## Agents
@@ -19,9 +19,9 @@ intent/classified-weekly-planning/intent.md
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/classified-weekly-planning/intent.md)
 - product-manager: idle (unassigned)
-- reviewer: busy (intent/classified-weekly-planning/plan.md)
+- reviewer: idle (unassigned)
 - security-researcher: idle (unassigned)
-- senior-developer: idle (unassigned)
+- senior-developer: busy (intent/classified-weekly-planning/plan.md)
 
 ## Open messages
 
@@ -129,6 +129,7 @@ intent/classified-weekly-planning/intent.md
 - orchestrator-0192 orchestrator -> product-manager handoff: Capture classified weekly planning intent
 - orchestrator-0193 orchestrator -> architect handoff: Design classified weekly planning and eight-slot compatibility
 - orchestrator-0194 orchestrator -> reviewer handoff: Independently review classified planning design and plan
+- orchestrator-0195 orchestrator -> senior-developer handoff: Implement approved classified weekly planning
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -150,6 +151,7 @@ intent/classified-weekly-planning/intent.md
 - reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
 - reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
 - reviewer-0061 reviewer -> orchestrator review: Final Brave source e14feec approved after both corrections
+- reviewer-0066 reviewer -> orchestrator review: Approve classified weekly planning specification and plan
 - security-researcher-0031 security-researcher -> orchestrator review: Login session expiration local security approval
 - security-researcher-0033 security-researcher -> orchestrator status: Provider error-body cleanup checkpoint resolved
 - security-researcher-0034 security-researcher -> orchestrator status: Brave core implementation consultation complete
@@ -174,10 +176,11 @@ intent/classified-weekly-planning/intent.md
 
 - intent/classified-weekly-planning/intent.md (269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17)
 - intent/classified-weekly-planning/plan.md (f1338491fec80076f94c7bdc3a8371f3822076d6548d2f86b273c3fbe5f2381b)
+- org/reviews/design-classified-weekly-planning-001.md (f8daae3b070ee211b4912062b9847bcf9a7d3a87188ba9fd2fa0e173fd675f40)
 
 ## Next action
 
-architect:design_and_plan
+reviewer:review_design
 
 ## Last digest source
 
