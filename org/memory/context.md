@@ -9,19 +9,19 @@ intent/classified-weekly-planning/intent.md
 ## Loop
 
 - status: in_progress
-- turn: 3
-- phase: implement
+- turn: 4
+- phase: security
 - stop_reason: None
 
 ## Agents
 
-- architect: busy (intent/classified-weekly-planning/plan.md)
+- architect: idle (unassigned)
 - memory-keeper: idle (unassigned)
 - orchestrator: busy (intent/classified-weekly-planning/intent.md)
 - product-manager: idle (unassigned)
 - reviewer: idle (unassigned)
-- security-researcher: idle (unassigned)
-- senior-developer: busy (intent/classified-weekly-planning/plan.md)
+- security-researcher: busy (classified-weekly-planning-implementation)
+- senior-developer: idle (unassigned)
 
 ## Open messages
 
@@ -125,7 +125,7 @@ intent/classified-weekly-planning/intent.md
 - orchestrator-0164 orchestrator -> ceo status: Completed exact197 Production release with staging verification
 - orchestrator-0179 orchestrator -> ceo handoff: Corrected hostname release ready after safe rollback and both-origin validation
 - orchestrator-0187 orchestrator -> ceo handoff: Plan recipe thumbnails ready for human merge review
-- orchestrator-0195 orchestrator -> senior-developer handoff: Implement approved classified weekly planning
+- orchestrator-0196 orchestrator -> security-researcher handoff: Assess classified weekly planning implementation security
 - product-manager-0002 product-manager -> orchestrator decision: Accepted pnpm migration intent
 - product-manager-0003 product-manager -> orchestrator decision: Accepted authenticated-access intent with Google sign-in
 - product-manager-0004 product-manager -> orchestrator decision: Accepted server-side Gmail allowlist amendment
@@ -138,11 +138,8 @@ intent/classified-weekly-planning/intent.md
 - product-manager-0014 product-manager -> orchestrator decision: T-Rex automatic-lifecycle amendment accepted
 - product-manager-0015 product-manager -> orchestrator decision: Shared layout intent accepted
 - product-manager-0018 product-manager -> orchestrator decision: Searchable swap picker intent accepted
-- product-manager-0021 product-manager -> orchestrator decision: Accepted dependency-aware migrations intent for Design
-- product-manager-0022 product-manager -> orchestrator decision: Accepted 30-day Google login expiration intent
 - product-manager-0023 product-manager -> orchestrator decision: Local Brave scope met with disclosed broad recall limitation
 - reviewer-0040 reviewer -> senior-developer answer: Re: Approve scroll-aware browser click helper amendment
-- reviewer-0057 reviewer -> orchestrator review: Approve login expiration design and plan
 - reviewer-0058 reviewer -> orchestrator review: Approve verified login expiration implementation
 - reviewer-0059 reviewer -> orchestrator review: Request one source-parser correction in Brave implementation
 - reviewer-0061 reviewer -> orchestrator review: Final Brave source e14feec approved after both corrections
@@ -171,10 +168,11 @@ intent/classified-weekly-planning/intent.md
 - intent/classified-weekly-planning/intent.md (269bcc98d000000316902d34f7ce7da1f6b241857a5e921c7c383d60c784cd17)
 - intent/classified-weekly-planning/plan.md (f1338491fec80076f94c7bdc3a8371f3822076d6548d2f86b273c3fbe5f2381b)
 - org/reviews/design-classified-weekly-planning-001.md (f8daae3b070ee211b4912062b9847bcf9a7d3a87188ba9fd2fa0e173fd675f40)
+- intent/classified-weekly-planning/verification.md (bb2f7bd2cfac3892a388ccb14ee2a5c1c773bf98358b979d8a4be651d264901e)
 
 ## Next action
 
-reviewer:review_design
+senior-developer:implement_and_verify
 
 ## Last digest source
 
