@@ -3,13 +3,13 @@ max_turns: 4
 max_no_progress: 2
 max_review_rounds: 2
 require_security_clear: true
-review_artifact: classified-weekly-planning-production-cutover
+review_artifact: classified-weekly-planning-plan-regeneration
 human_gates: [code_owner_approve, staging_acceptance, release_authorization]
 acceptance:
   commands: ["git diff --check"]
 phases:
-  intent: {role: senior-developer, action: prepare_production_candidate, next: candidate_review}
-  candidate_review: {role: reviewer, action: review_candidate, next: cutover}
-  cutover: {role: senior-developer, action: cutover_and_monitor, next: review}
+  intent: {role: senior-developer, action: prepare_plan_regeneration, next: safety_review}
+  safety_review: {role: reviewer, action: review_regeneration, next: execute}
+  execute: {role: senior-developer, action: replace_plan_and_verify, next: review}
   review: {role: reviewer, action: review, next: done}
   done: {role: null, action: null, next: null}

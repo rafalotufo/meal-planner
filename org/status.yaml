@@ -1,9 +1,9 @@
 version: 1
 agents:
-  orchestrator: { status: idle, assignment: null, last_report: "Classified planning Production complete:5LXW/f0, schema9, full15-minute watch and finalreview6698dea; authority consumed" }
+  orchestrator: { status: busy, assignment: intent/classified-weekly-planning/plan-regeneration-authority.md, last_report: "Classified planning Production complete:5LXW/f0, schema9, full15-minute watch and finalreview6698dea; authority consumed" }
   product-manager: { status: idle, assignment: null, last_report: Accepted classified weekly planning intent466a316 }
   architect: { status: idle, assignment: null, last_report: Guidance-only AGENTS manifest amendment9f817e8 awaits final independent Production review }
-  senior-developer: { status: idle, assignment: null, last_report: "Production5LXW/f0 schema9 full watch and cleanup completed b93fa5f, independently approved6698dea" }
+  senior-developer: { status: busy, assignment: intent/classified-weekly-planning/plan-regeneration-authority.md, last_report: Owner requested a new scoped classified-plan replacement }
   security-researcher: { status: idle, assignment: null, last_report: Read-only function metadata consultation found official CLI v11 builds endpoint; no effects }
   reviewer: { status: idle, assignment: null, last_report: "review production-classified-weekly-planning-001: approved" }
   memory-keeper: { status: idle, assignment: null, last_report: Guidance-only probe lessons and nine-identity history committed00783e8/1291e69; final independent review pending }
