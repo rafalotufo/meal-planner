@@ -2,7 +2,7 @@
 
 - Author: architect
 - Date: 2026-11-27
-- Status: Approved by independent reviewer
+- Status: Approved
 - Independent review: `org/reviews/design-classified-weekly-planning-001.md`, source `737458b`
 - Input: accepted sibling `intent.md`, PM source `466a316`
 - Gate: independent peer approval of this specification and sibling plan before code
