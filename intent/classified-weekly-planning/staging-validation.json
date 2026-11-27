@@ -1,0 +1,478 @@
+{
+  "version": 1,
+  "proofClass": "hosted-preview-keyless-operator-attestation",
+  "releaseSourceSha": "f0b8c1e3a8dd0ae55e8a7568c53cef00637bb8b5",
+  "ownerAuthority": {
+    "commit": "9e249a2",
+    "artifact": "intent/classified-weekly-planning/preview-cutover-approval.md",
+    "ledgerRecord": "preview_cutover_authorization-001"
+  },
+  "startedAt": "2026-11-27T14:39:49Z",
+  "endedAt": "2026-11-27T14:50:21.654839+00:00",
+  "target": {
+    "projectId": "prj_ntxXnJAVA977jHjLNDR7xJuwSx4V",
+    "teamId": "team_2c0O29FMb91g7L6sUChc9v6J",
+    "scope": "rafalotufos-projects",
+    "environment": "preview",
+    "deploymentId": "dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S",
+    "generatedHost": "meal-planner-9sutdnafh-rafalotufos-projects.vercel.app",
+    "canonicalOrigin": "https://meal-planner-staging-rafalotufos.vercel.app",
+    "neonProjectId": "withered-night-50194672",
+    "branchId": "br-dark-term-bbqhnxi5",
+    "database": "meal_planner",
+    "directEndpoint": "ep-wandering-breeze-bbtscekj.c-15.us-east-1.aws.neon.tech"
+  },
+  "source": {
+    "operatorExportGitBlobsVerified": 7109,
+    "sourceUploadGitBlobsVerified": 151,
+    "sourceUploadBytes": 1047842,
+    "providerInspectedReady": true,
+    "providerFinalReadyAt": "2026-11-27T14:49:44.983Z",
+    "metadataAttribution": "operator source-byte attestation; not platform-signed Git integration",
+    "laterAuditHeadIsReplacementSource": false
+  },
+  "database": {
+    "baselineCapturedAt": "2026-11-27T14:44:55.472Z",
+    "baselineIdentityCount": 8,
+    "beforeProfileSha256": "b7288dc9ec2f72d71a77d32104205a493bbbecca5fa07c83a19bb1ed52e55584",
+    "beforeCatalogSha256": "0ffeb4f3ddb891f722c4dc203c23277ca7b25463945d78c8937087d1464b94a3",
+    "pendingBefore": [
+      {
+        "id": "80fd3d65-d202-462b-883d-6adc2eb565be",
+        "hash": "2b9ffeb679e365c96aa862a6e808f0b2a87f9cd97a17cdafa0bfd3226ea669b5"
+      }
+    ],
+    "migration": {
+      "startedAt": "2026-11-27T14:47:11.781Z",
+      "committedAt": "2026-11-27T14:47:13.466Z",
+      "id": "80fd3d65-d202-462b-883d-6adc2eb565be",
+      "hash": "2b9ffeb679e365c96aa862a6e808f0b2a87f9cd97a17cdafa0bfd3226ea669b5"
+    },
+    "finalCapturedAt": "2026-11-27T14:49:43.500Z",
+    "identityCount": 9,
+    "requiredLegacyIdentities": 5,
+    "requiredNativeIdentities": 4,
+    "profileSha256": "0c854fcd29a0561d17e2d2effb03dcfc661aa9e192719ae1d0349bf580d9fb3e",
+    "catalogSha256": "9c9a8471e4ef4374109829edadebea9392019c81790875996f8abe64f89824c3",
+    "pendingAfter": [],
+    "runtimeValidated": true,
+    "runtimeTempDenied": true,
+    "grantsUnchanged": true,
+    "grantsSha256": "ba5ca552d0dee1ec4aac655d89b9863cd0cd6c28c844a28ef44418e609ed568a",
+    "domainDataUnchanged": true,
+    "domainSha256": "3b5b729101208f83d5f6f8f7e1e7cdf13b1bd51390d828f2eda5a58768ca12a3",
+    "historicalLegacyRowsUnchanged": true,
+    "historicalNativeRowsUnchanged": true,
+    "grantReconciliationRequested": false,
+    "extraHostedGrants": false,
+    "syntheticDataCreated": false,
+    "connectionNormalization": [
+      "exact known owner pooler hostname to same recorded direct endpoint",
+      "known sslmode=require to verify-full",
+      "known channel_binding=require removed for reviewed Node pg URL contract"
+    ],
+    "backupLibpqTrust": "PGSSLROOTCERT=system with PGSSLMODE=verify-full"
+  },
+  "backup": {
+    "completedAt": "2026-11-27T14:45:47.314Z",
+    "format": "PostgreSQL17 custom",
+    "bytes": 57909,
+    "sha256": "facf4a340dcecae067cab03a467f212356fc4b9a8491a9a056c73cc10036cfed",
+    "allDomainTablesPresent": true,
+    "bothLedgersPresent": true,
+    "archiveListed": true,
+    "restoreTested": false
+  },
+  "routing": {
+    "before": [
+      {
+        "alias": "lotufo-meals.vercel.app",
+        "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-delta-six-55.vercel.app",
+        "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-rafalotufos-projects.vercel.app",
+        "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-staging-rafalotufos.vercel.app",
+        "deploymentId": "dpl_4oNhN5c8HvSwBZ1HcDEWLsWFM7kA",
+        "redirect": null
+      }
+    ],
+    "after": [
+      {
+        "alias": "lotufo-meals.vercel.app",
+        "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-delta-six-55.vercel.app",
+        "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-rafalotufos-projects.vercel.app",
+        "deploymentId": "dpl_GHCptaMFGM7gFDHJEE7zF3kJbJTM",
+        "redirect": null
+      },
+      {
+        "alias": "meal-planner-staging-rafalotufos.vercel.app",
+        "deploymentId": "dpl_5pWi2uFG3M6pMKkgrM6eB29rkz3S",
+        "redirect": null
+      }
+    ],
+    "aliasStartedAt": "2026-11-27T14:47:20.196Z",
+    "aliasAssignedAt": "2026-11-27T14:47:20.434Z",
+    "possible503GapAccepted": true,
+    "outageDurationMeasured": false,
+    "productionDeploymentUnchanged": true,
+    "projectConfigUnchanged": true,
+    "projectConfigSha256": "0ee2ceb2af1ed16ea9af26b74d64666bcec30dbcf3552fcec35b8a2d9761f3f6",
+    "domainClassificationsUnchanged": true,
+    "projectUnpaused": true
+  },
+  "configuration": {
+    "nodeVersion": "24.x",
+    "plan": "hobby",
+    "verificationEnabled": false,
+    "schedulerEnabled": false,
+    "paidProviderKeysPresentInPreview": false,
+    "projectWideProtectionChanged": false,
+    "functionsCancellationMetadata": {
+      "app/api/plans/generate/route.ts": {
+        "supportsCancellation": true
+      },
+      "app/api/recipes/search/route.ts": {
+        "supportsCancellation": true
+      }
+    },
+    "searchMaxDuration90": "fixed-source vercel.json contract; no distinct live provider trace proof"
+  },
+  "checks": {
+    "generatedBeforeSchema": [
+      {
+        "capturedAt": "2026-11-27T14:42:39.577Z",
+        "origin": "generated",
+        "check": "root",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:42:39.840Z",
+        "origin": "generated",
+        "check": "sign-in",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:42:40.086Z",
+        "origin": "generated",
+        "check": "session",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:42:40.321Z",
+        "origin": "generated",
+        "check": "static",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:42:41.427Z",
+        "origin": "generated",
+        "check": "menu",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:42:42.060Z",
+        "origin": "generated",
+        "check": "scheduler",
+        "status": 404,
+        "expected": 404,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 21,
+        "pass": true
+      }
+    ],
+    "afterCutover": [
+      {
+        "capturedAt": "2026-11-27T14:47:34.448Z",
+        "origin": "stable",
+        "check": "home",
+        "status": 307,
+        "expected": 307,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 15,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:34.643Z",
+        "origin": "stable",
+        "check": "sign-in",
+        "status": 200,
+        "expected": 200,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 10584,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:34.777Z",
+        "origin": "stable",
+        "check": "session",
+        "status": 401,
+        "expected": 401,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 24,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:34.921Z",
+        "origin": "stable",
+        "check": "search",
+        "status": 401,
+        "expected": 401,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 24,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:35.572Z",
+        "origin": "stable",
+        "check": "scheduler",
+        "status": 404,
+        "expected": 404,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 21,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:36.159Z",
+        "origin": "generated",
+        "check": "root",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:36.405Z",
+        "origin": "generated",
+        "check": "sign-in",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:36.636Z",
+        "origin": "generated",
+        "check": "session",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:36.878Z",
+        "origin": "generated",
+        "check": "static",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": false,
+        "nosniff": false,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:37.756Z",
+        "origin": "generated",
+        "check": "menu",
+        "status": 421,
+        "expected": 421,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 31,
+        "pass": true
+      },
+      {
+        "capturedAt": "2026-11-27T14:47:37.882Z",
+        "origin": "generated",
+        "check": "scheduler",
+        "status": 404,
+        "expected": 404,
+        "privateNoStore": true,
+        "frameDenied": true,
+        "nosniff": true,
+        "locationCorrect": true,
+        "platformIntercepted": false,
+        "bodyBytes": 21,
+        "pass": true
+      }
+    ],
+    "requiredApplicationContractPassed": true,
+    "supplementaryHeaderObservation": "early Proxy generated-root/sign-in/session/static421 has private no-store but omits DENY/nosniff; exact menu and scheduler preserve those headers",
+    "authenticatedHostedPlanning": "not-run",
+    "googleOAuth": "not-run",
+    "providerPhotoSuccess": "not-run",
+    "providerCancellation": "not-run",
+    "nativeUnattendedScheduler": "not-observed"
+  },
+  "temporaryAccess": {
+    "scope": "candidate-deployment-only",
+    "createdAt": "2026-11-27T14:40:48.051Z",
+    "ttlSeconds": 1800,
+    "linksCreated": 1,
+    "apiRevoked": true,
+    "regenerated": false,
+    "remainingScopedLinks": 0,
+    "initialNarrowDenialProbeExit": 2,
+    "initialProbeLimitation": "only recognized401/403; actual302 redirects required safe location inspection",
+    "freshDenialEvidence": {
+      "observations": [
+        {
+          "capturedAt": "2026-11-27T14:49:03.939Z",
+          "origin": "stable",
+          "status": 302,
+          "redirectOrigin": "https://vercel.com",
+          "redirectPath": "/sso-api",
+          "appAccessDenied": true,
+          "freshWithoutCookies": true
+        },
+        {
+          "capturedAt": "2026-11-27T14:49:04.008Z",
+          "origin": "generated",
+          "status": 302,
+          "redirectOrigin": "https://vercel.com",
+          "redirectPath": "/sso-api",
+          "appAccessDenied": true,
+          "freshWithoutCookies": true
+        }
+      ],
+      "freshDenialProven": true
+    },
+    "platformProtectionComprehensivelyTested": false
+  },
+  "cleanup": {
+    "credentials": {
+      "cleanedAt": "2026-11-27T14:50:21.599Z",
+      "ownedPlaintextConnectionCopyDeleted": true,
+      "ownedScopedLinkCopyDeleted": true,
+      "sharedCliAuthenticationPreserved": true,
+      "backupPreserved": true,
+      "finalProjectConfigurationUnchanged": true
+    },
+    "laneLocks": {
+      "cleanedAt": "2026-11-27T14:50:21.654839+00:00",
+      "runId": "classified-planning-preview-f0b8c1e-20261127",
+      "ownedLaneLocksReleased": 2,
+      "unrelatedLocksRemoved": 0
+    },
+    "backupRetainedPrivate": true,
+    "restoredBackup": false
+  },
+  "gaps": [
+    "hosted-authenticated-planning-ui-and-mutations-not-run",
+    "google-oauth-not-run",
+    "provider-search-photo-and-cancellation-not-run",
+    "verification-disabled-no-synthetic-run",
+    "preview-scheduler-disabled-enabled-bearer-host-contract-not-proved",
+    "native-unattended-cron-not-observed",
+    "platform-boundary-skipped-for-application-smoke-using-finite-scoped-link",
+    "no-firefox-safari-or-mobile-hosted-browser-run",
+    "backup-archive-listed-not-restore-tested",
+    "existing-moderate-esbuild-advisory-and-live-trace-reassessment-not-resolved"
+  ],
+  "productionAuthority": false,
+  "stagingOwnerAcceptancePending": true,
+  "recoveryPauseNeeded": false,
+  "unexpectedEffects": []
+}
